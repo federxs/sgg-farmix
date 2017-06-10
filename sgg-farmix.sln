@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "sgg-farmix-web", "sgg-farmix-web\sgg-farmix-web.xproj", "{966E995B-32D9-41A4-A2C2-37CAF006EB01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sgg-farmix-api", "sgg-farmix-api\sgg-farmix-api.csproj", "{9E64AF9F-25B0-4815-BEA6-DAE19931225A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sgg-farmix-acceso-datos", "sgg-farmix-acceso-datos\sgg-farmix-acceso-datos.csproj", "{1DA7A5D4-5504-4712-90DF-FBF01AE01D4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{966E995B-32D9-41A4-A2C2-37CAF006EB01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{966E995B-32D9-41A4-A2C2-37CAF006EB01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{966E995B-32D9-41A4-A2C2-37CAF006EB01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{966E995B-32D9-41A4-A2C2-37CAF006EB01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E64AF9F-25B0-4815-BEA6-DAE19931225A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E64AF9F-25B0-4815-BEA6-DAE19931225A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E64AF9F-25B0-4815-BEA6-DAE19931225A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E64AF9F-25B0-4815-BEA6-DAE19931225A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA7A5D4-5504-4712-90DF-FBF01AE01D4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA7A5D4-5504-4712-90DF-FBF01AE01D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA7A5D4-5504-4712-90DF-FBF01AE01D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA7A5D4-5504-4712-90DF-FBF01AE01D4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
