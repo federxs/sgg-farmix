@@ -40,11 +40,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\AmbitoEstado.cs" />
+    <Compile Include="Model\Bovino.cs" />
+    <Compile Include="Model\Campo.cs" />
+    <Compile Include="Model\Categoria.cs" />
+    <Compile Include="Model\EstablecimientoOrigen.cs" />
+    <Compile Include="Model\Estado.cs" />
+    <Compile Include="Model\Localidad.cs" />
+    <Compile Include="Model\Pais.cs" />
+    <Compile Include="Model\Provincia.cs" />
+    <Compile Include="Model\Raza.cs" />
+    <Compile Include="Model\Rodeo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DAOs\" />
-    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
