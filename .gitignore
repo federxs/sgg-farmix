@@ -299,3 +299,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.sln
+.vs/config/applicationhost.config
+.vs/config/applicationhost.config
+sgg-farmix-acceso-datos/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+sgg-farmix-api/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+.vs/config/applicationhost.config
+sgg-farmix-acceso-datos/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+sgg-farmix-api/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
