@@ -8,25 +8,25 @@
         /// Default
         $stateProvider.state('masterPage', {
             url: "/masterPage",
-            templateUrl: "app/masterPage.html"
-            //data: {
-            //    pageTitle: "LOGIN",
-            //    bodyClass: "login"
-            //},
+            templateUrl: "app/masterPage.html",
+            data: {
+                pageTitle: "Home",
+                bodyClass: "masterPage"
+            },
             //controller: "loginController",
             //resolve: {
             //    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
             //        return $ocLazyLoad.load([{
-            //            name: 'MetronicApp',
+            //            name: 'app',
             //            insertBefore: '#ng_load_plugins_before',
             //            files: [
-			//		 'assets/pages/css/login.min.css',
-			//		 'assets/global/plugins/jquery-validation/js/jquery.validate.min.js',
-			//		 'assets/global/plugins/jquery-validation/js/additional-methods.min.js',
-			//		 'assets/global/scripts/app.min.js',
-			//		 'assets/pages/scripts/login.min.js',
-			//		 'scripts/services/portal/login-service.js',
-			//		 'scripts/controllers/portal/login-controller.js'
+			//		 //'assets/pages/css/login.min.css',
+			//		 //'assets/global/plugins/jquery-validation/js/jquery.validate.min.js',
+			//		 //'assets/global/plugins/jquery-validation/js/additional-methods.min.js',
+			//		 //'assets/global/scripts/app.min.js',
+			//		 //'assets/pages/scripts/login.min.js',
+			//		 //'scripts/services/portal/login-service.js',
+			//		 //'scripts/controllers/portal/login-controller.js'
             //            ]
             //        }]);
             //    }]

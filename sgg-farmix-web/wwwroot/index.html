@@ -8,13 +8,14 @@
     <meta content="" name="author" />
     <link rel="stylesheet" type="text/css" id="theme" href="../css/theme-default.css" />
 </head>
-<body>
-<<<<<<< HEAD
+<body ng-cloak class="{{$state.current.data.bodyClass}}" ng-class="{'page-sidebar-closed': settings.layout.pageSidebarClosed}">
+    <div ui-view></div>
     <script src="assets/plugins/angular/angular.js"></script>
     <script src="assets/plugins/angular/angular.min.js"></script>
-    <script src="assets/plugins/angular/angular-route.js"></script>
+    <script src="assets/plugins/angular/angular-ui-router.js"></script>
+    <script src="assets/plugins/angular/angular-ui-router.min.js"></script>
+    <script src="assets/plugins/angular/ocLazyLoad.min.js"></script>
     <script src="assets/plugins/angular/angular-resource.min.js"></script>
-    <script src="assets/plugins/angular/angular-route.min.js"></script>
     <script src="app.js"></script>
     <script src="app/routes.js"></script>
     <script type="text/javascript" src="assets/plugins/jquery/jquery.min.js"></script>
@@ -26,8 +27,5 @@
     <!-- START TEMPLATE -->
     <script type="text/javascript" src="assets/plugins/plugins.js"></script>
     <script type="text/javascript" src="assets/plugins/actions.js"></script>
-=======
-    Hi matiiii!!!
->>>>>>> 52282eba9fe9f59a8b0f1dce94da0a24540f11d7
 </body>
 </html>
