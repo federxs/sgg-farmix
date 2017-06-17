@@ -3,15 +3,15 @@
 
     angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider.otherwise("/masterPage");
+        $urlRouterProvider.otherwise("/home");
 
         /// Default
-        $stateProvider.state('masterPage', {
-            url: "/masterPage",
-            templateUrl: "app/masterPage.html",
+        $stateProvider.state('home', {
+            url: "/home",
+            templateUrl: "app/master.html",
             data: {
-                pageTitle: "Home",
-                bodyClass: "masterPage"
+                pageTitle: "Farmix-Home",
+                bodyClass: "master"
             },
             //controller: "loginController",
             //resolve: {
