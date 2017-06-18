@@ -22,16 +22,6 @@ bld/
 [Oo]bj/
 [Ll]og/
 
-#Estos son archivos que agregue, que quiero que m ignore el GIT xq dsp se arma #sino
-sgg-farmix-api\Debug\sgg-farmix-api.pdb
-sgg-farmix-web\bin\Debug\netcoreapp1.0\sgg-farmix-web.dll
-sgg-farmix-web\bin\Debug\netcoreapp1.0\sgg-farmix-web.pdb
-sgg-farmix-web\bin\Debug\netcoreapp1.0\sgg-farmix-web.runtimeconfig.dev.json
-sgg-farmix-web\obj\Debug\netcoreapp1.0\.IncremetalCache
-sgg-farmix-web\obj\Debug\netcoreapp1.0\.SDKVersion
-sgg-farmix-web\obj\Debug\netcoreapp1.0\dotnet-compile-csc.rsp
-sgg-farmix-web\obj\Debug\netcoreapp1.0\dotnet-compile.rsp
-
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -310,21 +300,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.sln
-<<<<<<< HEAD
-=======
-.vs/config/applicationhost.config
-.vs/config/applicationhost.config
-sgg-farmix-acceso-datos/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-sgg-farmix-api/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-.vs/config/applicationhost.config
-sgg-farmix-acceso-datos/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-sgg-farmix-api/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
->>>>>>> 52282eba9fe9f59a8b0f1dce94da0a24540f11d7
-.vs/sgg-farmix/v14/.suo
-.vs/sgg-farmix/v14/.suo
-sgg-farmix-api/obj/Debug/sgg-farmix-api.pdb
-.vs/sgg-farmix/v14/.suo
-
 
 #gulp files
 *.log
@@ -339,3 +314,21 @@ sandbox
 test/out-fixtures/*
 test/watch-*.txt
 gulp.1
+
+
+.vs/config/applicationhost.config
+sgg-farmix-acceso-datos/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+sgg-farmix-api/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+.vs/config/applicationhost.config
+sgg-farmix-acceso-datos/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+sgg-farmix-api/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+
+#Estos son archivos que agregue, que quiero que m ignore el GIT xq dsp se arma sino
+sgg-farmix-web\bin\Debug\netcoreapp1.0\sgg-farmix-web.dll
+sgg-farmix-web\bin\Debug\netcoreapp1.0\sgg-farmix-web.runtimeconfig.dev.json
+sgg-farmix-web\obj\Debug\netcoreapp1.0\.IncremetalCache
+sgg-farmix-web\obj\Debug\netcoreapp1.0\.SDKVersion
+
+
+
+
