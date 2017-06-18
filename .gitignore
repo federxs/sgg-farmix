@@ -325,3 +325,18 @@ sgg-farmix-api/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 sgg-farmix-api/obj/Debug/sgg-farmix-api.pdb
 .vs/sgg-farmix/v14/.suo
 sgg-farmix-web/wwwroot/index.html
+
+
+#gulp files
+*.log
+node_modules
+build
+*.node
+components
+coverage
+*.orig
+.idea
+sandbox
+test/out-fixtures/*
+test/watch-*.txt
+gulp.1

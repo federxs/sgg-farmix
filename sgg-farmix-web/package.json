@@ -1,0 +1,26 @@
+{
+  "name": "sgg-farmix-web",
+  "version": "1.0.0",
+  "description": "Sistema de Gestion Ganadera",
+  "main": "./wwwroot/app.js",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.12",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.1.0",
+    "gulp-uglify": "^3.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/federxs/sgg-farmix.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
