@@ -75,10 +75,8 @@
 
     <div class="container-fluid text-left">
         <div class="row content">
-            <div class="col-md-2 sidenav">
-                <p><a ui-sref="home.registrarBovino">Bovino</a></p>
-                <p><a href="#">Link</a></p>
-                <p><a href="#">Link</a></p>
+            <div class="col-md-2 sidenav" ng-repeat="men in Menu">
+                <a ui-sref="{{men.urlMenu}}">{{men.nombre}}</a>
             </div>
             <div class="container-fluid">
                 <div class="col-md-10 text-left">
