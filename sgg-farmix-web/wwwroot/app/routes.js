@@ -18,7 +18,8 @@
         $stateProvider
             .state('home.registrarBovino', {
                 url: '/registrarBovino',
-                templateUrl: 'app/cabeza-ganado/alta-cabeza-ganado/alta-cabeza-ganado.html',
+                templateUrl: 'app/bovino/registrar-bovino/registrar-bovino.html',
+                controller: 'registrarBovinoController',
                 data: {
                     pageTitle: 'Farmix - Registrar Bovino'
                 }
