@@ -15,8 +15,8 @@
             <div class="form-group col-md-5">
                 <label>
                     Apodo
-                    <input name="apodo" type="text" class="form-control" required 
-                           ng-model="nombre"/>
+                    <input name="apodo" type="text" class="form-control" maxlength="30" required
+                           ng-model="nombre" />
                 </label>
                 <span class="error" ng-show="formRegistrar.apodo.$error.required">
                     Este campo es requerido!
@@ -25,7 +25,7 @@
             <div class="form-group col-md-5">
                 <label>
                     Descripción
-                    <input name="descripcionBovino" type="text" class="form-control" required />
+                    <textarea name="descripcionBovino" rows="3" class="form-control" maxlength="150" required></textarea>
                 </label>
                 <span class="error" ng-show="formRegistrarBovino.descripcion.$error.required">
                     Este campo es requerido!
@@ -36,26 +36,33 @@
             <div class="form-group col-md-5">
                 <label>
                     Fecha de Nacimiento
-                    <input name="fechaNac" type="text" class="form-control" required />
+                    <input name="datepicker" id="datepicker" type="text" class="form-control" required />
                 </label>
-                <span class="error" ng-show="formRegistrarBovino.fechaNac.$error.required">
+                <!--<span class="error" ng-show="formRegistrarBovino.fechaNac.$error.required">
                     Este campo es requerido!
-                </span>
+                </span>-->
             </div>
         </div>
         <div class="row-fluid">
             <div class="form-group col-md-5">
                 <label>
                     Género
-                    <select class="form-control" name="genero" required>
-                        <option value="">Seleccione...</option>
-                        <option value="M">Macho</option>
-                        <option value="H">Hembra</option>
-                    </select>
                 </label>
-                <span class="error" ng-show="formRegistrarBovino.genero.$error.required">
-                    Este campo es requerido!
-                </span>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="genero" value="H"
+                               ng-model="$ctrl.genero" selected />
+                        Hembra
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="genero" value="M"
+                               ng-model="$ctrl.genero" />
+                        Macho
+                    </label>
+                </div>
+
             </div>
         </div>
         <div class="row-fluid">

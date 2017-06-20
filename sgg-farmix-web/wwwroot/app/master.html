@@ -31,7 +31,7 @@
             background-color: #555;
             color: white;
             padding: 15px;
-            bottom:0;
+            bottom: 0;
         }
 
         /* On small screens, set height to 'auto' for sidenav and grid */
@@ -73,16 +73,18 @@
         </div>
     </nav>
 
-    <div class="container-fluid text-center">
+    <div class="container-fluid text-left">
         <div class="row content">
             <div class="col-md-2 sidenav">
                 <p><a ui-sref="home.registrarBovino">Bovino</a></p>
                 <p><a href="#">Link</a></p>
                 <p><a href="#">Link</a></p>
             </div>
-            <div class="col-md-10 text-left">
-                <!--Acá irian los pages-->
-                <div ui-view class="fade-in-up"> </div>
+            <div class="container-fluid">
+                <div class="col-md-10 text-left">
+                    <!--Acá irian los pages-->
+                    <div ui-view class="fade-in-up"> </div>
+                </div>
             </div>
         </div>
     </div>
