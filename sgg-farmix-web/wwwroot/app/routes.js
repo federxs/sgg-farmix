@@ -23,7 +23,7 @@
                 }
             });
     });
-});
+})();
 
 //,
 //controller: "loginController",
