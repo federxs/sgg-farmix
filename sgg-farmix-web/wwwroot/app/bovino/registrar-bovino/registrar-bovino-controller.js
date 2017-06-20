@@ -3,12 +3,12 @@
 
     angular
         .module('app')
-        .controller('registrarBovinoController', controller);
+        .controller('registrarBovinoController', registrarBovinoController);
 
     registrarBovinoController.$inject = ['$scope'];
 
     function registrarBovinoController($scope) {
-        var ctrl = this;
+        var ctrl = $scope;
         ctrl.nombre = 'prueba';
 
         activate();
