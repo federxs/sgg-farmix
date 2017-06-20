@@ -10,6 +10,7 @@
             .state('home', {
                 url: '/home',
                 templateUrl: 'app/master.html',
+                controller: 'homeController',
                 data: {
                     pageTitle: 'Farmix-Home',
                     bodyClass: 'master'
