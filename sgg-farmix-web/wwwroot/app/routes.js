@@ -14,8 +14,9 @@
                     pageTitle: 'Farmix-Home',
                     bodyClass: 'master'
                 }
-            })
-            .state('registrarBovino', {
+            });
+        $stateProvider
+            .state('home.registrarBovino', {
                 url: '/registrarBovino',
                 templateUrl: 'app/cabeza-ganado/alta-cabeza-ganado/alta-cabeza-ganado.html',
                 data: {
@@ -23,7 +24,7 @@
                 }
             });
     });
-});
+})();
 
 //,
 //controller: "loginController",
