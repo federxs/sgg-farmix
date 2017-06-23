@@ -75,14 +75,30 @@
 
     <div class="container-fluid text-left">
         <div class="row content">
-            <div class="col-md-2 sidenav" ng-repeat="men in Menu">
-                <a ui-sref="{{men.urlMenu}}">{{men.nombre}}</a>
-            </div>
-            <div class="container-fluid">
-                <div class="col-md-10 text-left">
-                    <!--Acá irian los pages-->
-                    <div ui-view class="fade-in-up"> </div>
-                </div>
+            <ul class="col-md-2 sidenav">
+                <!--<a ui-sref="{{men.urlMenu}}">{{men.nombre}}</a>-->
+                <li ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}">
+                    <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0">
+                        <!--<i class="{{menu.menIcono}}"></i>-->
+                        <span class="title">{{menu.nombre}}</span>
+                    </a>
+                    <a href="javascript:;" class="nav-link nav-toggle" ng-if="menu.Menu_Hijos.length > 0">
+                        <i class="{{menu.Menu_Padre.Men_Icono}}"></i>
+                        <span class="title">{{menu.menNombre}}</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu" ng-if="menu.Menu_Hijos.length > 0">
+                        <li ng-repeat="menuHijo in menu.Menu_Hijos">
+                            <a href="#{{menuHijo.urlMenu}}">
+                                <i class="{{menuHijo.menIcono}}"></i> {{menu.menNombre}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="col-md-10 text-left">
+                <!--Acá irian los pages-->
+                <div ui-view class="fade-in-up"> </div>
             </div>
         </div>
     </div>

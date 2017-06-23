@@ -43,13 +43,25 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public IEnumerable<Menu> GetMenus()
         {
-            connection = new SqlServerConnection();
-            var parametros = new Dictionary<string, object>
+            try
             {
-                {"@Usu_Id", null }
-            };
-            var lista = connection.GetArray<Menu>("spGetMenues", parametros, System.Data.CommandType.StoredProcedure);
-            return lista.ToList();
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                    {
+                        {"@Usu_Id", null }
+                    };
+                var lista = connection.GetArray<Menu>("spGetMenues", parametros, System.Data.CommandType.StoredProcedure);
+                return lista.ToList();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
         }
     }
 }

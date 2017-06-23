@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
@@ -12,10 +13,10 @@ namespace sgg_farmix_api
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuración y servicios de Web API
-            // Configure Web API para usar solo la autenticación de token de portador.
-            config.SuppressDefaultHostAuthentication();
-            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            var cors = new EnableCorsAttribute("*", "Contet-Type, Accept", "GET,POST,PUT,DELETE,OPTIONS");
+            config.EnableCors(cors);
+            //config.SuppressDefaultHostAuthentication();
+            //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             // Rutas de Web API
             config.MapHttpAttributeRoutes();
