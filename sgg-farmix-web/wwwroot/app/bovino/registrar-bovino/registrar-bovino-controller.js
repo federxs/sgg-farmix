@@ -5,14 +5,26 @@
         .module('app')
         .controller('registrarBovinoController', registrarBovinoController);
 
-    registrarBovinoController.$inject = ['$scope'];
+    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService'];
 
-    function registrarBovinoController($scope) {
-        var ctrl = $scope;
-        ctrl.nombre = 'prueba';
+    function registrarBovinoController($scope, registrarBovinoService) {
+        var vm = $scope;
+        inicializar();
+        vm.registrar = registrar;
+        vm.validar = validar;
+        vm.nombre = 'prueba';
+        //vm.inicializar = inicializar;
 
-        activate();
+        
+        function inicializar() {
+        }
 
-        function activate() { }
+        function registrar() {
+
+        }
+
+        function validar() {
+
+        }
     }
 })();

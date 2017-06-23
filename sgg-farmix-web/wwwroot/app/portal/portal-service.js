@@ -1,10 +1,10 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('app').service('portal', function (){//usuarioInfo) {
-        var portal = {};
+    angular.module('app').service('portalService', function (){//usuarioInfo) {
+        var portalService = {};
 
-        portal.getUrlServer = function () {
+        portalService.getUrlServer = function () {
             return "http://localhost:2424/";
             // return "http://190.104.236.39/websiteyo/";
             // return "http://yo.sooft.com.ar/";
@@ -27,6 +27,6 @@
             return headers;
         };*/
 
-        return portal;
+        return portalService;
     });
 })();

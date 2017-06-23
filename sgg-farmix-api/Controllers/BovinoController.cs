@@ -12,7 +12,7 @@ namespace sgg_farmix_api.Controllers
 {
     public class BovinoController : ApiController
     {
-        private BovinoManager BM = new BovinoManager();
+        /*private BovinoManager BM = new BovinoManager();
 
         [HttpGet]
         public Bovino Get(long id)
@@ -30,5 +30,6 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+        */
     }
 }
