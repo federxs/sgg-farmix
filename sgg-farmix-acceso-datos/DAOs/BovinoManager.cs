@@ -35,6 +35,10 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@borrado", 0 }
                 };
                 entity.idBovino = connection.Execute("", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.idBovino == 0)
+                    throw new ArgumentException("Create Bovino Error");
+                else if (entity.idBovino == 1)
+                    throw new ArgumentException("Bovino ya existe");
                 return entity;
             }
             catch (Exception)
@@ -58,7 +62,7 @@ namespace sgg_farmix_acceso_datos.DAOs
         }
 
         public Bovino Get(long id)
-        {            
+        {
             try
             {
                 connection = new SqlServerConnection();
@@ -86,7 +90,87 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Bovino Update(long id, Bovino entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idBovino", id },
+                    {"@numCaravana", entity.numCaravana },
+                    {"@apodo", entity.apodo },
+                    {"@desc", entity.descripcion },
+                    {"@fechaNac", entity.fechaNacimiento },
+                    {"@genero", entity.genero },
+                    {"@peso", entity.peso },
+                    {"@pesoNacer", entity.pesoAlNacer },
+                    {"@fechaMuerte", entity.fechaMuerte },
+                    {"idCatego", entity.idCategoria },
+                    {"@idRodeo", entity.idRodeo },
+                    {"@idEstabOrigen", entity.idEstablecimientoOrigen },
+                    {"@idEstado", entity.idEstado }
+                };
+                var update = connection.Execute("", parametros, System.Data.CommandType.StoredProcedure);
+                if(update == 0)
+                {
+                    throw new ArgumentException("Update bovino error");
+                }
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public int Borrar(long id)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idBovino", id },
+                    {"borrado", 1 }
+                };
+                var borrado = connection.Execute("", parametros, System.Data.CommandType.StoredProcedure);
+                if (borrado == 0)
+                    throw new ArgumentException("Delete bovino error");
+                return borrado;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public IEnumerable<Bovino> GetList(BovinoFilter filter)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+
+                };
+                var lista = connection.GetArray<Bovino>("", parametros, System.Data.CommandType.StoredProcedure);
+                return lista.ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }

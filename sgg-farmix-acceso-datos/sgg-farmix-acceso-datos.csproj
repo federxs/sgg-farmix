@@ -45,7 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAOs\BovinoManager.cs" />
+    <Compile Include="DAOs\CategoriaManager.cs" />
+    <Compile Include="DAOs\EstadoManager.cs" />
     <Compile Include="DAOs\MenuManager.cs" />
+    <Compile Include="DAOs\RazaManager.cs" />
     <Compile Include="Helper\Atributes.cs" />
     <Compile Include="Helper\IConnection.cs" />
     <Compile Include="Helper\IManager.cs" />

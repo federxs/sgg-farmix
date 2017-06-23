@@ -31,12 +31,79 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
+        [HttpGet]
+        public IEnumerable<Bovino> GetList(BovinoFilter value)
+        {
+            try
+            {
+                return BM.GetList(value);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [HttpGet]
+        public BovinoFilter GetFilter()
+        {
+            try
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
         [HttpPost]
         public Bovino Post([FromBody] Bovino value)
         {
             try
             {
                 return BM.Create(value);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [HttpPut]
+        public Bovino Put([FromBody] Bovino value)
+        {
+            try
+            {
+                return BM.Update(value.idBovino, value);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        public int Delete([FromBody] Bovino value)
+        {
+            try
+            {
+                return BM.Borrar(value.idBovino);
             }
             catch (Exception ex)
             {

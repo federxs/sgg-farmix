@@ -3,7 +3,7 @@
 
     angular
         .module('app')
-        .factory('registrarBovinoService', registrar_bovino);
+        .factory('registrarBovinoService', registrarBovinoService);
 
     registrarBovinoService.$inject = ['$http'];
 
