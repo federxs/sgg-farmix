@@ -18,32 +18,36 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@numCarava", entity.numCaravana },
-                    {"@apodo", entity.apodo },
-                    {"@descripcion", entity.descripcion },
-                    {"@fechaNacimiento", entity.fechaNacimiento },
+                    {"@numCaravana", entity.numCaravana },
+                    {"@apodo", (entity.apodo == null ? null : entity.apodo) },
+                    {"@descripcion", (entity.descripcion == null ? null : entity.descripcion) },
+                    {"@fechaNac", entity.fechaNacimiento },
                     {"@genero", entity.genero },
                     {"@peso", entity.peso },
-                    {"@pesoAlNacer", entity.pesoAlNacer },
-                    {"@idBovinoMadre", entity.idBovinoMadre },
-                    {"@idBovinoPadre", entity.idBovinoPadre },
-                    {"@idCategoria", entity.idCategoria },
-                    {"@idRaza", entity.idRaza },
-                    {"@idRodeo", entity.idRodeo },
-                    {"@idEstabOrigen", entity.idEstablecimientoOrigen },
-                    {"@idEstado", entity.idEstado },
-                    {"@borrado", 0 }
-                };
-                entity.idBovino = connection.Execute("", parametros, System.Data.CommandType.StoredProcedure);
+                    {"@pesoAlNacer", (entity.pesoAlNacer == 0 ? 0 : entity.pesoAlNacer) },                   
+                    { "@idCategoria", entity.idCategoria },
+                    { "@idRaza", entity.idRaza },
+                    { "@idRodeo", entity.idRodeo },
+                    { "@idEstado", entity.idEstado },
+                    { "@borrado", 0 }
+            };
+                if(entity.idBovinoMadre != 0)
+                    parametros.Add("@idBovinoMadre", entity.idBovinoMadre);
+                if(entity.idBovinoPadre != 0)                   
+                    parametros.Add("@idBovinoPadre", entity.idBovinoPadre);
+                if (entity.idEstablecimientoOrigen != 0)
+                    parametros.Add("@idEstabOrigen", entity.idEstablecimientoOrigen);
+                
+                entity.idBovino = connection.Execute("spRegistrarBovino", parametros, System.Data.CommandType.StoredProcedure);
                 if (entity.idBovino == 0)
                     throw new ArgumentException("Create Bovino Error");
                 else if (entity.idBovino == 1)
                     throw new ArgumentException("Bovino ya existe");
                 return entity;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw;
             }
             finally
             {
@@ -110,7 +114,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@idEstado", entity.idEstado }
                 };
                 var update = connection.Execute("", parametros, System.Data.CommandType.StoredProcedure);
-                if(update == 0)
+                if (update == 0)
                 {
                     throw new ArgumentException("Update bovino error");
                 }

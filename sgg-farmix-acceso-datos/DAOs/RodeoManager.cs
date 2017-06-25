@@ -8,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace sgg_farmix_acceso_datos.DAOs
 {
-    public class RazaManager : IManager<Raza>
+    public class RodeoManager : IManager<Rodeo>
     {
         private SqlServerConnection connection;
-        public Raza Create(Raza entity)
+        public Rodeo Create(Rodeo entity)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Raza> GetList()
+        public IEnumerable<Rodeo> GetList()
         {
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<Raza>("spGetRazas", null, System.Data.CommandType.StoredProcedure);
+                var lista = connection.GetArray<Rodeo>("spGetRodeos", null, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -39,22 +39,22 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Raza> Get(Raza entity)
+        public IEnumerable<Rodeo> Get(Rodeo entity)
         {
             throw new NotImplementedException();
         }
 
-        public Raza Get(long id)
+        public Rodeo Get(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Raza GetFilter()
+        public Rodeo GetFilter()
         {
             throw new NotImplementedException();
         }
 
-        public Raza Update(long id, Raza entity)
+        public Rodeo Update(long id, Rodeo entity)
         {
             throw new NotImplementedException();
         }

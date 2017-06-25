@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace sgg_farmix_acceso_datos.DAOs
 {
-    public class EstadoManager : IManager<Estado>
+    public class EstablecimientoOrigenManager : IManager<EstablecimientoOrigen>
     {
         private SqlServerConnection connection;
-
-        public Estado Create(Estado entity)
+        public EstablecimientoOrigen Create(EstablecimientoOrigen entity)
         {
             throw new NotImplementedException();
         }
@@ -22,46 +21,37 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Estado> Get(Estado entity)
+        public IEnumerable<EstablecimientoOrigen> Get(EstablecimientoOrigen entity)
         {
             throw new NotImplementedException();
         }
 
-        public Estado Get(long id)
+        public EstablecimientoOrigen Get(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Estado GetFilter()
+        public EstablecimientoOrigen GetFilter()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Estado> GetList(long idAmbito)
+        public EstablecimientoOrigen Update(long id, EstablecimientoOrigen entity)
+        {
+            throw new NotImplementedException();
+        }
+        public IEnumerable<EstablecimientoOrigen> GetList()
         {
             try
             {
                 connection = new SqlServerConnection();
-                var parametros = new Dictionary<string, object>
-                {
-                    {"@idAmbitoEstado", idAmbito }
-                };
-                var lista = connection.GetArray<Estado>("spGetEstados", parametros, System.Data.CommandType.StoredProcedure);
-                return lista;
+                var lista = connection.GetArray<EstablecimientoOrigen>("spGetEstabOrigen", null, System.Data.CommandType.StoredProcedure);
+                return lista.ToList();
             }
             catch (Exception ex)
             {
-                return null;
+                throw;
             }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        public Estado Update(long id, Estado entity)
-        {
-            throw new NotImplementedException();
         }
     }
 }

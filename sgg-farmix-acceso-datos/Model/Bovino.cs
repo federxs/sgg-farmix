@@ -9,14 +9,14 @@ namespace sgg_farmix_acceso_datos.Model
     public class Bovino
     {
         public long idBovino { get; set; }
-        public string numCaravana { get; set; }
+        public int numCaravana { get; set; }
         public string apodo { get; set; }
         public string descripcion { get; set; }
-        public DateTime fechaNacimiento { get; set; }
-        public bool genero { get; set; }
+        public string fechaNacimiento { get; set; }
+        public int genero { get; set; }
         public float peso { get; set; }
         public float pesoAlNacer { get; set; }
-        public DateTime fechaMuerte { get; set; }
+        public string fechaMuerte { get; set; }
         public long idBovinoMadre { get; set; }
         public long idBovinoPadre { get; set; }
         public long idCategoria { get; set; }

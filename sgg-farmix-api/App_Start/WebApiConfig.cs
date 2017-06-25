@@ -13,7 +13,7 @@ namespace sgg_farmix_api
     {
         public static void Register(HttpConfiguration config)
         {
-            var cors = new EnableCorsAttribute("*", "Contet-Type, Accept", "GET,POST,PUT,DELETE,OPTIONS");
+            var cors = new EnableCorsAttribute("*", "Content-Type, Accept", "GET,POST,PUT,DELETE,OPTIONS");
             config.EnableCors(cors);
             //config.SuppressDefaultHostAuthentication();
             //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));

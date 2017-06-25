@@ -1,4 +1,5 @@
-﻿using sgg_farmix_acceso_datos.DAOs;
+﻿using Newtonsoft.Json;
+using sgg_farmix_acceso_datos.DAOs;
 using sgg_farmix_acceso_datos.Model;
 using System;
 using System.Collections.Generic;
@@ -64,13 +65,13 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
-
+        
         [HttpPost]
-        public Bovino Post([FromBody] Bovino value)
+        public Bovino Post([FromBody]Bovino bovino)
         {
             try
             {
-                return BM.Create(value);
+                return BM.Create(bovino);
             }
             catch (Exception ex)
             {
@@ -113,6 +114,29 @@ namespace sgg_farmix_api.Controllers
                     ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
                 });
             }
+        }
+        [Route("api/Bovino/inicializar/{idAmbitoEstado}")]
+        [HttpGet]
+        public Resultados GetListas(long idAmbitoEstado)
+        {
+            Resultados resultado = new Resultados();
+            try
+            {
+                resultado.categorias = new CategoriaManager().GetList();
+                resultado.estados = new EstadoManager().GetList(idAmbitoEstado);
+                resultado.razas = new RazaManager().GetList();
+                resultado.rodeos = new RodeoManager().GetList();
+                resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+            return resultado;
         }
     }
 }

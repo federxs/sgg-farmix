@@ -21,7 +21,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<Categoria>("", null, System.Data.CommandType.StoredProcedure);
+                var lista = connection.GetArray<Categoria>("spGetCategorias", null, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
             catch (Exception)

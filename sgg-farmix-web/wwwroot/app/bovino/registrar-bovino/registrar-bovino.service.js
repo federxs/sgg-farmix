@@ -1,43 +1,52 @@
 ﻿(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .factory('registrarBovinoService', registrarBovinoService);
-
-    registrarBovinoService.$inject = ['$http'];
-
-    function registrarBovinoService($http) {
-        var service = {
-            inicializar: inicializar
-        };
-
-        return service;
-
-        function inicializar() {
-            return $http
-                .get(portalService.getUrlServer() + 'api/Home/')
-                .then(function (data) {
-                    return data.data || [];
-                });
-        //    otra forma
-        //    return $http({
-        //        method: 'POST',
-        //        url: pageContext + '/TipoReclamo1/registrarTipoReclamo',
-        //        data: {tipoReclamo: tipoReclamo}
-        //    }).then(
-        //        function respuesta(data) {
-        //            return data.data;
-        //        });
-        //}
-        //    Otra mas
-        //    $resource(portalService.getUrlServer() + 'api/Home/', {}, {
-        //    getListMenu: {
-        //        method: 'GET',
-        //        //headers: portal.getHeadersServer(),                
-        //        isArray: true
-        //    }
-        //});
-        }
-    }
+    angular.module('app')
+        .factory('registrarBovinoService', function ($resource, portalService) {
+            return $resource(portalService.getUrlServer() + 'api/Bovino/', {}, {
+                inicializar: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Bovino/inicializar/:idAmbitoEstado',
+                    //headers: portal.getHeadersServer(),                
+                    params: {
+                        idAmbitoEstado: '@idAmbitoEstado'
+                    },
+                    isArray: false
+                },
+                save: {
+                    method: 'POST'
+                }
+            });
+        });
 })();
+
+//registrarBovinoService.$inject = ['$http', 'portalService', '$resource'];
+
+//function registrarBovinoService($http, portalService, $resource) {
+//    var service = {
+//        inicializar: inicializar
+//    };
+
+//    return service;
+
+//    function inicializar() {
+//        return $resource(portalService.getUrlServer() + 'api/Bovino/inicializar', {}, {
+//            inicializar: {
+//                method: 'GET',
+//                //headers: portal.getHeadersServer(),                
+//                isArray: true
+//            }
+//        });
+//    otra forma
+//    return $http({
+//        method: 'POST',
+//        url: pageContext + '/TipoReclamo1/registrarTipoReclamo',
+//        data: {tipoReclamo: tipoReclamo}
+//    }).then(
+//        function respuesta(data) {
+//            return data.data;
+//        });
+//}
+//    Otra mas
+
+//    }
+//}
+//})();
