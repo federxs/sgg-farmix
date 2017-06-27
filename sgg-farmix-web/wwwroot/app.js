@@ -4,7 +4,7 @@
     var app = angular.module('app', [
         'ui.router',
         'ngResource',
-        'oc.lazyLoad'
+        'oc.lazyLoad',
         //'ui.bootstrap'
     ]);    
 })();

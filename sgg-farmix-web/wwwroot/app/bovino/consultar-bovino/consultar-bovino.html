@@ -1,23 +1,64 @@
 ﻿
 <div class="row">
     <div class="col-lg-10">
-        <div class="pull-right" style="margin-top: 13px; ">
-            <button class="btn btn-link" ui-sref="home.registrarBovino">
-                <span class="glyphicon glyphicon-plus"></span>
-                Nuevo
-            </button>
-        </div>
         <div class="page-header">
             <h1>
                 Consulta de Bovino
                 <small> Criterios de búsqueda</small>
             </h1>
+            <div class="pull-right" style="margin-top: 13px; margin-right:130px; ">
+                <button class="btn" ui-sref="home.registrarBovino">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Nuevo
+                </button>
+            </div>
         </div>
     </div>
 </div>
 <p>Ingrese los filtros para la consulta:</p>
 <form name="formConsultarBovino" novalidate>
     <fieldset>
+        <div class="row">
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Categoría
+                </label>
+                <select class="form-control" name="categoria" required
+                        ng-model="bovino.idCategoria">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in categorias"
+                            value="{{ item.idCategoria }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Género
+                </label>
+                <select class="form-control" name="raza" required
+                        ng-model="bovino.idRaza">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in razas"
+                            value="{{ item.idRaza }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Raza
+                </label>
+                <select class="form-control" name="raza" required
+                        ng-model="bovino.idRaza">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in razas"
+                            value="{{ item.idRaza }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+        </div>
         <div class="row">
             <div class="form-group col-md-3 col-lg-3">
                 <label>
@@ -34,29 +75,29 @@
             </div>
             <div class="form-group col-md-3 col-lg-3">
                 <label>
-                    Rodeo
+                    Estado
                 </label>
-                <select class="form-control" name="rodeo" required
-                        ng-model="bovino.idRodeo">
+                <select class="form-control" name="raza" required
+                        ng-model="bovino.idRaza">
                     <option value="">Seleccione...</option>
-                    <option ng-repeat="item in rodeos"
-                            value="{{ item.idRodeo }}">
+                    <option ng-repeat="item in razas"
+                            value="{{ item.idRaza }}">
                         {{ item.nombre }}
                     </option>
                 </select>
             </div>
-            <div class="form-group col-md-3 col-lg-3">
+            <div class="form-group col-md-2 col-lg-2">
                 <label>
-                    Categoría (*)
+                    Peso
                 </label>
-                <select class="form-control" name="categoria" required
-                        ng-model="bovino.idCategoria">
-                    <option value="">Seleccione...</option>
-                    <option ng-repeat="item in categorias"
-                            value="{{ item.idCategoria }}">
-                        {{ item.nombre }}
-                    </option>
+                <select class="form-control" name="raza" required
+                        ng-model="bovino.idRaza">
+                    <option value="">Mayor</option>
+                    <option value="">Menor</option>
                 </select>
+            </div>
+            <div style="margin-top:24px" class="form-group col-md-1 col-lg-1">
+                <input class="form-control" type="text" placeholder="Peso (kg)" />
             </div>
         </div>
     </fieldset>
@@ -70,17 +111,23 @@
         </div>
     </div>
 </form>
-<div class="container">
-    <table class="table table-striped" at-table at-paginated at-list="list" at-config="config">
-        <thead></thead>
-        <tbody>
-            <tr>
-                <td at-implicit at-sortable at-attribute="index" width="150" at-initial-sorting="asc"></td>
-                <td at-implicit at-sortable at-attribute="name" width="250"></td>
-                <td at-implicit at-sortable at-attribute="email"></td>
-            </tr>
-        </tbody>
+<div style="margin-top:25px;" class="row col-lg-9 col-md-9">
+    <table class="table table-striped">
+        <tr style="background: #B3E5FC;">
+            <th>Categoria</th>
+            <th>Género</th>
+            <th>Raza</th>
+            <th>Rodeo</th>
+            <th>Estado</th>
+            <th>Peso</th>
+        </tr>
+        <tr ng-repeat="item in list">
+            <td>{{item.categoria}}</td>
+            <td>{{item.genero}}</td>
+            <td>{{item.raza}}</td>
+            <td>{{item.rodeo}}</td>
+            <td>{{item.estado}}</td>
+            <td>{{item.peso}}</td>
+        </tr>
     </table>
-
-    <at-pagination at-list="list" at-config="config"></at-pagination>
 </div>

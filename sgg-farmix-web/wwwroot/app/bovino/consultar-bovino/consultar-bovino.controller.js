@@ -10,17 +10,69 @@
     function consultarBovinoController($scope) {
         var vm = $scope;
         vm.list = [{
-            index: 1,
-            name: 'Fede',
-            email: 'fpradomaca@gma.com'
+            categoria: 'Toruno',
+            genero: 'Macho',
+            raza: 'Aberdeen Angus',
+            rodeo:'3',
+            estado:'Activo',
+            peso:'200',
         }, {
-            index: 2,
-            name: 'loco',
-            email: 'fsddomaca@gma.com'
-        }];
-        vm.config = {
-            itemsPerPage: 5,
-            fillLastPage: true
-        }
+            categoria: 'Vaca',
+            genero: 'Hembra',
+            raza: 'Braford',
+            rodeo: '2',
+            estado: 'Preñada',
+            peso: '230',
+        }, {
+            categoria: 'Toro',
+            genero: 'Macho',
+            raza: 'Hereford',
+            rodeo: '3',
+            estado: 'Activo',
+            peso: '350',
+        }, {
+            categoria: 'Ternero',
+            genero: 'Macho',
+            raza: 'Aberdeen Angus',
+            rodeo: '1',
+            estado: 'Activo',
+            peso: '160',
+        }, {
+            categoria: 'Vaquillona',
+            genero: 'Hembra',
+            raza: 'Brangus',
+            rodeo: '5',
+            estado: 'Activo',
+            peso: '380',
+        }, {
+            categoria: 'Toro',
+            genero: 'Macho',
+            raza: 'Hereford',
+            rodeo: '3',
+            estado: 'Activo',
+            peso: '370',
+        }, {
+            categoria: 'Toro',
+            genero: 'Macho',
+            raza: 'Aberdeen Angus',
+            rodeo: '3',
+            estado: 'Activo',
+            peso: '340',
+        }, {
+            categoria: 'Ternera',
+            genero: 'Hembra',
+            raza: 'Brangus',
+            rodeo: '1',
+            estado: 'Activo',
+            peso: '130',
+        }, {
+            categoria: 'Ternero',
+            genero: 'Macho',
+            raza: 'Aberdeen Angus',
+            rodeo: '1',
+            estado: 'Activo',
+            peso: '140',
+        }, ];
+        //vm.tableParams = new NgTableParams({}, { dataset: list });
     }
 })();
