@@ -17,6 +17,7 @@
         vm.estados = [];
         vm.categorias = [];
         vm.bovino = {};
+        vm.fechaDeHoy = new Date();
         //vm.inicializar = inicializar;
         //inicializar();
 

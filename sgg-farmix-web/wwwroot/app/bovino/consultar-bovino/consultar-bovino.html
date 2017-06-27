@@ -1,0 +1,86 @@
+﻿
+<div class="row">
+    <div class="col-lg-10">
+        <div class="pull-right" style="margin-top: 13px; ">
+            <button class="btn btn-link" ui-sref="home.registrarBovino">
+                <span class="glyphicon glyphicon-plus"></span>
+                Nuevo
+            </button>
+        </div>
+        <div class="page-header">
+            <h1>
+                Consulta de Bovino
+                <small> Criterios de búsqueda</small>
+            </h1>
+        </div>
+    </div>
+</div>
+<p>Ingrese los filtros para la consulta:</p>
+<form name="formConsultarBovino" novalidate>
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Raza
+                </label>
+                <select class="form-control" name="raza" required
+                        ng-model="bovino.idRaza">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in razas"
+                            value="{{ item.idRaza }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Rodeo
+                </label>
+                <select class="form-control" name="rodeo" required
+                        ng-model="bovino.idRodeo">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in rodeos"
+                            value="{{ item.idRodeo }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Categoría (*)
+                </label>
+                <select class="form-control" name="categoria" required
+                        ng-model="bovino.idCategoria">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in categorias"
+                            value="{{ item.idCategoria }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+    <div class="col-lg-9 col-md-9">
+        <div class="pull-right">
+            <button class="btn btn-primary"
+                    ng-click="consultar()">
+                Aceptar
+            </button>
+            <button class="btn btn-default">Cancelar</button>
+        </div>
+    </div>
+</form>
+<div class="container">
+    <table class="table table-striped" at-table at-paginated at-list="list" at-config="config">
+        <thead></thead>
+        <tbody>
+            <tr>
+                <td at-implicit at-sortable at-attribute="index" width="150" at-initial-sorting="asc"></td>
+                <td at-implicit at-sortable at-attribute="name" width="250"></td>
+                <td at-implicit at-sortable at-attribute="email"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <at-pagination at-list="list" at-config="config"></at-pagination>
+</div>

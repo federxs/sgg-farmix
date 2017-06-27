@@ -12,19 +12,28 @@
                 templateUrl: 'app/master.html',
                 controller: 'homeController',
                 data: {
-                    pageTitle: 'Farmix-Home',
+                    pageTitle: 'Farmix - Home',
                     bodyClass: 'master'
                 }
             });
         $stateProvider
             .state('home.registrarBovino', {
-                url: '/registrarBovino',
+                url: '/bovinos/registrar',
                 templateUrl: 'app/bovino/registrar-bovino/registrar-bovino.html',
                 controller: 'registrarBovinoController',
                 data: {
                     pageTitle: 'Farmix - Registrar Bovino'
                 }
             });
+        $stateProvider
+        .state('home.consultarBovino', {
+            url: '/bovinos',
+            templateUrl: 'app/bovino/consultar-bovino/consultar-bovino.html',
+            controller: 'consultarBovinoController',
+            data: {
+                pageTitle: 'Farmix - Consulta de Bovinos'
+            }
+        });
     });
 })();
 
