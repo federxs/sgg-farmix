@@ -34,6 +34,24 @@
                 pageTitle: 'Farmix - Consulta de Bovinos'
             }
         });
+        $stateProvider
+        .state('home.detalleBovino', {
+            url: '/bovinos/id/detalle',
+            templateUrl: 'app/bovino/detalle-bovino/detalle-bovino.html',
+            controller: 'detalleBovinoController',
+            data: {
+                pageTitle: 'Farmix - Detalle de Bovino'
+            }
+        });
+        $stateProvider
+        .state('home.modificarBovino', {
+            url: '/bovinos/id/modificacion',
+            templateUrl: 'app/bovino/modificar-bovino/modificar-bovino.html',
+            controller: 'modificarBovinoController',
+            data: {
+                pageTitle: 'Farmix - Modificación de Bovino'
+            }
+        });
     });
 })();
 

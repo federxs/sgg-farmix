@@ -111,6 +111,7 @@
         </div>
     </div>
 </form>
+<legend>Resultados</legend>
 <div style="margin-top:25px;" class="row col-lg-9 col-md-9">
     <table class="table table-striped">
         <tr style="background: #B3E5FC;">
@@ -119,7 +120,8 @@
             <th>Raza</th>
             <th>Rodeo</th>
             <th>Estado</th>
-            <th>Peso</th>
+            <th>Peso (kg)</th>
+            <th>Acciones</th>
         </tr>
         <tr ng-repeat="item in list">
             <td>{{item.categoria}}</td>
@@ -128,6 +130,10 @@
             <td>{{item.rodeo}}</td>
             <td>{{item.estado}}</td>
             <td>{{item.peso}}</td>
+            <td><a ui-sref="home.modificarBovino"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a ui-sref="home.detalleBovino"><span class="glyphicon glyphicon-search"></span></a>
+                <a><span class="glyphicon glyphicon-trash"></span></a>
+            </td>
         </tr>
     </table>
 </div>
