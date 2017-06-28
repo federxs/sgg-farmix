@@ -18,7 +18,7 @@
                 <label>
                     N° de Caravana (*)
                 </label>
-                <input name="idCaravana" type="number" class="form-control" required
+                <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" required
                        ng-model="bovino.numCaravana" />
                 <div ng-show="formRegistrarBovino.idCaravana.$touched">
                     <span class="text-danger" ng-show="formRegistrarBovino.idCaravana.$error.required">
@@ -31,9 +31,9 @@
             </div>
             <div class="form-group col-md-3 col-lg-3">
                 <label>
-                    Establecimiento Origen
+                    Establecimiento de Origen
                 </label>
-                <select class="form-control" name="establecimientoOrigen"
+                <select class="form-control" name="establecimientoOrigen" 
                         ng-model="bovino.idEstablecimientoOrigen">
                     <option value="">Seleccione...</option>
                     <option ng-repeat="item in establecimientos"
@@ -46,7 +46,7 @@
                 <label for="apodo">
                     Apodo
                 </label>
-                <input name="apodo" type="text" class="form-control"
+                <input name="apodo" type="text" class="form-control" placeholder="Apodo"
                        ng-model="bovino.apodo" />
             </div>
         </div>
@@ -55,7 +55,7 @@
                 <label>
                     N° de Caravana Madre
                 </label>
-                <input name="madre" type="number" class="form-control"
+                <input name="madre" type="number" class="form-control" placeholder="N° de Caravana Madre"
                        ng-model="bovino.idBovinoMadre" />
                 <div ng-show="formRegistrarBovino.madre.$touched">
                     <span class="text-danger" ng-show="formRegistrarBovino.madre.$error.number">
@@ -67,7 +67,7 @@
                 <label>
                     N° de Caravana Padre
                 </label>
-                <input name="padre" type="number" class="form-control"
+                <input name="padre" type="number" class="form-control" placeholder="N° de Caravana Padre"
                        ng-model="bovino.idBovinoPadre" />
                 <div ng-show="formRegistrarBovino.padre.$touched">
                     <span class="text-danger" ng-show="formRegistrarBovino.padre.$error.number">
@@ -133,7 +133,7 @@
                 <label>
                     Peso (*)
                 </label>
-                <input name="peso" type="number" class="form-control" min="0" max="1000" required
+                <input name="peso" type="number" class="form-control" min="0" max="1000" required placeholder="Peso"
                        ng-model="bovino.peso" />
                 <div ng-show="formRegistrarBovino.peso.$touched">
                     <span class="text-danger" ng-show="formRegistrarBovino.peso.$error.required">
@@ -149,7 +149,7 @@
                     <label>
                         Peso al nacer
                     </label>
-                    <input name="pesoAlNacer" type="number" class="form-control" min="0" max="1000"
+                    <input name="pesoAlNacer" type="number" class="form-control" min="0" max="1000" placeholder="Peso al nacer"
                            ng-model="bovino.pesoAlNacer" />
                 </div>
                 <div ng-show="formRegistrarBovino.pesoAlNacer.$touched">
@@ -220,16 +220,17 @@
                     <label>
                         Descripción
                     </label>
-                    <textarea name="descripcion" type="text" rows="2" class="form-control"
+                    <textarea name="descripcion" type="text" rows="2" class="form-control" placeholder="Descripción"
                               ng-model="bovino.descripcion" />
                 </div>
             </div>
+            <div class="row">
+                <input type="button" class="btn btn-primary"
+                        ng-disabled="formRegistrarBovino.$invalid"
+                        ng-click="registrar()"/>
+                    Aceptar
+             
+                <input type="button" class="btn btn-default" value="cacac"/>Cancelar
+            </div>
     </fieldset>
-
-    <button class="btn btn-primary"
-            ng-disabled="formRegistrarBovino.$invalid"
-            ng-click="registrar()">
-        Aceptar
-    </button>
-    <button class="btn btn-default">Cancelar</button>
 </form>
