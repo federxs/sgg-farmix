@@ -33,7 +33,7 @@
                 <label>
                     Establecimiento de Origen
                 </label>
-                <select class="form-control" name="establecimientoOrigen" 
+                <select class="form-control" name="establecimientoOrigen"
                         ng-model="bovino.idEstablecimientoOrigen">
                     <option value="">Seleccione...</option>
                     <option ng-repeat="item in establecimientos"
@@ -220,17 +220,18 @@
                     <label>
                         Descripción
                     </label>
-                    <textarea name="descripcion" type="text" rows="2" class="form-control" placeholder="Descripción"
+                    <textarea name="descripcion" type="text" rows="2" class="form-control" placeholder="Peso al nacer"
                               ng-model="bovino.descripcion" />
                 </div>
             </div>
-            <div class="row">
-                <input type="button" class="btn btn-primary"
-                        ng-disabled="formRegistrarBovino.$invalid"
-                        ng-click="registrar()"/>
-                    Aceptar
-             
-                <input type="button" class="btn btn-default" value="cacac"/>Cancelar
-            </div>
     </fieldset>
+    <div class="row">
+        <button type="submit" class="btn btn-primary"
+                ng-disabled="formRegistrarBovino.$invalid"
+                ng-click="registrar()">
+            Aceptar
+        </button>
+
+        <button type="button" class="btn btn-default">Cancelar</button>
+    </div>
 </form>
