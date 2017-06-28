@@ -4,9 +4,9 @@
     <title>Farmix</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
@@ -14,7 +14,7 @@
             margin-bottom: 0;
             border-radius: 0;
         }
-        
+
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {
             height: auto;
@@ -24,7 +24,7 @@
         .sidenav {
             padding-top: 20px;
             background-color: #03A9F4;
-            height: 100%;
+            height: 350px;
         }
 
         /* Set black background color, white text and some padding */
@@ -49,35 +49,27 @@
         }
 
         /*SUMADOS POR FEDE*/
-        .list-group-item{
+        .list-group-item {
             background: #03A9F4;
         }
-
-        
     </style>
 </head>
 <body>
 
     <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
+        <div style="background:#03A9F4" class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="../resources/farmix_title_logo.jpg" alt="Farmix Logo" width="115" height="35" /></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Projects</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                </ul>
+                <div class="text-center">
+                    <img src="/resources/logo/farmix_logo.png" width="160" height="100" />
+                    <img src="/resources/logo/farmix_title_logo.png" />
+                </div>
             </div>
         </div>
     </nav>
@@ -87,6 +79,7 @@
             <div class="col-md-2 col-lg-2 sidenav">
                 <ul class="list-group">
                     <!--<a ui-sref="{{men.urlMenu}}">{{men.nombre}}</a>-->
+                    <li class="list-group-item">Usuario</li>
                     <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}">
                         <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0">
                             <!--<i class="{{menu.menIcono}}"></i>-->
