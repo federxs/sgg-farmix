@@ -79,7 +79,7 @@
             <div class="col-md-2 col-lg-2 sidenav">
                 <ul class="list-group">
                     <!--<a ui-sref="{{men.urlMenu}}">{{men.nombre}}</a>-->
-                    <li class="list-group-item">Usuario</li>
+                    <li class="list-group-item">Usuario<span class="pull-left glyphicon glyphicon-user"></span></li>
                     <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}">
                         <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0">
                             <!--<i class="{{menu.menIcono}}"></i>-->
