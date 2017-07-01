@@ -19,8 +19,9 @@
         vm.categorias = [];
         vm.bovino = {};
         vm.fechaDeHoy = new Date();
-        //vm.inicializar = inicializar;
-        //inicializar();
+        vm.mostrarModalResultado = false;
+        vm.mensajeModalResultado;
+
         vm.inicializar();
 
         function inicializar() {
@@ -37,9 +38,14 @@
         function registrar() {
             vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
             vm.bovino.$save(function (data) {
-
             });
-
+            //}).success(function () {
+            //    vm.mostrarModalResultado = true;
+            //    vm.mensajeModalResultado = "¡La operación se realizó exitosamente!";
+            //}).catch(function (error) {
+            //    vm.mostrarModalResultado = true;
+            //    vm.mensajeModalResultado = "Ha ocurrido un error";
+            //});
         }
 
         function convertirFecha(fecha) {
