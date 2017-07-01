@@ -14,13 +14,16 @@
         <div class="text-left">Los marcados con * son obligatorios: </div>
 
         <div class="row">
-            <div class="form-group col-md-3 col-lg-3" ng-class="formRegistrarBovino.idCaravana.$invalid ? 'error' : 'success'">
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formRegistrarBovino.idCaravana.$touched && formRegistrarBovino.idCaravana.$valid,
+                 'has-error has-feedback':formRegistrarBovino.idCaravana.$touched && formRegistrarBovino.idCaravana.$invalid}">
                 <label>
                     N° de Caravana (*)
                 </label>
                 <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" required
                        ng-model="bovino.numCaravana" />
                 <div ng-show="formRegistrarBovino.idCaravana.$touched">
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.idCaravana.$valid"></span>
+                    <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.idCaravana.$invalid"></span>
                     <span class="text-danger" ng-show="formRegistrarBovino.idCaravana.$error.required">
                         Este campo es requerido
                     </span>
@@ -75,22 +78,27 @@
                     </span>
                 </div>
             </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
-                    Estado (*)
-                </label>
-                <select class="form-control" name="estado" required
-                        ng-model="bovino.idEstado">
-                    <option value="">Seleccione...</option>
-                    <option ng-repeat="item in estados"
-                            value="{{ item.idEstado }}">
-                        {{ item.nombre }}
-                    </option>
-                </select>
-                <div ng-show="formRegistrarBovino.estado.$touched">
-                    <span class="text-danger" ng-show="formRegistrarBovino.estado.$error.required">
-                        Este campo es requerido
-                    </span>
+            <div class="form-group" ng-class="{'has-success has-feedback':formRegistrarBovino.estado.$touched && formRegistrarBovino.estado.$valid,
+                 'has-error has-feedback':formRegistrarBovino.estado.$touched && formRegistrarBovino.estado.$invalid}">
+                <div class="col-md-3 col-lg-3">
+                    <label>
+                        Estado (*)
+                    </label>
+                    <select class="form-control" name="estado" required
+                            ng-model="bovino.idEstado">
+                        <option value="">Seleccione...</option>
+                        <option ng-repeat="item in estados"
+                                value="{{ item.idEstado }}">
+                            {{ item.nombre }}
+                        </option>
+                    </select>
+                    <div ng-show="formRegistrarBovino.estado.$touched">
+                        <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.estado.$valid"></span>
+                        <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.estado.$invalid"></span>
+                        <span class="text-danger" ng-show="formRegistrarBovino.estado.$error.required">
+                            Este campo es requerido
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -114,13 +122,16 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group col-md-2 col-lg-2">
+            <div class="form-group col-md-2 col-lg-2" ng-class="{'has-success has-feedback':formRegistrarBovino.fechaNac.$touched && formRegistrarBovino.fechaNac.$valid,
+                 'has-error has-feedback':formRegistrarBovino.fechaNac.$touched && formRegistrarBovino.fechaNac.$invalid}">
                 <label>
                     Fecha de Nacimiento (*)
                 </label>
                 <input name="fechaNac" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required
                        ng-model="bovino.fechaNacimiento" />
                 <div ng-show="formRegistrarBovino.fechaNac.$touched">
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.fechaNac.$valid"></span>
+                    <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.fechaNac.$invalid"></span>
                     <span class="text-danger" ng-show="formRegistrarBovino.fechaNac.$error.required">
                         Este campo es requerido
                     </span>
@@ -129,13 +140,16 @@
                     </span>
                 </div>
             </div>
-            <div class="form-group col-md-3 col-lg-3">
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formRegistrarBovino.peso.$touched && formRegistrarBovino.peso.$valid,
+                 'has-error has-feedback':formRegistrarBovino.peso.$touched && formRegistrarBovino.peso.$invalid}">
                 <label>
                     Peso (*)
                 </label>
                 <input name="peso" type="number" class="form-control" min="0" max="1000" required placeholder="Peso"
                        ng-model="bovino.peso" />
                 <div ng-show="formRegistrarBovino.peso.$touched">
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.peso.$valid"></span>
+                    <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.peso.$invalid"></span>
                     <span class="text-danger" ng-show="formRegistrarBovino.peso.$error.required">
                         Este campo es requerido
                     </span>
@@ -161,7 +175,8 @@
         </div>
 
         <div class="row">
-            <div class="form-group col-md-3 col-lg-3">
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formRegistrarBovino.categoria.$touched && formRegistrarBovino.categoria.$valid,
+                 'has-error has-feedback':formRegistrarBovino.categoria.$touched && formRegistrarBovino.categoria.$invalid}">
                 <label>
                     Categoría (*)
                 </label>
@@ -174,12 +189,15 @@
                     </option>
                 </select>
                 <div ng-show="formRegistrarBovino.categoria.$touched">
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.categoria.$valid"></span>
+                    <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.categoria.$invalid"></span>
                     <span class="text-danger" ng-show="formRegistrarBovino.categoria.$error.required">
                         Este campo es requerido
                     </span>
                 </div>
             </div>
-            <div class="form-group col-md-3 col-lg-3">
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formRegistrarBovino.raza.$touched && formRegistrarBovino.raza.$valid,
+                 'has-error has-feedback':formRegistrarBovino.raza.$touched && formRegistrarBovino.raza.$invalid}">
                 <label>
                     Raza (*)
                 </label>
@@ -192,12 +210,15 @@
                     </option>
                 </select>
                 <div ng-show="formRegistrarBovino.raza.$touched">
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.raza.$valid"></span>
+                    <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.raza.$invalid"></span>
                     <span class="text-danger" ng-show="formRegistrarBovino.raza.$error.required">
                         Este campo es requerido
                     </span>
                 </div>
             </div>
-            <div class="form-group col-md-3 col-lg-3">
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formRegistrarBovino.rodeo.$touched && formRegistrarBovino.rodeo.$valid,
+                 'has-error has-feedback':formRegistrarBovino.rodeo.$touched && formRegistrarBovino.rodeo.$invalid}">
                 <label>
                     Rodeo (*)
                 </label>
@@ -210,21 +231,23 @@
                     </option>
                 </select>
                 <div ng-show="formRegistrarBovino.rodeo.$touched">
+                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.rodeo.$valid"></span>
+                    <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.rodeo.$invalid"></span>
                     <span class="text-danger" ng-show="formRegistrarBovino.rodeo.$error.required">
                         Este campo es requerido
                     </span>
                 </div>
             </div>
-            <div class="row">
-                <div class="form-group col-md-9 col-lg-9">
-                    <label>
-                        Descripción
-                    </label>
-                    <textarea name="descripcion" type="text" rows="2" class="form-control" placeholder="Peso al nacer"
-                              ng-model="bovino.descripcion">
-                    </textarea>
-                </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-9 col-lg-9">
+                <label>
+                    Descripción
+                </label>
+                <textarea name="descripcion" type="text" rows="2" class="form-control" placeholder="Peso al nacer"
+                          ng-model="bovino.descripcion"></textarea>
             </div>
+        </div>
     </fieldset>
     <div class="row">
         <button type="submit" class="btn btn-primary"
