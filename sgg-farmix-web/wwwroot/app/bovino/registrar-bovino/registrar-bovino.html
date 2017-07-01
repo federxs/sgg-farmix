@@ -1,9 +1,13 @@
 ﻿<form name="formRegistrarBovino" novalidate>
     <fieldset>
+        <!--<div class="alert alert-danger">
+            <strong>Por favor, revise los siguientes errores:</strong>
+            
+        </div>-->
         <div class="alert alert-danger" ng-show=""></div>
         <div class="row">
             <div class="col-lg-10">
-                <div class="page-header">
+                <div style="margin-top:0px;" class="page-header">
                     <h1>
                         Bovino
                         <small>Registrar</small>
@@ -135,7 +139,7 @@
                     <span class="text-danger" ng-show="formRegistrarBovino.fechaNac.$error.required">
                         Este campo es requerido
                     </span>
-                    <span class="text-danger" ng-show="formRegistrarBovino.fechaNac.$error.date">
+                    <span class="text-danger" ng-show="formRegistrarBovino.fechaNac.$error.max || formRegistrarBovino.fechaNac.$error.min">
                         Debe ingresar una fecha válida
                     </span>
                 </div>
@@ -150,11 +154,11 @@
                 <div ng-show="formRegistrarBovino.peso.$touched">
                     <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.peso.$valid"></span>
                     <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.peso.$invalid"></span>
-                    <span class="text-danger" ng-show="formRegistrarBovino.peso.$error.required">
+                    <span class="text-danger" ng-show="formRegistrarBovino.peso.$error.required || bovino.peso == 0 ">
                         Este campo es requerido
                     </span>
-                    <span class="text-danger" ng-show="formRegistrarBovino.peso.$error.number">
-                        El campo debe ser numérico
+                    <span class="text-danger" ng-show="formRegistrarBovino.peso.$error.min">
+                        El peso no puede ser negativo
                     </span>
                 </div>
             </div>
