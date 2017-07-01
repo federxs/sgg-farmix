@@ -12,6 +12,7 @@
         //funciones
         vm.registrar = registrar;
         vm.validar = validar;
+        vm.inicializar = inicializar;
         //variables
         vm.razas = [];
         vm.estados = [];
@@ -20,8 +21,9 @@
         vm.fechaDeHoy = new Date();
         //vm.inicializar = inicializar;
         //inicializar();
+        vm.inicializar();
 
-        $scope.load = function () {
+        function inicializar() {
             registrarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
                 vm.estados = data.estados;
                 vm.categorias = data.categorias;
@@ -31,7 +33,6 @@
             });
             vm.bovino = new registrarBovinoService();
         };
-        $scope.load();
 
         function registrar() {            
             vm.bovino.$save(function (data) {
