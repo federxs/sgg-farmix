@@ -41,7 +41,7 @@
         function registrar() {
             vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
             vm.bovino.$save(function (data) {
-                toastr.success('Se agrego con éxito el bovino ' + data.idBovino, 'Exito');
+                toastr.success('Se agrego con éxito el bovino ', 'Exito');
                 $state.go('home.consultarBovino');
             }, function (error) {
                 if (error.statusText === 'Bovino ya existe')
