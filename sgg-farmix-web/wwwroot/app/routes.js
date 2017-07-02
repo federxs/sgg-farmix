@@ -45,7 +45,8 @@
         });
         $stateProvider
         .state('home.modificarBovino', {
-            url: '/bovinos/id/modificacion',
+            url: '/bovinos/:id/modificacion',
+            params: {'id': null},
             templateUrl: 'app/bovino/modificar-bovino/modificar-bovino.html',
             controller: 'modificarBovinoController',
             data: {
