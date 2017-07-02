@@ -28,6 +28,13 @@ namespace sgg_farmix_acceso_datos.Model
 
     public class BovinoFilter
     {
+        public long idCategoria { get; set; }
+        public int genero { get; set; }
+        public long idRaza { get; set; }
+        public long idRodeo { get; set; }
+        public long idEstado { get; set; }
+        public float peso { get; set; }
+        public string accionPeso { get; set; }
 
     }
 }

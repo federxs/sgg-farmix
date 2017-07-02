@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAOs\BovinoManager.cs" />
+    <Compile Include="DAOs\CampoManager.cs" />
     <Compile Include="DAOs\CategoriaManager.cs" />
     <Compile Include="DAOs\EstablecimientoOrigenManager.cs" />
     <Compile Include="DAOs\EstadoManager.cs" />
