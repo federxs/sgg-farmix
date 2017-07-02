@@ -5,74 +5,48 @@
         .module('app')
         .controller('consultarBovinoController', consultarBovinoController);
 
-    consultarBovinoController.$inject = ['$scope'];
+    consultarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'toastr'];
 
-    function consultarBovinoController($scope) {
+    function consultarBovinoController($scope, registrarBovinoService, toastr) {
         var vm = $scope;
-        vm.list = [{
-            categoria: 'Toruno',
-            genero: 'Macho',
-            raza: 'Aberdeen Angus',
-            rodeo:'3',
-            estado:'Activo',
-            peso:'200',
-        }, {
-            categoria: 'Vaca',
-            genero: 'Hembra',
-            raza: 'Braford',
-            rodeo: '2',
-            estado: 'Preñada',
-            peso: '230',
-        }, {
-            categoria: 'Toro',
-            genero: 'Macho',
-            raza: 'Hereford',
-            rodeo: '3',
-            estado: 'Activo',
-            peso: '350',
-        }, {
-            categoria: 'Ternero',
-            genero: 'Macho',
-            raza: 'Aberdeen Angus',
-            rodeo: '1',
-            estado: 'Activo',
-            peso: '160',
-        }, {
-            categoria: 'Vaquillona',
-            genero: 'Hembra',
-            raza: 'Brangus',
-            rodeo: '5',
-            estado: 'Activo',
-            peso: '380',
-        }, {
-            categoria: 'Toro',
-            genero: 'Macho',
-            raza: 'Hereford',
-            rodeo: '3',
-            estado: 'Activo',
-            peso: '370',
-        }, {
-            categoria: 'Toro',
-            genero: 'Macho',
-            raza: 'Aberdeen Angus',
-            rodeo: '3',
-            estado: 'Activo',
-            peso: '340',
-        }, {
-            categoria: 'Ternera',
-            genero: 'Hembra',
-            raza: 'Brangus',
-            rodeo: '1',
-            estado: 'Activo',
-            peso: '130',
-        }, {
-            categoria: 'Ternero',
-            genero: 'Macho',
-            raza: 'Aberdeen Angus',
-            rodeo: '1',
-            estado: 'Activo',
-            peso: '140',
-        }, ];
-        //vm.tableParams = new NgTableParams({}, { dataset: list });
+        //funciones
+        vm.inicializar = inicializar();
+        vm.consultar = consultar;
+        //variables
+        vm.razas = [];
+        vm.estados = [];
+        vm.categorias = [];
+        vm.rodeos = [];
+        vm.establecimientos = [];
+        vm.listaBovinos = [];
+        vm.filtro = {};
+
+        function inicializar() {
+            registrarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
+                vm.estados = data.estados;
+                vm.categorias = data.categorias;
+                vm.razas = data.razas;
+                vm.rodeos = data.rodeos;
+                vm.establecimientos = data.establecimientos;
+                vm.filtro.idCategoria = '0';
+                vm.filtro.genero = '2';
+                vm.filtro.idRaza = '0';
+                vm.filtro.idRodeo = '0';
+                vm.filtro.idEstado = '0';
+                vm.filtro.accionPeso = '0';
+                consultar();
+            });
+            //vm.bovino = new registrarBovinoService();
+        };
+
+        function consultar() {
+            if (vm.filtro.peso === '') vm.filtro.peso = 0;
+            registrarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro,false) }, function (data) {
+                vm.listaBovinos = data;
+                vm.filtro.peso = '';
+            }, function (error) {
+                toastr.error('Error: ' + error, 'Error');
+            });
+        };        
     }
 })();

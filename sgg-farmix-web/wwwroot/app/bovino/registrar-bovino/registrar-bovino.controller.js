@@ -17,6 +17,8 @@
         vm.razas = [];
         vm.estados = [];
         vm.categorias = [];
+        vm.rodeos = [];
+        vm.establecimientos = [];
         vm.bovino = {};
         vm.fechaDeHoy = new Date();
         vm.showMjeSuccess = false;
