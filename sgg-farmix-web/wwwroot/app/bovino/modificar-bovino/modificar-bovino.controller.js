@@ -5,13 +5,13 @@
         .module('app')
         .controller('modificarBovinoController', modificarBovinoController);
 
-    modificarBovinoController.$inject = ['$scope', 'modificarBovinoService'];
+    modificarBovinoController.$inject = ['$scope', 'modificarBovinoService', '$stateParams'];
 
-    function modificarBovinoController($scope, modificarBovinoService) {
+    function modificarBovinoController($scope, modificarBovinoService, $stateParams) {
         var vm = $scope;
         //funciones
         vm.modificar = modificar;
-        vm.inicializar;
+        vm.inicializar = inicializar();
         //variables
         vm.razas = [];
         vm.estados = [];
@@ -22,14 +22,14 @@
         //inicializar();
 
         function inicializar() {
-            modificarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
+            modificarBovinoService.inicializar({ idBovino: $stateParams.id }, function (data) {
                 vm.estados = data.estados;
                 vm.categorias = data.categorias;
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
             });
-            vm.bovino = new registrarBovinoService();
+            //vm.bovino = new registrarBovinoService();
         };
         $scope.load();
 

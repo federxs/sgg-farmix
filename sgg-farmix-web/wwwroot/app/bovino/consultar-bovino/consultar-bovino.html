@@ -159,7 +159,7 @@
             <td ng-show="item.idEstado === 2">Preñada</td>
             <td ng-show="item.idEstado === 3">Enfermo</td>
             <td>{{item.peso}}</td>
-            <td><a ui-sref="home.modificarBovino"><span class="glyphicon glyphicon-pencil"></span></a>
+            <td><a ui-sref="home.modificarBovino({id:item.idBovino})"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a ui-sref="home.detalleBovino"><span class="glyphicon glyphicon-search"></span></a>
                 <a><span class="glyphicon glyphicon-trash"></span></a>
             </td>

@@ -5,9 +5,9 @@
         .module('app')
         .factory('modificarBovinoService', modificarBovinoService);
 
-    modificarBovinoService.$inject = ['$http'];
+    modificarBovinoService.$inject = ['$http', 'portalService'];
 
-    function modificarBovinoService($http) {
+    function modificarBovinoService($http, portalService) {
         return {
             inicializar: inicializar
         };

@@ -15,11 +15,13 @@ namespace sgg_farmix_api.Controllers
     {
         private BovinoManager BM = new BovinoManager();
 
+        [Route("api/Bovino/initModificacion")]
         [HttpGet]
-        public Bovino Get(long id)
+        public Bovino Get(string idBovino)
         {
             try
             {
+                var id = (Int64)JsonConvert.DeserializeObject(idBovino, typeof(Int64));
                 return BM.Get(id);
             }
             catch (Exception ex)
