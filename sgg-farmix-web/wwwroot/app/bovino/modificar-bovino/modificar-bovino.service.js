@@ -5,17 +5,17 @@
         .module('app')
         .factory('modificarBovinoService', modificarBovinoService);
 
-    modificarBovinoService.$inject = ['$http'];
+    modificarBovinoService.$inject = ['$http', 'portalService'];
 
-    function modificarBovinoService($http) {
-        return {
+    function modificarBovinoService($http, portalService) {
+        var service = {
             inicializar: inicializar
         };
 
         function inicializar(idBovino) {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Bovino/initModificacion',
+                url: portalService.getUrlServer() + 'api/Bovino/traer',
                 params: {idBovino: idBovino}
             }).then(
             function(data) {
@@ -23,8 +23,6 @@
             });
         }
 
-        return {
-            service: modificarBovinoService
-        }
+        return service;
     }
 })();

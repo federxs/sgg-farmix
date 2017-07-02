@@ -26,8 +26,6 @@
         vm.showMjeSuccess = false;
         vm.showMjeError = false;
         vm.mjeExiste = '';
-        //vm.mostrarModalResultado = false;
-        //vm.mensajeModalResultado;
 
         vm.inicializar();
 

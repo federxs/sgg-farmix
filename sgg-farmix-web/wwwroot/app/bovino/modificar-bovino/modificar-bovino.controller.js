@@ -18,20 +18,14 @@
         vm.categorias = [];
         vm.bovino = {};
         vm.fechaDeHoy = new Date();
-        //vm.inicializar = inicializar;
-        //inicializar();
+        vm.inicializar = inicializar;
+        inicializar();
 
         function inicializar() {
-            modificarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
-                vm.estados = data.estados;
-                vm.categorias = data.categorias;
-                vm.razas = data.razas;
-                vm.rodeos = data.rodeos;
-                vm.establecimientos = data.establecimientos;
-            });
-            vm.bovino = new registrarBovinoService();
+            modificarBovinoService.inicializar(2).then(function success(data) {
+                vm.bovino = data.bovino;
+            })
         };
-        $scope.load();
 
         function modificar() {
             vm.bovino.$save(function (data) {
