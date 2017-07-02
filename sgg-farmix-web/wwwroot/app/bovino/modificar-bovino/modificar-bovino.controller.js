@@ -25,7 +25,8 @@
             modificarBovinoService.inicializar(2).then(function success(data) {
                 vm.bovino = data.bovino;
             })
-			
+        }
+
         function modificar() {
             vm.bovino.$save(function (data) {
 

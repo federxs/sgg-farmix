@@ -15,7 +15,7 @@
         function inicializar(idBovino) {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Bovino/traer',
+                url: portalService.getUrlServer() + 'api/Bovino/initModificacion',
                 params: {idBovino: idBovino}
             }).then(
             function(data) {
