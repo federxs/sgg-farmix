@@ -1,201 +1,162 @@
 ﻿<form name="formRegistrarBovino" novalidate>
     <fieldset>
+        <div class="alert alert-danger" ng-show=""></div>
         <div class="row">
             <div class="col-lg-10">
-                <div class="page-header">
+                <div style="margin-top:0px;" class="page-header">
                     <h1>
                         Bovino
-                        <small>Detalle</small>
+                        <small>Consulta</small>
                     </h1>
                 </div>
             </div>
         </div>
         <div class="text-left">Los marcados con * son obligatorios: </div>
 
-        <div class="row">
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
-                    N° de Caravana (*)
-                </label>
-                <input name="idCaravana" type="text" class="form-control" required disabled
-                       ng-model="bovino.numCaravana" value="000000125" />
-                <!--<span class="error" ng-show="formRegistrarBovino.idCaravana.$error.required">
-                    Este campo es requerido!
-                </span>-->
-            </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
-                    Establecimiento Origen
-                </label>
-                <select class="form-control" name="establecimientoOrigen" disabled
-                        ng-model="bovino.idEstablecimientoOrigen">
-                    <option value="">AngloCórdoba de Tierras</option>
-                    <option ng-repeat="item in establecimientos"
-                            value="{{ item.idEstablecimiento }}">
-                        {{ item.nombre }}
-                    </option>
-                </select>
-            </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label for="apodo">
-                    Apodo
-                </label>
-                <input name="apodo" type="text" class="form-control" disabled
-                       ng-model="bovino.apodo" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
-                    N° de Caravana Madre
-                </label>
-                <input name="madre" type="text" class="form-control" disabled
-                       ng-model="bovino.idBovinoMadre" />
-            </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
-                    N° de Caravana Padre
-                </label>
-                <input name="padre" type="text" class="form-control" disabled
-                       ng-model="bovino.idBovinoPadre" />
-            </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
-                    Estado (*)
-                </label>
-                <select class="form-control" name="estado" required disabled
-                        ng-model="bovino.idEstado">
-                    <option value="">Activo</option>
-                    <option ng-repeat="item in estados"
-                            value="{{ item.idEstado }}">
-                        {{ item.nombre }}
-                    </option>
-                </select>
-
-                <!--<span class="error" ng-show="formRegistrarBovino.estado.$error.required">
-                    Este campo es requerido!
-                </span>-->
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-1 col-lg-1">
-                <label>
-                    Género (*)
-                </label>
-                <div class="radio" ng-init="bovino.genero = 0">
-                    <label>
-                        <input type="radio" name="genero" value="0" checked disabled
-                               ng-model="bovino.genero">
-                        Hembra
-                    </label>
+        <div class="panel panel-default">
+            <div class="panel-heading">Identificación</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            N° de Caravana (*)
+                        </label>
+                        <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" disabled
+                               ng-model="bovino.numCaravana" />
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            N° de Caravana Madre
+                        </label>
+                        <input name="madre" type="number" class="form-control" placeholder="N° de Caravana Madre" disabled
+                               ng-model="bovino.idBovinoMadre" />
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            N° de Caravana Padre
+                        </label>
+                        <input name="padre" type="number" class="form-control" placeholder="N° de Caravana Padre" disabled
+                               ng-model="bovino.idBovinoPadre" />
+                    </div>
                 </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="genero" value="1" disabled
-                               ng-model="bovino.genero">
-                        Macho
-                    </label>
-                </div>
-            </div>
-            <div class="form-group col-md-2 col-lg-2">
-                <label>
-                    Fecha de Nacimiento (*)
-                </label>
-                <input name="fechaNac" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required value="2016-02-03" disabled
-                       ng-model="bovino.fechaNacimiento" />
-                <!--<span class="bg-danger" ng-show="formRegistrarBovino.fechaNac.$error.required">
-                    Este campo es requerido!
-                </span>-->
-            </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
-                    Peso (*)
-                </label>
-                <input name="peso" type="number" class="form-control" min="0" max="1000" required value="230" disabled
-                       ng-model="bovino.peso" />
-
-                <!--<span class="error" ng-show="formRegistrarBovino.peso.$error.required">
-                    Este campo es requerido!
-                </span>-->
-            </div>
-            <div class="row-fluid">
-                <div class="form-group col-md-3 col-lg-3">
-                    <label>
-                        Peso al nacer
-                    </label>
-                    <input name="pesoAlNacer" type="number" class="form-control" min="0" max="1000" disabled
-                           ng-model="bovino.pesoAlNacer" />
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            Establecimiento de Origen
+                        </label>
+                        <input class="form-control" type="text" name="establecimientoOrigen" ng-model="bovino.establecimientoOrigen" disabled
+                               placeholder="Establecimiento de Origen" />
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            Rodeo (*)
+                        </label>
+                        <input class="form-control" type="text" name="rodeo" ng-model="bovino.rodeo" disabled
+                               placeholder="Rodeo" />
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Características</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label for="apodo">
+                            Apodo
+                        </label>
+                        <input name="apodo" type="text" class="form-control" placeholder="Apodo" disabled
+                               ng-model="bovino.apodo" />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 col-lg-4">
+                            <label>
+                                Estado (*)
+                            </label>
+                            <input class="form-control" type="text" name="estado" ng-model="bovino.estado" disabled
+                                   placeholder="Estado" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            Sexo (*)
+                        </label>
+                        <div ng-init="bovino.genero = 0">
+                            <label class="radio-inline">
+                                <input type="radio" name="genero" value="0" disabled
+                                       ng-model="bovino.genero">
+                                Hembra
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="genero" value="1" disabled
+                                       ng-model="bovino.genero">
+                                Macho
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            Fecha de Nacimiento (*)
+                        </label>
+                        <input name="fechaNac" type="date" class="form-control" disabled
+                               ng-model="bovino.fechaNacimiento" />
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            Peso (*)
+                        </label>
+                        <input name="peso" type="number" class="form-control" placeholder="Peso" disabled
+                               ng-model="bovino.peso" />
+                    </div>
+                    <div class="row-fluid">
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Peso al nacimiento
+                            </label>
+                            <input name="pesoAlNacer" type="number" class="form-control" placeholder="Peso al nacimiento" disabled
+                                   ng-model="bovino.pesoAlNacer" />
+                        </div>
+                    </div>
+                </div>
 
-        <div class="row">
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
-                    Categoría (*)
-                </label>
-                <select class="form-control" name="categoria" required disabled
-                        ng-model="bovino.idCategoria">
-                    <option value="">Vaca Joven</option>
-                    <option ng-repeat="item in categorias"
-                            value="{{ item.idCategoria }}">
-                        {{ item.nombre }}
-                    </option>
-                </select>
-
-                <!--<span class="error" ng-show="formRegistrarBovino.categoria.$error.required">
-                    Este campo es requerido!
-                </span>-->
-            </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
-                    Raza (*)
-                </label>
-                <select class="form-control" name="raza" required disabled
-                        ng-model="bovino.idRaza">
-                    <option value="">Aberdeen Angus</option>
-                    <option ng-repeat="item in razas"
-                            value="{{ item.idRaza }}">
-                        {{ item.nombre }}
-                    </option>
-                </select>
-
-                <!--<span class="error" ng-show="formRegistrarBovino.raza.$error.required">
-                    Este campo es requerido!
-                </span>-->
-            </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
-                    Rodeo (*)
-                </label>
-                <select class="form-control" name="rodeo" required disabled
-                        ng-model="bovino.idRodeo">
-                    <option value="">3</option>
-                    <option ng-repeat="item in rodeos"
-                            value="{{ item.idRodeo }}">
-                        {{ item.nombre }}
-                    </option>
-                </select>
-
-                <!--<span class="error" ng-show="formRegistrarBovino.rodeo.$error.required">
-                    Este campo es requerido!
-                </span>-->
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-md-9 col-lg-9">
-                <label>
-                    Descripción
-                </label>
-                <textarea name="descripcion" type="text" rows="2" class="form-control" disabled
-                          ng-model="bovino.descripcion" >Tiene una fractura vertical de muralla en la pata derecha delantera</textarea>
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            Categoría (*)
+                        </label>
+                        <input class="form-control" type="text" name="categoria" ng-model="bovino.categoria" disabled
+                               placeholder="Categoría" />
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            Raza (*)
+                        </label>
+                        <input class="form-control" type="text" name="raza" ng-model="bovino.Raza" disabled
+                               placeholder="Raza" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12 col-lg-12">
+                        <label>
+                            Descripción
+                        </label>
+                        <textarea name="descripcion" type="text" rows="2" class="form-control" placeholder="Descripción" disabled
+                                  ng-model="bovino.descripcion"></textarea>
+                    </div>
+                </div>
             </div>
         </div>
     </fieldset>
+    <div class="row">
+        <button type="button" style="margin-left:15px;" class="btn btn-primary" disabled>
+            Aceptar
+        </button>
 
-    <button class="btn btn-primary"
-            ng-click="registrar()">
-        Aceptar
-    </button>
-    <button class="btn btn-default">Cancelar</button>
+        <button type="button" class="btn btn-default"
+                ui-sref="home.consultarBovino">
+            Volver
+        </button>
+    </div>
 </form>
