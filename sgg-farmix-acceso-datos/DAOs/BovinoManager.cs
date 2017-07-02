@@ -24,7 +24,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@fechaNac", entity.fechaNacimiento },
                     {"@genero", entity.genero },
                     {"@peso", entity.peso },
-                    {"@pesoAlNacer", (entity.pesoAlNacer == 0 ? 0 : entity.pesoAlNacer) },                   
+                    {"@pesoAlNacer", entity.pesoAlNacer },                   
                     { "@idCategoria", entity.idCategoria },
                     { "@idRaza", entity.idRaza },
                     { "@idRodeo", entity.idRodeo },
@@ -74,7 +74,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     {"@idBovino", id }
                 };
-                var bovino = connection.GetObject<Bovino>("", parametros, System.Data.CommandType.StoredProcedure);
+                var bovino = connection.GetObject<Bovino>("spObtenerDatosBovino", parametros, System.Data.CommandType.StoredProcedure);
                 return bovino;
             }
             catch (Exception ex)
@@ -100,20 +100,28 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametros = new Dictionary<string, object>
                 {
                     {"@idBovino", id },
-                    {"@numCaravana", entity.numCaravana },
+                    //{"@numCaravana", entity.numCaravana }, //esto no hiria, se autogeneraría
                     {"@apodo", entity.apodo },
                     {"@desc", entity.descripcion },
                     {"@fechaNac", entity.fechaNacimiento },
                     {"@genero", entity.genero },
                     {"@peso", entity.peso },
-                    {"@pesoNacer", entity.pesoAlNacer },
-                    {"@fechaMuerte", entity.fechaMuerte },
-                    {"idCatego", entity.idCategoria },
+                    //{"@fechaMuerte", entity.fechaMuerte },
+                    {"@idCatego", entity.idCategoria },
+                    {"@idRaza", entity.idRaza },
                     {"@idRodeo", entity.idRodeo },
-                    {"@idEstabOrigen", entity.idEstablecimientoOrigen },
                     {"@idEstado", entity.idEstado }
                 };
-                var update = connection.Execute("", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.pesoAlNacer != 0)
+                    parametros.Add("@pesoAlNacer", entity.pesoAlNacer);
+                if (entity.idBovinoMadre != 0)
+                    parametros.Add("@idBovinoMadre", entity.idBovinoMadre);
+                if (entity.idBovinoPadre != 0)
+                    parametros.Add("@idBovinoPadre", entity.idBovinoPadre);
+                if (entity.idEstablecimientoOrigen != 0)
+                    parametros.Add("@idEstabOrigen", entity.idEstablecimientoOrigen);
+
+                var update = connection.Execute("spModificarBovino", parametros, System.Data.CommandType.StoredProcedure);
                 if (update == 0)
                 {
                     throw new ArgumentException("Update bovino error");
@@ -137,10 +145,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@idBovino", id },
-                    {"borrado", 1 }
+                    {"@idBovino", id }
                 };
-                var borrado = connection.Execute("", parametros, System.Data.CommandType.StoredProcedure);
+                var borrado = connection.Execute("spBorrarBovino", parametros, System.Data.CommandType.StoredProcedure);
                 if (borrado == 0)
                     throw new ArgumentException("Delete bovino error");
                 return borrado;
@@ -162,14 +169,20 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-
+                    {"@idCatego", filter.idCategoria },
+                    {"@genero", filter.genero },
+                    {"@idRaza", filter.idRaza },
+                    {"@idRodeo", filter.idRodeo },
+                    {"@idEstado", filter.idEstado },
+                    {"@peso", filter.peso },
+                    {"@accionPeso", filter.accionPeso }
                 };
-                var lista = connection.GetArray<Bovino>("", parametros, System.Data.CommandType.StoredProcedure);
+                var lista = connection.GetArray<Bovino>("spObtenerListaBovinos", parametros, System.Data.CommandType.StoredProcedure);
                 return lista.ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                throw;
             }
             finally
             {

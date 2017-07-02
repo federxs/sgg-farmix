@@ -5,6 +5,7 @@
         'ui.router',
         'ngResource',
         'oc.lazyLoad',
+        'toastr'
         //'ui.bootstrap'
     ]);    
 })();

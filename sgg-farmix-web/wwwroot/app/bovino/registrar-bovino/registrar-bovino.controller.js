@@ -5,9 +5,9 @@
         .module('app')
         .controller('registrarBovinoController', registrarBovinoController);
 
-    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService'];
+    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'toastr', '$state'];
 
-    function registrarBovinoController($scope, registrarBovinoService) {
+    function registrarBovinoController($scope, registrarBovinoService, toastr, $state) {
         var vm = $scope;
         //funciones
         vm.registrar = registrar;
@@ -19,8 +19,11 @@
         vm.categorias = [];
         vm.bovino = {};
         vm.fechaDeHoy = new Date();
-        vm.mostrarModalResultado = false;
-        vm.mensajeModalResultado;
+        vm.showMjeSuccess = false;
+        vm.showMjeError = false;
+        vm.mjeExiste = '';
+        //vm.mostrarModalResultado = false;
+        //vm.mensajeModalResultado;
 
         vm.inicializar();
 
@@ -38,14 +41,12 @@
         function registrar() {
             vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
             vm.bovino.$save(function (data) {
+                toastr.success('Se agrego con éxito el bovino ' + data.idBovino, 'Exito');
+                $state.go('home.consultarBovino');
+            }, function (error) {
+                if (error.statusText === 'Bovino ya existe')
+                    toastr.error('Ya existe un bovino con ese número de caravana', 'Error');
             });
-            //}).success(function () {
-            //    vm.mostrarModalResultado = true;
-            //    vm.mensajeModalResultado = "¡La operación se realizó exitosamente!";
-            //}).catch(function (error) {
-            //    vm.mostrarModalResultado = true;
-            //    vm.mensajeModalResultado = "Ha ocurrido un error";
-            //});
         }
 
         function convertirFecha(fecha) {

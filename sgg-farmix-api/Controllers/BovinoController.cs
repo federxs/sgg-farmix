@@ -33,11 +33,11 @@ namespace sgg_farmix_api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Bovino> GetList(BovinoFilter value)
+        public IEnumerable<Bovino> GetList(BovinoFilter filtro)
         {
             try
             {
-                return BM.GetList(value);
+                return BM.GetList(filtro);
             }
             catch (Exception ex)
             {
