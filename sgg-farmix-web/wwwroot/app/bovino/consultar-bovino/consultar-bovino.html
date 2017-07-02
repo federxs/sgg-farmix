@@ -24,8 +24,8 @@
                     Categoría
                 </label>
                 <select class="form-control" name="categoria" required
-                        ng-model="bovino.idCategoria">
-                    <option value="">Seleccione...</option>
+                        ng-model="filtro.idCategoria">
+                    <option value="0">Seleccione...</option>
                     <option ng-repeat="item in categorias"
                             value="{{ item.idCategoria }}">
                         {{ item.nombre }}
@@ -34,15 +34,13 @@
             </div>
             <div class="form-group col-md-3 col-lg-3">
                 <label>
-                    Género
+                    Sexo
                 </label>
-                <select class="form-control" name="raza" required
-                        ng-model="bovino.idRaza">
-                    <option value="">Seleccione...</option>
-                    <option ng-repeat="item in razas"
-                            value="{{ item.idRaza }}">
-                        {{ item.nombre }}
-                    </option>
+                <select class="form-control" name="genero" required
+                        ng-model="filtro.genero">
+                    <option value="2">Seleccione...</option>                    
+                    <option value="0">Hembra</option>
+                    <option value="1">Macho</option>                    
                 </select>
             </div>
             <div class="form-group col-md-3 col-lg-3">
@@ -50,8 +48,8 @@
                     Raza
                 </label>
                 <select class="form-control" name="raza" required
-                        ng-model="bovino.idRaza">
-                    <option value="">Seleccione...</option>
+                        ng-model="filtro.idRaza">
+                    <option value="0">Seleccione...</option>
                     <option ng-repeat="item in razas"
                             value="{{ item.idRaza }}">
                         {{ item.nombre }}
@@ -62,13 +60,13 @@
         <div class="row">
             <div class="form-group col-md-3 col-lg-3">
                 <label>
-                    Raza
+                    Rodeo
                 </label>
-                <select class="form-control" name="raza" required
-                        ng-model="bovino.idRaza">
-                    <option value="">Seleccione...</option>
-                    <option ng-repeat="item in razas"
-                            value="{{ item.idRaza }}">
+                <select class="form-control" name="rodeo" required
+                        ng-model="filtro.idRodeo">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in rodeos"
+                            value="{{ item.idRodeo }}">
                         {{ item.nombre }}
                     </option>
                 </select>
@@ -77,11 +75,11 @@
                 <label>
                     Estado
                 </label>
-                <select class="form-control" name="raza" required
-                        ng-model="bovino.idRaza">
-                    <option value="">Seleccione...</option>
-                    <option ng-repeat="item in razas"
-                            value="{{ item.idRaza }}">
+                <select class="form-control" name="estado" required
+                        ng-model="filtro.idEstado">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in estados"
+                            value="{{ item.idEstado }}">
                         {{ item.nombre }}
                     </option>
                 </select>
@@ -90,14 +88,15 @@
                 <label>
                     Peso
                 </label>
-                <select class="form-control" name="raza" required
-                        ng-model="bovino.idRaza">
-                    <option value="">Mayor</option>
-                    <option value="">Menor</option>
+                <select class="form-control" name="accionPeso" required
+                        ng-model="filtro.accionPeso">
+                    <option value="0">Seleccione...</option>
+                    <option value="mayor">Mayor</option>
+                    <option value="menor">Menor</option>
                 </select>
             </div>
             <div style="margin-top:24px" class="form-group col-md-1 col-lg-1">
-                <input class="form-control" type="text" placeholder="Peso (kg)" />
+                <input class="form-control" type="text" ng-model="filtro.peso" placeholder="Peso (kg)" />
             </div>
         </div>
     </fieldset>
@@ -105,9 +104,9 @@
         <div class="pull-right">
             <button class="btn btn-primary"
                     ng-click="consultar()">
-                Aceptar
+                Filtrar
             </button>
-            <button class="btn btn-default">Cancelar</button>
+            <!--<button class="btn btn-default">Cancelar</button>-->
         </div>
     </div>
 </form>
@@ -116,19 +115,49 @@
     <table class="table table-striped">
         <tr style="background: #B3E5FC;">
             <th>Categoria</th>
-            <th>Género</th>
+            <th>Sexo</th>
             <th>Raza</th>
             <th>Rodeo</th>
             <th>Estado</th>
             <th>Peso (kg)</th>
             <th>Acciones</th>
         </tr>
-        <tr ng-repeat="item in list">
-            <td>{{item.categoria}}</td>
-            <td>{{item.genero}}</td>
-            <td>{{item.raza}}</td>
-            <td>{{item.rodeo}}</td>
-            <td>{{item.estado}}</td>
+        <tr ng-repeat="item in listaBovinos">
+            <!--Categorias-->
+            <td ng-show="item.idCategoria === 1">Ternera</td>
+            <td ng-show="item.idCategoria === 2">Vaquilla</td>
+            <td ng-show="item.idCategoria === 3">Vaquillona</td>
+            <td ng-show="item.idCategoria === 4">Vaca Joven</td>
+            <td ng-show="item.idCategoria === 5">Vaca Adulta</td>
+            <td ng-show="item.idCategoria === 6">Vaca Conserva</td>
+            <td ng-show="item.idCategoria === 7">Ternero</td>
+            <td ng-show="item.idCategoria === 8">Novillito</td>
+            <td ng-show="item.idCategoria === 9">Novillo</td>
+            <td ng-show="item.idCategoria === 10">Torito</td>
+            <td ng-show="item.idCategoria === 11">Toruno</td>
+            <!--Sexo-->
+            <td ng-show="item.genero === 0">Hembra</td>
+            <td ng-show="item.genero === 1">Macho</td>
+            <!--Razas-->
+            <td ng-show="item.idRaza === 1">Aberdeen Angus</td>
+            <td ng-show="item.idRaza === 2">Hereford</td>
+            <td ng-show="item.idRaza === 3">Limousin</td>
+            <td ng-show="item.idRaza === 4">Simmental</td>
+            <td ng-show="item.idRaza === 5">Pardo Suizo</td>
+            <td ng-show="item.idRaza === 6">Brangus</td>
+            <td ng-show="item.idRaza === 7">Braford</td>
+            <!--Rodeos-->
+            <td ng-show="item.idRodeo === 1">Parición</td>
+            <td ng-show="item.idRodeo === 2">Cría</td>
+            <td ng-show="item.idRodeo === 3">Destete</td>
+            <td ng-show="item.idRodeo === 4">Recría</td>
+            <td ng-show="item.idRodeo === 5">Puro</td>
+            <td ng-show="item.idRodeo === 6">Servicio</td>
+            <td ng-show="item.idRodeo === 7">Engorde</td>
+            <!--Estados-->
+            <td ng-show="item.idEstado === 1">Activo</td>
+            <td ng-show="item.idEstado === 2">Preñada</td>
+            <td ng-show="item.idEstado === 3">Enfermo</td>
             <td>{{item.peso}}</td>
             <td><a ui-sref="home.modificarBovino"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a ui-sref="home.detalleBovino"><span class="glyphicon glyphicon-search"></span></a>

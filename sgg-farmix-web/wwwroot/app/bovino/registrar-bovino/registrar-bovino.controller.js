@@ -17,6 +17,8 @@
         vm.razas = [];
         vm.estados = [];
         vm.categorias = [];
+        vm.rodeos = [];
+        vm.establecimientos = [];
         vm.bovino = {};
         vm.fechaDeHoy = new Date();
         vm.btnVolver = "Cancelar";
@@ -47,8 +49,11 @@
                 vm.habilitar = false;
                 vm.btnVolver = "Volver";
             }, function (error) {
-                if (error.statusText === 'Bovino ya existe')
+                if (error.statusText === 'Bovino ya existe') {
                     toastr.warning('Ya existe un bovino con ese número de caravana', 'Advertencia');
+                    var fecha = vm.bovino.fechaNacimiento.split('/');
+                    vm.bovino.fechaNacimiento = new Date(fecha[2], fecha[1], fecha[0]);
+                }
                 else {
                     toastr.error('La operación no se pudo completar', 'Error');
                 }

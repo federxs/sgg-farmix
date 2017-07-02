@@ -12,6 +12,11 @@
                 },
                 save: {
                     method: 'POST'
+                },
+                obtenerListaBovinos: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Bovino/getListaBovinos',
+                    isArray:true
                 }
             });
         });

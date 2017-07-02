@@ -32,12 +32,14 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
+        [Route("api/Bovino/getListaBovinos")]
         [HttpGet]
-        public IEnumerable<Bovino> GetList(BovinoFilter filtro)
+        public IEnumerable<Bovino> GetList(string filtro)
         {
             try
             {
-                return BM.GetList(filtro);
+                var filtroDesearizado = JsonConvert.DeserializeObject<BovinoFilter>(filtro);
+                return BM.GetList(filtroDesearizado);
             }
             catch (Exception ex)
             {

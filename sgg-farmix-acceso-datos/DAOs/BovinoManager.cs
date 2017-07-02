@@ -175,7 +175,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@idRodeo", filter.idRodeo },
                     {"@idEstado", filter.idEstado },
                     {"@peso", filter.peso },
-                    {"@accionPeso", filter.accionPeso }
+                    {"@accionPeso", (filter.accionPeso == "0" ? null : filter.accionPeso) }
                 };
                 var lista = connection.GetArray<Bovino>("spObtenerListaBovinos", parametros, System.Data.CommandType.StoredProcedure);
                 return lista.ToList();
