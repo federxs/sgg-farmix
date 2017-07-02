@@ -27,6 +27,7 @@
                             N° de Caravana (*)
                         </label>
                         <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" min="0" required
+                               ng-disabled="!habilitar"
                                ng-model="bovino.numCaravana" />
                         <div ng-show="formRegistrarBovino.idCaravana.$touched">
                             <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.idCaravana.$valid"></span>
@@ -44,6 +45,7 @@
                             N° de Caravana Madre
                         </label>
                         <input name="madre" type="number" class="form-control" min="0" placeholder="N° de Caravana Madre"
+                               ng-disabled="!habilitar"
                                ng-model="bovino.idBovinoMadre" />
                         <div ng-show="formRegistrarBovino.madre.$touched">
                             <span class="text-danger" ng-show="formRegistrarBovino.madre.$error.min">
@@ -56,6 +58,7 @@
                             N° de Caravana Padre
                         </label>
                         <input name="padre" type="number" class="form-control" min="0" placeholder="N° de Caravana Padre"
+                               ng-disabled="!habilitar"
                                ng-model="bovino.idBovinoPadre" />
                         <div ng-show="formRegistrarBovino.padre.$touched">
                             <span class="text-danger" ng-show="formRegistrarBovino.padre.$error.min">
@@ -70,6 +73,7 @@
                             Establecimiento de Origen
                         </label>
                         <select class="form-control" name="establecimientoOrigen"
+                                ng-disabled="!habilitar"
                                 ng-model="bovino.idEstablecimientoOrigen">
                             <option value="">Seleccione...</option>
                             <option ng-repeat="item in establecimientos"
@@ -84,6 +88,7 @@
                             Rodeo (*)
                         </label>
                         <select class="form-control" name="rodeo" required
+                                ng-disabled="!habilitar"
                                 ng-model="bovino.idRodeo">
                             <option value="">Seleccione...</option>
                             <option ng-repeat="item in rodeos"
@@ -111,6 +116,7 @@
                             Apodo
                         </label>
                         <input name="apodo" type="text" class="form-control" placeholder="Apodo"
+                               ng-disabled="!habilitar"
                                ng-model="bovino.apodo" />
                     </div>
                     <div class="form-group" ng-class="{'has-success has-feedback':formRegistrarBovino.estado.$touched && formRegistrarBovino.estado.$valid,
@@ -120,6 +126,7 @@
                                 Estado (*)
                             </label>
                             <select class="form-control" name="estado" required
+                                    ng-disabled="!habilitar"
                                     ng-model="bovino.idEstado">
                                 <option value="">Seleccione...</option>
                                 <option ng-repeat="item in estados"
@@ -143,6 +150,7 @@
                         <div ng-init="bovino.genero = 0">
                             <label class="radio-inline">
                                 <input type="radio" name="genero" value="0"
+                                       ng-disabled="!habilitar"
                                        ng-model="bovino.genero">
                                 Hembra
                             </label>
@@ -161,6 +169,7 @@
                             Fecha de Nacimiento (*)
                         </label>
                         <input name="fechaNac" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required
+                               ng-disabled="!habilitar"
                                ng-model="bovino.fechaNacimiento" />
                         <div ng-show="formRegistrarBovino.fechaNac.$touched">
                             <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.fechaNac.$valid"></span>
@@ -179,6 +188,7 @@
                             Peso (*)
                         </label>
                         <input name="peso" type="number" class="form-control" min="0" max="1000" required placeholder="Peso"
+                               ng-disabled="!habilitar"
                                ng-model="bovino.peso" />
                         <div ng-show="formRegistrarBovino.peso.$touched">
                             <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.peso.$valid"></span>
@@ -197,6 +207,7 @@
                                 Peso al nacimiento
                             </label>
                             <input name="pesoAlNacer" type="number" class="form-control" min="0" max="1000" placeholder="Peso al nacimiento"
+                                   ng-disabled="!habilitar"
                                    ng-model="bovino.pesoAlNacer" />
                         </div>
                         <div ng-show="formRegistrarBovino.pesoAlNacer.$touched">
@@ -214,6 +225,7 @@
                             Categoría (*)
                         </label>
                         <select class="form-control" name="categoria" required
+                                ng-disabled="!habilitar"
                                 ng-model="bovino.idCategoria">
                             <option value="">Seleccione...</option>
                             <option ng-repeat="item in categorias"
@@ -235,6 +247,7 @@
                             Raza (*)
                         </label>
                         <select class="form-control" name="raza" required
+                                ng-disabled="!habilitar"
                                 ng-model="bovino.idRaza">
                             <option value="">Seleccione...</option>
                             <option ng-repeat="item in razas"
@@ -257,6 +270,7 @@
                             Descripción
                         </label>
                         <textarea name="descripcion" type="text" rows="2" class="form-control" placeholder="Descripción"
+                                  ng-disabled="!habilitar"
                                   ng-model="bovino.descripcion"></textarea>
                     </div>
                 </div>
@@ -264,13 +278,14 @@
         </div>
     </fieldset>
     <div class="row">
-        <button type="submit" class="btn btn-primary"
-                ng-disabled="formRegistrarBovino.$invalid"
+        <button type="submit" style="margin-left:15px;" class="btn btn-primary"
+                ng-disabled="formRegistrarBovino.$invalid || !habilitar"
                 ng-click="registrar()">
             Aceptar
         </button>
 
-        <button type="button" class="btn btn-default">Cancelar</button>
+        <button type="button" class="btn btn-default"
+                ui-sref="home.consultarBovino">{{btnVolver}}</button>
     </div>
 </form>
 <!-- Modal -->
