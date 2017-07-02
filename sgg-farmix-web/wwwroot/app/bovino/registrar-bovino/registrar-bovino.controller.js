@@ -21,6 +21,8 @@
         vm.establecimientos = [];
         vm.bovino = {};
         vm.fechaDeHoy = new Date();
+        vm.btnVolver = "Cancelar";
+        vm.habilitar = true;
         vm.showMjeSuccess = false;
         vm.showMjeError = false;
         vm.mjeExiste = '';
@@ -43,11 +45,15 @@
         function registrar() {
             vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
             vm.bovino.$save(function (data) {
-                toastr.success('Se agrego con éxito el bovino ' + data.idBovino, 'Exito');
-                $state.go('home.consultarBovino');
+                toastr.success('Se agrego con éxito el bovino ', 'Éxito');
+                vm.habilitar = false;
+                vm.btnVolver = "Volver";
             }, function (error) {
                 if (error.statusText === 'Bovino ya existe')
-                    toastr.error('Ya existe un bovino con ese número de caravana', 'Error');
+                    toastr.warning('Ya existe un bovino con ese número de caravana', 'Advertencia');
+                else {
+                    toastr.error('La operación no se pudo completar', 'Error');
+                }
             });
         }
 
