@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 
@@ -21,8 +22,8 @@ namespace sgg_farmix_api.Controllers
         {
             try
             {
-                var id = (Int64)JsonConvert.DeserializeObject(idBovino, typeof(Int64));
-                return BM.Get(id);
+                var id = Regex.Replace(idBovino, @"[^\d]", "");
+                return BM.Get(Int64.Parse(id));
             }
             catch (Exception ex)
             {
