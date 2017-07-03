@@ -74,12 +74,12 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     {"@idBovino", id }
                 };
-                var bovino = connection.GetObject<Bovino>("spObtenerDatosBovino", parametros, System.Data.CommandType.StoredProcedure);
+                var bovino = connection.GetArray<Bovino>("spObtenerDatosBovino", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return bovino;
             }
             catch (Exception ex)
             {
-                return null;
+                throw;
             }
             finally
             {
