@@ -13,5 +13,6 @@ namespace sgg_farmix_acceso_datos.Model
         public IEnumerable<Categoria> categorias { get; set; }
         public IEnumerable<Rodeo> rodeos { get; set; }
         public IEnumerable<EstablecimientoOrigen> establecimientos { get; set; }
+        public Bovino bovino { get; set; }
     }
 }

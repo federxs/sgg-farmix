@@ -18,12 +18,18 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/initModificacion")]
         [HttpGet]
-        public Bovino Get(string idBovino)
+        public Resultados Get(string idBovino)
         {
+            Resultados resultado = new Resultados();
             try
             {
                 var id = Regex.Replace(idBovino, @"[^\d]", "");
-                return BM.Get(Int64.Parse(id));
+                resultado.categorias = new CategoriaManager().GetList();
+                resultado.estados = new EstadoManager().GetList(1);
+                resultado.razas = new RazaManager().GetList();
+                resultado.rodeos = new RodeoManager().GetList();
+                resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
+                resultado.bovino = BM.Get(Int64.Parse(id));
             }
             catch (Exception ex)
             {
@@ -33,6 +39,7 @@ namespace sgg_farmix_api.Controllers
                     ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
                 });
             }
+            return resultado;
         }
 
         [Route("api/Bovino/getListaBovinos")]
