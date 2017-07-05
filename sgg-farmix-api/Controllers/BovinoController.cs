@@ -42,7 +42,7 @@ namespace sgg_farmix_api.Controllers
             return resultado;
         }
 
-        [Route("api/Bovino/getListaBovinos")]
+        [Route("api/BovinoConsultar/getListaBovinos")]
         [HttpGet]
         public IEnumerable<Bovino> GetList(string filtro)
         {

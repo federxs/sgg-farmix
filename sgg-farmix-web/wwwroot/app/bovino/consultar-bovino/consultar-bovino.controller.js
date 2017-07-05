@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarBovinoController', consultarBovinoController);
 
-    consultarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'toastr'];
+    consultarBovinoController.$inject = ['$scope', 'consultarBovinoService', 'toastr'];
 
-    function consultarBovinoController($scope, registrarBovinoService, toastr) {
+    function consultarBovinoController($scope, consultarBovinoService, toastr) {
         var vm = $scope;
         //funciones
         vm.inicializar = inicializar();
@@ -22,7 +22,7 @@
         vm.filtro = {};
 
         function inicializar() {
-            registrarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
+            consultarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
                 vm.estados = data.estados;
                 vm.categorias = data.categorias;
                 vm.razas = data.razas;
@@ -41,7 +41,7 @@
 
         function consultar() {
             if (vm.filtro.peso === '') vm.filtro.peso = 0;
-            registrarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro,false) }, function (data) {
+            consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 vm.listaBovinos = data;
                 vm.filtro.peso = '';
             }, function (error) {

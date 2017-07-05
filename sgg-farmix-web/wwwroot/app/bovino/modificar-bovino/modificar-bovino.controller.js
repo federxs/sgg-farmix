@@ -34,7 +34,8 @@
 
                 //bovino
                 vm.bovino = data.bovino;
-                vm.bovino.fechaNacimiento = data.fechaNacimiento;
+                var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10).split('/');
+                vm.bovino.fechaNacimiento = new Date(fechaNacimiento[2], fechaNacimiento[1], fechaNacimiento[0]);
 
                 //seteo combos
                 vm.bovino.idRaza = data.bovino.idRaza.toString();
@@ -50,7 +51,7 @@
                 //seteamos a "" las variables 0
                 angular.forEach(vm.bovino, function (value, key) {
                     if (parseInt(value) == 0 && key != 'idBovino') {
-                        value = '';
+                        vm.bovino[key] = '';
                     }
                 })
             })
