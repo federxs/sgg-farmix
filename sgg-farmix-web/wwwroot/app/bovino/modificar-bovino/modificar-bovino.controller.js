@@ -58,10 +58,9 @@
         }
 
         function modificar() {
-            vm.bovino.$save(function (data) {
+            modificarBovinoService.modificar(vm.bovino).then(function success(data) {
                 vm.habilitar = false;
-            });
-
+            })
         }
 
         function validar() {

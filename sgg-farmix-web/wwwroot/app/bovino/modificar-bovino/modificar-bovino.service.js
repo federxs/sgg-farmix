@@ -9,18 +9,27 @@
 
     function modificarBovinoService($http, portalService) {
         var service = {
-            inicializar: inicializar
+            inicializar: inicializar,
+            modificar: modificar
         };
 
         function inicializar(idBovino) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Bovino/initModificacion',
-                params: {idBovino: idBovino}
+                params: { idBovino: idBovino }
             }).then(
-            function(data) {
+            function (data) {
                 return data.data || [];
             });
+        }
+
+        function modificar(bovino) {
+            return $http({
+                method: 'PUT',
+                url: portalService.getUrlServer() + 'api/Bovino',
+                params: { value: bovino }
+            })
         }
 
         return service;
