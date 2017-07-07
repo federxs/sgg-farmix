@@ -41,6 +41,9 @@
         };
 
         function registrar() {
+            vm.bovino.peso = vm.bovino.peso.toString().replace(',', '.');
+            if (vm.bovino.pesoAlNacer !== undefined && vm.bovino.pesoAlNacer !== '')
+                vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
             vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
             vm.bovino.$save(function (data) {
                 toastr.success('Se agrego con éxito el bovino ', 'Éxito');

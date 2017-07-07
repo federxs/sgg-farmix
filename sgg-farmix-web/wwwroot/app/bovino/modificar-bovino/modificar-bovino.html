@@ -143,16 +143,16 @@
                         <label>
                             Sexo (*)
                         </label>
-                        <div ng-init="bovino.genero = 0">
+                        <div>
                             <label class="radio-inline">
                                 <input type="radio" name="genero" value="0"
                                        ng-disabled="!habilitar"
-                                       ng-model="bovino.genero">
+                                       ng-model="bovino.genero" ng-checked="checkH" ng-click="cambiarSexo()">
                                 Hembra
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="genero" value="1"
-                                       ng-model="bovino.genero">
+                                       ng-model="bovino.genero" ng-checked="checkM" ng-click="cambiarSexo()">
                                 Macho
                             </label>
                         </div>

@@ -96,11 +96,12 @@ namespace sgg_farmix_api.Controllers
         }
 
         [HttpPut]
-        public Bovino Put([FromBody] Bovino value)
+        public Bovino Put(string value)
         {
             try
             {
-                return BM.Update(value.idBovino, value);
+                var bovino = JsonConvert.DeserializeObject<Bovino>(value);
+                return BM.Update(bovino.idBovino, bovino);
             }
             catch (Exception ex)
             {

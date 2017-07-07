@@ -23,15 +23,16 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@descripcion", (entity.descripcion == null ? null : entity.descripcion) },
                     {"@fechaNac", entity.fechaNacimiento },
                     {"@genero", entity.genero },
-                    {"@peso", entity.peso },
-                    {"@pesoAlNacer", entity.pesoAlNacer },                   
+                    {"@peso", entity.peso },                 
                     { "@idCategoria", entity.idCategoria },
                     { "@idRaza", entity.idRaza },
                     { "@idRodeo", entity.idRodeo },
                     { "@idEstado", entity.idEstado },
                     { "@borrado", 0 }
             };
-                if(entity.idBovinoMadre != 0)
+                if (entity.pesoAlNacer != 0)
+                    parametros.Add("@pesoAlNacer", entity.pesoAlNacer); 
+                if (entity.idBovinoMadre != 0)
                     parametros.Add("@idBovinoMadre", entity.idBovinoMadre);
                 if(entity.idBovinoPadre != 0)                   
                     parametros.Add("@idBovinoPadre", entity.idBovinoPadre);
