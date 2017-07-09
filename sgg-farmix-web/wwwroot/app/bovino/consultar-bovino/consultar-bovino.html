@@ -21,6 +21,12 @@
         <div class="row">
             <div class="form-group col-md-3 col-lg-3">
                 <label>
+                    N° Caravana
+                </label>
+                <input class="form-control" type="text" ng-model="filtro.numCaravana" placeholder="N° Caravana" />
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
                     Categoría
                 </label>
                 <select class="form-control" name="categoria" required
@@ -113,6 +119,7 @@
 <div style="margin-top:25px;" class="row col-lg-9 col-md-9">
     <table class="table table-striped">
         <tr style="background: #B3E5FC;">
+            <th>N° Caravana</th>
             <th>Categoria</th>
             <th>Sexo</th>
             <th>Raza</th>
@@ -122,41 +129,13 @@
             <th>Acciones</th>
         </tr>
         <tr ng-repeat="item in listaBovinos">
-            <!--Categorias-->
-            <td ng-show="item.idCategoria === 1">Ternera</td>
-            <td ng-show="item.idCategoria === 2">Vaquilla</td>
-            <td ng-show="item.idCategoria === 3">Vaquillona</td>
-            <td ng-show="item.idCategoria === 4">Vaca Joven</td>
-            <td ng-show="item.idCategoria === 5">Vaca Adulta</td>
-            <td ng-show="item.idCategoria === 6">Vaca Conserva</td>
-            <td ng-show="item.idCategoria === 7">Ternero</td>
-            <td ng-show="item.idCategoria === 8">Novillito</td>
-            <td ng-show="item.idCategoria === 9">Novillo</td>
-            <td ng-show="item.idCategoria === 10">Torito</td>
-            <td ng-show="item.idCategoria === 11">Toruno</td>
-            <!--Sexo-->
-            <td ng-show="item.genero === 0">Hembra</td>
-            <td ng-show="item.genero === 1">Macho</td>
-            <!--Razas-->
-            <td ng-show="item.idRaza === 1">Aberdeen Angus</td>
-            <td ng-show="item.idRaza === 2">Hereford</td>
-            <td ng-show="item.idRaza === 3">Limousin</td>
-            <td ng-show="item.idRaza === 4">Simmental</td>
-            <td ng-show="item.idRaza === 5">Pardo Suizo</td>
-            <td ng-show="item.idRaza === 6">Brangus</td>
-            <td ng-show="item.idRaza === 7">Braford</td>
-            <!--Rodeos-->
-            <td ng-show="item.idRodeo === 1">Parición</td>
-            <td ng-show="item.idRodeo === 2">Cría</td>
-            <td ng-show="item.idRodeo === 3">Destete</td>
-            <td ng-show="item.idRodeo === 4">Recría</td>
-            <td ng-show="item.idRodeo === 5">Puro</td>
-            <td ng-show="item.idRodeo === 6">Servicio</td>
-            <td ng-show="item.idRodeo === 7">Engorde</td>
-            <!--Estados-->
-            <td ng-show="item.idEstado === 1">Activo</td>
-            <td ng-show="item.idEstado === 2">Preñada</td>
-            <td ng-show="item.idEstado === 3">Enfermo</td>
+            <td>{{item.numCaravana}}</td>
+            <td>{{item.categoriaNombre}}</td>
+            <td ng-show="item.sexo === 0">Hembra</td>
+            <td ng-show="item.sexo === 1">Macho</td>
+            <td>{{item.razaNombre}}</td>
+            <td>{{item.rodeoNombre}}</td>
+            <td>{{item.estadoNombre}}</td>
             <td>{{item.peso}}</td>
             <td>
                 <a ui-sref="home.modificarBovino({id:item.idBovino})"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -182,29 +161,4 @@
             </li>
         </ul>
     </nav>
-    <!--<nav aria-label="Page navigation">
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>-->
-    <!--<nav aria-label="...">
-        <ul class="pager">
-            <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
-            <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-    </nav>-->
 </div>

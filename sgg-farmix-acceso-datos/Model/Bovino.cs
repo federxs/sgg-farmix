@@ -34,7 +34,38 @@ namespace sgg_farmix_acceso_datos.Model
         public long idRodeo { get; set; }
         public long idEstado { get; set; }
         public float peso { get; set; }
+        public long numCaravana { get; set; }
         public string accionPeso { get; set; }
 
+    }
+
+    public class BovinoItem
+    {
+        public long idBovino { get; set; }
+        public string categoriaNombre { get; set; }
+        public int sexo { get; set; }
+        public string rodeoNombre { get; set; }
+        public string razaNombre { get; set; }
+        public string estadoNombre { get; set; }
+        public float peso { get; set; }
+        public long numCaravana { get; set; }
+    }
+
+    public class BovinoDetalle
+    {
+        public long numCaravana { get; set; }
+        public long idBovinoMadre { get; set; }
+        public long idBovinoPadre { get; set; }
+        public string establecimientoOrigen{ get; set; }
+        public string rodeo { get; set; }
+        public string apodo { get; set; }
+        public string estado { get; set; }
+        public int sexo { get; set; }
+        public string fechaNacimiento { get; set; }
+        public float peso { get; set; }
+        public float pesoAlNacer { get; set; }
+        public string categoria { get; set; }
+        public string raza { get; set; }
+        public string descripcion { get; set; }
     }
 }
