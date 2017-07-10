@@ -36,7 +36,8 @@
         });
         $stateProvider
         .state('home.detalleBovino', {
-            url: '/bovinos/id/detalle',
+            url: '/bovinos/:id/detalle',
+            params: { 'id': null },
             templateUrl: 'app/bovino/detalle-bovino/detalle-bovino.html',
             controller: 'detalleBovinoController',
             data: {
@@ -52,6 +53,12 @@
             data: {
                 pageTitle: 'Farmix - Modificación de Bovino'
             }
+        });
+        $stateProvider
+        .state('home.eliminarBovino', {
+            url: '/bovinos/:id/darDeBaja',
+            templateUrl: 'app/bovino/eliminar-bovino/eliminar-bovino.html',
+            controller: 'eliminarBovinoController'
         });
     });
 })();

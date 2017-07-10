@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .factory('factory', factory);
+        .factory('eliminarBovinoService', eliminarBovinoService);
 
-    factory.$inject = ['$http'];
+    eliminarBovinoService.$inject = ['$http'];
 
-    function factory($http) {
+    function eliminarBovinoService($http) {
         var service = {
             getData: getData
         };
