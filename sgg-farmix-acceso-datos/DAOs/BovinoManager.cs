@@ -163,7 +163,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<Bovino> GetList(BovinoFilter filter)
+        public IEnumerable<BovinoItem> GetList(BovinoFilter filter)
         {
             try
             {
@@ -178,8 +178,32 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@peso", filter.peso },
                     {"@accionPeso", (filter.accionPeso == "0" ? null : filter.accionPeso) }
                 };
-                var lista = connection.GetArray<Bovino>("spObtenerListaBovinos", parametros, System.Data.CommandType.StoredProcedure);
+                if (filter.numCaravana != 0)
+                    parametros.Add("@numCaravana", filter.numCaravana.ToString());
+                var lista = connection.GetArray<BovinoItem>("spObtenerListaBovinos", parametros, System.Data.CommandType.StoredProcedure);
                 return lista.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BovinoDetalle GetDetalle(long id)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idBovino", id }
+                };
+                var bovino = connection.GetArray<BovinoDetalle>("spObtenerDetalleBovino", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                return bovino;
             }
             catch (Exception ex)
             {

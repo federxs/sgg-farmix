@@ -88,6 +88,7 @@
             vm.listaBovinos = [];
             registros = 5;
             if (vm.filtro.peso === '') vm.filtro.peso = 0;
+            if (vm.filtro.numCaravana === '') vm.filtro.numCaravana = 0;
             consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 bovinos = data;
                 cantPaginas = parseInt(data.length / registros);
@@ -100,7 +101,8 @@
                     vm.listaBovinos.push(data[i]);
                 }
                 //vm.listaBovinos = data;
-                vm.filtro.peso = '';
+                if (vm.filtro.peso === 0) vm.filtro.peso = '';
+                if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
             }, function (error) {
                 toastr.error('Error: ' + error, 'Error');
             });

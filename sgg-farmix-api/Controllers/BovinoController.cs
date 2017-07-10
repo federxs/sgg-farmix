@@ -44,7 +44,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/BovinoConsultar/getListaBovinos")]
         [HttpGet]
-        public IEnumerable<Bovino> GetList(string filtro)
+        public IEnumerable<BovinoItem> GetList(string filtro)
         {
             try
             {
@@ -128,6 +128,7 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
         [Route("api/Bovino/inicializar/{idAmbitoEstado}")]
         [HttpGet]
         public Resultados GetListas(long idAmbitoEstado)
@@ -150,6 +151,25 @@ namespace sgg_farmix_api.Controllers
                 });
             }
             return resultado;
+        }
+
+        [Route("api/Bovino/initDetalle")]
+        [HttpGet]
+        public BovinoDetalle GetDetalle(string idBovino)
+        {
+            try
+            {
+                var id = Regex.Replace(idBovino, @"[^\d]", "");
+                return BM.GetDetalle(Int64.Parse(id));
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
         }
     }
 }
