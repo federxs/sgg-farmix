@@ -1,0 +1,144 @@
+﻿<form name="formEliminarBovino" novalidate>
+    <fieldset>
+        <div class="alert alert-danger" ng-show=""></div>
+        <div class="row">
+            <div class="col-lg-10">
+                <div style="margin-top:0px;" class="page-header">
+                    <h1>
+                        Bovino
+                        <small>Dar de baja</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="text-left">Los marcados con * son obligatorios: </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Identificación</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            N° de Caravana (*)
+                        </label>
+                        <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" disabled
+                               ng-model="bovino.numCaravana" />
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            N° de Caravana Madre
+                        </label>
+                        <input name="madre" type="number" class="form-control" placeholder="N° de Caravana Madre" disabled
+                               ng-model="bovino.idBovinoMadre" />
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            N° de Caravana Padre
+                        </label>
+                        <input name="padre" type="number" class="form-control" placeholder="N° de Caravana Padre" disabled
+                               ng-model="bovino.idBovinoPadre" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            Establecimiento de Origen
+                        </label>
+                        <input class="form-control" type="text" name="establecimientoOrigen" ng-model="bovino.establecimientoOrigen" disabled
+                               placeholder="Establecimiento de Origen" />
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label>
+                            Rodeo (*)
+                        </label>
+                        <input class="form-control" type="text" name="rodeo" ng-model="bovino.rodeo" disabled
+                               placeholder="Rodeo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Dar de Baja</div>
+            <div class="panel-body">
+                <div class="form-group col-md-12 col-lg-12">
+                    <label>
+                        Evento
+                    </label>
+                    <select class="form-control" ng-model="tipoEliminacion">
+                        <option value="venta" ng-selected>Venta</option>
+                        <option value="muerte">Muerte</option>
+                    </select>
+                </div>
+                <div ng-if="tipoEliminacion == 'venta'">
+                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formEliminarBovino.precio.$touched && formEliminarBovino.precio.$valid,
+                 'has-error has-feedback':formEliminarBovino.precio.$touched && formEliminarBovino.precio.$invalid}">
+                        <label>
+                            Precio
+                        </label>
+                        <input class="form-control" type="number" name="precio" min="0" max="10000" required placeholder="Precio"
+                               ng-disabled="!habilitar"
+                               ng-model="bajaBovino.precio"  />
+                    </div>
+                    <div ng-show="formEliminarBovino.precio.$touched">
+                        <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formEliminarBovino.precio.$valid"></span>
+                        <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formEliminarBovino.precio.$invalid"></span>
+                        <span class="text-danger" ng-show="formEliminarBovino.precio.$error.required || bajaBovino.precio == 0 ">
+                            Este campo es requerido
+                        </span>
+                        <span class="text-danger" ng-show="formEliminarBovino.precio.$error.min">
+                            El peso no puede ser negativo
+                        </span>
+                    </div>
+                    <div class="form-group col-md-6 col-lg-6">
+                        <label>
+                            Establecimiento Destino
+                        </label>
+                        <select class="form-control" name="establecimientoDestino"
+                                ng-disabled="!habilitar"
+                                ng-model="bajaBovino.idEstablecimientoDestino">
+                            <option value="">Seleccione...</option>
+                            <option ng-repeat="item in establecimientos"
+                                    value="{{ item.idEstablecimiento }}">
+                                {{ item.nombre }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div ng-if="tipoEliminacion == 'muerte'">
+                    <div class="form-group col-md-12 col-lg-12" ng-class="{'has-success has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$valid,
+                 'has-error has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$invalid}">
+                        <label>
+                            Fecha de Muerte
+                        </label>
+                        <input class="form-control" type="date" name="name" min="2000-01-01" 
+                               max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"
+                               ng-disabled="!habilitar"
+                               ng-model="bajaBovino.fechaMuerte"/>
+                    </div>
+                    <div ng-show="formEliminarBovino.fechaMuerte.$touched">
+                        <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formEliminarBovino.fechaMuerte.$valid"></span>
+                        <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formEliminarBovino.fechaMuerte.$invalid"></span>
+                        <span class="text-danger" ng-show="formEliminarBovino.fechaMuerte.$error.required">
+                            Este campo es requerido
+                        </span>
+                        <span class="text-danger" ng-show="formEliminarBovino.fechaMuerte.$error.max || formEliminarBovino.fechaMuerte.$error.min">
+                            Debe ingresar una fecha válida
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button type="submit" style="margin-left:15px;" class="btn btn-primary"
+                    ng-disabled="formEliminarBovino.$invalid || !habilitar"
+                    ng-click="registrar()">
+                Aceptar
+            </button>
+
+            <button type="button" class="btn btn-default"
+                    ui-sref="home.consultarBovino">
+                {{btnVolver}}
+            </button>
+        </div>
+    </fieldset>
+</form>
