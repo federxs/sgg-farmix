@@ -28,6 +28,11 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
+    },
+    {
+        "file": "plugins/phonegap-nfc/www/phonegap-nfc.js",
+        "id": "phonegap-nfc.NFC",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -38,7 +43,8 @@ module.exports.metadata =
     "cordova-plugin-whitelist": "1.2.2",
     "cordova-plugin-splashscreen": "3.2.2",
     "cordova-plugin-statusbar": "2.1.3",
-    "ionic-plugin-keyboard": "2.2.1"
+    "ionic-plugin-keyboard": "2.2.1",
+    "phonegap-nfc": "0.6.6"
 };
 // BOTTOM OF METADATA
 });
