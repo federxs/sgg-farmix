@@ -42,15 +42,21 @@
         };
     })
 
-    .controller('LeerCtrl', function ($scope) {
-        $scope.escribirNFC = function () {
-            var mensaje = [
-                ndef.textRecord("hello world")
-            ];
-            nfc.write(mensaje, alert("Success"), alert("Failure"));
-        };
-    })
-
-    .controller('PlaylistCtrl', function ($scope, $stateParams) {
+    .controller('LeerCtrl', function ($rootScope, $state) {
+        nfc.addMimeTypeListener("text/json", function (nfcEvent) {
+            console.log("mime" + nfcEvent.tag.ndefMessage[0]);
+            $rootScope.texto = nfcEvent.tag.ndefMessage[0].payload;
+            if ($rootScope.texto != "") {
+                $state.go('app.resultado');
+            }
+        });
+        nfc.addNdefListener(function (nfcEvent) {
+            $state.go('app.leer');
+            console.log("ndef" + nfcEvent.tag.ndefMessage[0]);
+            $rootScope.texto = nfcEvent.tag.ndefMessage[0].payload;
+            if ($rootScope.texto != "") {
+                $state.go('app.resultado');
+            }
+        });
     });
 })();

@@ -1,9 +1,9 @@
 ﻿angular.module('starter')
-    .controller('BienvenidoCtrl', function ($scope) {
+    .controller('BienvenidoCtrl', function ($scope, $rootScope) {
         $scope.escribirNFC = function () {
             var mensaje = [
-                ndef.textRecord("hello world")
+                ndef.textRecord("ID Vaca")
             ];
-            nfc.write(mensaje, alert("Success"), alert("Failure"));
+            nfc.addTagDiscoveredListener(nfc.write(mensaje));
         };
     });

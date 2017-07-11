@@ -4,7 +4,7 @@ angular.module('starter', ['ionic'])
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-      if (cordova.platformId === "ios" && window.cordova && window.cordova.plugins.Keyboard) {
+      if (/*cordova.platformId === "ios" &&*/ window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
 
@@ -29,8 +29,8 @@ angular.module('starter', ['ionic'])
         url: '/bienvenido',
       views: {
         'menuContent': {
-            templateUrl: 'views/bienvenido.html'
-            //controller: 'BienvenidoCtrl'
+            templateUrl: 'views/bienvenido.html',
+            controller: 'BienvenidoCtrl'
         }
       }
     })
@@ -40,6 +40,15 @@ angular.module('starter', ['ionic'])
             'menuContent': {
                 templateUrl: 'views/leer.html',
                 controller: 'LeerCtrl'
+            }
+        }
+    })
+    .state('app.resultado', {
+        url: '/resultado',
+        views: {
+            'menuContent': {
+                templateUrl: 'views/resultado.html',
+                controller: 'ResultadoCtrl'
             }
         }
     });
