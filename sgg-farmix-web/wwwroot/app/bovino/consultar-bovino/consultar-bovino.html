@@ -1,4 +1,11 @@
-﻿
+﻿<style>
+    .cursor {
+        cursor: no-drop;
+    }
+    .cursor a {
+        pointer-events: none;
+    }
+</style>
 <div class="row">
     <div class="col-lg-10">
         <div class="page-header">
@@ -147,17 +154,21 @@
     <nav aria-label="Page navigation">
         <ul class="pagination pull-right">
             <li>
-                <a ui-sref="home.consultarBovino" aria-label="Previous" ng-click="anterior()">
-                    <span aria-hidden="true">&laquo; Anterior</span>
-                </a>
+                <span class="{{disabledAnt}}">
+                    <a ui-sref="home.consultarBovino" aria-label="Previous" ng-click="anterior()">
+                        <span aria-hidden="true">&laquo; Anterior</span>
+                    </a>
+                </span>
             </li>
-            <li ui-sref="home.consultarBovino" ng-repeat="pag in Paginas">
-                <a ng-click="paginar(pag)">{{pag.numPag}}</a>
+            <li ui-sref="home.consultarBovino" ng-repeat="pag in Paginas" style="cursor:pointer">
+                <a ng-click="paginar(pag)" style="background-color:{{pag.clase}}">{{pag.numPag}}</a>
             </li>
             <li>
-                <a ui-sref="home.consultarBovino" aria-label="Next" ng-click="siguiente()">
-                    <span aria-hidden="true">Siguiente &raquo;</span>
-                </a>
+                <span class="{{disabledSgte}}">
+                    <a ui-sref="home.consultarBovino" aria-label="Next" ng-click="siguiente()">
+                        <span aria-hidden="true">Siguiente &raquo;</span>
+                    </a>
+                </span>
             </li>
         </ul>
     </nav>
