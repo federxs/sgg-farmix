@@ -67,21 +67,18 @@
                             Evento
                         </label>
                         <select class="form-control" id="evento" name="evento" ng-model="tipoEliminacionSeleccionada" required>
-                            <option value="">Seleccione...</option>
                             <option ng-repeat="item in tiposEliminacion" value="{{item.id}}">
                                 {{item.nombre}}
                             </option>
                         </select>
                         <div ng-show="formEliminarBovino.evento.$touched">
-                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formEliminarBovino.evento.$valid"></span>
-                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formEliminarBovino.evento.$invalid"></span>
-                            <span class="text-danger" ng-show="formEliminarBovino.evento.$error.required">
+                            <span class="help-block" ng-show="formEliminarBovino.evento.$error.required">
                                 Este campo es requerido
                             </span>
                         </div>
                     </div>
                 </div>
-                <div ng-if="tipoEliminacionSeleccionada == 1">
+                <div ng-if="tipoEliminacionSeleccionada == '1'">
                     <div class="row">
                         <div class="form-group col-md-6 col-lg-6"
                              ng-class="{'has-success has-feedback':formEliminarBovino.precio.$touched && formEliminarBovino.precio.$valid,
@@ -94,12 +91,10 @@
                                    ng-model="bajaBovino.precio" />
                         </div>
                         <div ng-show="formEliminarBovino.precio.$touched">
-                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formEliminarBovino.precio.$valid"></span>
-                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formEliminarBovino.precio.$invalid"></span>
                             <span class="help-block" ng-show="formEliminarBovino.precio.$error.required || bajaBovino.precio == 0 ">
                                 Este campo es requerido
                             </span>
-                            <span class="text-danger" ng-show="formEliminarBovino.precio.$error.min">
+                            <span class="help-block" ng-show="formEliminarBovino.precio.$error.min">
                                 El peso no puede ser negativo
                             </span>
                         </div>
@@ -120,16 +115,14 @@
                                     </option>
                                 </select>
                                 <div ng-show="formEliminarBovino.establecimientoDestino.$touched">
-                                    <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formEliminarBovino.establecimientoDestino.$valid"></span>
-                                    <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formEliminarBovino.establecimientoDestino.$invalid"></span>
-                                    <span class="text-danger" ng-show="formEliminarBovino.establecimientoDestino.$error.required">
+                                    <span class="help-block" ng-show="formEliminarBovino.establecimientoDestino.$error.required">
                                         Este campo es requerido
                                     </span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div ng-if="tipoEliminacionSeleccionada == 2">
+                    <div ng-if="tipoEliminacionSeleccionada == '2'">
                         <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$valid,
                              'has-error has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$invalid}">
                             <label class="control-label" for="fechaMuerte">
@@ -141,12 +134,10 @@
                                    ng-model="bajaBovino.fechaMuerte" />
                         </div>
                         <div ng-show="formEliminarBovino.fechaMuerte.$touched">
-                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formEliminarBovino.fechaMuerte.$valid"></span>
-                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formEliminarBovino.fechaMuerte.$invalid"></span>
-                            <span class="text-danger" ng-show="formEliminarBovino.fechaMuerte.$error.required">
+                            <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.required">
                                 Este campo es requerido
                             </span>
-                            <span class="text-danger" ng-show="formEliminarBovino.fechaMuerte.$error.max || formEliminarBovino.fechaMuerte.$error.min">
+                            <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.max || formEliminarBovino.fechaMuerte.$error.min">
                                 Debe ingresar una fecha válida
                             </span>
                         </div>
@@ -154,35 +145,16 @@
                 </div>
             </div><!--fin panel body-->
         </div><!--fin panel-->
-        <div ng-class="{'has-success has-feedback': (formEliminarBovino.caca.$dirty && formEliminarBovino.caca.$valid),
-                             'has-error has-feedback':(formEliminarBovino.caca.$dirty && formEliminarBovino.caca.$invalid)}">
-            <div class="row col-lg-12">
-                <div class="form-group">
-                    <label class="control-label" for="caca">Caca</label>
-                    <input class="form-control" type="number" name="caca" id="caca" min="0" required
-                           ng-model-options="{ debounce: 500 }"
-                           ng-model="caca" />
-
-                    <div class="help-block" ng-messages="formEliminarBovino.caca.$error" ng-if="formEliminarBovino.caca.$dirty">
-                        <p ng-message="required">la caca es requerida</p>
-                        <p ng-message="min">la caca debe ser mayor a 0</p>
-                    </div>
-
-                    <span ng-show="formEliminarBovino.caca.$dirty && formEliminarBovino.caca.$valid" class="glyphicon glyphicon-ok form-control-feedback"></span>
-                    <span ng-show="formEliminarBovino.caca.$dirty && formEliminarBovino.caca.$invalid" class="glyphicon glyphicon-remove form-control-feedback"></span>
-                </div>
-            </div>
-            <div class="row">
-                <button type="submit" style="margin-left: 15px;" class="btn btn-primary"
-                        ng-disabled="formEliminarBovino.$invalid || !habilitar"
-                        ng-click="eliminar()">
-                    Aceptar
-                </button>
-                <button type="button" class="btn btn-default"
-                        ui-sref="home.consultarBovino">
-                    {{btnVolver}}
-                </button>
-            </div>
+        <div class="row">
+            <button type="submit" style="margin-left: 15px;" class="btn btn-primary"
+                    ng-disabled="formEliminarBovino.$invalid || !habilitar"
+                    ng-click="eliminar()">
+                Aceptar
+            </button>
+            <button type="button" class="btn btn-default"
+                    ui-sref="home.consultarBovino">
+                {{btnVolver}}
+            </button>
         </div>
     </fieldset>
 </form>

@@ -16,5 +16,6 @@
         vm.btnVolver = "Cancelar";
         vm.habilitar = true;
         vm.fechaDeHoy = new Date();
+        vm.tipoEliminacionSeleccionada = "1";
     }
 })();
