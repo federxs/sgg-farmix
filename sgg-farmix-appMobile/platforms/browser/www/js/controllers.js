@@ -42,15 +42,9 @@
         };
     })
 
-    .controller('BienvenidoCtrl', function ($scope) {
-        $scope.escribirNFC = function () {
-            var mensaje = [
-                ndef.textRecord("hello world")
-            ];
-            nfc.write(mensaje, alert("Success"), alert("Failure"));
-        };
-    })
-
-    .controller('PlaylistCtrl', function ($scope, $stateParams) {
+    .controller('LeerCtrl', function ($rootScope) {
+        nfc.addNdefListener(function (nfcEvent) {
+            $rootScope.texto = nfcEvent.tag.ndefMessage[0].payload;
+        });
     });
 })();

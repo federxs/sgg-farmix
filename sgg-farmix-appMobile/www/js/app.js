@@ -42,6 +42,15 @@ angular.module('starter', ['ionic'])
                 controller: 'LeerCtrl'
             }
         }
+    })
+    .state('app.resultado', {
+        url: '/resultado',
+        views: {
+            'menuContent': {
+                templateUrl: 'views/resultado.html'//,
+                //controller: 'ResultadoCtrl'
+            }
+        }
     });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/bienvenido');

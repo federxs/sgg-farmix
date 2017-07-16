@@ -24,6 +24,9 @@
         vm.listaBovinos = [];
         vm.filtro = {};
         vm.Paginas = [];
+        vm.disabledSgte = '';
+        vm.disabledAnt = '';
+        vm.cursor = '';
         var registros = 5;
         var bovinos = [];
         var ultimoIndiceVisto = 0;
@@ -54,6 +57,10 @@
                     break;
                 }
             }
+            if (paginaSelecciona.numPag === 1) {
+                vm.disabledAnt = 'cursor';
+                vm.disabledSgte = '';
+            }
             paginar(paginaSelecciona);
         };
 
@@ -65,14 +72,30 @@
                     break;
                 }
             }
+            if (paginaSelecciona.numPag === vm.Paginas.length) {
+                vm.disabledSgte = 'cursor';
+                vm.disabledAnt = '';
+            }
             paginar(paginaSelecciona);
         };
 
         function paginar(pag) {
+            vm.disabledAnt = '';
+            vm.disabledSgte = '';
             for (var i = 0; i < vm.Paginas.length; i++) {
                 vm.Paginas[i].seleccionada = false;
+                vm.Paginas[i].clase = '';
             };
             pag.seleccionada = true;
+            pag.clase = '#E4DFDF';
+            if (pag.numPag === vm.Paginas.length) {
+                vm.disabledSgte = 'cursor';
+                vm.disabledAnt = '';
+            }
+            if (pag.numPag === 1) {
+                vm.disabledAnt = 'cursor';
+                vm.disabledSgte = '';
+            }
             vm.listaBovinos = [];
             for (var i = pag.regInit; i < pag.regFin; i++) {
                 vm.listaBovinos.push(bovinos[i]);
@@ -93,8 +116,8 @@
                 bovinos = data;
                 cantPaginas = parseInt(data.length / registros);
                 for (var i = 0; i < (cantPaginas + 1) ; i++) {
-                    if (i === 0) vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: true });
-                    else vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: false });
+                    if (i === 0) vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: true, clase: '#E4DFDF'});
+                    else vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: false, clase: '' });
                 }
                 if (data.length < registros) registros = data.length;
                 for (var i = 0; i < registros; i++) {
