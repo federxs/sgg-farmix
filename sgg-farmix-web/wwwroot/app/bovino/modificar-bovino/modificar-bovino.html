@@ -1,4 +1,4 @@
-﻿<form name="formRegistrarBovino" novalidate>
+﻿<form name="formModificarBovino" novalidate>
     <fieldset>
         <div class="alert alert-danger" ng-show=""></div>
         <div class="row">
@@ -17,21 +17,21 @@
             <div class="panel-heading">Identificación</div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.idCaravana.$touched && formRegistrarBovino.idCaravana.$valid,
-                 'has-error has-feedback':formRegistrarBovino.idCaravana.$touched && formRegistrarBovino.idCaravana.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.idCaravana.$touched && formModificarBovino.idCaravana.$valid,
+                 'has-error has-feedback':formModificarBovino.idCaravana.$touched && formModificarBovino.idCaravana.$invalid}">
                         <label>
                             N° de Caravana (*)
                         </label>
                         <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" min="0" required
                                ng-disabled="!habilitar"
                                ng-model="bovino.numCaravana" />
-                        <div ng-show="formRegistrarBovino.idCaravana.$touched">
-                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.idCaravana.$valid"></span>
-                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.idCaravana.$invalid"></span>
-                            <span class="text-danger" ng-show="formRegistrarBovino.idCaravana.$error.required">
+                        <div ng-show="formModificarBovino.idCaravana.$touched">
+                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formModificarBovino.idCaravana.$valid"></span>
+                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formModificarBovino.idCaravana.$invalid"></span>
+                            <span class="text-danger" ng-show="formModificarBovino.idCaravana.$error.required">
                                 Este campo es requerido
                             </span>
-                            <span class="text-danger" ng-show="formRegistrarBovino.idCaravana.$error.min">
+                            <span class="text-danger" ng-show="formModificarBovino.idCaravana.$error.min">
                                 El número no puede ser negativo
                             </span>
                         </div>
@@ -43,8 +43,8 @@
                         <input name="madre" type="number" class="form-control" min="0" placeholder="N° de Caravana Madre"
                                ng-disabled="!habilitar"
                                ng-model="bovino.idBovinoMadre" />
-                        <div ng-show="formRegistrarBovino.madre.$touched">
-                            <span class="text-danger" ng-show="formRegistrarBovino.madre.$error.min">
+                        <div ng-show="formModificarBovino.madre.$touched">
+                            <span class="text-danger" ng-show="formModificarBovino.madre.$error.min">
                                 El número no puede ser negativo
                             </span>
                         </div>
@@ -56,8 +56,8 @@
                         <input name="padre" type="number" class="form-control" min="0" placeholder="N° de Caravana Padre"
                                ng-disabled="!habilitar"
                                ng-model="bovino.idBovinoPadre" />
-                        <div ng-show="formRegistrarBovino.padre.$touched">
-                            <span class="text-danger" ng-show="formRegistrarBovino.padre.$error.min">
+                        <div ng-show="formModificarBovino.padre.$touched">
+                            <span class="text-danger" ng-show="formModificarBovino.padre.$error.min">
                                 El número no puede ser negativo
                             </span>
                         </div>
@@ -78,8 +78,8 @@
                             </option>
                         </select>
                     </div>
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.rodeo.$touched && formRegistrarBovino.rodeo.$valid,
-                 'has-error has-feedback':formRegistrarBovino.rodeo.$touched && formRegistrarBovino.rodeo.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.rodeo.$touched && formModificarBovino.rodeo.$valid,
+                 'has-error has-feedback':formModificarBovino.rodeo.$touched && formModificarBovino.rodeo.$invalid}">
                         <label>
                             Rodeo (*)
                         </label>
@@ -92,10 +92,10 @@
                                 {{ item.nombre }}
                             </option>
                         </select>
-                        <div ng-show="formRegistrarBovino.rodeo.$touched">
-                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.rodeo.$valid"></span>
-                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.rodeo.$invalid"></span>
-                            <span class="text-danger" ng-show="formRegistrarBovino.rodeo.$error.required">
+                        <div ng-show="formModificarBovino.rodeo.$touched">
+                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formModificarBovino.rodeo.$valid"></span>
+                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formModificarBovino.rodeo.$invalid"></span>
+                            <span class="text-danger" ng-show="formModificarBovino.rodeo.$error.required">
                                 Este campo es requerido
                             </span>
                         </div>
@@ -115,8 +115,8 @@
                                ng-disabled="!habilitar"
                                ng-model="bovino.apodo" />
                     </div>
-                    <div class="form-group" ng-class="{'has-success has-feedback':formRegistrarBovino.estado.$touched && formRegistrarBovino.estado.$valid,
-                 'has-error has-feedback':formRegistrarBovino.estado.$touched && formRegistrarBovino.estado.$invalid}">
+                    <div class="form-group" ng-class="{'has-success has-feedback':formModificarBovino.estado.$touched && formModificarBovino.estado.$valid,
+                 'has-error has-feedback':formModificarBovino.estado.$touched && formModificarBovino.estado.$invalid}">
                         <div class="col-md-4 col-lg-4">
                             <label>
                                 Estado (*)
@@ -130,10 +130,10 @@
                                     {{ item.nombre }}
                                 </option>
                             </select>
-                            <div ng-show="formRegistrarBovino.estado.$touched">
-                                <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.estado.$valid"></span>
-                                <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.estado.$invalid"></span>
-                                <span class="text-danger" ng-show="formRegistrarBovino.estado.$error.required">
+                            <div ng-show="formModificarBovino.estado.$touched">
+                                <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formModificarBovino.estado.$valid"></span>
+                                <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formModificarBovino.estado.$invalid"></span>
+                                <span class="text-danger" ng-show="formModificarBovino.estado.$error.required">
                                     Este campo es requerido
                                 </span>
                             </div>
@@ -159,40 +159,40 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.fechaNac.$touched && formRegistrarBovino.fechaNac.$valid,
-                 'has-error has-feedback':formRegistrarBovino.fechaNac.$touched && formRegistrarBovino.fechaNac.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.fechaNac.$touched && formModificarBovino.fechaNac.$valid,
+                 'has-error has-feedback':formModificarBovino.fechaNac.$touched && formModificarBovino.fechaNac.$invalid}">
                         <label>
                             Fecha de Nacimiento (*)
                         </label>
                         <input name="fechaNac" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required
                                ng-disabled="!habilitar"
                                ng-model="bovino.fechaNacimiento" />
-                        <div ng-show="formRegistrarBovino.fechaNac.$touched">
-                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.fechaNac.$valid"></span>
-                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.fechaNac.$invalid"></span>
-                            <span class="text-danger" ng-show="formRegistrarBovino.fechaNac.$error.required">
+                        <div ng-show="formModificarBovino.fechaNac.$touched">
+                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formModificarBovino.fechaNac.$valid"></span>
+                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formModificarBovino.fechaNac.$invalid"></span>
+                            <span class="text-danger" ng-show="formModificarBovino.fechaNac.$error.required">
                                 Este campo es requerido
                             </span>
-                            <span class="text-danger" ng-show="formRegistrarBovino.fechaNac.$error.max || formRegistrarBovino.fechaNac.$error.min">
+                            <span class="text-danger" ng-show="formModificarBovino.fechaNac.$error.max || formModificarBovino.fechaNac.$error.min">
                                 Debe ingresar una fecha válida
                             </span>
                         </div>
                     </div>
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.peso.$touched && formRegistrarBovino.peso.$valid,
-                 'has-error has-feedback':formRegistrarBovino.peso.$touched && formRegistrarBovino.peso.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.peso.$touched && formModificarBovino.peso.$valid,
+                 'has-error has-feedback':formModificarBovino.peso.$touched && formModificarBovino.peso.$invalid}">
                         <label>
                             Peso (*)
                         </label>
                         <input name="peso" type="number" class="form-control" min="0" max="1000" required placeholder="Peso"
                                ng-disabled="!habilitar"
                                ng-model="bovino.peso" />
-                        <div ng-show="formRegistrarBovino.peso.$touched">
-                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.peso.$valid"></span>
-                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.peso.$invalid"></span>
-                            <span class="text-danger" ng-show="formRegistrarBovino.peso.$error.required || bovino.peso == 0 ">
+                        <div ng-show="formModificarBovino.peso.$touched">
+                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formModificarBovino.peso.$valid"></span>
+                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formModificarBovino.peso.$invalid"></span>
+                            <span class="text-danger" ng-show="formModificarBovino.peso.$error.required || bovino.peso == 0 ">
                                 Este campo es requerido
                             </span>
-                            <span class="text-danger" ng-show="formRegistrarBovino.peso.$error.min">
+                            <span class="text-danger" ng-show="formModificarBovino.peso.$error.min">
                                 El peso no puede ser negativo
                             </span>
                         </div>
@@ -206,8 +206,8 @@
                                    ng-disabled="!habilitar"
                                    ng-model="bovino.pesoAlNacer" />
                         </div>
-                        <div ng-show="formRegistrarBovino.pesoAlNacer.$touched">
-                            <span class="text-danger" ng-show="formRegistrarBovino.pesoAlNacer.$error.number">
+                        <div ng-show="formModificarBovino.pesoAlNacer.$touched">
+                            <span class="text-danger" ng-show="formModificarBovino.pesoAlNacer.$error.number">
                                 El campo debe ser numérico
                             </span>
                         </div>
@@ -215,8 +215,8 @@
                 </div>
 
                 <div class="row">
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.categoria.$touched && formRegistrarBovino.categoria.$valid,
-                 'has-error has-feedback':formRegistrarBovino.categoria.$touched && formRegistrarBovino.categoria.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.categoria.$touched && formModificarBovino.categoria.$valid,
+                 'has-error has-feedback':formModificarBovino.categoria.$touched && formModificarBovino.categoria.$invalid}">
                         <label>
                             Categoría (*)
                         </label>
@@ -229,16 +229,16 @@
                                 {{ item.nombre }}
                             </option>
                         </select>
-                        <div ng-show="formRegistrarBovino.categoria.$touched">
-                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.categoria.$valid"></span>
-                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.categoria.$invalid"></span>
-                            <span class="text-danger" ng-show="formRegistrarBovino.categoria.$error.required">
+                        <div ng-show="formModificarBovino.categoria.$touched">
+                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formModificarBovino.categoria.$valid"></span>
+                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formModificarBovino.categoria.$invalid"></span>
+                            <span class="text-danger" ng-show="formModificarBovino.categoria.$error.required">
                                 Este campo es requerido
                             </span>
                         </div>
                     </div>
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.raza.$touched && formRegistrarBovino.raza.$valid,
-                 'has-error has-feedback':formRegistrarBovino.raza.$touched && formRegistrarBovino.raza.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.raza.$touched && formModificarBovino.raza.$valid,
+                 'has-error has-feedback':formModificarBovino.raza.$touched && formModificarBovino.raza.$invalid}">
                         <label>
                             Raza (*)
                         </label>
@@ -251,10 +251,10 @@
                                 {{ item.nombre }}
                             </option>
                         </select>
-                        <div ng-show="formRegistrarBovino.raza.$touched">
-                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formRegistrarBovino.raza.$valid"></span>
-                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formRegistrarBovino.raza.$invalid"></span>
-                            <span class="text-danger" ng-show="formRegistrarBovino.raza.$error.required">
+                        <div ng-show="formModificarBovino.raza.$touched">
+                            <span class="glyphicon glyphicon-ok form-control-feedback" ng-show="formModificarBovino.raza.$valid"></span>
+                            <span class="glyphicon glyphicon-alert form-control-feedback" ng-show="formModificarBovino.raza.$invalid"></span>
+                            <span class="text-danger" ng-show="formModificarBovino.raza.$error.required">
                                 Este campo es requerido
                             </span>
                         </div>
@@ -275,7 +275,7 @@
     </fieldset>
     <div class="row">
         <button type="submit" style="margin-left:15px;" class="btn btn-primary"
-                ng-disabled="formRegistrarBovino.$invalid || !habilitar"
+                ng-disabled="formModificarBovino.$invalid || !habilitar"
                 ng-click="modificar()">
             Aceptar
         </button>

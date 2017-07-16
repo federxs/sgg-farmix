@@ -5,11 +5,14 @@
         .module('app')
         .controller('eliminarBovinoController', eliminarBovinoController);
 
-    eliminarBovinoController.$inject = ['$location', 'eliminarBovinoService'];
+    eliminarBovinoController.$inject = ['$scope', 'eliminarBovinoService'];
 
-    function eliminarBovinoController($location, eliminarBovinoService) {
-        var vm = this;
-        vm.tipoEliminacion = true;
+    function eliminarBovinoController($scope, eliminarBovinoService) {
+        var vm = $scope;
+        vm.tiposEliminacion = [
+            { id: 1, nombre: 'Venta' },
+            { id: 2, nombre: 'Defunción' }
+        ];
         vm.btnVolver = "Cancelar";
         vm.habilitar = true;
         vm.fechaDeHoy = new Date();

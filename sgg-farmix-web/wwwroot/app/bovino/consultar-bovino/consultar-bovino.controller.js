@@ -86,7 +86,7 @@
             var cantPaginas = 0;
             vm.Paginas = [];
             vm.listaBovinos = [];
-            registros = 5;
+            registros = 10;
             if (vm.filtro.peso === '') vm.filtro.peso = 0;
             if (vm.filtro.numCaravana === '') vm.filtro.numCaravana = 0;
             consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
