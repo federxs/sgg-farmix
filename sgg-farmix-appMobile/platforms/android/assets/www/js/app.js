@@ -29,7 +29,8 @@ angular.module('starter', ['ionic'])
         url: '/bienvenido',
       views: {
         'menuContent': {
-            templateUrl: 'views/bienvenido.html'
+            templateUrl: 'views/bienvenido.html',
+            controller: 'Controller'
         }
       }
     })
@@ -37,8 +38,7 @@ angular.module('starter', ['ionic'])
         url: '/leer',
         views: {
             'menuContent': {
-                templateUrl: 'views/leer.html',
-                controller: 'Controller'
+                templateUrl: 'views/leer.html'
             }
         }
     })
@@ -46,8 +46,7 @@ angular.module('starter', ['ionic'])
         url: '/resultado',
         views: {
             'menuContent': {
-                templateUrl: 'views/resultado.html'//,
-                //controller: 'ResultadoCtrl'
+                templateUrl: 'views/resultado.html'
             }
         }
     })
@@ -55,8 +54,7 @@ angular.module('starter', ['ionic'])
         url: '/escribir',
         views: {
             'menuContent': {
-                templateUrl: 'views/escribir.html',
-                controller: 'Controller'
+                templateUrl: 'views/escribir.html'
             }
         }
     });

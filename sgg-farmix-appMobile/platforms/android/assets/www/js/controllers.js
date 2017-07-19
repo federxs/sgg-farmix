@@ -40,63 +40,25 @@
                 $scope.closeLogin();
             }, 1000);
         };
-
-        $scope.leer = function (){
-            $rootScope.leer = true;
-        }
-        $scope.escribir = function () {
-            $rootScope.leer = false;
-        }
     })
 
-    .controller('Controller', function ($rootScope, $state, $ionicModal) {
-        leerMime = function (nfcEvent) {
-            console.log("mime" + nfcEvent.tag.ndefMessage[0]);
-            $rootScope.texto = nfcEvent.tag.ndefMessage[0].payload;
-            if ($rootScope.texto != "") {
-                $state.go('app.resultado');
-            }
-        };
-        leer = function (nfcEvent) {
-            $state.go('app.leer');
-            console.log("ndef" + nfcEvent.tag.ndefMessage[0]);
-            $rootScope.texto = nfcEvent.tag.ndefMessage[0].payload;
-            if ($rootScope.texto != "") {
-                $state.go('app.resultado');
-            }
-        };
-        escribir = function () {
-            var mensaje = [
-                ndef.textRecord("ID Vaca")
-            ];
-            nfc.write(mensaje, $rootScope.modal2.hide());
-            nfc.removeTagDiscoveredListener(function () {
+    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService) {
+        $ionicPlatform.ready(function () {
+            nfc.addNdefListener(tagEscaneado);
+        });
+
+        tagEscaneado = function(nfcEvent){
+            if ($state.current.name == "app.escribir") {
                 var mensaje = [
-                    ndef.textRecord("ID Vaca")
-                ];
-                nfc.write(mensaje, $rootScope.modal2.hide());
-            });
-        };
-        if ($rootScope.leer == true) {
-            //esto para leer
-            console.log("leer");
-            nfc.addMimeTypeListener("text/json", leerMime);
-            nfc.addNdefListener(leer);
-            nfc.removeTagDiscoveredListener(escribir);
-        } else {
-            //esto para escribir
-            console.log("escribir");
-            $ionicModal.fromTemplateUrl('views/leerParaEscanear.html', {
-                scope: $rootScope
-            }).then(function (modal) {
-                $rootScope.modal2 = modal;
-            });
-            $rootScope.escribirNFC = function () {
-                $rootScope.modal2.show();
-                nfc.addTagDiscoveredListener(escribir);
-            };
-            nfc.removeMimeTypeListener("text/json", leerMime);
-            nfc.removeNdefListener(leer);
+                ndef.textRecord("8")];
+                nfc.write(mensaje);
+                alert("Se ha escrito el ID en el tag escaneado");
+            } else if ($state.current.name == "app.leer") {
+                var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
+                $rootScope.texto = bovinoService.getDatosBovino(id);
+                //numCaravana, apodo, peso, fechaNacimiento
+                $state.go('app.resultado');
+            }
         }
     });
 })();
