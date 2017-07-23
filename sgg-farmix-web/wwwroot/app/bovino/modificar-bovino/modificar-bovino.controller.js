@@ -5,9 +5,9 @@
         .module('app')
         .controller('modificarBovinoController', modificarBovinoController);
 
-    modificarBovinoController.$inject = ['$scope', 'modificarBovinoService', '$stateParams'];
+    modificarBovinoController.$inject = ['$scope', 'modificarBovinoService', 'toastr', '$stateParams'];
 
-    function modificarBovinoController($scope, modificarBovinoService, $stateParams) {
+    function modificarBovinoController($scope, modificarBovinoService, toastr, $stateParams) {
         var vm = $scope;
         //funciones
         vm.modificar = modificar;
@@ -94,6 +94,9 @@
             else if (vm.checkM === true) vm.bovino.genero = 1;
             modificarBovinoService.modificar(vm.bovino).then(function success(data) {
                 vm.habilitar = false;
+                toastr.success('Se modificó el bovino con éxito ', 'Éxito');
+            }, function error(data) {
+                toastr.success('La operación no se pudo completar', 'Error');
             })
         };
 

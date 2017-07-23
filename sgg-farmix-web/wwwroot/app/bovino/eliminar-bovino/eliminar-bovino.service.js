@@ -9,11 +9,14 @@
 
     function eliminarBovinoService($http) {
         var service = {
-            getData: getData
+            inicializar: inicializar,
+            eliminar: eliminar
         };
 
         return service;
 
-        function getData() { }
+        function inicializar() { }
+
+        function eliminar() { }
     }
 })();

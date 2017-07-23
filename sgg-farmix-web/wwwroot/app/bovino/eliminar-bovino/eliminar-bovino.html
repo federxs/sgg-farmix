@@ -66,7 +66,8 @@
                         <label class="control-label" for="evento">
                             Evento
                         </label>
-                        <select class="form-control" id="evento" name="evento" ng-model="tipoEliminacionSeleccionada" required>
+                        <select class="form-control" id="evento" name="evento" required
+                                ng-model="tipoEliminacionSeleccionada">
                             <option ng-repeat="item in tiposEliminacion" value="{{item.id}}">
                                 {{item.nombre}}
                             </option>
@@ -89,58 +90,56 @@
                             <input class="form-control" type="number" id="precio" name="precio" min="0" max="10000" placeholder="Precio" required
                                    ng-disabled="!habilitar"
                                    ng-model="bajaBovino.precio" />
+                            <div ng-show="formEliminarBovino.precio.$touched">
+                                <span class="help-block" ng-show="formEliminarBovino.precio.$error.required || bajaBovino.precio == 0 ">
+                                    Este campo es requerido
+                                </span>
+                                <span class="help-block" ng-show="formEliminarBovino.precio.$error.min">
+                                    El peso no puede ser negativo
+                                </span>
+                            </div>
                         </div>
-                        <div ng-show="formEliminarBovino.precio.$touched">
-                            <span class="help-block" ng-show="formEliminarBovino.precio.$error.required || bajaBovino.precio == 0 ">
-                                Este campo es requerido
-                            </span>
-                            <span class="help-block" ng-show="formEliminarBovino.precio.$error.min">
-                                El peso no puede ser negativo
-                            </span>
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <div class="form-group has-feedback"
-                                 ng-class="{'has-success':formEliminarBovino.precio.$touched && formEliminarBovino.precio.$valid,
+                        <div class="form-group col-md-6 col-lg-6"
+                             ng-class="{'has-success':formEliminarBovino.precio.$touched && formEliminarBovino.precio.$valid,
                              'has-error':formEliminarBovino.precio.$touched && formEliminarBovino.precio.$invalid}">
-                                <label class="control-label" for="establecimientoDestino">
-                                    Establecimiento Destino
-                                </label>
-                                <select class="form-control" id="establecimientoDestino" name="establecimientoDestino" required
-                                        ng-disabled="!habilitar"
-                                        ng-model="bajaBovino.idEstablecimientoDestino">
-                                    <option value="">Seleccione...</option>
-                                    <option ng-repeat="item in establecimientos"
-                                            value="{{ item.idEstablecimiento }}">
-                                        {{ item.nombre }}
-                                    </option>
-                                </select>
-                                <div ng-show="formEliminarBovino.establecimientoDestino.$touched">
-                                    <span class="help-block" ng-show="formEliminarBovino.establecimientoDestino.$error.required">
-                                        Este campo es requerido
-                                    </span>
-                                </div>
+                            <label class="control-label" for="establecimientoDestino">
+                                Establecimiento Destino
+                            </label>
+                            <select class="form-control" id="establecimientoDestino" name="establecimientoDestino" required
+                                    ng-disabled="!habilitar"
+                                    ng-model="bajaBovino.idEstablecimientoDestino">
+                                <option value="">Seleccione...</option>
+                                <option ng-repeat="item in establecimientos"
+                                        value="{{ item.idEstablecimiento }}">
+                                    {{ item.nombre }}
+                                </option>
+                            </select>
+                            <div ng-show="formEliminarBovino.establecimientoDestino.$touched">
+                                <span class="help-block" ng-show="formEliminarBovino.establecimientoDestino.$error.required">
+                                    Este campo es requerido
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <div ng-if="tipoEliminacionSeleccionada == '2'">
-                        <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$valid,
+                </div>
+                <div ng-if="tipoEliminacionSeleccionada == '2'">
+                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$valid,
                              'has-error has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$invalid}">
-                            <label class="control-label" for="fechaMuerte">
-                                Fecha de Muerte
-                            </label>
-                            <input class="form-control" type="date" id="fechaMuerte" name="name" min="2000-01-01" required
-                                   max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"
-                                   ng-disabled="!habilitar"
-                                   ng-model="bajaBovino.fechaMuerte" />
-                        </div>
-                        <div ng-show="formEliminarBovino.fechaMuerte.$touched">
-                            <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.required">
-                                Este campo es requerido
-                            </span>
-                            <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.max || formEliminarBovino.fechaMuerte.$error.min">
-                                Debe ingresar una fecha válida
-                            </span>
-                        </div>
+                        <label class="control-label" for="fechaMuerte">
+                            Fecha de Muerte
+                        </label>
+                        <input class="form-control" type="date" id="fechaMuerte" name="name" min="2000-01-01" required
+                               max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"
+                               ng-disabled="!habilitar"
+                               ng-model="bajaBovino.fechaMuerte" />
+                    </div>
+                    <div ng-show="formEliminarBovino.fechaMuerte.$touched">
+                        <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.required">
+                            Este campo es requerido
+                        </span>
+                        <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.max || formEliminarBovino.fechaMuerte.$error.min">
+                            Debe ingresar una fecha válida
+                        </span>
                     </div>
                 </div>
             </div><!--fin panel body-->

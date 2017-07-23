@@ -5,9 +5,9 @@
         .module('app')
         .controller('detalleBovinoController', detalleBovinoController);
 
-    detalleBovinoController.$inject = ['$scope', 'detalleBovinoService'];
+    detalleBovinoController.$inject = ['$scope', 'detalleBovinoService', '$stateParams'];
 
-    function detalleBovinoController($scope, detalleBovinoService) {
+    function detalleBovinoController($scope, detalleBovinoService, $stateParams) {
         var vm = $scope;
         //funciones
         vm.inicializar = inicializar;
