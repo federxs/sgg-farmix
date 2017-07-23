@@ -1,7 +1,7 @@
 (function () {
     angular.module('starter')
 
-    .controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
+    .controller('AppCtrl', function ($scope, $rootScope, $ionicModal, $timeout) {
 
         // With the new view caching in Ionic, Controllers are only called
         // when they are recreated or on app start, instead of every page change.
@@ -42,21 +42,23 @@
         };
     })
 
-    .controller('LeerCtrl', function ($rootScope, $state) {
-        nfc.addMimeTypeListener("text/json", function (nfcEvent) {
-            console.log("mime" + nfcEvent.tag.ndefMessage[0]);
-            $rootScope.texto = nfcEvent.tag.ndefMessage[0].payload;
-            if ($rootScope.texto != "") {
+    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService) {
+        $ionicPlatform.ready(function () {
+            nfc.addNdefListener(tagEscaneado);
+        });
+
+        tagEscaneado = function(nfcEvent){
+            if ($state.current.name == "app.escribir") {
+                var mensaje = [
+                ndef.textRecord("8")];
+                nfc.write(mensaje);
+                alert("Se ha escrito el ID en el tag escaneado");
+            } else if ($state.current.name == "app.leer") {
+                var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
+                $rootScope.texto = bovinoService.getDatosBovino(id);
+                //numCaravana, apodo, peso, fechaNacimiento
                 $state.go('app.resultado');
             }
-        });
-        nfc.addNdefListener(function (nfcEvent) {
-            $state.go('app.leer');
-            console.log("ndef" + nfcEvent.tag.ndefMessage[0]);
-            $rootScope.texto = nfcEvent.tag.ndefMessage[0].payload;
-            if ($rootScope.texto != "") {
-                $state.go('app.resultado');
-            }
-        });
+        }
     });
 })();
