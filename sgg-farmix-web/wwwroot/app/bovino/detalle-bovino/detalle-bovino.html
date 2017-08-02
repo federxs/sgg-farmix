@@ -83,13 +83,13 @@
                         </label>
                         <div>
                             <label class="radio-inline">
-                                <input type="radio" name="genero" value="0" disabled
-                                       ng-model="bovino.genero">
+                                <input type="radio" name="genero" ng-checked="checkH" value="0" disabled
+                                       ng-model="bovino.sexo">
                                 Hembra
                             </label>
                             <label class="radio-inline">
-                                <input type="radio" name="genero" value="1" disabled
-                                       ng-model="bovino.genero">
+                                <input type="radio" name="genero" ng-checked="checkM" value="1" disabled
+                                       ng-model="bovino.sexo">
                                 Macho
                             </label>
                         </div>
@@ -133,7 +133,7 @@
                         <label>
                             Raza (*)
                         </label>
-                        <input class="form-control" type="text" name="raza" ng-model="bovino.Raza" disabled
+                        <input class="form-control" type="text" name="raza" ng-model="bovino.raza" disabled
                                placeholder="Raza" />
                     </div>
                 </div>

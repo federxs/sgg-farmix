@@ -108,19 +108,25 @@
                     <option value="menor">Menor</option>
                 </select>
             </div>
-            <div style="margin-top:24px" class="form-group col-md-1 col-lg-1">
+            <div style="margin-top:24px" class="form-group col-md-2 col-lg-2">
                 <input class="form-control" type="text" ng-model="filtro.peso" placeholder="Peso (kg)" />
+            </div>
+            <div style="margin-top:24px" class="col-md-2 col-lg-2">
+                <button style="margin-left:65px" class="btn btn-primary glyphicon glyphicon-filter"
+                        ng-click="consultar()">
+                    Filtrar
+                </button>
             </div>
         </div>
     </fieldset>
-    <div class="col-lg-9 col-md-9">
+    <!--<div class="col-lg-9 col-md-9">
         <div class="pull-right">
             <button class="btn btn-primary"
                     ng-click="consultar()">
                 Filtrar
             </button>
         </div>
-    </div>
+    </div>-->
 </form>
 <legend>Resultados</legend>
 <div style="margin-top:25px;" class="row col-lg-9 col-md-9">

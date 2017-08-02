@@ -25,7 +25,7 @@
         function inicializar() {
             eliminarBovinoService.inicializar($stateParams.id).then(function success(data) {
                 //bovino
-                vm.bovino = data.bovino;
+                vm.bovino = data;
 
                 //seteamos a "" las variables 0
                 angular.forEach(vm.bovino, function (value, key) {

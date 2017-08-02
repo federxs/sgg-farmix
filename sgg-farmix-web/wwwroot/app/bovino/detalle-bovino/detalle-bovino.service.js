@@ -7,12 +7,12 @@
 
     detalleBovinoService.$inject = ['$http', 'portalService'];
 
-    function detalleBovinoService($http) {
+    function detalleBovinoService($http, portalService) {
         var service = {
             inicializar: inicializar,
         };
 
-        function inicializar() {
+        function inicializar(idBovino) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Bovino/initDetalle',
