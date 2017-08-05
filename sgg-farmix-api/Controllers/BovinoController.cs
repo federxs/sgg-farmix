@@ -171,5 +171,66 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Bovino/initBaja")]
+        [HttpGet]
+        public BovinoHeaderEliminar GetBaja(string idBovino)
+        {
+            try
+            {
+                var id = Regex.Replace(idBovino, @"[^\d]", "");
+                var bovino = BM.GetDetalleBaja(Int64.Parse(id));
+                Resultados resultado = new Resultados();
+                resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
+                bovino.establecimientosDestino = resultado;
+                return bovino;
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Bovino/darBajaMuerte")]
+        [HttpPut]
+        public void DeleteMuerte(string idBovino, string fechaMuerte)
+        {
+            try
+            {
+                var id = Regex.Replace(idBovino, @"[^\d]", "");
+                BM.DeleteMuerte(Int64.Parse(id), fechaMuerte);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Bovino/darBajaVenta")]
+        [HttpPost]
+        public void DeleteVenta(string venta)
+        {
+            try
+            {
+                var vta = JsonConvert.DeserializeObject<Venta>(venta);
+                BM.DeleteVenta(vta);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

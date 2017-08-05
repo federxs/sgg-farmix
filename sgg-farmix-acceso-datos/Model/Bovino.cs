@@ -68,4 +68,15 @@ namespace sgg_farmix_acceso_datos.Model
         public string raza { get; set; }
         public string descripcion { get; set; }
     }
+
+    public class BovinoHeaderEliminar
+    {
+        public long idBovino { get; set; }
+        public long numCaravana { get; set; }
+        public long idBovinoMadre { get; set; }
+        public long idBovinoPadre { get; set; }
+        public string establecimientoOrigen { get; set; }
+        public string rodeo { get; set; }
+        public Resultados establecimientosDestino { get; set; }
+    }
 }

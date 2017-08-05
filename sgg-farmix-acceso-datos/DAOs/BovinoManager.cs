@@ -141,26 +141,7 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public int Borrar(long id)
         {
-            try
-            {
-                connection = new SqlServerConnection();
-                var parametros = new Dictionary<string, object>
-                {
-                    {"@idBovino", id }
-                };
-                var borrado = connection.Execute("spBorrarBovino", parametros, System.Data.CommandType.StoredProcedure);
-                if (borrado == 0)
-                    throw new ArgumentException("Delete bovino error");
-                return borrado;
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
-            finally
-            {
-                connection.Close();
-            }
+            throw new NotImplementedException();
         }
 
         public IEnumerable<BovinoItem> GetList(BovinoFilter filter)
@@ -204,6 +185,77 @@ namespace sgg_farmix_acceso_datos.DAOs
                 };
                 var bovino = connection.GetArray<BovinoDetalle>("spObtenerDetalleBovino", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return bovino;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public BovinoHeaderEliminar GetDetalleBaja(long id)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idBovino", id }
+                };
+                var bovino = connection.GetArray<BovinoHeaderEliminar>("spObtenerHeaderBaja", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();                
+                return bovino;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void DeleteMuerte(long id, string fechaMuerte)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idBovino", id },
+                    {"@fechaMuerte", fechaMuerte }
+                };
+                var update = connection.Execute("spBajaBovinoMuerte", parametros, System.Data.CommandType.StoredProcedure);
+                if (update == 0)
+                    throw new ArgumentException("Baja de bovino por muerte error");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void DeleteVenta(Venta entity)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idBovino", entity.idBovino},
+                    {"@idEstabDestino", entity.idEstablecimientoDestino},
+                    {"@monto", entity.monto}
+                };
+                entity.idVenta = connection.Execute("spRegistrarVenta", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.idVenta == 0)
+                    throw new ArgumentException("Create Bovino Error");
             }
             catch (Exception ex)
             {

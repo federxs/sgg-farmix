@@ -10,7 +10,8 @@
     function eliminarBovinoService($http, portalService) {
         var service = {
             inicializar: inicializar,
-            eliminar: eliminar
+            bajaMuerte: bajaMuerte,
+            bajaVenta : bajaVenta
         };
 
         return service;
@@ -18,7 +19,7 @@
         function inicializar(idBovino) {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Bovino/initDetalle',
+                url: portalService.getUrlServer() + 'api/Bovino/initBaja',
                 params: { idBovino: idBovino }
             }).then(
             function (data) {
@@ -26,6 +27,26 @@
             });
         }
 
-        function eliminar() { }
+        function bajaMuerte(idBovino, fechaMuerte) {
+            return $http({
+                method: 'PUT',
+                url: portalService.getUrlServer() + 'api/Bovino/darBajaMuerte',
+                params: { idBovino: idBovino, fechaMuerte: fechaMuerte }
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function bajaVenta(venta) {
+            return $http({
+                method: 'POST',
+                url: portalService.getUrlServer() + 'api/Bovino/darBajaVenta',
+                params: { venta: venta }
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
     }
 })();
