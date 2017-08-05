@@ -129,7 +129,7 @@
     </div>-->
 </form>
 <legend>Resultados</legend>
-<div style="margin-top:25px;" class="row col-lg-9 col-md-9">
+<div style="margin-top:25px;" class="row col-lg-12 col-md-12">
     <table class="table table-striped">
         <tr style="background: #B3E5FC;">
             <th>N° Caravana</th>
@@ -157,25 +157,27 @@
             </td>
         </tr>
     </table>
-    <nav aria-label="Page navigation">
-        <ul class="pagination pull-right">
-            <li>
-                <span class="{{disabledAnt}}">
-                    <a ui-sref="home.consultarBovino" aria-label="Previous" ng-click="anterior()">
-                        <span aria-hidden="true">&laquo; Anterior</span>
-                    </a>
-                </span>
-            </li>
-            <li ui-sref="home.consultarBovino" ng-repeat="pag in Paginas" style="cursor:pointer">
-                <a ng-click="paginar(pag)" style="background-color:{{pag.clase}}">{{pag.numPag}}</a>
-            </li>
-            <li>
-                <span class="{{disabledSgte}}">
-                    <a ui-sref="home.consultarBovino" aria-label="Next" ng-click="siguiente()">
-                        <span aria-hidden="true">Siguiente &raquo;</span>
-                    </a>
-                </span>
-            </li>
-        </ul>
-    </nav>
+    <div class="col-md-offset-4">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <span class="{{disabledAnt}}">
+                        <a ui-sref="home.consultarBovino" aria-label="Previous" ng-click="anterior()">
+                            <span aria-hidden="true">&laquo; Anterior</span>
+                        </a>
+                    </span>
+                </li>
+                <li ui-sref="home.consultarBovino" ng-repeat="pag in Paginas" style="cursor:pointer">
+                    <a ng-click="paginar(pag)" style="background-color:{{pag.clase}}">{{pag.numPag}}</a>
+                </li>
+                <li>
+                    <span class="{{disabledSgte}}">
+                        <a ui-sref="home.consultarBovino" aria-label="Next" ng-click="siguiente()">
+                            <span aria-hidden="true">Siguiente &raquo;</span>
+                        </a>
+                    </span>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
