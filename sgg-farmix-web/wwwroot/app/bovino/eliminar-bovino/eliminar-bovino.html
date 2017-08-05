@@ -11,7 +11,6 @@
                 </div>
             </div>
         </div>
-        <!--<div class="text-left">Los marcados con * son obligatorios: </div>-->
 
         <div class="panel panel-default">
             <div class="panel-heading">Identificación</div>
@@ -72,11 +71,6 @@
                                 {{item.nombre}}
                             </option>
                         </select>
-                        <div ng-show="formEliminarBovino.evento.$touched">
-                            <span class="help-block" ng-show="formEliminarBovino.evento.$error.required">
-                                Este campo es requerido
-                            </span>
-                        </div>
                     </div>
                 </div>
                 <div ng-if="tipoEliminacionSeleccionada == '1'">
