@@ -77,6 +77,25 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Bovino/validarCaravana")]
+        [HttpGet]
+        public bool ValidarNroCaravana(string numCaravana)
+        {
+            try
+            {
+                var numero = Regex.Replace(numCaravana, @"[^\d]", "");
+                return BM.ValidarCaravana(Int64.Parse(numero));
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
         
         [HttpPost]
         public Bovino Post([FromBody]Bovino bovino)

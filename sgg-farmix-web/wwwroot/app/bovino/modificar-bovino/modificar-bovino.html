@@ -173,9 +173,9 @@
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.peso.$touched && formModificarBovino.peso.$valid,
                  'has-error has-feedback':formModificarBovino.peso.$touched && formModificarBovino.peso.$invalid}">
                         <label class="control-label" for="peso">
-                            Peso (*)
+                            Peso (kg) (*)
                         </label>
-                        <input name="peso" type="number" class="form-control" min="0" max="1000" required placeholder="Peso"
+                        <input name="peso" type="number" class="form-control" min="0" max="1000" required placeholder="Peso (kg)"
                                ng-disabled="!habilitar"
                                ng-model="bovino.peso" />
                         <div ng-show="formModificarBovino.peso.$touched">
@@ -190,9 +190,9 @@
                     <div class="row-fluid">
                         <div class="form-group col-md-4 col-lg-4">
                             <label class="control-label" for="pesoAlNacer">
-                                Peso al nacimiento
+                                Peso al nacimiento (kg)
                             </label>
-                            <input name="pesoAlNacer" type="number" class="form-control" min="0" max="1000" placeholder="Peso al nacimiento"
+                            <input name="pesoAlNacer" type="number" class="form-control" min="0" max="1000" placeholder="Peso al nacimiento (kg)"
                                    ng-disabled="!habilitar"
                                    ng-model="bovino.pesoAlNacer" />
                         </div>

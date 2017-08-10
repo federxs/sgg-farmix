@@ -56,6 +56,27 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
+        public bool ValidarCaravana(long numCaravana)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@numCaravana", numCaravana }
+                };
+                var resultado = connection.Execute("spValidarCaravana", parametros, System.Data.CommandType.StoredProcedure);
+                if (resultado == 1) //existe ese numero de caravana ya en el sistema
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public void Delete(long id)
         {
             throw new NotImplementedException();
