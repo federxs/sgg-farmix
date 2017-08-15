@@ -11,7 +11,7 @@
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
             background-color: #0288D1;
-            margin-bottom: 0;
+            margin-bottom: 0px;
             border-radius: 0;
         }
 
@@ -23,8 +23,8 @@
         /* Set gray background color and 100% height */
         .sidenav {
             padding-top: 20px;
-            background-color: #03A9F4;
-            height: 350px;
+            background-color: #1B95CC;
+            height: 100%;
         }
 
         /* Set black background color, white text and some padding */
@@ -34,8 +34,8 @@
             padding: 15px;
             bottom: 0;
             width: 100%;
-            margin-top:90px;
-            text-align:center;
+            margin-top: 90px;
+            text-align: center;
         }
 
         /* On small screens, set height to 'auto' for sidenav and grid */
@@ -57,34 +57,27 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-inverse">
-        <div style="background:#0288D1" class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <div class="text-center">
-                    <img src="/resources/logo/farmix_logo.png" width="160" height="100" />
-                    <img src="/resources/logo/farmix_title_logo.png" />
+    <nav class="navbar navbar-inverse" style="margin-bottom: 0px">
+        <div style="background:#0c7e1f" class="container-fluid ">
+            <div class="collapse navbar-collapse " id="myNavbar">
+                <div class="logoHeader">
+                    <img src="/resources/logo/logo_farmix.png" height="100" />
+
+                    <!--<img src="/resources/logo/farmix_title_logo.png" />-->
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="container-fluid text-center">
+    <div class="container-fluid text-center" style="background-color: #1B95CC;">
         <div class="row content">
             <div class="col-md-2 col-lg-2 sidenav">
-                <ul class="list-group">
-                    <!--<a ui-sref="{{men.urlMenu}}">{{men.nombre}}</a>-->
-                    <li class="list-group-item">Usuario<span class="pull-left glyphicon glyphicon-user"></span></li>
-                    <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}">
-                        <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0">
-                            <!--<i class="{{menu.menIcono}}"></i>-->
-                            <span class="title">{{menu.nombre}}</span>
+                <ul class="list-group" style="margin-top: 20px;">
+                    <!--<li class="list-group-item">Usuario<span class="pull-left glyphicon glyphicon-user"></span></li>-->
+                    <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}" style="{{menu.activo}}">
+                        <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0" ng-click="activar(menu.idMenu)">
+                            <span class="title" style="color:white">{{menu.nombre}}</span>
+                            <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:white"></i>
                         </a>
                         <a href="javascript:;" class="nav-link nav-toggle" ng-if="menu.Menu_Hijos.length > 0">
                             <i class="{{menu.Menu_Padre.Men_Icono}}"></i>
@@ -101,11 +94,11 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-10 col-lg-10 text-left">
-                <!--Acá irian los pages-->
+            <div class="col-md-10 col-lg-10 text-left" style="background-color:white!important;padding-bottom:20px">
                 <div ui-view class="fade-in-up"> </div>
             </div>
         </div>
+
     </div>
 
     <footer class="footer">
@@ -113,6 +106,5 @@
             <p>Farmix 2017. Versión 1.0</p>
         </div>
     </footer>
-
 </body>
 </html>
