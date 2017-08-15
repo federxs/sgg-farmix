@@ -56,7 +56,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public bool ValidarCaravana(long numCaravana)
+        public string ValidarCaravana(long numCaravana)
         {
             try
             {
@@ -67,9 +67,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                 };
                 var resultado = connection.Execute("spValidarCaravana", parametros, System.Data.CommandType.StoredProcedure);
                 if (resultado == 1) //existe ese numero de caravana ya en el sistema
-                    return true;
+                    return "1";
                 else
-                    return false;
+                    return "0";
             }
             catch (Exception ex)
             {

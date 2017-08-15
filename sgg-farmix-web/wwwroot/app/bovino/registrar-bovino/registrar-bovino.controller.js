@@ -13,7 +13,7 @@
         vm.registrar = registrar;
         vm.validar = validar;
         vm.inicializar = inicializar;
-		vm.idCaravanaChange = idCaravanaChange;
+        vm.idCaravanaChange = idCaravanaChange;
         //variables
         $scope.$state = $state;
         vm.razas = [];
@@ -61,19 +61,29 @@
                     toastr.error('La operación no se pudo completar', 'Error');
                 }
             });
-        }
+        };
 
-		function idCaravanaChange() {
-			registrarBovinoService.existeIdCaravana(bovino.numCaravana)
-			.then(function success(data) {
-				if(data.existeIdCaravana == true){
-					formRegistrarBovino.idCaravana.$error.existeIdCaravana = true;
-				} else{
-					formRegistrarBovino.idCaravana.$error.existeIdCaravana = false;
-				}
-			}
-		}
-		
+        function idCaravanaChange() {
+            registrarBovinoService.existeIdCaravana({idCaravana: vm.bovino.numCaravana}, function(data)
+            {
+                if (data[0] === "1") {
+                    vm.formRegistrarBovino.idCaravana.$error.existeIdCaravana = true;
+                }
+                else
+                    vm.formRegistrarBovino.idCaravana.$error.existeIdCaravana = false;
+            }, function (error) {
+                toastr.error('La operación no se pudo completar', 'Error');
+            })
+            
+			//.then(function success(data) {
+			//    if (data.existeIdCaravana) {
+			//        formRegistrarBovino.idCaravana.$error.existeIdCaravana = true;
+			//    } else {
+			//        formRegistrarBovino.idCaravana.$error.existeIdCaravana = false;
+			//    }
+			//});
+        };
+
         function convertirFecha(fecha) {
             var dia, mes, año;
             dia = fecha.getDate().toString();

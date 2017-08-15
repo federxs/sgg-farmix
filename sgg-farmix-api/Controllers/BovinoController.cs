@@ -78,13 +78,13 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
-        [Route("api/Bovino/validarCaravana")]
+        [Route("api/Bovino/existeIdCaravana/{idCaravana}")]
         [HttpGet]
-        public bool ValidarNroCaravana(string numCaravana)
+        public string ValidarNroCaravana(string idCaravana)
         {
             try
             {
-                var numero = Regex.Replace(numCaravana, @"[^\d]", "");
+                var numero = Regex.Replace(idCaravana, @"[^\d]", "");
                 return BM.ValidarCaravana(Int64.Parse(numero));
             }
             catch (Exception ex)
