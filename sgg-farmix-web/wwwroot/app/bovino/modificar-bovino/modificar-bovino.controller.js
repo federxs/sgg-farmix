@@ -28,6 +28,7 @@
 
         function inicializar() {
             modificarBovinoService.inicializar($stateParams.id).then(function success(data) {
+                vm.habilitar = true;
                 //combos
                 vm.estados = data.estados;
                 vm.categorias = data.categorias;
@@ -37,8 +38,11 @@
 
                 //bovino
                 vm.bovino = data.bovino;
-                var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10).split('/');
-                vm.bovino.fechaNacimiento = new Date(fechaNacimiento[2], fechaNacimiento[1], fechaNacimiento[0]);
+                if (vm.bovino.fechaNacimiento[8] === " ")
+                    var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 8).split('/');
+                else
+                    var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10).split('/');
+                vm.bovino.fechaNacimiento = new Date(fechaNacimiento[2], fechaNacimiento[0], fechaNacimiento[1]);
                 if (vm.bovino.genero === 0) {
                     vm.checkH = true;
                     vm.checkM = false;
