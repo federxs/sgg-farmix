@@ -13,6 +13,15 @@
                 save: {
                     method: 'POST'
                 }
+				,
+				existeIdCaravana: {
+					method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Bovino/existeIdCaravana/:idCaravana',              
+                    params: {
+                        idCaravana: '@idCaravana'
+                    },
+                    isArray: false
+				}
             });
         });
 })();

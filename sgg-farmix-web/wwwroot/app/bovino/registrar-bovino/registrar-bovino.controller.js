@@ -13,7 +13,9 @@
         vm.registrar = registrar;
         vm.validar = validar;
         vm.inicializar = inicializar;
+		vm.idCaravanaChange = idCaravanaChange;
         //variables
+        $scope.$state = $state;
         vm.razas = [];
         vm.estados = [];
         vm.categorias = [];
@@ -61,6 +63,17 @@
             });
         }
 
+		function idCaravanaChange() {
+			registrarBovinoService.existeIdCaravana(bovino.numCaravana)
+			.then(function success(data) {
+				if(data.existeIdCaravana == true){
+					formRegistrarBovino.idCaravana.$error.existeIdCaravana = true;
+				} else{
+					formRegistrarBovino.idCaravana.$error.existeIdCaravana = false;
+				}
+			}
+		}
+		
         function convertirFecha(fecha) {
             var dia, mes, año;
             dia = fecha.getDate().toString();

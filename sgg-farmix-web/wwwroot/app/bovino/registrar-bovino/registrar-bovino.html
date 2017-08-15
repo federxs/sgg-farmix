@@ -24,13 +24,17 @@
                         </label>
                         <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" min="0" required
                                ng-disabled="!habilitar"
-                               ng-model="bovino.numCaravana" />
+                               ng-model="bovino.numCaravana" 
+							   ng-blur="existeIdCaravana()"/>
                         <div ng-show="formRegistrarBovino.idCaravana.$touched">
                             <span class="help-block" ng-show="formRegistrarBovino.idCaravana.$error.required">
                                 Este campo es requerido
                             </span>
                             <span class="help-block" ng-show="formRegistrarBovino.idCaravana.$error.min">
                                 El número no puede ser negativo
+                            </span>
+							<span class="help-block" ng-show="formRegistrarBovino.idCaravana.$error.existeIdCaravana">
+                                Ya hay un bovino registrado para este ID
                             </span>
                         </div>
                     </div>
