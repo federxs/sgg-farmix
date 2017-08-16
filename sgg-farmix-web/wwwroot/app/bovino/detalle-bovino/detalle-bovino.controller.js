@@ -9,6 +9,7 @@
 
     function detalleBovinoController($scope, detalleBovinoService, $stateParams) {
         var vm = $scope;
+        vm.showSpinner = true;
         //funciones
         vm.inicializar = inicializar;
         //variables
@@ -19,6 +20,7 @@
         inicializar();
 
         function inicializar() {
+            vm.showSpinner = true;
             detalleBovinoService.inicializar($stateParams.id).then(function success(data) {
                 vm.checkH = false;
                 vm.checkM = false;
@@ -39,7 +41,8 @@
                     if (parseInt(value) === 0 && key !== 'idBovino') {
                         vm.bovino[key] = '';
                     }
-                })
+                });
+                vm.showSpinner = false;
             });
         }//fin inicializar
 

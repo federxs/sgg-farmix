@@ -2,15 +2,46 @@
     .cursor {
         cursor: no-drop;
     }
-    .cursor a {
-        pointer-events: none;
+
+        .cursor a {
+            pointer-events: none;
+        }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 150px;
+        height: 150px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
     }
 </style>
 <div class="row">
     <div class="col-lg-10">
         <div class="page-header">
             <div class="pull-right" style="margin-top: 13px; margin-right:130px; ">
-                <button class="btn btn-success" ui-sref="home.registrarBovino">
+                <button class="btn btn-success" ui-sref="home.registrarBovino" ng-disabled="disabled">
                     <span class="glyphicon glyphicon-plus"></span>
                     Nuevo
                 </button>
@@ -30,14 +61,14 @@
                 <label>
                     N° Caravana
                 </label>
-                <input class="form-control" type="text" ng-model="filtro.numCaravana" placeholder="N° Caravana" />
+                <input class="form-control" type="text" ng-model="filtro.numCaravana" placeholder="N° Caravana" ng-disabled="disabled" />
             </div>
             <div class="form-group col-md-3 col-lg-3">
                 <label>
                     Categoría
                 </label>
                 <select class="form-control" name="categoria" required
-                        ng-model="filtro.idCategoria">
+                        ng-model="filtro.idCategoria" ng-disabled="disabled">
                     <option value="0">Seleccione...</option>
                     <option ng-repeat="item in categorias"
                             value="{{ item.idCategoria }}">
@@ -50,7 +81,7 @@
                     Sexo
                 </label>
                 <select class="form-control" name="genero" required
-                        ng-model="filtro.genero">
+                        ng-model="filtro.genero" ng-disabled="disabled">
                     <option value="2">Seleccione...</option>
                     <option value="0">Hembra</option>
                     <option value="1">Macho</option>
@@ -61,7 +92,7 @@
                     Raza
                 </label>
                 <select class="form-control" name="raza" required
-                        ng-model="filtro.idRaza">
+                        ng-model="filtro.idRaza" ng-disabled="disabled">
                     <option value="0">Seleccione...</option>
                     <option ng-repeat="item in razas"
                             value="{{ item.idRaza }}">
@@ -76,7 +107,7 @@
                     Rodeo
                 </label>
                 <select class="form-control" name="rodeo" required
-                        ng-model="filtro.idRodeo">
+                        ng-model="filtro.idRodeo" ng-disabled="disabled">
                     <option value="0">Seleccione...</option>
                     <option ng-repeat="item in rodeos"
                             value="{{ item.idRodeo }}">
@@ -89,7 +120,7 @@
                     Estado
                 </label>
                 <select class="form-control" name="estado" required
-                        ng-model="filtro.idEstado">
+                        ng-model="filtro.idEstado" ng-disabled="disabled">
                     <option value="0">Seleccione...</option>
                     <option ng-repeat="item in estados"
                             value="{{ item.idEstado }}">
@@ -102,20 +133,20 @@
                     Peso
                 </label>
                 <select class="form-control" name="accionPeso" required
-                        ng-model="filtro.accionPeso">
+                        ng-model="filtro.accionPeso" ng-disabled="disabled">
                     <option value="0">Seleccione...</option>
                     <option value="mayor">Mayor</option>
                     <option value="menor">Menor</option>
                 </select>
             </div>
             <div style="margin-top:24px" class="form-group col-md-3 col-lg-3">
-                <input class="form-control" type="text" ng-model="filtro.peso" placeholder="Peso (kg)" />
+                <input class="form-control" type="text" ng-model="filtro.peso" placeholder="Peso (kg)" ng-disabled="disabled"/>
             </div>
         </div>
         <div class="row pull-right">
             <div class="col-md-2 col-lg-2">
                 <button class="btn btn-primary"
-                        ng-click="consultar()">
+                        ng-click="consultar()" ng-disabled="disabled">
                     <span class="glyphicon glyphicon-search"></span>
                     Buscar
                 </button>
@@ -156,7 +187,7 @@
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 <li>
-                    <span class="{{disabledAnt}}">
+                    <span class="{{disabledAnt}}" ng-disabled="disabledAnt">
                         <a ui-sref="home.consultarBovino" aria-label="Previous" ng-click="anterior()">
                             <span aria-hidden="true">&laquo; Anterior</span>
                         </a>
@@ -166,7 +197,7 @@
                     <a ng-click="paginar(pag)" style="background-color:{{pag.clase}}">{{pag.numPag}}</a>
                 </li>
                 <li>
-                    <span class="{{disabledSgte}}">
+                    <span class="{{disabledSgte}}" ng-disabled="disabledSgte">
                         <a ui-sref="home.consultarBovino" aria-label="Next" ng-click="siguiente()">
                             <span aria-hidden="true">Siguiente &raquo;</span>
                         </a>
@@ -176,3 +207,4 @@
         </nav>
     </div>
 </div>
+<div class="loader" ng-show="showSpinner" style="margin:0 auto"></div>

@@ -9,6 +9,10 @@
 
     function consultarBovinoController($scope, consultarBovinoService, toastr) {
         var vm = $scope;
+        vm.showSpinner = true;
+        vm.disabled = 'disabled';
+        vm.disabledSgte = 'cursor';
+        vm.disabledAnt = 'cursor';
         //funciones
         vm.inicializar = inicializar();
         vm.consultar = consultar;
@@ -23,15 +27,17 @@
         vm.establecimientos = [];
         vm.listaBovinos = [];
         vm.filtro = {};
-        vm.Paginas = [];
-        vm.disabledSgte = '';
-        vm.disabledAnt = '';
-        vm.cursor = '';
+        vm.Paginas = [];        
+        vm.cursor = '';        
         var registros = 5;
         var bovinos = [];
         var ultimoIndiceVisto = 0;
         function inicializar() {
-            consultarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
+            vm.showSpinner = true;
+            vm.disabled = 'disabled';
+            vm.disabledSgte = 'cursor';
+            vm.disabledAnt = 'cursor';
+            consultarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {                
                 vm.estados = data.estados;
                 vm.categorias = data.categorias;
                 vm.razas = data.razas;
@@ -105,6 +111,10 @@
         };
 
         function consultar() {
+            vm.showSpinner = true;
+            vm.disabled = 'disabled';
+            vm.disabledSgte = 'cursor';
+            vm.disabledAnt = 'cursor';
             bovinos = [];
             var cantPaginas = 0;
             vm.Paginas = [];
@@ -126,6 +136,10 @@
                 //vm.listaBovinos = data;
                 if (vm.filtro.peso === 0) vm.filtro.peso = '';
                 if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
+                vm.showSpinner = false;
+                vm.disabled = '';
+                vm.disabledSgte = '';
+                vm.disabledAnt = '';
             }, function (error) {
                 toastr.error('Error: ' + error, 'Error');
             });

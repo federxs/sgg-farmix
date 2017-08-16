@@ -9,6 +9,7 @@
 
     function modificarBovinoController($scope, modificarBovinoService, toastr, $stateParams) {
         var vm = $scope;
+        vm.showSpinner = true;
         //funciones
         vm.modificar = modificar;
         vm.inicializar = inicializar();
@@ -27,6 +28,7 @@
         inicializar();
 
         function inicializar() {
+            vm.showSpinner = true;
             modificarBovinoService.inicializar($stateParams.id).then(function success(data) {
                 vm.habilitar = true;
                 //combos
@@ -67,7 +69,8 @@
                     if (parseInt(value) === 0 && key !== 'idBovino') {
                         vm.bovino[key] = '';
                     }
-                })
+                });
+                vm.showSpinner = false;
             })
         };
 
