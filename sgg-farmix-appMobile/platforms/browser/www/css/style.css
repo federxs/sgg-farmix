@@ -1,1 +1,17 @@
-/* Empty. Add your own CSS if you like */
+.fondo {
+    background-color: #0288D1;
+}
+
+.fondoMenu {
+    background-color: #03A9F4;
+}
+
+.bordeBoton {
+    border-color: black;
+    background-color: #387EF5;
+    color: #FFF;
+}
+
+.botonMatriz {
+    width: 50%;
+}

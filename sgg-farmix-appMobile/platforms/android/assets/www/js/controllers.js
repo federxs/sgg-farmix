@@ -47,18 +47,19 @@
             nfc.addNdefListener(tagEscaneado);
         });
 
-        tagEscaneado = function(nfcEvent){
+        tagEscaneado = function (nfcEvent) {
             if ($state.current.name == "app.escribir") {
+                var id = $rootScope.idBovino;
                 var mensaje = [
-                ndef.textRecord("8")];
+                ndef.textRecord(id)];
                 nfc.write(mensaje);
+                $rootScope.aviso = "";
                 alert("Se ha escrito el ID en el tag escaneado");
+                $state.reload();
             } else if ($state.current.name == "app.leer") {
                 var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
-                $rootScope.texto = bovinoService.getDatosBovino(id);
-                //numCaravana, apodo, peso, fechaNacimiento
-                $state.go('app.resultado');
+                $state.go('app.resultado/:id', { id: id });
             }
-        }
+        };
     });
 })();

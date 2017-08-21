@@ -17,7 +17,7 @@
        under the License.
  */
 
-package io.cordova.myappaeaf27;
+package com.farmix.appMobile;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

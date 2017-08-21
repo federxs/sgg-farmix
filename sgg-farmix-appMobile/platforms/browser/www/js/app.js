@@ -30,7 +30,7 @@ angular.module('starter', ['ionic'])
       views: {
         'menuContent': {
             templateUrl: 'views/bienvenido.html',
-            controller: 'BienvenidoCtrl'
+            controller: 'Controller'
         }
       }
     })
@@ -38,17 +38,33 @@ angular.module('starter', ['ionic'])
         url: '/leer',
         views: {
             'menuContent': {
-                templateUrl: 'views/leer.html',
-                controller: 'LeerCtrl'
+                templateUrl: 'views/leer.html'
             }
         }
     })
-    .state('app.resultado', {
-        url: '/resultado',
+    .state('app.resultado/:id', {
+        url: '/resultado/:id',
         views: {
             'menuContent': {
                 templateUrl: 'views/resultado.html',
-                controller: 'ResultadoCtrl'
+                controller: 'ResultadoController'
+            }
+        }
+    })
+    .state('app.escribir', {
+        url: '/escribir',
+        views: {
+            'menuContent': {
+                templateUrl: 'views/escribir.html',
+                controller: 'EscribirController'
+            }
+        }
+    }).state('app.registrarEvento', {
+        url: '/registrarEvento',
+        views: {
+            'menuContent': {
+                templateUrl: 'views/registrarEvento.html',
+                controller: 'RegistrarEventoController'
             }
         }
     });

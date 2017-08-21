@@ -1,5 +1,10 @@
 ﻿<ion-view view-title="Escribir">
-    <ion-content padding="true">
-        <button ion-button color="positive" ng-click="escribirNFC()">Escribir</button>
-    </ion-content>
+    <ion-content padding="true" class="fondo">
+        <label class="item item-input">
+            <input type="number" ng-model="txtBovino.value" placeholder="Ingrese el id del bovino a escribir" />
+        </label>
+        <button class="button button-block bordeBoton" ion-button ng-click="escribir()">Escribir</button>
+        <br />
+        <h3 style="text-align: center">{{aviso}}</h3>
+</ion-content>
 </ion-view>
