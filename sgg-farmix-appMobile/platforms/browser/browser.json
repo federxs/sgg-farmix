@@ -19,25 +19,25 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "io.cordova.myappaeaf27"
+            "PACKAGE_NAME": "com.farmix.appMobile"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "io.cordova.myappaeaf27"
+            "PACKAGE_NAME": "com.farmix.appMobile"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "io.cordova.myappaeaf27"
+            "PACKAGE_NAME": "com.farmix.appMobile"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "io.cordova.myappaeaf27"
+            "PACKAGE_NAME": "com.farmix.appMobile"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "io.cordova.myappaeaf27"
+            "PACKAGE_NAME": "com.farmix.appMobile"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "io.cordova.myappaeaf27"
+            "PACKAGE_NAME": "com.farmix.appMobile"
         },
         "phonegap-nfc": {
-            "PACKAGE_NAME": "io.cordova.myappaeaf27"
+            "PACKAGE_NAME": "com.farmix.appMobile"
         }
     },
     "dependent_plugins": {},
