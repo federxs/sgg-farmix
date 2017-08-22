@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarTrazabilidadController', consultarTrazabilidadController);
 
-    consultarTrazabilidadController.$inject = ['$scope', 'consultarBovinoService', 'toastr'];
+    consultarTrazabilidadController.$inject = ['$scope', 'tipoEventoService', 'toastr'];
 
-    function consultarTrazabilidadController($scope, consultarBovinoService, toastr) {
+    function consultarTrazabilidadController($scope, tipoEventoService, toastr) {
         var vm = $scope;
         //vm.showSpinner = true;
         //vm.disabled = 'disabled';
@@ -32,23 +32,11 @@
             //vm.disabled = 'disabled';
             vm.disabledSgte = 'cursor';
             vm.disabledAnt = 'cursor';
-            //vm.filtro.idTipoEvento = '0';
-            vm.Eventos = [
-                { idTipoEvento: '1', nombre: 'Vacunación' },
-                { idTipoEvento: '2', nombre: 'Antibiótico' },
-                { idTipoEvento: '3', nombre: 'Manejo' },
-                { idTipoEvento: '4', nombre: 'Alimenticio' },
-            ];
-            consultar();
-            //consultarTrazabilidadService.inicializar({ idAmbitoEstado: '1' }, function (data) {
-            //    vm.estados = data.estados;
-            //    vm.categorias = data.categorias;
-            //    vm.razas = data.razas;
-            //    vm.rodeos = data.rodeos;
-            //    vm.establecimientos = data.establecimientos;
-            //    vm.filtro.idTipoEvento = '0';
-            //    consultar();
-            //});
+            tipoEventoService.inicializar({ }).then(function success(data){
+                vm.Eventos = data;
+                vm.filtro.idTipoEvento = '0';
+                consultar();
+            });
             //vm.bovino = new registrarBovinoService();
         };
 
