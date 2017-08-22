@@ -10,7 +10,7 @@
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
-            background-color: #0288D1;
+            background-color:#0288D1;
             margin-bottom: 0px;
             border-radius: 0;
         }
@@ -23,13 +23,13 @@
         /* Set gray background color and 100% height */
         .sidenav {
             padding-top: 20px;
-            background-color: #1B95CC;
+            background-color:#FAE5D3;
             height: 100%;
         }
 
         /* Set black background color, white text and some padding */
         footer {
-            background-color: #0288D1;
+            background-color:#0288D1;
             color: white;
             padding: 15px;
             bottom: 0;
@@ -58,7 +58,7 @@
 </head>
 <body>
     <nav class="navbar navbar-inverse" style="margin-bottom: 0px">
-        <div style="background:#0c7e1f" class="container-fluid ">
+        <div style="background:#229954" class="container-fluid ">
             <div class="collapse navbar-collapse " id="myNavbar">
                 <div class="logoHeader">
                     <img src="/resources/logo/logo_farmix.png" height="100" />
@@ -69,15 +69,15 @@
         </div>
     </nav>
 
-    <div class="container-fluid text-center" style="background-color: #1B95CC;">
+    <div class="container-fluid text-center" style="background-color:#FAE5D3;">
         <div class="row content">
             <div class="col-md-2 col-lg-2 sidenav">
                 <ul class="list-group" style="margin-top: 20px;">
                     <!--<li class="list-group-item">Usuario<span class="pull-left glyphicon glyphicon-user"></span></li>-->
                     <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}" style="{{menu.activo}}">
                         <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0" ng-click="activar(menu.idMenu)">
-                            <span class="title" style="color:white">{{menu.nombre}}</span>
-                            <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:white"></i>
+                            <span class="title" style="color:black">{{menu.nombre}}</span>
+                            <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
                         </a>
                         <a href="javascript:;" class="nav-link nav-toggle" ng-if="menu.Menu_Hijos.length > 0">
                             <i class="{{menu.Menu_Padre.Men_Icono}}"></i>
@@ -101,7 +101,7 @@
 
     </div>
 
-    <footer class="footer">
+    <footer class="footer" style="background-color:#229954;">
         <div class="container">
             <p>Farmix 2017. Versión 1.0</p>
         </div>
