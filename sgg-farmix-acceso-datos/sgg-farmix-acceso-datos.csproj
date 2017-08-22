@@ -53,6 +53,8 @@
     <Compile Include="DAOs\MenuManager.cs" />
     <Compile Include="DAOs\RazaManager.cs" />
     <Compile Include="DAOs\RodeoManager.cs" />
+    <Compile Include="DAOs\TipoEventoManager.cs" />
+    <Compile Include="DAOs\VacunaManager.cs" />
     <Compile Include="Helper\Atributes.cs" />
     <Compile Include="Helper\IConnection.cs" />
     <Compile Include="Helper\IManager.cs" />
@@ -70,6 +72,8 @@
     <Compile Include="Model\Raza.cs" />
     <Compile Include="Model\Resultados.cs" />
     <Compile Include="Model\Rodeo.cs" />
+    <Compile Include="Model\TipoEvento.cs" />
+    <Compile Include="Model\Vacuna.cs" />
     <Compile Include="Model\Venta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
