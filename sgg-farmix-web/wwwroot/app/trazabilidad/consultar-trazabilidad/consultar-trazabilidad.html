@@ -1,0 +1,151 @@
+﻿<style>
+    .cursor {
+        cursor: no-drop;
+    }
+
+        .cursor a {
+            pointer-events: none;
+        }
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 150px;
+        height: 150px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<div class="row">
+    <div class="col-lg-10">
+        <div class="page-header">
+            <!--<div class="pull-right" style="margin-top: 13px; margin-right:130px; ">
+                <button class="btn btn-success" ui-sref="home.registrarBovino" ng-disabled="disabled">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Nuevo
+                </button>
+            </div>-->
+            <h1>
+                Consulta Trazabilidad
+                <small> Criterios de búsqueda</small>
+            </h1>
+        </div>
+    </div>
+</div>
+<!--<p>Ingrese los filtros para la consulta:</p>-->
+<form name="formConsultarTrazabilidad" novalidate>
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    N° Caravana
+                </label>
+                <input class="form-control" type="text" ng-model="filtro.numCaravana" placeholder="N° Caravana" ng-disabled="disabled" />
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Tipo de Evento
+                </label>
+                <select class="form-control" name="tipoEvento" required
+                        ng-model="filtro.idTipoEvento" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in Eventos"
+                            value="{{ item.idTipoEvento }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Fecha Desde
+                </label>
+                <input name="fechaDesde" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required                       
+                       ng-model="filtro.fechaDesde" />
+                <div ng-show="formConsultarTrazabilidad.fechaDesde.$touched">
+                </div>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Fecha Hasta
+                </label>
+                <input name="fechaHasta" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required
+                       ng-model="bovino.fechaNacimiento" />
+                <div ng-show="formConsultarTrazabilidad.fechaHasta.$touched">
+                </div>
+            </div>
+        </div>
+        <div class="row pull-right">
+            <div class="col-md-2 col-lg-2">
+                <button class="btn btn-primary"
+                        ng-click="consultar()" ng-disabled="disabled">
+                    <span class="glyphicon glyphicon-search"></span>
+                    Buscar
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<legend>Resultados</legend>
+<div style="margin-top:25px;" class="row col-lg-12 col-md-12">
+    <table class="table table-striped">
+        <tr style="background: #B3E5FC;">
+            <th>Tipo de evento</th>
+            <th>Fecha Evento</th>
+            <th>Acciones</th>
+        </tr>
+        <tr ng-repeat="item in listaEventos">
+            <td>{{item.tipoEvento}}</td>
+            <td>{{item.fechaEvento}}</td>
+            <td>
+                <a><span class="glyphicon glyphicon-pencil"></span></a>
+                <a><span class="glyphicon glyphicon-search"></span></a>
+                <a><span class="glyphicon glyphicon-trash"></span></a>
+            </td>
+        </tr>
+    </table>
+    <div class="col-md-offset-4">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <span class="{{disabledAnt}}" ng-disabled="disabledAnt">
+                        <a ui-sref="home.consultarBovino" aria-label="Previous" ng-click="anterior()">
+                            <span aria-hidden="true">&laquo; Anterior</span>
+                        </a>
+                    </span>
+                </li>
+                <li ui-sref="home.consultarBovino" ng-repeat="pag in Paginas" style="cursor:pointer">
+                    <a ng-click="paginar(pag)" style="background-color:{{pag.clase}}">{{pag.numPag}}</a>
+                </li>
+                <li>
+                    <span class="{{disabledSgte}}" ng-disabled="disabledSgte">
+                        <a ui-sref="home.consultarBovino" aria-label="Next" ng-click="siguiente()">
+                            <span aria-hidden="true">Siguiente &raquo;</span>
+                        </a>
+                    </span>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<div class="loader" ng-show="showSpinner" style="margin:0 auto"></div>

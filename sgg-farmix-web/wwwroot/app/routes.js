@@ -60,6 +60,15 @@
             templateUrl: 'app/bovino/eliminar-bovino/eliminar-bovino.html',
             controller: 'eliminarBovinoController'
         });
+        $stateProvider
+        .state('home.trazabilidad', {
+            url: '/trazabilidad',
+            templateUrl: 'app/trazabilidad/consultar-trazabilidad/consultar-trazabilidad.html',
+            controller: 'consultarTrazabilidadController',
+            data: {
+                pageTitle: 'Farmix - Consulta Trazabilidad'
+            }
+        });
     });
 })();
 
