@@ -10,6 +10,7 @@ namespace sgg_farmix_acceso_datos.DAOs
 {
     public class VacunaManager : IManager<Vacuna>
     {
+        private SqlServerConnection connection;
         public Vacuna Create(Vacuna entity)
         {
             throw new NotImplementedException();
@@ -38,6 +39,20 @@ namespace sgg_farmix_acceso_datos.DAOs
         public Vacuna Update(long id, Vacuna entity)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Vacuna> GetList()
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var lista = connection.GetArray<Vacuna>("spGetVacunas", null, System.Data.CommandType.StoredProcedure);
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
