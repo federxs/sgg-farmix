@@ -64,24 +64,24 @@
         };
 
         function idCaravanaChange() {
-            registrarBovinoService.existeIdCaravana({idCaravana: vm.bovino.numCaravana}, function(data)
-            {
+            registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.numCaravana }, function (data) {
                 if (data[0] === "1") {
-                    vm.formRegistrarBovino.idCaravana.$error.existeIdCaravana = true;
+                    vm.formRegistrarBovino.idCaravana.$setValidity("existeIdCaravana", false);
                 }
-                else
-                    vm.formRegistrarBovino.idCaravana.$error.existeIdCaravana = false;
+                else {
+                    vm.formRegistrarBovino.idCaravana.$setValidity("existeIdCaravana", true);
+                }
             }, function (error) {
                 toastr.error('La operación no se pudo completar', 'Error');
             })
-            
-			//.then(function success(data) {
-			//    if (data.existeIdCaravana) {
-			//        formRegistrarBovino.idCaravana.$error.existeIdCaravana = true;
-			//    } else {
-			//        formRegistrarBovino.idCaravana.$error.existeIdCaravana = false;
-			//    }
-			//});
+
+            //.then(function success(data) {
+            //    if (data.existeIdCaravana) {
+            //        formRegistrarBovino.idCaravana.$error.existeIdCaravana = true;
+            //    } else {
+            //        formRegistrarBovino.idCaravana.$error.existeIdCaravana = false;
+            //    }
+            //});
         };
 
         function convertirFecha(fecha) {
