@@ -75,7 +75,6 @@ namespace sgg_farmix_acceso_datos.DAOs
             {
                 var parametrosEvento = new Dictionary<string, object>
                 {
-                    {"@fechaHora", evento.fechaHora },
                     {"@cant", evento.cantidad },
                     {"@idTipoEvento", evento.idTipoEvento }
                 };
