@@ -144,7 +144,12 @@
             </div>
         </div>
         <div class="row pull-right">
-            <div class="col-md-2 col-lg-2">
+            <div class="col-md-12 col-lg-12">
+                <button class="btn btn-danger"
+                        ng-click="limpiarCampos()">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    Limpiar Campos
+                </button>
                 <button class="btn btn-primary"
                         ng-click="consultar()" ng-disabled="disabled">
                     <span class="glyphicon glyphicon-search"></span>
@@ -154,8 +159,16 @@
         </div>
     </fieldset>
 </form>
-<legend>Resultados</legend>
-<div style="margin-top:25px;" class="row col-lg-12 col-md-12">
+<legend style="margin-bottom: 5px;">Resultados</legend>
+<div class="row col-lg-12 col-md-12">
+    <div class="pull-right" style="margin-bottom:5px">
+        <button class="btn btn-icon-only font-white" ng-click="exportarExcel()">
+            <i class="fa fa-file-excel-o"></i>
+        </button>
+        <button class="btn btn-icon-only font-white" ng-click="exportarPDF()">
+            <i class="fa fa-file-pdf-o"></i>
+        </button>
+    </div>
     <table class="table table-striped">
         <tr style="background: #FAE5D3;">
             <th>N° Caravana</th>

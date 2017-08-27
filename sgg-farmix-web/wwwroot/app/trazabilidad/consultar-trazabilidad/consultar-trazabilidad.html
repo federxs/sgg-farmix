@@ -40,12 +40,6 @@
 <div class="row">
     <div class="col-lg-10">
         <div class="page-header">
-            <!--<div class="pull-right" style="margin-top: 13px; margin-right:130px; ">
-                <button class="btn btn-success" ui-sref="home.registrarBovino" ng-disabled="disabled">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    Nuevo
-                </button>
-            </div>-->
             <h1>
                 Consulta Trazabilidad
                 <small> Criterios de búsqueda</small>
@@ -81,22 +75,27 @@
                     Fecha Desde
                 </label>
                 <input name="fechaDesde" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required                       
-                       ng-model="filtro.fechaDesde" />
+                       ng-model="filtro.fechaDesde" ng-disabled="disabled" />                
                 <div ng-show="formConsultarTrazabilidad.fechaDesde.$touched">
-                </div>
+                </div>                 
             </div>
             <div class="form-group col-md-3 col-lg-3">
                 <label>
                     Fecha Hasta
                 </label>
                 <input name="fechaHasta" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required
-                       ng-model="bovino.fechaNacimiento" />
+                       ng-model="filtro.fechaHasta" ng-disabled="disabled" />
                 <div ng-show="formConsultarTrazabilidad.fechaHasta.$touched">
                 </div>
             </div>
         </div>
         <div class="row pull-right">
-            <div class="col-md-2 col-lg-2">
+            <div class="col-md-12 col-lg-12">
+                <button class="btn btn-danger"
+                        ng-click="limpiarCampos()" ng-disabled="disabled">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    Limpiar Campos
+                </button>
                 <button class="btn btn-primary"
                         ng-click="consultar()" ng-disabled="disabled">
                     <span class="glyphicon glyphicon-search"></span>
@@ -108,6 +107,7 @@
 </form>
 <legend>Resultados</legend>
 <div style="margin-top:25px;" class="row col-lg-12 col-md-12">
+    <!--<button ng-click="insert()">Insertar</button>-->
     <table class="table table-striped">
         <tr style="background: #FAE5D3;">
             <th>Tipo de evento</th>
@@ -115,11 +115,14 @@
             <th>Acciones</th>
         </tr>
         <tr ng-repeat="item in listaEventos">
-            <td>{{item.tipoEvento}}</td>
-            <td>{{item.fechaEvento}}</td>
+            <td ng-show="item.idTipoEvento === 1">Vacunación</td>
+            <td ng-show="item.idTipoEvento === 2">Antibiótico</td>
+            <td ng-show="item.idTipoEvento === 3">Manejo</td>
+            <td ng-show="item.idTipoEvento === 4">Alimenticio</td>
+            <td>{{item.fechaHora}}</td>
             <td>
                 <a><span class="glyphicon glyphicon-pencil"></span></a>
-                <a><span class="glyphicon glyphicon-search"></span></a>
+                <a ui-sref="home.detalleEvento({id: item.idEvento})"><span class="glyphicon glyphicon-search"></span></a>
                 <a><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
@@ -129,17 +132,17 @@
             <ul class="pagination">
                 <li>
                     <span class="{{disabledAnt}}" ng-disabled="disabledAnt">
-                        <a ui-sref="home.consultarBovino" aria-label="Previous" ng-click="anterior()">
+                        <a ui-sref="home.trazabilidad" aria-label="Previous" ng-click="anterior()">
                             <span aria-hidden="true">&laquo; Anterior</span>
                         </a>
                     </span>
                 </li>
-                <li ui-sref="home.consultarBovino" ng-repeat="pag in Paginas" style="cursor:pointer">
+                <li ui-sref="home.trazabilidad" ng-repeat="pag in Paginas" style="cursor:pointer">
                     <a ng-click="paginar(pag)" style="background-color:{{pag.clase}}">{{pag.numPag}}</a>
                 </li>
                 <li>
                     <span class="{{disabledSgte}}" ng-disabled="disabledSgte">
-                        <a ui-sref="home.consultarBovino" aria-label="Next" ng-click="siguiente()">
+                        <a ui-sref="home.trazabilidad" aria-label="Next" ng-click="siguiente()">
                             <span aria-hidden="true">Siguiente &raquo;</span>
                         </a>
                     </span>

@@ -26,7 +26,7 @@
                 }
             });
         $stateProvider
-        .state('home.consultarBovino', {
+        .state('home.bovinos', {
             url: '/bovinos',
             templateUrl: 'app/bovino/consultar-bovino/consultar-bovino.html',
             controller: 'consultarBovinoController',
@@ -47,7 +47,7 @@
         $stateProvider
         .state('home.modificarBovino', {
             url: '/bovinos/:id/modificacion',
-            params: {'id': null},
+            params: { 'id': null },
             templateUrl: 'app/bovino/modificar-bovino/modificar-bovino.html',
             controller: 'modificarBovinoController',
             data: {
@@ -68,6 +68,12 @@
             data: {
                 pageTitle: 'Farmix - Consulta Trazabilidad'
             }
+        })
+        .state('home.detalleEvento', {
+            url: '/evento/:id/detalle',
+            params: { 'id': null },
+            templateUrl: 'app/trazabilidad/detalle-evento/detalle-evento.html',
+            controller: 'detalleEventoController'
         });
     });
 })();

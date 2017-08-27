@@ -43,8 +43,6 @@ namespace sgg_farmix_api.Controllers
             {
                 var eve = JsonConvert.DeserializeObject<Evento>(evento);
                 List<long> ids = new List<long>();
-                string patron = @"(?:- *)?\d+(?:\.\d+)?";
-                Regex regex = new Regex(patron);
                 var aux = "";
                 for (int i = 0; i < lista.Count(); i++)
                 {

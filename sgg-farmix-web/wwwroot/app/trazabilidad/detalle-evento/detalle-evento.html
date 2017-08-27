@@ -1,0 +1,137 @@
+﻿<style>
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 150px;
+        height: 150px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        position: absolute;
+    }
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<form name="formDetalleEvento" novalidate>
+    <fieldset>
+        <div class="alert alert-danger" ng-show=""></div>
+        <div class="row">
+            <div class="col-lg-10">
+                <div style="margin-top:0px;" class="page-header">
+                    <h1>
+                        Evento
+                        <small>Consulta</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Datos del evento</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-6 col-lg-6">
+                        <label>
+                            Tipo de Evento
+                        </label>
+                        <input name="tipoEvento" type="text" class="form-control" placeholder="Tipo de Evento" disabled
+                               ng-model="evento.tipoEvento" />
+                    </div>
+                    <div class="form-group col-md-6 col-lg-6">
+                        <label>
+                            Fecha del Evento
+                        </label>
+                        <input name="fechaEvento" type="text" class="form-control" placeholder="Fecha del evento" disabled
+                               ng-model="evento.fechaHora" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 1">
+                        <label>
+                            Vacuna
+                        </label>
+                        <input name="vacuna" type="text" class="form-control" placeholder="Vacuna" disabled
+                               ng-model="evento.vacuna" />
+                    </div>
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 2">
+                        <label>
+                            Antibiótico
+                        </label>
+                        <input name="antibiotico" type="text" class="form-control" placeholder="Antibiótico" disabled
+                               ng-model="evento.antibiotico" />
+                    </div>
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 3">
+                        <label>
+                            Campo Origen
+                        </label>
+                        <input name="campoOrigen" type="text" class="form-control" placeholder="Campo Origen" disabled
+                               ng-model="evento.campoOrigen" />
+                        <label>
+                            Campo Actual
+                        </label>
+                        <input name="campoActual" type="text" class="form-control" placeholder="Campo Actual" disabled
+                               ng-model="evento.campoActual" />
+                    </div>
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 4">
+                        <label>
+                            Alimento
+                        </label>
+                        <input name="alimento" type="text" class="form-control" placeholder="Alimento" disabled
+                               ng-model="evento.alimento" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Bovino que participaron del evento</div>
+            <div class="panel-body">
+                <table class="table table-striped">
+        <tr style="background: #FAE5D3;">
+            <th>N° Caravana</th>
+            <th>Categoría</th>
+            <th>Raza</th>
+            <th>Rodeo</th>
+            <th>Peso (kg)</th>
+            <th>Acciones</th>
+        </tr>
+        <tr ng-repeat="item in evento.listaBovinos">
+            <td>{{item.numCaravana}}</td>
+            <td>{{item.categoriaNombre}}</td>
+            <td>{{item.razaNombre}}</td>
+            <td>{{item.rodeoNombre}}</td>
+            <td>{{item.peso}}</td>
+            <td>
+                <a ui-sref="home.modificarBovino({id:item.idBovino})"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
+            </td>
+        </tr>
+    </table>
+            </div>
+        </div>
+    </fieldset>
+    <div class="row">
+        <button type="button" class="btn btn-default"
+                ui-sref="home.trazabilidad" style="margin-left: 15px;">
+            Volver
+        </button>
+    </div>
+</form>
+<div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>
