@@ -26,6 +26,15 @@
                 }
             });
         $stateProvider
+            .state('home.inicio', {
+                url: '/inicio',
+                templateUrl: 'app/inicio/inicio.html',
+                controller: 'inicioController',
+                data: {
+                    pageTitle: 'Farmix - Inicio'
+                }
+            });
+        $stateProvider
         .state('home.consultarBovino', {
             url: '/bovinos',
             templateUrl: 'app/bovino/consultar-bovino/consultar-bovino.html',
@@ -47,7 +56,7 @@
         $stateProvider
         .state('home.modificarBovino', {
             url: '/bovinos/:id/modificacion',
-            params: {'id': null},
+            params: { 'id': null },
             templateUrl: 'app/bovino/modificar-bovino/modificar-bovino.html',
             controller: 'modificarBovinoController',
             data: {
