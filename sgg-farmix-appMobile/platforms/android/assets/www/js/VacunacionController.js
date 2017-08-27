@@ -4,6 +4,8 @@ angular.module('starter')
             $scope.vacunas = _vacunas;
             $scope.evento = {};
             $scope.txtMiligramaje = {};
+            $rootScope.vacas = [];
+            $rootScope.vacas.push({ numCaravana: 1, apodo: "Milka2" });
             $rootScope.idVacas = [];
             $rootScope.idVacas.push(8);
             $rootScope.idVacas.push(9);
