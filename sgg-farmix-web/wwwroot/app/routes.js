@@ -4,8 +4,6 @@
     angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise("/home");
-
-        /// Default
         $stateProvider
             .state('home', {
                 url: '/home',
@@ -35,7 +33,7 @@
                 }
             });
         $stateProvider
-        .state('home.consultarBovino', {
+        .state('home.bovinos', {
             url: '/bovinos',
             templateUrl: 'app/bovino/consultar-bovino/consultar-bovino.html',
             controller: 'consultarBovinoController',
@@ -77,6 +75,12 @@
             data: {
                 pageTitle: 'Farmix - Consulta Trazabilidad'
             }
+        })
+        .state('home.detalleEvento', {
+            url: '/evento/:id/detalle',
+            params: { 'id': null },
+            templateUrl: 'app/trazabilidad/detalle-evento/detalle-evento.html',
+            controller: 'detalleEventoController'
         });
     });
 })();
