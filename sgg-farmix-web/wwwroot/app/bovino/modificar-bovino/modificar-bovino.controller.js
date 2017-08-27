@@ -10,6 +10,7 @@
     function modificarBovinoController($scope, modificarBovinoService, toastr, $stateParams) {
         var vm = $scope;
         vm.showSpinner = true;
+        vm.habilitar = false;
         //funciones
         vm.modificar = modificar;
         vm.inicializar = inicializar();
@@ -20,7 +21,7 @@
         vm.categorias = [];
         vm.bovino = {};
         vm.fechaDeHoy = new Date();
-        vm.habilitar = true;
+        //vm.habilitar = true;
         vm.inicializar = inicializar;
         vm.btnVolver = "Volver";
         vm.checkH = false;
@@ -29,8 +30,9 @@
 
         function inicializar() {
             vm.showSpinner = true;
+            vm.habilitar = false;
             modificarBovinoService.inicializar($stateParams.id).then(function success(data) {
-                vm.habilitar = true;
+                vm.habilitar = false;
                 //combos
                 vm.estados = data.estados;
                 vm.categorias = data.categorias;
@@ -71,6 +73,7 @@
                     }
                 });
                 vm.showSpinner = false;
+                vm.habilitar = true;
             })
         };
 
