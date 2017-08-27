@@ -49,11 +49,12 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@numCaravana", filter.numCaravana },
                     {"@idTipoEvento", filter.idTipoEvento },
                     {"@fechaDesde", filter.fechaDesde },
                     {"@fechaHasta", filter.fechaHasta }
                 };
+                if (filter.numCaravana != 0)
+                    parametros.Add("@numCaravana", filter.numCaravana);
                 var lista = connection.GetArray<Evento>("spObtenerListaEventos", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
@@ -102,9 +103,10 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@idEvento", evento.idEvento }
                 };
                 var insert = 0;
+                parametrosDetalle.Add("@idBovino", 0);
                 for (int i = 0; i < lista.Count; i++)
                 {
-                    parametrosDetalle.Add("@idBovino", lista.ElementAt(i));
+                    parametrosDetalle["@idBovino"] = lista.ElementAt(i);
                     insert = connection.Execute("spRegistrarEventosXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
                     if(insert == 0)
                         throw new ArgumentException("Create EventosXBovino Error");
@@ -115,6 +117,29 @@ namespace sgg_farmix_acceso_datos.DAOs
             catch (Exception ex)
             {
                 connection.Rollback(transaction);
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public EventoDetalle GetEvento(long id)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idEvento", id }
+                };
+                var evento = connection.GetArray<EventoDetalle>("spGetEvento", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                evento.listaBovinos = connection.GetArray<BovinoItem>("spObtenerEventosXBovino", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                return evento;
+            }
+            catch (Exception ex)
+            {
                 return null;
             }
             finally

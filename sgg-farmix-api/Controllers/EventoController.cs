@@ -16,7 +16,7 @@ namespace sgg_farmix_api.Controllers
     {
         private EventoManager EM = new EventoManager();
 
-        [Route("api/Evento/getListaEventos")]
+        [Route("api/Evento/GetListaEventos")]
         [HttpGet]
         public IEnumerable<Evento> GetList(string filtro)
         {
@@ -45,11 +45,38 @@ namespace sgg_farmix_api.Controllers
                 List<long> ids = new List<long>();
                 string patron = @"(?:- *)?\d+(?:\.\d+)?";
                 Regex regex = new Regex(patron);
-                foreach (Match item in regex.Matches(lista))
+                var aux = "";
+                for (int i = 0; i < lista.Count(); i++)
                 {
-                    ids.Add(long.Parse(item.ToString()));
+                    if (lista.ElementAt(i) != ',')
+                        aux = aux + lista.ElementAt(i);
+                    else
+                    {
+                        ids.Add(long.Parse(aux));
+                        aux = "";
+                    }
                 }
+                ids.Add(long.Parse(aux));
                 return EM.Insert(eve, ids);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Evento/Get")]
+        [HttpGet]
+        public EventoDetalle Get(string idEvento)
+        {
+            try
+            {
+                var id = Regex.Replace(idEvento, @"[^\d]", "");
+                return EM.GetEvento(Int64.Parse(id));
             }
             catch (Exception ex)
             {
