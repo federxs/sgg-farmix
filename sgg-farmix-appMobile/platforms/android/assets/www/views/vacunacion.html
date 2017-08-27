@@ -1,8 +1,8 @@
 ﻿<ion-view view-title="Evento Vacunación">
     <ion-content padding="true" class="fondo">
-        <select class="item item-input">
-            <option ng-model="vacunaSeleccionada" ng-repeat="vacuna in vacunas"
-                 option.value = {{ vacuna.idVacuna }}>                  
+        <select class="item item-input" ng-model="evento.vacuna" >
+            <option ng-repeat="vacuna in vacunas"
+                 value = "{{vacuna.idVacuna}}">                  
                  {{ vacuna.nombre }}
             </option>
         </select><br>
@@ -15,17 +15,9 @@
                 <th>Numero de Caravana</th>
                 <th>Apodo</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>Señora Vaca</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Manchas</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Blanca</td>
+            <tr ng-repeat="vaca in vacas">
+                <td>{{vaca.numCaravana}}</td>
+                <td>{{vaca.apodo}}</td>
             </tr>
         </table><br>
         <button ng-click="registrar()" class="button bordeBoton botonRegistrarEvento" ion-button>Registrar Evento</button>

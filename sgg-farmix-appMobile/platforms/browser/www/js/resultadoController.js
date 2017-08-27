@@ -15,7 +15,7 @@ angular.module('starter')
             } else {
                 fecha = _bovino.fechaNacimiento.substr(2, 1) + "/" + _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(4, 4)
             }
-            $scope.fechaNacimiento = fecha;//_bovino.fechaNacimiento.substr(0, 10);
+            $scope.fechaNacimiento = fecha;
         } else {
             alert("El id escaneado no se encuentra dentro de los animales registrados");
             $state.go('app.leer');
@@ -27,6 +27,7 @@ angular.module('starter')
             template: '<ion-spinner icon="lines"/>'
         })
     }
+
     function obtenerBovino() {
         return bovinoService.getDatosBovino($stateParams.id);
     }

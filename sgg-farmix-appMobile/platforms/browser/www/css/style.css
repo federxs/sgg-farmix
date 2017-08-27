@@ -16,6 +16,11 @@
     background-color: #229954;
     color: black;
 }
+.botonRegistrarEvento{
+    width: 50%;
+    margin-left:25%;
+    
+}
 .botonMatriz {
     width: 50%;
     height: 50%;

@@ -42,7 +42,7 @@
         };
     })
 
-    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService) {
+    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, $ionicLoading) {
         $ionicPlatform.ready(function () {
             nfc.addNdefListener(tagEscaneado);
         });
@@ -59,7 +59,31 @@
             } else if ($state.current.name == "app.leer") {
                 var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 $state.go('app.resultado/:id', { id: id });
+            } else if ($state.current.name == "app.vacunacion") {
+                $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
+                showIonicLoading().then(obtenerBovino).then(function (_bovino) {
+                    if (_bovino != null) {
+                        if ($rootScope.vacas == undefined) {
+                            $rootScope.vacas = [];
+                            $rootScope.idVacas = [];
+                        }
+                        $rootScope.vacas.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
+                        $rootScope.idVacas.push($scope.id);
+                    } else {
+                        alert("El id escaneado no se encuentra dentro de los animales registrados");
+                    }
+                }).then($ionicLoading.hide).catch($ionicLoading.hide);
             }
         };
+
+        function showIonicLoading() {
+            return $ionicLoading.show({
+                template: '<ion-spinner icon="lines"/>'
+            });
+        }
+
+        function obtenerBovino() {
+            return bovinoService.getDatosBovino($scope.id);
+        }
     });
 })();
