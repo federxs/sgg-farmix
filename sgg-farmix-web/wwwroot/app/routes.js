@@ -33,8 +33,8 @@
                 }
             });
         $stateProvider
-        .state('home.bovinos', {
-            url: '/bovinos',
+        .state('home.bovino', {
+            url: '/bovino',
             templateUrl: 'app/bovino/consultar-bovino/consultar-bovino.html',
             controller: 'consultarBovinoController',
             data: {

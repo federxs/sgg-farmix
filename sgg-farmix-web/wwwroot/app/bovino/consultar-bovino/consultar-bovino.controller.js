@@ -11,6 +11,7 @@
         var vm = $scope;
         vm.showSpinner = true;
         vm.disabled = 'disabled';
+        vm.disabledExportar = 'disabled';
         vm.disabledSgte = 'cursor';
         vm.disabledAnt = 'cursor';
         //funciones
@@ -37,6 +38,7 @@
         function inicializar() {
             vm.showSpinner = true;
             vm.disabled = 'disabled';
+            vm.disabledExportar = 'disabled';
             vm.disabledSgte = 'cursor';
             vm.disabledAnt = 'cursor';
             consultarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
@@ -113,6 +115,7 @@
         function consultar() {
             vm.showSpinner = true;
             vm.disabled = 'disabled';
+            vm.disabledExportar = 'disabled';
             vm.disabledSgte = 'cursor';
             vm.disabledAnt = 'cursor';
             bovinos = [];
@@ -124,30 +127,34 @@
             if (vm.filtro.numCaravana === '') vm.filtro.numCaravana = 0;
             consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 bovinos = data;
-                if (data.length > 0)
-                    vm.showLista = true;
-                else {
-                    toastr.info("No se ah encontrado ningún resultado para esta búsqueda", "Aviso");
-                }
                 cantPaginas = parseInt(data.length / registros);
                 if (cantPaginas == 0) cantPaginas = 1;
                 else {
                     vm.disabledSgte = '';
                     vm.disabledAnt = '';
                 }
-                for (var i = 0; i < cantPaginas ; i++) {
-                    if (i === 0) vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: true, clase: '#E4DFDF' });
-                    else vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: false, clase: '' });
+                if (data.length === 0) {
+                    vm.disabledExportar = 'disabled';
+                    vm.showSpinner = false;
+                    vm.disabled = '';
+                    toastr.info("No se ah encontrado ningún resultado para esta búsqueda", "Aviso");
                 }
-                if (data.length < registros) registros = data.length;
-                for (var i = 0; i < registros; i++) {
-                    vm.listaBovinos.push(data[i]);
+                else {
+                    for (var i = 0; i < cantPaginas ; i++) {
+                        if (i === 0) vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: true, clase: '#E4DFDF' });
+                        else vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: false, clase: '' });
+                    }
+                    if (data.length < registros) registros = data.length;
+                    for (var i = 0; i < registros; i++) {
+                        vm.listaBovinos.push(data[i]);
+                    }
+                    //vm.listaBovinos = data;
+                    if (vm.filtro.peso === 0) vm.filtro.peso = '';
+                    if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
+                    vm.showSpinner = false;
+                    vm.disabled = '';
+                    vm.disabledExportar = '';
                 }
-                //vm.listaBovinos = data;
-                if (vm.filtro.peso === 0) vm.filtro.peso = '';
-                if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
-                vm.showSpinner = false;
-                vm.disabled = '';
             }, function (error) {
                 toastr.error('Error: ' + error, 'Error');
             });
@@ -161,6 +168,7 @@
             vm.filtro.idRodeo = '0';
             vm.filtro.idEstado = '0';
             vm.filtro.accionPeso = '0';
+            consultar();
         }
 
         function exportarExcel() {
@@ -182,37 +190,110 @@
             titulos[3] = "Raza";
             titulos[4] = "Rodeo";
             titulos[5] = "Estado";
-            titulos[5] = "Peso (Kg)";
+            titulos[6] = "Peso (Kg)";
 
             var propiedades = [];
-            propiedades[0] = "Eve_Id";
-            propiedades[1] = "Eve_Titulo";
-            propiedades[2] = "Eve_Fecha";
-            propiedades[3] = "Pub_FechaVto";
-            propiedades[4] = "Pub_Visitas";
-            propiedades[5] = "Confirmaciones";
+            propiedades[0] = "numCaravana";
+            propiedades[1] = "categoriaNombre";
+            propiedades[2] = "sexo";
+            propiedades[3] = "razaNombre";
+            propiedades[4] = "rodeoNombre";
+            propiedades[5] = "estadoNombre";
+            propiedades[6] = "peso";
 
             if (vm.listaBovinos.length > 0) {
-                var i = 0;
+                var i = 1;
+                if (vm.filtro.numCaravana === undefined)
+                    filtro[0] = '';
                 for (var property in vm.filtro) {
-                    var type = typeof $scope.filter[property];
-                    if (($scope.filter[property] === null || type !== "object") && property !== "$resolved" && type !== "function" && property !== "Emp_Id") {
-                        if (property === "Pub_Activa") {
-                            for (var j = 0; j < $scope.filter.Estados.length; j++) {
-                                if ($scope.filter[property] === $scope.filter.Estados[j].Id || $scope.filter[property] === parseInt($scope.filter.Estados[j].Id)) {
-                                    filtro[i] = $scope.filter.Estados[j].Text;
-                                    i += 1;
-                                    break;
+                    var type = typeof vm.filtro[property];
+                    if ((vm.filtro[property] === null || type !== "object") && property !== "$resolved" && type !== "function") {
+                        if (property === "idCategoria") {
+                            if (vm.filtro[property] === '0') {
+                                filtro[i] = 'Seleccione';
+                                i += 1;
+                            }
+                            else {
+                                for (var j = 0; j < vm.categorias.length; j++) {
+                                    if (vm.filtro[property] === vm.categorias[j].idCategoria || parseInt(vm.filtro[property]) === vm.categorias[j].idCategoria) {
+                                        filtro[i] = vm.categorias[j].nombre;
+                                        i += 1;
+                                        break;
+                                    }
                                 }
                             }
                         }
-                        else if (property === "Eve_Tipo") {
-                            for (var k = 0; k < $scope.filter.Tipos.length; k++) {
-                                if ($scope.filter[property] === parseInt($scope.filter.Tipos[k].Id)) {
-                                    filtro[i] = $scope.filter.Tipos[k].Text;
-                                    i += 1;
-                                    break;
+                        else if (property === "genero") {
+                            if (vm.filtro[property] === '2') {
+                                filtro[i] = 'Seleccione';
+                                i += 1;
+                            }
+                            else if (vm.filtro[property] === '0') {
+                                filtro[i] = 'Hembra';
+                                i += 1;
+                            }
+                            else {
+                                filtro[i] = 'Macho';
+                                i += 1;
+                            }
+                        }
+                        else if (property === "idRaza") {
+                            if (vm.filtro[property] === '0') {
+                                filtro[i] = 'Seleccione';
+                                i += 1;
+                            }
+                            else {
+                                for (var j = 0; j < vm.razas.length; j++) {
+                                    if (vm.filtro[property] === vm.razas[j].idRaza || parseInt(vm.filtro[property]) === vm.razas[j].idRaza) {
+                                        filtro[i] = vm.razas[j].nombre;
+                                        i += 1;
+                                        break;
+                                    }
                                 }
+                            }
+                        }
+                        else if (property === "idRodeo") {
+                            if (vm.filtro[property] === '0') {
+                                filtro[i] = 'Seleccione';
+                                i += 1;
+                            }
+                            else {
+                                for (var j = 0; j < vm.rodeos.length; j++) {
+                                    if (vm.filtro[property] === vm.rodeos[j].idRodeo || parseInt(vm.filtro[property]) === vm.rodeos[j].idRodeo) {
+                                        filtro[i] = vm.rodeos[j].nombre;
+                                        i += 1;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else if (property === "idEstado") {
+                            if (vm.filtro[property] === '0') {
+                                filtro[i] = 'Seleccione';
+                                i += 1;
+                            }
+                            else {
+                                for (var j = 0; j < vm.estados.length; j++) {
+                                    if (vm.filtro[property] === vm.estados[j].idEstado || parseInt(vm.filtro[property]) === vm.estados[j].idEstado) {
+                                        filtro[i] = vm.estados[j].nombre;
+                                        i += 1;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else if (property === "accionPeso") {
+                            if (vm.filtro[property] === '0') {
+                                filtro[i] = 'Seleccione';
+                                i += 1;
+                            }
+                            else if (vm.filtro[property] === 'mayor') {
+                                filtro[i] = 'Mayor';
+                                i += 1;
+                            }
+                            else {
+                                filtro[i] = 'Menor';
+                                i += 1;
                             }
                         }
                         else {
@@ -221,6 +302,8 @@
                         }
                     }
                 }
+                if (vm.filtro.peso === undefined)
+                    filtro[filtro.length] = '';
                 exportador.exportarExcel('Bovinos', vm.listaBovinos, titulos, filtro, propiedades, 'Bovinos', function () {
                     toastr.success("Se ha exportado con Éxito.", "EXITOSO");
                 }, function (error) {

@@ -42,7 +42,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Evento> GetList(EventoFilter filter)
+        public IEnumerable<EventosItem> GetList(EventoFilter filter)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 };
                 if (filter.numCaravana != 0)
                     parametros.Add("@numCaravana", filter.numCaravana);
-                var lista = connection.GetArray<Evento>("spObtenerListaEventos", parametros, System.Data.CommandType.StoredProcedure);
+                var lista = connection.GetArray<EventosItem>("spObtenerListaEventos", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
             catch (Exception ex)

@@ -15,7 +15,12 @@
             tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
 
             tab_text = tab_text + "<table border='1px'>";
-            tab_text += "<tr><td style='text-align:center; font-size:20px' colspan='" + titulos.length + "'><b>" + tituloReporte + "</b></td></tr>" + "<tr></tr>";
+            var largo = 0;
+            if (titulos.length > filter.Titulos.length)
+                largo = titulos.length;
+            else
+                largo = filter.Titulos.length;
+            tab_text += "<tr><td style='text-align:center; font-size:20px' colspan='" + largo + "'><b>" + tituloReporte + "</b></td></tr>" + "<tr></tr>";
             if (filter !== null) {
                 var $html_filtro = "<thead><tr>";
                 for (var i = 0; i < filter.Titulos.length; i++) {
@@ -29,12 +34,6 @@
                         $body += "<td style='text-align:center;'> " + campo + " </td>";
                     }
                 }
-                //for (var property in filter) {                    
-                //    if (filter.hasOwnProperty(property) && property !== 'Emp_Id' && property !== '$promise' && property !== '$resolved' && typeof filter[property] !== "object" && property !== 'Tipo_PubId') {
-                //        var campo = filter[property] !== null ? filter[property] : "";
-                //        $body += "<td style='text-align:center;'> " + campo + " </td>";
-                //    }
-                //}
                 $body += "</tr>";
                 var newhtml_filtro = $html_filtro.concat($body.toString()).concat("</tbody>");
                 tab_text = tab_text + newhtml_filtro.toString();

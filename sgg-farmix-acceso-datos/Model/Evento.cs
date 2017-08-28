@@ -19,10 +19,12 @@ namespace sgg_farmix_acceso_datos.Model
         public long idAlimento { get; set; }
     }
 
-    public class EventosXBovino
+    public class EventosItem
     {
-        public long idBovino { get; set; }
         public long idEvento { get; set; }
+        public string tipoEvento { get; set; }
+        public string fechaHora { get; set; }
+        public long cantidadBovinos { get; set; }
     }
 
     public class EventoFilter
@@ -45,5 +47,6 @@ namespace sgg_farmix_acceso_datos.Model
         public string campoActual { get; set; }
         public string alimento { get; set; }
         public List<BovinoItem> listaBovinos { get; set; }
+        public float cantidad { get; set; }
     }
 }
