@@ -5,7 +5,8 @@
         'ui.router',
         'ngResource',
         'oc.lazyLoad',
-        'toastr'
+        'toastr',
+        'googlechart'
         //'ui.bootstrap'
     ]);    
 })();
