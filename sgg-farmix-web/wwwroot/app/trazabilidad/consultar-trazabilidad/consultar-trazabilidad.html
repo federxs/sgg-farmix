@@ -91,7 +91,7 @@
         </div>
         <div class="row pull-right">
             <div class="col-md-12 col-lg-12">
-                <button class="btn btn-danger"
+                <button class="btn btn-default"
                         ng-click="limpiarCampos()" ng-disabled="disabled">
                     <span class="glyphicon glyphicon-remove"></span>
                     Limpiar Campos
@@ -105,21 +105,31 @@
         </div>
     </fieldset>
 </form>
-<legend>Resultados</legend>
-<div style="margin-top:25px;" class="row col-lg-12 col-md-12">
+<legend style="margin-bottom:5px">Resultados</legend>
+<div class="row col-lg-12 col-md-12">
     <!--<button ng-click="insert()">Insertar</button>-->
+    <div class="pull-right" style="margin-bottom:5px">
+        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
+            <i class="fa fa-file-excel-o"></i>
+        </button>
+        <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
+            <i class="fa fa-file-pdf-o"></i>
+        </button>
+        <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
+            <i class="fa fa-print"></i>
+        </a>
+    </div>
     <table class="table table-striped">
         <tr style="background: #FAE5D3;">
-            <th>Tipo de evento</th>
+            <th>Tipo de Evento</th>
             <th>Fecha Evento</th>
+            <th>Bovinos que participaron</th>
             <th>Acciones</th>
         </tr>
         <tr ng-repeat="item in listaEventos">
-            <td ng-show="item.idTipoEvento === 1">Vacunación</td>
-            <td ng-show="item.idTipoEvento === 2">Antibiótico</td>
-            <td ng-show="item.idTipoEvento === 3">Manejo</td>
-            <td ng-show="item.idTipoEvento === 4">Alimenticio</td>
+            <td>{{item.tipoEvento}}</td>
             <td>{{item.fechaHora}}</td>
+            <td style="padding-left: 45px;width:10%">{{item.cantidadBovinos}}</td>
             <td>
                 <a><span class="glyphicon glyphicon-pencil"></span></a>
                 <a ui-sref="home.detalleEvento({id: item.idEvento})"><span class="glyphicon glyphicon-search"></span></a>

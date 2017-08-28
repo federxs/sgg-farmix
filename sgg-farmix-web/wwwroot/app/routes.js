@@ -77,6 +77,12 @@
             data: {
                 pageTitle: 'Farmix - Consulta Trazabilidad'
             }
+        })
+        .state('home.detalleEvento', {
+            url: '/evento/:id/detalle',
+            params: { 'id': null },
+            templateUrl: 'app/trazabilidad/detalle-evento/detalle-evento.html',
+            controller: 'detalleEventoController'
         });
     });
 })();

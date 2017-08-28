@@ -162,13 +162,13 @@
 <legend style="margin-bottom: 5px;">Resultados</legend>
 <div class="row col-lg-12 col-md-12">
     <div class="pull-right" style="margin-bottom:5px">
-        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabled">
+        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
             <i class="fa fa-file-excel-o"></i>
         </button>
-        <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabled">
+        <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
             <i class="fa fa-file-pdf-o"></i>
         </button>
-        <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabled">
+        <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
             <i class="fa fa-print"></i>
         </a>
     </div>

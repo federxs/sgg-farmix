@@ -18,7 +18,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Evento/GetListaEventos")]
         [HttpGet]
-        public IEnumerable<Evento> GetList(string filtro)
+        public IEnumerable<EventosItem> GetList(string filtro)
         {
             try
             {

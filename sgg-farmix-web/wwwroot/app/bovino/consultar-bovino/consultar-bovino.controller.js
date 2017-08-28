@@ -11,6 +11,7 @@
         var vm = $scope;
         vm.showSpinner = true;
         vm.disabled = 'disabled';
+        vm.disabledExportar = 'disabled';
         vm.disabledSgte = 'cursor';
         vm.disabledAnt = 'cursor';
         //funciones
@@ -37,6 +38,7 @@
         function inicializar() {
             vm.showSpinner = true;
             vm.disabled = 'disabled';
+            vm.disabledExportar = 'disabled';
             vm.disabledSgte = 'cursor';
             vm.disabledAnt = 'cursor';
             consultarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
@@ -113,6 +115,7 @@
         function consultar() {
             vm.showSpinner = true;
             vm.disabled = 'disabled';
+            vm.disabledExportar = 'disabled';
             vm.disabledSgte = 'cursor';
             vm.disabledAnt = 'cursor';
             bovinos = [];
@@ -124,30 +127,34 @@
             if (vm.filtro.numCaravana === '') vm.filtro.numCaravana = 0;
             consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 bovinos = data;
-                if (data.length > 0)
-                    vm.showLista = true;
-                else {
-                    toastr.info("No se ah encontrado ningún resultado para esta búsqueda", "Aviso");
-                }
                 cantPaginas = parseInt(data.length / registros);
                 if (cantPaginas == 0) cantPaginas = 1;
                 else {
                     vm.disabledSgte = '';
                     vm.disabledAnt = '';
                 }
-                for (var i = 0; i < cantPaginas ; i++) {
-                    if (i === 0) vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: true, clase: '#E4DFDF' });
-                    else vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: false, clase: '' });
+                if (data.length === 0) {
+                    vm.disabledExportar = 'disabled';
+                    vm.showSpinner = false;
+                    vm.disabled = '';
+                    toastr.info("No se ah encontrado ningún resultado para esta búsqueda", "Aviso");
                 }
-                if (data.length < registros) registros = data.length;
-                for (var i = 0; i < registros; i++) {
-                    vm.listaBovinos.push(data[i]);
+                else {
+                    for (var i = 0; i < cantPaginas ; i++) {
+                        if (i === 0) vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: true, clase: '#E4DFDF' });
+                        else vm.Paginas.push({ numPag: (i + 1), regInit: (registros * i), regFin: (registros * (i + 1)), seleccionada: false, clase: '' });
+                    }
+                    if (data.length < registros) registros = data.length;
+                    for (var i = 0; i < registros; i++) {
+                        vm.listaBovinos.push(data[i]);
+                    }
+                    //vm.listaBovinos = data;
+                    if (vm.filtro.peso === 0) vm.filtro.peso = '';
+                    if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
+                    vm.showSpinner = false;
+                    vm.disabled = '';
+                    vm.disabledExportar = '';
                 }
-                //vm.listaBovinos = data;
-                if (vm.filtro.peso === 0) vm.filtro.peso = '';
-                if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
-                vm.showSpinner = false;
-                vm.disabled = '';
             }, function (error) {
                 toastr.error('Error: ' + error, 'Error');
             });
