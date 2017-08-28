@@ -145,8 +145,8 @@
         </div>
         <div class="row pull-right">
             <div class="col-md-12 col-lg-12">
-                <button class="btn btn-danger"
-                        ng-click="limpiarCampos()">
+                <button class="btn btn-default"
+                        ng-click="limpiarCampos()" ng-disabled="disabled">
                     <span class="glyphicon glyphicon-remove"></span>
                     Limpiar Campos
                 </button>
@@ -162,12 +162,15 @@
 <legend style="margin-bottom: 5px;">Resultados</legend>
 <div class="row col-lg-12 col-md-12">
     <div class="pull-right" style="margin-bottom:5px">
-        <button class="btn btn-icon-only font-white" ng-click="exportarExcel()">
+        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabled">
             <i class="fa fa-file-excel-o"></i>
         </button>
-        <button class="btn btn-icon-only font-white" ng-click="exportarPDF()">
+        <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabled">
             <i class="fa fa-file-pdf-o"></i>
         </button>
+        <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabled">
+            <i class="fa fa-print"></i>
+        </a>
     </div>
     <table class="table table-striped">
         <tr style="background: #FAE5D3;">
@@ -183,16 +186,15 @@
         <tr ng-repeat="item in listaBovinos">
             <td>{{item.numCaravana}}</td>
             <td>{{item.categoriaNombre}}</td>
-            <td ng-show="item.sexo === 0">Hembra</td>
-            <td ng-show="item.sexo === 1">Macho</td>
+            <td>{{item.sexo}}</td>
             <td>{{item.razaNombre}}</td>
             <td>{{item.rodeoNombre}}</td>
             <td>{{item.estadoNombre}}</td>
             <td>{{item.peso}}</td>
             <td>
-                <a ui-sref="home.modificarBovino({id:item.idBovino})"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
-                <a ui-sref="home.eliminarBovino({id:item.idBovino})"><span class="glyphicon glyphicon-trash"></span></a>
+                <a ui-sref="home.modificarBovino({id:item.idBovino})" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a ui-sref="home.detalleBovino({id:item.idBovino})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
+                <a ui-sref="home.eliminarBovino({id:item.idBovino})" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
     </table>

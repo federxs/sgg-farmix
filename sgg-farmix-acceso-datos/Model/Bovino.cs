@@ -42,13 +42,13 @@ namespace sgg_farmix_acceso_datos.Model
     public class BovinoItem
     {
         public long idBovino { get; set; }
+        public long numCaravana { get; set; }
         public string categoriaNombre { get; set; }
-        public int sexo { get; set; }
-        public string rodeoNombre { get; set; }
+        public string sexo { get; set; }
         public string razaNombre { get; set; }
+        public string rodeoNombre { get; set; }
         public string estadoNombre { get; set; }
         public float peso { get; set; }
-        public long numCaravana { get; set; }
     }
 
     public class BovinoDetalle
