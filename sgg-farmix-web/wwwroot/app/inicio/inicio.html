@@ -1,80 +1,97 @@
-﻿    <fieldset>
-        <div class="alert alert-danger" ng-show=""></div>
-        <div class="row">
-            <div class="col-lg-10">
-                <div style="margin-top:0px;" class="page-header">
-                    <h1>
-                        Inicio
-                        <small>Dashboard</small>
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </fieldset>
+﻿<fieldset>
+    <div class="alert alert-danger" ng-show=""></div>
     <div class="row">
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-tags fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <h1>200</h1>
-                            <h4>Bovinos registrados</h4>
-                        </div>
-                    </div>
-                </div>
+        <div class="col-lg-10">
+            <div style="margin-top:0px;" class="page-header">
+                <h1>
+                    Inicio
+                    <small>Dashboard</small>
+                </h1>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-tasks fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <h1>353</h1>
-                            <h4>Eventos registrados</h4>
-                        </div>
+    </div>
+</fieldset>
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tags fa-5x"></i>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-money fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <h1>43</h1>
-                            <h4>Ventas concretadas</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6">
-            <div class="panel panel-danger">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-heart fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <h1>25</h1>
-                            <h4>Vacas preñadas</h4>
-                        </div>
+                    <div class="col-xs-9 text-right">
+                        <h1>200</h1>
+                        <h4>Bovinos registrados</h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <h1>353</h1>
+                        <h4>Eventos registrados</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-money fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <h1>43</h1>
+                        <h4>Ventas concretadas</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-heart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <h1>25</h1>
+                        <h4>Vacas preñadas</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
-    <div class="col-lg-6 col-md-6">
-        <div google-chart chart="myChartObject" style="height:600px; width:100%;"></div>
+    <div class="col-lg-5 col-md-5 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Proporción de vacas según la raza</h4></div>
+            </div>
+            <div class="panel-body">
+                <div google-chart chart="myChartObject"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7 col-md-7 col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de vacunos según la categoría</h4></div>
+            </div>
+            <div class="panel-body">
+                <div google-chart chart="graficoCategorias"></div>
+            </div>
+        </div>
     </div>
 </div>
