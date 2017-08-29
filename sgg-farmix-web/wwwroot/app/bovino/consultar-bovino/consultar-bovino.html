@@ -203,17 +203,17 @@
             <ul class="pagination">
                 <li>
                     <span class="{{disabledAnt}}" ng-disabled="disabledAnt">
-                        <a ui-sref="home.consultarBovino" aria-label="Previous" ng-click="anterior()">
+                        <a ui-sref="home.bovino" aria-label="Previous" ng-click="anterior()">
                             <span aria-hidden="true">&laquo; Anterior</span>
                         </a>
                     </span>
                 </li>
-                <li ui-sref="home.consultarBovino" ng-repeat="pag in Paginas" style="cursor:pointer">
+                <li ui-sref="home.bovino" ng-repeat="pag in Paginas" style="cursor:pointer">
                     <a ng-click="paginar(pag)" style="background-color:{{pag.clase}}">{{pag.numPag}}</a>
                 </li>
                 <li>
                     <span class="{{disabledSgte}}" ng-disabled="disabledSgte">
-                        <a ui-sref="home.consultarBovino" aria-label="Next" ng-click="siguiente()">
+                        <a ui-sref="home.bovino" aria-label="Next" ng-click="siguiente()">
                             <span aria-hidden="true">Siguiente &raquo;</span>
                         </a>
                     </span>
