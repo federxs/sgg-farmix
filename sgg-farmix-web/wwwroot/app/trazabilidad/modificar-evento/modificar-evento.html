@@ -1,4 +1,7 @@
 ﻿<style>
+    .cursor {
+        cursor: pointer;
+    }
     .loader {
         border: 16px solid #f3f3f3;
         border-radius: 50%;
@@ -30,7 +33,7 @@
         }
     }
 </style>
-<form name="formDetalleEvento" novalidate>
+<form name="formModificarEvento" novalidate>
     <fieldset>
         <div class="alert alert-danger" ng-show=""></div>
         <div class="row">
@@ -38,7 +41,7 @@
                 <div style="margin-top:0px;" class="page-header">
                     <h1>
                         Evento
-                        <small>Consulta</small>
+                        <small>Modificación</small>
                     </h1>
                 </div>
             </div>
@@ -49,36 +52,57 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="form-group col-md-6 col-lg-6">
-                        <label>
+                        <label class="control-label" for="idTipoEvento">
                             Tipo de Evento
                         </label>
-                        <input name="tipoEvento" type="text" class="form-control" placeholder="Tipo de Evento" disabled
-                               ng-model="evento.tipoEvento" />
+                        <select class="form-control" name="idTipoEvento"
+                                ng-disabled="!habilitar"
+                                ng-model="evento.idTipoEvento">
+                            <option value="0">Seleccione...</option>
+                            <option ng-repeat="item in tiposEventos"
+                                    value="{{ item.idTipoEvento }}">
+                                {{ item.descripcion }}
+                            </option>
+                        </select>
                     </div>
                     <div class="form-group col-md-6 col-lg-6">
                         <label>
                             Fecha del Evento
                         </label>
-                        <input name="fechaEvento" type="text" class="form-control" placeholder="Fecha del evento" disabled
+                        <input name="fechaNac" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" ng-disabled="!habilitar"                               
                                ng-model="evento.fechaHora" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 1">
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '1'">
                         <label>
                             Vacuna
                         </label>
-                        <input name="vacuna" type="text" class="form-control" placeholder="Vacuna" disabled
-                               ng-model="evento.vacuna" style="margin-top: 5px;" />
+                        <select class="form-control" name="idVacuna"
+                                ng-disabled="!habilitar"
+                                ng-model="evento.idVacuna">
+                            <option value="0">Seleccione...</option>
+                            <option ng-repeat="item in vacunas"
+                                    value="{{ item.idVacuna }}">
+                                {{ item.nombre }}
+                            </option>
+                        </select>
                     </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 2">
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '2'">
                         <label>
                             Antibiótico
                         </label>
-                        <input name="antibiotico" type="text" class="form-control" placeholder="Antibiótico" disabled
-                               ng-model="evento.antibiotico" />
+                        <select class="form-control" name="idAntibiotico"
+                                ng-disabled="!habilitar"
+                                ng-model="evento.idAntibiotico">
+                            <option value="0">Seleccione...</option>
+                            <option ng-repeat="item in antibioticos"
+                                    value="{{ item.idAntibiotico }}">
+                                {{ item.nombre }}
+                            </option>
+                        </select>
                     </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 3">
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '3'">
                         <label>
                             Campo Origen
                         </label>
@@ -90,7 +114,7 @@
                         <input name="campoActual" type="text" class="form-control" placeholder="Campo Actual" disabled
                                ng-model="evento.campoActual" />
                     </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 4">
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '4'">
                         <label>
                             Alimento
                         </label>
@@ -103,7 +127,7 @@
                             <label ng-show="evento.idTipoEvento === 1 || evento.idTipoEvento === 2">(mgrs)</label>
                             <label ng-show="evento.idTipoEvento === 4">(Kgrs)</label>
                         </label>
-                        <input name="cantidad" type="text" class="form-control" placeholder="Cantidad" disabled
+                        <input name="cantidad" type="number" class="form-control" placeholder="Cantidad" ng-disabled="!habilitar"
                                ng-model="evento.cantidad" />
                     </div>
                 </div>
@@ -119,16 +143,17 @@
                         <th>Raza</th>
                         <th>Rodeo</th>
                         <th>Peso (kg)</th>
-                        <th>Acciones</th>
+                        <th ng-show="showBotones">Acciones</th>
                     </tr>
-                    <tr ng-repeat="item in evento.listaBovinos">
+                    <tr ng-repeat="item in listaBovinos">
                         <td>{{item.numCaravana}}</td>
                         <td>{{item.categoriaNombre}}</td>
                         <td>{{item.razaNombre}}</td>
                         <td>{{item.rodeoNombre}}</td>
                         <td>{{item.peso}}</td>
                         <td>
-                            <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
+                            <a ui-sref="home.detalleBovino({id:item.idBovino})" ng-show="showBotones" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
+                            <a class="cursor" ng-click="eliminar(item.idBovino)" ng-show="showBotones" title="Borrar bovino del evento"><span class="glyphicon glyphicon-trash"></span></a>
                         </td>
                     </tr>
                 </table>
@@ -136,8 +161,13 @@
         </div>
     </fieldset>
     <div class="row">
+        <button type="submit" style="margin-left:15px;" class="btn btn-primary"
+                ng-disabled="formModificarEvento.$invalid || !habilitar"
+                ng-click="modificar()">
+            Aceptar
+        </button>
         <button type="button" class="btn btn-default"
-                ui-sref="home.trazabilidad" style="margin-left: 15px;">
+                ui-sref="home.trazabilidad">
             Volver
         </button>
     </div>
