@@ -29,7 +29,24 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Evento Get(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idEvento", id }
+                };
+                var evento = connection.GetArray<Evento>("spObtenerDatosEvento", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                return evento;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public Evento GetFilter()
@@ -140,6 +157,65 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
             catch (Exception ex)
             {
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        public Evento Update(long id, Evento entity, List<long> lista)
+        {
+            connection = new SqlServerConnection();
+            DbTransaction transaction = connection.BeginTransaction();
+            try
+            {
+                var parametrosEvento = new Dictionary<string, object>
+                {
+                    {"@idEvento", id },
+                    {"@idTipoEvento", entity.idTipoEvento },
+                    {"@fechaHora", entity.fechaHora },
+                    {"@cantidad", entity.cantidad }
+                };
+                switch (entity.idTipoEvento)
+                {
+                    case 1:
+                        parametrosEvento.Add("@idVacuna", entity.idVacuna);
+                        break;
+                    case 2:
+                        parametrosEvento.Add("@idAntibiotico", entity.idAntibiotico);
+                        break;
+                    case 3:
+                        parametrosEvento.Add("@idCampoOrigen", entity.idCampoOrigen);
+                        parametrosEvento.Add("@idCampoActual", entity.idCampoActual);
+                        break;
+                    case 4:
+                        parametrosEvento.Add("@idAlimento", entity.idAlimento);
+                        break;
+                }
+                var update = connection.Execute("spModificarEvento", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
+                if (update == 0)
+                    throw new ArgumentException("Update evento error");
+                var parametrosDetalle = new Dictionary<string, object>
+                {
+                    {"@idEvento", id }
+                };
+                connection.Execute("spDeleteDetalleXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
+                var insertDetalle = 0;
+                parametrosDetalle.Add("@idBovino", 0);
+                for (int i = 0; i < lista.Count; i++)
+                {
+                    parametrosDetalle["@idBovino"] = lista.ElementAt(i);
+                    insertDetalle = connection.Execute("spRegistrarEventosXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
+                    if (insertDetalle == 0)
+                        throw new ArgumentException("Update EventosXBovino Error");
+                }
+                connection.Commit(transaction);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                connection.Rollback(transaction);
                 return null;
             }
             finally

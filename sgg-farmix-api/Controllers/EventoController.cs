@@ -85,5 +85,78 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Evento/initEvento")]
+        [HttpGet]
+        public Resultados InitEvento(string idEvento)
+        {
+            Resultados resultado = new Resultados();
+            try
+            {
+                var id = Regex.Replace(idEvento, @"[^\d]", "");
+                resultado.vacunas = new VacunaManager().GetList();
+                resultado.tipoEvento = new TipoEventoManager().GetList();
+                resultado.listaBovinos = EM.GetEvento(Int64.Parse(id));
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+            return resultado;
+        }
+
+        [Route("api/Evento/GetEventoForModificacion")]
+        [HttpGet]
+        public Evento GetEventoForModificacion(string idEvento)
+        {
+            try
+            {
+                var id = Regex.Replace(idEvento, @"[^\d]", "");
+                return EM.Get(Int64.Parse(id));
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [HttpPut]
+        public Evento Put(string value, string lista)
+        {
+            try
+            {
+                var evento = JsonConvert.DeserializeObject<Evento>(value);
+                List<long> ids = new List<long>();
+                var aux = "";
+                for (int i = 0; i < lista.Count(); i++)
+                {
+                    if (lista.ElementAt(i) != ',')
+                        aux = aux + lista.ElementAt(i);
+                    else
+                    {
+                        ids.Add(long.Parse(aux));
+                        aux = "";
+                    }
+                }
+                ids.Add(long.Parse(aux));
+                return EM.Update(evento.idEvento, evento, ids);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

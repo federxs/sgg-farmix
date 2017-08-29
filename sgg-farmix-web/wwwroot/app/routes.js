@@ -4,6 +4,8 @@
     angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise("/home");
+
+        /// Default
         $stateProvider
             .state('home', {
                 url: '/home',
@@ -81,6 +83,12 @@
             params: { 'id': null },
             templateUrl: 'app/trazabilidad/detalle-evento/detalle-evento.html',
             controller: 'detalleEventoController'
+        })
+        .state('home.modificarEvento', {
+            url: '/evento/:id/modificar',
+            params: { 'id': null },
+            templateUrl: 'app/trazabilidad/modificar-evento/modificar-evento.html',
+            controller: 'modificarEventoController'
         });
     });
 })();

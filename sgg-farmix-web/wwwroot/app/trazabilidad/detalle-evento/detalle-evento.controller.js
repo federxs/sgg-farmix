@@ -13,9 +13,7 @@
         //funciones
         vm.inicializar = inicializar();
         //variables
-        vm.bovino = {};
-        vm.checkH = false;
-        vm.checkM = false;
+        vm.evento = {};
 
         function inicializar() {
             vm.showSpinner = true;
