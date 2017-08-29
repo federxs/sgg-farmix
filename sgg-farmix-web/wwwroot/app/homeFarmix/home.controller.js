@@ -4,7 +4,8 @@
     angular.module('app').controller('homeController', function (
         $scope,
         homeService,
-        $state
+        $state,
+        toastr
         ) {
         $scope.Menu = [];
 
