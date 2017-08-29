@@ -5,54 +5,51 @@
         .module('app')
         .controller('inicioController', inicioController);
 
-    inicioController.$inject = ['$scope', 'googlechart'];
+    inicioController.$inject = ['$scope'];
 
-    function inicioController($scope, googlechart) {
+    function inicioController($scope) {
         //var vm = this;
         $scope.myChartObject = {};
-
         $scope.myChartObject.type = "PieChart";
-
-        $scope.onions = [
-            { v: "Onions" },
-            { v: 3 },
-        ];
-
+        $scope.myChartObject.options = {
+            'title': 'Proporción de vacas según la raza'
+        };
         $scope.myChartObject.data = {
             "cols": [
-                { id: "t", label: "Topping", type: "string" },
-                { id: "s", label: "Slices", type: "number" }
+                { id: "t", label: "Raza", type: "string" },
+                { id: "s", label: "Cantidad", type: "number" }
             ], "rows": [
                 {
                     c: [
-                       { v: "Mushrooms" },
-                       { v: 3 },
-                    ]
-                },
-                { c: $scope.onions },
-                {
-                    c: [
-                       { v: "Olives" },
-                       { v: 31 }
+                       { v: "Aberdeen Angus" },
+                       { v: 30 },
                     ]
                 },
                 {
                     c: [
-                       { v: "Zucchini" },
-                       { v: 1 },
+                         { v: "Hereford" },
+                         { v: 42 },
                     ]
                 },
                 {
                     c: [
-                       { v: "Pepperoni" },
-                       { v: 2 },
+                       { v: "Brahman" },
+                       { v: 16 },
+                    ]
+                },
+                {
+                    c: [
+                       { v: "Limousin" },
+                       { v: 15 }
+                    ]
+                },
+                {
+                    c: [
+                       { v: "Brangus" },
+                       { v: 19 },
                     ]
                 }
             ]
-        };
-
-        $scope.myChartObject.options = {
-            'title': 'How Much Pizza I Ate Last Night'
         };
     }
 })();
