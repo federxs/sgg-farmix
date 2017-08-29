@@ -27,7 +27,7 @@
                 //bovino
                 vm.bovino = data;
                 var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10).split('/');
-                vm.bovino.fechaNacimiento = new Date(fechaNacimiento[2], fechaNacimiento[1], fechaNacimiento[0]);
+                vm.bovino.fechaNacimiento = new Date(fechaNacimiento[2], (parseInt(fechaNacimiento[1] - 1)).toString(), fechaNacimiento[0]);
                 if (vm.bovino.sexo === 0) {
                     vm.checkH = true;
                     vm.checkM = false;

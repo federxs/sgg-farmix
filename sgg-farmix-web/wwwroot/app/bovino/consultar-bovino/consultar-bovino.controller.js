@@ -127,7 +127,7 @@
             if (vm.filtro.numCaravana === '') vm.filtro.numCaravana = 0;
             consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 bovinos = data;
-                cantPaginas = parseInt(data.length / registros);
+                cantPaginas = Math.round(data.length / registros);
                 if (cantPaginas == 0) cantPaginas = 1;
                 else {
                     vm.disabledSgte = '';

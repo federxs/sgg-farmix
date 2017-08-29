@@ -126,7 +126,7 @@
                 vm.filtro.numCaravana = undefined;
             consultarTrazabilidadService.getListaEventos(angular.toJson(vm.filtro, false)).then(function success(data) {
                 eventos = data;
-                cantPaginas = parseInt(data.length / registros);
+                cantPaginas = Math.round(data.length / registros);
                 if (cantPaginas == 0)
                     cantPaginas = 1;
                 else {
@@ -253,9 +253,9 @@
 
         function insert() {
             var evento = { idTipoEvento: 1, idVacuna: 1, cantidad: 100 };
-            var lista = [8, 9];
+            var lista = [12, 17];
             tipoEventoService.insert(evento, lista.toString()).then(function success(data) {
-
+                var hola = data;
             })
         }
     }

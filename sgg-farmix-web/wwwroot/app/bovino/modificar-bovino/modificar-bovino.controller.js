@@ -46,7 +46,7 @@
                     var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 8).split('/');
                 else
                     var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10).split('/');
-                vm.bovino.fechaNacimiento = new Date(fechaNacimiento[2], fechaNacimiento[0], fechaNacimiento[1]);
+                vm.bovino.fechaNacimiento = new Date(fechaNacimiento[2], (parseInt(fechaNacimiento[1] - 1)).toString(), fechaNacimiento[0]);
                 if (vm.bovino.genero === 0) {
                     vm.checkH = true;
                     vm.checkM = false;
@@ -103,6 +103,14 @@
             if (vm.checkH === true) vm.bovino.genero = 0;
             else if (vm.checkM === true) vm.bovino.genero = 1;
             modificarBovinoService.modificar(vm.bovino).then(function success(data) {
+                if (vm.bovino.pesoAlNacer === 0 || vm.bovino.pesoAlNacer === undefined)
+                    vm.bovino.pesoAlNacer = '';
+                if (vm.bovino.idBovinoMadre === 0 || vm.bovino.idBovinoMadre === undefined)
+                    vm.bovino.idBovinoMadre = '';
+                if (vm.bovino.idBovinoPadre === 0 || vm.bovino.idBovinoPadre === undefined)
+                    vm.bovino.idBovinoPadre = '';
+                if (vm.bovino.idEstablecimientoOrigen === 0 || vm.bovino.idEstablecimientoOrigen === undefined)
+                    vm.bovino.idEstablecimientoOrigen = '';
                 vm.habilitar = false;
                 toastr.success('Se modificó el bovino con éxito ', 'Éxito');
             }, function error(data) {
