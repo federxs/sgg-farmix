@@ -154,8 +154,8 @@
                     vm.disabled = '';
                     vm.disabledExportar = '';
                 }
-            }), function (error) {
-                toastr.error('Error: ' + error, 'Error');
+            }), function error (error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             };
         };
 

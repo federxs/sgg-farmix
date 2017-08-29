@@ -43,7 +43,11 @@
                     });
                     vm.showSpinner = false;
                     vm.habilitar = true;
+                }, function error(error) {
+                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }//fin inicializar
 
@@ -69,7 +73,7 @@
                 vm.showBotones = false;
                 toastr.success('Se modificó el evento con éxito ', 'Éxito');
             }, function error(data) {
-                toastr.success('La operación no se pudo completar', 'Error');
+                toastr.error('La operación no se pudo completar', 'Error');
             })
         }
 

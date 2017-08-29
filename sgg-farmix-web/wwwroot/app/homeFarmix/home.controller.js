@@ -20,6 +20,8 @@
                     else
                         $scope.Menu[i].activo = 'background-color:#FAE5D3';
                 }               
+            }, function (error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }
         $scope.load();

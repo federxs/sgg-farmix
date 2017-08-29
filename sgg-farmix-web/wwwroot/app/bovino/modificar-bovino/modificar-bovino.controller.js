@@ -74,6 +74,8 @@
                 });
                 vm.showSpinner = false;
                 vm.habilitar = true;
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         };
 
