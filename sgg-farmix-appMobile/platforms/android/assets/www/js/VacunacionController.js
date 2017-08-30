@@ -8,10 +8,10 @@ angular.module('starter')
             $scope.evento.vacuna = "0";
             $rootScope.idVacas = {};
             $rootScope.vacas = {};
-
+            
         }).then($ionicLoading.hide).catch($ionicLoading.hide);        
         $scope.registrar = function () {
-            if($scope.txtMiligramaje > 0){
+            if($scope.txtMiligramaje.value > 0){
             if ($scope.evento.vacuna == "0") {
                 alert("Seleccione una vacuna para continuar");
             } else{
