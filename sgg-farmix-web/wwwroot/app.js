@@ -6,7 +6,8 @@
         'ngResource',
         'oc.lazyLoad',
         'toastr',
-        'googlechart'
+        'googlechart',
+        'smart-table'
         //'ui.bootstrap'
     ]);    
 })();
