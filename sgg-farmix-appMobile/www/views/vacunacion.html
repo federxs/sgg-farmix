@@ -1,13 +1,14 @@
 ﻿<ion-view view-title="Evento Vacunación">
     <ion-content padding="true" class="fondo">
         <select class="item item-input" ng-model="evento.vacuna" >
+            <option value="0">Seleccione una Vacuna</option>                             
             <option ng-repeat="vacuna in vacunas"
                  value = "{{vacuna.idVacuna}}">                  
                  {{ vacuna.nombre }}
             </option>
         </select><br>
         <label class="item item-input">            
-            <input type="number" ng-model="txtMiligramaje.value" placeholder="Ingrese la dosis en miligramaje." />
+            <input type="number" ng-model="txtMiligramaje.value" placeholder="Ingrese la dosis de la vacuna en miligramos." />
         </label>
         <br />        
         <table class="bordeTabla">

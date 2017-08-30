@@ -1,11 +1,21 @@
 angular.module('starter')
     .controller('VacunacionController', function ($ionicLoading, $scope, vacunaService, $rootScope, registrarEventoService, $state) {
-        showIonicLoading().then(obtenerVacuna).then(function (_vacunas) {
-            $scope.vacunas = _vacunas;
-        }).then($ionicLoading.hide).catch($ionicLoading.hide);
 
+        showIonicLoading().then(obtenerVacuna).then(function (_vacunas) {            
+            $scope.vacunas = _vacunas;
+            $scope.evento = {};
+            $scope.txtMiligramaje = {};
+            $scope.evento.vacuna = "0";
+            $rootScope.idVacas = {};
+            $rootScope.vacas = {};
+
+        }).then($ionicLoading.hide).catch($ionicLoading.hide);        
         $scope.registrar = function () {
-            if ($rootScope.vacas == undefined) {
+            if($scope.txtMiligramaje > 0){
+            if ($scope.evento.vacuna == "0") {
+                alert("Seleccione una vacuna para continuar");
+            } else{
+                if ($rootScope.vacas == undefined) {
                 alert("Escanee el tag de al menos una vaca para continuar");
             } else {
                 showIonicLoading().then(registrarEvento).then(function () {
@@ -13,6 +23,10 @@ angular.module('starter')
                     $rootScope.vacas = [];
                     $state.go('app.registrarEvento');
                 }).then($ionicLoading.hide).catch($ionicLoading.hide);
+            }
+          }            
+        } else{
+            alert("Ingrese una cantidad de miligramos valida.");
             }
         };
 
@@ -23,7 +37,7 @@ angular.module('starter')
         }
 
         function registrarEvento() {
-            var evento = { idTipoEvento: 1, idVacuna: $scope.vacunaSeleccionada, cantidad: $scope.txtMiligramaje };
+            var evento = { idTipoEvento: 1, idVacuna: $scope.evento.vacuna, cantidad: $scope.txtMiligramaje.value };
             return registrarEventoService.registrarEvento(evento);
         }
 

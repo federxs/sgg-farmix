@@ -5,7 +5,7 @@
             $http({
                 method: 'POST',
                 url: eventoUrl,
-                params: { evento: evento, lista: $rootScope.idVacas }
+                params: { evento: evento, lista: $rootScope.idVacas.toString() }
             });
         };
     });

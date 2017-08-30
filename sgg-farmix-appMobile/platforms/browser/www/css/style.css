@@ -1,5 +1,5 @@
 .fondo {
-    background-color: #E59866;
+    background-color: #229954;
 }
 
 .fondoMenu {
@@ -8,12 +8,12 @@
 
 .bordeBoton {
     border-color: black;
-    background-color: #229954;
+    background-color: #E59866;
     color: #fff;
 }
 .bordeTabla {
     border-color: black;
-    background-color: #229954;
+    background-color: #E59866;
     color: black;
 }
 .botonRegistrarEvento{
@@ -39,6 +39,6 @@ th, td {
 tr:nth-child(even){background-color: #f2f2f2}
 
 th {
-    background-color: #229954;
+    background-color: #E59866;
     color: black;
 }

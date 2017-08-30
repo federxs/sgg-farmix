@@ -61,6 +61,7 @@
                 $state.go('app.resultado/:id', { id: id });
             } else if ($state.current.name == "app.vacunacion") {
                 $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
+                if(estaEscaneado($scope.id) == false){
                 showIonicLoading().then(obtenerBovino).then(function (_bovino) {
                     if (_bovino != null) {
                         if ($rootScope.vacas == undefined) {
@@ -73,9 +74,19 @@
                         alert("El id escaneado no se encuentra dentro de los animales registrados");
                     }
                 }).then($ionicLoading.hide).catch($ionicLoading.hide);
+                }
+            } else {
+                alert("El Bovino ya esta agreagado en la lista");
             }
         };
-
+        function estaEscaneado(id) {
+            for (i = 0; i < $rootScope.idVacas.length; i++) {
+                if ($rootScope.idVacas[i] == id) {
+                    return true;
+                }
+            }
+            return false;
+        }
         function showIonicLoading() {
             return $ionicLoading.show({
                 template: '<ion-spinner icon="lines"/>'
