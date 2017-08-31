@@ -23,6 +23,7 @@
         vm.limpiarCampos = limpiarCampos;
         vm.exportarExcel = exportarExcel;
         //variables
+        vm.itemsByPage = 5;
         vm.razas = [];
         vm.estados = [];
         vm.categorias = [];
@@ -33,7 +34,7 @@
         vm.Paginas = [];
         vm.cursor = '';
         var registros = 5;
-        var bovinos = [];
+        vm.bovinos = [];
         var ultimoIndiceVisto = 0;
         function inicializar() {
             vm.showSpinner = true;
@@ -118,7 +119,7 @@
             vm.disabledExportar = 'disabled';
             vm.disabledSgte = 'cursor';
             vm.disabledAnt = 'cursor';
-            bovinos = [];
+            vm.bovinos = [];
             var cantPaginas = 0;
             vm.Paginas = [];
             vm.listaBovinos = [];
@@ -126,7 +127,7 @@
             if (vm.filtro.peso === '') vm.filtro.peso = 0;
             if (vm.filtro.numCaravana === '') vm.filtro.numCaravana = 0;
             consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
-                bovinos = data;
+                vm.bovinos = data;
                 cantPaginas = Math.round(data.length / registros);
                 if (cantPaginas == 0) cantPaginas = 1;
                 else {
@@ -137,7 +138,7 @@
                     vm.disabledExportar = 'disabled';
                     vm.showSpinner = false;
                     vm.disabled = '';
-                    toastr.info("No se ah encontrado ningún resultado para esta búsqueda", "Aviso");
+                    toastr.info("No se ha encontrado ningún resultado para esta búsqueda", "Aviso");
                 }
                 else {
                     for (var i = 0; i < cantPaginas ; i++) {

@@ -140,7 +140,7 @@
                 </select>
             </div>
             <div style="margin-top:24px" class="form-group col-md-3 col-lg-3">
-                <input class="form-control" type="text" ng-model="filtro.peso" placeholder="Peso (kg)" ng-disabled="disabled"/>
+                <input class="form-control" type="text" ng-model="filtro.peso" placeholder="Peso (kg)" ng-disabled="disabled" />
             </div>
         </div>
         <div class="row pull-right">
@@ -221,5 +221,42 @@
             </ul>
         </nav>
     </div>
+    <table st-table="bovinos" class="table table-striped">
+        <thead>
+            <tr>
+                <th st-sort="numCaravana">N° Caravana</th>
+                <th st-sort="categoria">Categoría</th>
+                <th st-sort="sexo">Sexo</th>
+                <th st-sort="razaNombre">Raza</th>
+                <th st-sort="rodeoNombre">Rodeo</th>
+                <th st-sort="estadoNombre">Estado</th>
+                <th st-sort="peso">Peso</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in bovinos">
+                <td>{{row.numCaravana}}</td>
+                <td>{{row.categoriaNombre}}</td>
+                <td>{{row.sexo}}</td>
+                <td>{{row.razaNombre}}</td>
+                <td>{{row.estadoNombre}}</td>
+                <td>{{row.estadoNombre}}</td>
+                <td>{{row.peso}}</td>
+                <td>
+                    <a ui-sref="home.modificarBovino({id:item.idBovino})" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a ui-sref="home.detalleBovino({id:item.idBovino})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
+                    <a ui-sref="home.eliminarBovino({id:item.idBovino})" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </div>
 <div class="loader" ng-show="showSpinner" style="margin:0 auto"></div>
