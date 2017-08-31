@@ -46,89 +46,140 @@
                 </div>
             </div>
         </div>
-
+        <div class="text-left">Los marcados campos con * son obligatorios: </div>
         <div class="panel panel-default">
             <div class="panel-heading">Datos del evento</div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="form-group col-md-6 col-lg-6">
+                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formModificarEvento.idTipoEvento.$touched && formModificarEvento.idTipoEvento.$valid,
+                 'has-error has-feedback':formModificarEvento.idTipoEvento.$touched && formModificarEvento.idTipoEvento.$invalid}">
                         <label class="control-label" for="idTipoEvento">
-                            Tipo de Evento
+                            Tipo de Evento (*)
                         </label>
-                        <select class="form-control" name="idTipoEvento"
+                        <select class="form-control" name="idTipoEvento" required
                                 ng-disabled="!habilitar"
                                 ng-model="evento.idTipoEvento">
-                            <option value="0">Seleccione...</option>
+                            <option value="">Seleccione...</option>
                             <option ng-repeat="item in tiposEventos"
                                     value="{{ item.idTipoEvento }}">
                                 {{ item.descripcion }}
                             </option>
                         </select>
+                        <div ng-show="formModificarEvento.idTipoEvento.$touched">
+                            <span class="help-block" ng-show="formModificarEvento.idTipoEvento.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6 col-lg-6">
-                        <label>
-                            Fecha del Evento
+                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formModificarEvento.fechaEvento.$touched && formModificarEvento.fechaEvento.$valid,
+                 'has-error has-feedback':formModificarEvento.fechaEvento.$touched && formModificarEvento.fechaEvento.$invalid}">
+                        <label class="control-label" for="fechaEvento">
+                            Fecha del Evento (*)
                         </label>
-                        <input name="fechaNac" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" ng-disabled="!habilitar"                               
-                               ng-model="evento.fechaHora" />
+                        <input name="fechaEvento" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" ng-disabled="!habilitar"
+                               ng-model="evento.fechaHora" required/>
+                        <div ng-show="formModificarEvento.fechaEvento.$touched">
+                            <span class="help-block" ng-show="formModificarEvento.fechaEvento.$error.required">
+                                Este campo es requerido
+                            </span>
+                            <span class="help-block" ng-show="formModificarEvento.fechaEvento.$error.max || formModificarEvento.fechaEvento.$error.min">
+                                Debe ingresar una fecha válida
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '1'">
-                        <label>
-                            Vacuna
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '1'" ng-class="{'has-success has-feedback':formModificarEvento.idVacuna.$touched && formModificarEvento.idVacuna.$valid,
+                 'has-error has-feedback':formModificarEvento.idVacuna.$touched && formModificarEvento.idVacuna.$invalid}">
+                        <label class="control-label" for="idVacuna">
+                            Vacuna (*)
                         </label>
                         <select class="form-control" name="idVacuna"
                                 ng-disabled="!habilitar"
-                                ng-model="evento.idVacuna">
-                            <option value="0">Seleccione...</option>
+                                ng-model="evento.idVacuna" required>
+                            <option value="">Seleccione...</option>
                             <option ng-repeat="item in vacunas"
                                     value="{{ item.idVacuna }}">
                                 {{ item.nombre }}
                             </option>
                         </select>
+                        <div ng-show="formModificarEvento.idVacuna.$touched">
+                            <span class="help-block" ng-show="formModificarEvento.idVacuna.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
                     </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '2'">
-                        <label>
-                            Antibiótico
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '2'" ng-class="{'has-success has-feedback':formModificarEvento.idAntibiotico.$touched && formModificarEvento.idAntibiotico.$valid,
+                 'has-error has-feedback':formModificarEvento.idAntibiotico.$touched && formModificarEvento.idAntibiotico.$invalid}">
+                        <label class="control-label" name="idAntibiotico">
+                            Antibiótico (*)
                         </label>
-                        <select class="form-control" name="idAntibiotico"
+                        <select class="form-control" name="idAntibiotico" required
                                 ng-disabled="!habilitar"
                                 ng-model="evento.idAntibiotico">
-                            <option value="0">Seleccione...</option>
+                            <option value="">Seleccione...</option>
                             <option ng-repeat="item in antibioticos"
                                     value="{{ item.idAntibiotico }}">
                                 {{ item.nombre }}
                             </option>
                         </select>
+                        <div ng-show="formModificarEvento.idAntibiotico.$touched">
+                            <span class="help-block" ng-show="formModificarEvento.idAntibiotico.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
                     </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '3'">
-                        <label>
-                            Campo Origen
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '3'" ng-class="{'has-success has-feedback':formModificarEvento.campoOrigen.$touched && formModificarEvento.campoOrigen.$valid,
+                 'has-error has-feedback':formModificarEvento.campoOrigen.$touched && formModificarEvento.campoOrigen.$invalid}">
+                        <label class="control-label" name="campoOrigen">
+                            Campo Origen (*)
                         </label>
                         <input name="campoOrigen" type="text" class="form-control" placeholder="Campo Origen" disabled
                                ng-model="evento.campoOrigen" />
-                        <label>
-                            Campo Actual
+                        <br />
+                        <label class="control-label" name="campoActual"> 
+                            Campo Actual (*)
                         </label>
                         <input name="campoActual" type="text" class="form-control" placeholder="Campo Actual" disabled
                                ng-model="evento.campoActual" />
                     </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '4'">
-                        <label>
-                            Alimento
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '4'" ng-class="{'has-success has-feedback':formModificarEvento.idAlimento.$touched && formModificarEvento.idAlimento.$valid,
+                 'has-error has-feedback':formModificarEvento.idAlimento.$touched && formModificarEvento.idAlimento.$invalid}">
+                        <label class="control-label" name="idAlimento">
+                            Alimento (*)
                         </label>
-                        <input name="alimento" type="text" class="form-control" placeholder="Alimento" disabled
-                               ng-model="evento.alimento" />
+                        <select class="form-control" name="idAlimento" required
+                                ng-disabled="!habilitar"
+                                ng-model="evento.alimento">
+                            <option value="">Seleccione...</option>
+                            <option ng-repeat="item in alimentos"
+                                    value="{{ item.idAlimento }}">
+                                {{ item.nombre }}
+                            </option>
+                        </select>
+                        <div ng-show="formModificarEvento.idAlimento.$touched">
+                            <span class="help-block" ng-show="formModificarEvento.idAlimento.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
                     </div>
-                    <div class="form-group col-md-3 col-lg-3">
-                        <label>
-                            Cantidad
-                            <label ng-show="evento.idTipoEvento === 1 || evento.idTipoEvento === 2">(mgrs)</label>
-                            <label ng-show="evento.idTipoEvento === 4">(Kgrs)</label>
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '1' || evento.idTipoEvento === '2' || evento.idTipoEvento === '4'" ng-class="{'has-success has-feedback':formModificarEvento.cantidad.$touched && formModificarEvento.cantidad.$valid,
+                 'has-error has-feedback':formModificarEvento.cantidad.$touched && formModificarEvento.cantidad.$invalid}">
+                        <label class="control-label" for="cantidad">
+                            Cantidad (*)
+                            <label ng-show="evento.idTipoEvento === '1' || evento.idTipoEvento === '2'">(mgrs)</label>
+                            <label ng-show="evento.idTipoEvento === '4'">(Kgrs)</label>
                         </label>
-                        <input name="cantidad" type="number" class="form-control" placeholder="Cantidad" ng-disabled="!habilitar"
-                               ng-model="evento.cantidad" />
+                        <input name="cantidad" type="number" class="form-control" placeholder="Cantidad" ng-disabled="!habilitar" required
+                               ng-model="evento.cantidad" min="0" />
+                        <div ng-show="formModificarEvento.cantidad.$touched">
+                            <span class="help-block" ng-show="formModificarEvento.cantidad.$error.required">
+                                Este campo es requerido
+                            </span>
+                            <span class="help-block" ng-show="formModificarEvento.cantidad.$error.min">
+                                El número no puede ser negativo
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
