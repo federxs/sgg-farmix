@@ -91,6 +91,8 @@
         };
 
         function modificar() {
+            vm.showSpinner = true;
+            vm.habilitar = false;
             vm.bovino.peso = vm.bovino.peso.toString().replace(',', '.');
             vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
             vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
@@ -113,7 +115,8 @@
                     vm.bovino.idBovinoPadre = '';
                 if (vm.bovino.idEstablecimientoOrigen === 0 || vm.bovino.idEstablecimientoOrigen === undefined)
                     vm.bovino.idEstablecimientoOrigen = '';
-                vm.habilitar = false;
+                //vm.habilitar = false;
+                vm.showSpinner = false;
                 toastr.success('Se modificó el bovino con éxito ', 'Éxito');
             }, function error(data) {
                 toastr.success('La operación no se pudo completar', 'Error');

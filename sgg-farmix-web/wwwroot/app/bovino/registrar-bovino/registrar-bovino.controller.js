@@ -9,6 +9,8 @@
 
     function registrarBovinoController($scope, registrarBovinoService, toastr, $state) {
         var vm = $scope;
+        vm.showSpinner = true;
+        vm.habilitar = false;
         //funciones
         vm.registrar = registrar;
         vm.validar = validar;
@@ -32,25 +34,31 @@
         vm.inicializar();
 
         function inicializar() {
+            vm.habilitar = false;
             registrarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
                 vm.estados = data.estados;
                 vm.categorias = data.categorias;
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
+                vm.showSpinner = false;
+                vm.habilitar = true;
             });
             vm.bovino = new registrarBovinoService();
         };
 
         function registrar() {
+            vm.showSpinner = true;
+            vm.habilitar = false;
             vm.bovino.peso = vm.bovino.peso.toString().replace(',', '.');
             if (vm.bovino.pesoAlNacer !== undefined && vm.bovino.pesoAlNacer !== '')
                 vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
             vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
             vm.bovino.$save(function (data) {
                 toastr.success('Se agrego con éxito el bovino ', 'Éxito');
-                vm.habilitar = false;
+                //vm.habilitar = false;
                 vm.btnVolver = "Volver";
+                vm.showSpinner = false;
             }, function (error) {
                 if (error.statusText === 'Bovino ya existe') {
                     toastr.warning('Ya existe un bovino con ese número de caravana', 'Advertencia');
