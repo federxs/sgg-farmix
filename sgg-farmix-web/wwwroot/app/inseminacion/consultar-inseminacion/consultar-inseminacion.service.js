@@ -1,19 +1,17 @@
 ﻿(function () {
-    'use strict';
-
     angular
         .module('app')
-        .factory('consultar_inseminacion', consultar_inseminacion);
+        .factory('consultarInseminacionService', consultarInseminacionService);
 
-    consultar_inseminacion.$inject = ['$http'];
+    consultarInseminacionService.$inject = ['$http', 'portalService'];
 
-    function consultar_inseminacion($http) {
+    function consultarInseminacionService($http, portalService) {
         var service = {
-            getData: getData
+            inicializar: inicializar
         };
 
         return service;
 
-        function getData() { }
+        function inicializar() { }
     }
 })();

@@ -3,17 +3,17 @@
 
     angular
         .module('app')
-        .controller('consultar_inseminacion', consultar_inseminacion);
+        .controller('consultarInseminacionController', consultarInseminacionController);
 
-    consultar_inseminacion.$inject = ['$location']; 
+    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService'];
 
-    function consultar_inseminacion($location) {
-        /* jshint validthis:true */
-        var vm = this;
-        vm.title = 'consultar_inseminacion';
+    function consultarInseminacionController($scope, consultarInseminacionService) {
+        var vm = $scope;
+        //variables
+        //metodos
+        vm.inicializar = inicializar;
+        inicializar();
 
-        activate();
-
-        function activate() { }
+        function inicializar() { }
     }
 })();

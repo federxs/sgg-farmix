@@ -89,6 +89,12 @@
             params: { 'id': null },
             templateUrl: 'app/trazabilidad/modificar-evento/modificar-evento.html',
             controller: 'modificarEventoController'
+        })
+        .state('home.inseminacion', {
+            url: '/inseminacion',
+            params: { 'id': null },
+            templateUrl: 'app/inseminacion/consultar-inseminacion/consultar-inseminacion.html',
+            controller: 'consultarInseminacionController'
         });
     });
 })();
