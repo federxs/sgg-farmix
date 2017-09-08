@@ -41,7 +41,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
             catch (Exception ex)
             {
-                return null;
+                throw;
             }
             finally
             {
@@ -77,7 +77,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
             catch (Exception ex)
             {
-                return null;
+                throw;
             }
             finally
             {
@@ -134,7 +134,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             catch (Exception ex)
             {
                 connection.Rollback(transaction);
-                return null;
+                throw;
             }
             finally
             {
@@ -157,7 +157,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
             catch (Exception ex)
             {
-                return null;
+                throw;
             }
             finally
             {
@@ -216,7 +216,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             catch (Exception ex)
             {
                 connection.Rollback(transaction);
-                return null;
+                throw;
             }
             finally
             {
