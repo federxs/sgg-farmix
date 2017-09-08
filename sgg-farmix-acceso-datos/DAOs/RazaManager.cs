@@ -26,7 +26,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
             catch (Exception)
             {
-                return null;
+                throw;
             }
             finally
             {
