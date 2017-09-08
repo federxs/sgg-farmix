@@ -57,11 +57,17 @@
 <form name="formConsultarBovino" novalidate>
     <fieldset>
         <div class="row">
-            <div class="form-group col-md-3 col-lg-3">
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarBovino.numCaravana.$touched && formConsultarBovino.numCaravana.$valid,
+                 'has-error has-feedback':formConsultarBovino.numCaravana.$touched && formConsultarBovino.numCaravana.$invalid}">
                 <label>
                     N° Caravana
                 </label>
-                <input class="form-control" type="text" ng-model="filtro.numCaravana" placeholder="N° Caravana" ng-disabled="disabled" />
+                <input class="form-control" name="numCaravana" type="number" ng-model="filtro.numCaravana" placeholder="N° Caravana" min="0" ng-disabled="disabled" />
+                <div ng-show="formConsultarBovino.numCaravana.$touched">
+                    <span class="help-block" ng-show="formConsultarBovino.numCaravana.$error.min">
+                        El número de Caravana no puede ser negativo
+                    </span>
+                </div>
             </div>
             <div class="form-group col-md-3 col-lg-3">
                 <label>
@@ -139,8 +145,14 @@
                     <option value="menor">Menor</option>
                 </select>
             </div>
-            <div style="margin-top:24px" class="form-group col-md-3 col-lg-3">
-                <input class="form-control" type="text" ng-model="filtro.peso" placeholder="Peso (kg)" ng-disabled="disabled" />
+            <div style="margin-top:24px" class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarBovino.peso.$touched && formConsultarBovino.peso.$valid,
+                 'has-error has-feedback':formConsultarBovino.peso.$touched && formConsultarBovino.peso.$invalid}">
+                <input class="form-control" name="peso" type="number" ng-model="filtro.peso" placeholder="Peso (kg)" min="0" ng-disabled="filtro.accionPeso === '0'" />
+                <div ng-show="formConsultarBovino.peso.$touched">
+                    <span class="help-block" ng-show="formConsultarBovino.peso.$error.min">
+                        El peso no puede ser negativo
+                    </span>
+                </div>
             </div>
         </div>
         <div class="row pull-right">
@@ -151,7 +163,7 @@
                     Limpiar Campos
                 </button>
                 <button class="btn btn-primary"
-                        ng-click="consultar()" ng-disabled="disabled">
+                        ng-click="consultar()" ng-disabled="formConsultarBovino.$invalid || disabled">
                     <span class="glyphicon glyphicon-search"></span>
                     Buscar
                 </button>
@@ -192,9 +204,9 @@
             <td>{{item.estadoNombre}}</td>
             <td>{{item.peso}}</td>
             <td>
-                <a ui-sref="home.modificarBovino({id:item.idBovino})" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a ui-sref="home.modificarBovino({id:item.idBovino})" title="Modificar" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="glyphicon glyphicon-pencil"></span></a>
                 <a ui-sref="home.detalleBovino({id:item.idBovino})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
-                <a ui-sref="home.eliminarBovino({id:item.idBovino})" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
+                <a ui-sref="home.eliminarBovino({id:item.idBovino})" title="Eliminar" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         </tr>
     </table>

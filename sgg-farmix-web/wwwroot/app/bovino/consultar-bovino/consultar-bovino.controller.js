@@ -125,7 +125,7 @@
             vm.Paginas = [];
             vm.listaBovinos = [];
             registros = 5;
-            if (vm.filtro.peso === '') vm.filtro.peso = 0;
+            if (vm.filtro.peso === '' || vm.filtro.peso === undefined) vm.filtro.peso = 0;
             if (vm.filtro.numCaravana === '') vm.filtro.numCaravana = 0;
             consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 bovinos = data;
@@ -170,6 +170,7 @@
             vm.filtro.idRodeo = '0';
             vm.filtro.idEstado = '0';
             vm.filtro.accionPeso = '0';
+            vm.filtro.numCaravana = '';
             consultar();
         }
 
