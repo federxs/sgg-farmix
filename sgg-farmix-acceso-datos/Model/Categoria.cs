@@ -10,5 +10,6 @@ namespace sgg_farmix_acceso_datos.Model
     {
         public long idCategoria { get; set; }
         public string nombre { get; set; }
+        public int genero { get; set; }
     }
 }

@@ -16,6 +16,7 @@
         vm.validar = validar;
         vm.inicializar = inicializar;
         vm.idCaravanaChange = idCaravanaChange;
+        vm.changeSexo = changeSexo;
         //variables
         $scope.$state = $state;
         vm.razas = [];
@@ -30,14 +31,18 @@
         vm.showMjeSuccess = false;
         vm.showMjeError = false;
         vm.mjeExiste = '';
-
+        var categorias = [];
         vm.inicializar();
 
         function inicializar() {
             vm.habilitar = false;
             registrarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
                 vm.estados = data.estados;
-                vm.categorias = data.categorias;
+                categorias = data.categorias;
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].genero === 0)
+                        vm.categorias.push(categorias[i]);
+                }
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
@@ -106,6 +111,22 @@
 
         function validar() {
 
+        }
+
+        function changeSexo() {
+            vm.categorias = [];
+            if (vm.bovino.genero === '0') {
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].genero === 0)
+                        vm.categorias.push(categorias[i]);
+                }
+            }
+            else {
+                for (var j = 0; j < categorias.length; j++) {
+                    if (categorias[j].genero === 1)
+                        vm.categorias.push(categorias[j]);
+                }
+            }
         }
     }
 })();
