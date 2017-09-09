@@ -13,6 +13,7 @@ angular.module('starter')
         }).then($ionicLoading.hide).catch($ionicLoading.hide);
 
         $scope.cargarRodeo = function () {
+            $scope.evento.rodeo = "0";
             $scope.rodeos = [];
             for (var i = 0; i < todosRodeos.length; i++) {
                 if (todosRodeos[i].idCampo == $scope.evento.campo) {

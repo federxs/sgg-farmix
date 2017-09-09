@@ -5,8 +5,8 @@
         var portalService = {};
 
         portalService.getUrlServer = function () {
-            return "http://181.164.11.174:2424/";
-            //return "http://farmix.somee.com/"
+            //return "http://181.164.11.174:2424/";
+            return "http://farmix.somee.com/"
             //return "http://localhost:2424/";
             // return "http://190.104.236.39/websiteyo/";
             // return "http://yo.sooft.com.ar/";
