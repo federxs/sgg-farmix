@@ -4,7 +4,7 @@ angular.module('starter')
         if (_bovino != null) {
             $scope.peso = _bovino.peso;
             $scope.apodo = _bovino.apodo;
-            $scope.numCaravana = _bovino.numCaravana;
+            $scope.idBovino = _bovino.idBovino;
             var fecha = _bovino.fechaNacimiento.substr(0, 10);
             /*if (_bovino.fechaNacimiento.charAt(1) == '/' && _bovino.fechaNacimiento.charAt(4) == '/') {
                 fecha = _bovino.fechaNacimiento.substr(2, 2) + "/" + _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(5, 4)

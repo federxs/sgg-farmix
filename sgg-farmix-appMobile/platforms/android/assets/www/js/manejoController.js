@@ -1,5 +1,7 @@
 angular.module('starter')
     .controller('ManejoController', function ($ionicLoading, $scope, campoService, rodeoService, $rootScope, registrarEventoService, $state) {
+        $rootScope.vacas = [];
+        $rootScope.idVacas = [];
         var todosRodeos = {};
         showIonicLoading().then(obtenerCampo).then(function (_campos) {            
             $scope.campos = _campos;
@@ -40,7 +42,7 @@ angular.module('starter')
         }
 
         function registrarEvento() {
-            var evento = { idTipoEvento: 3, idCampoActual: $scope.evento.campo };
+            var evento = { idTipoEvento: 3, idCampoDestino: $scope.evento.campo, idRodeoDestino: $scope.evento.rodeo };
             return registrarEventoService.registrarEvento(evento);
         }
 
