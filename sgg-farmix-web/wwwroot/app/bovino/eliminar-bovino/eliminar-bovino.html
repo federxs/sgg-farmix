@@ -79,9 +79,9 @@
                              ng-class="{'has-success has-feedback':formEliminarBovino.monto.$touched && formEliminarBovino.monto.$valid,
                              'has-error has-feedback':formEliminarBovino.monto.$touched && formEliminarBovino.monto.$invalid}">
                             <label class="control-label" for="monto">
-                                Precio
+                                Precio ($)
                             </label>
-                            <input class="form-control" type="number" id="monto" name="monto" min="0" max="10000" placeholder="Precio" required
+                            <input class="form-control" type="number" id="monto" name="monto" min="0" max="10000" placeholder="Precio ($)" required
                                    ng-disabled="!habilitar"
                                    ng-model="bajaBovino.monto" />
                             <div ng-show="formEliminarBovino.monto.$touched">

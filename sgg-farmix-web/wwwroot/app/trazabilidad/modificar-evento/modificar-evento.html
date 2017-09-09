@@ -212,8 +212,9 @@
         </div>
     </fieldset>
     <div class="row">
+        <!--ng-disabled="formModificarEvento.$invalid || !habilitar"-->
         <button type="submit" style="margin-left:15px;" class="btn btn-primary"
-                ng-disabled="formModificarEvento.$invalid || !habilitar"
+                ng-disabled="!habilitar"
                 ng-click="modificar()">
             Aceptar
         </button>

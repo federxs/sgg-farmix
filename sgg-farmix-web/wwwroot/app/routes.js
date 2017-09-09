@@ -66,6 +66,7 @@
         $stateProvider
         .state('home.eliminarBovino', {
             url: '/bovinos/darDeBaja',
+            params: { 'id': null },
             templateUrl: 'app/bovino/eliminar-bovino/eliminar-bovino.html',
             controller: 'eliminarBovinoController'
         });

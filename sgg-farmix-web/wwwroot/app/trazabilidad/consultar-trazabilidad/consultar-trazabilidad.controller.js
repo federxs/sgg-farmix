@@ -41,6 +41,7 @@
             tipoEventoService.inicializar({}).then(function success(data) {
                 vm.Eventos = data;
                 vm.filtro.idTipoEvento = '0';
+                vm.disabled = '';
                 consultar();
             });
             //vm.bovino = new registrarBovinoService();
@@ -172,9 +173,11 @@
         }
 
         function limpiarCampos() {
-            vm.filtro = {};
-            vm.filtro.idTipoEvento = '0';
-            consultar();
+            $state.reload();            
+            //vm.filtro = {};
+            //vm.filtro.idTipoEvento = '0';
+            //vm.filtro.numCaravana = '';
+            //consultar();
         }
 
         function exportarExcel() {
