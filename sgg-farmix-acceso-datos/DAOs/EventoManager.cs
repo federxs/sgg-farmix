@@ -105,8 +105,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                         parametrosEvento.Add("@idAntibiotico", evento.idAntibiotico);
                         break;
                     case 3: //manejo
-                        parametrosEvento.Add("@idCampoDestino", evento.idCampoOrigen);
-                        parametrosEvento.Add("@idCampoActual", evento.idCampoActual);
+                        parametrosEvento.Add("@idCampoDestino", evento.idCampoDestino);
+                        parametrosEvento.Add("@idRodeoDestino", evento.idRodeoDestino);
                         break;
                     case 4: //alimenticio
                         parametrosEvento.Add("@idAlimento", evento.idAlimento);
@@ -186,8 +186,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                         parametrosEvento.Add("@idAntibiotico", entity.idAntibiotico);
                         break;
                     case 3:
-                        parametrosEvento.Add("@idCampoOrigen", entity.idCampoOrigen);
-                        parametrosEvento.Add("@idCampoActual", entity.idCampoActual);
+                        parametrosEvento.Add("@idCampoDestino", entity.idCampoDestino);
+                        parametrosEvento.Add("@idRodeoDestino", entity.idRodeoDestino);
                         break;
                     case 4:
                         parametrosEvento.Add("@idAlimento", entity.idAlimento);

@@ -58,10 +58,10 @@
                 vm.evento.idVacuna = 0;
             if (vm.evento.idAntibiotico === '')
                 vm.evento.idAntibiotico = 0;
-            if (vm.evento.idCampoOrigen === '')
-                vm.evento.idCampoOrigen = 0;
-            if (vm.evento.idCampoActual === '')
-                vm.evento.idCampoActual = 0;
+            if (vm.evento.idCampoDestino === '')
+                vm.evento.idCampoDestino = 0;
+            if (vm.evento.idRodeoDestino === '')
+                vm.evento.idRodeoDestino = 0;
             if (vm.evento.idAlimento === '')
                 vm.evento.idAlimento = 0;
             var ids = [];
