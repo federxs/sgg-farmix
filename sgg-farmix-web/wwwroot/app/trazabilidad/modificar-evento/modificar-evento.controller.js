@@ -11,11 +11,14 @@
         var vm = $scope;
         vm.showSpinner = true;
         vm.habilitar = false;
+        vm.habilitarBtnAceptar = false;
         vm.showBotones = true;
         //funciones
         vm.inicializar = inicializar();
         vm.modificar = modificar;
         vm.eliminar = eliminar;
+        vm.changeCampos = changeCampos;
+        vm.changeRodeos = changeRodeos;
         //variables
         vm.evento = {};
         vm.fechaDeHoy = new Date();
@@ -24,15 +27,20 @@
             vm.showBotones = true;
             vm.showSpinner = true;
             vm.habilitar = false;
+            vm.habilitarBtnAceptar = false;
             modificarEventoService.initModificacion($stateParams.id).then(function success(data) {
                 vm.vacunas = data.vacunas;
                 vm.tiposEventos = data.tipoEvento;
                 vm.listaBovinos = data.listaBovinos.listaBovinos;
+                vm.campos = data.campos;
+                vm.rodeos = data.rodeos;
                 modificarEventoService.getEventoForModificar($stateParams.id).then(function success(data) {
                     //evento
                     vm.evento = data;
                     vm.evento.idTipoEvento = vm.evento.idTipoEvento.toString();
                     vm.evento.idVacuna = vm.evento.idVacuna.toString();
+                    vm.evento.idCampoDestino = vm.evento.idCampoDestino.toString();
+                    vm.idRodeoDestino = vm.evento.idRodeoDestino.toString();
                     var fecha = vm.evento.fechaHora.substring(0, 10).split('/');
                     vm.evento.fechaHora = new Date(fecha[2], (parseInt(fecha[1]) - 1).toString(), fecha[0]);
                     //seteamos a "" las variables 0
@@ -43,6 +51,7 @@
                     });
                     vm.showSpinner = false;
                     vm.habilitar = true;
+                    vm.habilitarBtnAceptar = true;
                 }, function error(error) {
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
@@ -52,7 +61,10 @@
         }//fin inicializar
 
         function modificar() {
-            vm.evento.cantidad = vm.evento.cantidad.toString().replace(',', '.');
+            if (vm.evento.cantidad === '')
+                vm.evento.cantidad = 0;
+            else
+                vm.evento.cantidad = vm.evento.cantidad.toString().replace(',', '.');
             vm.evento.fechaHora = convertirFecha(vm.evento.fechaHora);
             if (vm.evento.idVacuna === '')
                 vm.evento.idVacuna = 0;
@@ -64,6 +76,7 @@
                 vm.evento.idRodeoDestino = 0;
             if (vm.evento.idAlimento === '')
                 vm.evento.idAlimento = 0;
+            vm.evento.idRodeoDestino = vm.idRodeoDestino;
             var ids = [];
             for (var i = 0; i < vm.listaBovinos.length; i++) {
                 ids.push(vm.listaBovinos[i].idBovino);
@@ -71,6 +84,7 @@
             modificarEventoService.modificar(vm.evento, ids).then(function success(data) {
                 vm.habilitar = false;
                 vm.showBotones = false;
+                vm.habilitarBtnAceptar = false;
                 toastr.success('Se modificó el evento con éxito ', 'Éxito');
             }, function error(data) {
                 toastr.error('La operación no se pudo completar', 'Error');
@@ -95,6 +109,37 @@
             año = fecha.getFullYear().toString();
             return dia + '/' + mes + '/' + año;
         };
+
+        function changeCampos() {
+            var campo = '';
+            vm.idRodeoDestino = vm.evento.idRodeoDestino.toString();
+            for (var i = 0; i < vm.campos.length; i++) {
+                if (vm.campos[i].idCampo === parseInt(vm.evento.idCampoDestino)) {
+                    campo = vm.campos[i].nombre;
+                    break;
+                }
+            }
+            modificarEventoService.getRodeos(campo).then(function success(data) {
+                vm.rodeos = data;
+                var encontre = false;
+                vm.habilitarBtnAceptar = true;
+                for (var i = 0; i < vm.rodeos.length; i++) {
+                    if (vm.rodeos[i].idRodeo === parseInt(vm.idRodeoDestino)) {
+                        encontre = true;
+                        break;
+                    }
+                }
+                if (!encontre) {
+                    vm.idRodeoDestino = '';
+                    vm.habilitarBtnAceptar = false;
+                }
+            })
+        }
+
+        function changeRodeos() {
+            if (parseInt(vm.evento.idRodeoDestino) > 0)
+                vm.habilitarBtnAceptar = true;
+        }
 
     }//fin archivo
 })();

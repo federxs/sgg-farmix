@@ -11,7 +11,8 @@
         var service = {
             getEventoForModificar: getEventoForModificar,
             initModificacion: initModificacion,
-            modificar: modificar
+            modificar: modificar,
+            getRodeos: getRodeos
         };
 
         function getEventoForModificar(id) {
@@ -44,6 +45,19 @@
                 url: portalService.getUrlServer() + 'api/Evento',
                 params: { value: evento, lista: lista }
             })
+        }
+
+        function getRodeos(campo) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Rodeo/GetList',
+                params: {
+                    campo: campo
+                }
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
         }
 
         return service;

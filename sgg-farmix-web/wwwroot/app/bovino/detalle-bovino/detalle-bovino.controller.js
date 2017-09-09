@@ -43,6 +43,8 @@
                     }
                 });
                 vm.showSpinner = false;
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }//fin inicializar
 

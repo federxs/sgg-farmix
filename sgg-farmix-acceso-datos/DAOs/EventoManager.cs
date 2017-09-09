@@ -19,7 +19,21 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public void Delete(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idEvento", id }
+                };
+                var delete = connection.Execute("spEliminarEvento", parametros, System.Data.CommandType.StoredProcedure);
+                if(delete == 0)
+                    throw new ArgumentException("Delete Evento Error");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public IEnumerable<Evento> Get(Evento entity)
@@ -128,6 +142,22 @@ namespace sgg_farmix_acceso_datos.DAOs
                     if(insert == 0)
                         throw new ArgumentException("Create EventosXBovino Error");
                 }
+                if(evento.idTipoEvento == 3)
+                {
+                    insert = 0;
+                    var parametros = new Dictionary<string, object>
+                    {
+                        {"@idRodeo", evento.idRodeoDestino },
+                        {"@idBovino", 0 }
+                    };
+                    for (int i = 0; i < lista.Count; i++)
+                    {
+                        parametros["@idBovino"] = lista.ElementAt(i);
+                        insert = connection.Execute("spActualizarRodeoBovino", parametros, System.Data.CommandType.StoredProcedure, transaction);
+                        if (insert == 0)
+                            throw new ArgumentException("Update rodeo bovino Error");
+                    }
+                }
                 connection.Commit(transaction);
                 return evento;
             }
@@ -209,6 +239,22 @@ namespace sgg_farmix_acceso_datos.DAOs
                     insertDetalle = connection.Execute("spRegistrarEventosXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
                     if (insertDetalle == 0)
                         throw new ArgumentException("Update EventosXBovino Error");
+                }
+                if (entity.idTipoEvento == 3)
+                {
+                    var insert = 0;
+                    var parametros = new Dictionary<string, object>
+                    {
+                        {"@idRodeo", entity.idRodeoDestino },
+                        {"@idBovino", 0 }
+                    };
+                    for (int i = 0; i < lista.Count; i++)
+                    {
+                        parametros["@idBovino"] = lista.ElementAt(i);
+                        insert = connection.Execute("spActualizarRodeoBovino", parametros, System.Data.CommandType.StoredProcedure, transaction);
+                        if (insert == 0)
+                            throw new ArgumentException("Update rodeo bovino Error");
+                    }
                 }
                 connection.Commit(transaction);
                 return entity;

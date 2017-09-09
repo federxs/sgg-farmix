@@ -56,6 +56,8 @@
                 vm.filtro.idEstado = '0';
                 vm.filtro.accionPeso = '0';
                 consultar();
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
 

@@ -97,6 +97,8 @@ namespace sgg_farmix_api.Controllers
                 resultado.vacunas = new VacunaManager().GetList();
                 resultado.tipoEvento = new TipoEventoManager().GetList();
                 resultado.listaBovinos = EM.GetEvento(Int64.Parse(id));
+                resultado.campos = new CampoManager().GetList();
+                resultado.rodeos = new RodeoManager().GetList(resultado.listaBovinos.campoDestino);
             }
             catch (Exception ex)
             {
@@ -148,6 +150,25 @@ namespace sgg_farmix_api.Controllers
                 }
                 ids.Add(long.Parse(aux));
                 return EM.Update(evento.idEvento, evento, ids);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Evento/DeleteEvento")]
+        [HttpPut]
+        public void DeleteEvento(string idEvento)
+        {
+            try
+            {
+                var id = Regex.Replace(idEvento, @"[^\d]", "");
+                EM.Delete(Int64.Parse(id));
             }
             catch (Exception ex)
             {

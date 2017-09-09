@@ -27,7 +27,7 @@ namespace sgg_farmix_api.Controllers
                 resultado.categorias = new CategoriaManager().GetList();
                 resultado.estados = new EstadoManager().GetList(1);
                 resultado.razas = new RazaManager().GetList();
-                resultado.rodeos = new RodeoManager().GetList();
+                resultado.rodeos = new RodeoManager().GetList("Prueba");
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
                 resultado.bovino = BM.Get(Int64.Parse(id));
             }
@@ -158,7 +158,7 @@ namespace sgg_farmix_api.Controllers
                 resultado.categorias = new CategoriaManager().GetList();
                 resultado.estados = new EstadoManager().GetList(idAmbitoEstado);
                 resultado.razas = new RazaManager().GetList();
-                resultado.rodeos = new RodeoManager().GetList();
+                resultado.rodeos = new RodeoManager().GetList("Prueba");
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
             }
             catch (Exception ex)

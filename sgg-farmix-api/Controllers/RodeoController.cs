@@ -32,11 +32,11 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Rodeo/GetList")]
         [HttpGet]
-        public IEnumerable<Rodeo> GetList()
+        public IEnumerable<Rodeo> GetList(string campo)
         {
             try
             {
-                return RM.GetList();
+                return RM.GetList(campo);
             }
             catch (Exception ex)
             {

@@ -18,7 +18,7 @@
             });
         $stateProvider
             .state('home.registrarBovino', {
-                url: '/bovinos/registrar',
+                url: '/bovino/registrar',
                 templateUrl: 'app/bovino/registrar-bovino/registrar-bovino.html',
                 controller: 'registrarBovinoController',
                 data: {
@@ -45,7 +45,7 @@
         });
         $stateProvider
         .state('home.detalleBovino', {
-            url: '/bovinos/detalle',
+            url: '/bovino/detalle',
             params: { 'id': null },
             templateUrl: 'app/bovino/detalle-bovino/detalle-bovino.html',
             controller: 'detalleBovinoController',
@@ -55,7 +55,7 @@
         });
         $stateProvider
         .state('home.modificarBovino', {
-            url: '/bovinos/modificacion',
+            url: '/bovino/modificacion',
             params: { 'id': null },
             templateUrl: 'app/bovino/modificar-bovino/modificar-bovino.html',
             controller: 'modificarBovinoController',
@@ -65,7 +65,7 @@
         });
         $stateProvider
         .state('home.eliminarBovino', {
-            url: '/bovinos/darDeBaja',
+            url: '/bovino/darDeBaja',
             params: { 'id': null },
             templateUrl: 'app/bovino/eliminar-bovino/eliminar-bovino.html',
             controller: 'eliminarBovinoController'

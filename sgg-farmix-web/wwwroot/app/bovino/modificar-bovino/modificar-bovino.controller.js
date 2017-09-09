@@ -27,7 +27,6 @@
         vm.btnVolver = "Volver";
         vm.checkH = false;
         vm.checkM = false;
-        inicializar();
 
         function inicializar() {
             vm.showSpinner = true;

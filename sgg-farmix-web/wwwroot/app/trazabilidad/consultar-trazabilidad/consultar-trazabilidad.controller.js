@@ -14,6 +14,8 @@
         vm.disabledExportar = 'disabled';
         vm.disabledSgte = 'cursor';
         vm.disabledAnt = 'cursor';
+        vm.tipoEventoPopUp = '';
+        vm.fecha = '';
         //funciones
         vm.inicializar = inicializar();
         vm.consultar = consultar;
@@ -22,6 +24,8 @@
         vm.siguiente = siguiente;
         vm.limpiarCampos = limpiarCampos;
         vm.exportarExcel = exportarExcel;
+        vm.openPopUp = openPopUp;
+        vm.eliminar = eliminar;
         vm.insert = insert;
         //variables       
         vm.filtro = {};
@@ -31,7 +35,9 @@
         var eventos = [];
         vm.listaEventos = [];
         var ultimoIndiceVisto = 0;
+        var idEventoAEliminar = 0;
         vm.fechaDeHoy = new Date();
+
         function inicializar() {
             vm.showSpinner = true;
             vm.disabledExportar = 'disabled';
@@ -43,6 +49,8 @@
                 vm.filtro.idTipoEvento = '0';
                 vm.disabled = '';
                 consultar();
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
             //vm.bovino = new registrarBovinoService();
         };
@@ -252,6 +260,26 @@
                     toastr.error("Ha ocurrido un error: " + error, "ERROR!");
                 });
             }
+        }
+
+        function openPopUp(tipoEvento, fecha, idEvento) {
+            vm.tipoEventoPopUp = tipoEvento;
+            vm.fecha = fecha;
+            idEventoAEliminar = idEvento;
+            $('#modalConfirmEliminar').modal('show');
+        }
+
+        function eliminar() {
+            vm.showSpinner = true;
+            consultarTrazabilidadService.eliminarEvento(idEventoAEliminar).then(function success(){
+                $('#modalConfirmEliminar').modal('hide');
+                toastr.success('Evento eliminado con éxito', 'Error');
+                vm.showSpinner = false;
+                $state.reload();
+            }, function (error) {
+                $('#modalConfirmEliminar').modal('hide');
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
         }
 
         function insert() {
