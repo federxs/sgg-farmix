@@ -75,19 +75,20 @@
                 <ul class="list-group" style="margin-top: 20px;">
                     <!--<li class="list-group-item">Usuario<span class="pull-left glyphicon glyphicon-user"></span></li>-->
                     <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}" style="{{menu.activo}}">
-                        <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0" ng-click="activar(menu.idMenu)">
+                        <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0 && menu.menu_Hijos === null" ng-click="activar(menu.idMenu)">
                             <span class="title" style="color:black">{{menu.nombre}}</span>
                             <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
                         </a>
-                        <a href="javascript:;" class="nav-link nav-toggle" ng-if="menu.Menu_Hijos.length > 0">
-                            <i class="{{menu.Menu_Padre.Men_Icono}}"></i>
-                            <span class="title">{{menu.menNombre}}</span>
-                            <span class="arrow "></span>
+                        <a href="javascript:;" class="nav-link nav-toggle" ng-if="menu.menu_Hijos.length > 0" ng-click="activar(menu.idMenu)">
+                            <span class="title" style="color:black">{{menu.nombre}}</span>
+                            <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
+                            <span class="arrow"></span>
                         </a>
-                        <ul class="sub-menu" ng-if="menu.Menu_Hijos.length > 0">
-                            <li ng-repeat="menuHijo in menu.Menu_Hijos">
-                                <a href="#{{menuHijo.urlMenu}}">
-                                    <i class="{{menuHijo.menIcono}}"></i> {{menu.menNombre}}
+                        <ul class="sub-menu" ng-if="menu.menu_Hijos.length > 0">
+                            <li ng-repeat="menuHijo in menu.menu_Hijos">
+                                <a ui-sref="{{menuHijo.urlMenu}}">
+                                    <span class="title" style="color:black">{{menuHijo.nombre}}</span>
+                                    <i class="pull-left {{menuHijo.menIcono}}" aria-hidden="true" style="color:black"></i>
                                 </a>
                             </li>
                         </ul>

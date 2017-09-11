@@ -16,5 +16,6 @@ namespace sgg_farmix_acceso_datos.Model
         public string menIcono { get; set; }
         public string menNombreApp { get; set; }
         public long menOrden { get; set; }
+        public List<Menu> menu_Hijos { get; set; }
     }
 }

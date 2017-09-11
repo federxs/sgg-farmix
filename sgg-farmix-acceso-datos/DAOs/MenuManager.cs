@@ -51,7 +51,27 @@ namespace sgg_farmix_acceso_datos.DAOs
                         {"@Usu_Id", null }
                     };
                 var lista = connection.GetArray<Menu>("spGetMenues", parametros, System.Data.CommandType.StoredProcedure);
-                return lista.ToList();
+
+                List <Menu> list = lista.ToList();
+
+                for (int i = 0; i < list.Count(); i++)
+                {
+                    if(list.ElementAt(i).idMenuPadre != 0)
+                    {
+                        for (int j = 0; j < list.Count(); j++)
+                        {
+                            if(list.ElementAt(j).idMenu == list.ElementAt(i).idMenuPadre)
+                            {
+                                list.ElementAt(j).menu_Hijos = new List<Menu>();
+                                list.ElementAt(j).menu_Hijos.Add(lista.ElementAt(i));
+                                list.RemoveAt(i);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                return list.ToList();
             }
             catch (Exception ex)
             {
