@@ -1,0 +1,30 @@
+﻿<ion-view view-title="Evento Manejo">
+    <ion-content padding="true" class="fondo">
+        <select class="item item-input" ng-change="cargarRodeo()" ng-model="evento.campo" >
+            <option value="0">Seleccione un campo Destino</option>                             
+            <option ng-repeat="campo in campos"
+                 value = "{{campo.idCampo}}">                  
+                 {{ campo.nombre }}
+            </option>
+        </select><br>
+        <select class="item item-input" ng-model="evento.rodeo">
+            <option value="0">Seleccione un rodeo Destino</option>
+            <option ng-repeat="rodeo in rodeos"
+                    value="{{rodeo.idRodeo}}">
+                {{ rodeo.nombre }}
+            </option>
+        </select><br>
+        <br />        
+        <table class="bordeTabla">
+            <tr>
+                <th>Numero de Caravana</th>
+                <th>Apodo</th>
+            </tr>
+            <tr ng-repeat="vaca in vacas">
+                <td>{{vaca.numCaravana}}</td>
+                <td>{{vaca.apodo}}</td>
+            </tr>
+        </table><br>
+        <button ng-click="registrar()" class="button bordeBoton botonRegistrarEvento" ion-button>Registrar Evento</button>
+</ion-content>
+</ion-view>

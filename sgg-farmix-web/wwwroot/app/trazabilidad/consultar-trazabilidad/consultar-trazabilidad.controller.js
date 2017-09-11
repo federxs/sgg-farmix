@@ -14,6 +14,8 @@
         vm.disabledExportar = 'disabled';
         vm.disabledSgte = 'cursor';
         vm.disabledAnt = 'cursor';
+        vm.tipoEventoPopUp = '';
+        vm.fecha = '';
         //funciones
         vm.inicializar = inicializar();
         vm.consultar = consultar;
@@ -22,6 +24,8 @@
         vm.siguiente = siguiente;
         vm.limpiarCampos = limpiarCampos;
         vm.exportarExcel = exportarExcel;
+        vm.openPopUp = openPopUp;
+        vm.eliminar = eliminar;
         vm.insert = insert;
         //variables       
         vm.filtro = {};
@@ -31,7 +35,9 @@
         var eventos = [];
         vm.listaEventos = [];
         var ultimoIndiceVisto = 0;
+        var idEventoAEliminar = 0;
         vm.fechaDeHoy = new Date();
+
         function inicializar() {
             vm.showSpinner = true;
             vm.disabledExportar = 'disabled';
@@ -41,7 +47,10 @@
             tipoEventoService.inicializar({}).then(function success(data) {
                 vm.Eventos = data;
                 vm.filtro.idTipoEvento = '0';
+                vm.disabled = '';
                 consultar();
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
             //vm.bovino = new registrarBovinoService();
         };
@@ -122,8 +131,13 @@
                     vm.filtro.fechaHasta = new Date(vm.filtro.fechaHasta.split('/')[2], (parseInt(vm.filtro.fechaHasta.split('/')[1]) - 1).toString(), vm.filtro.fechaHasta.split('/')[0]);
                 vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
             }
-            if (vm.filtro.numCaravana === '')
+            if (vm.filtro.numCaravana === null) {
                 vm.filtro.numCaravana = undefined;
+                $('#timeline').hide();
+            }
+            else if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null) {
+                $('#timeline').show();
+            }
             consultarTrazabilidadService.getListaEventos(angular.toJson(vm.filtro, false)).then(function success(data) {
                 eventos = data;
                 cantPaginas = Math.round(data.length / registros);
@@ -137,6 +151,7 @@
                     vm.disabledExportar = 'disabled';
                     vm.showSpinner = false;
                     vm.disabled = '';
+                    $('#timeline').hide();
                     toastr.info("No se ah encontrado ningún resultado para esta búsqueda", "Aviso");
                 }
                 else {
@@ -148,13 +163,17 @@
                     for (var i = 0; i < registros; i++) {
                         vm.listaEventos.push(data[i]);
                     }
+
+                    if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null)
+                        cargarLineaTiempoEventos();
+
                     //vm.listaEventos = data;
                     if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
                     vm.showSpinner = false;
                     vm.disabled = '';
                     vm.disabledExportar = '';
                 }
-            }), function error (error) {
+            }), function error(error) {
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             };
         };
@@ -172,9 +191,11 @@
         }
 
         function limpiarCampos() {
-            vm.filtro = {};
-            vm.filtro.idTipoEvento = '0';
-            consultar();
+            $state.reload();
+            //vm.filtro = {};
+            //vm.filtro.idTipoEvento = '0';
+            //vm.filtro.numCaravana = '';
+            //consultar();
         }
 
         function exportarExcel() {
@@ -248,6 +269,75 @@
                 }, function (error) {
                     toastr.error("Ha ocurrido un error: " + error, "ERROR!");
                 });
+            }
+        }
+
+        function openPopUp(tipoEvento, fecha, idEvento) {
+            vm.tipoEventoPopUp = tipoEvento;
+            vm.fecha = fecha;
+            idEventoAEliminar = idEvento;
+            $('#modalConfirmEliminar').modal('show');
+        }
+
+        function eliminar() {
+            vm.showSpinner = true;
+            consultarTrazabilidadService.eliminarEvento(idEventoAEliminar).then(function success() {
+                $('#modalConfirmEliminar').modal('hide');
+                toastr.success('Evento eliminado con éxito', 'Error');
+                vm.showSpinner = false;
+                $state.reload();
+            }, function (error) {
+                $('#modalConfirmEliminar').modal('hide');
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
+        }
+
+        function ordenarFechasMenorAMayor(lista) {
+            var fechaInicial, fechaSgte, aux;
+            for (var i = 0; i < lista.length; i++) {
+                fechaInicial = new Date(lista[i].fechaHora.substring(6, 10), parseInt(lista[i].fechaHora.substring(3, 5)) - 1, lista[i].fechaHora.substring(0, 2));
+                for (var j = i + 1; j < lista.length; j++) {
+                    fechaSgte = new Date(lista[j].fechaHora.substring(6, 10), parseInt(lista[j].fechaHora.substring(3, 5)) - 1, lista[j].fechaHora.substring(0, 2));
+                    if (fechaSgte < fechaInicial) {
+                        aux = lista[i];
+                        lista[i] = lista[j];
+                        lista[j] = aux;
+                        fechaInicial = new Date(lista[i].fechaHora.substring(6, 10), parseInt(lista[i].fechaHora.substring(3, 5)) - 1, lista[i].fechaHora.substring(0, 2));
+                    }
+                    else if (fechaSgte <= fechaInicial) {
+                        aux = lista[i + 1];
+                        lista[i + 1] = lista[j];
+                        lista[j] = aux;
+                        //i++;
+                    }
+                }
+            }
+            return lista;
+        }
+
+        function cargarLineaTiempoEventos() {
+            var list = ordenarFechasMenorAMayor(vm.listaEventos);
+            google.charts.load('current', { 'packages': ['timeline'] });
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var container = document.getElementById('timeline');
+                var chart = new google.visualization.Timeline(container);
+                var dataTable = new google.visualization.DataTable();
+
+                dataTable.addColumn({ type: 'string', id: 'Evento' });
+                dataTable.addColumn({ type: 'date', id: 'Start' });
+                dataTable.addColumn({ type: 'date', id: 'End' });
+                var fechaSiguiente;
+                for (var i = 0; i < vm.listaEventos.length; i++) {
+                    var fechaAnterior = vm.listaEventos[i].fechaHora.substring(0, 10).split('/');                    
+                    if ((i + 1) < vm.listaEventos.length)
+                        fechaSiguiente = vm.listaEventos[i + 1].fechaHora.substring(0, 10).split('/');
+                    else
+                        fechaSiguiente = fechaAnterior;
+                    dataTable.addRows([
+                  [vm.listaEventos[i].tipoEvento, new Date(fechaAnterior[2], parseInt(fechaAnterior[1]) - 1, fechaAnterior[0]), new Date(fechaSiguiente[2], parseInt(fechaSiguiente[1]) - 1, fechaSiguiente[0])]]);                  
+                }
+                chart.draw(dataTable);
             }
         }
 

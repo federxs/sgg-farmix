@@ -77,7 +77,7 @@
                             Fecha del Evento (*)
                         </label>
                         <input name="fechaEvento" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" ng-disabled="!habilitar"
-                               ng-model="evento.fechaHora" required/>
+                               ng-model="evento.fechaHora" required />
                         <div ng-show="formModificarEvento.fechaEvento.$touched">
                             <span class="help-block" ng-show="formModificarEvento.fechaEvento.$error.required">
                                 Este campo es requerido
@@ -129,19 +129,45 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '3'" ng-class="{'has-success has-feedback':formModificarEvento.campoOrigen.$touched && formModificarEvento.campoOrigen.$valid,
-                 'has-error has-feedback':formModificarEvento.campoOrigen.$touched && formModificarEvento.campoOrigen.$invalid}">
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '3'" ng-class="{'has-success has-feedback':formModificarEvento.campoDestino.$touched && formModificarEvento.campoDestino.$valid,
+                 'has-error has-feedback':formModificarEvento.campoDestino.$touched && formModificarEvento.campoDestino.$invalid }">
                         <label class="control-label" name="campoOrigen">
-                            Campo Origen (*)
+                            Campo Destino (*)
                         </label>
-                        <input name="campoOrigen" type="text" class="form-control" placeholder="Campo Origen" disabled
-                               ng-model="evento.campoOrigen" />
-                        <br />
-                        <label class="control-label" name="campoActual"> 
-                            Campo Actual (*)
+                        <select class="form-control" name="campoDestino" required
+                                ng-disabled="!habilitar" ng-change="changeCampos()"
+                                ng-model="evento.idCampoDestino">
+                            <option value="">Seleccione...</option>
+                            <option ng-repeat="item in campos"
+                                    value="{{ item.idCampo }}">
+                                {{ item.nombre }}
+                            </option>
+                        </select>
+                        <div ng-show="formModificarEvento.campoDestino.$touched">
+                            <span class="help-block" ng-show="formModificarEvento.campoDestino.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '3'" ng-class="{'has-success has-feedback':formModificarEvento.rodeoDestino.$touched && formModificarEvento.rodeoDestino.$valid,
+                 'has-error has-feedback':formModificarEvento.rodeoDestino.$touched && formModificarEvento.rodeoDestino.$invalid}">
+                        <label class="control-label" name="rodeoDestino">
+                            Rodeo Destino (*)
                         </label>
-                        <input name="campoActual" type="text" class="form-control" placeholder="Campo Actual" disabled
-                               ng-model="evento.campoActual" />
+                        <select class="form-control" name="rodeoDestino" required
+                                ng-disabled="!habilitar"
+                                ng-model="idRodeoDestino" ng-change="changeRodeos()">
+                            <option value="">Seleccione...</option>
+                            <option ng-repeat="item in rodeos"
+                                    value="{{ item.idRodeo }}">
+                                {{ item.nombre }}
+                            </option>
+                        </select>
+                        <div ng-show="formModificarEvento.rodeoDestino.$touched">
+                            <span class="help-block" ng-show="formModificarEvento.rodeoDestino.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
                     </div>
                     <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === '4'" ng-class="{'has-success has-feedback':formModificarEvento.idAlimento.$touched && formModificarEvento.idAlimento.$valid,
                  'has-error has-feedback':formModificarEvento.idAlimento.$touched && formModificarEvento.idAlimento.$invalid}">
@@ -212,8 +238,9 @@
         </div>
     </fieldset>
     <div class="row">
+        <!--ng-disabled="formModificarEvento.$invalid || !habilitar"-->
         <button type="submit" style="margin-left:15px;" class="btn btn-primary"
-                ng-disabled="formModificarEvento.$invalid || !habilitar"
+                ng-disabled="!habilitarBtnAceptar"
                 ng-click="modificar()">
             Aceptar
         </button>

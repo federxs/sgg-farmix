@@ -76,6 +76,14 @@ angular.module('starter', ['ionic'])
                  controller: 'VacunacionController'
              }
          }
+     }).state('app.manejo', {
+         url: '/manejo',
+         views: {
+             'menuContent': {
+                 templateUrl: 'views/manejo.html',
+                 controller: 'ManejoController'
+             }
+         }
      });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/bienvenido');

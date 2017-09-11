@@ -16,12 +16,17 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Rodeo> GetList()
+        public IEnumerable<Rodeo> GetList(string campo)
         {
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<Rodeo>("spGetRodeos", null, System.Data.CommandType.StoredProcedure);
+                var parametros = new Dictionary<string, object>();
+                if (campo != "")
+                {
+                    parametros.Add("@campo", campo);
+                }
+                var lista = connection.GetArray<Rodeo>("spGetRodeos", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
             catch (Exception ex)

@@ -21,21 +21,22 @@
         vm.categorias = [];
         vm.bovino = {};
         vm.fechaDeHoy = new Date();
+        var categorias = [];
         //vm.habilitar = true;
         vm.inicializar = inicializar;
         vm.btnVolver = "Volver";
         vm.checkH = false;
         vm.checkM = false;
-        inicializar();
 
         function inicializar() {
             vm.showSpinner = true;
             vm.habilitar = false;
             modificarBovinoService.inicializar($stateParams.id).then(function success(data) {
+                vm.categorias = [];
                 vm.habilitar = false;
                 //combos
                 vm.estados = data.estados;
-                vm.categorias = data.categorias;
+                categorias = data.categorias;
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
@@ -50,10 +51,18 @@
                 if (vm.bovino.genero === 0) {
                     vm.checkH = true;
                     vm.checkM = false;
+                    for (var i = 0; i < categorias.length; i++) {
+                        if (categorias[i].genero === 0)
+                            vm.categorias.push(categorias[i]);
+                    }
                 }
                 else {
                     vm.checkH = false;
                     vm.checkM = true;
+                    for (var i = 0; i < categorias.length; i++) {
+                        if (categorias[i].genero === 1)
+                            vm.categorias.push(categorias[i]);
+                    }
                 }
                 //seteo combos
                 vm.bovino.idRaza = data.bovino.idRaza.toString();
@@ -80,13 +89,22 @@
         };
 
         function cambiarSexo() {
+            vm.categorias = [];
             if (vm.checkH === true) {
                 vm.checkH = false;
                 vm.checkM = true;
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].genero === 1)
+                        vm.categorias.push(categorias[i]);
+                }
             }
             else {
                 vm.checkH = true;
                 vm.checkM = false;
+                for (var j = 0; j < categorias.length; j++) {
+                    if (categorias[j].genero === 0)
+                        vm.categorias.push(categorias[j]);
+                }
             }
         };
 

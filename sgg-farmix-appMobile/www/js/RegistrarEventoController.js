@@ -3,4 +3,7 @@ angular.module('starter')
     $scope.vacunar = function () {
         $state.go('app.vacunacion');
     }
+    $scope.manejar = function () {
+        $state.go('app.manejo');
+    }
 });

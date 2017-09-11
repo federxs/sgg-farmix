@@ -66,7 +66,7 @@
                             Evento
                         </label>
                         <select class="form-control" id="evento" name="evento" required
-                                ng-model="tipoEliminacionSeleccionada">
+                                ng-model="tipoEliminacionSeleccionada" ng-disabled="!habilitar">
                             <option ng-repeat="item in tiposEliminacion" value="{{item.id}}">
                                 {{item.nombre}}
                             </option>
@@ -79,9 +79,9 @@
                              ng-class="{'has-success has-feedback':formEliminarBovino.monto.$touched && formEliminarBovino.monto.$valid,
                              'has-error has-feedback':formEliminarBovino.monto.$touched && formEliminarBovino.monto.$invalid}">
                             <label class="control-label" for="monto">
-                                Precio
+                                Precio ($)
                             </label>
-                            <input class="form-control" type="number" id="monto" name="monto" min="0" max="10000" placeholder="Precio" required
+                            <input class="form-control" type="number" id="monto" name="monto" min="0" placeholder="Precio ($)" required
                                    ng-disabled="!habilitar"
                                    ng-model="bajaBovino.monto" />
                             <div ng-show="formEliminarBovino.monto.$touched">
@@ -141,7 +141,7 @@
         <div class="row">
             <button type="submit" style="margin-left: 15px;" class="btn btn-primary"
                     ng-disabled="formEliminarBovino.$invalid || !habilitar"
-                    ng-click="eliminar()">
+                    data-toggle="modal" data-target="#modalConfirmEliminar">
                 Aceptar
             </button>
             <button type="button" class="btn btn-default"
@@ -151,3 +151,24 @@
         </div>
     </fieldset>
 </form>
+
+<!--Modal-->
+<div id="modalConfirmEliminar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar eliminación</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea eliminar el bovino con número de caravana {{nroCaravana}}?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>

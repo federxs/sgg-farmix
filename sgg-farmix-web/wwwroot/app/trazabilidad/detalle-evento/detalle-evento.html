@@ -80,15 +80,15 @@
                     </div>
                     <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 3">
                         <label>
-                            Campo Origen
+                            Campo Destino
                         </label>
-                        <input name="campoOrigen" type="text" class="form-control" placeholder="Campo Origen" disabled
-                               ng-model="evento.campoOrigen" />
+                        <input name="campoOrigen" type="text" class="form-control" placeholder="Campo Destino" disabled
+                               ng-model="evento.campoDestino" />
                         <label>
-                            Campo Actual
+                            Rodeo Destino
                         </label>
-                        <input name="campoActual" type="text" class="form-control" placeholder="Campo Actual" disabled
-                               ng-model="evento.campoActual" />
+                        <input name="campoActual" type="text" class="form-control" placeholder="Rodeo Destino" disabled
+                               ng-model="evento.rodeoDestino" />
                     </div>
                     <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 4">
                         <label>
@@ -97,7 +97,7 @@
                         <input name="alimento" type="text" class="form-control" placeholder="Alimento" disabled
                                ng-model="evento.alimento" />
                     </div>
-                    <div class="form-group col-md-3 col-lg-3">
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 1 || evento.idTipoEvento === 2 || evento.idTipoEvento === 4">
                         <label>
                             Cantidad
                             <label ng-show="evento.idTipoEvento === 1 || evento.idTipoEvento === 2">(mgrs)</label>

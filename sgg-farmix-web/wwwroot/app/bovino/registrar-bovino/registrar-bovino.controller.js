@@ -14,7 +14,7 @@
         //funciones
         vm.registrar = registrar;
         vm.validar = validar;
-        vm.inicializar = inicializar;
+        vm.inicializar = inicializar();
         vm.idCaravanaChange = idCaravanaChange;
         vm.changeSexo = changeSexo;
         //variables
@@ -32,7 +32,6 @@
         vm.showMjeError = false;
         vm.mjeExiste = '';
         var categorias = [];
-        vm.inicializar();
 
         function inicializar() {
             vm.habilitar = false;
@@ -48,6 +47,8 @@
                 vm.establecimientos = data.establecimientos;
                 vm.showSpinner = false;
                 vm.habilitar = true;
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
             vm.bovino = new registrarBovinoService();
         };
@@ -87,14 +88,6 @@
             }, function (error) {
                 toastr.error('La operación no se pudo completar', 'Error');
             })
-
-            //.then(function success(data) {
-            //    if (data.existeIdCaravana) {
-            //        formRegistrarBovino.idCaravana.$error.existeIdCaravana = true;
-            //    } else {
-            //        formRegistrarBovino.idCaravana.$error.existeIdCaravana = false;
-            //    }
-            //});
         };
 
         function convertirFecha(fecha) {

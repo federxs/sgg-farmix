@@ -1,6 +1,7 @@
 angular.module('starter')
     .controller('VacunacionController', function ($ionicLoading, $scope, vacunaService, $rootScope, registrarEventoService, $state) {
-
+        $rootScope.vacas = [];
+        $rootScope.idVacas = [];
         showIonicLoading().then(obtenerVacuna).then(function (_vacunas) {            
             $scope.vacunas = _vacunas;
             $scope.evento = {};

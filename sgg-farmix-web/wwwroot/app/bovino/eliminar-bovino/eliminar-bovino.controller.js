@@ -9,11 +9,14 @@
 
     function eliminarBovinoController($scope, eliminarBovinoService, $stateParams, toastr) {
         var vm = $scope;
+        vm.showSpinner = true;
+        vm.habilitar = false;
         vm.tiposEliminacion = [
             { id: '1', nombre: 'Venta' },
             { id: '2', nombre: 'Defunción' }
         ];
         vm.btnVolver = "Cancelar";
+        vm.nroCaravana = '';
         vm.habilitar = true;
         vm.fechaDeHoy = new Date();
         vm.tipoEliminacionSeleccionada = "1";
@@ -26,20 +29,28 @@
                 //bovino
                 vm.bovino = data;
                 vm.establecimientos = data.establecimientosDestino.establecimientos;
+                vm.showSpinner = false;
+                vm.habilitar = true;
+                vm.nroCaravana = vm.bovino.numCaravana;
                 //seteamos a "" las variables 0
                 angular.forEach(vm.bovino, function (value, key) {
                     if (parseInt(value) === 0 && key !== 'idBovino') {
                         vm.bovino[key] = '';
                     }
                 })
-            })
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            });
         }
 
         function eliminar() {
+            vm.showSpinner = true;
+            vm.habilitar = false;
+            $('#modalConfirmEliminar').modal('hide');
             if (vm.tipoEliminacionSeleccionada === "2") {
                 var fecha = convertirFecha(vm.bajaBovino.fechaMuerte);
-                eliminarBovinoService.bajaMuerte(vm.bovino.idBovino, fecha).then(function success(data) {
-                    vm.habilitar = false;
+                eliminarBovinoService.bajaMuerte(vm.bovino.idBovino, fecha).then(function success(data) {                    
+                    vm.showSpinner = false;
                     vm.btnVolver = "Volver";
                     toastr.success('Se dio de baja el bovino con éxito ', 'Éxito');                    
                 }, function error(data) {
@@ -50,7 +61,7 @@
                 vm.bajaBovino.monto = vm.bajaBovino.monto.toString().replace(',', '.');
                 vm.bajaBovino.idBovino = vm.bovino.idBovino;
                 eliminarBovinoService.bajaVenta(vm.bajaBovino).then(function success(data) {
-                    vm.habilitar = false;
+                    vm.showSpinner = false;
                     vm.btnVolver = "Volver";
                     toastr.success('Se vendio el bovino con éxito ', 'Éxito');
                 }, function error(data) {

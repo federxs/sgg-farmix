@@ -13,10 +13,10 @@ namespace sgg_farmix_acceso_datos.Model
         public long idTipoEvento { get; set; }
         public long idVacuna { get; set; }
         public float cantidad { get; set; }
-        public long idCampoOrigen { get; set; }
-        public long idCampoActual { get; set; }
+        public long idCampoDestino { get; set; }
         public long idAntibiotico { get; set; }
         public long idAlimento { get; set; }
+        public long idRodeoDestino { get; set; }
     }
 
     public class EventosItem
@@ -43,8 +43,8 @@ namespace sgg_farmix_acceso_datos.Model
         public long idTipoEvento { get; set; }
         public string vacuna { get; set; }
         public string antibiotico { get; set; }
-        public string campoOrigen { get; set; }
-        public string campoActual { get; set; }
+        public string campoDestino { get; set; }
+        public string rodeoDestino { get; set; }
         public string alimento { get; set; }
         public List<BovinoItem> listaBovinos { get; set; }
         public float cantidad { get; set; }
