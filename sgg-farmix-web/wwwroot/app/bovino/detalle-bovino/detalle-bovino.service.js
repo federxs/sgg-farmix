@@ -9,7 +9,7 @@
 
     function detalleBovinoService($http, portalService) {
         var service = {
-            inicializar: inicializar,
+            inicializar: inicializar
         };
 
         function inicializar(idBovino) {
