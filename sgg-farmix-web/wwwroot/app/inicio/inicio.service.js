@@ -13,9 +13,16 @@
         };
 
         function inicializar() {
-
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Dashboard/Get'
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
         }
 
-        function getData() { }
+        return service;
     }
+    
 })();
