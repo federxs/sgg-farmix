@@ -28,10 +28,11 @@
             vm.showSpinner = true;
             vm.habilitar = false;
             vm.habilitarBtnAceptar = false;
+            vm.itemsPorPagina = 9;
             modificarEventoService.initModificacion($stateParams.id).then(function success(data) {
                 vm.vacunas = data.vacunas;
                 vm.tiposEventos = data.tipoEvento;
-                vm.listaBovinos = data.listaBovinos.listaBovinos;
+                vm.rowCollection = data.listaBovinos.listaBovinos;
                 vm.campos = data.campos;
                 vm.rodeos = data.rodeos;
                 modificarEventoService.getEventoForModificar($stateParams.id).then(function success(data) {

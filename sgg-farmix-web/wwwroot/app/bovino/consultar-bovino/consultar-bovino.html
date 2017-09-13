@@ -154,92 +154,48 @@
             <i class="fa fa-print"></i>
         </a>
     </div>
-    <table class="table table-striped">
-        <tr style="background: #FAE5D3;">
-            <th>N° Caravana</th>
-            <th>Categoría</th>
-            <th>Sexo</th>
-            <th>Raza</th>
-            <th>Rodeo</th>
-            <th>Estado</th>
-            <th>Peso (kg)</th>
-            <th>Acciones</th>
-        </tr>
-        <tr ng-repeat="item in listaBovinos">
-            <td>{{item.numCaravana}}</td>
-            <td>{{item.categoriaNombre}}</td>
-            <td>{{item.sexo}}</td>
-            <td>{{item.razaNombre}}</td>
-            <td>{{item.rodeoNombre}}</td>
-            <td>{{item.estadoNombre}}</td>
-            <td>{{item.peso}}</td>
-            <td>
-                <a ui-sref="home.modificarBovino({id:item.idBovino})" title="Modificar" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a ui-sref="home.detalleBovino({id:item.idBovino})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
-                <a ui-sref="home.eliminarBovino({id:item.idBovino})" title="Eliminar" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="glyphicon glyphicon-trash"></span></a>
-            </td>
-        </tr>
-    </table>
-    <div class="col-md-offset-4">
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <span class="{{disabledAnt}}" ng-disabled="disabledAnt">
-                        <a ui-sref="home.bovino" aria-label="Previous" ng-click="anterior()">
-                            <span aria-hidden="true">&laquo; Anterior</span>
-                        </a>
-                    </span>
-                </li>
-                <li ui-sref="home.bovino" ng-repeat="pag in Paginas" style="cursor:pointer">
-                    <a ng-click="paginar(pag)" style="background-color:{{pag.clase}}">{{pag.numPag}}</a>
-                </li>
-                <li>
-                    <span class="{{disabledSgte}}" ng-disabled="disabledSgte">
-                        <a ui-sref="home.bovino" aria-label="Next" ng-click="siguiente()">
-                            <span aria-hidden="true">Siguiente &raquo;</span>
-                        </a>
-                    </span>
-                </li>
-            </ul>
-        </nav>
+    <div>
+        <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th st-sort="numCaravana">N° Caravana</th>
+                    <th st-sort="categoriaNombre">Categoría</th>
+                    <th st-sort="sexo">Sexo</th>
+                    <th st-sort="razaNombre">Raza</th>
+                    <th st-sort="rodeoNombre">Rodeo</th>
+                    <th st-sort="estadoNombre">Estado</th>
+                    <th st-sort="peso">Peso (kg)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in displayedCollection">
+                    <td>{{item.numCaravana}}</td>
+                    <td>{{item.categoriaNombre | uppercase}}</td>
+                    <td>{{item.sexo | uppercase}}</td>
+                    <td>{{item.razaNombre | uppercase}}</td>
+                    <td>{{item.rodeoNombre | uppercase}}</td>
+                    <td>{{item.estadoNombre | uppercase}}</td>
+                    <td>{{item.peso}}</td>
+                    <td>
+                        <a ui-sref="home.modificarBovino({id:item.idBovino})" title="Modificar" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a ui-sref="home.detalleBovino({id:item.idBovino})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
+                        <a ui-sref="home.eliminarBovino({id:item.idBovino})" title="Eliminar" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <label for="items">Registros por página</label>
+                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                    </td>
+                    <td colspan="5" class="text-center">                        
+                        <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
     </div>
-    <!--<input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" />
-    <table st-table="rowCollection" class="table table-striped">
-        <thead>
-            <tr>
-                <th st-sort="numCaravana">N° Caravana</th>
-                <th st-sort="categoriaNombre">Categoría</th>
-                <th st-sort="sexo">Sexo</th>
-                <th st-sort="razaNombre">Raza</th>
-                <th st-sort="rodeoNombre">Rodeo</th>
-                <th st-sort="estadoNombre">Estado</th>
-                <th st-sort="peso">Peso</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="row in rowCollection">
-                <td>{{row.numCaravana}}</td>
-                <td>{{row.categoriaNombre}}</td>
-                <td>{{row.sexo}}</td>
-                <td>{{row.razaNombre}}</td>
-                <td>{{row.rodeoNombre}}</td>
-                <td>{{row.estadoNombre}}</td>
-                <td>{{row.peso}}</td>
-                <td>
-                    <a ui-sref="home.modificarBovino({id:item.idBovino})" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a ui-sref="home.detalleBovino({id:item.idBovino})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
-                    <a ui-sref="home.eliminarBovino({id:item.idBovino})" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" class="text-center">
-                    <div st-pagination="" st-items-by-page="5" st-displayed-pages="2"></div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>-->
 </div>
 <div class="loader" ng-show="showSpinner" style="margin:0 auto"></div>

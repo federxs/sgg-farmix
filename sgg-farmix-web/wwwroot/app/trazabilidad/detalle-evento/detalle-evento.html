@@ -1,36 +1,4 @@
-﻿<style>
-    .loader {
-        border: 16px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 16px solid #3498db;
-        width: 150px;
-        height: 150px;
-        -webkit-animation: spin 2s linear infinite;
-        animation: spin 2s linear infinite;
-        position: absolute;
-    }
-
-    @-webkit-keyframes spin {
-        0% {
-            -webkit-transform: rotate(0deg);
-        }
-
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-</style>
-<form name="formDetalleEvento" novalidate>
+﻿<form name="formDetalleEvento" novalidate>
     <fieldset>
         <div class="alert alert-danger" ng-show=""></div>
         <div class="row">
@@ -112,25 +80,40 @@
         <div class="panel panel-default">
             <div class="panel-heading">Bovinos que participaron del evento</div>
             <div class="panel-body">
-                <table class="table table-striped">
-                    <tr style="background: #FAE5D3;">
-                        <th>N° Caravana</th>
-                        <th>Categoría</th>
-                        <th>Raza</th>
-                        <th>Rodeo</th>
-                        <th>Peso (kg)</th>
-                        <th>Acciones</th>
-                    </tr>
-                    <tr ng-repeat="item in evento.listaBovinos">
-                        <td>{{item.numCaravana}}</td>
-                        <td>{{item.categoriaNombre}}</td>
-                        <td>{{item.razaNombre}}</td>
-                        <td>{{item.rodeoNombre}}</td>
-                        <td>{{item.peso}}</td>
-                        <td>
-                            <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
-                        </td>
-                    </tr>
+                <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th st-sort="numCaravana">N° Caravana</th>
+                            <th st-sort="categoriaNombre">Categoría</th>
+                            <th st-sort="razaNombre">Raza</th>
+                            <th st-sort="rodeoNombre">Rodeo</th>
+                            <th st-sort="peso">Peso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in displayedCollection">
+                            <td>{{item.numCaravana}}</td>
+                            <td>{{item.categoriaNombre | uppercase}}</td>
+                            <td>{{item.razaNombre | uppercase}}</td>
+                            <td>{{item.rodeoNombre | uppercase}}</td>
+                            <td>{{item.peso}}</td>
+                            <td>
+                                <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <label for="items">Registros por página</label>
+                                <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                            </td>
+                            <td colspan="5" class="text-center">
+                                <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

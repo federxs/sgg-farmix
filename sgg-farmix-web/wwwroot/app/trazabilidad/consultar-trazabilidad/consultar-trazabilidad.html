@@ -6,36 +6,6 @@
         .cursor a {
             pointer-events: none;
         }
-
-    .loader {
-        border: 16px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 16px solid #3498db;
-        width: 150px;
-        height: 150px;
-        -webkit-animation: spin 2s linear infinite;
-        animation: spin 2s linear infinite;
-    }
-
-    @-webkit-keyframes spin {
-        0% {
-            -webkit-transform: rotate(0deg);
-        }
-
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
 </style>
 <div class="row">
     <div class="col-lg-10">
@@ -80,7 +50,7 @@
                 <label>
                     Fecha Desde
                 </label>
-                <input name="fechaDesde" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"                      
+                <input name="fechaDesde" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"
                        ng-model="filtro.fechaDesde" ng-disabled="disabled" />
             </div>
             <div class="form-group col-md-3 col-lg-3">
@@ -123,47 +93,39 @@
             <i class="fa fa-print"></i>
         </a>
     </div>
-    <table class="table table-striped">
-        <tr style="background: #FAE5D3;">
-            <th>Tipo de Evento</th>
-            <th>Fecha Evento</th>
-            <th>Bovinos que participaron</th>
-            <th>Acciones</th>
-        </tr>
-        <tr ng-repeat="item in listaEventos">
-            <td>{{item.tipoEvento}}</td>
-            <td>{{item.fechaHora}}</td>
-            <td style="padding-left: 45px;width:10%">{{item.cantidadBovinos}}</td>
-            <td>
-                <a ui-sref="home.modificarEvento({id: item.idEvento})" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a ui-sref="home.detalleEvento({id: item.idEvento})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
-                <a><span class="glyphicon glyphicon-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.tipoEvento, item.fechaHora, item.idEvento)"></span></a>
-            </td>
-        </tr>
+    <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+        <thead>
+            <tr>
+                <th st-sort="tipoEvento">Tipo de Evento</th>
+                <th st-sort="fechaHora">Fecha Evento</th>
+                <th st-sort="cantidadBovinos">Bovinos que participaron</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in displayedCollection">
+                <td>{{item.tipoEvento | uppercase}}</td>
+                <td>{{item.fechaHora }}</td>
+                <td>{{item.cantidadBovinos}}</td>
+                <td>
+                    <a ui-sref="home.modificarEvento({id: item.idEvento})" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a ui-sref="home.detalleEvento({id: item.idEvento})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
+                    <a><span class="glyphicon glyphicon-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.tipoEvento, item.fechaHora, item.idEvento)"></span></a>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <label for="items">Registros por página</label>
+                    <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                </td>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                </td>
+            </tr>
+        </tfoot>
     </table>
-    <div class="col-md-offset-4">
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <span class="{{disabledAnt}}" ng-disabled="disabledAnt">
-                        <a ui-sref="home.trazabilidad" aria-label="Previous" ng-click="anterior()">
-                            <span aria-hidden="true">&laquo; Anterior</span>
-                        </a>
-                    </span>
-                </li>
-                <li ui-sref="home.trazabilidad" ng-repeat="pag in Paginas" style="cursor:pointer">
-                    <a ng-click="paginar(pag)" style="background-color:{{pag.clase}}">{{pag.numPag}}</a>
-                </li>
-                <li>
-                    <span class="{{disabledSgte}}" ng-disabled="disabledSgte">
-                        <a ui-sref="home.trazabilidad" aria-label="Next" ng-click="siguiente()">
-                            <span aria-hidden="true">Siguiente &raquo;</span>
-                        </a>
-                    </span>
-                </li>
-            </ul>
-        </nav>
-    </div>
 </div>
 <div class="row col-lg-12 col-md-12">
     <div id="timeline"></div>
