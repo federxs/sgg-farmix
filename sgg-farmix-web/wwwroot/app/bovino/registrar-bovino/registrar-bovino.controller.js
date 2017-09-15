@@ -47,10 +47,10 @@
                 vm.establecimientos = data.establecimientos;
                 vm.showSpinner = false;
                 vm.habilitar = true;
+                vm.bovino = new registrarBovinoService();
             }, function error(error) {
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
-            vm.bovino = new registrarBovinoService();
         };
 
         function registrar() {
