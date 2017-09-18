@@ -10,7 +10,8 @@
     function modificarBovinoService($http, portalService) {
         var service = {
             inicializar: inicializar,
-            modificar: modificar
+            modificar: modificar,
+            existeIdCaravana: existeIdCaravana
         };
 
         function inicializar(idBovino) {
@@ -30,6 +31,20 @@
                 url: portalService.getUrlServer() + 'api/Bovino',
                 params: { value: bovino }
             })
+        }
+
+        function existeIdCaravana(idCaravana) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Bovino/existeIdCaravana',
+                params: {
+                    idCaravana: idCaravana
+                },
+                isArray: false
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
         }
 
         return service;

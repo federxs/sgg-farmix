@@ -122,7 +122,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametros = new Dictionary<string, object>
                 {
                     {"@idBovino", id },
-                    //{"@numCaravana", entity.numCaravana }, //esto no hiria, se autogeneraría
+                    {"@numCaravana", entity.numCaravana },
                     {"@apodo", entity.apodo },
                     {"@desc", entity.descripcion },
                     {"@fechaNac", entity.fechaNacimiento },

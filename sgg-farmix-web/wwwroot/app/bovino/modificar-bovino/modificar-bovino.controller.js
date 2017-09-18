@@ -15,6 +15,7 @@
         vm.modificar = modificar;
         vm.inicializar = inicializar();
         vm.cambiarSexo = cambiarSexo;
+        vm.idCaravanaChange = idCaravanaChange;
         //variables
         vm.razas = [];
         vm.estados = [];
@@ -22,6 +23,7 @@
         vm.bovino = {};
         vm.fechaDeHoy = new Date();
         var categorias = [];
+        var nroCaravanaOriginal = 0;
         //vm.habilitar = true;
         vm.inicializar = inicializar;
         vm.btnVolver = "Volver";
@@ -43,6 +45,7 @@
 
                 //bovino
                 vm.bovino = data.bovino;
+                nroCaravanaOriginal = vm.bovino.numCaravana;
                 if (vm.bovino.fechaNacimiento[8] === " ")
                     var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 8).split('/');
                 else
@@ -153,8 +156,19 @@
             return dia + '/' + mes + '/' + año;
         };
 
-        function validar() {
-
-        }
+        function idCaravanaChange() {
+            if (vm.bovino.numCaravana !== nroCaravanaOriginal) {
+                modificarBovinoService.existeIdCaravana(vm.bovino.numCaravana).then(function success(data) {
+                    if (data[0] === "1") {
+                        vm.formModificarBovino.idCaravana.$setValidity("existeIdCaravana", false);
+                    }
+                    else {
+                        vm.formModificarBovino.idCaravana.$setValidity("existeIdCaravana", true);
+                    }
+                }, function (error) {
+                    toastr.error('La operación no se pudo completar', 'Error');
+                })
+            }
+        };
     }
 })();

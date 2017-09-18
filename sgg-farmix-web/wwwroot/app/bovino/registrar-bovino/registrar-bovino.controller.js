@@ -48,6 +48,7 @@
                 vm.showSpinner = false;
                 vm.habilitar = true;
                 vm.bovino = new registrarBovinoService();
+                vm.bovino.genero = 0;
             }, function error(error) {
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });

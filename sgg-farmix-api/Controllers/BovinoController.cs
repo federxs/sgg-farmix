@@ -78,6 +78,7 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
+        //este metodo sirve para la validacion del nro de caravana en la regitración
         [Route("api/Bovino/existeIdCaravana/{idCaravana}")]
         [HttpGet]
         public string ValidarNroCaravana(string idCaravana)
@@ -96,7 +97,27 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
-        
+
+        //este metodo sirve para la validacion del nro de caravana en la modificacion
+        [Route("api/Bovino/existeIdCaravana")]
+        [HttpGet]
+        public string ValidarNroCaravana1(string idCaravana)
+        {
+            try
+            {
+                var numero = Regex.Replace(idCaravana, @"[^\d]", "");
+                return BM.ValidarCaravana(Int64.Parse(numero));
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
         [HttpPost]
         public Bovino Post([FromBody]Bovino bovino)
         {
