@@ -184,6 +184,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AlimentoController.cs" />
+    <Compile Include="Controllers\AntibioticoController.cs" />
     <Compile Include="Controllers\BovinoController.cs" />
     <Compile Include="Controllers\CampoController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />

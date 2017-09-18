@@ -116,7 +116,7 @@
             propiedades[5] = "estadoNombre";
             propiedades[6] = "peso";
 
-            if (vm.listaBovinos.length > 0) {
+            if (vm.rowCollection.length > 0) {
                 var i = 1;
                 if (vm.filtro.numCaravana === undefined)
                     filtro[0] = '';
@@ -212,19 +212,33 @@
                             }
                         }
                         else {
-                            filtro[i] = $scope.filter[property];
+                            filtro[i] = $scope.filtro[property];
                             i += 1;
                         }
                     }
                 }
                 if (vm.filtro.peso === undefined)
                     filtro[filtro.length] = '';
-                exportador.exportarExcel('Bovinos', vm.listaBovinos, titulos, filtro, propiedades, 'Bovinos', function () {
+                var fecha = new Date();
+                fecha = convertirFecha(fecha);
+                exportador.exportarExcel('Bovinos' + fecha, vm.rowCollection, titulos, filtro, propiedades, 'Bovinos', function () {
                     toastr.success("Se ha exportado con Éxito.", "EXITOSO");
                 }, function (error) {
                     toastr.error("Ha ocurrido un error: " + error, "ERROR!");
                 });
             }
+        }
+
+        function convertirFecha(fecha) {
+            var dia, mes, año;
+            dia = fecha.getDate().toString();
+            if (dia.length === 1)
+                dia = '0' + dia;
+            mes = (fecha.getMonth() + 1).toString();
+            if (mes.length === 1)
+                mes = '0' + mes;
+            año = fecha.getFullYear().toString();
+            return dia + '/' + mes + '/' + año;
         }
 
     }

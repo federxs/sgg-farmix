@@ -125,7 +125,7 @@
             propiedades[1] = "fechaHora";
             propiedades[2] = "cantidadBovinos";
 
-            if (vm.listaEventos.length > 0) {
+            if (vm.rowCollection.length > 0) {
                 var i = 1;
                 if (vm.filtro.numCaravana === undefined)
                     filtro[0] = '';
@@ -164,7 +164,7 @@
                             }
                         }
                         else {
-                            filtro[i] = $scope.filter[property];
+                            filtro[i] = $scope.filtro[property];
                             i += 1;
                         }
                     }
@@ -173,7 +173,9 @@
                     filtro[filtro.length] = '';
                 if (vm.filtro.fechaHasta === undefined)
                     filtro[filtro.length] = '';
-                exportador.exportarExcel('Trazabilidad', vm.listaEventos, titulos, filtro, propiedades, 'Trazabilidad', function () {
+                var fecha = new Date();
+                fecha = convertirFecha(fecha);
+                exportador.exportarExcel('Trazabilidad'+ fecha, vm.rowCollection, titulos, filtro, propiedades, 'Trazabilidad', function () {
                     toastr.success("Se ha exportado con Éxito.", "EXITOSO");
                 }, function (error) {
                     toastr.error("Ha ocurrido un error: " + error, "ERROR!");

@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAOs\AlimentoManager.cs" />
+    <Compile Include="DAOs\AntibioticoManager.cs" />
     <Compile Include="DAOs\BovinoManager.cs" />
     <Compile Include="DAOs\CampoManager.cs" />
     <Compile Include="DAOs\CategoriaManager.cs" />
@@ -61,7 +63,9 @@
     <Compile Include="Helper\IConnection.cs" />
     <Compile Include="Helper\IManager.cs" />
     <Compile Include="Helper\SqlServerConnection.cs" />
+    <Compile Include="Model\Alimento.cs" />
     <Compile Include="Model\AmbitoEstado.cs" />
+    <Compile Include="Model\Antibiotico.cs" />
     <Compile Include="Model\Bovino.cs" />
     <Compile Include="Model\Campo.cs" />
     <Compile Include="Model\Categoria.cs" />
