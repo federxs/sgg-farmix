@@ -17,11 +17,15 @@
         vm.inicializar = inicializar();
         vm.modificar = modificar;
         vm.eliminar = eliminar;
+        vm.openPopUp = openPopUp;
         vm.changeCampos = changeCampos;
         vm.changeRodeos = changeRodeos;
+        vm.getFecha = getFecha;
         //variables
         vm.evento = {};
         vm.fechaDeHoy = new Date();
+        $('#datetimepicker4').datetimepicker();
+        var idBovinoEliminar = 0;
 
         function inicializar() {
             vm.showBotones = true;
@@ -42,8 +46,8 @@
                     vm.evento.idVacuna = vm.evento.idVacuna.toString();
                     vm.evento.idCampoDestino = vm.evento.idCampoDestino.toString();
                     vm.idRodeoDestino = vm.evento.idRodeoDestino.toString();
-                    var fecha = vm.evento.fechaHora.substring(0, 10).split('/');
-                    vm.evento.fechaHora = new Date(fecha[2], (parseInt(fecha[1]) - 1).toString(), fecha[0]);
+                    //var fecha = vm.evento.fechaHora.split('/');
+                    //vm.evento.fechaHora = new Date(fecha[2].substring(0, 4), (parseInt(fecha[1]) - 1).toString(), fecha[0], fecha[2].substring(5, 7), fecha[2].substring(8, 10));
                     //seteamos a "" las variables 0
                     angular.forEach(vm.evento, function (value, key) {
                         if (parseInt(value) === 0 && key !== 'idEvento') {
@@ -66,7 +70,8 @@
                 vm.evento.cantidad = 0;
             else
                 vm.evento.cantidad = vm.evento.cantidad.toString().replace(',', '.');
-            vm.evento.fechaHora = convertirFecha(vm.evento.fechaHora);
+            vm.evento.fechaHora = vm.evento.fechaHora.substring(6, 10) + '/' + vm.evento.fechaHora.substring(3, 5) + '/' + vm.evento.fechaHora.substring(0, 2) + ' ' + convertirHora(vm.evento.fechaHora.substring(11, 16), vm.evento.fechaHora.substring(17, 19));
+            //vm.evento.fechaHora = convertirFecha(vm.evento.fechaHora);
             if (vm.evento.idVacuna === '')
                 vm.evento.idVacuna = 0;
             if (vm.evento.idAntibiotico === '')
@@ -79,8 +84,8 @@
                 vm.evento.idAlimento = 0;
             vm.evento.idRodeoDestino = vm.idRodeoDestino;
             var ids = [];
-            for (var i = 0; i < vm.listaBovinos.length; i++) {
-                ids.push(vm.listaBovinos[i].idBovino);
+            for (var i = 0; i < vm.rowCollection.length; i++) {
+                ids.push(vm.rowCollection[i].idBovino);
             }
             modificarEventoService.modificar(vm.evento, ids).then(function success(data) {
                 vm.habilitar = false;
@@ -92,10 +97,59 @@
             })
         }
 
-        function eliminar(id) {
-            for (var i = 0; i < vm.listaBovinos.length; i++) {
-                if (vm.listaBovinos[i].idBovino === id)
-                    vm.listaBovinos.splice(i, 1);
+        function openPopUp(id, caravana) {
+            idBovinoEliminar = id;
+            vm.nroCaravana = caravana;
+            $('#modalConfirmEliminar').modal('show');
+        }
+
+        function eliminar() {
+            for (var i = 0; i < vm.rowCollection.length; i++) {
+                if (vm.rowCollection[i].idBovino === idBovinoEliminar)
+                    vm.rowCollection.splice(i, 1);
+            }
+            $('#modalConfirmEliminar').modal('hide');
+        }
+
+        function convertirHora(hora, momento) {
+            var horaDevuelta = hora;
+            if (momento === 'pm') {
+                switch (hora.substring(0, 2)) {
+                    case '01':
+                        horaDevuelta = '13' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                    case '02':
+                        horaDevuelta = '14' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                    case '03':
+                        horaDevuelta = '15' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                    case '04':
+                        horaDevuelta = '16' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                    case '05':
+                        horaDevuelta = '17' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                    case '06':
+                        horaDevuelta = '18' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                    case '07':
+                        horaDevuelta = '19' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                    case '08':
+                        horaDevuelta = '20' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                    case '09':
+                        horaDevuelta = '21' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                    case '10':
+                        horaDevuelta = '22' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                    case '11':
+                        horaDevuelta = '23' + ':' + horaDevuelta.substring(3, 5);
+                        break;
+                }
+                return horaDevuelta;
             }
         }
 
@@ -108,7 +162,7 @@
             if (mes.length === 1)
                 mes = '0' + mes;
             año = fecha.getFullYear().toString();
-            return dia + '/' + mes + '/' + año;
+            return dia + '/' + mes + '/' + año + fecha.substring(12, 15);
         };
 
         function changeCampos() {
@@ -140,6 +194,10 @@
         function changeRodeos() {
             if (parseInt(vm.evento.idRodeoDestino) > 0)
                 vm.habilitarBtnAceptar = true;
+        }
+
+        function getFecha() {
+            vm.evento.fechaHora = $('#datetimepicker4')[0].value;
         }
 
     }//fin archivo

@@ -46,8 +46,11 @@
                         <label class="control-label" for="fechaEvento">
                             Fecha del Evento (*)
                         </label>
-                        <input name="fechaEvento" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" ng-disabled="!habilitar"
-                               ng-model="evento.fechaHora" required />
+                        <div name="fechaEvento">
+                            <input type='datetime' name="fechaEvento" class="form-control" id='datetimepicker4' ng-blur="getFecha()" min="2000-01-01" max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" data-date-format="DD/MM/YYYY hh:mm a" ng-model="evento.fechaHora" value="{{evento.fechaHora}}" required />
+                        </div>
+                        <!--<input name="fechaEvento" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" ng-disabled="!habilitar"
+                               ng-model="evento.fechaHora" required />-->
                         <div ng-show="formModificarEvento.fechaEvento.$touched">
                             <span class="help-block" ng-show="formModificarEvento.fechaEvento.$error.required">
                                 Este campo es requerido
@@ -203,7 +206,7 @@
                             <td>{{item.peso}}</td>
                             <td>
                                 <a ui-sref="home.detalleBovino({id:item.idBovino})" ng-show="showBotones" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
-                                <a class="cursor" ng-click="eliminar(item.idBovino)" ng-show="showBotones" title="Borrar bovino del evento"><span class="glyphicon glyphicon-trash"></span></a>
+                                <a class="cursor" ng-click="openPopUp(item.idBovino, item.numCaravana)" ng-show="showBotones" title="Borrar bovino del evento"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     </tbody>
@@ -235,4 +238,23 @@
         </button>
     </div>
 </form>
+<!--Modal-->
+<div id="modalConfirmEliminar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar eliminación</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea eliminar el bovino con número de caravana {{nroCaravana}}?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>
