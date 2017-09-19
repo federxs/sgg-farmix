@@ -1,7 +1,5 @@
 angular.module('starter')
     .controller('VacunacionController', function ($ionicLoading, $scope, vacunaService, $rootScope, registrarEventoService, $state) {
-        $rootScope.vacas = [];
-        $rootScope.idVacas = [];
         showIonicLoading().then(obtenerVacuna).then(function (_vacunas) {            
             $scope.vacunas = _vacunas;
             $scope.evento = {};
@@ -15,12 +13,13 @@ angular.module('starter')
             if ($scope.evento.vacuna == "0") {
                 alert("Seleccione una vacuna para continuar");
             } else {
-                if ($rootScope.vacas == undefined) {
+                if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
                 alert("Escanee el tag de al menos una vaca para continuar");
             } else {
                 showIonicLoading().then(registrarEvento).then(function () {
                     alert("Vacunacion registrada satisfactoriamente");
-                    $rootScope.vacas = [];
+                    $rootScope.vacas = null;
+                    $rootScope.idVacas = [];
                     $state.go('app.registrarEvento');
                 }).then($ionicLoading.hide).catch($ionicLoading.hide);
             }

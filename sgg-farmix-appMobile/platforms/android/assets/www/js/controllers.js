@@ -59,30 +59,12 @@
             } else if ($state.current.name == "app.leer") {
                 var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 $state.go('app.resultado/:id', { id: id });
-            } else if ($state.current.name == "app.vacunacion") {
+            } else if ($state.current.name == "app.vacunacion" || $state.current.name == "app.manejo" || $state.current.name == "app.antibiotico") {
                 $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 if ($rootScope.idVacas == undefined || estaEscaneado($scope.id) == false) {
                     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
-                        if (_bovino != null) {
-                            if ($rootScope.vacas == undefined) {
-                                $rootScope.vacas = [];
-                                $rootScope.idVacas = [];
-                            }
-                            $rootScope.vacas.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
-                            $rootScope.idVacas.push($scope.id);
-                        } else {
-                            alert("El id escaneado no se encuentra dentro de los animales registrados");
-                        }
-                    }).then($ionicLoading.hide).catch($ionicLoading.hide);
-                } else {
-                    alert("El Bovino ya esta agreagado en la lista");
-                }
-            } else if ($state.current.name == "app.manejo") {
-                $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
-                if ($rootScope.idVacas == undefined || estaEscaneado($scope.id) == false) {
-                    showIonicLoading().then(obtenerBovino).then(function (_bovino) {
-                        if (_bovino != null) {
-                            if ($rootScope.vacas == undefined) {
+                        if (_bovino != null && _bovino.borrado == false) {
+                            if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
                                 $rootScope.vacas = [];
                                 $rootScope.idVacas = [];
                             }

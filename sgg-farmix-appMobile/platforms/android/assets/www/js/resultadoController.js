@@ -5,16 +5,16 @@ angular.module('starter')
             $scope.peso = _bovino.peso;
             $scope.apodo = _bovino.apodo;
             $scope.idBovino = _bovino.idBovino;
-            var fecha = _bovino.fechaNacimiento.substr(0, 10);
-            /*if (_bovino.fechaNacimiento.charAt(1) == '/' && _bovino.fechaNacimiento.charAt(4) == '/') {
-                fecha = _bovino.fechaNacimiento.substr(2, 2) + "/" + _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(5, 4)
-            } else if (_bovino.fechaNacimiento.charAt(2) == '/' && _bovino.fechaNacimiento.charAt(4) == '/') {
-                fecha = _bovino.fechaNacimiento.substr(3, 1) + "/" + _bovino.fechaNacimiento.substr(0, 2) + "/" + _bovino.fechaNacimiento.substr(5, 4)
+            var fecha;// = _bovino.fechaNacimiento.substr(0, 10);
+            if (_bovino.fechaNacimiento.charAt(1) == '/' && _bovino.fechaNacimiento.charAt(4) == '/') {
+                fecha = _bovino.fechaNacimiento.substr(2, 2) + "/0" + _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(5, 4)
             } else if (_bovino.fechaNacimiento.charAt(2) == '/' && _bovino.fechaNacimiento.charAt(5) == '/') {
-                fecha = _bovino.fechaNacimiento.substr(3, 2) + "/" + _bovino.fechaNacimiento.substr(0, 2) + "/" + _bovino.fechaNacimiento.substr(5, 4)
+                fecha = _bovino.fechaNacimiento.substr(3, 2) + "/" + _bovino.fechaNacimiento.substr(0, 2) + "/" + _bovino.fechaNacimiento.substr(6, 4)
+            } else if (_bovino.fechaNacimiento.charAt(1) == '/' && _bovino.fechaNacimiento.charAt(3) == '/') {
+                fecha = "0" + _bovino.fechaNacimiento.substr(2, 1) + "/0"  +  _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(4, 4)
             } else {
-                fecha = _bovino.fechaNacimiento.substr(2, 1) + "/" + _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(5, 4)
-            }*/
+                fecha = "0" + _bovino.fechaNacimiento.substr(3, 1) + "/" + _bovino.fechaNacimiento.substr(0, 2) + "/" + _bovino.fechaNacimiento.substr(5, 4)
+            }
             $scope.fechaNacimiento = fecha;
         } else {
             alert("El id escaneado no se encuentra dentro de los animales registrados");
