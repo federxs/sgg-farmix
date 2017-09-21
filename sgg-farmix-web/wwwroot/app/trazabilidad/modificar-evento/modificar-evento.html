@@ -47,10 +47,8 @@
                             Fecha del Evento (*)
                         </label>
                         <div name="fechaEvento">
-                            <input type='datetime' name="fechaEvento" class="form-control" id='datetimepicker4' ng-blur="getFecha()" min="2000-01-01" max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" data-date-format="DD/MM/YYYY hh:mm a" ng-model="evento.fechaHora" value="{{evento.fechaHora}}" required />
+                            <input type="datetime" name="fechaEvento" class="form-control" id='datetimepicker4' ng-blur="getFecha()" min="2000-01-01" max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" data-date-format="DD/MM/YYYY hh:mm a" ng-model="evento.fechaHora" value="{{evento.fechaHora}}" required />
                         </div>
-                        <!--<input name="fechaEvento" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" ng-disabled="!habilitar"
-                               ng-model="evento.fechaHora" required />-->
                         <div ng-show="formModificarEvento.fechaEvento.$touched">
                             <span class="help-block" ng-show="formModificarEvento.fechaEvento.$error.required">
                                 Este campo es requerido
@@ -170,13 +168,13 @@
                             <label ng-show="evento.idTipoEvento === '4'">(Kgrs)</label>
                         </label>
                         <input name="cantidad" type="number" class="form-control" placeholder="Cantidad" ng-disabled="!habilitar" required
-                               ng-model="evento.cantidad" min="0" />
+                               ng-model="evento.cantidad" min="1" />
                         <div ng-show="formModificarEvento.cantidad.$touched">
                             <span class="help-block" ng-show="formModificarEvento.cantidad.$error.required">
                                 Este campo es requerido
                             </span>
                             <span class="help-block" ng-show="formModificarEvento.cantidad.$error.min">
-                                El número no puede ser negativo
+                                El número no puede ser negativo ni cero
                             </span>
                         </div>
                     </div>

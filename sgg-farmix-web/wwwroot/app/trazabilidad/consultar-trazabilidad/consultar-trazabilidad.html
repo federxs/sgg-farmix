@@ -46,20 +46,34 @@
                     </option>
                 </select>
             </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarTrazabilidad.fechaDesde.$touched && formConsultarTrazabilidad.fechaDesde.$valid,
+                 'has-error has-feedback':formConsultarTrazabilidad.fechaDesde.$touched && formConsultarTrazabilidad.fechaDesde.$invalid}">
+                <label class="control-label" for="fechaDesde">
                     Fecha Desde
                 </label>
-                <input name="fechaDesde" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"
-                       ng-model="filtro.fechaDesde" ng-disabled="disabled" />                
+                <div name="fechaDesde">
+                    <input type="datetime" placeholder="Fecha desde" name="fechaDesde" class="form-control" id='datetimepicker4' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="disabled" ng-blur="getFechaDesde()" data-date-format="DD/MM/YYYY" ng-model="filtro.fechaDesde" valueAsDate="{{filtro.fechaDesde}}" />
+                </div>
+                <div ng-show="formConsultarTrazabilidad.fechaDesde.$touched">
+                    <span class="help-block" ng-show="formConsultarTrazabilidad.fechaDesde.$error.max || formConsultarTrazabilidad.fechaDesde.$error.min">
+                        Debe ingresar una fecha válida
+                    </span>
+                </div>               
             </div>
-            <div class="form-group col-md-3 col-lg-3">
-                <label>
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarTrazabilidad.fechaHasta.$touched && formConsultarTrazabilidad.fechaHasta.$valid,
+                 'has-error has-feedback':formConsultarTrazabilidad.fechaHasta.$touched && formConsultarTrazabilidad.fechaHasta.$invalid}">
+                <label class="control-label" for="fechaHasta">
                     Fecha Hasta
                 </label>
-                <input name="fechaHasta" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"
-                       ng-model="filtro.fechaHasta" ng-disabled="disabled" />
+                <div name="fechaHasta">
+                    <input type="datetime" placeholder="Fecha hasta" name="fechaHasta" class="form-control" id='datetimepicker5' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="disabled" ng-blur="getFechaHasta()" data-date-format="DD/MM/YYYY" ng-model="filtro.fechaHasta" valueAsDate="{{filtro.fechaHasta}}" />
+                </div>
+                <!--<input name="fechaHasta" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"
+                       ng-model="filtro.fechaHasta" ng-disabled="disabled" />-->
                 <div ng-show="formConsultarTrazabilidad.fechaHasta.$touched">
+                    <span class="help-block" ng-show="formConsultarTrazabilidad.fechaDesde.$error.min">
+                        Debe ingresar una fecha válida
+                    </span>
                 </div>
             </div>
         </div>

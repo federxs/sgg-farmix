@@ -21,13 +21,18 @@
         vm.exportarExcel = exportarExcel;
         vm.openPopUp = openPopUp;
         vm.eliminar = eliminar;
+        vm.getFechaDesde = getFechaDesde;
+        vm.getFechaHasta = getFechaHasta;
         vm.insert = insert;
         //variables       
         vm.filtro = {};
         vm.cursor = '';
         var ultimoIndiceVisto = 0;
         var idEventoAEliminar = 0;
+        var idManejo = [];
         vm.fechaDeHoy = new Date();
+        $('#datetimepicker4').datetimepicker();
+        $('#datetimepicker5').datetimepicker();
 
         function inicializar() {
             vm.showSpinner = true;
@@ -65,7 +70,7 @@
             else if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null) {
                 $('#timeline').show();
             }
-            consultarTrazabilidadService.getListaEventos(angular.toJson(vm.filtro, false)).then(function success(data) {                               
+            consultarTrazabilidadService.getListaEventos(angular.toJson(vm.filtro, false)).then(function success(data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';
                     vm.showSpinner = false;
@@ -163,6 +168,9 @@
                                 i += 1;
                             }
                         }
+                        else if (property === "numCaravana") {
+                            filtro[0] = $scope.filtro[property];
+                        }
                         else {
                             filtro[i] = $scope.filtro[property];
                             i += 1;
@@ -175,7 +183,7 @@
                     filtro[filtro.length] = '';
                 var fecha = new Date();
                 fecha = convertirFecha(fecha);
-                exportador.exportarExcel('Trazabilidad'+ fecha, vm.rowCollection, titulos, filtro, propiedades, 'Trazabilidad', function () {
+                exportador.exportarExcel('Trazabilidad' + fecha, vm.rowCollection, titulos, filtro, propiedades, 'Trazabilidad', function () {
                     toastr.success("Se ha exportado con Éxito.", "EXITOSO");
                 }, function (error) {
                     toastr.error("Ha ocurrido un error: " + error, "ERROR!");
@@ -219,7 +227,6 @@
                         aux = lista[i + 1];
                         lista[i + 1] = lista[j];
                         lista[j] = aux;
-                        //i++;
                     }
                 }
             }
@@ -227,7 +234,7 @@
         }
 
         function cargarLineaTiempoEventos() {
-            var list = ordenarFechasMenorAMayor(vm.listaEventos);
+            var list = ordenarFechasMenorAMayor(vm.rowCollection);
             google.charts.load('current', { 'packages': ['timeline'] });
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
@@ -239,16 +246,63 @@
                 dataTable.addColumn({ type: 'date', id: 'Start' });
                 dataTable.addColumn({ type: 'date', id: 'End' });
                 var fechaSiguiente;
-                for (var i = 0; i < vm.listaEventos.length; i++) {
-                    var fechaAnterior = vm.listaEventos[i].fechaHora.substring(0, 10).split('/');                    
-                    if ((i + 1) < vm.listaEventos.length)
-                        fechaSiguiente = vm.listaEventos[i + 1].fechaHora.substring(0, 10).split('/');
-                    else
-                        fechaSiguiente = fechaAnterior;
+                for (var i = 0; i < vm.rowCollection.length; i++) {
+                    var fechaAnterior = vm.rowCollection[i].fechaHora.substring(0, 10).split('/');
+                    switch (vm.rowCollection[i].tipoEvento) {
+                        case 'Vacunación':
+                        case 'Antibiótico':
+                            fechaSiguiente = new Date(fechaAnterior[2], parseInt(fechaAnterior[1]) - 1, fechaAnterior[0]);
+                            fechaSiguiente.setDate(fechaSiguiente.getDate() + 1);
+                            fechaSiguiente = convertirFecha(fechaSiguiente);
+                            fechaSiguiente = fechaSiguiente.split('/');
+                            break;
+                        case 'Manejo':
+                            idManejo.push(vm.rowCollection[i].idEvento);
+                            var index = vm.rowCollection.findIndex(encontrarManejo);
+                            if (index !== -1)
+                                fechaSiguiente = vm.rowCollection[index].fechaHora.substring(0, 10).split('/');
+                            else {
+                                fechaSiguiente = convertirFecha(new Date());
+                                fechaSiguiente = fechaSiguiente.split('/');
+                            }
+                            break;
+                        case 'Alimento':
+                            break;
+                    }
                     dataTable.addRows([
-                  [vm.listaEventos[i].tipoEvento, new Date(fechaAnterior[2], parseInt(fechaAnterior[1]) - 1, fechaAnterior[0]), new Date(fechaSiguiente[2], parseInt(fechaSiguiente[1]) - 1, fechaSiguiente[0])]]);                  
+                  [vm.rowCollection[i].tipoEvento, new Date(fechaAnterior[2], parseInt(fechaAnterior[1]) - 1, fechaAnterior[0]), new Date(fechaSiguiente[2], parseInt(fechaSiguiente[1]) - 1, fechaSiguiente[0])]]);
                 }
                 chart.draw(dataTable);
+            }
+        }
+
+        function encontrarManejo(evento) {
+            return evento.tipoEvento === 'Manejo' && idManejo.indexOf(evento.idEvento) === -1;
+        }
+
+        function getFechaDesde() {
+            vm.filtro.fechaDesde = $('#datetimepicker4')[0].value;
+            var fechaDesde = new Date(vm.filtro.fechaDesde.substring(6, 10), parseInt(vm.filtro.fechaDesde.substring(3, 5)) - 1, vm.filtro.fechaDesde.substring(0, 2));
+            var fechaMin = new Date(2000, 1, 1);
+            if (fechaDesde < fechaMin) {
+                vm.formConsultarTrazabilidad.fechaDesde.$setValidity("min", false);
+            }
+            else {
+                vm.formConsultarTrazabilidad.fechaDesde.$setValidity("min", true);
+            }
+        }
+
+        function getFechaHasta() {
+            vm.filtro.fechaHasta = $('#datetimepicker5')[0].value;
+            if (vm.filtro.fechaDesde !== undefined) {
+                var fechaHasta = new Date(vm.filtro.fechaHasta.substring(6, 10), parseInt(vm.filtro.fechaHasta.substring(3, 5)) - 1, vm.filtro.fechaHasta.substring(0, 2));
+                var fechaDesde = new Date(vm.filtro.fechaDesde.substring(6, 10), parseInt(vm.filtro.fechaDesde.substring(3, 5)) - 1, vm.filtro.fechaDesde.substring(0, 2));
+                if (fechaHasta < fechaDesde) {
+                    vm.formConsultarTrazabilidad.fechaHasta.$setValidity("min", false);
+                }
+                else {
+                    vm.formConsultarTrazabilidad.fechaHasta.$setValidity("min", true);
+                }
             }
         }
 

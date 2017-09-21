@@ -66,6 +66,7 @@
         }//fin inicializar
 
         function modificar() {
+            getFecha();
             if (vm.evento.cantidad === '')
                 vm.evento.cantidad = 0;
             else
@@ -198,7 +199,16 @@
 
         function getFecha() {
             vm.evento.fechaHora = $('#datetimepicker4')[0].value;
+            var fechaEvento = new Date(vm.evento.fechaHora.substring(6, 10), parseInt(vm.evento.fechaHora.substring(3, 5)) - 1, vm.evento.fechaHora.substring(0, 2));
+            var fechaHoy = new Date();
+            if (fechaEvento > fechaHoy) {
+                vm.formModificarEvento.fechaEvento.$setValidity("max", false);
+                vm.habilitarBtnAceptar = false;
+            }
+            else {
+                vm.formModificarEvento.fechaEvento.$setValidity("max", true);
+                vm.habilitarBtnAceptar = true;
+            }            
         }
-
     }//fin archivo
 })();
