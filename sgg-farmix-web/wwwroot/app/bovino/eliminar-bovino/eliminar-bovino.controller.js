@@ -15,15 +15,19 @@
             { id: '1', nombre: 'Venta' },
             { id: '2', nombre: 'Defunción' }
         ];
+        vm.tipoEliminacionSeleccionada = "1";
+        vm.eliminar = eliminar;
+        vm.inicializar = inicializar();
+        vm.getFecha = getFecha;
+
         vm.btnVolver = "Cancelar";
         vm.nroCaravana = '';
         vm.habilitar = true;
-        vm.fechaDeHoy = new Date();
-        vm.tipoEliminacionSeleccionada = "1";
-        vm.eliminar = eliminar;
-        vm.inicializar = inicializar;
         vm.bajaBovino = {};
-        inicializar();
+        vm.fechaDeHoy = new Date();
+        //$('#datetimepicker4').datetimepicker();
+        //inicializar();      
+
         function inicializar() {
             eliminarBovinoService.inicializar($stateParams.id).then(function success(data) {
                 //bovino
@@ -48,11 +52,11 @@
             vm.habilitar = false;
             $('#modalConfirmEliminar').modal('hide');
             if (vm.tipoEliminacionSeleccionada === "2") {
-                var fecha = convertirFecha(vm.bajaBovino.fechaMuerte);
-                eliminarBovinoService.bajaMuerte(vm.bovino.idBovino, fecha).then(function success(data) {                    
+                //var fecha = convertirFecha(vm.bajaBovino.fechaMuerte);
+                eliminarBovinoService.bajaMuerte(vm.bovino.idBovino, vm.bajaBovino.fechaMuerte).then(function success(data) {
                     vm.showSpinner = false;
                     vm.btnVolver = "Volver";
-                    toastr.success('Se dio de baja el bovino con éxito ', 'Éxito');                    
+                    toastr.success('Se dio de baja el bovino con éxito ', 'Éxito');
                 }, function error(data) {
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
@@ -81,5 +85,22 @@
             año = fecha.getFullYear().toString();
             return dia + '/' + mes + '/' + año;
         };
+
+        function getFecha() {
+            vm.bajaBovino.fechaMuerte = $('#datetimepicker4')[0].value;
+            var fechaMuerte = new Date(vm.bajaBovino.fechaMuerte.substring(6, 10), parseInt(vm.bajaBovino.fechaMuerte.substring(3, 5)) - 1, vm.bajaBovino.fechaMuerte.substring(0, 2));
+            var fechaHoy = new Date();
+            var fechaMin = new Date(2000, 1, 1);
+            if (fechaMuerte > fechaHoy) {
+                vm.formEliminarBovino.fechaMuerte.$setValidity("max", false);
+            }
+            else {
+                vm.formEliminarBovino.fechaMuerte.$setValidity("max", true);
+            }
+            if (fechaMuerte < fechaMin)
+                vm.formEliminarBovino.fechaMuerte.$setValidity("min", false);
+            else
+                vm.formEliminarBovino.fechaMuerte.$setValidity("min", true);
+        }
     }
 })();

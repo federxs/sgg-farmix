@@ -126,15 +126,18 @@
                                max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"
                                ng-disabled="!habilitar"
                                ng-model="bajaBovino.fechaMuerte" />
-                    </div>
-                    <div ng-show="formEliminarBovino.fechaMuerte.$touched">
-                        <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.required">
-                            Este campo es requerido
-                        </span>
-                        <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.max || formEliminarBovino.fechaMuerte.$error.min">
-                            Debe ingresar una fecha válida
-                        </span>
-                    </div>
+                        <!--<div name="fechaMuerte">
+                            <input type="datetime" name="fechaMuerte" class="form-control" id="datetimepicker4" ng-blur="getFecha()" min="2000-01-01" max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" data-date-format="DD/MM/YYYY" ng-model="bajaBovino.fechaMuerte" value="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required />
+                        </div>-->
+                        <div ng-show="formEliminarBovino.fechaMuerte.$touched">
+                            <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.required">
+                                Este campo es requerido
+                            </span>
+                            <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.max || formEliminarBovino.fechaMuerte.$error.min">
+                                Debe ingresar una fecha válida
+                            </span>
+                        </div>                        
+                    </div>                    
                 </div>
             </div><!--fin panel body-->
         </div><!--fin panel-->

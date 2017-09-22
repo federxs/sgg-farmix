@@ -16,6 +16,7 @@
         vm.inicializar = inicializar();
         vm.cambiarSexo = cambiarSexo;
         vm.idCaravanaChange = idCaravanaChange;
+        vm.getFecha = getFecha;
         //variables
         vm.razas = [];
         vm.estados = [];
@@ -29,6 +30,7 @@
         vm.btnVolver = "Volver";
         vm.checkH = false;
         vm.checkM = false;
+        $('#datetimepicker4').datetimepicker();
 
         function inicializar() {
             vm.showSpinner = true;
@@ -46,11 +48,12 @@
                 //bovino
                 vm.bovino = data.bovino;
                 nroCaravanaOriginal = vm.bovino.numCaravana;
-                if (vm.bovino.fechaNacimiento[8] === " ")
-                    var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 8).split('/');
-                else
-                    var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10).split('/');
-                vm.bovino.fechaNacimiento = new Date(fechaNacimiento[2], (parseInt(fechaNacimiento[1] - 1)).toString(), fechaNacimiento[0]);
+                //if (vm.bovino.fechaNacimiento[8] === " ")
+                  //  var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 8).split('/');
+                //else
+                  //  var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10).split('/');
+                //vm.bovino.fechaNacimiento = new Date(fechaNacimiento[2], (parseInt(fechaNacimiento[1] - 1)).toString(), fechaNacimiento[0]);
+                vm.bovino.fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10);
                 if (vm.bovino.genero === 0) {
                     vm.checkH = true;
                     vm.checkM = false;
@@ -116,7 +119,7 @@
             vm.habilitar = false;
             vm.bovino.peso = vm.bovino.peso.toString().replace(',', '.');
             vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
-            vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
+            //vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
             if (vm.bovino.pesoAlNacer === '' || vm.bovino.pesoAlNacer === undefined)
                 vm.bovino.pesoAlNacer = 0;
             if (vm.bovino.idBovinoMadre === '' || vm.bovino.idBovinoMadre === undefined)
@@ -170,5 +173,22 @@
                 })
             }
         };
+
+        function getFecha() {
+            vm.bovino.fechaNacimiento = $('#datetimepicker4')[0].value;
+            var fechaNac = new Date(vm.bovino.fechaNacimiento.substring(6, 10), parseInt(vm.bovino.fechaNacimiento.substring(3, 5)) - 1, vm.bovino.fechaNacimiento.substring(0, 2));
+            var fechaHoy = new Date();
+            var fechaMin = new Date(2000, 1, 1);
+            if (fechaNac > fechaHoy) {
+                vm.formModificarBovino.fechaNac.$setValidity("max", false);
+            }
+            else {
+                vm.formModificarBovino.fechaNac.$setValidity("max", true);
+            }
+            if (fechaNac < fechaMin)
+                vm.formModificarBovino.fechaNac.$setValidity("min", false);
+            else
+                vm.formModificarBovino.fechaNac.$setValidity("min", true);
+        }
     }
 })();

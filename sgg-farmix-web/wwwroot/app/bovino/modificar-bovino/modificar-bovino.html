@@ -183,9 +183,9 @@
                         <label class="control-label" for="fechaNac">
                             Fecha de Nacimiento (*)
                         </label>
-                        <input name="fechaNac" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required
-                               ng-disabled="!habilitar"
-                               ng-model="bovino.fechaNacimiento" />
+                        <div name="fechaNac">
+                            <input type="datetime" name="fechaNac" class="form-control" id="datetimepicker4" ng-blur="getFecha()" min="2000-01-01" max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" data-date-format="DD/MM/YYYY" ng-model="bovino.fechaNacimiento" value="{{bovino.fechaNacimiento}}" required />
+                        </div>
                         <div ng-show="formModificarBovino.fechaNac.$touched">
                             <span class="help-block" ng-show="formModificarBovino.fechaNac.$error.required">
                                 Este campo es requerido

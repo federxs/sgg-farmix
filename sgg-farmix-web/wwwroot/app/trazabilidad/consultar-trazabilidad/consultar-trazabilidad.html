@@ -68,10 +68,8 @@
                 <div name="fechaHasta">
                     <input type="datetime" placeholder="Fecha hasta" name="fechaHasta" class="form-control" id='datetimepicker5' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="disabled" ng-blur="getFechaHasta()" data-date-format="DD/MM/YYYY" ng-model="filtro.fechaHasta" valueAsDate="{{filtro.fechaHasta}}" />
                 </div>
-                <!--<input name="fechaHasta" type="date" class="form-control" min="2000-01-01" max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"
-                       ng-model="filtro.fechaHasta" ng-disabled="disabled" />-->
                 <div ng-show="formConsultarTrazabilidad.fechaHasta.$touched">
-                    <span class="help-block" ng-show="formConsultarTrazabilidad.fechaDesde.$error.min">
+                    <span class="help-block" ng-show="formConsultarTrazabilidad.fechaHasta.$error.min">
                         Debe ingresar una fecha válida
                     </span>
                 </div>

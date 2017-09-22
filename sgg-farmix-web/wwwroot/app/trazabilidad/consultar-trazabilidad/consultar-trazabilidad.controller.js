@@ -75,6 +75,7 @@
                     vm.disabledExportar = 'disabled';
                     vm.showSpinner = false;
                     vm.disabled = '';
+                    vm.rowCollection = [];
                     $('#timeline').hide();
                     toastr.info("No se ah encontrado ningún resultado para esta búsqueda", "Aviso");
                 }

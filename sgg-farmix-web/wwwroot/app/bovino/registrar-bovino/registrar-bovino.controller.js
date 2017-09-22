@@ -17,6 +17,7 @@
         vm.inicializar = inicializar();
         vm.idCaravanaChange = idCaravanaChange;
         vm.changeSexo = changeSexo;
+        vm.getFecha = getFecha;
         //variables
         $scope.$state = $state;
         vm.razas = [];
@@ -32,6 +33,7 @@
         vm.showMjeError = false;
         vm.mjeExiste = '';
         var categorias = [];
+        $('#datetimepicker4').datetimepicker();
 
         function inicializar() {
             vm.habilitar = false;
@@ -60,7 +62,7 @@
             vm.bovino.peso = vm.bovino.peso.toString().replace(',', '.');
             if (vm.bovino.pesoAlNacer !== undefined && vm.bovino.pesoAlNacer !== '')
                 vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
-            vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
+            //vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
             vm.bovino.$save(function (data) {
                 toastr.success('Se agrego con éxito el bovino ', 'Éxito');
                 //vm.habilitar = false;
@@ -121,6 +123,23 @@
                         vm.categorias.push(categorias[j]);
                 }
             }
+        }
+
+        function getFecha() {
+            vm.bovino.fechaNacimiento = $('#datetimepicker4')[0].value;
+            var fechaNac = new Date(vm.bovino.fechaNacimiento.substring(6, 10), parseInt(vm.bovino.fechaNacimiento.substring(3, 5)) - 1, vm.bovino.fechaNacimiento.substring(0, 2));
+            var fechaHoy = new Date();
+            var fechaMin = new Date(2000, 1, 1);
+            if (fechaNac > fechaHoy) {
+                vm.formRegistrarBovino.fechaNac.$setValidity("max", false);
+            }
+            else {
+                vm.formRegistrarBovino.fechaNac.$setValidity("max", true);
+            }
+            if(fechaNac < fechaMin)
+                vm.formRegistrarBovino.fechaNac.$setValidity("min", false);
+            else
+                vm.formRegistrarBovino.fechaNac.$setValidity("min", true);
         }
     }
 })();
