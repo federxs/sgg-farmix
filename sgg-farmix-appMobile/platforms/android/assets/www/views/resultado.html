@@ -1,8 +1,42 @@
-﻿<ion-view view-title="Resultado">
+﻿<ion-view view-title="Datos del Bovino">
     <ion-content padding="true" class="fondo">
-        <h4> Apodo: {{apodo}} </h4>            
-        <h4> Peso: {{peso}} kg.</h4>            
-        <h4>Identificador del Bovino: {{idBovino}} </h4>           
-        <h4>Fecha Nacimiento: {{fechaNacimiento}} </h4>
-</ion-content>
+        <table class="bordeTabla">
+            <tr>
+                <td>Numero de Caravana</td>
+                <td>{{bovino.numCaravana}}</td>
+            </tr>
+            <tr ng-if="bovino.apodo != ''">
+                <td>Apodo</td>
+                <td>{{bovino.apodo}}</td>
+            </tr>
+            <tr ng-if="bovino.descripcion != ''">
+                <td>Descripción</td>
+                <td>{{bovino.descripcion}}</td>
+            </tr>
+            <tr>
+                <td>Género</td>
+                <td>{{bovino.genero}}</td>
+            </tr>
+            <tr>
+                <td>Estado</td>
+                <td>{{bovino.idEstado}}</td>
+            </tr>
+            <tr>
+                <td>Categoría</td>
+                <td>{{bovino.idCategoria}}</td>
+            </tr>
+            <tr>
+                <td>Raza</td>
+                <td>{{bovino.idRaza}}</td>
+            </tr>
+            <tr>
+                <td>Fecha de Nacimiento</td>
+                <td>{{bovino.fechaNacimiento}}</td>
+            </tr>
+            <tr>
+                <td>Peso</td>
+                <td>{{bovino.peso}} kg.</td>
+            </tr>
+        </table>
+    </ion-content>
 </ion-view>

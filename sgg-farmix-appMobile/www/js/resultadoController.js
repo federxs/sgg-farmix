@@ -2,9 +2,7 @@ angular.module('starter')
 .controller('ResultadoController', function ($stateParams, $scope, bovinoService, $ionicLoading, $state) {
     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
         if (_bovino != null) {
-            $scope.peso = _bovino.peso;
-            $scope.apodo = _bovino.apodo;
-            $scope.idBovino = _bovino.idBovino;
+            $scope.bovino = _bovino;
             var fecha;// = _bovino.fechaNacimiento.substr(0, 10);
             if (_bovino.fechaNacimiento.charAt(1) == '/' && _bovino.fechaNacimiento.charAt(4) == '/') {
                 fecha = _bovino.fechaNacimiento.substr(2, 2) + "/0" + _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(5, 4)
@@ -15,10 +13,15 @@ angular.module('starter')
             } else {
                 fecha = "0" + _bovino.fechaNacimiento.substr(3, 1) + "/" + _bovino.fechaNacimiento.substr(0, 2) + "/" + _bovino.fechaNacimiento.substr(5, 4)
             }
-            $scope.fechaNacimiento = fecha;
+            $scope.bovino.fechaNacimiento = fecha;
+            if ($scope.bovino.genero == 0) {
+                $scope.bovino.genero = "Hembra";
+            } else {
+                $scope.bovino.genero = "Macho";
+            }
         } else {
-            alert("El id escaneado no se encuentra dentro de los animales registrados");
             $state.go('app.leer');
+            alert("El id escaneado no se encuentra dentro de los animales registrados");
         }
     }).then($ionicLoading.hide).catch($ionicLoading.hide);
 

@@ -9,6 +9,26 @@
                     }
                 }
                 return $http.get(bovinoUrl + id).then(function (respuesta) {
+                    if (respuesta.data.bovino != null) {
+                        for (var i = 0; i < respuesta.data.categorias.length; i++) {
+                            if (respuesta.data.categorias[i].idCategoria == respuesta.data.bovino.idCategoria) {
+                                respuesta.data.bovino.idCategoria = respuesta.data.categorias[i].nombre;
+                                break;
+                            }
+                        }
+                        for (var i = 0; i < respuesta.data.razas.length; i++) {
+                            if (respuesta.data.razas[i].idRaza == respuesta.data.bovino.idRaza) {
+                                respuesta.data.bovino.idRaza = respuesta.data.razas[i].nombre;
+                                break;
+                            }
+                        }
+                        for (var i = 0; i < respuesta.data.estados.length; i++) {
+                            if (respuesta.data.estados[i].idEstado == respuesta.data.bovino.idEstado) {
+                                respuesta.data.bovino.idEstado = respuesta.data.estados[i].nombre;
+                                break;
+                            }
+                        }
+                    }
                     return respuesta.data.bovino;
                 })
             } else {
