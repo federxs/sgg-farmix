@@ -95,6 +95,15 @@ angular.module('starter', ['ionic'])
                     controller: 'AntibioticoController'
                 }
             }
+        })
+        .state('app.alimento', {
+            url: '/alimento',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/alimento.html',
+                    controller: 'AlimentoController'
+                }
+            }
         });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/bienvenido');
