@@ -1,0 +1,34 @@
+﻿<ion-view view-title="Registrar Inseminación">
+    <ion-content padding="true" class="fondo">
+        <select class="item item-input" ng-model="evento.tipoInseminacion">
+            <option value="0">Seleccione el tipo de la inseminacion</option>
+            <option ng-repeat="tipo in tipos"
+                    value="{{tipo.idTipo}}">
+                {{ tipo.descripcion }}
+            </option>
+        </select>
+        <h4>Vacas a inseminar</h4>
+        <table class="bordeTabla">
+            <tr>
+                <th>Numero de Caravana</th>
+                <th>Apodo</th>
+            </tr>
+            <tr ng-repeat="vaca in vacas">
+                <td>{{vaca.numCaravana}}</td>
+                <td>{{vaca.apodo}}</td>
+            </tr>
+        </table><br>
+        <h4 ng-if="evento.tipoInseminacion==1">Toros involucrados en la inseminación</h4>
+        <table ng-if="evento.tipoInseminacion==1" class="bordeTabla">
+            <tr>
+                <th>Numero de Caravana</th>
+                <th>Apodo</th>
+            </tr>
+            <tr ng-repeat="vaca in vacas">
+                <td>{{vaca.numCaravana}}</td>
+                <td>{{vaca.apodo}}</td>
+            </tr>
+        </table><br>
+        <button ng-click="registrar()" class="button bordeBoton botonInseminacion" ion-button>Registrar Inseminación</button>
+    </ion-content>
+</ion-view>

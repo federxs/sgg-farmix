@@ -1,0 +1,20 @@
+﻿<ion-view view-title="Registrar Tacto">
+    <ion-content padding="true" class="fondo">
+        <select class="item item-input" ng-model="evento.tipoInseminacion">
+            <option value="0">Seleccionar resultado del tacto</option>
+            <option value="0">Inseminación exitosa</option>
+            <option value="0">Inseminación fallida</option>
+        </select>
+        <table class="bordeTabla">
+            <tr>
+                <th>Numero de Caravana</th>
+                <th>Apodo</th>
+            </tr>
+            <tr ng-repeat="vaca in vacas">
+                <td>{{vaca.numCaravana}}</td>
+                <td>{{vaca.apodo}}</td>
+            </tr>
+        </table><br>
+        <button ng-click="registrar()" class="button bordeBoton botonRegistrarEvento" ion-button>Registrar Tacto</button>
+    </ion-content>
+</ion-view>

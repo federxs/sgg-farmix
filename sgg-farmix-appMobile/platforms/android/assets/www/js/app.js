@@ -104,6 +104,42 @@ angular.module('starter', ['ionic'])
                     controller: 'AlimentoController'
                 }
             }
+        })
+        .state('app.inseminacionMenu', {
+            url: '/inseminacionMenu',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/inseminacionMenu.html',
+                    controller: 'InseminacionMenuController'
+                }
+            }
+        })
+        .state('app.inseminacion', {
+            url: '/inseminacion',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/inseminacion.html',
+                    controller: 'InseminacionController'
+                }
+            }
+        })
+        .state('app.tacto', {
+            url: '/tacto',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/tacto.html',
+                    controller: 'TactoController'
+                }
+            }
+        })
+        .state('app.ecografia', {
+            url: '/ecografia',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/ecografia.html',
+                    controller: 'EcografiaController'
+                }
+            }
         });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/bienvenido');

@@ -11,16 +11,23 @@
     background-color: #E59866;
     color: #fff;
 }
+
 .bordeTabla {
     border-color: black;
     background-color: #E59866;
     color: black;
 }
-.botonRegistrarEvento{
+
+.botonRegistrarEvento {
     width: 50%;
-    margin-left:25%;
-    
+    margin-left: 25%;
 }
+
+.botonInseminacion {
+    width: 60%;
+    margin-left: 20%;
+}
+
 .botonMatriz {
     width: 50%;
     height: 50%;
@@ -36,7 +43,9 @@ th, td {
     padding: 8px;
 }
 
-tr:nth-child(even){background-color: #f2f2f2}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
 th {
     background-color: #E59866;

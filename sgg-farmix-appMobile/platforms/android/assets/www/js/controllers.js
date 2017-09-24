@@ -59,7 +59,7 @@
             } else if ($state.current.name == "app.leer") {
                 var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 $state.go('app.resultado/:id', { id: id });
-            } else if ($state.current.name == "app.vacunacion" || $state.current.name == "app.manejo" || $state.current.name == "app.antibiotico" || $state.current.name == "app.alimento") {
+            } else if ($state.current.name == "app.vacunacion" || $state.current.name == "app.manejo" || $state.current.name == "app.antibiotico" || $state.current.name == "app.alimento" || $state.current.name == "app.inseminacion") {
                 $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 if ($rootScope.idVacas == undefined || estaEscaneado($scope.id) == false) {
                     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
