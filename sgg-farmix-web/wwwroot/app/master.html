@@ -68,25 +68,23 @@
             </div>
         </div>
     </nav>
-
     <div class="container-fluid text-center" style="background-color:#FAE5D3;">
         <div class="row content">
             <div class="col-md-2 col-lg-2 sidenav">
                 <ul class="list-group" style="margin-top: 20px;">
-                    <!--<li class="list-group-item">Usuario<span class="pull-left glyphicon glyphicon-user"></span></li>-->
                     <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}" style="{{menu.activo}}">
-                        <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0 && menu.menu_Hijos === null" ng-click="activar(menu.idMenu)">
+                        <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0 && menu.menu_Hijos === null" ng-click="activar(menuHijo.idMenu)">
                             <span class="title" style="color:black">{{menu.nombre}}</span>
                             <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
                         </a>
-                        <a href="javascript:;" class="nav-link nav-toggle" ng-if="menu.menu_Hijos.length > 0" ng-click="activar(menu.idMenu)">
-                            <span class="title" style="color:black">{{menu.nombre}}</span>
+                        <a href="javascript:;" class="nav-link nav-toggle" ng-if="menu.menu_Hijos.length > 0" data-target="#demo" style="color:black" data-toggle="collapse" ng-click="desactivarMenuHijos(menu)">
+                            {{menu.nombre}}<span class="title caret pull-right" style="margin-top:5px;"></span>
                             <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
                             <span class="arrow"></span>
                         </a>
-                        <ul class="sub-menu" ng-if="menu.menu_Hijos.length > 0">
-                            <li ng-repeat="menuHijo in menu.menu_Hijos">
-                                <a ui-sref="{{menuHijo.urlMenu}}">
+                        <ul id="demo" class="collapse list-group" ng-if="menu.menu_Hijos.length > 0">
+                            <li class="list-group-item" ng-repeat="menuHijo in menu.menu_Hijos" style="{{menuHijo.activo}}">
+                                <a ui-sref="{{menuHijo.urlMenu}}" ng-click="activar(menuHijo.idMenu)">
                                     <span class="title" style="color:black">{{menuHijo.nombre}}</span>
                                     <i class="pull-left {{menuHijo.menIcono}}" aria-hidden="true" style="color:black"></i>
                                 </a>
@@ -99,9 +97,7 @@
                 <div ui-view class="fade-in-up"> </div>
             </div>
         </div>
-
     </div>
-
     <footer class="footer" style="background-color:#229954;">
         <div class="container">
             <p>Farmix 2017. Versión 1.0</p>

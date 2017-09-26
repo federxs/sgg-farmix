@@ -25,7 +25,8 @@
         vm.habilitar = true;
         vm.bajaBovino = {};
         vm.fechaDeHoy = new Date();
-        //$('#datetimepicker4').datetimepicker();
+        $('#datetimepicker7').datetimepicker();
+        
         //inicializar();      
 
         function inicializar() {
@@ -84,10 +85,10 @@
                 mes = '0' + mes;
             año = fecha.getFullYear().toString();
             return dia + '/' + mes + '/' + año;
-        };
+        };        
 
         function getFecha() {
-            vm.bajaBovino.fechaMuerte = $('#datetimepicker4')[0].value;
+            vm.bajaBovino.fechaMuerte = $('#datetimepicker7')[0].value;
             var fechaMuerte = new Date(vm.bajaBovino.fechaMuerte.substring(6, 10), parseInt(vm.bajaBovino.fechaMuerte.substring(3, 5)) - 1, vm.bajaBovino.fechaMuerte.substring(0, 2));
             var fechaHoy = new Date();
             var fechaMin = new Date(2000, 1, 1);

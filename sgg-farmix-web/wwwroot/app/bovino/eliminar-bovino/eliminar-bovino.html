@@ -70,7 +70,7 @@
                             <option ng-repeat="item in tiposEliminacion" value="{{item.id}}">
                                 {{item.nombre}}
                             </option>
-                        </select>
+                        </select>                        
                     </div>
                 </div>
                 <div ng-if="tipoEliminacionSeleccionada == '1'">
@@ -116,19 +116,13 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if="tipoEliminacionSeleccionada == '2'" style="margin-left: -15px;">
+                <div ng-show="tipoEliminacionSeleccionada == '2'" style="margin-left: -15px;">
                     <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$valid,
                              'has-error has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$invalid}">
                         <label class="control-label" for="fechaMuerte">
                             Fecha de Muerte
                         </label>
-                        <input class="form-control" type="date" id="fechaMuerte" name="name" min="2000-01-01" required
-                               max="{{fechaDeHoy | date:'yyyy-MM-dd'}}"
-                               ng-disabled="!habilitar"
-                               ng-model="bajaBovino.fechaMuerte" />
-                        <!--<div name="fechaMuerte">
-                            <input type="datetime" name="fechaMuerte" class="form-control" id="datetimepicker4" ng-blur="getFecha()" min="2000-01-01" max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" data-date-format="DD/MM/YYYY" ng-model="bajaBovino.fechaMuerte" value="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required />
-                        </div>-->
+                        <input type="datetime" name="fechaMuerte" class="form-control" id="datetimepicker7" ng-blur="getFecha()" min="2000-01-01" max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" data-date-format="DD/MM/YYYY" ng-model="bajaBovino.fechaMuerte" value="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required />                        
                         <div ng-show="formEliminarBovino.fechaMuerte.$touched">
                             <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.required">
                                 Este campo es requerido
@@ -136,8 +130,8 @@
                             <span class="help-block" ng-show="formEliminarBovino.fechaMuerte.$error.max || formEliminarBovino.fechaMuerte.$error.min">
                                 Debe ingresar una fecha válida
                             </span>
-                        </div>                        
-                    </div>                    
+                        </div>
+                    </div>
                 </div>
             </div><!--fin panel body-->
         </div><!--fin panel-->
