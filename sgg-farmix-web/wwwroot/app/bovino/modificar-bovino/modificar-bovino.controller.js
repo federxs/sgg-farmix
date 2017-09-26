@@ -143,7 +143,7 @@
                 vm.showSpinner = false;
                 toastr.success('Se modificó el bovino con éxito ', 'Éxito');
             }, function error(data) {
-                toastr.success('La operación no se pudo completar', 'Error');
+                toastr.error('La operación no se pudo completar', 'Error');
             })
         };
 
