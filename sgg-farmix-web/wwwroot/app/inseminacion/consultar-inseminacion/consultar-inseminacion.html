@@ -20,7 +20,7 @@
                             <i class="fa fa-tags fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <h1>200</h1>
+                            <h1>{{init.hembrasParaServicio}}</h1>
                             <h4>Hembras para servicio</h4>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-3 col-md-6" data-toggle="collapse" data-target="#servSinConfirm" ng-click="serviciosSinConfirmar()">
         <a href="">
             <div class="panel panel-warning">
                 <div class="panel-heading">
@@ -37,7 +37,7 @@
                             <i class="fa fa-exclamation-triangle fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <h1>353</h1>
+                            <h1>{{init.serviciosSinConfirmar}}</h1>
                             <h4>Servicios sin confirmar</h4>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
             </div>
         </a>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-3 col-md-6" data-toggle="collapse" data-target="#vacasPreñadas">
         <a href="">
             <div class="panel panel-success">
                 <div class="panel-heading">
@@ -54,7 +54,7 @@
                             <i class="fa fa-heart fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <h1>43</h1>
+                            <h1>{{init.preniadasPorParir}}</h1>
                             <h4>Preñadas por parir</h4>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                             <i class="fa fa-check-circle-o fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <h1>25</h1>
+                            <h1>{{init.lactanciasActivas}}</h1>
                             <h4>Lactancias activas</h4>
                         </div>
                     </div>
@@ -80,22 +80,24 @@
         </a>
     </div>
 </div>
-<div ng-show="mostrarServiciosYVacas">
+<div id="servSinConfirm" class="collapse">
     <h3>Servicios sin confirmar <small>Falta realizar tacto/ecografía</small></h3>
     <ul class="list-group">
         <li class="list-group-item list-group-item-info">
-            <span class="badge">14</span>
+            <span class="badge">{{serviciosSinConfirm.menor60}}</span>
             Menos de 60 días
         </li>
         <li class="list-group-item list-group-item-success">
-            <span class="badge">4</span>
+            <span class="badge">{{serviciosSinConfirm.entre90y60}}</span>
             Entre 60 y 90 días
         </li>
         <li class="list-group-item list-group-item-danger">
-            <span class="badge">1</span>
+            <span class="badge">{{serviciosSinConfirm.mas90}}</span>
             Más de 90 días
         </li>
     </ul>
+</div>
+<div id="vacasPreñadas" class="collapse">
     <h3>Vacas preñadas <small>Próximas a parir</small></h3>
     <ul class="list-group">
         <li class="list-group-item">
@@ -111,6 +113,12 @@
             Dentro de 60 días
         </li>
     </ul>
+</div>
+<div>
+    <span>
+    Estaria bueno tambien mostrar algo referido a cuando es la fecha estimada para sacar a los toros que participaron
+        de una inseminacion por montura de los corrales, ya que lei que es aconsejable dejarlos entre 60 a 90 dias solamente
+    </span>
 </div>
 <div ng-show="mostrarTablaHembrasServicio">
     <table st-table="rowCollection" class="table table-striped">

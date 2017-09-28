@@ -8,7 +8,7 @@
     function consultarInseminacionService($http, portalService) {
         var service = {
             inicializar: inicializar,
-            consultarHembrasServicio,
+            consultarHembrasServicio: consultarHembrasServicio,
             consultarServicioSinConfirmar,
             consultarPreniadasPorParir,
             consultarLactanciasActivas
@@ -16,7 +16,15 @@
 
         return service;
 
-        function inicializar() { }
+        function inicializar() {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Inseminacion/Init'
+            }).then(
+           function (data) {
+               return data.data || [];
+           });
+        }
 
         function consultarHembrasServicio() {
             return $http({

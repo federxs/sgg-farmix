@@ -191,6 +191,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EventoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InseminacionController.cs" />
     <Compile Include="Controllers\RodeoController.cs" />
     <Compile Include="Controllers\TipoEventoController.cs" />
     <Compile Include="Controllers\VacunaController.cs" />

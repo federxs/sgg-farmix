@@ -5,46 +5,17 @@
         .module('app')
         .controller('consultarInseminacionController', consultarInseminacionController);
 
-    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService'];
+    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr'];
 
-    function consultarInseminacionController($scope, consultarInseminacionService) {
+    function consultarInseminacionController($scope, consultarInseminacionService, toastr) {
         var vm = $scope;
         //variables
         vm.showSpinner = true;
         vm.itemsPorPagina = 9;
-        vm.mostrarServiciosYVacas = true;
         vm.mostrarTablaHembrasServicio = false;
         vm.mostrarTablaServiciosSinConfirmar = false;
         vm.mostrarTablaPreniadasPorParir = false;
         vm.mostrarTablaLactanciasActivas = false;
-        vm.rowCollection = [{col1: 'jajasd',col2: '123fda',col3: 'asdasd',col4: 'asdasd'},
-            {col1: 'asdas',col2: 'ddsad',col3: 'cxcvz',col4: 'zxczxc'},
-            {col1: 'czxcg',col2: 'fgdh',col3: '3242fsdf',col4: 'sdfsdfs'},
-            { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-            { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-            { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-            { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-            { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-            { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-            { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-            { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-            { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-            { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' }];
-
-        //vm.caca = [{ col1: 'jajasd', col2: '123fda', col3: 'asdasd', col4: 'asdasd' },
-        //    { col1: 'asdas', col2: 'ddsad', col3: 'cxcvz', col4: 'zxczxc' },
-        //    { col1: 'czxcg', col2: 'fgdh', col3: '3242fsdf', col4: 'sdfsdfs' },
-        //    { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-        //    { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-        //    { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-        //    { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-        //    { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-        //    { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-        //    { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-        //    { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-        //    { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' },
-        //    { col1: 'asdasf3', col2: '1243dfsdf', col3: '34234234', col4: 'asdasdasd' }];
-
         //metodos
         vm.inicializar = inicializar;
         vm.hembrasParaServicio = hembrasParaServicio;
@@ -54,7 +25,14 @@
         inicializar();
 
         function inicializar() {
-            vm.showSpinner = false;}
+            vm.showSpinner = true;
+            consultarInseminacionService.inicializar().then(function success(data) {
+                vm.init = data;
+                vm.showSpinner = false;
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
+        }
 
         function hembrasParaServicio() {
             mostrarTablaActual('HembrasServicio');
@@ -65,12 +43,22 @@
             //});
         }
         function serviciosSinConfirmar() {
-            mostrarTablaActual('ServiciosSinConfirmar');
-            //consultarInseminacionService.consultarHembrasServicio().then(
-            //function success(data){
-            //
-            //vm.showSpinner = false;
-            //});
+            //mostrarTablaActual('ServiciosSinConfirmar');
+            vm.showSpinner = true;
+            consultarInseminacionService.consultarServicioSinConfirmar().then(
+            function success(data) {
+                var fechaHoy = new Date();
+                fechaHoy = moment(convertirFecha(fechaHoy));
+                vm.serviciosSinConfirm = {};
+                vm.serviciosSinConfirm.menor60 = Enumerable.From(data).Where(function (x) {
+                    var fechaInsem = x.fechaInseminacion.split('/');
+                    fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
+                    return fechaHoy.diff(fechaInsem, 'days') < 60
+                }).Count();
+                vm.showSpinner = false;
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            });
         }
         function preniadasPorParir() {
             mostrarTablaActual('PreniadasPorParir');
@@ -118,6 +106,18 @@
                 mostrarTablaPreniadasPorParir = false;
                 mostrarTablaLactanciasActivas = true;
             }
+        }
+
+        function convertirFecha(fecha) {
+            var dia, mes, año;
+            dia = fecha.getDate().toString();
+            if (dia.length === 1)
+                dia = '0' + dia;
+            mes = (fecha.getMonth() + 1).toString();
+            if (mes.length === 1)
+                mes = '0' + mes;
+            año = fecha.getFullYear().toString();
+            return año + '/' + mes + '/' + dia;
         }
     }
 })();

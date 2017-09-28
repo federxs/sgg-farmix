@@ -8,17 +8,19 @@
     inicioController.$inject = ['$scope', 'inicioService', 'toastr'];
 
     function inicioController($scope, inicioService, toastr) {
+        $scope.showSpinner = true;
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
 
-
         function inicializar() {
+            $scope.showSpinner = true;
             inicioService.inicializar().then(function success(data) {
                 $scope.cantBovinos = data.bovinos;
                 $scope.cantEventos = data.eventos;
                 $scope.cantVentas = data.ventas;
                 cargarGraficoRazas(data.graficoRaza);
                 cargarGraficoCategorias(data.graficoCategorias);
+                $scope.showSpinner = false;
             }, function error(error) {
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })

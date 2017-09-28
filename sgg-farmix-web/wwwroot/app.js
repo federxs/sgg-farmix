@@ -7,7 +7,8 @@
         'oc.lazyLoad',
         'toastr',
         'googlechart',
-        'smart-table'
+        'smart-table',
+        'toastr'
         //'ui.bootstrap'
     ]);    
 })();

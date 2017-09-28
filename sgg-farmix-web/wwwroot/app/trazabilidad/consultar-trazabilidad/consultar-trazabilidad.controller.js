@@ -30,6 +30,7 @@
         var ultimoIndiceVisto = 0;
         var idEventoAEliminar = 0;
         var idManejo = [];
+        var idAlimenticio = [];
         vm.fechaDeHoy = new Date();
         $('#datetimepicker4').datetimepicker();
         $('#datetimepicker5').datetimepicker();
@@ -267,7 +268,15 @@
                                 fechaSiguiente = fechaSiguiente.split('/');
                             }
                             break;
-                        case 'Alimento':
+                        case 'Alimenticio':
+                            idAlimenticio.push(vm.rowCollection[i].idEvento);
+                            var index = vm.rowCollection.findIndex(encontrarAlimenticio);
+                            if (index !== -1)
+                                fechaSiguiente = vm.rowCollection[index].fechaHora.substring(0, 10).split('/');
+                            else {
+                                fechaSiguiente = convertirFecha(new Date());
+                                fechaSiguiente = fechaSiguiente.split('/');
+                            }
                             break;
                     }
                     dataTable.addRows([
@@ -279,6 +288,10 @@
 
         function encontrarManejo(evento) {
             return evento.tipoEvento === 'Manejo' && idManejo.indexOf(evento.idEvento) === -1;
+        }
+        
+        function encontrarAlimenticio(evento) {
+            return evento.tipoEvento === 'Alimenticio' && idAlimenticio.indexOf(evento.idEvento) === -1;
         }
 
         function getFechaDesde() {

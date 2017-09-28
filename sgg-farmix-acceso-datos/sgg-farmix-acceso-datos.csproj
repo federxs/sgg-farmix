@@ -54,6 +54,7 @@
     <Compile Include="DAOs\EstablecimientoOrigenManager.cs" />
     <Compile Include="DAOs\EstadoManager.cs" />
     <Compile Include="DAOs\EventoManager.cs" />
+    <Compile Include="DAOs\InseminacionManager.cs" />
     <Compile Include="DAOs\MenuManager.cs" />
     <Compile Include="DAOs\RazaManager.cs" />
     <Compile Include="DAOs\RodeoManager.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Model\EstablecimientoOrigen.cs" />
     <Compile Include="Model\Estado.cs" />
     <Compile Include="Model\Evento.cs" />
+    <Compile Include="Model\Inseminacion.cs" />
     <Compile Include="Model\Localidad.cs" />
     <Compile Include="Model\Menu.cs" />
     <Compile Include="Model\Pais.cs" />
