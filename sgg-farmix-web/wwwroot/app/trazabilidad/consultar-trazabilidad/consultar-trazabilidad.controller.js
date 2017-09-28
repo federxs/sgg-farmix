@@ -78,7 +78,7 @@
                     vm.disabled = '';
                     vm.rowCollection = [];
                     $('#timeline').hide();
-                    toastr.info("No se ah encontrado ningún resultado para esta búsqueda", "Aviso");
+                    toastr.info("No se ha encontrado ningún resultado para esta búsqueda", "Aviso");
                 }
                 else {
                     vm.rowCollection = data;

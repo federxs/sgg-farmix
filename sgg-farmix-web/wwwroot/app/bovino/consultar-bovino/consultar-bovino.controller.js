@@ -59,6 +59,8 @@
                     vm.disabledExportar = 'disabled';
                     vm.showSpinner = false;
                     vm.disabled = '';
+                    vm.rowCollection = [];
+                    vm.filtro.peso = '';
                     toastr.info("No se ha encontrado ningún resultado para esta búsqueda", "Aviso");
                 }
                 else {

@@ -55,6 +55,16 @@
                     fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
                     return fechaHoy.diff(fechaInsem, 'days') < 60
                 }).Count();
+                vm.serviciosSinConfirm.entre90y60 = Enumerable.From(data).Where(function (x) {
+                    var fechaInsem = x.fechaInseminacion.split('/');
+                    fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
+                    return fechaHoy.diff(fechaInsem, 'days') >= 60 && fechaHoy.diff(fechaInsem, 'days') < 90
+                }).Count();
+                vm.serviciosSinConfirm.mas90 = Enumerable.From(data).Where(function (x) {
+                    var fechaInsem = x.fechaInseminacion.split('/');
+                    fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
+                    return fechaHoy.diff(fechaInsem, 'days') > 90
+                }).Count();
                 vm.showSpinner = false;
             }, function error(error) {
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');

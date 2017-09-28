@@ -91,8 +91,8 @@
         </div>
     </fieldset>
 </form>
-<legend style="margin-bottom:5px">Resultados</legend>
-<div class="row col-lg-12 col-md-12">
+<legend style="margin-bottom:5px" ng-show="rowCollection.length > 0">Resultados</legend>
+<div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
     <!--<button ng-click="insert()">Insertar</button>-->
     <div class="pull-right" style="margin-bottom:5px">
         <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">

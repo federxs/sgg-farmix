@@ -172,6 +172,8 @@
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }
+            else if(vm.bovino.numCaravana === nroCaravanaOriginal)
+                vm.formModificarBovino.idCaravana.$setValidity("existeIdCaravana", true);
         };
 
         function getFecha() {
