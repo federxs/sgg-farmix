@@ -48,14 +48,13 @@
         });
 
         tagEscaneado = function (nfcEvent) {
-            if ($state.current.name == "app.escribir") {
-                var id = $rootScope.idBovino;
-                var mensaje = [
-                ndef.textRecord(id)];
+            if ($state.current.name == "app.escribirTag") {
+                var id = $rootScope.idEscribir;
+                var mensaje = [ndef.textRecord(id)];
                 nfc.write(mensaje);
-                $rootScope.aviso = "";
-                alert("Se ha escrito el ID en el tag escaneado");
-                $state.reload();
+                bovinoService.escribirTag(id);
+                alert("Se ha grabado el tag escaneado");
+                $state.go('app.escribir');
             } else if ($state.current.name == "app.leer") {
                 var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 $state.go('app.resultado/:id', { id: id });
