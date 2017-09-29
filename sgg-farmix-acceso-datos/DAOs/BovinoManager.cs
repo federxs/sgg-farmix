@@ -287,5 +287,23 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection.Close();
             }
         }
+
+        public IEnumerable<TagBovino> GetTags()
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var listaTags = connection.GetArray<TagBovino>("spGetTagsBovinos", null, System.Data.CommandType.StoredProcedure);
+                return listaTags;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

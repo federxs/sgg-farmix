@@ -80,4 +80,11 @@ namespace sgg_farmix_acceso_datos.Model
         public string rodeo { get; set; }
         public Resultados establecimientosDestino { get; set; }
     }
+    
+    public class TagBovino
+    {
+        public long idBovino { get; set; }
+        public long numCaravana { get; set; }
+        public bool escrito { get; set; }
+    }
 }
