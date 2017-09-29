@@ -23,7 +23,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@descripcion", (entity.descripcion == null ? null : entity.descripcion) },
                     {"@fechaNac", entity.fechaNacimiento },
                     {"@genero", entity.genero },
-                    {"@peso", entity.peso },                 
+                    {"@peso", entity.peso },
                     { "@idCategoria", entity.idCategoria },
                     { "@idRaza", entity.idRaza },
                     { "@idRodeo", entity.idRodeo },
@@ -31,14 +31,14 @@ namespace sgg_farmix_acceso_datos.DAOs
                     { "@borrado", 0 }
             };
                 if (entity.pesoAlNacer != 0)
-                    parametros.Add("@pesoAlNacer", entity.pesoAlNacer); 
+                    parametros.Add("@pesoAlNacer", entity.pesoAlNacer);
                 if (entity.idBovinoMadre != 0)
                     parametros.Add("@idBovinoMadre", entity.idBovinoMadre);
-                if(entity.idBovinoPadre != 0)                   
+                if (entity.idBovinoPadre != 0)
                     parametros.Add("@idBovinoPadre", entity.idBovinoPadre);
                 if (entity.idEstablecimientoOrigen != 0)
                     parametros.Add("@idEstabOrigen", entity.idEstablecimientoOrigen);
-                
+
                 entity.idBovino = connection.Execute("spRegistrarBovino", parametros, System.Data.CommandType.StoredProcedure);
                 if (entity.idBovino == 0)
                     throw new ArgumentException("Create Bovino Error");
@@ -226,7 +226,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     {"@idBovino", id }
                 };
-                var bovino = connection.GetArray<BovinoHeaderEliminar>("spObtenerHeaderBaja", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();                
+                var bovino = connection.GetArray<BovinoHeaderEliminar>("spObtenerHeaderBaja", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return bovino;
             }
             catch (Exception ex)
@@ -295,6 +295,39 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = new SqlServerConnection();
                 var listaTags = connection.GetArray<TagBovino>("spGetTagsBovinos", null, System.Data.CommandType.StoredProcedure);
                 return listaTags;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public bool EscribirTag(long idBovino)
+        {
+            try
+            {
+                bool ban = true;
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idBovino", idBovino }
+                };
+                var si = connection.Execute("spActualizarEscritoTag", parametros, System.Data.CommandType.StoredProcedure);
+                if (si == 0)
+                {
+                    ban = false;
+                    throw new ArgumentException("Update Error");
+                }
+                else if (si == -1)
+                {
+                    ban = false;
+                    throw new ArgumentException("Bovino no existe");
+                }
+                return ban;
             }
             catch (Exception ex)
             {
