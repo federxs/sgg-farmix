@@ -60,6 +60,14 @@ angular.module('starter', ['ionic'])
               }
           }
       })
+      .state('app.escribirTag', {
+          url: '/escribirTag',
+          views: {
+              'menuContent': {
+                  templateUrl: 'views/escribirTag.html'
+              }
+          }
+      })
        .state('app.registrarEvento', {
            url: '/registrarEvento',
            views: {

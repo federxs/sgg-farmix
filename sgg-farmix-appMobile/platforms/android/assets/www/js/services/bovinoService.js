@@ -1,6 +1,8 @@
 ﻿angular.module('starter')
     .service('bovinoService', function ($http, portalService) {
         var bovinoUrl = portalService.getUrlServer() + "api/Bovino/initModificacion?idBovino=";
+        var bovinosUrl = portalService.getUrlServer() + "api/Bovino/getListaTags";
+        var escribirUrl = portalService.getUrlServer() + "api/Bovino/escribirTag";
         this.getDatosBovino = function (id) {
             if (id != "") {
                 for (var i = 0; i < id.length; i++) {
@@ -34,5 +36,19 @@
             } else {
                 return null;
             }
+        }
+        
+        this.getBovinos = function () {
+            return $http.get(bovinosUrl).then(function (respuesta) {
+                return respuesta.data;
+            })
+        }
+
+        this.escribirTag = function (id) {
+            $http({
+                method: 'POST',
+                url: escribirUrl,
+                params: { id: id }
+            });
         };
     });

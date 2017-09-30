@@ -62,15 +62,28 @@
                 $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 if ($rootScope.idVacas == undefined || estaEscaneado($scope.id) == false) {
                     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
-                        if (_bovino != null && _bovino.borrado == false && ($state.current.name != "app.antibiotico" || _bovino.idEstado == 3)) {
-                            if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
-                                $rootScope.vacas = [];
-                                $rootScope.idVacas = [];
+                        if (_bovino != null && _bovino.borrado == false) {
+                            if ($state.current.name != "app.antibiotico" || _bovino.idEstado == 3) {
+                                if ($rootScope.tipoInseminacion == "2" && _bovino.genero == 1) {
+                                    if ($rootScope.toros == undefined || $rootScope.toros == null) {
+                                        $rootScope.toros = [];
+                                        $rootScope.idToros = [];
+                                    }
+                                    $rootScope.toros.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
+                                    $rootScope.idToros.push($scope.id);
+                                } else {
+                                    if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
+                                        $rootScope.vacas = [];
+                                        $rootScope.idVacas = [];
+                                    }
+                                    $rootScope.vacas.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
+                                    $rootScope.idVacas.push($scope.id);
+                                }
+                            } else {
+                                alert("El animal registrado no se encuentra enfermo");
                             }
-                            $rootScope.vacas.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
-                            $rootScope.idVacas.push($scope.id);
                         } else {
-                            alert("El id escaneado no se encuentra dentro de los animales registrados");
+                            alert("El tag escaneado no se encuentra dentro de los animales registrados");
                         }
                     }).then($ionicLoading.hide).catch($ionicLoading.hide);
                 } else {
@@ -83,6 +96,13 @@
             for (i = 0; i < $rootScope.idVacas.length; i++) {
                 if ($rootScope.idVacas[i] == id) {
                     return true;
+                }
+            }
+            if ($rootScope.tipoInseminacion == "2" && $rootScope.toros != undefined && $rootScope.toros != null) {
+                for (i = 0; i < $rootScope.idToros.length; i++) {
+                    if ($rootScope.idToros[i] == id) {
+                        return true;
+                    }
                 }
             }
             return false;

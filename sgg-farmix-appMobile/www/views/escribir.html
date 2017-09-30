@@ -8,7 +8,7 @@
             </tr>
             <tr ng-repeat="bovino in bovinos">
                 <td>{{bovino.numCaravana}}</td>
-                <td><button ng-click="grabar(bovino.id)" ion-button>Grabar Tag</button></td>
+                <td><button ng-click="grabar(bovino.idBovino)" ion-button>Grabar Tag</button></td>
             </tr>
         </table><br />
         <h3>Bovinos con Tag ya grabados</h3>
@@ -19,7 +19,7 @@
             </tr>
             <tr ng-repeat="bovino in bovinosEscritos">
                 <td>{{bovino.numCaravana}}</td>
-                <td><button ng-click="grabar(bovino.id)" ion-button>Grabar Tag</button></td>
+                <td><button ng-click="grabar(bovino.idBovino)" ion-button>Grabar Tag</button></td>
             </tr>
         </table>
     </ion-content>
