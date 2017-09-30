@@ -305,5 +305,38 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection.Close();
             }
         }
+
+        public bool EscribirTag(long idBovino)
+        {
+            try
+            {
+                bool ban = true;
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idBovino", idBovino }
+                };
+                var si = connection.Execute("spActualizarEscritoTag", parametros, System.Data.CommandType.StoredProcedure);
+                if (si == 0)
+                {
+                    ban = false;
+                    throw new ArgumentException("Update Error");
+                }
+                else if (si == -1)
+                {
+                    ban = false;
+                    throw new ArgumentException("Bovino no existe");
+                }
+                return ban;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
