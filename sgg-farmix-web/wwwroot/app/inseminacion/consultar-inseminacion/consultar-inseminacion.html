@@ -28,7 +28,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6" data-toggle="collapse" data-target="#servSinConfirm" ng-click="serviciosSinConfirmar()">
+    <div class="col-lg-3 col-md-6" ng-click="serviciosSinConfirmar()">
         <a href="">
             <div class="panel panel-warning">
                 <div class="panel-heading">
@@ -45,7 +45,7 @@
             </div>
         </a>
     </div>
-    <div class="col-lg-3 col-md-6" data-toggle="collapse" data-target="#vacasPreñadas">
+    <div class="col-lg-3 col-md-6" ng-click="proximosPartos()">
         <a href="">
             <div class="panel panel-success">
                 <div class="panel-heading">
@@ -80,7 +80,7 @@
         </a>
     </div>
 </div>
-<div id="servSinConfirm" class="collapse">
+<div ng-show="showServSinConfirm">
     <h3>Servicios sin confirmar <small>Falta realizar tacto/ecografía</small></h3>
     <ul class="list-group">
         <li class="list-group-item list-group-item-info">
@@ -97,19 +97,19 @@
         </li>
     </ul>
 </div>
-<div id="vacasPreñadas" class="collapse">
+<div ng-show="showProxPartos">
     <h3>Vacas preñadas <small>Próximas a parir</small></h3>
     <ul class="list-group">
         <li class="list-group-item">
-            <span class="badge">1</span>
+            <span class="badge">{{preniadasPorParir.prox10dias}}</span>
             Dentro de 10 días
         </li>
         <li class="list-group-item">
-            <span class="badge">4</span>
+            <span class="badge">{{preniadasPorParir.entre10y30dias}}</span>
             Dentro de 30 días
         </li>
         <li class="list-group-item">
-            <span class="badge">10</span>
+            <span class="badge">{{preniadasPorParir.entre30y60dias}}</span>
             Dentro de 60 días
         </li>
     </ul>

@@ -27,4 +27,10 @@ namespace sgg_farmix_acceso_datos.Model
         public string fechaInseminacion { get; set; }
         public IEnumerable<BovinoItem> bovinos { get; set; }
     }
+
+    public class PreniadasXParir
+    {
+        public string fechaParicion { get; set; }
+        public IEnumerable<BovinoItem> bovinos { get; set; }
+    }
 }

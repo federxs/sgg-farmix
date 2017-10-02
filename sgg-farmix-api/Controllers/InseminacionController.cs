@@ -117,5 +117,23 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Inseminacion/PreniadasPorParir")]
+        [HttpGet]
+        public IEnumerable<PreniadasXParir> GetPreniadasPorParir()
+        {
+            try
+            {
+                return IM.GetPreniadasPorParir();
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

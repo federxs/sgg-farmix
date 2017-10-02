@@ -132,5 +132,32 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection.Close();
             }
         }
+
+        public IEnumerable<PreniadasXParir> GetPreniadasPorParir()
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var lista = connection.GetArray<PreniadasXParir>("spGetListPreniadasXParir", null, System.Data.CommandType.StoredProcedure);
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@fechaParicion", "" }
+                };
+                for (int i = 0; i < lista.Count(); i++)
+                {
+                    parametros["@fechaParicion"] = lista.ElementAt(i).fechaParicion;
+                    lista.ElementAt(i).bovinos = connection.GetArray<BovinoItem>("spGetBovinosPorParir", parametros, System.Data.CommandType.StoredProcedure);
+                }
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
