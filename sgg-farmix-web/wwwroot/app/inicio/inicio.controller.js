@@ -29,8 +29,8 @@
         function cargarGraficoRazas(graficoRaza) {
             $scope.myChartObject.type = "PieChart";
             $scope.myChartObject.options = {
-                'width': 600,
-                'height': 400,
+                'width': '100%',
+                'height': '100%',
                 'chartArea': { 'width': '100%', 'height': '100%' },
                 'legend': {
                     'position': 'left',
@@ -57,10 +57,10 @@
             $scope.graficoCategorias = {};
             $scope.graficoCategorias.type = "ColumnChart";
             $scope.graficoCategorias.options = {
-                'theme': 'maximized',
-                //'width': 600,
-                'height': 400,
-                'chartArea': { 'left': 50, 'top': 30, 'right': 0, 'bottom': 50 },
+                //'theme': 'maximized',
+                'width': '100%',
+                'height': '100%',
+                //'chartArea': { 'left': 50, 'top': 30, 'right': 0, 'bottom': 50 },
                 'hAxis': { 'textPosition': 'out' }
             };
             $scope.graficoCategorias.data = {
