@@ -46,9 +46,9 @@
 
         this.escribirTag = function (id) {
             $http({
-                method: 'POST',
+                method: 'PUT',
                 url: escribirUrl,
-                params: { id: id }
+                params: { idBovino: id }
             });
         };
     });

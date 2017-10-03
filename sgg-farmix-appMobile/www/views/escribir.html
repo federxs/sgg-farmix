@@ -1,5 +1,6 @@
 ﻿<ion-view view-title="Grabar Tag">
     <ion-content padding="true" class="fondo">
+        <ion-refresher pulling-text="Actualizar" on-refresh="cargarBovinos()"></ion-refresher>
         <h3>Bovinos con Tag sin grabar</h3>
         <table class="bordeTabla">
             <tr>
@@ -8,7 +9,7 @@
             </tr>
             <tr ng-repeat="bovino in bovinos">
                 <td>{{bovino.numCaravana}}</td>
-                <td><button ng-click="grabar(bovino.idBovino)" ion-button>Grabar Tag</button></td>
+                <td><button ng-click="grabar(bovino.idBovino, true)" ion-button>Grabar Tag</button></td>
             </tr>
         </table><br />
         <h3>Bovinos con Tag ya grabados</h3>
@@ -19,7 +20,7 @@
             </tr>
             <tr ng-repeat="bovino in bovinosEscritos">
                 <td>{{bovino.numCaravana}}</td>
-                <td><button ng-click="grabar(bovino.idBovino)" ion-button>Grabar Tag</button></td>
+                <td><button ng-click="grabar(bovino.idBovino, false)" ion-button>Grabar Tag</button></td>
             </tr>
         </table>
     </ion-content>

@@ -52,7 +52,9 @@
                 var id = $rootScope.idEscribir;
                 var mensaje = [ndef.textRecord(id)];
                 nfc.write(mensaje);
-                bovinoService.escribirTag(id);
+                if ($rootScope.actualizarEscritura) {
+                    bovinoService.escribirTag(id);
+                }
                 alert("Se ha grabado el tag escaneado");
                 $state.go('app.escribir');
             } else if ($state.current.name == "app.leer") {
@@ -64,7 +66,7 @@
                     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
                         if (_bovino != null && _bovino.borrado == false) {
                             if ($state.current.name != "app.antibiotico" || _bovino.idEstado == 3) {
-                                if ($rootScope.tipoInseminacion == "2" && _bovino.genero == 1) {
+                                if ($rootScope.evento != undefined && $rootScope.evento.tipoInseminacion == "2" && _bovino.genero == 1) {
                                     if ($rootScope.toros == undefined || $rootScope.toros == null) {
                                         $rootScope.toros = [];
                                         $rootScope.idToros = [];
@@ -98,7 +100,7 @@
                     return true;
                 }
             }
-            if ($rootScope.tipoInseminacion == "2" && $rootScope.toros != undefined && $rootScope.toros != null) {
+            if ($rootScope.evento.tipoInseminacion == "2" && $rootScope.toros != undefined && $rootScope.toros != null) {
                 for (i = 0; i < $rootScope.idToros.length; i++) {
                     if ($rootScope.idToros[i] == id) {
                         return true;
