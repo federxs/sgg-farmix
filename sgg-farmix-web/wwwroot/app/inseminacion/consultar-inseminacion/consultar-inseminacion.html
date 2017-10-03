@@ -81,17 +81,17 @@
     </div>
 </div>
 <div ng-show="showServSinConfirm">
-    <h3>Servicios sin confirmar <small>Falta realizar tacto/ecografía</small></h3>
+    <h3>Servicios sin confirmar <small>Aún no se realizo el tacto</small> <!--<small>Falta realizar tacto/ecografía</small>--></h3>
     <ul class="list-group">
-        <li class="list-group-item list-group-item-info">
+        <li class="list-group-item">
             <span class="badge">{{serviciosSinConfirm.menor60}}</span>
             Menos de 60 días
         </li>
-        <li class="list-group-item list-group-item-success">
+        <li class="list-group-item">
             <span class="badge">{{serviciosSinConfirm.entre90y60}}</span>
             Entre 60 y 90 días
         </li>
-        <li class="list-group-item list-group-item-danger">
+        <li class="list-group-item">
             <span class="badge">{{serviciosSinConfirm.mas90}}</span>
             Más de 90 días
         </li>

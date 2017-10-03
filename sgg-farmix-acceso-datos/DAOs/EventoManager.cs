@@ -27,7 +27,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@idEvento", id }
                 };
                 var delete = connection.Execute("spEliminarEvento", parametros, System.Data.CommandType.StoredProcedure);
-                if(delete == 0)
+                if (delete == 0)
                     throw new ArgumentException("Delete Evento Error");
             }
             catch (Exception ex)
@@ -127,7 +127,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                         break;
                 }
                 evento.idEvento = connection.Execute("spRegistrarEvento", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
-                if(evento.idEvento == 0)
+                if (evento.idEvento == 0)
                     throw new ArgumentException("Create Evento Error");
                 var parametrosDetalle = new Dictionary<string, object>()
                 {
@@ -139,10 +139,10 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     parametrosDetalle["@idBovino"] = lista.ElementAt(i);
                     insert = connection.Execute("spRegistrarEventosXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
-                    if(insert == 0)
+                    if (insert == 0)
                         throw new ArgumentException("Create EventosXBovino Error");
                 }
-                if(evento.idTipoEvento == 3)
+                if (evento.idTipoEvento == 3)
                 {
                     insert = 0;
                     var parametros = new Dictionary<string, object>
@@ -200,60 +200,74 @@ namespace sgg_farmix_acceso_datos.DAOs
             DbTransaction transaction = connection.BeginTransaction();
             try
             {
-                var parametrosEvento = new Dictionary<string, object>
+                if (lista == null)
+                {
+                    var param = new Dictionary<string, object>
+                    {
+                        {"@idEvento", id }
+                    };
+                    connection.Execute("spDeleteDetalleXBovino", param, System.Data.CommandType.StoredProcedure, transaction);
+                    var delete = connection.Execute("spEliminarEvento", param, System.Data.CommandType.StoredProcedure, transaction);
+                    if (delete == 0)
+                        throw new ArgumentException("Delete Evento Error");
+                }
+                else
+                {
+                    var parametrosEvento = new Dictionary<string, object>
                 {
                     {"@idEvento", id },
                     {"@idTipoEvento", entity.idTipoEvento },
                     {"@fechaHora", entity.fechaHora },
                     {"@cantidad", entity.cantidad }
                 };
-                switch (entity.idTipoEvento)
-                {
-                    case 1:
-                        parametrosEvento.Add("@idVacuna", entity.idVacuna);
-                        break;
-                    case 2:
-                        parametrosEvento.Add("@idAntibiotico", entity.idAntibiotico);
-                        break;
-                    case 3:
-                        parametrosEvento.Add("@idCampoDestino", entity.idCampoDestino);
-                        parametrosEvento.Add("@idRodeoDestino", entity.idRodeoDestino);
-                        break;
-                    case 4:
-                        parametrosEvento.Add("@idAlimento", entity.idAlimento);
-                        break;
-                }
-                var update = connection.Execute("spModificarEvento", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
-                if (update == 0)
-                    throw new ArgumentException("Update evento error");
-                var parametrosDetalle = new Dictionary<string, object>
+                    switch (entity.idTipoEvento)
+                    {
+                        case 1:
+                            parametrosEvento.Add("@idVacuna", entity.idVacuna);
+                            break;
+                        case 2:
+                            parametrosEvento.Add("@idAntibiotico", entity.idAntibiotico);
+                            break;
+                        case 3:
+                            parametrosEvento.Add("@idCampoDestino", entity.idCampoDestino);
+                            parametrosEvento.Add("@idRodeoDestino", entity.idRodeoDestino);
+                            break;
+                        case 4:
+                            parametrosEvento.Add("@idAlimento", entity.idAlimento);
+                            break;
+                    }
+                    var update = connection.Execute("spModificarEvento", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
+                    if (update == 0)
+                        throw new ArgumentException("Update evento error");
+                    var parametrosDetalle = new Dictionary<string, object>
                 {
                     {"@idEvento", id }
                 };
-                connection.Execute("spDeleteDetalleXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
-                var insertDetalle = 0;
-                parametrosDetalle.Add("@idBovino", 0);
-                for (int i = 0; i < lista.Count; i++)
-                {
-                    parametrosDetalle["@idBovino"] = lista.ElementAt(i);
-                    insertDetalle = connection.Execute("spRegistrarEventosXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
-                    if (insertDetalle == 0)
-                        throw new ArgumentException("Update EventosXBovino Error");
-                }
-                if (entity.idTipoEvento == 3)
-                {
-                    var insert = 0;
-                    var parametros = new Dictionary<string, object>
+                    connection.Execute("spDeleteDetalleXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
+                    var insertDetalle = 0;
+                    parametrosDetalle.Add("@idBovino", 0);
+                    for (int i = 0; i < lista.Count; i++)
+                    {
+                        parametrosDetalle["@idBovino"] = lista.ElementAt(i);
+                        insertDetalle = connection.Execute("spRegistrarEventosXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
+                        if (insertDetalle == 0)
+                            throw new ArgumentException("Update EventosXBovino Error");
+                    }
+                    if (entity.idTipoEvento == 3)
+                    {
+                        var insert = 0;
+                        var parametros = new Dictionary<string, object>
                     {
                         {"@idRodeo", entity.idRodeoDestino },
                         {"@idBovino", 0 }
                     };
-                    for (int i = 0; i < lista.Count; i++)
-                    {
-                        parametros["@idBovino"] = lista.ElementAt(i);
-                        insert = connection.Execute("spActualizarRodeoBovino", parametros, System.Data.CommandType.StoredProcedure, transaction);
-                        if (insert == 0)
-                            throw new ArgumentException("Update rodeo bovino Error");
+                        for (int i = 0; i < lista.Count; i++)
+                        {
+                            parametros["@idBovino"] = lista.ElementAt(i);
+                            insert = connection.Execute("spActualizarRodeoBovino", parametros, System.Data.CommandType.StoredProcedure, transaction);
+                            if (insert == 0)
+                                throw new ArgumentException("Update rodeo bovino Error");
+                        }
                     }
                 }
                 connection.Commit(transaction);

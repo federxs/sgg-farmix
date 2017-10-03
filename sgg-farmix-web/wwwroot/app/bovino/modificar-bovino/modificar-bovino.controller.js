@@ -47,6 +47,8 @@
 
                 //bovino
                 vm.bovino = data.bovino;
+                vm.bovino.idAlimento = 0;
+                vm.bovino.cantAlimento = 0;
                 nroCaravanaOriginal = vm.bovino.numCaravana;
                 //if (vm.bovino.fechaNacimiento[8] === " ")
                   //  var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 8).split('/');
@@ -83,7 +85,7 @@
 
                 //seteamos a "" las variables 0
                 angular.forEach(vm.bovino, function (value, key) {
-                    if (parseInt(value) === 0 && key !== 'idBovino') {
+                    if (parseInt(value) === 0 && key !== 'idBovino' && key !== 'idAlimento' && key !== 'cantAlimento') {
                         vm.bovino[key] = '';
                     }
                 });

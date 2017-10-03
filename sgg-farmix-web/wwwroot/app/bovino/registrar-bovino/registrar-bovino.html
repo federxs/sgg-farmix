@@ -34,7 +34,7 @@
                                 El número no puede ser negativo
                             </span>
                             <span class="help-block" ng-show="formRegistrarBovino.idCaravana.$error.existeIdCaravana">
-                                Ya hay un bovino registrado con este número de caravana
+                                Ya existe un bovino registrado con este número de caravana
                             </span>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
                                         value="{{ item.idEstablecimiento }}">
                                     {{ item.nombre }}
                                 </option>
-                            </select>                            
+                            </select>               
                         </div>
                         <div class="col-md-1 col-lg-1">
                             <button type="button" class="btn btn-info" style="margin-top: 25px;background-color:#16A085;" title="Agregar establecimiento" ng-disabled="!habilitar">
@@ -113,7 +113,7 @@
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -201,7 +201,7 @@
                         <label class="control-label" for="peso">
                             Peso (kg) (*)
                         </label>
-                        <input name="peso" type="number" class="form-control" min="0" max="1000" required placeholder="Peso (kg)"
+                        <input name="peso" type="number" ng-blur="getPeso()" class="form-control" min="0" max="1000" required placeholder="Peso (kg)"
                                ng-disabled="!habilitar"
                                ng-model="bovino.peso" />
                         <div ng-show="formRegistrarBovino.peso.$touched">
@@ -280,9 +280,56 @@
                             </div>
                         </div>
                         <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar raza" ng-disabled="!habilitar">
+                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar alimento" ng-disabled="!habilitar">
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$valid,
+                 'has-error has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$invalid}">
+                        <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
+                            <label class="control-label" for="alimento">
+                                Alimento (*)
+                            </label>
+                            <select class="form-control" name="alimento" required
+                                    ng-disabled="!habilitar"
+                                    ng-model="bovino.idAlimento">
+                                <option value="">Seleccione...</option>
+                                <option ng-repeat="item in alimentos"
+                                        value="{{ item.idAlimento }}">
+                                    {{ item.nombre }}
+                                </option>
+                            </select>
+                            <div ng-show="formRegistrarBovino.alimento.$touched">
+                                <span class="help-block" ng-show="formRegistrarBovino.alimento.$error.required">
+                                    Este campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-lg-1">
+                            <button type="button" class="btn" style="margin-top:25px; background-color:#16A085;" title="Agregar rodeo" ng-disabled="!habilitar">
+                                <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                            </button>
+                        </div>
+                        <div class="col-md-11 col-lg-11" style="margin-left:-15px;margin-top: 5px;" ng-class="{'has-success has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$valid,
+                 'has-error has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$invalid}">
+                            <label class="control-label" for="cantidad">
+                                Ración alimento (kg/día) (*)
+                            </label>
+                            <input name="cantidad" type="number" class="form-control" min="0" max="{{maxCantidad}}" placeholder="Ración de alimento (kg) por día"
+                                   ng-disabled="!habilitar"
+                                   ng-model="bovino.cantAlimento" required />
+                            <div ng-show="formRegistrarBovino.cantidad.$touched">
+                                <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.required">
+                                    Este campo es requerido
+                                </span>
+                                <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.min">
+                                    El peso no puede ser negativo
+                                </span>
+                                <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.max">
+                                    El máximo es : {{maxCantidad}} kg/día
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

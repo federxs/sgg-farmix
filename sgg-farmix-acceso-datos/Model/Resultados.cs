@@ -18,5 +18,6 @@ namespace sgg_farmix_acceso_datos.Model
         public IEnumerable<TipoEvento> tipoEvento { get; set; }
         public EventoDetalle listaBovinos { get; set; }
         public IEnumerable<Campo> campos { get; set; }
+        public IEnumerable<Alimento> alimentos { get; set; }
     }
 }

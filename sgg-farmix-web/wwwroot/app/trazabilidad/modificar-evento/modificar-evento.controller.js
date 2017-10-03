@@ -21,6 +21,7 @@
         vm.changeCampos = changeCampos;
         vm.changeRodeos = changeRodeos;
         vm.getFecha = getFecha;
+        vm.modificarEvento = modificarEvento;
         //variables
         vm.evento = {};
         vm.fechaDeHoy = new Date();
@@ -88,13 +89,23 @@
             for (var i = 0; i < vm.rowCollection.length; i++) {
                 ids.push(vm.rowCollection[i].idBovino);
             }
-            modificarEventoService.modificar(vm.evento, ids).then(function success(data) {
+            if (ids.length === 0) {
+                openPopUpConfirmElimEvento();
+            }
+            else
+                modificarEvento(ids);
+        }
+
+        function modificarEvento(ids) {
+            modificarEventoService.modificar(vm.evento, ids.toString()).then(function success(data) {
                 vm.habilitar = false;
                 vm.showBotones = false;
                 vm.habilitarBtnAceptar = false;
                 toastr.success('Se modificó el evento con éxito ', 'Éxito');
+                $('#modalConfirmEliminEvento').modal('hide');
             }, function error(data) {
                 toastr.error('La operación no se pudo completar', 'Error');
+                $('#modalConfirmEliminEvento').modal('hide');
             })
         }
 
@@ -102,6 +113,10 @@
             idBovinoEliminar = id;
             vm.nroCaravana = caravana;
             $('#modalConfirmEliminar').modal('show');
+        }
+
+        function openPopUpConfirmElimEvento() {
+            $('#modalConfirmEliminEvento').modal('show');
         }
 
         function eliminar() {
@@ -149,9 +164,9 @@
                     case '11':
                         horaDevuelta = '23' + ':' + horaDevuelta.substring(3, 5);
                         break;
-                }
-                return horaDevuelta;
+                }                
             }
+            return horaDevuelta;
         }
 
         function convertirFecha(fecha) {

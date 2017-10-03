@@ -25,7 +25,9 @@ namespace sgg_farmix_acceso_datos.Model
         public long idEstablecimientoOrigen { get; set; }
         public long idEstado { get; set; }
         public bool borrado { get; set; }
-}
+        public long idAlimento { get; set; }
+        public float cantAlimento { get; set; }
+    }
 
     public class BovinoFilter
     {

@@ -204,7 +204,7 @@
             vm.showSpinner = true;
             consultarTrazabilidadService.eliminarEvento(idEventoAEliminar).then(function success() {
                 $('#modalConfirmEliminar').modal('hide');
-                toastr.success('Evento eliminado con éxito', 'Error');
+                toastr.success('Evento eliminado con éxito', 'Éxito');
                 vm.showSpinner = false;
                 $state.reload();
             }, function (error) {
@@ -249,6 +249,7 @@
                 dataTable.addColumn({ type: 'date', id: 'End' });
                 var fechaSiguiente;
                 for (var i = 0; i < vm.rowCollection.length; i++) {
+                    var descrEvento = "";
                     var fechaAnterior = vm.rowCollection[i].fechaHora.substring(0, 10).split('/');
                     switch (vm.rowCollection[i].tipoEvento) {
                         case 'Vacunación':
