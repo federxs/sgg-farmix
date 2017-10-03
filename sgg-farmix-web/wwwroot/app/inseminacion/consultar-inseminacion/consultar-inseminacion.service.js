@@ -10,7 +10,7 @@
             inicializar: inicializar,
             consultarHembrasServicio: consultarHembrasServicio,
             consultarServicioSinConfirmar,
-            consultarPreniadasPorParir,
+            consultarPreniadasXParir: consultarPreniadasXParir,
             consultarLactanciasActivas
         };
 
@@ -46,7 +46,7 @@
            });
         }
 
-        function consultarPreniadasPorParir() {
+        function consultarPreniadasXParir() {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/PreniadasPorParir'
