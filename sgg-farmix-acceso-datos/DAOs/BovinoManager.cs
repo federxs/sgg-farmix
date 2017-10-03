@@ -2,6 +2,7 @@
 using sgg_farmix_acceso_datos.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,10 @@ namespace sgg_farmix_acceso_datos.DAOs
         private SqlServerConnection connection;
         public Bovino Create(Bovino entity)
         {
+            connection = new SqlServerConnection();
+            DbTransaction transaction = connection.BeginTransaction();
             try
-            {
-                connection = new SqlServerConnection();
+            {                
                 var parametros = new Dictionary<string, object>
                 {
                     {"@numCaravana", entity.numCaravana },
@@ -23,31 +25,66 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@descripcion", (entity.descripcion == null ? null : entity.descripcion) },
                     {"@fechaNac", entity.fechaNacimiento },
                     {"@genero", entity.genero },
-                    {"@peso", entity.peso },                 
+                    {"@peso", entity.peso },
                     { "@idCategoria", entity.idCategoria },
                     { "@idRaza", entity.idRaza },
                     { "@idRodeo", entity.idRodeo },
                     { "@idEstado", entity.idEstado },
                     { "@borrado", 0 }
-            };
+                };
                 if (entity.pesoAlNacer != 0)
-                    parametros.Add("@pesoAlNacer", entity.pesoAlNacer); 
+                    parametros.Add("@pesoAlNacer", entity.pesoAlNacer);
                 if (entity.idBovinoMadre != 0)
                     parametros.Add("@idBovinoMadre", entity.idBovinoMadre);
-                if(entity.idBovinoPadre != 0)                   
+                if (entity.idBovinoPadre != 0)
                     parametros.Add("@idBovinoPadre", entity.idBovinoPadre);
                 if (entity.idEstablecimientoOrigen != 0)
                     parametros.Add("@idEstabOrigen", entity.idEstablecimientoOrigen);
-                
-                entity.idBovino = connection.Execute("spRegistrarBovino", parametros, System.Data.CommandType.StoredProcedure);
+
+                entity.idBovino = connection.Execute("spRegistrarBovino", parametros, System.Data.CommandType.StoredProcedure, transaction);
                 if (entity.idBovino == 0)
-                    throw new ArgumentException("Create Bovino Error");
+                    throw new ArgumentException("Create Bovino Error"); 
                 else if (entity.idBovino == 1)
                     throw new ArgumentException("Bovino ya existe");
+                var parametrosEvento = new Dictionary<string, object>
+                {
+                    {"@cant", entity.cantAlimento },
+                    {"@idTipoEvento", 4 }
+                };
+                var idEvento = connection.Execute("spRegistrarEvento", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
+                if(idEvento == 0)
+                    throw new ArgumentException("Create Evento Error");
+                parametrosEvento = new Dictionary<string, object>
+                {
+                    {"@idBovino", entity.idBovino },
+                    {"@idEvento", idEvento }
+                };
+                var insert = connection.Execute("spRegistrarEventosXBovino", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
+                if (insert == 0)
+                    throw new ArgumentException("Create EventosXBovino Error");
+                parametrosEvento = new Dictionary<string, object>
+                {
+                    {"@idCampoDestino", 1 },
+                    {"@idRodeoDestino", entity.idRodeo },
+                    {"@idTipoEvento", 3 }
+                };
+                idEvento = connection.Execute("spRegistrarEvento", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
+                parametrosEvento = new Dictionary<string, object>
+                {
+                    {"@idBovino", entity.idBovino },
+                    {"@idEvento", idEvento }
+                };
+                insert = connection.Execute("spRegistrarEventosXBovino", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
+                if (insert == 0)
+                    throw new ArgumentException("Create EventosXBovino Error");
+                if (idEvento == 0)
+                    throw new ArgumentException("Create Evento Error");
+                connection.Commit(transaction);               
                 return entity;
             }
             catch (Exception ex)
             {
+                connection.Rollback(transaction);
                 throw;
             }
             finally
@@ -226,7 +263,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     {"@idBovino", id }
                 };
-                var bovino = connection.GetArray<BovinoHeaderEliminar>("spObtenerHeaderBaja", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();                
+                var bovino = connection.GetArray<BovinoHeaderEliminar>("spObtenerHeaderBaja", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return bovino;
             }
             catch (Exception ex)

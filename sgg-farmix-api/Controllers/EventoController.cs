@@ -136,19 +136,23 @@ namespace sgg_farmix_api.Controllers
             try
             {
                 var evento = JsonConvert.DeserializeObject<Evento>(value);
-                List<long> ids = new List<long>();
-                var aux = "";
-                for (int i = 0; i < lista.Count(); i++)
+                List<long> ids = null;
+                if (lista != null)
                 {
-                    if (lista.ElementAt(i) != ',')
-                        aux = aux + lista.ElementAt(i);
-                    else
+                    ids = new List<long>();
+                    var aux = "";
+                    for (int i = 0; i < lista.Count(); i++)
                     {
-                        ids.Add(long.Parse(aux));
-                        aux = "";
+                        if (lista.ElementAt(i) != ',')
+                            aux = aux + lista.ElementAt(i);
+                        else
+                        {
+                            ids.Add(long.Parse(aux));
+                            aux = "";
+                        }
                     }
+                    ids.Add(long.Parse(aux));
                 }
-                ids.Add(long.Parse(aux));
                 return EM.Update(evento.idEvento, evento, ids);
             }
             catch (Exception ex)

@@ -13,11 +13,11 @@
         vm.habilitar = false;
         //funciones
         vm.registrar = registrar;
-        vm.validar = validar;
         vm.inicializar = inicializar();
         vm.idCaravanaChange = idCaravanaChange;
         vm.changeSexo = changeSexo;
         vm.getFecha = getFecha;
+        vm.getPeso = getPeso;
         //variables
         $scope.$state = $state;
         vm.razas = [];
@@ -25,6 +25,7 @@
         vm.categorias = [];
         vm.rodeos = [];
         vm.establecimientos = [];
+        vm.alimentos = [];
         vm.bovino = {};
         vm.fechaDeHoy = new Date();
         vm.btnVolver = "Cancelar";
@@ -32,6 +33,7 @@
         vm.showMjeSuccess = false;
         vm.showMjeError = false;
         vm.mjeExiste = '';
+        vm.maxCantidad = 0;
         var categorias = [];
         $('#datetimepicker4').datetimepicker();
 
@@ -47,6 +49,7 @@
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
+                vm.alimentos = data.alimentos;
                 vm.showSpinner = false;
                 vm.habilitar = true;
                 vm.bovino = new registrarBovinoService();
@@ -81,16 +84,18 @@
         };
 
         function idCaravanaChange() {
-            registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.numCaravana }, function (data) {
-                if (data[0] === "1") {
-                    vm.formRegistrarBovino.idCaravana.$setValidity("existeIdCaravana", false);
-                }
-                else {
-                    vm.formRegistrarBovino.idCaravana.$setValidity("existeIdCaravana", true);
-                }
-            }, function (error) {
-                toastr.error('La operación no se pudo completar', 'Error');
-            })
+            if (vm.bovino.numCaravana !== undefined && vm.bovino.numCaravana !== '') {
+                registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.numCaravana }, function (data) {
+                    if (data[0] === "1") {
+                        vm.formRegistrarBovino.idCaravana.$setValidity("existeIdCaravana", false);
+                    }
+                    else {
+                        vm.formRegistrarBovino.idCaravana.$setValidity("existeIdCaravana", true);
+                    }
+                }, function (error) {
+                    toastr.error('La operación no se pudo completar', 'Error');
+                })
+            }
         };
 
         function convertirFecha(fecha) {
@@ -105,8 +110,8 @@
             return dia + '/' + mes + '/' + año;
         }
 
-        function validar() {
-
+        function getPeso() {
+            vm.maxCantidad = (12 * vm.bovino.peso) / 100;
         }
 
         function changeSexo() {
@@ -136,7 +141,7 @@
             else {
                 vm.formRegistrarBovino.fechaNac.$setValidity("max", true);
             }
-            if(fechaNac < fechaMin)
+            if (fechaNac < fechaMin)
                 vm.formRegistrarBovino.fechaNac.$setValidity("min", false);
             else
                 vm.formRegistrarBovino.fechaNac.$setValidity("min", true);

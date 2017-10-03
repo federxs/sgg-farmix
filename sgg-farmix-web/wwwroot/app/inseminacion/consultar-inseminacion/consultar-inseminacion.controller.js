@@ -16,8 +16,10 @@
         vm.mostrarTablaServiciosSinConfirmar = false;
         vm.mostrarTablaPreniadasPorParir = false;
         vm.mostrarTablaLactanciasActivas = false;
-        vm.showServSinConfirm = false;
-        vm.showProxPartos = false;
+        vm.showServSinConfirm = true;
+        vm.showProxPartos = true;
+        var vistoServSinConfirm = 1;
+        var vistoPreniadas = 1;
         //metodos
         vm.inicializar = inicializar;
         vm.hembrasParaServicio = hembrasParaServicio;
@@ -28,10 +30,12 @@
 
         function inicializar() {
             vm.showSpinner = true;
-            vm.showServSinConfirm = false;
-            vm.showProxPartos = false;
+            vm.showServSinConfirm = true;
+            vm.showProxPartos = true;
             consultarInseminacionService.inicializar().then(function success(data) {
                 vm.init = data;
+                serviciosSinConfirmar();
+                proximosPartos();
                 vm.showSpinner = false;
             }, function error(error) {
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
@@ -48,9 +52,9 @@
         }
 
         function serviciosSinConfirmar() {
-            if (!vm.showServSinConfirm && vm.init.serviciosSinConfirmar !== 0) {
+            if (vistoServSinConfirm === 1) {
+                vistoServSinConfirm = 0;
                 vm.showServSinConfirm = true;
-                //mostrarTablaActual('ServiciosSinConfirmar');
                 vm.showSpinner = true;
                 consultarInseminacionService.consultarServicioSinConfirmar().then(
                 function success(data) {
@@ -77,18 +81,21 @@
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
-            else if (vm.showServSinConfirm) {
+            else if (vm.init.serviciosSinConfirmar === 0) {
+                toastr.info("En este momento no hay servicios sin confirmar", "Aviso");
                 vm.showServSinConfirm = false;
             }
-            else
-                toastr.info("En este momento no hay servicios sin confirmar", "Aviso");
+            else {
+                vm.showServSinConfirm = false;
+                vistoServSinConfirm = 1;
+            }
         }
 
         function proximosPartos() {
-            if (!vm.showProxPartos && vm.init.preniadasPorParir !== 0) {
-                vm.showProxPartos = true;
+            if (vistoPreniadas === 1) {
                 vm.showSpinner = true;
-                //mostrarTablaActual('PreniadasPorParir');
+                vistoPreniadas = 0;
+                vm.showProxPartos = true;
                 consultarInseminacionService.consultarPreniadasXParir().then(
                 function success(data) {
                     var fechaHoy = new Date();
@@ -98,7 +105,7 @@
                         var fechaParto = x.fechaParicion.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
                         return fechaParto.diff(fechaHoy, 'days') < 10
-                    }).Count();                    
+                    }).Count();
                     vm.preniadasPorParir.entre10y30dias = Enumerable.From(data).Where(function (x) {
                         var fechaParto = x.fechaParicion.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
@@ -114,10 +121,15 @@
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
-            else if (vm.showProxPartos)
+            else if (vm.init.preniadasPorParir === 0){
                 vm.showProxPartos = false;
-            else
                 toastr.info("En este momento no hay vacas preñadas por parir", "Aviso");
+            }                
+            else {
+                vm.showProxPartos = false;
+                vistoPreniadas = 1;
+            }
+                
         }
 
         function lactanciasActivas() {
