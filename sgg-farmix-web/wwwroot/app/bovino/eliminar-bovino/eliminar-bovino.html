@@ -65,7 +65,7 @@
                         <label class="control-label" for="evento">
                             Evento
                         </label>
-                        <select class="form-control" id="evento" name="evento" required
+                        <select class="form-control" id="evento" name="evento" required ng-change="cambiarModoBaja()"
                                 ng-model="tipoEliminacionSeleccionada" ng-disabled="!habilitar">
                             <option ng-repeat="item in tiposEliminacion" value="{{item.id}}">
                                 {{item.nombre}}

@@ -19,6 +19,7 @@
         vm.eliminar = eliminar;
         vm.inicializar = inicializar();
         vm.getFecha = getFecha;
+        vm.cambiarModoBaja = cambiarModoBaja;
 
         vm.btnVolver = "Cancelar";
         vm.nroCaravana = '';
@@ -29,7 +30,7 @@
         
         //inicializar();      
 
-        function inicializar() {
+        function inicializar() {            
             eliminarBovinoService.inicializar($stateParams.id).then(function success(data) {
                 //bovino
                 vm.bovino = data;
@@ -37,6 +38,9 @@
                 vm.showSpinner = false;
                 vm.habilitar = true;
                 vm.nroCaravana = vm.bovino.numCaravana;
+                vm.formEliminarBovino.fechaMuerte.$setValidity("min", true);
+                vm.formEliminarBovino.fechaMuerte.$setValidity("max", true);
+                vm.formEliminarBovino.fechaMuerte.$setValidity("required", true);
                 //seteamos a "" las variables 0
                 angular.forEach(vm.bovino, function (value, key) {
                     if (parseInt(value) === 0 && key !== 'idBovino') {
@@ -72,6 +76,19 @@
                 }, function error(data) {
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
+            }
+        }
+
+        function cambiarModoBaja() {
+            if (vm.tipoEliminacionSeleccionada === '1') {
+                vm.formEliminarBovino.fechaMuerte.$setValidity("min", true);
+                vm.formEliminarBovino.fechaMuerte.$setValidity("max", true);
+                vm.formEliminarBovino.fechaMuerte.$setValidity("required", true);
+            }
+            else {
+                vm.formEliminarBovino.establecimientoDestino.$setValidity("required", true);
+                vm.formEliminarBovino.monto.$setValidity("required", true);
+                vm.formEliminarBovino.monto.$setValidity("min", true);
             }
         }
 
