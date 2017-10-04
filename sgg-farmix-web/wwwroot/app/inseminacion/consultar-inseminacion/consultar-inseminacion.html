@@ -1,15 +1,14 @@
-﻿<fieldset>
-    <div class="row">
-        <div class="col-lg-10">
-            <div style="margin-top:0px;" class="page-header">
-                <h1>
-                    Inseminación
-                    <small>Consulta</small>
-                </h1>
-            </div>
+﻿<div class="row">
+    <div class="col-lg-10">
+        <div style="margin-top:0px;" class="page-header">
+            <h1>
+                Inseminación
+                <small>Consulta</small>
+            </h1>
         </div>
     </div>
-</fieldset>
+</div>
+<!--INICIO BOTONES-->
 <div class="row">
     <div class="col-lg-3 col-md-6">
         <div ng-click="hembrasParaServicio()">
@@ -55,7 +54,7 @@
                         </div>
                         <div class="col-xs-9 text-right">
                             <h1>{{init.preniadasPorParir}}</h1>
-                            <h4>Preñadas por parir</h4>
+                            <h4>Preñadas por parir    </h4>
                         </div>
                     </div>
                 </div>
@@ -78,6 +77,64 @@
                 </div>
             </div>
         </a>
+    </div>
+</div>
+<!--FIN BOTONES-->
+<div ng-show="showHembrasParaServicio">
+    <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
+        <div class="pull-right" style="margin-bottom:5px">
+            <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
+                <i class="fa fa-file-excel-o"></i>
+            </button>
+            <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
+                <i class="fa fa-file-pdf-o"></i>
+            </button>
+            <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
+                <i class="fa fa-print"></i>
+            </a>
+        </div>
+        <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th st-sort="numCaravana">N° Caravana</th>
+                    <th st-sort="categoriaNombre">Categoría</th>
+                    <th st-sort="razaNombre">Raza</th>
+                    <th st-sort="rodeoNombre">Rodeo</th>
+                    <th st-sort="peso">Peso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in displayedCollection">
+                    <td>{{item.numCaravana}}</td>
+                    <td>{{item.categoriaNombre | uppercase}}</td>
+                    <td>{{item.razaNombre | uppercase}}</td>
+                    <td>{{item.rodeoNombre | uppercase}}</td>
+                    <td>{{item.peso}}</td>
+                    <td>
+                        <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <label for="items">Registros por página</label>
+                        <!--<input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">-->
+                        <select class="input-sm form-control" 
+                                ng-model="itemsPorPagina">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>
+                    </td>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
     </div>
 </div>
 <div ng-show="showServSinConfirm">
@@ -116,7 +173,7 @@
 </div>
 <div>
     <span>
-    Estaria bueno tambien mostrar algo referido a cuando es la fecha estimada para sacar a los toros que participaron
+        Estaria bueno tambien mostrar algo referido a cuando es la fecha estimada para sacar a los toros que participaron
         de una inseminacion por montura de los corrales, ya que lei que es aconsejable dejarlos entre 60 a 90 dias solamente
     </span>
 </div>

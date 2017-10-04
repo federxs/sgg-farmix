@@ -11,7 +11,8 @@
         var vm = $scope;
         //variables
         vm.showSpinner = true;
-        vm.itemsPorPagina = 9;
+        vm.itemsPorPagina = 10;
+        vm.showHembrasParaServicio = true;
         vm.mostrarTablaHembrasServicio = false;
         vm.mostrarTablaServiciosSinConfirmar = false;
         vm.mostrarTablaPreniadasPorParir = false;
