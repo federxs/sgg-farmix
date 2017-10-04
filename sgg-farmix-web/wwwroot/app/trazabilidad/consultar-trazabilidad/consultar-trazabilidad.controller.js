@@ -23,6 +23,7 @@
         vm.eliminar = eliminar;
         vm.getFechaDesde = getFechaDesde;
         vm.getFechaHasta = getFechaHasta;
+        vm.exportarPDF = exportarPDF;
         vm.insert = insert;
         //variables       
         vm.filtro = {};
@@ -136,9 +137,11 @@
                 var i = 1;
                 if (vm.filtro.numCaravana === undefined)
                     filtro[0] = '';
+                else
+                    vm.filtro[0] = vm.filtro.numCaravana;
                 for (var property in vm.filtro) {
                     var type = typeof vm.filtro[property];
-                    if ((vm.filtro[property] === null || type !== "object") && property !== "$resolved" && type !== "function") {
+                    if ((vm.filtro[property] === null || type !== "object") && property !== "$resolved" && type !== "function" && type !== "numCaravana") {
                         if (property === "idTipoEvento") {
                             if (vm.filtro[property] === '0') {
                                 filtro[i] = 'Seleccione';
@@ -185,8 +188,138 @@
                     filtro[filtro.length] = '';
                 var fecha = new Date();
                 fecha = convertirFecha(fecha);
+                for (var i = 0; i < vm.rowCollection.length; i++) {
+                    if (vm.rowCollection[i].$$hashKey === undefined)
+                        vm.rowCollection[i].$$hashKey = '';
+                }
                 exportador.exportarExcel('Trazabilidad' + fecha, vm.rowCollection, titulos, filtro, propiedades, 'Trazabilidad', function () {
                     toastr.success("Se ha exportado con Éxito.", "EXITOSO");
+                }, function (error) {
+                    toastr.error("Ha ocurrido un error: " + error, "ERROR!");
+                });
+            }
+        }
+
+        function exportarPDF() {
+            var filtro = [];
+            filtro.Titulos = [];
+            filtro.Titulos[0] = 'Nro Caravana';
+            filtro.Titulos[1] = 'Tipo Evento';
+            filtro.Titulos[2] = 'Fecha Desde';
+            filtro.Titulos[3] = 'Fecha Hasta';
+
+            var propiedades = [];
+            propiedades[0] = "tipoEvento";
+            propiedades[1] = "fechaHora";
+            propiedades[2] = "cantidadBovinos";
+
+            if (vm.rowCollection.length > 0) {
+                var i = 1;
+                if (vm.filtro.numCaravana === undefined)
+                    filtro[0] = '';
+                else
+                    filtro[0] = vm.filtro.numCaravana;
+                for (var property in vm.filtro) {
+                    var type = typeof vm.filtro[property];
+                    if ((vm.filtro[property] === null || type !== "object") && property !== "$resolved" && type !== "function" && property !== "numCaravana") {
+                        if (property === "idTipoEvento") {
+                            if (vm.filtro[property] === '0') {
+                                filtro[i] = 'Seleccione';
+                                i += 1;
+                            }
+                            else {
+                                for (var j = 0; j < vm.Eventos.length; j++) {
+                                    if (vm.filtro[property] === vm.Eventos[j].idTipoEvento || parseInt(vm.filtro[property]) === vm.Eventos[j].idTipoEvento) {
+                                        filtro[i] = vm.Eventos[j].descripcion;
+                                        i += 1;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        else if (property === "fechaDesde") {
+                            if (vm.filtro[property] === '2') {
+                                filtro[i] = '';
+                                i += 1;
+                            }
+                            else {
+                                filtro[i] = 'Hembra';
+                                i += 1;
+                            }
+                        }
+                        else if (property === "fechaHasta") {
+                            if (vm.filtro[property] === '0') {
+                                filtro[i] = 'Seleccione';
+                                i += 1;
+                            }
+                        }
+                        else {
+                            filtro[i] = $scope.filtro[property];
+                            i += 1;
+                        }
+                    }
+                }
+                if (vm.filtro.fechaDesde === undefined)
+                    filtro[filtro.length] = '';
+                if (vm.filtro.fechaHasta === undefined)
+                    filtro[filtro.length] = '';
+                var fecha = new Date();
+                fecha = convertirFecha(fecha);
+                var tab_text = '<html><head></head><body>';
+                tab_text += "<h1 style='align:center;'>Bovinos</h1>";
+                tab_text = tab_text + "<div><table border='1px' style='font-size:6px; width:6000px;'>";
+                //tab_text += "<tr><td style='text-align:center; font-size:20px' colspan='" + titulos.length + "'><b>" + tituloReporte + "</b></td></tr>" + "<tr></tr>";
+                if (vm.filtro !== null) {
+                    var $html_filtro = "<thead><tr>";
+                    for (var i = 0; i < filtro.Titulos.length; i++) {
+                        $html_filtro += "<td bgcolor='black' style='text-align:center; vertical-align:center'><b><font color='white'>" + filtro.Titulos[i] + "</font></b></td>";
+                    }
+                    $html_filtro += "</tr></thead>";
+                    var $body = "<tr>";
+                    for (var i = 0; i < filtro.length; i++) {
+                        if (filtro[i] === null || typeof filtro[i] !== "object") {
+                            var campo = filtro[i] !== null ? filtro[i] : "";
+                            $body += "<td style='text-align:center; vertical-align:center'> " + campo + " </td>";
+                        }
+                    }
+                    $body += "</tr></tbody>";
+                    var newhtml_filtro = $html_filtro.concat($body.toString()).concat("</table></div>");
+                    tab_text = tab_text + newhtml_filtro.toString();
+                    //tab_text = tab_text + "<tr></tr>" + "<tr></tr>";
+                }
+                tab_text += "<div style='border-width: 2px; border-style: dotted; padding: 1em; font-size:120%;line-height: 1.5em;'><table border='1px' style='font-size:5px; width:6000px'>";
+                var $html = "<thead><tr>";
+                $html += "<td style='width:1000; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Tipo de Evento</font></b></td>";
+                $html += "<td style='width:1000; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Fecha Evento</font></b></td>";
+                $html += "<td style='width:1000; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Bovinos que participaron</font></b></td>";
+                $html += "</tr></thead><tbody>";
+                var $body = "<tr>";
+                for (var i = 0; i < vm.rowCollection.length; i++) {
+                    if (vm.rowCollection[i].$$hashKey === undefined)
+                        vm.rowCollection[i].$$hashKey = '';
+                }
+                var data = vm.rowCollection;
+                for (var j = 0; j < data.length; j++) {
+                    for (var property in data[j]) {
+                        if (data[j].hasOwnProperty(property) && property !== "$$hashKey") {
+                            if (propiedades.indexOf(property) > -1) {
+                                var campo = data[j][property] !== "" ? data[j][property] : "";
+                                $body += "<td style='text-align:center; vertical-align:center'> " + campo + " </td>";
+                            }
+                        }
+                        else {
+                            $body += "</tr>";
+                            break;
+                        }
+                    }
+                }
+                tab_text += "</tbody>";
+                var newhtml = $html.concat($body.toString()).concat("</table></div>");
+                tab_text = tab_text + newhtml.toString();
+                tab_text = tab_text + '</body></html>';
+
+                exportador.exportarPDF('Bovinos' + fecha, tab_text, function () {
+                    toastr.success("Se ha exportado con Éxito.", "ÉXITO");
                 }, function (error) {
                     toastr.error("Ha ocurrido un error: " + error, "ERROR!");
                 });
