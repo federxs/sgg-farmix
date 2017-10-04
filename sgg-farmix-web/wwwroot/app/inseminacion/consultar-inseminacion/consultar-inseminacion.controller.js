@@ -10,23 +10,27 @@
     function consultarInseminacionController($scope, consultarInseminacionService, toastr) {
         var vm = $scope;
         //variables
-        vm.showSpinner = true;
-        vm.itemsPorPagina = 10;
-        vm.showHembrasParaServicio = true;
-        vm.mostrarTablaHembrasServicio = false;
-        vm.mostrarTablaServiciosSinConfirmar = false;
-        vm.mostrarTablaPreniadasPorParir = false;
-        vm.mostrarTablaLactanciasActivas = false;
+        vm.showSpinner = true;       
+        vm.showHembrasParaServicio = false;
+        vm.showHembrasPreniadas = false;
+        //vm.mostrarTablaHembrasServicio = false;
+        //vm.mostrarTablaServiciosSinConfirmar = false;
+        //vm.mostrarTablaPreniadasPorParir = false;
+        //vm.mostrarTablaLactanciasActivas = false;
         vm.showServSinConfirm = true;
         vm.showProxPartos = true;
         var vistoServSinConfirm = 1;
         var vistoPreniadas = 1;
+        var datosServiciosSinConfirmar = [];
+        var proxPartos = [];
         //metodos
         vm.inicializar = inicializar;
         vm.hembrasParaServicio = hembrasParaServicio;
         vm.serviciosSinConfirmar = serviciosSinConfirmar;
         vm.proximosPartos = proximosPartos;
         vm.lactanciasActivas = lactanciasActivas;
+        vm.obtenerServSinConfirm = obtenerServSinConfirm;
+        vm.obtenerProxPartos = obtenerProxPartos;
         inicializar();
 
         function inicializar() {
@@ -36,8 +40,7 @@
             consultarInseminacionService.inicializar().then(function success(data) {
                 vm.init = data;
                 serviciosSinConfirmar();
-                proximosPartos();
-                vm.showSpinner = false;
+                proximosPartos();                
             }, function error(error) {
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
@@ -56,9 +59,9 @@
             if (vistoServSinConfirm === 1) {
                 vistoServSinConfirm = 0;
                 vm.showServSinConfirm = true;
-                vm.showSpinner = true;
                 consultarInseminacionService.consultarServicioSinConfirmar().then(
                 function success(data) {
+                    datosServiciosSinConfirmar = data;
                     var fechaHoy = new Date();
                     fechaHoy = moment(convertirFecha(fechaHoy));
                     vm.serviciosSinConfirm = {};
@@ -77,7 +80,6 @@
                         fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
                         return fechaHoy.diff(fechaInsem, 'days') > 90
                     }).Count();
-                    vm.showSpinner = false;
                 }, function error(error) {
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
@@ -92,28 +94,61 @@
             }
         }
 
+        //carga la tablita de servicios sin confirmar
+        function obtenerServSinConfirm(rango) {
+            vm.showHembrasParaServicio = true;
+            vm.showHembrasPreniadas = false;
+            vm.itemsPorPagina = 10;
+            vm.rowCollection = [];
+            var fechaHoy = new Date();
+            fechaHoy = moment(convertirFecha(fechaHoy));
+            switch (rango) {
+                case 'menor60':
+                    vm.rowCollection = Enumerable.From(datosServiciosSinConfirmar).Where(function (x) {
+                        var fechaInsem = x.fechaInseminacion.split('/');
+                        fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
+                        return fechaHoy.diff(fechaInsem, 'days') < 60
+                    }).ToArray();
+                    break;
+                case 'entre90y60':
+                    vm.rowCollection = Enumerable.From(datosServiciosSinConfirmar).Where(function (x) {
+                        var fechaInsem = x.fechaInseminacion.split('/');
+                        fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
+                        return fechaHoy.diff(fechaInsem, 'days') >= 60 && fechaHoy.diff(fechaInsem, 'days') < 90
+                    }).ToArray();
+                    break;
+                case 'mas90':
+                    vm.rowCollection = Enumerable.From(datosServiciosSinConfirmar).Where(function (x) {
+                        var fechaInsem = x.fechaInseminacion.split('/');
+                        fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
+                        return fechaHoy.diff(fechaInsem, 'days') > 90
+                    }).ToArray();
+                    break;
+            }
+        }
+
         function proximosPartos() {
             if (vistoPreniadas === 1) {
-                vm.showSpinner = true;
                 vistoPreniadas = 0;
                 vm.showProxPartos = true;
                 consultarInseminacionService.consultarPreniadasXParir().then(
                 function success(data) {
+                    proxPartos = data;
                     var fechaHoy = new Date();
-                    fechaHoy = moment(convertirFecha(fechaHoy));
                     vm.preniadasPorParir = {};
+                    fechaHoy = moment(convertirFecha(fechaHoy));
                     vm.preniadasPorParir.prox10dias = Enumerable.From(data).Where(function (x) {
-                        var fechaParto = x.fechaParicion.split('/');
+                        var fechaParto = x.fechaEstimadaParto.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
                         return fechaParto.diff(fechaHoy, 'days') < 10
                     }).Count();
                     vm.preniadasPorParir.entre10y30dias = Enumerable.From(data).Where(function (x) {
-                        var fechaParto = x.fechaParicion.split('/');
+                        var fechaParto = x.fechaEstimadaParto.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
                         return fechaParto.diff(fechaHoy, 'days') >= 10 && fechaParto.diff(fechaHoy, 'days') < 30
                     }).Count();
                     vm.preniadasPorParir.entre30y60dias = Enumerable.From(data).Where(function (x) {
-                        var fechaParto = x.fechaParicion.split('/');
+                        var fechaParto = x.fechaEstimadaParto.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
                         return fechaParto.diff(fechaHoy, 'days') >= 30 && fechaParto.diff(fechaHoy, 'days') < 60
                     }).Count();
@@ -131,6 +166,39 @@
                 vistoPreniadas = 1;
             }
                 
+        }
+        
+        //carga a tablita de prox pariciones
+        function obtenerProxPartos(rango) {
+            vm.showHembrasParaServicio = false;
+            vm.showHembrasPreniadas = true;
+            vm.itemsPorPagina = 10;
+            vm.rowCollection = [];
+            var fechaHoy = new Date();
+            fechaHoy = moment(convertirFecha(fechaHoy));
+            switch (rango) {
+                case 'prox10dias':
+                    vm.rowCollection = Enumerable.From(proxPartos).Where(function (x) {
+                        var fechaParto = x.fechaEstimadaParto.split('/');
+                        fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
+                        return fechaParto.diff(fechaHoy, 'days') < 10
+                    }).ToArray();
+                    break;
+                case 'entre10y30dias':
+                    vm.rowCollection = Enumerable.From(proxPartos).Where(function (x) {
+                        var fechaParto = x.fechaEstimadaParto.split('/');
+                        fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
+                        return fechaParto.diff(fechaHoy, 'days') >= 10 && fechaParto.diff(fechaHoy, 'days') < 30
+                    }).ToArray();
+                    break;
+                case 'entre30y60dias':
+                    vm.rowCollection = Enumerable.From(proxPartos).Where(function (x) {
+                        var fechaParto = x.fechaEstimadaParto.split('/');
+                        fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
+                        return fechaParto.diff(fechaHoy, 'days') >= 30 && fechaParto.diff(fechaHoy, 'days') < 60
+                    }).ToArray();
+                    break;
+            }
         }
 
         function lactanciasActivas() {

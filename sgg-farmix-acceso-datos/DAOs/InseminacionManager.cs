@@ -111,16 +111,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<ServSinConfirmar>("spGetListServSinConfirmar", null, System.Data.CommandType.StoredProcedure);
-                var parametros = new Dictionary<string, object>
-                {
-                    {"@fechaInseminacion", "" }
-                };
-                for (int i = 0; i < lista.Count(); i++)
-                {
-                    parametros["@fechaInseminacion"] = lista.ElementAt(i).fechaInseminacion;
-                    lista.ElementAt(i).bovinos = connection.GetArray<BovinoItem>("spGetServSinConfirmar", parametros, System.Data.CommandType.StoredProcedure);
-                }
+                var lista = connection.GetArray<ServSinConfirmar>("spGetListServSinConfirmar", null, System.Data.CommandType.StoredProcedure);               
                 return lista;
             }
             catch (Exception ex)
@@ -138,16 +129,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<PreniadasXParir>("spGetListPreniadasXParir", null, System.Data.CommandType.StoredProcedure);
-                var parametros = new Dictionary<string, object>
-                {
-                    {"@fechaParicion", "" }
-                };
-                for (int i = 0; i < lista.Count(); i++)
-                {
-                    parametros["@fechaParicion"] = lista.ElementAt(i).fechaParicion;
-                    lista.ElementAt(i).bovinos = connection.GetArray<BovinoItem>("spGetBovinosPorParir", parametros, System.Data.CommandType.StoredProcedure);
-                }
+                var lista = connection.GetArray<PreniadasXParir>("spGetListPreniadasXParir", null, System.Data.CommandType.StoredProcedure);                
                 return lista;
             }
             catch (Exception ex)

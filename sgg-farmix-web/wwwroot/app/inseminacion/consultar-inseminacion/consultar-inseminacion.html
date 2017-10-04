@@ -1,4 +1,9 @@
-﻿<div class="row">
+﻿<style>
+    .cursor {
+        cursor: pointer;
+    }
+</style>
+<div class="row">
     <div class="col-lg-10">
         <div style="margin-top:0px;" class="page-header">
             <h1>
@@ -80,6 +85,47 @@
     </div>
 </div>
 <!--FIN BOTONES-->
+<div ng-show="showServSinConfirm">
+    <h3>Servicios sin confirmar <small>Aún no se realizo el tacto</small> <!--<small>Falta realizar tacto/ecografía</small>--></h3>
+    <ul class="list-group">
+        <li class="list-group-item cursor" ng-click="obtenerServSinConfirm('menor60')">            
+            <span class="badge">{{serviciosSinConfirm.menor60}}</span>
+            Menos de 60 días
+        </li>
+        <li class="list-group-item cursor" ng-click="obtenerServSinConfirm('entre90y60')">
+            <span class="badge">{{serviciosSinConfirm.entre90y60}}</span>
+            Entre 60 y 90 días
+        </li>
+        <li class="list-group-item cursor" ng-click="obtenerServSinConfirm('mas90')">
+            <span class="badge">{{serviciosSinConfirm.mas90}}</span>
+            Más de 90 días
+        </li>
+    </ul>
+</div>
+<div ng-show="showProxPartos">
+    <h3>Vacas preñadas <small>Próximas a parir</small></h3>
+    <ul class="list-group">
+        <li class="list-group-item cursor" ng-click="obtenerProxPartos('prox10dias')">
+            <span class="badge">{{preniadasPorParir.prox10dias}}</span>
+            Dentro de 10 días
+        </li>
+        <li class="list-group-item cursor" ng-click="obtenerProxPartos('entre10y30dias')">
+            <span class="badge">{{preniadasPorParir.entre10y30dias}}</span>
+            Dentro de 30 días
+        </li>
+        <li class="list-group-item cursor" ng-click="obtenerProxPartos('entre30y60dias')">
+            <span class="badge">{{preniadasPorParir.entre30y60dias}}</span>
+            Dentro de 60 días
+        </li>
+    </ul>
+</div>
+<!--<div>
+    <span>
+        Estaria bueno tambien mostrar algo referido a cuando es la fecha estimada para sacar a los toros que participaron
+        de una inseminacion por montura de los corrales, ya que lei que es aconsejable dejarlos entre 60 a 90 dias solamente
+    </span>
+</div>-->
+<legend style="margin-bottom: 5px;" ng-show="rowCollection.length > 0">Resultados</legend>
 <div ng-show="showHembrasParaServicio">
     <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
         <div class="pull-right" style="margin-bottom:5px">
@@ -96,21 +142,17 @@
         <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
             <thead>
                 <tr>
-                    <th st-sort="numCaravana">N° Caravana</th>
-                    <th st-sort="categoriaNombre">Categoría</th>
-                    <th st-sort="razaNombre">Raza</th>
-                    <th st-sort="rodeoNombre">Rodeo</th>
-                    <th st-sort="peso">Peso</th>
+                    <th st-sort="tipoInseminacion">Tipo de Inseminación</th>
+                    <th st-sort="fechaInseminacion">Fecha Inseminación</th>
+                    <th st-sort="cantidadVacas">Cantidad de bovinos que participaron</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="item in displayedCollection">
-                    <td>{{item.numCaravana}}</td>
-                    <td>{{item.categoriaNombre | uppercase}}</td>
-                    <td>{{item.razaNombre | uppercase}}</td>
-                    <td>{{item.rodeoNombre | uppercase}}</td>
-                    <td>{{item.peso}}</td>
+                    <td>{{item.tipoInseminacion | uppercase}}</td>
+                    <td>{{item.fechaInseminacion}}</td>
+                    <td>{{item.cantidadVacas}}</td>
                     <td>
                         <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
                     </td>
@@ -119,15 +161,15 @@
             <tfoot>
                 <tr>
                     <td>
-                        <label for="items">Registros por página</label>
-                        <!--<input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">-->
-                        <select class="input-sm form-control" 
+                        <label for="items" ng-show="rowCollection.length > 1">Registros por página</label>
+                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">
+                        <!--<select class="input-sm form-control"
                                 ng-model="itemsPorPagina">
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="30">30</option>
                             <option value="50">50</option>
-                        </select>
+                        </select>-->
                     </td>
                     <td colspan="5" class="text-center">
                         <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
@@ -137,97 +179,59 @@
         </table>
     </div>
 </div>
-<div ng-show="showServSinConfirm">
-    <h3>Servicios sin confirmar <small>Aún no se realizo el tacto</small> <!--<small>Falta realizar tacto/ecografía</small>--></h3>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <span class="badge">{{serviciosSinConfirm.menor60}}</span>
-            Menos de 60 días
-        </li>
-        <li class="list-group-item">
-            <span class="badge">{{serviciosSinConfirm.entre90y60}}</span>
-            Entre 60 y 90 días
-        </li>
-        <li class="list-group-item">
-            <span class="badge">{{serviciosSinConfirm.mas90}}</span>
-            Más de 90 días
-        </li>
-    </ul>
+<div ng-show="showHembrasPreniadas">
+    <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">        
+        <div class="pull-right" style="margin-bottom:5px">
+            <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
+                <i class="fa fa-file-excel-o"></i>
+            </button>
+            <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
+                <i class="fa fa-file-pdf-o"></i>
+            </button>
+            <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
+                <i class="fa fa-print"></i>
+            </a>
+        </div>
+        <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th st-sort="tipoInseminacion">Tipo de Inseminación</th>
+                    <th st-sort="fechaInseminacion">Fecha Inseminación</th>
+                    <th st-sort="fechaParto">Fecha estimada Parto</th>
+                    <th st-sort="cantidadVacas">Cantidad de bovinos que participaron</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in displayedCollection">
+                    <td>{{item.tipoInseminacion | uppercase}}</td>
+                    <td>{{item.fechaInseminacion}}</td>
+                    <td>{{item.fechaEstimadaParto}}</td>
+                    <td>{{item.cantidadVacas}}</td>
+                    <td>
+                        <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <label for="items" ng-show="rowCollection.length > 1">Registros por página</label>
+                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">
+                        <!--<select class="input-sm form-control"
+                                ng-model="itemsPorPagina">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                        </select>-->
+                    </td>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 </div>
-<div ng-show="showProxPartos">
-    <h3>Vacas preñadas <small>Próximas a parir</small></h3>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <span class="badge">{{preniadasPorParir.prox10dias}}</span>
-            Dentro de 10 días
-        </li>
-        <li class="list-group-item">
-            <span class="badge">{{preniadasPorParir.entre10y30dias}}</span>
-            Dentro de 30 días
-        </li>
-        <li class="list-group-item">
-            <span class="badge">{{preniadasPorParir.entre30y60dias}}</span>
-            Dentro de 60 días
-        </li>
-    </ul>
-</div>
-<!--<div>
-    <span>
-        Estaria bueno tambien mostrar algo referido a cuando es la fecha estimada para sacar a los toros que participaron
-        de una inseminacion por montura de los corrales, ya que lei que es aconsejable dejarlos entre 60 a 90 dias solamente
-    </span>
-</div>-->
-<div ng-show="mostrarTablaHembrasServicio">
-    <table st-table="rowCollection" class="table table-striped">
-        <thead>
-            <tr>
-                <th st-sort="col1">Col 1</th>
-                <th st-sort="col2">Col 2</th>
-                <th st-sort="col3">Col 3</th>
-                <th st-sort="col4">Col 4</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="item in rowCollection">
-                <td>{{item.col1 | uppercase}}</td>
-                <td>{{item.col2}}</td>
-                <td>{{item.col3}}</td>
-                <td>{{item.col4}}</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" class="text-center">
-                    <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-</div>
-<!--<table st-table="caca" class="table table-striped">
-    <thead>
-        <tr>
-            <th st-sort="col1">Col 1</th>
-            <th st-sort="col2">Col 2</th>
-            <th st-sort="col3">Col 3</th>
-            <th st-sort="col4">Col 4</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="item in caca">
-            <td>{{item.col1 | uppercase}}</td>
-            <td>{{item.col2}}</td>
-            <td>{{item.col3}}</td>
-            <td>{{item.col4}}</td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="5" class="text-center">
-                <div st-pagination="" st-items-by-page="3" st-displayed-pages="7"></div>
-            </td>
-        </tr>
-    </tfoot>
-</table>-->
-
 <div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>

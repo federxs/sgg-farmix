@@ -25,12 +25,14 @@ namespace sgg_farmix_acceso_datos.Model
     public class ServSinConfirmar
     {
         public string fechaInseminacion { get; set; }
-        public IEnumerable<BovinoItem> bovinos { get; set; }
+        public string tipoInseminacion { get; set; }
+        public long cantidadVacas { get; set; }
     }
-
     public class PreniadasXParir
     {
-        public string fechaParicion { get; set; }
-        public IEnumerable<BovinoItem> bovinos { get; set; }
+        public string fechaInseminacion { get; set; }
+        public string tipoInseminacion { get; set; }
+        public long cantidadVacas { get; set; }
+        public string fechaEstimadaParto { get; set; }
     }
 }
