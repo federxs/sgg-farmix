@@ -198,7 +198,7 @@
                     <th st-sort="tipoInseminacion">Tipo de Inseminación</th>
                     <th st-sort="fechaInseminacion">Fecha Inseminación</th>
                     <th st-sort="fechaParto">Fecha estimada Parto</th>
-                    <th st-sort="cantidadVacas">Cantidad de bovinos que participaron</th>
+                    <!--<th st-sort="cantidadVacas">Cantidad de bovinos que participaron</th>-->
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -207,7 +207,7 @@
                     <td>{{item.tipoInseminacion | uppercase}}</td>
                     <td>{{item.fechaInseminacion}}</td>
                     <td>{{item.fechaEstimadaParto}}</td>
-                    <td>{{item.cantidadVacas}}</td>
+                    <!--<td>{{item.cantidadVacas}}</td>-->
                     <td>
                         <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
                     </td>

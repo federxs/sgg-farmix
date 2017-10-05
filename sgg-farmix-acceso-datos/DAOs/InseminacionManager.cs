@@ -124,6 +124,24 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
+        public IEnumerable<ServSinConfirmar> GetInseminacionesXFechaInsem()
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var lista = connection.GetArray<ServSinConfirmar>("spGetListInseminacionesXFecha", null, System.Data.CommandType.StoredProcedure);
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
         public IEnumerable<PreniadasXParir> GetPreniadasPorParir()
         {
             try

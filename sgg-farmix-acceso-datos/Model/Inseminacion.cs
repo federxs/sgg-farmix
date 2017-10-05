@@ -8,12 +8,11 @@ namespace sgg_farmix_acceso_datos.Model
 {
     public class Inseminacion
     {
+        public long idInseminacion { get; set; }
         public long idVaca { get; set; }
         public string fechaInseminacion { get; set; }
-        public bool tacto { get; set; }
         public string fechaEstimadaNacimiento { get; set; }
         public long tipoInseminacion { get; set; }
-        public long idToro { get; set; }
     }
     public class InseminacionInit
     {

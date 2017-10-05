@@ -10,7 +10,7 @@
     function consultarInseminacionController($scope, consultarInseminacionService, toastr) {
         var vm = $scope;
         //variables
-        vm.showSpinner = true;       
+        vm.showSpinner = true;
         vm.showHembrasParaServicio = false;
         vm.showHembrasPreniadas = false;
         //vm.mostrarTablaHembrasServicio = false;
@@ -21,7 +21,6 @@
         vm.showProxPartos = true;
         var vistoServSinConfirm = 1;
         var vistoPreniadas = 1;
-        var datosServiciosSinConfirmar = [];
         var proxPartos = [];
         //metodos
         vm.inicializar = inicializar;
@@ -40,7 +39,7 @@
             consultarInseminacionService.inicializar().then(function success(data) {
                 vm.init = data;
                 serviciosSinConfirmar();
-                proximosPartos();                
+                proximosPartos();
             }, function error(error) {
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
@@ -61,7 +60,6 @@
                 vm.showServSinConfirm = true;
                 consultarInseminacionService.consultarServicioSinConfirmar().then(
                 function success(data) {
-                    datosServiciosSinConfirmar = data;
                     var fechaHoy = new Date();
                     fechaHoy = moment(convertirFecha(fechaHoy));
                     vm.serviciosSinConfirm = {};
@@ -80,6 +78,7 @@
                         fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
                         return fechaHoy.diff(fechaInsem, 'days') > 90
                     }).Count();
+                    //vm.showSpinner = false;
                 }, function error(error) {
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
@@ -102,29 +101,33 @@
             vm.rowCollection = [];
             var fechaHoy = new Date();
             fechaHoy = moment(convertirFecha(fechaHoy));
-            switch (rango) {
-                case 'menor60':
-                    vm.rowCollection = Enumerable.From(datosServiciosSinConfirmar).Where(function (x) {
-                        var fechaInsem = x.fechaInseminacion.split('/');
-                        fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
-                        return fechaHoy.diff(fechaInsem, 'days') < 60
-                    }).ToArray();
-                    break;
-                case 'entre90y60':
-                    vm.rowCollection = Enumerable.From(datosServiciosSinConfirmar).Where(function (x) {
-                        var fechaInsem = x.fechaInseminacion.split('/');
-                        fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
-                        return fechaHoy.diff(fechaInsem, 'days') >= 60 && fechaHoy.diff(fechaInsem, 'days') < 90
-                    }).ToArray();
-                    break;
-                case 'mas90':
-                    vm.rowCollection = Enumerable.From(datosServiciosSinConfirmar).Where(function (x) {
-                        var fechaInsem = x.fechaInseminacion.split('/');
-                        fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
-                        return fechaHoy.diff(fechaInsem, 'days') > 90
-                    }).ToArray();
-                    break;
-            }
+            consultarInseminacionService.getInseminacionesXFechaInsem().then(function success(data) {
+                switch (rango) {
+                    case 'menor60':
+                        vm.rowCollection = Enumerable.From(data).Where(function (x) {
+                            var fechaInsem = x.fechaInseminacion.split('/');
+                            fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
+                            return fechaHoy.diff(fechaInsem, 'days') < 60
+                        }).ToArray();
+                        break;
+                    case 'entre90y60':
+                        vm.rowCollection = Enumerable.From(data).Where(function (x) {
+                            var fechaInsem = x.fechaInseminacion.split('/');
+                            fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
+                            return fechaHoy.diff(fechaInsem, 'days') >= 60 && fechaHoy.diff(fechaInsem, 'days') < 90
+                        }).ToArray();
+                        break;
+                    case 'mas90':
+                        vm.rowCollection = Enumerable.From(data).Where(function (x) {
+                            var fechaInsem = x.fechaInseminacion.split('/');
+                            fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
+                            return fechaHoy.diff(fechaInsem, 'days') > 90
+                        }).ToArray();
+                        break;
+                }
+            }, function error(error) {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
         }
 
         function proximosPartos() {
@@ -157,17 +160,17 @@
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
-            else if (vm.init.preniadasPorParir === 0){
+            else if (vm.init.preniadasPorParir === 0) {
                 vm.showProxPartos = false;
                 toastr.info("En este momento no hay vacas preñadas por parir", "Aviso");
-            }                
+            }
             else {
                 vm.showProxPartos = false;
                 vistoPreniadas = 1;
             }
-                
+
         }
-        
+
         //carga a tablita de prox pariciones
         function obtenerProxPartos(rango) {
             vm.showHembrasParaServicio = false;

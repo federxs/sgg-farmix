@@ -9,7 +9,8 @@
         var service = {
             inicializar: inicializar,
             consultarHembrasServicio: consultarHembrasServicio,
-            consultarServicioSinConfirmar,
+            consultarServicioSinConfirmar: consultarServicioSinConfirmar,
+            getInseminacionesXFechaInsem: getInseminacionesXFechaInsem,
             consultarPreniadasXParir: consultarPreniadasXParir,
             consultarLactanciasActivas
         };
@@ -40,6 +41,16 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/ServicioSinConfirmar'
+            }).then(
+           function (data) {
+               return data.data || [];
+           });
+        }
+
+        function getInseminacionesXFechaInsem() {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Inseminacion/GetInseminacionesAgrupadasXFechaInsem'
             }).then(
            function (data) {
                return data.data || [];
