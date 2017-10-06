@@ -90,12 +90,24 @@
             params: { 'id': null },
             templateUrl: 'app/trazabilidad/modificar-evento/modificar-evento.html',
             controller: 'modificarEventoController'
-        })
+        });
+        $stateProvider
         .state('home.inseminacion', {
             url: '/inseminacion',
-            params: { 'id': null },
             templateUrl: 'app/inseminacion/consultar-inseminacion/consultar-inseminacion.html',
             controller: 'consultarInseminacionController'
+        })
+        .state('home.modificarInseminacion', {
+            url: '/inseminacion/modificar',
+            params: { 'id': null },
+            templateUrl: 'app/inseminacion/modificar-inseminacion/modificar-inseminacion.html',
+            controller: 'modificarInseminacionController'
+        })
+        .state('home.detalleInseminacion', {
+            url: '/inseminacion/detalle',
+            params: { 'fecha': null, 'desde': null },
+            templateUrl: 'app/inseminacion/detalle-inseminacion/detalle-inseminacion.html',
+            controller: 'detalleInseminacionController'
         });
     });
 })();

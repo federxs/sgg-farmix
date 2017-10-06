@@ -12,6 +12,7 @@
         //variables
         vm.showSpinner = true;
         vm.showHembrasParaServicio = false;
+        vm.showServiciosSinConfirm = false;
         vm.showHembrasPreniadas = false;
         //vm.mostrarTablaHembrasServicio = false;
         //vm.mostrarTablaServiciosSinConfirmar = false;
@@ -96,7 +97,7 @@
 
         //carga la tablita de servicios sin confirmar
         function obtenerServSinConfirm(rango) {
-            vm.showHembrasParaServicio = true;
+            vm.showServiciosSinConfirm = true;
             vm.showHembrasPreniadas = false;
             vm.itemsPorPagina = 10;
             vm.rowCollection = [];
@@ -174,7 +175,7 @@
 
         //carga a tablita de prox pariciones
         function obtenerProxPartos(rango) {
-            vm.showHembrasParaServicio = false;
+            vm.showServiciosSinConfirm = false;
             vm.showHembrasPreniadas = true;
             vm.itemsPorPagina = 10;
             vm.rowCollection = [];

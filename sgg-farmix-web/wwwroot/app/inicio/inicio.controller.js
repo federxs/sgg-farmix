@@ -22,6 +22,7 @@
                 cargarGraficoCategorias(data.graficoCategorias);
                 $scope.showSpinner = false;
             }, function error(error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }

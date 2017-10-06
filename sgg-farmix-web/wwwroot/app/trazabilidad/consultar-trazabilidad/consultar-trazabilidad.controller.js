@@ -47,6 +47,7 @@
                 vm.disabled = '';
                 consultar();
             }, function error(error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
@@ -91,6 +92,7 @@
                     vm.disabledExportar = '';
                 }
             }), function error(error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             };
         };
@@ -195,7 +197,8 @@
                 exportador.exportarExcel('Trazabilidad' + fecha, vm.rowCollection, titulos, filtro, propiedades, 'Trazabilidad', function () {
                     toastr.success("Se ha exportado con Éxito.", "EXITOSO");
                 }, function (error) {
-                    toastr.error("Ha ocurrido un error: " + error, "ERROR!");
+                    vm.showSpinner = false;
+                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
         }
@@ -321,7 +324,8 @@
                 exportador.exportarPDF('Bovinos' + fecha, tab_text, function () {
                     toastr.success("Se ha exportado con Éxito.", "ÉXITO");
                 }, function (error) {
-                    toastr.error("Ha ocurrido un error: " + error, "ERROR!");
+                    vm.showSpinner = false;
+                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
         }
@@ -342,6 +346,7 @@
                 $state.reload();
             }, function (error) {
                 $('#modalConfirmEliminar').modal('hide');
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }

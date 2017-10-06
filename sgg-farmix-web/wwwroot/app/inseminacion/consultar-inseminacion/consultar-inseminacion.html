@@ -127,7 +127,7 @@
 </div>-->
 <!--<button ng-click="insert()">Insertar</button>-->
 <legend style="margin-bottom: 5px;" ng-show="rowCollection.length > 0">Resultados</legend>
-<div ng-show="showHembrasParaServicio">
+<div ng-show="showServiciosSinConfirm">
     <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
         <div class="pull-right" style="margin-bottom:5px">
             <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
@@ -155,7 +155,9 @@
                     <td>{{item.fechaInseminacion}}</td>
                     <td>{{item.cantidadVacas}}</td>
                     <td>
-                        <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
+                        <a ui-sref="home.modificarInseminacion({id: item.fechaInseminacion})" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a ui-sref="home.detalleInseminacion({fecha: item.fechaInseminacion, desde: 'servicioSinConfirm'})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
+                        <a><span class="glyphicon glyphicon-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.tipoEvento, item.fechaHora, item.idEvento)"></span></a>
                     </td>
                 </tr>
             </tbody>
@@ -210,7 +212,9 @@
                     <td>{{item.fechaEstimadaParto}}</td>
                     <!--<td>{{item.cantidadVacas}}</td>-->
                     <td>
-                        <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
+                        <a ui-sref="home.modificarEvento({id: item.idEvento})" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a ui-sref="home.detalleInseminacion({fecha: item.fechaInseminacion, desde: 'preniez'})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
+                        <a><span class="glyphicon glyphicon-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.tipoEvento, item.fechaHora, item.idEvento)"></span></a>
                     </td>
                 </tr>
             </tbody>

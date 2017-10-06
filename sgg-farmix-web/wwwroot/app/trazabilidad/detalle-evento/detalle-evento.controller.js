@@ -5,9 +5,9 @@
         .module('app')
         .controller('detalleEventoController', detalleEventoController);
 
-    detalleEventoController.$inject = ['$scope', 'detalleEventoService', '$stateParams'];
+    detalleEventoController.$inject = ['$scope', 'detalleEventoService', '$stateParams', 'toastr'];
 
-    function detalleEventoController($scope, detalleEventoService, $stateParams) {
+    function detalleEventoController($scope, detalleEventoService, $stateParams, toastr) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.disabled = true;
@@ -33,6 +33,7 @@
                 });
                 vm.showSpinner = false;
             }, function error(error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }//fin inicializar

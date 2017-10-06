@@ -55,6 +55,7 @@
                 vm.bovino = new registrarBovinoService();
                 vm.bovino.genero = 0;
             }, function error(error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
@@ -72,12 +73,13 @@
                 vm.btnVolver = "Volver";
                 vm.showSpinner = false;
             }, function (error) {
+                vm.showSpinner = false;
                 if (error.statusText === 'Bovino ya existe') {
                     toastr.warning('Ya existe un bovino con ese número de caravana', 'Advertencia');
                     var fecha = vm.bovino.fechaNacimiento.split('/');
                     vm.bovino.fechaNacimiento = new Date(fecha[2], fecha[1], fecha[0]);
                 }
-                else {
+                else {                    
                     toastr.error('La operación no se pudo completar', 'Error');
                 }
             });
@@ -93,6 +95,7 @@
                         vm.formRegistrarBovino.idCaravana.$setValidity("existeIdCaravana", true);
                     }
                 }, function (error) {
+                    vm.showSpinner = false;
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }

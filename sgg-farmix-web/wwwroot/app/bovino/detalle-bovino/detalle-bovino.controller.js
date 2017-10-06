@@ -5,9 +5,9 @@
         .module('app')
         .controller('detalleBovinoController', detalleBovinoController);
 
-    detalleBovinoController.$inject = ['$scope', 'detalleBovinoService', '$stateParams'];
+    detalleBovinoController.$inject = ['$scope', 'detalleBovinoService', '$stateParams', 'toastr'];
 
-    function detalleBovinoController($scope, detalleBovinoService, $stateParams) {
+    function detalleBovinoController($scope, detalleBovinoService, $stateParams, toastr) {
         var vm = $scope;
         vm.showSpinner = true;
         //funciones
@@ -44,6 +44,7 @@
                 });
                 vm.showSpinner = false;
             }, function error(error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }//fin inicializar

@@ -34,4 +34,11 @@ namespace sgg_farmix_acceso_datos.Model
         public long cantidadVacas { get; set; }
         public string fechaEstimadaParto { get; set; }
     }
+    public class InseminacionDetalle
+    {
+        public long idInseminacion { get; set; }
+        public string fechaInseminacion { get; set; }
+        public string tipoInseminacion { get; set; }
+        public IEnumerable<BovinoItem> listaBovinos { get; set; }
+    }
 }

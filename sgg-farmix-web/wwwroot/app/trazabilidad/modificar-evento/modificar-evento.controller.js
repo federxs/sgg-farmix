@@ -59,9 +59,11 @@
                     vm.habilitar = true;
                     vm.habilitarBtnAceptar = true;
                 }, function error(error) {
+                    vm.showSpinner = false;
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }, function error(error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }//fin inicializar
@@ -104,6 +106,7 @@
                 toastr.success('Se modificó el evento con éxito ', 'Éxito');
                 $('#modalConfirmEliminEvento').modal('hide');
             }, function error(data) {
+                vm.showSpinner = false;
                 toastr.error('La operación no se pudo completar', 'Error');
                 $('#modalConfirmEliminEvento').modal('hide');
             })
@@ -204,6 +207,9 @@
                     vm.idRodeoDestino = '';
                     vm.habilitarBtnAceptar = false;
                 }
+            }, function error(error) {
+                vm.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }
 

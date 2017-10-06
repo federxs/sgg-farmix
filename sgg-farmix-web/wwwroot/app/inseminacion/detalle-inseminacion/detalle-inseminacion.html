@@ -1,0 +1,129 @@
+﻿<form name="formDetalleInseminacion" novalidate>
+    <fieldset>
+        <div class="alert alert-danger" ng-show=""></div>
+        <div class="row">
+            <div class="col-lg-10">
+                <div style="margin-top:0px;" class="page-header">
+                    <h1>
+                        Inseminación
+                        <small>Consulta</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Datos de la inseminación</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-6 col-lg-6">
+                        <label>
+                            Tipo de Inseminación
+                        </label>
+                        <input name="tipoInseminacion" type="text" class="form-control" placeholder="Tipo de inseminación" disabled
+                               ng-model="inseminacion.tipoInseminacion" />
+                    </div>
+                    <div class="form-group col-md-6 col-lg-6">
+                        <label>
+                            Fecha de inseminación
+                        </label>
+                        <input name="fechaInseminacion" type="text" class="form-control" placeholder="Fecha de inseminación" disabled
+                               ng-model="inseminacion.fechaInseminacion" />
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 1">
+                        <label>
+                            Vacuna
+                        </label>
+                        <input name="vacuna" type="text" class="form-control" placeholder="Vacuna" disabled
+                               ng-model="evento.vacuna" style="margin-top: 5px;" />
+                    </div>
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 2">
+                        <label>
+                            Antibiótico
+                        </label>
+                        <input name="antibiotico" type="text" class="form-control" placeholder="Antibiótico" disabled
+                               ng-model="evento.antibiotico" />
+                    </div>
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 3">
+                        <label>
+                            Campo Destino
+                        </label>
+                        <input name="campoOrigen" type="text" class="form-control" placeholder="Campo Destino" disabled
+                               ng-model="evento.campoDestino" />
+                        <label>
+                            Rodeo Destino
+                        </label>
+                        <input name="campoActual" type="text" class="form-control" placeholder="Rodeo Destino" disabled
+                               ng-model="evento.rodeoDestino" />
+                    </div>
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 4">
+                        <label>
+                            Alimento
+                        </label>
+                        <input name="alimento" type="text" class="form-control" placeholder="Alimento" disabled
+                               ng-model="evento.alimento" />
+                    </div>
+                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 1 || evento.idTipoEvento === 2 || evento.idTipoEvento === 4">
+                        <label>
+                            Cantidad
+                            <label ng-show="evento.idTipoEvento === 1 || evento.idTipoEvento === 2">(mgrs)</label>
+                            <label ng-show="evento.idTipoEvento === 4">(Kgrs)</label>
+                        </label>
+                        <input name="cantidad" type="text" class="form-control" placeholder="Cantidad" disabled
+                               ng-model="evento.cantidad" />
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        <div class="panel panel-default" ng-if="desde === 'servicioSinConfirm'">
+            <div class="panel-heading">Bovinos que participaron de la inseminación</div>
+            <div class="panel-body">
+                <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th st-sort="numCaravana">N° Caravana</th>
+                            <th st-sort="categoriaNombre">Categoría</th>
+                            <th st-sort="razaNombre">Raza</th>
+                            <th st-sort="rodeoNombre">Rodeo</th>
+                            <th st-sort="estadoNombre">Estado</th>
+                            <th st-sort="peso">Peso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in displayedCollection">
+                            <td>{{item.numCaravana}}</td>
+                            <td>{{item.categoriaNombre | uppercase}}</td>
+                            <td>{{item.razaNombre | uppercase}}</td>
+                            <td>{{item.rodeoNombre | uppercase}}</td>
+                            <td>{{item.estadoNombre | uppercase}}</td>
+                            <td>{{item.peso}}</td>
+                            <td>
+                                <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <label for="items">Registros por página</label>
+                                <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                            </td>
+                            <td colspan="5" class="text-center">
+                                <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+    <div class="row">
+        <button type="button" class="btn btn-default"
+                ui-sref="home.inseminacion" style="margin-left: 15px;">
+            Volver
+        </button>
+    </div>
+</form>
+<div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>

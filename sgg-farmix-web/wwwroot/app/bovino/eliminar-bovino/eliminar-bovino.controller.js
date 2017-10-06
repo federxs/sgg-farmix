@@ -48,6 +48,7 @@
                     }
                 })
             }, function error(error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }
@@ -63,6 +64,7 @@
                     vm.btnVolver = "Volver";
                     toastr.success('Se dio de baja el bovino con éxito ', 'Éxito');
                 }, function error(data) {
+                    vm.showSpinner = false;
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }

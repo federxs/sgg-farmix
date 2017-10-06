@@ -45,6 +45,7 @@
                 vm.filtro.accionPeso = '0';
                 consultar();
             }, function error(error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
@@ -73,6 +74,7 @@
                     vm.disabledExportar = '';
                 }
             }, function (error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
@@ -229,7 +231,8 @@
                 exportador.exportarExcel('Bovinos' + fecha, vm.rowCollection, titulos, filtro, propiedades, 'Bovinos', function () {
                     toastr.success("Se ha exportado con Éxito", "ÉXITO");
                 }, function (error) {
-                    toastr.error("Ha ocurrido un error: " + error, "ERROR!");
+                    vm.showSpinner = false;
+                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
         }
@@ -419,7 +422,8 @@
                 exportador.exportarPDF('Bovinos' + fecha, tab_text, function () {
                     toastr.success("Se ha exportado con Éxito.", "ÉXITO");
                 }, function (error) {
-                    toastr.error("Ha ocurrido un error: " + error, "ERROR!");
+                    vm.showSpinner = false;
+                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
         }

@@ -92,6 +92,7 @@
                 vm.showSpinner = false;
                 vm.habilitar = true;
             }, function error(error) {
+                vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         };
@@ -145,6 +146,7 @@
                 vm.showSpinner = false;
                 toastr.success('Se modificó el bovino con éxito ', 'Éxito');
             }, function error(data) {
+                vm.showSpinner = false;
                 toastr.error('La operación no se pudo completar', 'Error');
             })
         };
@@ -171,6 +173,7 @@
                         vm.formModificarBovino.idCaravana.$setValidity("existeIdCaravana", true);
                     }
                 }, function (error) {
+                    vm.showSpinner = false;
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }
