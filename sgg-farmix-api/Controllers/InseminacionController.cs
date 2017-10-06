@@ -36,7 +36,7 @@ namespace sgg_farmix_api.Controllers
                 }
                 idsVacas.Add(long.Parse(aux));
                 List<long> idsToros = null;
-                if (listaToros.Length > 0)
+                if (listaToros != null)
                 {
                     idsToros = new List<long>();
                     aux = "";

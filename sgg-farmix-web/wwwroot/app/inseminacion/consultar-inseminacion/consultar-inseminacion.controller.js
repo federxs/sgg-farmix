@@ -30,6 +30,7 @@
         vm.lactanciasActivas = lactanciasActivas;
         vm.obtenerServSinConfirm = obtenerServSinConfirm;
         vm.obtenerProxPartos = obtenerProxPartos;
+        vm.insert = insert;
         inicializar();
 
         function inicializar() {
@@ -211,6 +212,14 @@
             //
             //vm.showSpinner = false;
             //});
+        }
+
+        function insert() {
+            var inseminacion = { tipoInseminacion: 1 };
+            var lista = [33, 34];
+            consultarInseminacionService.insert(inseminacion, lista.toString()).then(function success(data) {
+                var hola = data;
+            })
         }
 
         //Puede ser 'HembraServicio', 'ServiciosSinConfirmar','PreniadasPorParir' o 'LactanciasActivas'

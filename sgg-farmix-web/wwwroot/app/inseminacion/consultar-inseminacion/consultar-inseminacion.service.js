@@ -12,7 +12,8 @@
             consultarServicioSinConfirmar: consultarServicioSinConfirmar,
             getInseminacionesXFechaInsem: getInseminacionesXFechaInsem,
             consultarPreniadasXParir: consultarPreniadasXParir,
-            consultarLactanciasActivas
+            consultarLactanciasActivas,
+            insert: insert
         };
 
         return service;
@@ -75,6 +76,21 @@
            function (data) {
                return data.data || [];
            });
+        }
+
+        function insert(inseminacion, listaVacas) {
+            return $http({
+                method: 'POST',
+                url: portalService.getUrlServer() + 'api/Inseminacion/Insert',
+                params: {
+                    inseminacion: inseminacion,
+                    listaVacas: listaVacas,
+                    listaToros: ''
+                }
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
         }
     }
 })();
