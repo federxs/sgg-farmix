@@ -20,21 +20,23 @@
             vm.showSpinner = true;
             vm.disabled = true;
             vm.itemsPorPagina = 9;
-            detalleInseminacionService.getInseminacion($stateParams.fecha).then(function success(data) {                
-                vm.inseminacion = data;
-                vm.rowCollection = vm.inseminacion.listaBovinos;
-                vm.disabled = false;
-                //seteamos a "" las variables 0
-                //angular.forEach(vm.evento, function (value, key) {
-                //    if (parseInt(value) === 0 && key !== 'idEvento') {
-                //        vm.evento[key] = '';
-                //    }
-                //});
-                vm.showSpinner = false;
-            }, function error(error) {
-                vm.showSpinner = false;
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
-            });
+            if ($stateParams.fecha !== null) {
+                detalleInseminacionService.getInseminacion($stateParams.fecha).then(function success(data) {
+                    vm.inseminacion = data;
+                    vm.rowCollection = vm.inseminacion.listaBovinos;
+                    vm.disabled = false;
+                    //seteamos a "" las variables 0
+                    //angular.forEach(vm.evento, function (value, key) {
+                    //    if (parseInt(value) === 0 && key !== 'idEvento') {
+                    //        vm.evento[key] = '';
+                    //    }
+                    //});
+                    vm.showSpinner = false;
+                }, function error(error) {
+                    vm.showSpinner = false;
+                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                });
+            }
         }//fin inicializar
 
 

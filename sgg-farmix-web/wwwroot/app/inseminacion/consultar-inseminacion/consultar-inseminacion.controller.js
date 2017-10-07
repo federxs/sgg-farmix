@@ -5,24 +5,21 @@
         .module('app')
         .controller('consultarInseminacionController', consultarInseminacionController);
 
-    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr'];
+    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr', '$state'];
 
-    function consultarInseminacionController($scope, consultarInseminacionService, toastr) {
+    function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state) {
         var vm = $scope;
         //variables
         vm.showSpinner = true;
-        vm.showHembrasParaServicio = false;
+        vm.showHembrasParaServicio = true;
         vm.showServiciosSinConfirm = false;
         vm.showHembrasPreniadas = false;
         vm.showServSinConfirm = true;
         vm.showProxPartos = true;
-        vm.tablaHembrasParaServicio;
+        vm.showLactanciasActivas = true;
         var vistoServSinConfirm = 1;
         var vistoPreniadas = 1;
         var proxPartos = [];
-        vm.itemsXPagHembrasServ = 10;
-        vm.itemsXPagLactAct = 10;
-        vm.options = [10, 20, 30, 50];
         //metodos
         vm.inicializar = inicializar;
         vm.hembrasParaServicio = hembrasParaServicio;
@@ -32,6 +29,8 @@
         vm.obtenerServSinConfirm = obtenerServSinConfirm;
         vm.obtenerProxPartos = obtenerProxPartos;
         vm.insert = insert;
+        vm.obtenerHembrasParaServicio = obtenerHembrasParaServicio;
+        vm.obtenerLactanciasActivas = obtenerLactanciasActivas;
         inicializar();
 
         function inicializar() {
@@ -48,12 +47,10 @@
         }
 
         function hembrasParaServicio() {
-            mostrarTablaActual('HembrasServicio');
-            //consultarInseminacionService.consultarHembrasServicio().then(
-            //function success(data){
-            //
-            //vm.showSpinner = false;
-            //});
+            if (vm.showHembrasParaServicio)
+                vm.showHembrasParaServicio = false;
+            else
+                vm.showHembrasParaServicio = true;
         }
 
         function serviciosSinConfirmar() {
@@ -206,13 +203,19 @@
             }
         }
 
+        function obtenerHembrasParaServicio() {
+            $state.go('home.detalleInseminacion', { fecha: null, desde: 'hembrasParaServ' });
+        }
+
+        function obtenerLactanciasActivas() {
+            $state.go('home.detalleInseminacion', { fecha: null, desde: 'lactanciasActivas' });
+        }
+
         function lactanciasActivas() {
-            mostrarTablaActual('LactanciasActivas');
-            //consultarInseminacionService.consultarHembrasServicio().then(
-            //function success(data){
-            //
-            //vm.showSpinner = false;
-            //});
+            if (vm.showLactanciasActivas)
+                vm.showLactanciasActivas = false;
+            else
+                vm.showLactanciasActivas = true;
         }
 
         function insert() {
@@ -221,37 +224,6 @@
             consultarInseminacionService.insert(inseminacion, lista.toString()).then(function success(data) {
                 var hola = data;
             })
-        }
-
-        //Puede ser 'HembraServicio', 'ServiciosSinConfirmar','PreniadasPorParir' o 'LactanciasActivas'
-        function mostrarTablaActual(tablaActual) {
-            if (mostrarServiciosYVacas === true) {
-                mostrarServiciosYVacas = false;
-            }
-            if (tablaActual === 'HembrasServicio') {
-                mostrarTablaHembrasServicio = true;
-                mostrarTablaServiciosSinConfirmar = false;
-                mostrarTablaPreniadasPorParir = false;
-                mostrarTablaLactanciasActivas = false;
-            }
-            if (tablaActual === 'ServiciosSinConfirmar') {
-                mostrarTablaHembrasServicio = false;
-                mostrarTablaServiciosSinConfirmar = true;
-                mostrarTablaPreniadasPorParir = false;
-                mostrarTablaLactanciasActivas = false;
-            }
-            if (tablaActual === 'PreniadasPorParir') {
-                mostrarTablaHembrasServicio = false;
-                mostrarTablaServiciosSinConfirmar = false;
-                mostrarTablaPreniadasPorParir = true;
-                mostrarTablaLactanciasActivas = false;
-            }
-            if (tablaActual === 'LactanciasActivas') {
-                mostrarTablaHembrasServicio = false;
-                mostrarTablaServiciosSinConfirmar = false;
-                mostrarTablaPreniadasPorParir = false;
-                mostrarTablaLactanciasActivas = true;
-            }
         }
 
         function convertirFecha(fecha) {

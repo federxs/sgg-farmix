@@ -16,21 +16,23 @@
 <!--INICIO BOTONES-->
 <div class="row">
     <div class="col-lg-3 col-md-6">
-        <div ng-click="hembrasParaServicio()">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-tags fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                            <h1>{{init.hembrasParaServicio}}</h1>
-                            <h4>Hembras para servicio</h4>
+        <a href="">
+            <div ng-click="hembrasParaServicio()">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-tags fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <h1>{{init.hembrasParaServicio}}</h1>
+                                <h4>Hembras para servicio</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </a>
     </div>
     <div class="col-lg-3 col-md-6" ng-click="serviciosSinConfirmar()">
         <a href="">
@@ -66,7 +68,7 @@
             </div>
         </a>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-3 col-md-6" ng-click="lactanciasActivas()">
         <a href="">
             <div class="panel panel-danger">
                 <div class="panel-heading">
@@ -85,58 +87,17 @@
     </div>
 </div>
 <!--FIN BOTONES-->
-<!--GRILLA HEMBRAS PARA SERVICIO-->
-<div class="row col-lg-12 col-md-12">
-    <table st-table="tablaHembrasParaServicio" st-safe-src="rowCollection" class="table table-striped">
-        <thead>
-            <tr>
-                <th st-sort="numCaravana">N° Caravana</th>
-                <th st-sort="categoriaNombre">Categoría</th>
-                <th st-sort="razaNombre">Raza</th>
-                <th st-sort="rodeoNombre">Rodeo</th>
-                <th st-sort="peso">Peso</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="item in displayedCollection">
-                <td>{{item.numCaravana}}</td>
-                <td>{{item.categoriaNombre | uppercase}}</td>
-                <td>{{item.razaNombre | uppercase}}</td>
-                <td>{{item.rodeoNombre | uppercase}}</td>
-                <td>{{item.peso}}</td>
-                <td>
-                    <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <label for="items">Registros por página</label>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                        <select class="input-sm form-control" name="items" id="items" type="number"
-                                ng-model="itemsXPagHembrasServ"
-                                ng-disabled="disabled">
-                            <option ng-repeat="item in options"
-                                    value="{{item}}">
-                                {{item}}
-                            </option>
-                        </select>
-                    </div>
-                </td>
-                <td colspan="5" class="text-center">
-                    <div st-pagination="" st-items-by-page="itemsXPagHembrasServ" st-displayed-pages="7"></div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+<div ng-show="showHembrasParaServicio">
+    <h3>Hembras para servicio <small>Listas para inseminación</small></h3>
+    <ul class="list-group">
+        <li class="list-group-item cursor" ng-click="obtenerHembrasParaServicio()">
+            <span class="badge">{{init.hembrasParaServicio}}</span>
+            Vacas
+        </li>
+    </ul>
 </div>
-<!--FIN GRILLA HEMBRAS PARA SERVICIO-->
 <div ng-show="showServSinConfirm">
-    <h3>Servicios sin confirmar <small>Aún no se realizo el tacto</small> <!--<small>Falta realizar tacto/ecografía</small>--></h3>
+    <h3>Servicios sin confirmar <small>Aún no se realizó el tacto</small> <!--<small>Falta realizar tacto/ecografía</small>--></h3>
     <ul class="list-group">
         <li class="list-group-item cursor" ng-click="obtenerServSinConfirm('menor60')">
             <span class="badge">{{serviciosSinConfirm.menor60}}</span>
@@ -169,57 +130,15 @@
         </li>
     </ul>
 </div>
-
-<!--GRILLA LACTANCIAS ACTIVAS-->
-<div class="row col-lg-12 col-md-12">
-    <table st-table="tablaLactanciasActivas" st-safe-src="rowCollection" class="table table-striped">
-        <thead>
-            <tr>
-                <th st-sort="numCaravana">N° Caravana</th>
-                <th st-sort="categoriaNombre">Categoría</th>
-                <th st-sort="razaNombre">Raza</th>
-                <th st-sort="rodeoNombre">Rodeo</th>
-                <th st-sort="peso">Peso</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="item in displayedCollection">
-                <td>{{item.numCaravana}}</td>
-                <td>{{item.categoriaNombre | uppercase}}</td>
-                <td>{{item.razaNombre | uppercase}}</td>
-                <td>{{item.rodeoNombre | uppercase}}</td>
-                <td>{{item.peso}}</td>
-                <td>
-                    <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <label for="items">Registros por página</label>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                        <select class="input-sm form-control" name="items" id="items" type="number"
-                                ng-model="itemsXPagHembrasServ"
-                                ng-disabled="disabled">
-                            <option ng-repeat="item in options"
-                                    value="{{item}}">
-                                {{item}}
-                            </option>
-                        </select>
-                    </div>
-                </td>
-                <td colspan="5" class="text-center">
-                    <div st-pagination="" st-items-by-page="itemsXPagLactAct" st-displayed-pages="7"></div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+<div ng-show="showLactanciasActivas">
+    <h3>Lactancias activas <small>Vacas que están dando de lactar</small></h3>
+    <ul class="list-group">
+        <li class="list-group-item cursor" ng-click="obtenerLactanciasActivas()">
+            <span class="badge">{{init.lactanciasActivas}}</span>
+            Vacas
+        </li>
+    </ul>
 </div>
-<!--FIN GRILLA LACTANCIAS ACTIVAS-->
 
 <!--/////RESULTADOS//////-->
 <legend style="margin-bottom: 5px;"
@@ -310,7 +229,7 @@
                     <td>{{item.fechaInseminacion}}</td>
                     <td>{{item.fechaEstimadaParto}}</td>
                     im
-                      <!--<td>{{item.cantidadVacas}}</td>-->
+                    <!--<td>{{item.cantidadVacas}}</td>-->
                     <td>
                         <a ui-sref="home.modificarEvento({id: item.idEvento})" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a ui-sref="home.detalleInseminacion({fecha: item.fechaInseminacion, desde: 'preniez'})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
