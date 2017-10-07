@@ -14,15 +14,15 @@
         vm.showHembrasParaServicio = false;
         vm.showServiciosSinConfirm = false;
         vm.showHembrasPreniadas = false;
-        //vm.mostrarTablaHembrasServicio = false;
-        //vm.mostrarTablaServiciosSinConfirmar = false;
-        //vm.mostrarTablaPreniadasPorParir = false;
-        //vm.mostrarTablaLactanciasActivas = false;
         vm.showServSinConfirm = true;
         vm.showProxPartos = true;
+        vm.tablaHembrasParaServicio;
         var vistoServSinConfirm = 1;
         var vistoPreniadas = 1;
         var proxPartos = [];
+        vm.itemsXPagHembrasServ = 10;
+        vm.itemsXPagLactAct = 10;
+        vm.options = [10, 20, 30, 50];
         //metodos
         vm.inicializar = inicializar;
         vm.hembrasParaServicio = hembrasParaServicio;
