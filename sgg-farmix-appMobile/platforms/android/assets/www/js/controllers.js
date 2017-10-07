@@ -65,14 +65,29 @@
                 if ($rootScope.idVacas == undefined || estaEscaneado($scope.id) == false) {
                     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
                         if (_bovino != null && _bovino.borrado == false) {
-                            if ($state.current.name != "app.antibiotico" || _bovino.idEstado == 3) {
-                                if ($rootScope.evento != undefined && $rootScope.evento.tipoInseminacion == "2" && _bovino.genero == 1) {
-                                    if ($rootScope.toros == undefined || $rootScope.toros == null) {
-                                        $rootScope.toros = [];
-                                        $rootScope.idToros = [];
+                            if ($state.current.name != "app.antibiotico" || _bovino.idEstado == "Enfermo") {
+                                if ($state.current.name == "app.inseminacion") {
+                                    if ($rootScope.evento.tipoInseminacion == "2" && _bovino.genero == 1) {
+                                        if ($rootScope.toros == undefined || $rootScope.toros == null) {
+                                            $rootScope.toros = [];
+                                            $rootScope.idToros = [];
+                                        }
+                                        $rootScope.toros.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
+                                        $rootScope.idToros.push($scope.id);
+                                    } else if (_bovino.genero == 0) {
+                                        if (_bovino.idEstado == "Activo" && (_bovino.idCategoria == "Ternera" || _bovino.idCategoria == "Vaquilla" || _bovino.idCategoria == "Vaquillona")) {
+                                            if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
+                                                $rootScope.vacas = [];
+                                                $rootScope.idVacas = [];
+                                            }
+                                            $rootScope.vacas.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
+                                            $rootScope.idVacas.push($scope.id);
+                                        } else {
+                                            alert("Esta vaca no puede ser inseminada");
+                                        }
+                                    } else {
+                                        alert("Un toro no puede ser inseminado, modifique el tipo de inseminación");
                                     }
-                                    $rootScope.toros.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
-                                    $rootScope.idToros.push($scope.id);
                                 } else {
                                     if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
                                         $rootScope.vacas = [];
@@ -100,7 +115,7 @@
                     return true;
                 }
             }
-            if ($rootScope.evento.tipoInseminacion == "2" && $rootScope.toros != undefined && $rootScope.toros != null) {
+            if ($state.current.name == "app.inseminacion" && $rootScope.evento.tipoInseminacion == "2" && $rootScope.toros != undefined && $rootScope.toros != null) {
                 for (i = 0; i < $rootScope.idToros.length; i++) {
                     if ($rootScope.idToros[i] == id) {
                         return true;

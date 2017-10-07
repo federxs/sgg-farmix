@@ -5,7 +5,7 @@
             $http({
                 method: 'POST',
                 url: inseminacionUrl,
-                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: [] }
+                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: "" }
             });
         };
     });
