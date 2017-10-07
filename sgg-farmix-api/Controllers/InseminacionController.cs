@@ -155,6 +155,24 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
+        [Route("api/Inseminacion/Lactancias")]
+        [HttpGet]
+        public IEnumerable<BovinoItem> VacasDandoLactar()
+        {
+            try
+            {
+                return IM.GetVacasLactancia();
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
         [HttpGet]
         public InseminacionDetalle Get(string fechaInseminacion)
         {

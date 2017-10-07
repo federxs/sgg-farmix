@@ -49,17 +49,17 @@
                         <thead>
                             <tr>
                                 <th st-sort="numero">N°</th>
-                                <th st-sort="fecha">Fecha</th>
-                                <th st-sort="tipo">Tipo</th>
-                                <th st-sort="resultado">Resultado</th>
+                                <th st-sort="fechaTacto">Fecha</th>
+                                <th st-sort="tipoTacto">Tipo</th>
+                                <th st-sort="exitoso">Resultado</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in displayedCollection">
                                 <td>{{item.numero }}</td>
-                                <td>{{item.fecha}}</td>
-                                <td>{{item.tipo | uppercase}}</td>
-                                <td>{{item.resultado | uppercase}}</td>
+                                <td>{{item.fechaTacto}}</td>
+                                <td>{{item.tipoTacto | uppercase}}</td>
+                                <td>{{item.exitoso | uppercase}}</td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -84,8 +84,8 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default" ng-if="desde === 'servicioSinConfirm' || desde === 'lactanciasActivas'">
-            <div class="panel-heading">Bovinos que participaron de la inseminación</div>
+        <div class="panel panel-default" ng-if="desde !== 'preniez'">
+            <div class="panel-heading">{{tituloTabla}}</div>
             <div class="panel-body">
                 <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
                     <thead>
@@ -143,14 +143,14 @@
                                 Categoría
                             </label>
                             <input name="caravanaNombre" type="text" class="form-control" placeholder="Categoría" disabled
-                                   ng-model="vaca.caravanaNombre" />
+                                   ng-model="vaca.categoriaNombre" />
                         </div>
                         <div class="form-group col-md-4 col-lg-4">
                             <label>
                                 Raza
                             </label>
                             <input name="raza" type="text" class="form-control" placeholder="Raza" disabled
-                                   ng-model="vaca.raza"/>
+                                   ng-model="vaca.razaNombre" />
                         </div>
                     </div>
                     <div class="row">
@@ -159,30 +159,29 @@
                                 Rodeo
                             </label>
                             <input name="numCaravana" type="text" class="form-control" placeholder="Rodeo" disabled
-                                   ng-model="vaca.rodeoNombre"/>
+                                   ng-model="vaca.rodeoNombre" />
                         </div>
                         <div class="form-group col-md-4 col-lg-4">
                             <label>
                                 Estado
                             </label>
                             <input name="estadoNombre" type="text" class="form-control" placeholder="Estado" disabled
-                                   ng-model="vaca.estadoNombre"/>
+                                   ng-model="vaca.estadoNombre" />
                         </div>
                         <div class="form-group col-md-4 col-lg-4">
                             <label>
                                 Peso
                             </label>
                             <input name="raza" type="text" class="form-control" placeholder="Peso" disabled
-                                   ng-model="vaca.peso"/>
+                                   ng-model="vaca.peso" />
                         </div>
                     </div>
                 </div>
+                <button type="button" class="btn btn-default pull-right"
+                        ui-sref="home.detalleBovino({id:vaca.idBovino})" style="margin-top: 10px;">
+                    Ir a detalle de bovino
+                </button>
             </div>
-            <div class="form-group col-md-4 col-lg-4"></div>
-            <button type="button" class="btn btn-default"
-                    ui-sref="home.detalleBovino({id:vaca.idBovino})" style="margin-left: 15px;">
-                Ir a detalle de bovino
-            </button>
         </div>
     </fieldset>
     <div class="row">

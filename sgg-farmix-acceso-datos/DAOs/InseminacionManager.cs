@@ -57,7 +57,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     var inseminacion = connection.Execute("spRegistrarInseminacion", parametros, System.Data.CommandType.StoredProcedure);
                     if (inseminacion == 0)
                         throw new ArgumentException("Create Inseminacion Error");
-                }                
+                }
                 return entity;
             }
             catch (Exception ex)
@@ -111,7 +111,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<ServSinConfirmar>("spGetListServSinConfirmar", null, System.Data.CommandType.StoredProcedure);               
+                var lista = connection.GetArray<ServSinConfirmar>("spGetListServSinConfirmar", null, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
             catch (Exception ex)
@@ -147,7 +147,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<PreniadasXParir>("spGetListPreniadasXParir", null, System.Data.CommandType.StoredProcedure);                
+                var lista = connection.GetArray<PreniadasXParir>("spGetListPreniadasXParir", null, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
             catch (Exception ex)
@@ -169,9 +169,35 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     {"@fechaInseminacion", fecha }
                 };
-                var inseminacion = connection.GetArray<InseminacionDetalle>("spObtenerDatosInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();                
+                var inseminacion = connection.GetArray<InseminacionDetalle>("spObtenerDatosInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 inseminacion.listaBovinos = connection.GetArray<BovinoItem>("spObtenerBovinosXInseminacion", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                if (inseminacion.fechaEstimadaNacimiento != "")
+                {
+                    parametros = new Dictionary<string, object>
+                    {
+                        {"@idInseminacion", inseminacion.idInseminacion }
+                    };
+                    inseminacion.tactos = connection.GetArray<Tacto>("spObtenerTactosXInseminacion", parametros, System.Data.CommandType.StoredProcedure);
+                }
                 return inseminacion;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public IEnumerable<BovinoItem> GetVacasLactancia()
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var lista = connection.GetArray<BovinoItem>("spGetVacasLactancias", null, System.Data.CommandType.StoredProcedure);
+                return lista;
             }
             catch (Exception ex)
             {

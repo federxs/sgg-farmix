@@ -82,6 +82,7 @@
     <Compile Include="Model\Raza.cs" />
     <Compile Include="Model\Resultados.cs" />
     <Compile Include="Model\Rodeo.cs" />
+    <Compile Include="Model\Tacto.cs" />
     <Compile Include="Model\TipoEvento.cs" />
     <Compile Include="Model\Vacuna.cs" />
     <Compile Include="Model\Venta.cs" />
