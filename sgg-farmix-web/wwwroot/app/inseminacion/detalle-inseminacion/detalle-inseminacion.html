@@ -30,53 +30,60 @@
                                ng-model="inseminacion.fechaInseminacion" />
                     </div>
                 </div>
-                <!--<div class="row">
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 1">
+                <div class="row" ng-if="desde === 'preniez'">
+                    <div class="form-group col-md-6 col-lg-6">
                         <label>
-                            Vacuna
+                            Fecha estimada de parición
                         </label>
-                        <input name="vacuna" type="text" class="form-control" placeholder="Vacuna" disabled
-                               ng-model="evento.vacuna" style="margin-top: 5px;" />
+                        <input name="fechaParicion" type="text" class="form-control" placeholder="Fecha estimada de nacimiento" disabled
+                               ng-model="inseminacion.fechaEstimadaNacimiento" />
                     </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 2">
-                        <label>
-                            Antibiótico
-                        </label>
-                        <input name="antibiotico" type="text" class="form-control" placeholder="Antibiótico" disabled
-                               ng-model="evento.antibiotico" />
-                    </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 3">
-                        <label>
-                            Campo Destino
-                        </label>
-                        <input name="campoOrigen" type="text" class="form-control" placeholder="Campo Destino" disabled
-                               ng-model="evento.campoDestino" />
-                        <label>
-                            Rodeo Destino
-                        </label>
-                        <input name="campoActual" type="text" class="form-control" placeholder="Rodeo Destino" disabled
-                               ng-model="evento.rodeoDestino" />
-                    </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 4">
-                        <label>
-                            Alimento
-                        </label>
-                        <input name="alimento" type="text" class="form-control" placeholder="Alimento" disabled
-                               ng-model="evento.alimento" />
-                    </div>
-                    <div class="form-group col-md-3 col-lg-3" ng-show="evento.idTipoEvento === 1 || evento.idTipoEvento === 2 || evento.idTipoEvento === 4">
-                        <label>
-                            Cantidad
-                            <label ng-show="evento.idTipoEvento === 1 || evento.idTipoEvento === 2">(mgrs)</label>
-                            <label ng-show="evento.idTipoEvento === 4">(Kgrs)</label>
-                        </label>
-                        <input name="cantidad" type="text" class="form-control" placeholder="Cantidad" disabled
-                               ng-model="evento.cantidad" />
-                    </div>
-                </div>-->
+                </div>
+                <div class="form-group col-md-12 col-lg-12" 
+                      ng-if="desde === 'preniez'"><!--grilla de tactos-->
+                    <legend style="margin-bottom: 5px;">
+                        Tactos
+                    </legend>
+                    <table st-table="displayedCollection" st-safe-src="tactos" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th st-sort="numero">N°</th>
+                                <th st-sort="fecha">Fecha</th>
+                                <th st-sort="tipo">Tipo</th>
+                                <th st-sort="resultado">Resultado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in displayedCollection">
+                                <td>{{item.numero }}</td>
+                                <td>{{item.fecha}}</td>
+                                <td>{{item.tipo | uppercase}}</td>
+                                <td>{{item.resultado | uppercase}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    <label for="items" ng-show="tactos.length > 1">Registros por página</label>
+                                    <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPaginaTacto" ng-disabled="disabled" ng-show="tactos.length > 1">
+                                    <!--<select class="input-sm form-control"
+                                            ng-model="itemsPorPagina">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="50">50</option>
+                                    </select>-->
+                                </td>
+                                <td colspan="5" class="text-center">
+                                    <div st-pagination="" st-items-by-page="itemsPorPaginaTacto" st-displayed-pages="7"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="panel panel-default" ng-if="desde === 'servicioSinConfirm'">
+        <div class="panel panel-default" ng-if="desde === 'servicioSinConfirm' || desde === 'lactanciasActivas'">
             <div class="panel-heading">Bovinos que participaron de la inseminación</div>
             <div class="panel-body">
                 <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">

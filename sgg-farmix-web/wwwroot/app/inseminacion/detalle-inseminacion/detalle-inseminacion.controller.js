@@ -9,13 +9,16 @@
 
     function detalleInseminacionController($scope, detalleInseminacionService, $stateParams, toastr) {
         var vm = $scope;
+        //variables
+        vm.inseminacion = {};
+        vm.desde = $stateParams.desde;
+        vm.itemsPorPaginaTacto = 10;
         vm.showSpinner = true;
         vm.disabled = true;
         //funciones
         vm.inicializar = inicializar();
-        //variables
-        vm.inseminacion = {};
-        vm.desde = $stateParams.desde;
+
+
         function inicializar() {
             vm.showSpinner = true;
             vm.disabled = true;
@@ -25,12 +28,6 @@
                     vm.inseminacion = data;
                     vm.rowCollection = vm.inseminacion.listaBovinos;
                     vm.disabled = false;
-                    //seteamos a "" las variables 0
-                    //angular.forEach(vm.evento, function (value, key) {
-                    //    if (parseInt(value) === 0 && key !== 'idEvento') {
-                    //        vm.evento[key] = '';
-                    //    }
-                    //});
                     vm.showSpinner = false;
                 }, function error(error) {
                     vm.showSpinner = false;
