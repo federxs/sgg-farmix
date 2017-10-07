@@ -39,8 +39,9 @@
                                ng-model="inseminacion.fechaEstimadaNacimiento" />
                     </div>
                 </div>
-                <div class="form-group col-md-12 col-lg-12" 
-                      ng-if="desde === 'preniez'"><!--grilla de tactos-->
+                <div class="form-group col-md-12 col-lg-12"
+                     ng-if="desde === 'preniez'">
+                    <!--grilla de tactos-->
                     <legend style="margin-bottom: 5px;">
                         Tactos
                     </legend>
@@ -124,6 +125,64 @@
                     </tfoot>
                 </table>
             </div>
+        </div>
+        <div>
+            <div class="panel panel-default" ng-if="desde === 'preniez'">
+                <div class="panel-heading">Datos de la vaca</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Nº de Caravana
+                            </label>
+                            <input name="numCaravana" type="text" class="form-control" placeholder="Número" disabled
+                                   ng-model="vaca.numCaravana" />
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Categoría
+                            </label>
+                            <input name="caravanaNombre" type="text" class="form-control" placeholder="Categoría" disabled
+                                   ng-model="vaca.caravanaNombre" />
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Raza
+                            </label>
+                            <input name="raza" type="text" class="form-control" placeholder="Raza" disabled
+                                   ng-model="vaca.raza"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Rodeo
+                            </label>
+                            <input name="numCaravana" type="text" class="form-control" placeholder="Rodeo" disabled
+                                   ng-model="vaca.rodeoNombre"/>
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Estado
+                            </label>
+                            <input name="estadoNombre" type="text" class="form-control" placeholder="Estado" disabled
+                                   ng-model="vaca.estadoNombre"/>
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Peso
+                            </label>
+                            <input name="raza" type="text" class="form-control" placeholder="Peso" disabled
+                                   ng-model="vaca.peso"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-4 col-lg-4"></div>
+            <button type="button" class="btn btn-default"
+                    ui-sref="home.detalleBovino({id:vaca.idBovino})" style="margin-left: 15px;">
+                Ir a detalle de bovino
+            </button>
         </div>
     </fieldset>
     <div class="row">
