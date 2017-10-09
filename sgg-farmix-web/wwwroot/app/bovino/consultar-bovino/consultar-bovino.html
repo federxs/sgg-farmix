@@ -57,7 +57,7 @@
                     Sexo
                 </label>
                 <select class="form-control" name="genero" required
-                        ng-model="filtro.genero" ng-disabled="disabled">
+                        ng-model="filtro.genero" ng-disabled="disabled" ng-change="changeSexo()">
                     <option value="2">Seleccione...</option>
                     <option value="0">Hembra</option>
                     <option value="1">Macho</option>

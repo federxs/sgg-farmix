@@ -12,5 +12,6 @@ namespace sgg_farmix_acceso_datos.Model
         public string fechaTacto { get; set; }
         public string exitoso { get; set; }
         public string tipoTacto { get; set; }
+        public long idTipoTacto { get; set; }
     }
 }

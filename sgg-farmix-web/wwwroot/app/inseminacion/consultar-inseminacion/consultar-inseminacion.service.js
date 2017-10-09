@@ -13,7 +13,8 @@
             getInseminacionesXFechaInsem: getInseminacionesXFechaInsem,
             consultarPreniadasXParir: consultarPreniadasXParir,
             consultarLactanciasActivas,
-            insert: insert
+            insert: insert,
+            insertTacto: insertTacto
         };
 
         return service;
@@ -86,6 +87,19 @@
                     inseminacion: inseminacion,
                     listaVacas: listaVacas,
                     listaToros: ''
+                }
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function insertTacto(tacto) {
+            return $http({
+                method: 'POST',
+                url: portalService.getUrlServer() + 'api/Tacto/Insert',
+                params: {
+                    tacto: tacto
                 }
             }).then(
             function (data) {

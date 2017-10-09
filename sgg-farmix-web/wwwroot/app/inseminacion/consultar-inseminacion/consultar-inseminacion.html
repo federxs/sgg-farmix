@@ -139,7 +139,7 @@
         </li>
     </ul>
 </div>
-
+<!--<button ng-click="insertarTacto()">Insertar tacto</button>-->
 <!--/////RESULTADOS//////-->
 <legend style="margin-bottom: 5px;"
         ng-show="rowCollection.length > 0">
@@ -148,10 +148,10 @@
 <div ng-show="showServiciosSinConfirm">
     <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
         <div class="pull-right" style="margin-bottom:5px">
-            <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
+            <button class="btn btn-success font-white" ng-click="exportarExcelServSinConfirm()" title="Exportar a Excel" ng-disabled="disabledExportar">
                 <i class="fa fa-file-excel-o"></i>
             </button>
-            <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
+            <button class="btn btn-success font-white" ng-click="exportarPDFServSinConfirm()" title="Exportar a PDF" ng-disabled="disabledExportar">
                 <i class="fa fa-file-pdf-o"></i>
             </button>
             <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
@@ -203,10 +203,10 @@
 <div ng-show="showHembrasPreniadas">
     <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
         <div class="pull-right" style="margin-bottom:5px">
-            <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
+            <button class="btn btn-success font-white" ng-click="exportarExcelVacasPreniadas()" title="Exportar a Excel" ng-disabled="disabledExportar">
                 <i class="fa fa-file-excel-o"></i>
             </button>
-            <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
+            <button class="btn btn-success font-white" ng-click="exportarPDFVacasPreniadas()" title="Exportar a PDF" ng-disabled="disabledExportar">
                 <i class="fa fa-file-pdf-o"></i>
             </button>
             <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
@@ -218,7 +218,7 @@
                 <tr>
                     <th st-sort="tipoInseminacion">Tipo de Inseminación</th>
                     <th st-sort="fechaInseminacion">Fecha Inseminación</th>
-                    <th st-sort="fechaParto">Fecha estimada Parto</th>
+                    <th st-sort="fechaEstimadaParto">Fecha estimada Parto</th>
                     <!--<th st-sort="cantidadVacas">Cantidad de bovinos que participaron</th>-->
                     <th>Acciones</th>
                 </tr>

@@ -16,10 +16,12 @@
 
             tab_text = tab_text + "<table border='1px'>";
             var largo = 0;
-            if (titulos.length > filter.Titulos.length)
+            if (filter !== null && titulos.length > filter.Titulos.length)
                 largo = titulos.length;
-            else
+            else if (filter !== null)
                 largo = filter.Titulos.length;
+            else
+                largo = titulos.length;
             tab_text += "<tr><td style='text-align:center; font-size:20px' colspan='" + largo + "'><b>" + tituloReporte + "</b></td></tr>" + "<tr></tr>";
             if (filter !== null) {
                 var $html_filtro = "<thead><tr>";

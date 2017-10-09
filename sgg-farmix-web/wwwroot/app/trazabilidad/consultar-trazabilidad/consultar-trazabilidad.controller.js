@@ -269,7 +269,7 @@
                 var fecha = new Date();
                 fecha = convertirFecha(fecha);
                 var tab_text = '<html><head></head><body>';
-                tab_text += "<h1 style='align:center;'>Bovinos</h1>";
+                tab_text += "<h1 style='align:center;'>Trazabilidad</h1>";
                 tab_text = tab_text + "<div><table border='1px' style='font-size:6px; width:6000px;'>";
                 //tab_text += "<tr><td style='text-align:center; font-size:20px' colspan='" + titulos.length + "'><b>" + tituloReporte + "</b></td></tr>" + "<tr></tr>";
                 if (vm.filtro !== null) {
@@ -321,7 +321,7 @@
                 tab_text = tab_text + newhtml.toString();
                 tab_text = tab_text + '</body></html>';
 
-                exportador.exportarPDF('Bovinos' + fecha, tab_text, function () {
+                exportador.exportarPDF('Trazabilidad' + fecha, tab_text, function () {
                     toastr.success("Se ha exportado con Éxito.", "ÉXITO");
                 }, function (error) {
                     vm.showSpinner = false;
