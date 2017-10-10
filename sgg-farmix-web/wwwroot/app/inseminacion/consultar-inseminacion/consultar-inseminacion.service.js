@@ -14,7 +14,8 @@
             consultarPreniadasXParir: consultarPreniadasXParir,
             consultarLactanciasActivas,
             insert: insert,
-            insertTacto: insertTacto
+            insertTacto: insertTacto,
+            eliminarInseminacion: eliminarInseminacion
         };
 
         return service;
@@ -101,6 +102,17 @@
                 params: {
                     tacto: tacto
                 }
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function eliminarInseminacion(parametro) {
+            return $http({
+                method: 'PUT',
+                url: portalService.getUrlServer() + 'api/Inseminacion/DeleteInseminacion',
+                params: { parametro: parametro }
             }).then(
             function (data) {
                 return data.data || [];

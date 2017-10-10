@@ -2,6 +2,7 @@
 using sgg_farmix_acceso_datos.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,29 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Inseminacion Update(long id, Inseminacion entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idInseminacion", id },
+                    {"@fechaInseminacion", entity.fechaInseminacion },
+                    {"@idTipoInseminacion", entity.tipoInseminacion },
+                    {"@fechaEstimadaNacimiento", entity.fechaEstimadaNacimiento }
+                };
+                var update = connection.Execute("spUpdateInseminacionExitosa", parametros, System.Data.CommandType.StoredProcedure);
+                if(update == 0)
+                    throw new ArgumentException("Update Inseminacion Error");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public Inseminacion Insert(Inseminacion entity, List<long> listVacas, List<long> listToros)
@@ -198,6 +221,92 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = new SqlServerConnection();
                 var lista = connection.GetArray<BovinoItem>("spGetVacasLactancias", null, System.Data.CommandType.StoredProcedure);
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public Inseminacion Update(Inseminacion entity, List<long> lista, string fechaInseminacionAnterior)
+        {
+            connection = new SqlServerConnection();
+            DbTransaction transaction = connection.BeginTransaction();
+            try
+            {
+                if (lista == null)
+                {
+                    var parametrosInseminacion = new Dictionary<string, object>
+                    {
+                        {"@fechaInsemOriginal", fechaInseminacionAnterior }
+                    };
+                    var delete = connection.Execute("spBorrarLogicoInseminacion", parametrosInseminacion, System.Data.CommandType.StoredProcedure, transaction);
+                    if (delete == 0)
+                        throw new ArgumentException("Update Inseminacion Error");
+                }
+                else
+                {
+                    var parametrosInseminacion = new Dictionary<string, object>
+                    {
+                        {"@fechaInsemOriginal", fechaInseminacionAnterior },
+                        {"@idVaca", 0 }
+                    };
+                    for (int i = 0; i < lista.Count; i++)
+                    {
+                        parametrosInseminacion["@idVaca"] = lista.ElementAt(i);
+                        var update = connection.Execute("spDeleteInseminacion", parametrosInseminacion, System.Data.CommandType.StoredProcedure, transaction);
+                        if (update == 0)
+                            throw new ArgumentException("Update Inseminacion Error");
+                    }
+                    var parametros = new Dictionary<string, object>
+                    {
+                        {"@fechaInseminacion", entity.fechaInseminacion },
+                        {"@idTipoInseminacion", entity.tipoInseminacion },
+                        {"@idVaca", 0 }
+                    };
+                    for (int i = 0; i < lista.Count; i++)
+                    {
+                        parametros["@idVaca"] = lista.ElementAt(i);
+                        var update = connection.Execute("spUpdateInseminacion", parametros, System.Data.CommandType.StoredProcedure, transaction);
+                        if (update == 0)
+                            throw new ArgumentException("Update Inseminacion Error");
+                    }
+                }
+                connection.Commit(transaction);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                connection.Rollback(transaction);
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void Delete(string parametro)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                long result;
+                var parametros = new Dictionary<string, object>();
+                if(long.TryParse(parametro, out result))
+                {
+                    parametros.Add("@idInseminacion", long.Parse(parametro));
+                    connection.Execute("spBorrarInseminacionXId", parametros, System.Data.CommandType.StoredProcedure);
+                }
+                else
+                {
+                    parametros.Add("@fechaInseminacion", parametro);
+                    connection.Execute("spBorrarInseminacionXFecha", parametros, System.Data.CommandType.StoredProcedure);
+                }
             }
             catch (Exception ex)
             {

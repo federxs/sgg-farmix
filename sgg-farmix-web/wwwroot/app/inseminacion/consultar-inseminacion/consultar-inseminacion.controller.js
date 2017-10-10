@@ -21,6 +21,7 @@
         var vistoPreniadas = 1;
         var proxPartos = [];
         var tituloExcel = ''
+        var idInseminacionAEliminar = 0;
         //metodos
         vm.inicializar = inicializar;
         vm.hembrasParaServicio = hembrasParaServicio;
@@ -37,6 +38,8 @@
         vm.exportarExcelVacasPreniadas = exportarExcelVacasPreniadas;
         vm.exportarPDFServSinConfirm = exportarPDFServSinConfirm;
         vm.exportarPDFVacasPreniadas = exportarPDFVacasPreniadas;
+        vm.openPopUp = openPopUp;
+        vm.eliminar = eliminar;
         inicializar();
 
         function inicializar() {
@@ -441,6 +444,32 @@
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
+        }
+
+        function openPopUp(fecha, id) {
+            vm.fecha = fecha;
+            if (id !== '')
+                idInseminacionAEliminar = id;
+            $('#modalConfirmEliminar').modal('show');
+        }
+
+        function eliminar() {
+            vm.showSpinner = true;
+            var parametro = '';
+            if (idInseminacionAEliminar !== 0)
+                parametro = idInseminacionAEliminar;
+            else
+                parametro = vm.fecha;
+            consultarInseminacionService.eliminarInseminacion(parametro).then(function success() {
+                $('#modalConfirmEliminar').modal('hide');
+                toastr.success('Inseminación eliminada con éxito', 'Éxito');
+                vm.showSpinner = false;
+                $state.reload();
+            }, function (error) {
+                $('#modalConfirmEliminar').modal('hide');
+                vm.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
         }
     }
 })();

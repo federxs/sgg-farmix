@@ -1,10 +1,269 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+﻿<style>
+    .cursor {
+        cursor: pointer;
+    }
+</style>
+<form name="formModificarInseminacion" novalidate>
+    <fieldset>
+        <div class="alert alert-danger" ng-show=""></div>
+        <div class="row">
+            <div class="col-lg-10">
+                <div style="margin-top:0px;" class="page-header">
+                    <h1>
+                        Inseminación
+                        <small>Modificación</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" ng-show="desde !== 'hembrasParaServ' && desde !== 'lactanciasActivas'">
+            <div class="panel-heading">Datos de la inseminación</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formModificarInseminacion.tipoInseminacion.$touched && formModificarInseminacion.tipoInseminacion.$valid,
+                 'has-error has-feedback':formModificarInseminacion.tipoInseminacion.$touched && formModificarInseminacion.tipoInseminacion.$invalid}">
+                        <label class="control-label" for="tipoInseminacion">
+                            Tipo de Inseminación
+                        </label>
+                        <select class="form-control" name="tipoInseminacion" required
+                                ng-disabled="!habilitar"
+                                ng-model="inseminacion.idTipoInseminacion">
+                            <option value="">Seleccione...</option>
+                            <option ng-repeat="item in tiposInseminacion"
+                                    value="{{ item.idTipoInseminacion }}">
+                                {{ item.descripcion }}
+                            </option>
+                        </select>
+                        <div ng-show="formModificarInseminacion.tipoInseminacion.$touched">
+                            <span class="help-block" ng-show="formModificarInseminacion.tipoInseminacion.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formModificarInseminacion.fechaInseminacion.$touched && formModificarInseminacion.fechaInseminacion.$valid,
+                 'has-error has-feedback':formModificarInseminacion.fechaInseminacion.$touched && formModificarInseminacion.fechaInseminacion.$invalid}">
+                        <label>
+                            Fecha de inseminación
+                        </label>
+                        <div name="fechaInseminacion">
+                            <input type="datetime" placeholder="Fecha inseminación" name="fechaInseminacion" class="form-control" id='datetimepicker4' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" ng-blur="getFecha()" data-date-format="DD/MM/YYYY" ng-model="inseminacion.fechaInseminacion" valueAsDate="{{inseminacion.fechaInseminacion}}" />
+                        </div>
+                        <div ng-show="formModificarInseminacion.fechaInseminacion.$touched">
+                            <span class="help-block" ng-show="formModificarInseminacion.fechaInseminacion.$error.max || formModificarInseminacion.fechaInseminacion.$error.min">
+                                Debe ingresar una fecha válida
+                            </span>
+                        </div> 
+                    </div>
+                </div>
+                <div class="row" ng-show="desde === 'preniez'">
+                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formModificarInseminacion.fechaParicion.$touched && formModificarInseminacion.fechaParicion.$valid,
+                 'has-error has-feedback':formModificarInseminacion.fechaParicion.$touched && formModificarInseminacion.fechaParicion.$invalid}">
+                        <label>
+                            Fecha estimada de parición
+                        </label>
+                        <div name="fechaParicion">
+                            <input type="datetime" placeholder="Fecha estimada de nacimiento" name="fechaParicion" class="form-control" id='datetimepicker5' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" ng-blur="getFechaParicion()" data-date-format="DD/MM/YYYY" ng-model="inseminacion.fechaEstimadaNacimiento" valueAsDate="{{inseminacion.fechaEstimadaNacimiento}}" />
+                        </div>
+                        <div ng-show="formModificarInseminacion.fechaParicion.$touched">
+                            <span class="help-block" ng-show="formModificarInseminacion.fechaParicion.$error.max || formModificarInseminacion.fechaParicion.$error.min">
+                                Debe ingresar una fecha válida
+                            </span>
+                        </div> 
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-lg-12"
+                     ng-if="desde === 'preniez'">
+                    <!--grilla de tactos-->
+                    <legend style="margin-bottom: 5px;">
+                        Tactos
+                    </legend>
+                    <table st-table="displayedCollection" st-safe-src="tactos" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th st-sort="numero">N°</th>
+                                <th st-sort="fechaTacto">Fecha</th>
+                                <th st-sort="tipoTacto">Tipo</th>
+                                <th st-sort="exitoso">Resultado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in displayedCollection">
+                                <td>{{item.numero }}</td>
+                                <td>{{item.fechaTacto}}</td>
+                                <td>{{item.tipoTacto | uppercase}}</td>
+                                <td>{{item.exitoso | uppercase}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    <label for="items" ng-show="tactos.length > 1">Registros por página</label>
+                                    <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPaginaTacto" ng-disabled="disabled" ng-show="tactos.length > 1">
+                                    <!--<select class="input-sm form-control"
+                                            ng-model="itemsPorPagina">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="50">50</option>
+                                    </select>-->
+                                </td>
+                                <td colspan="5" class="text-center">
+                                    <div st-pagination="" st-items-by-page="itemsPorPaginaTacto" st-displayed-pages="7"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default" ng-if="desde !== 'preniez'">
+            <div class="panel-heading">{{tituloTabla}}</div>
+            <div class="panel-body">
+                <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th st-sort="numCaravana">N° Caravana</th>
+                            <th st-sort="categoriaNombre">Categoría</th>
+                            <th st-sort="razaNombre">Raza</th>
+                            <th st-sort="rodeoNombre">Rodeo</th>
+                            <th st-sort="estadoNombre">Estado</th>
+                            <th st-sort="peso">Peso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in displayedCollection">
+                            <td>{{item.numCaravana}}</td>
+                            <td>{{item.categoriaNombre | uppercase}}</td>
+                            <td>{{item.razaNombre | uppercase}}</td>
+                            <td>{{item.rodeoNombre | uppercase}}</td>
+                            <td>{{item.estadoNombre | uppercase}}</td>
+                            <td>{{item.peso}}</td>
+                            <td>
+                                <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
+                                <a class="cursor" ng-click="openPopUp(item.idBovino, item.numCaravana)" title="Borrar vaca de inseminación" ng-show="showEliminar"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <label for="items">Registros por página</label>
+                                <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                            </td>
+                            <td colspan="5" class="text-center">
+                                <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div class="panel panel-default" ng-if="desde === 'preniez'">
+                <div class="panel-heading">Datos de la vaca</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Nº de Caravana
+                            </label>
+                            <input name="numCaravana" type="text" class="form-control" placeholder="Número" disabled
+                                   ng-model="vaca.numCaravana" />
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Categoría
+                            </label>
+                            <input name="caravanaNombre" type="text" class="form-control" placeholder="Categoría" disabled
+                                   ng-model="vaca.categoriaNombre" />
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Raza
+                            </label>
+                            <input name="raza" type="text" class="form-control" placeholder="Raza" disabled
+                                   ng-model="vaca.razaNombre" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Rodeo
+                            </label>
+                            <input name="numCaravana" type="text" class="form-control" placeholder="Rodeo" disabled
+                                   ng-model="vaca.rodeoNombre" />
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Estado
+                            </label>
+                            <input name="estadoNombre" type="text" class="form-control" placeholder="Estado" disabled
+                                   ng-model="vaca.estadoNombre" />
+                        </div>
+                        <div class="form-group col-md-4 col-lg-4">
+                            <label>
+                                Peso
+                            </label>
+                            <input name="raza" type="text" class="form-control" placeholder="Peso" disabled
+                                   ng-model="vaca.peso" />
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default pull-right"
+                        ui-sref="home.detalleBovino({id:vaca.idBovino})" style="margin-top: 10px;">
+                    Ir a detalle de bovino
+                </button>
+            </div>
+        </div>
+    </fieldset>
+    <div class="row">
+        <button type="submit" style="margin-left:15px;" class="btn btn-primary"
+                ng-disabled="formModificarInseminacion.$invalid || !habilitar"
+                ng-click="antesDeModificar()">
+            Aceptar
+        </button>
+        <button type="button" class="btn btn-default"
+                ui-sref="home.inseminacion" style="margin-left: 15px;">
+            Volver
+        </button>
+    </div>
+</form>
+<!--Modal-->
+<div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>
+<div id="modalConfirmEliminarVaca" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar eliminación</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea eliminar la vaca con número de caravana {{nroCaravana}} de la inseminación?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalConfirmEliminarInseminacion" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar modificación</h4>
+            </div>
+            <div class="modal-body">
+                <p>Está inseminación quedo sin vacas asociadas, se procedera a eliminar la inseminación. ¿Está seguro que desea seguir adelante con la acción?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="modificar('')">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
