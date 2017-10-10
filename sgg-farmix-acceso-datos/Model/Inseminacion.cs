@@ -27,6 +27,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string tipoInseminacion { get; set; }
         public long cantidadVacas { get; set; }
         public long idInseminacion { get; set; }
+        public long idVaca { get; set; }
     }
     public class PreniadasXParir
     {
