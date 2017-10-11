@@ -73,7 +73,7 @@
             <div class="col-md-2 col-lg-2 sidenav">
                 <ul class="list-group" style="margin-top: 20px;">
                     <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}" style="{{menu.activo}}">
-                        <a ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0 && menu.menu_Hijos === null" ng-click="activar(menu.idMenu)">
+                        <a style="display:block;" ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0 && menu.menu_Hijos === null" ng-click="activar(menu.idMenu)">
                             <span class="title" style="color:black">{{menu.nombre}}</span>
                             <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
                         </a>
@@ -82,7 +82,7 @@
                             <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
                             <span class="arrow"></span>
                         </a>
-                        <ul id="demo" class="collapse list-group" ng-if="menu.menu_Hijos.length > 0">
+                        <ul style="margin-top:10px" id="demo" class="collapse list-group" ng-if="menu.menu_Hijos.length > 0">
                             <li class="list-group-item" ng-repeat="menuHijo in menu.menu_Hijos" style="{{menuHijo.activo}}">
                                 <a ui-sref="{{menuHijo.urlMenu}}" ng-click="activar(menuHijo.idMenu)">
                                     <span class="title" style="color:black">{{menuHijo.nombre}}</span>
