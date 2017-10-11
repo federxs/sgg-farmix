@@ -118,6 +118,9 @@
                             return fechaHoy.diff(fechaInsem, 'days') < 60
                         }).ToArray();
                         tituloExcel = 'Servicios de menos de 60 días sin confirmar';
+                        if (vm.rowCollection.length === 0) {
+                            toastr.info("En este momento no hay servicios sin confirmar para ese rango de días", "Aviso");
+                        }
                         break;
                     case 'entre90y60':
                         vm.rowCollection = Enumerable.From(data).Where(function (x) {
@@ -126,6 +129,9 @@
                             return fechaHoy.diff(fechaInsem, 'days') >= 60 && fechaHoy.diff(fechaInsem, 'days') < 90
                         }).ToArray();
                         tituloExcel = 'Servicios de entre 60 y 90 días sin confirmar';
+                        if (vm.rowCollection.length === 0) {
+                            toastr.info("En este momento no hay servicios sin confirmar para ese rango de días", "Aviso");
+                        }
                         break;
                     case 'mas90':
                         vm.rowCollection = Enumerable.From(data).Where(function (x) {
@@ -134,6 +140,9 @@
                             return fechaHoy.diff(fechaInsem, 'days') > 90
                         }).ToArray();
                         tituloExcel = 'Servicios de más de 90 días sin confirmar';
+                        if (vm.rowCollection.length === 0) {
+                            toastr.info("En este momento no hay servicios sin confirmar para ese rango de días", "Aviso");
+                        }
                         break;
                 }
             }, function error(error) {
@@ -198,6 +207,9 @@
                         return fechaParto.diff(fechaHoy, 'days') < 10
                     }).ToArray();
                     tituloExcel = 'Partos en los próximos 10 días';
+                    if (vm.rowCollection.length === 0) {
+                        toastr.info("En este momento no hay próximos partos para ese rango de días", "Aviso");
+                    }
                     break;
                 case 'entre10y30dias':
                     vm.rowCollection = Enumerable.From(proxPartos).Where(function (x) {
@@ -206,6 +218,9 @@
                         return fechaParto.diff(fechaHoy, 'days') >= 10 && fechaParto.diff(fechaHoy, 'days') < 30
                     }).ToArray();
                     tituloExcel = 'Partos entre los próximos 10 y 30 días';
+                    if (vm.rowCollection.length === 0) {
+                        toastr.info("En este momento no hay próximos partos para ese rango de días", "Aviso");
+                    }
                     break;
                 case 'entre30y60dias':
                     vm.rowCollection = Enumerable.From(proxPartos).Where(function (x) {
@@ -214,6 +229,9 @@
                         return fechaParto.diff(fechaHoy, 'days') >= 30 && fechaParto.diff(fechaHoy, 'days') < 60
                     }).ToArray();
                     tituloExcel = 'Partos entre los próximos 30 y 60 días';
+                    if (vm.rowCollection.length === 0) {
+                        toastr.info("En este momento no hay próximos partos para ese rango de días", "Aviso");
+                    }
                     break;
             }
         }
