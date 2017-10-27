@@ -1,12 +1,9 @@
 angular.module('starter')
 .controller('InseminacionMenuController', function ($scope, $state) {
     $scope.inseminar = function () {
-        $state.go('app.inseminacion');
+        $state.go('app.registrarInseminacion');
     }
-    $scope.ecografia = function () {
-        $state.go('app.ecografia');
-    }
-    $scope.tacto = function () {
-        $state.go('app.tacto');
+    $scope.verificarInseminacion = function () {
+        $state.go('app.inseminacionesPendientes');
     }
 });

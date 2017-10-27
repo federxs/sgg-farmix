@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('InseminacionController', function ($scope, $rootScope, inseminacionService, $ionicLoading, $state) {
+    .controller('RegistrarInseminacionController', function ($scope, $rootScope, inseminacionService, $ionicLoading, $state) {
         $rootScope.evento = {};
         $rootScope.evento.tipoInseminacion = "0";
 

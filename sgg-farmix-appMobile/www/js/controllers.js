@@ -60,13 +60,13 @@
             } else if ($state.current.name == "app.leer") {
                 var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 $state.go('app.resultado/:id', { id: id });
-            } else if ($state.current.name == "app.vacunacion" || $state.current.name == "app.manejo" || $state.current.name == "app.antibiotico" || $state.current.name == "app.alimento" || $state.current.name == "app.inseminacion") {
+            } else if ($state.current.name == "app.vacunacion" || $state.current.name == "app.manejo" || $state.current.name == "app.antibiotico" || $state.current.name == "app.alimento" || $state.current.name == "app.registrarInseminacion") {
                 $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 if ($rootScope.idVacas == undefined || estaEscaneado($scope.id) == false) {
                     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
                         if (_bovino != null && _bovino.borrado == false) {
                             if ($state.current.name != "app.antibiotico" || _bovino.idEstado == "Enfermo") {
-                                if ($state.current.name == "app.inseminacion") {
+                                if ($state.current.name == "app.registrarInseminacion") {
                                     if ($rootScope.evento.tipoInseminacion == "2" && _bovino.genero == 1) {
                                         if ($rootScope.toros == undefined || $rootScope.toros == null) {
                                             $rootScope.toros = [];

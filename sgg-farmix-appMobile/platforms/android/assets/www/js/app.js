@@ -122,30 +122,31 @@ angular.module('starter', ['ionic'])
                 }
             }
         })
-        .state('app.inseminacion', {
-            url: '/inseminacion',
+        .state('app.registrarInseminacion', {
+            url: '/registrarInseminacion',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/inseminacion.html',
-                    controller: 'InseminacionController'
+                    templateUrl: 'views/registrarInseminacion.html',
+                    controller: 'RegistrarInseminacionController'
                 }
             }
         })
-        .state('app.tacto', {
-            url: '/tacto',
+        .state('app.inseminacionesPendientes', {
+            url: '/inseminacionesPendientes',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/tacto.html',
-                    controller: 'TactoController'
+                    templateUrl: 'views/inseminacionesPendientes.html',
+                    controller: 'InseminacionesPendientesController'
                 }
             }
         })
-        .state('app.ecografia', {
-            url: '/ecografia',
+        .state('app.verificarInseminacion', {
+            url: '/verificarInseminacion/',
+            params: { idInseminacion: null },
             views: {
                 'menuContent': {
-                    templateUrl: 'views/ecografia.html',
-                    controller: 'EcografiaController'
+                    templateUrl: 'views/verificarInseminacion.html',
+                    controller: 'VerificarInseminacionController'
                 }
             }
         });
