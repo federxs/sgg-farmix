@@ -154,26 +154,26 @@
             if (vistoPreniadas === 1) {
                 vistoPreniadas = 0;
                 vm.showProxPartos = true;
+                var fechaHoy = new Date();
+                vm.preniadasPorParir = {};
+                fechaHoy = moment(convertirFecha(fechaHoy));
                 consultarInseminacionService.consultarPreniadasXParir().then(
                 function success(data) {
-                    proxPartos = data;
-                    var fechaHoy = new Date();
-                    vm.preniadasPorParir = {};
-                    fechaHoy = moment(convertirFecha(fechaHoy));
+                    proxPartos = data;                    
                     vm.preniadasPorParir.prox10dias = Enumerable.From(data).Where(function (x) {
                         var fechaParto = x.fechaEstimadaParto.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
-                        return fechaParto.diff(fechaHoy, 'days') < 10
+                        return fechaParto.diff(fechaHoy, 'days') < 10 && fechaParto.diff(fechaHoy, 'days') > 0
                     }).Count();
                     vm.preniadasPorParir.entre10y30dias = Enumerable.From(data).Where(function (x) {
                         var fechaParto = x.fechaEstimadaParto.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
-                        return fechaParto.diff(fechaHoy, 'days') >= 10 && fechaParto.diff(fechaHoy, 'days') < 30
+                        return fechaParto.diff(fechaHoy, 'days') >= 10 && fechaParto.diff(fechaHoy, 'days') < 30 && fechaParto.diff(fechaHoy, 'days') > 0
                     }).Count();
                     vm.preniadasPorParir.entre30y60dias = Enumerable.From(data).Where(function (x) {
                         var fechaParto = x.fechaEstimadaParto.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
-                        return fechaParto.diff(fechaHoy, 'days') >= 30 && fechaParto.diff(fechaHoy, 'days') < 60
+                        return fechaParto.diff(fechaHoy, 'days') >= 30 && fechaParto.diff(fechaHoy, 'days') < 60 && fechaParto.diff(fechaHoy, 'days') > 0
                     }).Count();
                     vm.showSpinner = false;
                 }, function error(error) {

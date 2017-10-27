@@ -66,9 +66,10 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Inseminacion Insert(Inseminacion entity, List<long> listVacas, List<long> listToros)
         {
+            connection = new SqlServerConnection();
+            DbTransaction transaction = connection.BeginTransaction();
             try
             {
-                connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
                     {"@tipoInseminacion", entity.tipoInseminacion },
@@ -77,14 +78,30 @@ namespace sgg_farmix_acceso_datos.DAOs
                 for (int i = 0; i < listVacas.Count; i++)
                 {
                     parametros["@idVaca"] = listVacas.ElementAt(i);
-                    var inseminacion = connection.Execute("spRegistrarInseminacion", parametros, System.Data.CommandType.StoredProcedure);
-                    if (inseminacion == 0)
+                    entity.idInseminacion = connection.Execute("spRegistrarInseminacion", parametros, System.Data.CommandType.StoredProcedure, transaction);
+                    if (entity.idInseminacion == 0)
                         throw new ArgumentException("Create Inseminacion Error");
+                    if (listToros != null && entity.tipoInseminacion == 2)
+                    {
+                        var parametrosToros = new Dictionary<string, object>
+                        {
+                            {"@idInseminacion", entity.idInseminacion },
+                            {"@idToro", 0 }
+                        };
+                        if (listToros.Count == 1)
+                            parametrosToros["@idToro"] = listToros.ElementAt(0);
+                        var insert = connection.Execute("spRegistrarToroXInseminacion", parametrosToros, System.Data.CommandType.StoredProcedure, transaction);
+                        if (insert == 0)
+                            throw new ArgumentException("Create Inseminacion Error");
+
+                    }
                 }
+                connection.Commit(transaction);
                 return entity;
             }
             catch (Exception ex)
             {
+                connection.Rollback(transaction);
                 throw;
             }
             finally
@@ -254,12 +271,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {
                         {"@fechaInsemOriginal", fechaInseminacionAnterior },
                     };
-                    //for (int i = 0; i < lista.Count; i++)
-                    //{
                     var update = connection.Execute("spDeleteInseminacion", parametrosInseminacion, System.Data.CommandType.StoredProcedure, transaction);
                     if (update == 0)
                         throw new ArgumentException("Update Inseminacion Error");
-                    //}
                     var parametros = new Dictionary<string, object>
                     {
                         {"@fechaInseminacion", entity.fechaInseminacion },

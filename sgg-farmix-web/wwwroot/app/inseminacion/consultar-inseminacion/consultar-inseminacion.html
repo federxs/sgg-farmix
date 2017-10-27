@@ -139,6 +139,7 @@
         </li>
     </ul>
 </div>
+<button ng-click="insert()">Insertar inseminacion</button>
 <!--<button ng-click="insertarTacto()">Insertar tacto</button>-->
 <!--/////RESULTADOS//////-->
 <legend style="margin-bottom: 5px;"
@@ -163,7 +164,8 @@
                 <tr>
                     <th st-sort="tipoInseminacion">Tipo de Inseminación</th>
                     <th st-sort="fechaInseminacion">Fecha Inseminación</th>
-                    <th st-sort="cantidadVacas">Cantidad de bovinos que participaron</th>
+                    <th st-sort="cantidadVacas">Cantidad de vacas que participaron</th>
+                    <th st-sort="cantidadToros">Cantidad de toros que participaron</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -172,6 +174,7 @@
                     <td>{{item.tipoInseminacion | uppercase}}</td>
                     <td>{{item.fechaInseminacion}}</td>
                     <td>{{item.cantidadVacas}}</td>
+                    <td>{{item.cantidadToros}}</td>
                     <td>
                         <a ui-sref="home.modificarInseminacion({fecha: item.fechaInseminacion, desde: 'servicioSinConfirm'})" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a ui-sref="home.detalleInseminacion({fecha: item.fechaInseminacion, desde: 'servicioSinConfirm'})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>

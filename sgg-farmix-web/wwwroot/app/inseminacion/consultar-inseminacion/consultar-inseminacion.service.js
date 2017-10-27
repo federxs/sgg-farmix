@@ -80,14 +80,14 @@
            });
         }
 
-        function insert(inseminacion, listaVacas) {
+        function insert(inseminacion, listaVacas, listaToros) {
             return $http({
                 method: 'POST',
                 url: portalService.getUrlServer() + 'api/Inseminacion/Insert',
                 params: {
                     inseminacion: inseminacion,
                     listaVacas: listaVacas,
-                    listaToros: ''
+                    listaToros: listaToros
                 }
             }).then(
             function (data) {
