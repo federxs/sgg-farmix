@@ -3,26 +3,26 @@
 
     angular
         .module('app')
-        .factory('login', login);
+        .factory('loginService', loginService);
 
-    login.$inject = ['$http'];
+    loginService.$inject = ['$http', 'portalService'];
 
-    function login($http) {
+    function loginService($http, portalService) {
         var service = {
-            getData: getData
+            inicializar: inicializar
         };
 
-        return service;
-
-        function getData(usuario) {
+        function consultar(credenciales) {
             return $http({
-                method: 'GET',
-                url: portalService.getUrlServer() + 'api/Usuario/Validar',
-                params: {usuario: usuario}
+                method: 'POST',
+                url: portalService.getUrlServer() + 'api/Login/consultar',
+                params: { credenciales: credenciales }
             }).then(
             function (data) {
                 return data.data || [];
             });
         }
+
+        return service;
     }
 })();

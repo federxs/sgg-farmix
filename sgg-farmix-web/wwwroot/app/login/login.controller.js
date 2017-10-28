@@ -29,11 +29,11 @@
 
         function validar() {
             if (isUndefinedOrNull(vm.usuario)) {
-                toastr.info("El usuario se encuentra vacio");
+                toastr.info("El usuario se encuentra vacío");
                 return false;
             }
             if (isUndefinedOrNull(vm.contrasenia)) {
-                toastr.info("La contraseña se encuentra vacia");
+                toastr.info("La contraseña se encuentra vacía");
                 return false;
             }
             return true;
