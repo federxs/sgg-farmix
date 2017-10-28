@@ -22,15 +22,23 @@ angular.module('starter', ['ionic'])
       .state('app', {
           url: '/app',
           abstract: true,
-          templateUrl: 'views/menu.html',
-          controller: 'AppCtrl'
+          templateUrl: 'views/menu.html'
+      })
+      .state('app.login', {
+          cache: false,
+          url: '/login',
+          views: {
+              'menuContent': {
+                  templateUrl: 'views/login.html',
+                  controller: 'Controller'
+              }
+          }
       })
       .state('app.bienvenido', {
           url: '/bienvenido',
           views: {
               'menuContent': {
-                  templateUrl: 'views/bienvenido.html',
-                  controller: 'Controller'
+                  templateUrl: 'views/bienvenido.html'
               }
           }
       })
@@ -151,5 +159,5 @@ angular.module('starter', ['ionic'])
             }
         });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/bienvenido');
+    $urlRouterProvider.otherwise('/app/login');
 });

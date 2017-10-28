@@ -6,13 +6,13 @@
             $http({
                 method: 'POST',
                 url: inseminacionUrl + "Insert",
-                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: "" }
+                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: $rootScope.idToros.toString() }
             });
         };
 
         this.getInseminacionesPendientes = function () {
             return $http.get(inseminacionUrl + "ServicioSinConfirmar").then(function (respuesta) {
-                    return respuesta.data;
-                })
+                return respuesta.data;
+            })
         };
     });

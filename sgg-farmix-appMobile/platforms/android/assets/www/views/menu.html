@@ -20,17 +20,23 @@
                 <!--<ion-item  menu-close ng-click="login()">
                     Login
                 </ion-item>-->
-                <ion-item  menu-close href="#/app/leer">
+                <ion-item ng-if="logueado == false" menu-close href="#/app/login">
+                    Iniciar sesi&oacute;n
+                </ion-item>
+                <ion-item ng-if="logueado == true" menu-close href="#/app/leer">
                     Leer
                 </ion-item>
-                <ion-item  menu-close href="#/app/escribir">
+                <ion-item ng-if="logueado == true" menu-close href="#/app/escribir">
                     Grabar Tag
                 </ion-item>
-                <ion-item menu-close href="#/app/registrarEvento">
+                <ion-item ng-if="logueado == true" menu-close href="#/app/registrarEvento">
                     Registrar Evento
                 </ion-item>
-                <ion-item menu-close href="#/app/inseminacionMenu">
+                <ion-item ng-if="logueado == true" menu-close href="#/app/inseminacionMenu">
                     Inseminaci&oacute;n
+                </ion-item>
+                <ion-item ng-if="logueado == true" menu-close href="#/app/login">
+                    Cerrar Sesi&oacute;n
                 </ion-item>
             </ion-list>
         </ion-content>

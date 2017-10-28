@@ -28,6 +28,7 @@ angular.module('starter')
             $rootScope.idEscribir = id;
             $state.go('app.escribirTag');
         }
+
         $scope.cargarBovinos = cargarBovinos;
 
         cargarBovinos();

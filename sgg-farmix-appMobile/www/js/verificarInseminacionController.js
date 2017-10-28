@@ -1,8 +1,6 @@
 angular.module('starter')
     .controller('VerificarInseminacionController', function ($scope, $state, $rootScope, $stateParams, verificacionInseminacionService) {
-        $rootScope.evento = {};
         $rootScope.evento.resultado = "0";
-        $rootScope.evento.tipoVerificacion = "0";
 
         $scope.verificar = function () {
             if ($rootScope.evento.resultado != "0") {
