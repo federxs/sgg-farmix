@@ -9,7 +9,7 @@
 
     function loginService($http, portalService) {
         var service = {
-            inicializar: inicializar
+            consultar: consultar
         };
 
         function consultar(credenciales) {

@@ -28,7 +28,7 @@
 
                     },
                     function error(error) {
-                     toastr.error("Los datos son inválidos. /br Por favor revíselos e intente nuevamente.")
+                     toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.")
                     });
             }
         }
