@@ -1,19 +1,24 @@
 (function () {
     angular.module('starter')
-    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, $ionicLoading) {
+    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, loginService, $ionicLoading) {
 
         $ionicPlatform.ready(function () {
             nfc.addNdefListener(tagEscaneado);
         });
 
         $scope.loginData = {};
-        alert("holi luki");
         $rootScope.logueado = false;
 
         $scope.doLogin = function () {
-            $rootScope.logueado = true;
+            showIonicLoading().then(validarLogin).then(function (_login) { 
+                alert(_login);
+            }).then($ionicLoading.hide).catch($ionicLoading.hide);;
             $state.go('app.bienvenido');
-            //validacion contra el server para el login
+        }
+
+        function validarLogin() {
+            $scope.loginData.idRol = 3;
+            return loginService.validarLogin($scope.loginData);
         }
 
         tagEscaneado = function (nfcEvent) {
