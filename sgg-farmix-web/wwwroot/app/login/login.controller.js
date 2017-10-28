@@ -33,7 +33,7 @@
                 return false;
             }
             if (isUndefinedOrNull(vm.contrasenia)) {
-                toastr.info("El contraseña se encuentra vacia");
+                toastr.info("La contraseña se encuentra vacia");
                 return false;
             }
             return true;
