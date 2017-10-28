@@ -8,7 +8,7 @@
     loginController.$inject = ['$scope', '$timeout', 'toastr'];
 
     function loginController($scope, $timeout,toastr) {
-        var vm = this;
+        var vm = $scope;
 
         vm.inicializar = inicializar;
         vm.aceptar = aceptar;
@@ -22,7 +22,7 @@
         }
 
         function aceptar() {
-            if (validar === true) {
+            if (validar() === true) {
                 console.log("la puta madre anduvo");
             }
         }
