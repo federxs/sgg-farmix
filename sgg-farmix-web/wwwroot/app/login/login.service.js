@@ -14,9 +14,9 @@
 
         function consultar(credenciales) {
             return $http({
-                method: 'POST',
-                url: portalService.getUrlServer() + 'api/Login/consultar',
-                params: { credenciales: credenciales }
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Usuario/Validar',
+                params: { usuario: credenciales }
             }).then(
             function (data) {
                 return data.data || [];

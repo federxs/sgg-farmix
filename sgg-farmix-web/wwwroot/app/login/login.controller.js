@@ -5,9 +5,9 @@
         .module('app')
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', '$timeout', 'toastr'];
+    loginController.$inject = ['$scope', '$timeout', 'toastr', 'loginService'];
 
-    function loginController($scope, $timeout,toastr) {
+    function loginController($scope, $timeout, toastr, loginService) {
         var vm = $scope;
 
         vm.inicializar = inicializar;
@@ -23,7 +23,13 @@
 
         function aceptar() {
             if (validar() === true) {
-                console.log("la puta madre anduvo");
+                loginService.consultar({ usuario: vm.usuario, pass: vm.contrasenia, idRol: 1 })
+                    .then(function success(data) {
+
+                    },
+                    function error(error) {
+                     toastr.error("Los datos son inválidos. /br Por favor revíselos e intente nuevamente.")
+                    });
             }
         }
 
@@ -39,8 +45,8 @@
             return true;
         }
 
-        function isUndefinedOrNull(val){
-            return angular.isUndefined(val) || val === null 
+        function isUndefinedOrNull(val) {
+            return angular.isUndefined(val) || val === null
         }
     }
 })();
