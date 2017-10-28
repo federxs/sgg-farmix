@@ -7,6 +7,12 @@
 
         /// Default
         $stateProvider
+            .state('login', {
+                url: '/login',
+                templateUrl: 'app/login/login.html',
+                controller: 'loginController'
+            });
+        $stateProvider
             .state('home', {
                 url: '/home',
                 templateUrl: 'app/master.html',

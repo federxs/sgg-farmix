@@ -41,7 +41,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public long ValidarUsuario(Usuario entity)
+        public ResultadoValidacion ValidarUsuario(Usuario entity)
         {
             try
             {
@@ -52,8 +52,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@pass", entity.pass },
                     {"@rol", entity.idRol }
                 };
-                entity.idUsuario = connection.GetArray<long>("spValidarUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
-                return entity.idUsuario;
+                var result = connection.GetArray<ResultadoValidacion>("spValidarUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                return result;
             }
             catch (Exception ex)
             {

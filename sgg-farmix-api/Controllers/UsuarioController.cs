@@ -14,7 +14,7 @@ namespace sgg_farmix_api.Controllers
         private UsuarioManager UM = new UsuarioManager();
         [Route("api/Usuario/Validar")]
         [HttpGet]
-        public long ValidarUsuario(string usuario)
+        public ResultadoValidacion ValidarUsuario(string usuario)
         {
             try
             {

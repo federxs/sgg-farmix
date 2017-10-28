@@ -11,6 +11,7 @@
         $scope.showSpinner = true;
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
+        $scope.insert = insert;
 
         function inicializar() {
             $scope.showSpinner = true;
@@ -73,6 +74,14 @@
             for (var i = 0; i < graficoCatego.length; i++) {
                 $scope.graficoCategorias.data.rows.push({ c: [{ v: graficoCatego[i].categoria }, { v: graficoCatego[i].cantidad }] });
             }
+        }
+
+        function insert() {
+            var usuario = { usuario: 'pruebaMobile', pass:'123456', idRol: 3 };
+            //var lista = [12, 17];
+            inicioService.getData(usuario).then(function success(data) {
+                var hola = data;
+            })
         }
     }//fin controlador
 })();

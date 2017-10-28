@@ -60,6 +60,7 @@
     <Compile Include="DAOs\RodeoManager.cs" />
     <Compile Include="DAOs\TactoManager.cs" />
     <Compile Include="DAOs\TipoEventoManager.cs" />
+    <Compile Include="DAOs\UsuarioManager.cs" />
     <Compile Include="DAOs\VacunaManager.cs" />
     <Compile Include="Helper\Atributes.cs" />
     <Compile Include="Helper\IConnection.cs" />
@@ -83,8 +84,10 @@
     <Compile Include="Model\Raza.cs" />
     <Compile Include="Model\Resultados.cs" />
     <Compile Include="Model\Rodeo.cs" />
+    <Compile Include="Model\Rol.cs" />
     <Compile Include="Model\Tacto.cs" />
     <Compile Include="Model\TipoEvento.cs" />
+    <Compile Include="Model\Usuario.cs" />
     <Compile Include="Model\Vacuna.cs" />
     <Compile Include="Model\Venta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

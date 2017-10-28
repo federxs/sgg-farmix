@@ -195,6 +195,7 @@
     <Compile Include="Controllers\RodeoController.cs" />
     <Compile Include="Controllers\TactoController.cs" />
     <Compile Include="Controllers\TipoEventoController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VacunaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
