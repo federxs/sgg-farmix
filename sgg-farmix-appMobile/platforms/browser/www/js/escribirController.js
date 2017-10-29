@@ -1,8 +1,35 @@
 angular.module('starter')
-    .controller('EscribirController', function ($scope, $rootScope) {
-        $scope.txtBovino = {};
-        $scope.escribir = function() {
-            $rootScope.aviso = "Acerque el tag";
-            $rootScope.idBovino = $scope.txtBovino.value;
+    .controller('EscribirController', function ($scope, $rootScope, $ionicLoading, bovinoService, $state) {
+        function cargarBovinos() {
+            showIonicLoading().then(getBovinos).then(function (_bovinos) {
+                $scope.bovinosEscritos = [];
+                $scope.bovinos = [];
+                for (var i = 0; i < _bovinos.length; i++) {
+                    if (_bovinos[i].escrito) {
+                        $scope.bovinosEscritos.push(_bovinos[i]);
+                    } else {
+                        $scope.bovinos.push(_bovinos[i]);
+                    }
+                }
+            }).then($ionicLoading.hide).catch($ionicLoading.hide);
         }
-})
+
+        function showIonicLoading() {
+            return $ionicLoading.show({
+                template: '<ion-spinner icon="lines"/>'
+            });
+        }
+        function getBovinos() {
+            return bovinoService.getBovinos();
+        }
+
+        $scope.grabar = function (id, escribir) {
+            $rootScope.actualizarEscritura = escribir;
+            $rootScope.idEscribir = id;
+            $state.go('app.escribirTag');
+        }
+
+        $scope.cargarBovinos = cargarBovinos;
+
+        cargarBovinos();
+    })

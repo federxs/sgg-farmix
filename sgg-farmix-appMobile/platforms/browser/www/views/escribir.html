@@ -1,10 +1,27 @@
-﻿<ion-view view-title="Escribir">
+﻿<ion-view view-title="Grabar Tag">
     <ion-content padding="true" class="fondo">
-        <label class="item item-input">
-            <input type="number" ng-model="txtBovino.value" placeholder="Ingrese el id del bovino a escribir" />
-        </label>
-        <button class="button button-block bordeBoton" ion-button ng-click="escribir()">Escribir</button>
-        <br />
-        <h3 style="text-align: center">{{aviso}}</h3>
-</ion-content>
+        <ion-refresher pulling-text="Actualizar" on-refresh="cargarBovinos()"></ion-refresher>
+        <h3>Bovinos con Tag sin grabar</h3>
+        <table class="bordeTabla">
+            <tr>
+                <th>Numero de Caravana</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="bovino in bovinos">
+                <td>{{bovino.numCaravana}}</td>
+                <td><button ng-click="grabar(bovino.idBovino, true)" ion-button>Grabar Tag</button></td>
+            </tr>
+        </table><br />
+        <h3>Bovinos con Tag ya grabados</h3>
+        <table class="bordeTabla">
+            <tr>
+                <th>Numero de Caravana</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="bovino in bovinosEscritos">
+                <td>{{bovino.numCaravana}}</td>
+                <td><button ng-click="grabar(bovino.idBovino, false)" ion-button>Grabar Tag</button></td>
+            </tr>
+        </table>
+    </ion-content>
 </ion-view>

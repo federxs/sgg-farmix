@@ -11,7 +11,13 @@
 
         $scope.doLogin = function () {
             showIonicLoading().then(validarLogin).then(function (_login) { 
-                alert(_login);
+                if (_login.resultado == "1") {
+                    $rootScope.logueado = true;
+                }
+                else
+                {
+                    alert("Usuario o contraseña incorrecto.");
+                }
             }).then($ionicLoading.hide).catch($ionicLoading.hide);;
             $state.go('app.bienvenido');
         }

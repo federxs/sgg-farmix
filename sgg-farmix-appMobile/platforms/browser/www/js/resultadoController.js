@@ -2,23 +2,26 @@ angular.module('starter')
 .controller('ResultadoController', function ($stateParams, $scope, bovinoService, $ionicLoading, $state) {
     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
         if (_bovino != null) {
-            $scope.peso = _bovino.peso;
-            $scope.apodo = _bovino.apodo;
-            $scope.numCaravana = _bovino.numCaravana;
-            var fecha = _bovino.fechaNacimiento.substr(0, 10);
-            /*if (_bovino.fechaNacimiento.charAt(1) == '/' && _bovino.fechaNacimiento.charAt(4) == '/') {
-                fecha = _bovino.fechaNacimiento.substr(2, 2) + "/" + _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(5, 4)
-            } else if (_bovino.fechaNacimiento.charAt(2) == '/' && _bovino.fechaNacimiento.charAt(4) == '/') {
-                fecha = _bovino.fechaNacimiento.substr(3, 1) + "/" + _bovino.fechaNacimiento.substr(0, 2) + "/" + _bovino.fechaNacimiento.substr(5, 4)
+            $scope.bovino = _bovino;
+            var fecha;// = _bovino.fechaNacimiento.substr(0, 10);
+            if (_bovino.fechaNacimiento.charAt(1) == '/' && _bovino.fechaNacimiento.charAt(4) == '/') {
+                fecha = _bovino.fechaNacimiento.substr(2, 2) + "/0" + _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(5, 4)
             } else if (_bovino.fechaNacimiento.charAt(2) == '/' && _bovino.fechaNacimiento.charAt(5) == '/') {
-                fecha = _bovino.fechaNacimiento.substr(3, 2) + "/" + _bovino.fechaNacimiento.substr(0, 2) + "/" + _bovino.fechaNacimiento.substr(5, 4)
+                fecha = _bovino.fechaNacimiento.substr(3, 2) + "/" + _bovino.fechaNacimiento.substr(0, 2) + "/" + _bovino.fechaNacimiento.substr(6, 4)
+            } else if (_bovino.fechaNacimiento.charAt(1) == '/' && _bovino.fechaNacimiento.charAt(3) == '/') {
+                fecha = "0" + _bovino.fechaNacimiento.substr(2, 1) + "/0"  +  _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(4, 4)
             } else {
-                fecha = _bovino.fechaNacimiento.substr(2, 1) + "/" + _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(5, 4)
-            }*/
-            $scope.fechaNacimiento = fecha;
+                fecha = "0" + _bovino.fechaNacimiento.substr(3, 1) + "/" + _bovino.fechaNacimiento.substr(0, 2) + "/" + _bovino.fechaNacimiento.substr(5, 4)
+            }
+            $scope.bovino.fechaNacimiento = fecha;
+            if ($scope.bovino.genero == 0) {
+                $scope.bovino.genero = "Hembra";
+            } else {
+                $scope.bovino.genero = "Macho";
+            }
         } else {
-            alert("El id escaneado no se encuentra dentro de los animales registrados");
             $state.go('app.leer');
+            alert("El id escaneado no se encuentra dentro de los animales registrados");
         }
     }).then($ionicLoading.hide).catch($ionicLoading.hide);
 

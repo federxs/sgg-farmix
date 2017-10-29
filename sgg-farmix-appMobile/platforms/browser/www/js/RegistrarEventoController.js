@@ -6,4 +6,10 @@ angular.module('starter')
     $scope.manejar = function () {
         $state.go('app.manejo');
     }
+    $scope.antibiotico = function () {
+        $state.go('app.antibiotico');
+    }
+    $scope.alimento = function () {
+        $state.go('app.alimento');
+    }
 });

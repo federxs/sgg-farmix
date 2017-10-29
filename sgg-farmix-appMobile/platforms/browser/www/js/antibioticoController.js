@@ -1,23 +1,23 @@
 angular.module('starter')
-    .controller('VacunacionController', function ($ionicLoading, $scope, vacunaService, $rootScope, registrarEventoService, $state) {
-        showIonicLoading().then(obtenerVacuna).then(function (_vacunas) {            
-            $scope.vacunas = _vacunas;
+    .controller('AntibioticoController', function ($ionicLoading, $scope, antibioticoService, $rootScope, registrarEventoService, $state) {
+        showIonicLoading().then(obtenerAntibiotico).then(function (_antibioticos) {            
+            $scope.antibioticos = _antibioticos;
             $scope.evento = {};
             $scope.txtMiligramaje = {};
-            $scope.evento.vacuna = "0";
+            $scope.evento.antibiotico = "0";
             
         }).then($ionicLoading.hide).catch($ionicLoading.hide);
 
         $scope.registrar = function () {
             if($scope.txtMiligramaje.value > 0){
-            if ($scope.evento.vacuna == "0") {
-                alert("Seleccione una vacuna para continuar");
+            if ($scope.evento.antibiotico == "0") {
+                alert("Seleccione un antibiótico para continuar");
             } else {
                 if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
                 alert("Escanee el tag de al menos una vaca para continuar");
             } else {
                 showIonicLoading().then(registrarEvento).then(function () {
-                    alert("Vacunacion registrada satisfactoriamente");
+                    alert("Antibiótico registrado satisfactoriamente");
                     $rootScope.vacas = null;
                     $rootScope.idVacas = [];
                     $state.go('app.registrarEvento');
@@ -36,11 +36,11 @@ angular.module('starter')
         }
 
         function registrarEvento() {
-            var evento = { idTipoEvento: 1, idVacuna: $scope.evento.vacuna, cantidad: $scope.txtMiligramaje.value };
+            var evento = { idTipoEvento: 2, idAntibiotico: $scope.evento.antibiotico, cantidad: $scope.txtMiligramaje.value };
             return registrarEventoService.registrarEvento(evento);
         }
 
-        function obtenerVacuna() {
-            return vacunaService.getDatosVacuna();
+        function obtenerAntibiotico() {
+            return antibioticoService.getDatosAntibiotico();
         }
     });

@@ -11,6 +11,7 @@ angular.module('starter')
         }).then($ionicLoading.hide).catch($ionicLoading.hide);
 
         $scope.cargarRodeo = function () {
+            $scope.evento.rodeo = "0";
             $scope.rodeos = [];
             for (var i = 0; i < todosRodeos.length; i++) {
                 if (todosRodeos[i].idCampo == $scope.evento.campo) {
@@ -22,12 +23,13 @@ angular.module('starter')
             if ($scope.evento.campo == "0" || $scope.evento.rodeo == "0") {
                 alert("Seleccione un campo y un rodeo para continuar");
             } else {
-                if ($rootScope.vacas == undefined) {
+                if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
                 alert("Escanee el tag de al menos una vaca para continuar");
-            } else {
+                } else {
                 showIonicLoading().then(registrarEvento).then(function () {
                     alert("Evento manejo registrado satisfactoriamente");
-                    $rootScope.vacas = [];
+                    $rootScope.vacas = null;
+                    $rootScope.idVacas = [];
                     $state.go('app.registrarEvento');
                 }).then($ionicLoading.hide).catch($ionicLoading.hide);
                 }
@@ -40,7 +42,7 @@ angular.module('starter')
         }
 
         function registrarEvento() {
-            var evento = { idTipoEvento: 3, idCampoActual: $scope.evento.campo };
+            var evento = { idTipoEvento: 3, idCampoDestino: $scope.evento.campo, idRodeoDestino: $scope.evento.rodeo };
             return registrarEventoService.registrarEvento(evento);
         }
 

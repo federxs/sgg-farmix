@@ -1,0 +1,26 @@
+﻿<ion-view view-title="Inseminaciones Pendientes">
+    <ion-content padding="true" class="fondo">
+        <h3>Inseminaciones para confirmar por ecografia</h3>
+        <table class="bordeTabla">
+            <tr>
+                <th>Numero de Caravana</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="inseminacion in inseminaciones">
+                <td>{{inseminacion.idVaca}}</td>
+                <td><button ng-click="verificar(inseminacion.idInseminacion, '2')" ion-button>Verificar</button></td>
+            </tr>
+        </table><br>
+        <h3>Inseminaciones para confirmar por tacto</h3>
+        <table class="bordeTabla">
+            <tr>
+                <th>Numero de Caravana</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="inseminacion in inseminacionesTacto">
+                <td>{{inseminacion.idVaca}}</td>
+                <td><button ng-click="verificar(inseminacion.idInseminacion, '1')" ion-button>Verificar</button></td>
+            </tr>
+        </table><br>
+    </ion-content>
+</ion-view>

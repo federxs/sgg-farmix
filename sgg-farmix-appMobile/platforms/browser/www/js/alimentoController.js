@@ -1,23 +1,23 @@
 angular.module('starter')
-    .controller('VacunacionController', function ($ionicLoading, $scope, vacunaService, $rootScope, registrarEventoService, $state) {
-        showIonicLoading().then(obtenerVacuna).then(function (_vacunas) {            
-            $scope.vacunas = _vacunas;
+    .controller('AlimentoController', function ($ionicLoading, $scope, alimentoService, $rootScope, registrarEventoService, $state) {
+        showIonicLoading().then(obtenerAlimento).then(function (_alimentos) {            
+            $scope.alimentos = _alimentos;
             $scope.evento = {};
-            $scope.txtMiligramaje = {};
-            $scope.evento.vacuna = "0";
+            $scope.txtKiligramaje = {};
+            $scope.evento.alimento = "0";
             
         }).then($ionicLoading.hide).catch($ionicLoading.hide);
 
         $scope.registrar = function () {
-            if($scope.txtMiligramaje.value > 0){
-            if ($scope.evento.vacuna == "0") {
-                alert("Seleccione una vacuna para continuar");
+            if($scope.txtKiligramaje.value > 0){
+            if ($scope.evento.alimento == "0") {
+                alert("Seleccione un alimento para continuar");
             } else {
                 if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
                 alert("Escanee el tag de al menos una vaca para continuar");
             } else {
                 showIonicLoading().then(registrarEvento).then(function () {
-                    alert("Vacunacion registrada satisfactoriamente");
+                    alert("Alimento registrado satisfactoriamente");
                     $rootScope.vacas = null;
                     $rootScope.idVacas = [];
                     $state.go('app.registrarEvento');
@@ -25,7 +25,7 @@ angular.module('starter')
             }
           }            
         } else{
-            alert("Ingrese una cantidad de miligramos valida.");
+            alert("Ingrese una cantidad de kilogramos valida.");
             }
         };
 
@@ -36,11 +36,11 @@ angular.module('starter')
         }
 
         function registrarEvento() {
-            var evento = { idTipoEvento: 1, idVacuna: $scope.evento.vacuna, cantidad: $scope.txtMiligramaje.value };
+            var evento = { idTipoEvento: 4, idAlimento: $scope.evento.alimento, cantidad: $scope.txtKiligramaje.value };
             return registrarEventoService.registrarEvento(evento);
         }
 
-        function obtenerVacuna() {
-            return vacunaService.getDatosVacuna();
+        function obtenerAlimento() {
+            return alimentoService.getDatosAlimento();
         }
     });

@@ -1,0 +1,17 @@
+﻿<ion-view view-title="Verificar estado inseminación">
+    <ion-content padding="true" class="fondo">
+        <select class="item item-input" ng-model="evento.resultado">
+            <option value="0">Seleccionar resultado de la verificación</option>
+            <option value="1">Inseminación exitosa</option>
+            <option value="2">Inseminación fallida</option>
+        </select>
+        <br />
+        <select class="item item-input" ng-model="evento.tipoVerificacion">
+            <option value="0">Seleccionar el tipo de verificación</option>
+            <option value="1">Tacto</option>
+            <option value="2">Ecografía</option>
+        </select>
+        <br />
+        <button ng-click="verificar()" class="button bordeBoton botonRegistrarEvento" ion-button>Registrar Verificación</button>
+    </ion-content>
+</ion-view>

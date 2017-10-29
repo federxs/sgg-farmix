@@ -3,7 +3,7 @@
         var loginUrl = portalService.getUrlServer() + "api/Usuario/Validar";
         this.validarLogin = function (usuario) {
             return $http({
-                method: 'GET',
+                method: 'POST',
                 url: loginUrl,
                 params: { usuario: usuario }
             }).then(function (respuesta) {
