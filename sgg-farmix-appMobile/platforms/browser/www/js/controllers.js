@@ -1,32 +1,11 @@
 (function () {
     angular.module('starter')
-    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, loginService, $ionicLoading) {
+    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, loginService, $ionicLoading, $localStorage) {
 
         $ionicPlatform.ready(function () {
             nfc.addNdefListener(tagEscaneado);
+            $rootScope.logueado = false;
         });
-
-        $scope.loginData = {};
-        $rootScope.logueado = false;
-
-        $scope.doLogin = function () {
-            showIonicLoading().then(validarLogin).then(function (_login) { 
-                if (_login.resultado == "1") {
-                    $rootScope.logueado = true;
-                }
-                else
-                {
-                    alert("Usuario o contraseña incorrecto.");
-                }
-            }).then($ionicLoading.hide).catch($ionicLoading.hide);;
-            $state.go('app.bienvenido');
-        }
-
-        function validarLogin() {
-            $scope.loginData.idRol = 3;
-            return loginService.validarLogin($scope.loginData);
-        }
-
         tagEscaneado = function (nfcEvent) {
             if ($state.current.name == "app.escribirTag") {
                 var id = $rootScope.idEscribir;

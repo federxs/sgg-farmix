@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic', 'ngStorage'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -30,7 +30,7 @@ angular.module('starter', ['ionic'])
           views: {
               'menuContent': {
                   templateUrl: 'views/login.html',
-                  controller: 'Controller'
+                  controller: 'LoginController'
               }
           }
       })
@@ -38,9 +38,10 @@ angular.module('starter', ['ionic'])
           url: '/bienvenido',
           views: {
               'menuContent': {
-                  templateUrl: 'views/bienvenido.html'
+                  templateUrl: 'views/bienvenido.html',
+                  controller: 'BienvenidoController'       
               }
-          }
+            }
       })
       .state('app.leer', {
           url: '/leer',
@@ -159,5 +160,5 @@ angular.module('starter', ['ionic'])
             }
         });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/login');
+    $urlRouterProvider.otherwise('/app/bienvenido');
 });
