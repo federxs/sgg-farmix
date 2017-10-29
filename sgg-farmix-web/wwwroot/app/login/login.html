@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <title>LOGIN</title>
     <meta charset="utf-8" />
     <title></title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">   
 </head>
 <body>
     <style>
@@ -12,26 +13,9 @@
             background-repeat: no-repeat;
             background-size: cover;
             font-family: 'Open Sans', sans-serif;
+            background-position:center;
+            background-attachment:fixed;
         }
-
-        /*#bg {
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-        }
-
-            #bg img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                margin: auto;
-                min-width: 50%;
-                min-height: 50%;
-            }*/
 
         @import url(http://fonts.googleapis.com/css?family=Roboto);
 
@@ -129,7 +113,7 @@
     </style>
 
 
-    <a id="btn_login" data-toggle="modal" data-target="#login-modal"></a>
+    <a id="btn_login" data-toggle="modal" data-target="#login-modal" style="font-size: 25px;cursor:pointer">Login</a>
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog">
             <div class="loginmodal-container">
@@ -137,11 +121,11 @@
                     <img src="../../images/mati-03.png" height="200" width="200" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px; " />
                 </div><form>
                     <input type="text" name="usuario" placeholder="Usuario"
-                           ng-model="usuario">
+                           ng-model="usuario.usuario" ng-show="ocultarUsuario">
                     <input type="password" name="contrasenia" placeholder="Contraseña"
-                           ng-model="contrasenia">
+                           ng-model="usuario.pass">
                     <input type="submit" name="login" class="login loginmodal-submit" value="Ingresar"
-                           ng-click="aceptar()">
+                           ng-click="aceptar()" ng-keydown="$event.keyCode === 13 && aceptar()">
                 </form>
 
                 <div class="login-help">
