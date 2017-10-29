@@ -4,6 +4,7 @@
     var app = angular.module('app', [
         'ui.router',
         'ngResource',
+        'ngStorage',
         'oc.lazyLoad',
         'toastr',
         'googlechart',
