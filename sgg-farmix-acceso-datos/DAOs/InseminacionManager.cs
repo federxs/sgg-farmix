@@ -276,6 +276,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                         throw new ArgumentException("Update Inseminacion Error");
                     var parametros = new Dictionary<string, object>
                     {
+                        {"@fechaInsemOriginal", fechaInseminacionAnterior },
                         {"@fechaInseminacion", entity.fechaInseminacion },
                         {"@idTipoInseminacion", entity.tipoInseminacion },
                         {"@idVaca", 0 }
