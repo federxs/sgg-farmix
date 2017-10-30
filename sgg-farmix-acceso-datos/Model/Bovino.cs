@@ -39,6 +39,7 @@ namespace sgg_farmix_acceso_datos.Model
         public float peso { get; set; }
         public long numCaravana { get; set; }
         public string accionPeso { get; set; }
+        public long codigoCampo { get; set; }
 
     }
 

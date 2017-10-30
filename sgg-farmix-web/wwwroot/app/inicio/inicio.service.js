@@ -9,25 +9,14 @@
 
     function inicioService($http, portalService) {
         var service = {
-            inicializar: inicializar,
-            getData: getData
+            inicializar: inicializar
         };
 
-        function inicializar() {
+        function inicializar(id) {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Dashboard/Get'
-            }).then(
-            function (data) {
-                return data.data || [];
-            });
-        }
-
-        function getData(usuario) {
-            return $http({
-                method: 'GET',
-                url: portalService.getUrlServer() + 'api/Usuario/Validar',
-                params: { usuario: usuario }
+                url: portalService.getUrlServer() + 'api/Dashboard/Get',
+                params: {id: id}
             }).then(
             function (data) {
                 return data.data || [];

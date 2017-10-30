@@ -5,9 +5,9 @@
         .module('app')
         .controller('inicioController', inicioController);
 
-    inicioController.$inject = ['$scope', 'inicioService', 'toastr'];
+    inicioController.$inject = ['$scope', 'inicioService', 'toastr', '$localStorage'];
 
-    function inicioController($scope, inicioService, toastr) {
+    function inicioController($scope, inicioService, toastr, $localStorage) {
         $scope.showSpinner = true;
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
@@ -15,10 +15,11 @@
 
         function inicializar() {
             $scope.showSpinner = true;
-            inicioService.inicializar().then(function success(data) {
+            inicioService.inicializar($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 $scope.cantBovinos = data.bovinos;
                 $scope.cantEventos = data.eventos;
                 $scope.cantVentas = data.ventas;
+                $scope.vacasPreniadas = data.vacasPreniadas;
                 cargarGraficoRazas(data.graficoRaza);
                 cargarGraficoCategorias(data.graficoCategorias);
                 $scope.showSpinner = false;

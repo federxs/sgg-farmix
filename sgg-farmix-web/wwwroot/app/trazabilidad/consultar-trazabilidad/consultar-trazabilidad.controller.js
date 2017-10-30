@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarTrazabilidadController', consultarTrazabilidadController);
 
-    consultarTrazabilidadController.$inject = ['$scope', 'tipoEventoService', 'toastr', 'consultarTrazabilidadService', '$state', 'exportador'];
+    consultarTrazabilidadController.$inject = ['$scope', 'tipoEventoService', 'toastr', 'consultarTrazabilidadService', '$state', 'exportador', '$localStorage'];
 
-    function consultarTrazabilidadController($scope, tipoEventoService, toastr, consultarTrazabilidadService, $state, exportador) {
+    function consultarTrazabilidadController($scope, tipoEventoService, toastr, consultarTrazabilidadService, $state, exportador, $localStorage) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.disabled = 'disabled';
@@ -24,7 +24,6 @@
         vm.getFechaDesde = getFechaDesde;
         vm.getFechaHasta = getFechaHasta;
         vm.exportarPDF = exportarPDF;
-        vm.insert = insert;
         //variables       
         vm.filtro = {};
         vm.cursor = '';
@@ -44,6 +43,7 @@
             tipoEventoService.inicializar({}).then(function success(data) {
                 vm.Eventos = data;
                 vm.filtro.idTipoEvento = '0';
+                vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
                 vm.disabled = '';
                 consultar();
             }, function error(error) {
@@ -111,10 +111,6 @@
 
         function limpiarCampos() {
             $state.reload();
-            //vm.filtro = {};
-            //vm.filtro.idTipoEvento = '0';
-            //vm.filtro.numCaravana = '';
-            //consultar();
         }
 
         function exportarExcel() {
@@ -457,14 +453,6 @@
                     vm.formConsultarTrazabilidad.fechaHasta.$setValidity("min", true);
                 }
             }
-        }
-
-        function insert() {
-            var evento = { idTipoEvento: 1, idVacuna: 1, cantidad: 100 };
-            var lista = [12, 17];
-            tipoEventoService.insert(evento, lista.toString()).then(function success(data) {
-                var hola = data;
-            })
         }
     }
 })();

@@ -98,7 +98,8 @@ namespace sgg_farmix_api.Controllers
                 resultado.tipoEvento = new TipoEventoManager().GetList();
                 resultado.listaBovinos = EM.GetEvento(Int64.Parse(id));
                 resultado.campos = new CampoManager().GetList();
-                resultado.rodeos = new RodeoManager().GetList(resultado.listaBovinos.campoDestino);
+                //resultado.rodeos = new RodeoManager().GetList(resultado.listaBovinos.campoDestino);
+                resultado.rodeos = new RodeoManager().GetList(100);
             }
             catch (Exception ex)
             {

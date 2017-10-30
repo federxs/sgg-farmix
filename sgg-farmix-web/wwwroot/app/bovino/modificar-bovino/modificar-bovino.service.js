@@ -14,11 +14,11 @@
             existeIdCaravana: existeIdCaravana
         };
 
-        function inicializar(idBovino) {
+        function inicializar(idBovino, idCampo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Bovino/initModificacion',
-                params: { idBovino: idBovino }
+                params: { idBovino: idBovino, idCampo: idCampo }
             }).then(
             function (data) {
                 return data.data || [];

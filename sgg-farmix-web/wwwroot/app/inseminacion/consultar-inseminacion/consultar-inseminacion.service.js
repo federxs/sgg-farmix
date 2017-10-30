@@ -13,17 +13,16 @@
             getInseminacionesXFechaInsem: getInseminacionesXFechaInsem,
             consultarPreniadasXParir: consultarPreniadasXParir,
             consultarLactanciasActivas,
-            insert: insert,
-            insertTacto: insertTacto,
             eliminarInseminacion: eliminarInseminacion
         };
 
         return service;
 
-        function inicializar() {
+        function inicializar(idCampo) {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Inseminacion/Init'
+                url: portalService.getUrlServer() + 'api/Inseminacion/Init',
+                params: {idCampo: idCampo}
             }).then(
            function (data) {
                return data.data || [];
@@ -40,30 +39,33 @@
            });
         }
 
-        function consultarServicioSinConfirmar() {
+        function consultarServicioSinConfirmar(idCampo) {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Inseminacion/ServicioSinConfirmar'
+                url: portalService.getUrlServer() + 'api/Inseminacion/ServicioSinConfirmar',
+                params: { idCampo: idCampo }
             }).then(
            function (data) {
                return data.data || [];
            });
         }
 
-        function getInseminacionesXFechaInsem() {
+        function getInseminacionesXFechaInsem(idCampo) {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Inseminacion/GetInseminacionesAgrupadasXFechaInsem'
+                url: portalService.getUrlServer() + 'api/Inseminacion/GetInseminacionesAgrupadasXFechaInsem',
+                params: { idCampo: idCampo }
             }).then(
            function (data) {
                return data.data || [];
            });
         }
 
-        function consultarPreniadasXParir() {
+        function consultarPreniadasXParir(idCampo) {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Inseminacion/PreniadasPorParir'
+                url: portalService.getUrlServer() + 'api/Inseminacion/PreniadasPorParir',
+                params: { idCampo: idCampo }
             }).then(
            function (data) {
                return data.data || [];
@@ -78,34 +80,6 @@
            function (data) {
                return data.data || [];
            });
-        }
-
-        function insert(inseminacion, listaVacas, listaToros) {
-            return $http({
-                method: 'POST',
-                url: portalService.getUrlServer() + 'api/Inseminacion/Insert',
-                params: {
-                    inseminacion: inseminacion,
-                    listaVacas: listaVacas,
-                    listaToros: listaToros
-                }
-            }).then(
-            function (data) {
-                return data.data || [];
-            });
-        }
-
-        function insertTacto(tacto) {
-            return $http({
-                method: 'POST',
-                url: portalService.getUrlServer() + 'api/Tacto/Insert',
-                params: {
-                    tacto: tacto
-                }
-            }).then(
-            function (data) {
-                return data.data || [];
-            });
         }
 
         function eliminarInseminacion(parametro) {

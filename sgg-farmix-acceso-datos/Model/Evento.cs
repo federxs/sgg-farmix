@@ -33,6 +33,7 @@ namespace sgg_farmix_acceso_datos.Model
         public long idTipoEvento { get; set; }
         public string fechaDesde { get; set; }
         public string fechaHasta { get; set; }
+        public long codigoCampo { get; set; }
     }
 
     public class EventoDetalle

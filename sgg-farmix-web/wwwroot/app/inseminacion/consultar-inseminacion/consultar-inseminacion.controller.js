@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarInseminacionController', consultarInseminacionController);
 
-    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr', '$state', 'exportador'];
+    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr', '$state', 'exportador', '$localStorage'];
 
-    function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state, exportador) {
+    function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state, exportador, $localStorage) {
         var vm = $scope;
         //variables
         vm.showSpinner = true;
@@ -30,8 +30,6 @@
         vm.lactanciasActivas = lactanciasActivas;
         vm.obtenerServSinConfirm = obtenerServSinConfirm;
         vm.obtenerProxPartos = obtenerProxPartos;
-        vm.insert = insert;
-        vm.insertarTacto = insertarTacto;
         vm.obtenerHembrasParaServicio = obtenerHembrasParaServicio;
         vm.obtenerLactanciasActivas = obtenerLactanciasActivas;
         vm.exportarExcelServSinConfirm = exportarExcelServSinConfirm;
@@ -46,7 +44,7 @@
             vm.showSpinner = true;
             vm.showServSinConfirm = true;
             vm.showProxPartos = true;
-            consultarInseminacionService.inicializar().then(function success(data) {
+            consultarInseminacionService.inicializar($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 vm.init = data;
                 serviciosSinConfirmar();
                 proximosPartos();
@@ -66,7 +64,7 @@
             if (vistoServSinConfirm === 1) {
                 vistoServSinConfirm = 0;
                 vm.showServSinConfirm = true;
-                consultarInseminacionService.consultarServicioSinConfirmar().then(
+                consultarInseminacionService.consultarServicioSinConfirmar($localStorage.usuarioInfo.codigoCampo).then(
                 function success(data) {
                     var fechaHoy = new Date();
                     fechaHoy = moment(convertirFecha(fechaHoy));
@@ -109,7 +107,7 @@
             vm.rowCollection = [];
             var fechaHoy = new Date();
             fechaHoy = moment(convertirFecha(fechaHoy));
-            consultarInseminacionService.getInseminacionesXFechaInsem().then(function success(data) {
+            consultarInseminacionService.getInseminacionesXFechaInsem($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 switch (rango) {
                     case 'menor60':
                         vm.rowCollection = Enumerable.From(data).Where(function (x) {
@@ -157,7 +155,7 @@
                 var fechaHoy = new Date();
                 vm.preniadasPorParir = {};
                 fechaHoy = moment(convertirFecha(fechaHoy));
-                consultarInseminacionService.consultarPreniadasXParir().then(
+                consultarInseminacionService.consultarPreniadasXParir($localStorage.usuarioInfo.codigoCampo).then(
                 function success(data) {
                     proxPartos = data;                    
                     vm.preniadasPorParir.prox10dias = Enumerable.From(data).Where(function (x) {
@@ -255,21 +253,6 @@
                 vm.showLactanciasActivas = false;
             else
                 vm.showLactanciasActivas = true;
-        }
-
-        function insert() {
-            var inseminacion = { tipoInseminacion: 1 };
-            var lista = [33, 34];
-            consultarInseminacionService.insert(inseminacion, lista.toString()).then(function success(data) {
-                var hola = data;
-            })
-        }
-
-        function insertarTacto() {
-            var tacto = { idTipoTacto: 1, exitoso: false, idInseminacion: 8 };
-            consultarInseminacionService.insertTacto(tacto).then(function success(data) {
-                var hola = data;
-            })
         }
 
         function convertirFecha(fecha) {

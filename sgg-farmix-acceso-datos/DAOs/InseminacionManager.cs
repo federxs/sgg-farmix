@@ -110,12 +110,16 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public InseminacionInit GetInicioInseminacion()
+        public InseminacionInit GetInicioInseminacion(long id)
         {
             try
             {
                 connection = new SqlServerConnection();
-                var obj = connection.GetArray<InseminacionInit>("spGetInicioInseminacion", null, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idCampo", id }
+                };
+                var obj = connection.GetArray<InseminacionInit>("spGetInicioInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return obj;
             }
             catch (Exception ex)
@@ -146,12 +150,16 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<ServSinConfirmar> GetServiciosSinConfirmar()
+        public IEnumerable<ServSinConfirmar> GetServiciosSinConfirmar(long idCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<ServSinConfirmar>("spGetListServSinConfirmar", null, System.Data.CommandType.StoredProcedure);
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idCampo", idCampo }
+                };
+                var lista = connection.GetArray<ServSinConfirmar>("spGetListServSinConfirmar", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
             catch (Exception ex)
@@ -164,12 +172,16 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<ServSinConfirmar> GetInseminacionesXFechaInsem()
+        public IEnumerable<ServSinConfirmar> GetInseminacionesXFechaInsem(long id)
         {
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<ServSinConfirmar>("spGetListInseminacionesXFecha", null, System.Data.CommandType.StoredProcedure);
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idCampo", id }
+                };
+                var lista = connection.GetArray<ServSinConfirmar>("spGetListInseminacionesXFecha", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
             catch (Exception ex)
@@ -182,12 +194,16 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<PreniadasXParir> GetPreniadasPorParir()
+        public IEnumerable<PreniadasXParir> GetPreniadasPorParir(long idCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<PreniadasXParir>("spGetListPreniadasXParir", null, System.Data.CommandType.StoredProcedure);
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", idCampo }
+                };
+                var lista = connection.GetArray<PreniadasXParir>("spGetListPreniadasXParir", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
             catch (Exception ex)

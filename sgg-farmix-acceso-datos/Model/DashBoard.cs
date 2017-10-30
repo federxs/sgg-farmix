@@ -8,9 +8,10 @@ namespace sgg_farmix_acceso_datos.Model
 {
     public class DashBoard
     {
-        public int bovinos { get; set; }
-        public int eventos { get; set; }
-        public int ventas { get; set; }
+        public long bovinos { get; set; }
+        public long eventos { get; set; }
+        public long ventas { get; set; }
+        public long vacasPreniadas { get; set; }
         public IEnumerable<DatosGraficoRaza> graficoRaza { get; set; }
         public IEnumerable<DatosGraficoCategorias> graficoCategorias { get; set; }
     }

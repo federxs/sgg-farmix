@@ -18,16 +18,17 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/initModificacion")]
         [HttpGet]
-        public Resultados Get(string idBovino)
+        public Resultados Get(string idBovino, string idCampo)
         {
             Resultados resultado = new Resultados();
             try
             {
                 var id = Regex.Replace(idBovino, @"[^\d]", "");
+                var campo = Regex.Replace(idCampo, @"[^\d]", "");
                 resultado.categorias = new CategoriaManager().GetList();
                 resultado.estados = new EstadoManager().GetList(1);
                 resultado.razas = new RazaManager().GetList();
-                resultado.rodeos = new RodeoManager().GetList("Prueba");
+                resultado.rodeos = new RodeoManager().GetList(Int64.Parse(campo));
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
                 resultado.bovino = BM.Get(Int64.Parse(id));
             }
@@ -169,9 +170,9 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
-        [Route("api/Bovino/inicializar/{idAmbitoEstado}")]
+        [Route("api/Bovino/inicializar/{idAmbitoEstado}/{idCampo}")]
         [HttpGet]
-        public Resultados GetListas(long idAmbitoEstado)
+        public Resultados GetListas(long idAmbitoEstado, long idCampo)
         {
             Resultados resultado = new Resultados();
             try
@@ -179,7 +180,7 @@ namespace sgg_farmix_api.Controllers
                 resultado.categorias = new CategoriaManager().GetList();
                 resultado.estados = new EstadoManager().GetList(idAmbitoEstado);
                 resultado.razas = new RazaManager().GetList();
-                resultado.rodeos = new RodeoManager().GetList("Prueba");
+                resultado.rodeos = new RodeoManager().GetList(idCampo);
                 resultado.alimentos = new AlimentoManager().GetList();
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
             }
