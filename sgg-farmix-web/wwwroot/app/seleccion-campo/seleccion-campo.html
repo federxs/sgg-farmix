@@ -37,7 +37,7 @@
             -webkit-box-orient: horizontal;
             -webkit-box-direction: normal;
             -ms-flex-direction: row;
-            flex-direction: row;
+            flex-direction: column;
             -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
@@ -80,10 +80,10 @@
 
         /*.row {
             /*overflow: scroll;*/
-            width: 100%;
-        }*/
+        width: 100%;
+        }
 
-        .row__inner {
+        */ .row__inner {
             -webkit-transition: 450ms -webkit-transform;
             transition: 450ms -webkit-transform;
             transition: 450ms transform;
@@ -192,11 +192,11 @@
 
     <!-- comienzo pagina-->
     <div class="container">
-        <div class="jumbotron">
-            <h1>Campos</h1>
-            <p>
-                Seleccione el campo que desea ver
-            </p>
+        <div class="jumbotron" style="background:rgba(255, 255, 255,0.8)">
+            <h1>Sus campos registrados</h1>
+            <h3 style="text-align:center">
+                Seleccione con el que desea trabajar
+            </h3>
         </div>
     </div>
     <div class="row">
