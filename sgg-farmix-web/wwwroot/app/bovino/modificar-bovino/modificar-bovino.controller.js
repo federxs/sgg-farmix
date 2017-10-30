@@ -5,9 +5,9 @@
         .module('app')
         .controller('modificarBovinoController', modificarBovinoController);
 
-    modificarBovinoController.$inject = ['$scope', 'modificarBovinoService', 'toastr', '$stateParams'];
+    modificarBovinoController.$inject = ['$scope', 'modificarBovinoService', 'toastr', '$stateParams', '$localStorage'];
 
-    function modificarBovinoController($scope, modificarBovinoService, toastr, $stateParams) {
+    function modificarBovinoController($scope, modificarBovinoService, toastr, $stateParams, $localStorage) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.habilitar = false;
@@ -35,7 +35,7 @@
         function inicializar() {
             vm.showSpinner = true;
             vm.habilitar = false;
-            modificarBovinoService.inicializar($stateParams.id).then(function success(data) {
+            modificarBovinoService.inicializar($stateParams.id, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 vm.categorias = [];
                 vm.habilitar = false;
                 //combos

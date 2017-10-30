@@ -15,5 +15,6 @@ namespace sgg_farmix_acceso_datos.Model
         public float superficie { get; set; }
         public string unidad { get; set; }
         public long idLocalidad { get; set; }
+        public long codigoCampo { get; set; }
     }
 }

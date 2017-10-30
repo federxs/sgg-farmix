@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarBovinoController', consultarBovinoController);
 
-    consultarBovinoController.$inject = ['$scope', 'consultarBovinoService', 'toastr', 'exportador'];
+    consultarBovinoController.$inject = ['$scope', 'consultarBovinoService', 'toastr', 'exportador', '$localStorage'];
 
-    function consultarBovinoController($scope, consultarBovinoService, toastr, exportador) {
+    function consultarBovinoController($scope, consultarBovinoService, toastr, exportador, $localStorage) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.disabled = 'disabled';
@@ -33,7 +33,7 @@
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
             vm.itemsPorPagina = 9;
-            consultarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
+            consultarBovinoService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                 vm.estados = data.estados;
                 vm.categorias = data.categorias;
                 categorias = data.categorias;
@@ -46,6 +46,7 @@
                 vm.filtro.idRodeo = '0';
                 vm.filtro.idEstado = '0';
                 vm.filtro.accionPeso = '0';
+                vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
                 consultar();
             }, function error(error) {
                 vm.showSpinner = false;
@@ -91,6 +92,7 @@
             vm.filtro.idEstado = '0';
             vm.filtro.accionPeso = '0';
             vm.filtro.numCaravana = '';
+            vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             consultar();
         }
 

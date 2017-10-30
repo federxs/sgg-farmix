@@ -4,9 +4,10 @@
             return $resource(portalService.getUrlServer() + 'api/BovinoConsultar/', {}, {
                 inicializar: {
                     method: 'GET',
-                    url: portalService.getUrlServer() + 'api/Bovino/inicializar/:idAmbitoEstado',
+                    url: portalService.getUrlServer() + 'api/Bovino/inicializar/:idAmbitoEstado/:idCampo',
                     params: {
-                        idAmbitoEstado: '@idAmbitoEstado'
+                        idAmbitoEstado: '@idAmbitoEstado',
+                        idCampo: '@idCampo'
                     },
                     isArray: false
                 },

@@ -28,17 +28,16 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public DashBoard Get(long id)
         {
-            throw new NotImplementedException();
-        }
-
-        public DashBoard GetFilter()
-        {
             try
             {
                 connection = new SqlServerConnection();
-                var dashboard = connection.GetArray<DashBoard>("spGetDashBoard", null, System.Data.CommandType.StoredProcedure).FirstOrDefault();
-                dashboard.graficoRaza = connection.GetArray<DatosGraficoRaza>("spGetCantBovinosXRaza", null, System.Data.CommandType.StoredProcedure);
-                dashboard.graficoCategorias = connection.GetArray<DatosGraficoCategorias>("spGetCantBovinosXCategoria", null, System.Data.CommandType.StoredProcedure);
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", id }
+                };
+                var dashboard = connection.GetArray<DashBoard>("spGetDashBoard", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                dashboard.graficoRaza = connection.GetArray<DatosGraficoRaza>("spGetCantBovinosXRaza", parametros, System.Data.CommandType.StoredProcedure);
+                dashboard.graficoCategorias = connection.GetArray<DatosGraficoCategorias>("spGetCantBovinosXCategoria", parametros, System.Data.CommandType.StoredProcedure);
                 return dashboard;
             }
             catch (Exception ex)
@@ -48,7 +47,12 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
-            }
+            }            
+        }
+
+        public DashBoard GetFilter()
+        {
+            throw new NotImplementedException();
         }
 
         public DashBoard Update(long id, DashBoard entity)

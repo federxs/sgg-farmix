@@ -27,6 +27,7 @@ namespace sgg_farmix_acceso_datos.Model
         public bool borrado { get; set; }
         public long idAlimento { get; set; }
         public float cantAlimento { get; set; }
+        public string fechaEstimadaParto { get; set; }
     }
 
     public class BovinoFilter
@@ -39,6 +40,7 @@ namespace sgg_farmix_acceso_datos.Model
         public float peso { get; set; }
         public long numCaravana { get; set; }
         public string accionPeso { get; set; }
+        public long codigoCampo { get; set; }
 
     }
 

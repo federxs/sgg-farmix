@@ -11,9 +11,10 @@
         var vm = $scope;
         vm.usuario = {};
         vm.ocultarUsuario = true;
+        vm.showSpinner = false;
 
         vm.inicializar = inicializar();
-        vm.aceptar = aceptar;        
+        vm.aceptar = aceptar;
 
         function inicializar() {
             var obj = document.getElementById('btn_login');
@@ -21,11 +22,12 @@
             if ($localStorage.usuarioInfo !== undefined) {
                 vm.usuario.usuario = $localStorage.usuarioInfo.usuario;
                 vm.ocultarUsuario = false;
-            }                
+            }
         }
 
         function aceptar() {
             if (validar()) {
+                vm.showSpinner = true;
                 $scope.usuario.idRol = 1;
                 loginService.consultar($scope.usuario)
                     .then(function success(data) {
@@ -34,15 +36,18 @@
                                 $localStorage.usuarioInfo = {};
                                 $localStorage.usuarioInfo.usuario = vm.usuario.usuario;
                                 $localStorage.usuarioInfo.idRol = vm.usuario.idRol;
+                                $localStorage.usuarioInfo.codigoCampo = 100;
                             }
                             $('#login-modal').modal('hide');
-                            $state.go('home');
+                            $state.go('seleccionCampo');
                         }
                         else
                             toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.")
+                        vm.showSpinner = false;
                     },
                     function error(error) {
-                     toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.")
+                        vm.showSpinner = false;
+                        toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.")
                     });
             }
         }

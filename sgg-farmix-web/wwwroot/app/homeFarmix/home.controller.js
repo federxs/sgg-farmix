@@ -12,9 +12,7 @@
         $scope.load = function () {
             $scope.showSpinner = true;
             homeService.getListMenu({}, function (data) {
-                var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
-                if (path === 'home.undefined')
-                    $state.go('home.inicio');
+                var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];               
                 $scope.Menu = data;
                 for (var i = 0; i < $scope.Menu.length; i++) {
                     if ($scope.Menu[i].urlMenu === path)
@@ -28,6 +26,10 @@
                     else
                         $scope.Menu[i].activo = 'background-color:#FAE5D3';
                 }
+                if (path === 'home.undefined') {
+                    $scope.Menu[0].activo = 'background-color:#E59866';
+                    $state.go('home.inicio');
+                }                   
             }, function (error) {
                 $scope.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');

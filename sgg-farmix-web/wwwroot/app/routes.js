@@ -13,6 +13,12 @@
                 controller: 'loginController'
             });
         $stateProvider
+            .state('seleccionCampo', {
+                url: '/login/seleccion-campo',
+                templateUrl: 'app/seleccion-campo/seleccion-campo.html',
+                controller: 'seleccionCampoController'
+            });
+        $stateProvider
             .state('home', {
                 url: '/home',
                 templateUrl: 'app/master.html',

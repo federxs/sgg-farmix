@@ -67,11 +67,12 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/Init")]
         [HttpGet]
-        public InseminacionInit InitPantallaInseminacion()
+        public InseminacionInit InitPantallaInseminacion(string idCampo)
         {
             try
             {
-                return IM.GetInicioInseminacion();
+                var id = Regex.Replace(idCampo, @"[^\d]", "");
+                return IM.GetInicioInseminacion(Int64.Parse(id));
             }
             catch (Exception ex)
             {
@@ -103,11 +104,12 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/ServicioSinConfirmar")]
         [HttpGet]
-        public IEnumerable<ServSinConfirmar> GetServiciosSinConfirmar()
+        public IEnumerable<ServSinConfirmar> GetServiciosSinConfirmar(string idCampo)
         {
             try
             {
-                return IM.GetServiciosSinConfirmar();
+                var id = Regex.Replace(idCampo, @"[^\d]", "");
+                return IM.GetServiciosSinConfirmar(Int64.Parse(id));
             }
             catch (Exception ex)
             {
@@ -121,11 +123,12 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/GetInseminacionesAgrupadasXFechaInsem")]
         [HttpGet]
-        public IEnumerable<ServSinConfirmar> GetInseminacionesXFechaInsem()
+        public IEnumerable<ServSinConfirmar> GetInseminacionesXFechaInsem(string idCampo)
         {
             try
             {
-                return IM.GetInseminacionesXFechaInsem();
+                var id = Regex.Replace(idCampo, @"[^\d]", "");
+                return IM.GetInseminacionesXFechaInsem(Int64.Parse(id));
             }
             catch (Exception ex)
             {
@@ -139,11 +142,12 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/PreniadasPorParir")]
         [HttpGet]
-        public IEnumerable<PreniadasXParir> GetPreniadasPorParir()
+        public IEnumerable<PreniadasXParir> GetPreniadasPorParir(string idCampo)
         {
             try
             {
-                return IM.GetPreniadasPorParir();
+                var id = Regex.Replace(idCampo, @"[^\d]", "");
+                return IM.GetPreniadasPorParir(Int64.Parse(id));
             }
             catch (Exception ex)
             {
