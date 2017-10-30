@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('loginController', loginController);
+        .controller('seleccionCampoController', seleccionCampoController);
 
-    loginController.$inject = ['$scope', 'toastr', 'loginService', '$localStorage', '$state'];
+    seleccionCampoController.$inject = ['$scope', 'toastr', 'loginService', '$localStorage', '$state'];
 
-    function loginController($scope, toastr, loginService, $localStorage, $state) {
+    function seleccionCampoController($scope, toastr, loginService, $localStorage, $state) {
         var vm = $scope;
         vm.usuario = {};
         vm.ocultarUsuario = true;
@@ -39,7 +39,7 @@
                                 $localStorage.usuarioInfo.codigoCampo = 100;
                             }
                             $('#login-modal').modal('hide');
-                            $state.go('seleccionCampo');
+                            $state.go('home');
                         }
                         else
                             toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.")
