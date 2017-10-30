@@ -1,6 +1,9 @@
 angular.module('starter')
     .controller('AntibioticoController', function ($ionicLoading, $scope, antibioticoService, $rootScope, registrarEventoService, $state) {
         showIonicLoading().then(obtenerAntibiotico).then(function (_antibioticos) {            
+            if ($rootScope.logueado == false) {
+                $state.go('app.bienvenido');
+            }
             $scope.antibioticos = _antibioticos;
             $scope.evento = {};
             $scope.txtMiligramaje = {};

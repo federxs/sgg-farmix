@@ -4,8 +4,10 @@
 
         $ionicPlatform.ready(function () {
             nfc.addNdefListener(tagEscaneado);
-            $rootScope.logueado = false;
         });
+        if ($rootScope.logueado == false) {
+            $state.go('app.bienvenido');
+        }
         tagEscaneado = function (nfcEvent) {
             if ($state.current.name == "app.escribirTag") {
                 var id = $rootScope.idEscribir;

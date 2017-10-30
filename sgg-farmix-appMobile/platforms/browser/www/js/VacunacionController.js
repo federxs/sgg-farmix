@@ -1,6 +1,9 @@
 angular.module('starter')
     .controller('VacunacionController', function ($ionicLoading, $scope, vacunaService, $rootScope, registrarEventoService, $state) {
         showIonicLoading().then(obtenerVacuna).then(function (_vacunas) {            
+            if($rootScope.logueado == false){
+            $state.go('app.bienvenido');
+            }
             $scope.vacunas = _vacunas;
             $scope.evento = {};
             $scope.txtMiligramaje = {};
