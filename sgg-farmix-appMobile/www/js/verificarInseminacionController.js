@@ -1,5 +1,8 @@
 angular.module('starter')
     .controller('VerificarInseminacionController', function ($scope, $state, $rootScope, $stateParams, verificacionInseminacionService) {
+        if($rootScope.logueado == false){
+            $state.go('app.bienvenido');
+        }
         $rootScope.evento.resultado = "0";
 
         $scope.verificar = function () {

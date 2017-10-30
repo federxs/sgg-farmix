@@ -1,6 +1,9 @@
 angular.module('starter')
 .controller('InseminacionesPendientesController', function ($scope, $state, $rootScope, inseminacionService, $ionicLoading) {
-        function cargarInseminacionesPendientes() {
+    if($rootScope.logueado == false){
+            $state.go('app.bienvenido');
+     }
+    function cargarInseminacionesPendientes() {
             showIonicLoading().then(getInseminacionesPendientes).then(function (_inseminaciones) {
                 var fechaHoy = new Date();
                 fechaHoy = moment(convertirFecha(fechaHoy));

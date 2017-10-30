@@ -1,6 +1,9 @@
 angular.module('starter')
 .controller('ResultadoController', function ($stateParams, $scope, bovinoService, $ionicLoading, $state) {
     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
+        if($rootScope.logueado == false){
+            $state.go('app.bienvenido');
+        }
         if (_bovino != null) {
             $scope.bovino = _bovino;
             var fecha;// = _bovino.fechaNacimiento.substr(0, 10);

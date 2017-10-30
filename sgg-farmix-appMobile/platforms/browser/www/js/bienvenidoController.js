@@ -11,6 +11,7 @@ angular.module('starter')
                     $rootScope.logueado = false;
                     $localStorage.usuario = undefined;
                     $localStorage.pass = undefined;
+                    $state.go('app.login');
                 }
             }).then($ionicLoading.hide).catch($ionicLoading.hide);
         } else {

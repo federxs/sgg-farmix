@@ -158,6 +158,15 @@ angular.module('starter', ['ionic', 'ngStorage'])
                     controller: 'VerificarInseminacionController'
                 }
             }
+        }).state('app.cerrarSesion', {
+            url: '/cerrarSesion',
+            params: { idInseminacion: null },
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/cerrarSesion.html',
+                    controller: 'cerrarSesionController'
+                }
+            }
         });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/bienvenido');

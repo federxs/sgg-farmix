@@ -1,5 +1,8 @@
 angular.module('starter')
     .controller('RegistrarInseminacionController', function ($scope, $rootScope, inseminacionService, $ionicLoading, $state) {
+        if($rootScope.logueado == false){
+            $state.go('app.bienvenido');
+        }
         $rootScope.evento = {};
         $rootScope.evento.tipoInseminacion = "0";
 

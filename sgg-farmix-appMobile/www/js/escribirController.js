@@ -1,5 +1,8 @@
 angular.module('starter')
     .controller('EscribirController', function ($scope, $rootScope, $ionicLoading, bovinoService, $state) {
+        if($rootScope.logueado == false){
+            $state.go('app.bienvenido');
+        }
         function cargarBovinos() {
             showIonicLoading().then(getBovinos).then(function (_bovinos) {
                 $scope.bovinosEscritos = [];

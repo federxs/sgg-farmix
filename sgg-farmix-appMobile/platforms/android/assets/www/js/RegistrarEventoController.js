@@ -1,5 +1,8 @@
 angular.module('starter')
-.controller('RegistrarEventoController', function ($scope, $state) {
+.controller('RegistrarEventoController', function ($scope,$rootScope, $state) {
+    if($rootScope.logueado == false){
+       $state.go('app.bienvenido');
+    }
     $scope.vacunar = function () {
         $state.go('app.vacunacion');
     }

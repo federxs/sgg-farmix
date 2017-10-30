@@ -1,5 +1,8 @@
 angular.module('starter')
     .controller('ManejoController', function ($ionicLoading, $scope, campoService, rodeoService, $rootScope, registrarEventoService, $state) {
+        if($rootScope.logueado == false){
+            $state.go('app.bienvenido');
+        }
         var todosRodeos = {};
         showIonicLoading().then(obtenerCampo).then(function (_campos) {            
             $scope.campos = _campos;
