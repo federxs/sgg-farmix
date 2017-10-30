@@ -25,10 +25,9 @@
             font-family: 'Open Sans', sans-serif;
             background-position: center;
             background-attachment: fixed;
-
             padding: 0 10px;
             margin: 0;
-            background: #0e0f11;
+            /*background: #0e0f11;*/
             color: #ecf0f1;
             font-family: 'Open Sans', sans-serif;
             min-height: 100vh;
@@ -75,14 +74,14 @@
             text-decoration: underline;
         }
 
-        .contain {
+        /*.contain {
             width: 100%;
-        }
+        }*/
 
-        .row {
-            overflow: scroll;
+        /*.row {
+            /*overflow: scroll;*/
             width: 100%;
-        }
+        }*/
 
         .row__inner {
             -webkit-transition: 450ms -webkit-transform;
@@ -122,7 +121,8 @@
             left: 0;
             right: 0;
             top: 0;
-            font-size: 10px;
+            font-size: 15px;
+            color: white;
             opacity: 1;
             /*background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
             background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);*/
@@ -191,74 +191,73 @@
     </style>
 
     <!-- comienzo pagina-->
-    <div class="contain">
-
-        <h1>Campos</h1>
-
-        <p>
-            Seleccione el campo que desea ver
-        </p>
-
-        <div class="row">
-            <div class="row__inner">
-                <div class="tile">
-                    <div class="tile__media">
-                        <img class="tile__img" src="../../images/campo1.jpg" alt="" />
-                    </div>
-                    <div class="tile__details">
-                        <div class="tile__title">
-                            Estancia "Villa Albina"
-                        </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Campos</h1>
+            <p>
+                Seleccione el campo que desea ver
+            </p>
+        </div>
+        <p>This is some text.</p>
+        <p>This is another text.</p>
+    </div>
+    <div class="row">
+        <div class="row__inner">
+            <div class="tile">
+                <div class="tile__media">
+                    <img class="tile__img" src="../../images/campo1.jpg" alt="" />
+                </div>
+                <div class="tile__details">
+                    <div class="tile__title">
+                        Estancia "Villa Albina"
                     </div>
                 </div>
+            </div>
 
-                <div class="tile">
-                    <div class="tile__media">
-                        <img class="tile__img" src="../../images/campo2.jpg" alt="" />
-                    </div>
-                    <div class="tile__details">
-                        <div class="tile__title">
-                            AngloCórdoba de Tierras
-                        </div>
+            <div class="tile">
+                <div class="tile__media">
+                    <img class="tile__img" src="../../images/campo2.jpg" alt="" />
+                </div>
+                <div class="tile__details">
+                    <div class="tile__title">
+                        AngloCórdoba de Tierras
                     </div>
                 </div>
+            </div>
 
-                <div class="tile">
-                    <div class="tile__media">
-                        <img class="tile__img" src="../../images/campo3.jpg" alt="" />
-                    </div>
-                    <div class="tile__details">
-                        <div class="tile__title">
-                            Estancia Cabral
-                        </div>
+            <div class="tile">
+                <div class="tile__media">
+                    <img class="tile__img" src="../../images/campo3.jpg" alt="" />
+                </div>
+                <div class="tile__details">
+                    <div class="tile__title">
+                        Estancia Cabral
                     </div>
                 </div>
+            </div>
 
-                <div class="tile">
-                    <div class="tile__media">
-                        <img class="tile__img" src="../../images/campo4.jpg" alt="" />
-                    </div>
-                    <div class="tile__details">
-                        <div class="tile__title">
-                            Estancia "El Espinillo"
-                        </div>
+            <div class="tile">
+                <div class="tile__media">
+                    <img class="tile__img" src="../../images/campo4.jpg" alt="" />
+                </div>
+                <div class="tile__details">
+                    <div class="tile__title">
+                        Estancia "El Espinillo"
                     </div>
                 </div>
+            </div>
 
-                <div class="tile">
-                    <div class="tile__media">
-                        <img class="tile__img" src="../../images/campo5.jpg" alt="" />
-                    </div>
-                    <div class="tile__details">
-                        <div class="tile__title">
-                            AgroArgentina
-                        </div>
+            <div class="tile">
+                <div class="tile__media">
+                    <img class="tile__img" src="../../images/campo5.jpg" alt="" />
+                </div>
+                <div class="tile__details">
+                    <div class="tile__title">
+                        AgroArgentina
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 
 
