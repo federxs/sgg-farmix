@@ -4,7 +4,7 @@
     <title>LOGIN</title>
     <meta charset="utf-8" />
     <title></title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 </head>
 <body>
     <style>
@@ -13,11 +13,9 @@
             background-repeat: no-repeat;
             background-size: cover;
             font-family: 'Open Sans', sans-serif;
-            background-position:center;
-            background-attachment:fixed;
+            background-position: center;
+            background-attachment: fixed;
         }
-
-        @import url(http://fonts.googleapis.com/css?family=Roboto);
 
         /****** LOGIN MODAL ******/
         .loginmodal-container {
@@ -103,7 +101,7 @@
             text-align: center;
             display: inline-block;
             opacity: 0.6;
-            transition: opacity ease 0.5s;
+            transition: none; /*opacity ease 0.5s;*/
         }
 
         .login-help {
@@ -111,7 +109,8 @@
             font-size: 14px;
         }
     </style>
-    <a id="btn_login" data-toggle="modal" data-target="#login-modal" style="font-size: 25px;cursor:pointer">Login</a>
+    <a id="btn_login" data-toggle="modal" data-target="#login-modal" style="font-size: 25px;cursor:pointer"
+       data-backdrop="static" data-keyboard="false"></a>
     <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog">
             <div class="loginmodal-container">
