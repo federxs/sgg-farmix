@@ -1,0 +1,129 @@
+﻿<style>
+    .cursor {
+        cursor: no-drop;
+    }
+
+        .cursor a {
+            pointer-events: none;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <div class="pull-right" style="margin-top: 13px;">
+                <button class="btn btn-success" ui-sref="home.registrarUsuario" ng-disabled="disabled">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Nuevo
+                </button>
+            </div>
+            <h1>
+                Usuarios registrados
+                <small> Criterios de búsqueda</small>
+            </h1>
+        </div>
+    </div>
+</div>
+<!--<p>Ingrese los filtros para la consulta:</p>-->
+<form name="formUsuarios" novalidate>
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formUsuarios.nombre.$touched && formUsuarios.nombre.$valid,
+                 'has-error has-feedback':formUsuarios.nombre.$touched && formUsuarios.nombre.$invalid}">
+                <label>
+                    Nombre
+                </label>
+                <input class="form-control" name="nombre" type="text" ng-model="filtro.nombre" placeholder="Nombre" ng-disabled="disabled" />
+            </div>
+            <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formUsuarios.apellido.$touched && formUsuarios.apellido.$valid,
+                 'has-error has-feedback':formUsuarios.apellido.$touched && formUsuarios.apellido.$invalid}">
+                <label>
+                    Apellido
+                </label>
+                <input class="form-control" name="apellido" type="text" ng-model="filtro.apellido" placeholder="Apellido" ng-disabled="disabled" />
+            </div>
+            <div class="form-group col-md-4 col-lg-4">
+                <label>
+                    Rol
+                </label>
+                <select class="form-control" name="rol" required
+                        ng-model="filtro.rol" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in roles"
+                            value="{{ item.idRol }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row pull-right">
+            <div class="col-md-12 col-lg-12">
+                <button class="btn btn-default"
+                        ng-click="limpiarCampos()" ng-disabled="disabled">
+                    <span class="glyphicon glyphicon-remove"></span>
+                    Limpiar Campos
+                </button>
+                <button class="btn btn-primary"
+                        ng-click="consultar()" ng-disabled="formConsultarBovino.$invalid || disabled">
+                    <span class="glyphicon glyphicon-search"></span>
+                    Buscar
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<legend style="margin-bottom: 5px;" ng-show="rowCollection.length > 0">Resultados</legend>
+<div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
+    <div class="pull-right" style="margin-bottom:5px">
+        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
+            <i class="fa fa-file-excel-o"></i>
+        </button>
+        <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
+            <i class="fa fa-file-pdf-o"></i>
+        </button>
+        <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
+            <i class="fa fa-print"></i>
+        </a>
+    </div>
+    <div>
+        <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th st-sort="usuario">Usuario</th>
+                    <th st-sort="nombre">Nombre</th>
+                    <th st-sort="apellido">Apellido</th>
+                    <th st-sort="rol">Rol</th>
+                    <th st-sort="fechaAlta">Fecha Alta</th>
+                    <th st-sort="fechaBaja">Fecha Baja</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in displayedCollection">
+                    <td>{{item.usuario}}</td>
+                    <td>{{item.nombre | uppercase}}</td>
+                    <td>{{item.apellido | uppercase}}</td>
+                    <td>{{item.rol | uppercase}}</td>
+                    <td>{{item.fechaAlta}}</td>
+                    <td>{{item.fechaBaja}}</td>
+                    <td>
+                        <a ui-sref="home.modificarUsuario({id:item.idUsuario})" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a ui-sref="home.detalleUsuario({id:item.idUsuario})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
+                        <a ui-sref="home.eliminarUsuario({id:item.idUsuario})" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <label for="items">Registros por página</label>
+                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                    </td>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="loader" ng-show="showSpinner" style="margin:0 auto"></div>

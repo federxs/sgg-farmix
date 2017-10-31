@@ -38,89 +38,95 @@
                 }
             });
         $stateProvider
-            .state('home.inicio', {
-                url: '/inicio',
-                templateUrl: 'app/inicio/inicio.html',
-                controller: 'inicioController',
+             .state('home.inicio', {
+                 url: '/inicio',
+                 templateUrl: 'app/inicio/inicio.html',
+                 controller: 'inicioController',
+                 data: {
+                     pageTitle: 'Farmix - Inicio'
+                 }
+             });
+        $stateProvider
+            .state('home.bovino', {
+                url: '/bovino',
+                templateUrl: 'app/bovino/consultar-bovino/consultar-bovino.html',
+                controller: 'consultarBovinoController',
                 data: {
-                    pageTitle: 'Farmix - Inicio'
+                    pageTitle: 'Farmix - Consulta de Bovinos'
                 }
             });
         $stateProvider
-        .state('home.bovino', {
-            url: '/bovino',
-            templateUrl: 'app/bovino/consultar-bovino/consultar-bovino.html',
-            controller: 'consultarBovinoController',
-            data: {
-                pageTitle: 'Farmix - Consulta de Bovinos'
-            }
-        });
+            .state('home.detalleBovino', {
+                url: '/bovino/detalle',
+                params: { 'id': null },
+                templateUrl: 'app/bovino/detalle-bovino/detalle-bovino.html',
+                controller: 'detalleBovinoController',
+                data: {
+                    pageTitle: 'Farmix - Detalle de Bovino'
+                }
+            });
         $stateProvider
-        .state('home.detalleBovino', {
-            url: '/bovino/detalle',
-            params: { 'id': null },
-            templateUrl: 'app/bovino/detalle-bovino/detalle-bovino.html',
-            controller: 'detalleBovinoController',
-            data: {
-                pageTitle: 'Farmix - Detalle de Bovino'
-            }
-        });
+            .state('home.modificarBovino', {
+                url: '/bovino/modificacion',
+                params: { 'id': null },
+                templateUrl: 'app/bovino/modificar-bovino/modificar-bovino.html',
+                controller: 'modificarBovinoController',
+                data: {
+                    pageTitle: 'Farmix - Modificación de Bovino'
+                }
+            });
         $stateProvider
-        .state('home.modificarBovino', {
-            url: '/bovino/modificacion',
-            params: { 'id': null },
-            templateUrl: 'app/bovino/modificar-bovino/modificar-bovino.html',
-            controller: 'modificarBovinoController',
-            data: {
-                pageTitle: 'Farmix - Modificación de Bovino'
-            }
-        });
+            .state('home.eliminarBovino', {
+                url: '/bovino/darDeBaja',
+                params: { 'id': null },
+                templateUrl: 'app/bovino/eliminar-bovino/eliminar-bovino.html',
+                controller: 'eliminarBovinoController'
+            });
         $stateProvider
-        .state('home.eliminarBovino', {
-            url: '/bovino/darDeBaja',
-            params: { 'id': null },
-            templateUrl: 'app/bovino/eliminar-bovino/eliminar-bovino.html',
-            controller: 'eliminarBovinoController'
-        });
+            .state('home.trazabilidad', {
+                url: '/trazabilidad',
+                templateUrl: 'app/trazabilidad/consultar-trazabilidad/consultar-trazabilidad.html',
+                controller: 'consultarTrazabilidadController',
+                data: {
+                    pageTitle: 'Farmix - Consulta Trazabilidad'
+                }
+            })
+            .state('home.detalleEvento', {
+                url: '/evento/detalle',
+                params: { 'id': null },
+                templateUrl: 'app/trazabilidad/detalle-evento/detalle-evento.html',
+                controller: 'detalleEventoController'
+            })
+            .state('home.modificarEvento', {
+                url: '/evento/modificar',
+                params: { 'id': null },
+                templateUrl: 'app/trazabilidad/modificar-evento/modificar-evento.html',
+                controller: 'modificarEventoController'
+            });
         $stateProvider
-        .state('home.trazabilidad', {
-            url: '/trazabilidad',
-            templateUrl: 'app/trazabilidad/consultar-trazabilidad/consultar-trazabilidad.html',
-            controller: 'consultarTrazabilidadController',
-            data: {
-                pageTitle: 'Farmix - Consulta Trazabilidad'
-            }
-        })
-        .state('home.detalleEvento', {
-            url: '/evento/detalle',
-            params: { 'id': null },
-            templateUrl: 'app/trazabilidad/detalle-evento/detalle-evento.html',
-            controller: 'detalleEventoController'
-        })
-        .state('home.modificarEvento', {
-            url: '/evento/modificar',
-            params: { 'id': null },
-            templateUrl: 'app/trazabilidad/modificar-evento/modificar-evento.html',
-            controller: 'modificarEventoController'
-        });
+            .state('home.inseminacion', {
+                url: '/inseminacion',
+                templateUrl: 'app/inseminacion/consultar-inseminacion/consultar-inseminacion.html',
+                controller: 'consultarInseminacionController'
+            })
+            .state('home.modificarInseminacion', {
+                url: '/inseminacion/modificar',
+                params: { 'fecha': null, 'desde': null },
+                templateUrl: 'app/inseminacion/modificar-inseminacion/modificar-inseminacion.html',
+                controller: 'modificarInseminacionController'
+            })
+            .state('home.detalleInseminacion', {
+                url: '/inseminacion/detalle',
+                params: { 'fecha': null, 'desde': null },
+                templateUrl: 'app/inseminacion/detalle-inseminacion/detalle-inseminacion.html',
+                controller: 'detalleInseminacionController'
+            });
         $stateProvider
-        .state('home.inseminacion', {
-            url: '/inseminacion',
-            templateUrl: 'app/inseminacion/consultar-inseminacion/consultar-inseminacion.html',
-            controller: 'consultarInseminacionController'
-        })
-        .state('home.modificarInseminacion', {
-            url: '/inseminacion/modificar',
-            params: { 'fecha': null, 'desde': null },
-            templateUrl: 'app/inseminacion/modificar-inseminacion/modificar-inseminacion.html',
-            controller: 'modificarInseminacionController'
-        })
-        .state('home.detalleInseminacion', {
-            url: '/inseminacion/detalle',
-            params: { 'fecha': null, 'desde': null },
-            templateUrl: 'app/inseminacion/detalle-inseminacion/detalle-inseminacion.html',
-            controller: 'detalleInseminacionController'
-        });
+            .state('home.usuarios', {
+                url: '/usuarios',
+                templateUrl: 'app/usuarios/consultar-usuarios/consultar-usuarios.html',
+                controller: 'consultarUsuariosController'
+            });
     });
 })();
 
