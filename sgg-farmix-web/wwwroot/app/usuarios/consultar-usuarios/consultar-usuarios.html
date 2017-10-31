@@ -11,7 +11,7 @@
     <div class="col-lg-12">
         <div class="page-header">
             <div class="pull-right" style="margin-top: 13px;">
-                <button class="btn btn-success" ui-sref="home.registrarUsuario" ng-disabled="disabled">
+                <button class="btn btn-success" ui-sref="home.registrarUsuario" ng-disabled="deshabilitar">
                     <span class="glyphicon glyphicon-plus"></span>
                     Nuevo
                 </button>
@@ -32,21 +32,21 @@
                 <label>
                     Nombre
                 </label>
-                <input class="form-control" name="nombre" type="text" ng-model="filtro.nombre" placeholder="Nombre" ng-disabled="disabled" />
+                <input class="form-control" name="nombre" type="text" ng-model="filtro.nombre" placeholder="Nombre" ng-disabled="deshabilitar" />
             </div>
             <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formUsuarios.apellido.$touched && formUsuarios.apellido.$valid,
                  'has-error has-feedback':formUsuarios.apellido.$touched && formUsuarios.apellido.$invalid}">
                 <label>
                     Apellido
                 </label>
-                <input class="form-control" name="apellido" type="text" ng-model="filtro.apellido" placeholder="Apellido" ng-disabled="disabled" />
+                <input class="form-control" name="apellido" type="text" ng-model="filtro.apellido" placeholder="Apellido" ng-disabled="deshabilitar" />
             </div>
             <div class="form-group col-md-4 col-lg-4">
                 <label>
                     Rol
                 </label>
                 <select class="form-control" name="rol" required
-                        ng-model="filtro.rol" ng-disabled="disabled">
+                        ng-model="filtro.idRol" ng-disabled="deshabilitar">
                     <option value="0">Seleccione...</option>
                     <option ng-repeat="item in roles"
                             value="{{ item.idRol }}">
@@ -58,12 +58,12 @@
         <div class="row pull-right">
             <div class="col-md-12 col-lg-12">
                 <button class="btn btn-default"
-                        ng-click="limpiarCampos()" ng-disabled="disabled">
+                        ng-click="limpiarCampos()" ng-disabled="deshabilitar">
                     <span class="glyphicon glyphicon-remove"></span>
                     Limpiar Campos
                 </button>
                 <button class="btn btn-primary"
-                        ng-click="consultar()" ng-disabled="formConsultarBovino.$invalid || disabled">
+                        ng-click="consultar()" ng-disabled="formConsultarBovino.$invalid || deshabilitar">
                     <span class="glyphicon glyphicon-search"></span>
                     Buscar
                 </button>
@@ -116,7 +116,7 @@
                 <tr>
                     <td>
                         <label for="items">Registros por página</label>
-                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="deshabilitar">
                     </td>
                     <td colspan="5" class="text-center">
                         <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>

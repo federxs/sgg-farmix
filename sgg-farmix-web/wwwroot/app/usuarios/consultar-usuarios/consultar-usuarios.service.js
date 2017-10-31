@@ -9,10 +9,22 @@
 
     function consultarUsuariosService($http, portalService) {
         var service = {
-            inicializar: inicializar
+            inicializar: inicializar,
+            obtenerListaUsuarios: obtenerListaUsuarios
         };
 
         function inicializar(idBovino) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Bovino/initDetalle',
+                params: { idBovino: idBovino }
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function obtenerListaUsuarios(filtro) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Bovino/initDetalle',

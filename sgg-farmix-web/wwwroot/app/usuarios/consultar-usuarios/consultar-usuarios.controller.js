@@ -10,43 +10,30 @@
     function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage) {
         var vm = $scope;
         vm.showSpinner = true;
-        vm.disabled = 'disabled';
+        vm.deshabilitar = false;
         vm.disabledExportar = 'disabled';
+
         //funciones
         vm.inicializar = inicializar();
         vm.consultar = consultar;
         vm.limpiarCampos = limpiarCampos;
         vm.exportarExcel = exportarExcel;
         vm.exportarPDF = exportarPDF;
-        vm.changeSexo = changeSexo;
+
         //variables
-        vm.razas = [];
-        vm.estados = [];
-        vm.categorias = [];
-        vm.rodeos = [];
-        vm.establecimientos = [];
+        vm.usuarios = [];
         vm.filtro = {};
         vm.cursor = '';
         var categorias = [];
+
+
         function inicializar() {
             vm.showSpinner = true;
-            vm.disabled = 'disabled';
+            vm.deshabilitar = true;
             vm.disabledExportar = 'disabled';
             vm.itemsPorPagina = 9;
             consultarUsuariosService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
-                vm.estados = data.estados;
-                vm.categorias = data.categorias;
-                categorias = data.categorias;
-                vm.razas = data.razas;
-                vm.rodeos = data.rodeos;
-                vm.establecimientos = data.establecimientos;
-                vm.filtro.idCategoria = '0';
-                vm.filtro.genero = '2';
-                vm.filtro.idRaza = '0';
-                vm.filtro.idRodeo = '0';
-                vm.filtro.idEstado = '0';
-                vm.filtro.accionPeso = '0';
-                vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+                vm.usuarios = data.usuarios;
                 consultar();
             }, function error(error) {
                 vm.showSpinner = false;
@@ -58,13 +45,14 @@
             vm.showSpinner = true;
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
-            if (vm.filtro.peso === '' || vm.filtro.peso === undefined) vm.filtro.peso = 0;
-            if (vm.filtro.numCaravana === '' || vm.filtro.numCaravana === null) vm.filtro.numCaravana = 0;
-            consultarUsuariosService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
+            if (isUndefinedOrNull(vm.filtro.nombre)) vm.filtro.nombre = '';
+            if (isUndefinedOrNull(vm.filtro.apellido)) vm.filtro.apellido = '';
+            if (isUndefinedOrNull(vm.filtro.idRol)) vm.filtro.idRol = '';
+            consultarUsuariosService.obtenerListaUsuarios({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';
                     vm.showSpinner = false;
-                    vm.disabled = '';
+                    vm.deshabilitar = false;
                     vm.rowCollection = [];
                     vm.filtro.peso = '';
                     toastr.info("No se ha encontrado ningún resultado para esta búsqueda", "Aviso");
@@ -74,7 +62,7 @@
                     if (vm.filtro.peso === 0) vm.filtro.peso = '';
                     if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
                     vm.showSpinner = false;
-                    vm.disabled = '';
+                    vm.deshabilitar = false;
                     vm.disabledExportar = '';
                 }
             }, function (error) {
@@ -85,13 +73,9 @@
 
         function limpiarCampos() {
             vm.filtro = {};
-            vm.filtro.idCategoria = '0';
-            vm.filtro.genero = '2';
-            vm.filtro.idRaza = '0';
-            vm.filtro.idRodeo = '0';
-            vm.filtro.idEstado = '0';
-            vm.filtro.accionPeso = '0';
-            vm.filtro.numCaravana = '';
+            vm.filtro.nombre = '';
+            vm.filtro.apellido = '';
+            vm.filtro.idRol = '0';
             vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             consultar();
         }
@@ -99,32 +83,25 @@
         function exportarExcel() {
             var filtro = [];
             filtro.Titulos = [];
-            filtro.Titulos[0] = 'Nro Caravana';
-            filtro.Titulos[1] = 'Categoría';
-            filtro.Titulos[2] = 'Sexo';
-            filtro.Titulos[3] = 'Raza';
-            filtro.Titulos[4] = 'Rodeo';
-            filtro.Titulos[5] = 'Estado';
-            filtro.Titulos[6] = 'Acción Peso';
-            filtro.Titulos[7] = 'Peso (Kg)';
-
+            filtro.Titulos[0] = 'Usuario';
+            filtro.Titulos[1] = 'Nombre';
+            filtro.Titulos[2] = 'Apellido';
+            filtro.Titulos[3] = 'Fecha Alta';
+            filtro.Titulos[4] = 'Fecha Baja';
+            
             var titulos = [];
-            titulos[0] = "Nro Caravana";
-            titulos[1] = "Categoría";
-            titulos[2] = "Sexo";
-            titulos[3] = "Raza";
-            titulos[4] = "Rodeo";
-            titulos[5] = "Estado";
-            titulos[6] = "Peso (Kg)";
+            titulos[0] = 'Usuario';
+            titulos[1] = 'Nombre';
+            titulos[2] = 'Apellido';
+            titulos[3] = 'Fecha Alta';
+            titulos[4] = 'Fecha Baja';
 
             var propiedades = [];
-            propiedades[0] = "numCaravana";
-            propiedades[1] = "categoriaNombre";
-            propiedades[2] = "sexo";
-            propiedades[3] = "razaNombre";
-            propiedades[4] = "rodeoNombre";
-            propiedades[5] = "estadoNombre";
-            propiedades[6] = "peso";
+            propiedades[0] = "usuario"
+            propiedades[1] = "nombre";
+            propiedades[2] = "apellido";
+            propiedades[3] = "fechaAlta";
+            propiedades[4] = "fechaBaja";
 
             if (vm.rowCollection.length > 0) {
                 var i = 1;
@@ -232,7 +209,7 @@
                 if (vm.filtro.peso === undefined)
                     filtro[filtro.length] = '';
                 var fecha = new Date();
-                fecha = convertirFecha(fecha);                
+                fecha = convertirFecha(fecha);
                 exportador.exportarExcel('Bovinos' + fecha, vm.rowCollection, titulos, filtro, propiedades, 'Bovinos', function () {
                     toastr.success("Se ha exportado con Éxito", "ÉXITO");
                 }, function (error) {
@@ -245,23 +222,18 @@
         function exportarPDF() {
             var filtro = [];
             filtro.Titulos = [];
-            filtro.Titulos[0] = 'Nro Caravana';
-            filtro.Titulos[1] = 'Categoría';
-            filtro.Titulos[2] = 'Sexo';
-            filtro.Titulos[3] = 'Raza';
-            filtro.Titulos[4] = 'Rodeo';
-            filtro.Titulos[5] = 'Estado';
-            filtro.Titulos[6] = 'Acción Peso';
-            filtro.Titulos[7] = 'Peso (Kg)';
+            filtro.Titulos[0] = 'Usuario';
+            filtro.Titulos[1] = 'Nombre';
+            filtro.Titulos[2] = 'Apellido';
+            filtro.Titulos[3] = 'Fecha Alta';
+            filtro.Titulos[4] = 'Fecha Baja';
 
             var propiedades = [];
-            propiedades[0] = "numCaravana";
-            propiedades[1] = "categoriaNombre";
-            propiedades[2] = "sexo";
-            propiedades[3] = "razaNombre";
-            propiedades[4] = "rodeoNombre";
-            propiedades[5] = "estadoNombre";
-            propiedades[6] = "peso";
+            propiedades[0] = "usuario"
+            propiedades[1] = "nombre";
+            propiedades[2] = "apellido";
+            propiedades[3] = "fechaAlta";
+            propiedades[4] = "fechaBaja";
 
             if (vm.rowCollection.length > 0) {
                 var i = 1;
@@ -461,6 +433,10 @@
                 mes = '0' + mes;
             año = fecha.getFullYear().toString();
             return dia + '/' + mes + '/' + año;
+        }
+
+        function isUndefinedOrNull(val) {
+            return angular.isUndefined(val) || val === null || val == undefined
         }
 
     }
