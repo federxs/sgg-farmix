@@ -10,7 +10,7 @@
     <style>
         /* Remove the navbar's default margin-bottom and rounded borders */
         .navbar {
-            background-color:#0288D1;
+            background-color: #0288D1;
             margin-bottom: 0px;
             border-radius: 0;
         }
@@ -23,13 +23,13 @@
         /* Set gray background color and 100% height */
         .sidenav {
             padding-top: 20px;
-            background-color:#FAE5D3;
+            background-color: #FAE5D3;
             height: 100%;
         }
 
         /* Set black background color, white text and some padding */
         footer {
-            background-color:#0288D1;
+            background-color: #0288D1;
             color: white;
             padding: 15px;
             bottom: 0;
@@ -54,6 +54,11 @@
         .list-group-item {
             background: #03A9F4;
         }
+
+        li a:hover {
+            font-weight: 700;
+            text-decoration:none;
+        }
     </style>
 </head>
 <body>
@@ -72,9 +77,9 @@
         <div class="row content">
             <div class="col-md-2 col-lg-2 sidenav">
                 <ul class="list-group" style="margin-top: 20px;">
-                    <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}" style="{{menu.activo}}">
+                    <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}" style="{{menu.activo}};">
                         <a style="display:block;" ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0 && menu.menu_Hijos === null" ng-click="activar(menu.idMenu)">
-                            <span class="title" style="color:black">{{menu.nombre}}</span>
+                            <span class="title" style="color:black;">{{menu.nombre}}</span>
                             <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
                         </a>
                         <a href="javascript:;" class="nav-link nav-toggle" ng-if="menu.menu_Hijos.length > 0" data-target="#demo" style="color:black" data-toggle="collapse" ng-click="desactivarMenuHijos(menu)">
