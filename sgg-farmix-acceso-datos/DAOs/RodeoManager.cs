@@ -21,9 +21,10 @@ namespace sgg_farmix_acceso_datos.DAOs
             try
             {
                 connection = new SqlServerConnection();
-                var parametros = new Dictionary<string, object>();
+                Dictionary<string, object> parametros = null;
                 if (idCampo != 0)
                 {
+                    parametros = new Dictionary<string, object>();
                     parametros.Add("@idCampo", idCampo);
                 }
                 var lista = connection.GetArray<Rodeo>("spGetRodeos", parametros, System.Data.CommandType.StoredProcedure);

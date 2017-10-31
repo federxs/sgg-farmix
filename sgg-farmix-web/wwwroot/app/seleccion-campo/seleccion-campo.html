@@ -8,15 +8,6 @@
 </head>
 <body>
     <style>
-        /*body {
-            background-image: url("../../images/fondo_seleccioncampo.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            font-family: 'Open Sans', sans-serif;
-            background-position: center;
-            background-attachment: fixed;
-        }*/
-
         body,
         html {
             background-image: url("../../images/fondo_seleccioncampo.jpg");
@@ -201,64 +192,18 @@
     </div>
     <div class="row">
         <div class="row__inner">
-            <div class="tile">
+            <div class="tile" ng-repeat="campo in campos" ng-click="seleccionarCampo(campo.codigoCampo)">
                 <div class="tile__media">
-                    <img class="tile__img" src="../../images/campo1.jpg" alt="" />
+                    <img class="tile__img" src="{{campo.imagen}}" alt="" />
                 </div>
                 <div class="tile__details">
                     <div class="tile__title">
-                        Estancia "Villa Albina"
-                    </div>
-                </div>
-            </div>
-
-            <div class="tile">
-                <div class="tile__media">
-                    <img class="tile__img" src="../../images/campo2.jpg" alt="" />
-                </div>
-                <div class="tile__details">
-                    <div class="tile__title">
-                        AngloCórdoba de Tierras
-                    </div>
-                </div>
-            </div>
-
-            <div class="tile">
-                <div class="tile__media">
-                    <img class="tile__img" src="../../images/campo3.jpg" alt="" />
-                </div>
-                <div class="tile__details">
-                    <div class="tile__title">
-                        Estancia Cabral
-                    </div>
-                </div>
-            </div>
-
-            <div class="tile">
-                <div class="tile__media">
-                    <img class="tile__img" src="../../images/campo4.jpg" alt="" />
-                </div>
-                <div class="tile__details">
-                    <div class="tile__title">
-                        Estancia "El Espinillo"
-                    </div>
-                </div>
-            </div>
-
-            <div class="tile">
-                <div class="tile__media">
-                    <img class="tile__img" src="../../images/campo5.jpg" alt="" />
-                </div>
-                <div class="tile__details">
-                    <div class="tile__title">
-                        AgroArgentina
+                        {{campo.nombre}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
     <div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>
 </body>
 </html>

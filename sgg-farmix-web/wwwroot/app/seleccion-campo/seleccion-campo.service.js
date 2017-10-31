@@ -12,11 +12,11 @@
             consultar: consultar
         };
 
-        function consultar(credenciales) {
+        function consultar(usuario) {
             return $http({
-                method: 'POST',
-                url: portalService.getUrlServer() + 'api/Usuario/Validar',
-                params: { usuario: credenciales }
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Campo/GetList',
+                params: { usuario: usuario }
             }).then(
             function (data) {
                 return data.data || [];

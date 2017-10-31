@@ -41,12 +41,16 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Campo> GetList()
+        public IEnumerable<Campo> GetList(string usuario)
         {
             try
             {
                 connection = new SqlServerConnection();
-                var campos = connection.GetArray<Campo>("spGetCampos", null, System.Data.CommandType.StoredProcedure);
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@usuario", usuario }
+                };
+                var campos = connection.GetArray<Campo>("spGetCampos", parametros, System.Data.CommandType.StoredProcedure);
                 return campos;
             }
             catch (Exception ex)

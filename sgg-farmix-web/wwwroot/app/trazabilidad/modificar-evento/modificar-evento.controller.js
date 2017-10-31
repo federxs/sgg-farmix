@@ -5,9 +5,9 @@
         .module('app')
         .controller('modificarEventoController', modificarEventoController);
 
-    modificarEventoController.$inject = ['$scope', 'modificarEventoService', '$stateParams', 'tipoEventoService', 'toastr'];
+    modificarEventoController.$inject = ['$scope', 'modificarEventoService', '$stateParams', 'tipoEventoService', 'toastr', '$localStorage'];
 
-    function modificarEventoController($scope, modificarEventoService, $stateParams, tipoEventoService, toastr) {
+    function modificarEventoController($scope, modificarEventoService, $stateParams, tipoEventoService, toastr, $localStorage) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.habilitar = false;
@@ -34,7 +34,7 @@
             vm.habilitar = false;
             vm.habilitarBtnAceptar = false;
             vm.itemsPorPagina = 9;
-            modificarEventoService.initModificacion($stateParams.id).then(function success(data) {
+            modificarEventoService.initModificacion($stateParams.id, $localStorage.usuarioInfo.usuario).then(function success(data) {
                 vm.vacunas = data.vacunas;
                 vm.tiposEventos = data.tipoEvento;
                 vm.rowCollection = data.listaBovinos.listaBovinos;
@@ -47,9 +47,9 @@
                     vm.evento.idVacuna = vm.evento.idVacuna.toString();
                     vm.evento.idCampoDestino = vm.evento.idCampoDestino.toString();
                     vm.idRodeoDestino = vm.evento.idRodeoDestino.toString();
-                    //var fecha = vm.evento.fechaHora.split('/');
-                    //vm.evento.fechaHora = new Date(fecha[2].substring(0, 4), (parseInt(fecha[1]) - 1).toString(), fecha[0], fecha[2].substring(5, 7), fecha[2].substring(8, 10));
-                    //seteamos a "" las variables 0
+                    if (vm.evento.idCampoDestino !== "0") {
+                        vm.changeCampos();
+                    }
                     angular.forEach(vm.evento, function (value, key) {
                         if (parseInt(value) === 0 && key !== 'idEvento') {
                             vm.evento[key] = '';
@@ -189,7 +189,7 @@
             vm.idRodeoDestino = vm.evento.idRodeoDestino.toString();
             for (var i = 0; i < vm.campos.length; i++) {
                 if (vm.campos[i].idCampo === parseInt(vm.evento.idCampoDestino)) {
-                    campo = vm.campos[i].nombre;
+                    campo = vm.campos[i].codigoCampo;
                     break;
                 }
             }

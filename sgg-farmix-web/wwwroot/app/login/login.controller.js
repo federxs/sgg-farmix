@@ -36,7 +36,7 @@
                                 $localStorage.usuarioInfo = {};
                                 $localStorage.usuarioInfo.usuario = vm.usuario.usuario;
                                 $localStorage.usuarioInfo.idRol = vm.usuario.idRol;
-                                $localStorage.usuarioInfo.codigoCampo = 100;
+                                //$localStorage.usuarioInfo.codigoCampo = 100;
                             }
                             $('#login-modal').modal('hide');
                             $state.go('seleccionCampo');
@@ -47,7 +47,7 @@
                     },
                     function error(error) {
                         vm.showSpinner = false;
-                        toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.")
+                        toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.");
                     });
             }
         }

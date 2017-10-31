@@ -33,11 +33,11 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Campo/GetList")]
         [HttpGet]
-        public IEnumerable<Campo> GetList()
+        public IEnumerable<Campo> GetList(string usuario)
         {
             try
             {
-                return CM.GetList();
+                return CM.GetList(usuario);
             }
             catch (Exception ex)
             {

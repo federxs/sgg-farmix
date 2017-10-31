@@ -26,12 +26,13 @@
             });
         }
 
-        function initModificacion(id) {
+        function initModificacion(id, usuario) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Evento/initEvento',
                 params: {
-                    idEvento: id
+                    idEvento: id,
+                    usuario: usuario
                 }
             }).then(
             function (data) {
