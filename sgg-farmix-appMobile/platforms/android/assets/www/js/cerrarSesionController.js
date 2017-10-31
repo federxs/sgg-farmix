@@ -3,24 +3,13 @@ angular.module('starter')
         if ($rootScope.logueado == false) {
             $state.go('app.login');
         }
-        $scope.showConfirm = function () {
-
-            var confirmPopup = $ionicPopup.confirm({
-
-                title: 'Cerrar Sesion',
-
-                template: 'Esta seguro que desea cerrar Sesion?',
-
-            });
-            confirmPopup.then(function (res) {
-                if (res) {
+        $scope.aceptar = function () {
                     $rootScope.logueado = false;
                     $localStorage.usuario = undefined;
                     $localStorage.pass = undefined;
                     $state.go('app.bienvenido');
-
-                }
-            });
-
+        };
+        $scope.cancelar = function () {            
+            $state.go('app.bienvenido');
         };
     });

@@ -1,5 +1,5 @@
 angular.module('starter')
-.controller('InseminacionMenuController', function ($scope, $state) {
+.controller('InseminacionMenuController', function ($scope, $rootScope, $state) {
     if ($rootScope.logueado == false) {
         $state.go('app.bienvenido');
     }

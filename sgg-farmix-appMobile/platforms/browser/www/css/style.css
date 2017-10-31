@@ -5,7 +5,9 @@
 .fondoMenu {
     background-color: #FAE5D3;
 }
-
+h4 {
+    text-align: center;
+}
 .bordeBoton {
     border-color: black;
     background-color: #E59866;
@@ -17,7 +19,10 @@
     background-color: #E59866;
     color: black;
 }
-
+.botonCerrarSesion{
+    width: 35%;
+    margin-left: 10%;
+}
 .botonRegistrarEvento {
     width: 50%;
     margin-left: 25%;

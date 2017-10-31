@@ -1,14 +1,9 @@
 <ion-modal-view class="fondo">
   <ion-header-bar>
-    <h2 class="title">Iniciar Sesión</h2>
+    <h2 class="title">Cerrar Sesión</h2>
   </ion-header-bar>
-  <ion-content>
-    <form ng-submit="showConfirm()">
-      <div class="list">      
-        <label class="item">
-          <button class="button button-block button-positive" type="submit" >Cerrar Sesion</button>
-        </label>
-      </div>
-    </form>
-  </ion-content>
+    <ion-content padding="true" class="fondo">
+        <h4>Esta seguro que desea cerrar Sesion?</h4>
+        <button ng-click="aceptar()" class="button bordeBoton botonCerrarSesion" ion-button>Aceptar</button><button ng-click="cancelar()" class="button bordeBoton botonCerrarSesion" ion-button>Cancelar</button>    
+    </ion-content>
 </ion-modal-view>

@@ -1,5 +1,5 @@
 angular.module('starter')
-.controller('ResultadoController', function ($stateParams, $scope, bovinoService, $ionicLoading, $state) {
+.controller('ResultadoController', function ($stateParams,$rootScope, $scope, bovinoService, $ionicLoading, $state) {
     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
         if($rootScope.logueado == false){
             $state.go('app.bienvenido');
