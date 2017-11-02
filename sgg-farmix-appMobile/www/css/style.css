@@ -19,6 +19,9 @@ h4 {
     background-color: #E59866;
     color: black;
 }
+.botonIniciarSesion{
+    width: 100%;
+}
 .botonCerrarSesion{
     width: 35%;
     margin-left: 10%;
