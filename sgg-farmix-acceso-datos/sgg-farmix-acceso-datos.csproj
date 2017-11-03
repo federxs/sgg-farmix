@@ -58,6 +58,7 @@
     <Compile Include="DAOs\MenuManager.cs" />
     <Compile Include="DAOs\RazaManager.cs" />
     <Compile Include="DAOs\RodeoManager.cs" />
+    <Compile Include="DAOs\RolManager.cs" />
     <Compile Include="DAOs\TactoManager.cs" />
     <Compile Include="DAOs\TipoEventoManager.cs" />
     <Compile Include="DAOs\UsuarioManager.cs" />

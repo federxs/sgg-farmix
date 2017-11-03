@@ -64,5 +64,30 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection.Close();
             }
         }
+
+        public IEnumerable<Usuario> GetList(UsuarioFilter filtro)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", filtro.codigoCampo },
+                    {"@nombre", filtro.nombre },
+                    {"@apellido", filtro.apellido },
+                    {"@idRol", filtro.idRol }
+                };
+                var lista = connection.GetArray<Usuario>("spObtenerListaUsuarios", parametros, System.Data.CommandType.StoredProcedure);
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

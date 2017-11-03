@@ -19,7 +19,8 @@ namespace sgg_farmix_acceso_datos.Model
         public EventoDetalle listaBovinos { get; set; }
         public IEnumerable<Campo> campos { get; set; }
         public IEnumerable<Alimento> alimentos { get; set; }
-    }
+        public IEnumerable<Rol> roles { get; set; }
+    } 
 
     public class ResultadoValidacion
     {

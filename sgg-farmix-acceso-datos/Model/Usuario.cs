@@ -18,4 +18,12 @@ namespace sgg_farmix_acceso_datos.Model
         public long idRol { get; set; }
         public long idPlan { get; set; }
     }
+
+    public class UsuarioFilter
+    {
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public long idRol { get; set; }
+        public long codigoCampo { get; set; }
+    }
 }

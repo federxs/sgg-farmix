@@ -12,6 +12,9 @@
         vm.showSpinner = true;
         vm.deshabilitar = false;
         vm.disabledExportar = 'disabled';
+        //variables
+        vm.usuarios = [];
+        vm.filtro = {};
 
         //funciones
         vm.inicializar = inicializar();
@@ -20,55 +23,38 @@
         vm.exportarExcel = exportarExcel;
         vm.exportarPDF = exportarPDF;
 
-        //variables
-        vm.usuarios = [];
-        vm.filtro = {};
-        vm.cursor = '';
-        var categorias = [];
-
-
         function inicializar() {
             vm.showSpinner = true;
             vm.deshabilitar = true;
             vm.disabledExportar = 'disabled';
             vm.itemsPorPagina = 9;
-            consultarUsuariosService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
-                vm.usuarios = data.usuarios;
+            consultarUsuariosService.inicializar().then(function success(data) {
+                vm.roles = data.roles;
+                vm.filtro.idRol = '0';
                 consultar();
             }, function error(error) {
                 vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
-            });
+            })
         };
 
         function consultar() {
             vm.showSpinner = true;
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
-            if (isUndefinedOrNull(vm.filtro.nombre)) vm.filtro.nombre = '';
-            if (isUndefinedOrNull(vm.filtro.apellido)) vm.filtro.apellido = '';
-            if (isUndefinedOrNull(vm.filtro.idRol)) vm.filtro.idRol = '';
-            consultarUsuariosService.obtenerListaUsuarios({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
-                if (data.length === 0) {
-                    vm.disabledExportar = 'disabled';
-                    vm.showSpinner = false;
-                    vm.deshabilitar = false;
-                    vm.rowCollection = [];
-                    vm.filtro.peso = '';
-                    toastr.info("No se ha encontrado ningún resultado para esta búsqueda", "Aviso");
-                }
-                else {
-                    vm.rowCollection = data;
-                    if (vm.filtro.peso === 0) vm.filtro.peso = '';
-                    if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
-                    vm.showSpinner = false;
-                    vm.deshabilitar = false;
-                    vm.disabledExportar = '';
-                }
-            }, function (error) {
+            //if (isUndefinedOrNull(vm.filtro.nombre)) vm.filtro.nombre = '';
+            //if (isUndefinedOrNull(vm.filtro.apellido)) vm.filtro.apellido = '';
+            //if (isUndefinedOrNull(vm.filtro.idRol)) vm.filtro.idRol = '';
+            vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+            consultarUsuariosService.obtenerListaUsuarios(vm.filtro).then(function success(data) {
+                vm.rowCollection = data;
+                vm.showSpinner = false;
+                vm.deshabilitar = false;
+                vm.disabledExportar = '';
+            }, function error(error) {
                 vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
-            });
+            })
         };
 
         function limpiarCampos() {
@@ -88,7 +74,7 @@
             filtro.Titulos[2] = 'Apellido';
             filtro.Titulos[3] = 'Fecha Alta';
             filtro.Titulos[4] = 'Fecha Baja';
-            
+
             var titulos = [];
             titulos[0] = 'Usuario';
             titulos[1] = 'Nombre';
@@ -403,24 +389,6 @@
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
-        }
-
-        function changeSexo() {
-            vm.categorias = [];
-            if (vm.filtro.genero === '0') {
-                for (var i = 0; i < categorias.length; i++) {
-                    if (categorias[i].genero === 0)
-                        vm.categorias.push(categorias[i]);
-                }
-            }
-            else if (vm.filtro.genero === '1') {
-                for (var j = 0; j < categorias.length; j++) {
-                    if (categorias[j].genero === 1)
-                        vm.categorias.push(categorias[j]);
-                }
-            }
-            else
-                vm.filtro.idCategoria = '2';
         }
 
         function convertirFecha(fecha) {

@@ -5,6 +5,7 @@
         $scope,
         homeService,
         $state,
+        $localStorage,
         toastr
         ) {
         $scope.Menu = [];
@@ -12,7 +13,7 @@
         $scope.load = function () {
             $scope.showSpinner = true;
             homeService.getListMenu({}, function (data) {
-                var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];               
+                var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data;
                 for (var i = 0; i < $scope.Menu.length; i++) {
                     if ($scope.Menu[i].urlMenu === path)
@@ -29,7 +30,7 @@
                 if (path === 'home.undefined') {
                     $scope.Menu[0].activo = 'background-color:#E59866';
                     $state.go('home.inicio');
-                }                   
+                }
             }, function (error) {
                 $scope.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
@@ -45,20 +46,30 @@
         }
 
         $scope.activar = function (id) {
-            for (var i = 0; i < $scope.Menu.length; i++) {
-                if ($scope.Menu[i].idMenu === id)
-                    $scope.Menu[i].activo = 'background-color:#E59866';
-                else if ($scope.Menu[i].menu_Hijos !== null && $scope.Menu[i].menu_Hijos.length > 0) {
-                    for (var j = 0; j < $scope.Menu[i].menu_Hijos.length; j++) {
-                        if ($scope.Menu[i].menu_Hijos[j].idMenu === id)
-                            $scope.Menu[i].menu_Hijos[j].activo = 'background-color:#E59866';
-                        else
-                            $scope.Menu[i].menu_Hijos[j].activo = 'background-color:#FAE5D3';
+            if (id === 9) {
+                $scope.cerrarSesion();
+            }
+            else {
+                for (var i = 0; i < $scope.Menu.length; i++) {
+                    if ($scope.Menu[i].idMenu === id)
+                        $scope.Menu[i].activo = 'background-color:#E59866';
+                    else if ($scope.Menu[i].menu_Hijos !== null && $scope.Menu[i].menu_Hijos.length > 0) {
+                        for (var j = 0; j < $scope.Menu[i].menu_Hijos.length; j++) {
+                            if ($scope.Menu[i].menu_Hijos[j].idMenu === id)
+                                $scope.Menu[i].menu_Hijos[j].activo = 'background-color:#E59866';
+                            else
+                                $scope.Menu[i].menu_Hijos[j].activo = 'background-color:#FAE5D3';
+                        }
                     }
+                    else
+                        $scope.Menu[i].activo = 'background-color:#FAE5D3';
                 }
-                else
-                    $scope.Menu[i].activo = 'background-color:#FAE5D3';
             }
         };
+
+        $scope.cerrarSesion = function () {
+            $localStorage.usuarioInfo = {};
+            $state.go('login');
+        }
     });
 })();
