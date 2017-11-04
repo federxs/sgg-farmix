@@ -7,7 +7,7 @@ angular.module('starter')
         $scope.loginData = {};        
         $scope.doLogin = function () {
             if (($scope.loginData.usuario === undefined || $scope.loginData.usuario === "") || ($scope.loginData.pass === undefined || $scope.loginData.pass === "")) {
-                alert("El usuario y la contraseña no pueden estar vacios.");
+                alert("El usuario y la contrase\u00F1a no pueden estar vac\u00edos.");
             } else {
                 showIonicLoading().then(validarLogin).then(function (_login) {
                     if (_login.resultado == "1") {
@@ -18,7 +18,7 @@ angular.module('starter')
                     }
                     else {
                         $rootScope.logueado = false;
-                        alert("Usuario o contraseña incorrecto.");
+                        alert("Usuario o contrase\u00F1a incorrecto.");
                     }
                 }).then($ionicLoading.hide).catch($ionicLoading.hide);
             }
