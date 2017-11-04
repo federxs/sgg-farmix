@@ -126,6 +126,11 @@
                 url: '/usuarios',
                 templateUrl: 'app/usuarios/consultar-usuarios/consultar-usuarios.html',
                 controller: 'consultarUsuariosController'
+            })
+            .state('home.registrarUsuario', {
+                url: '/usuarios/registro',
+                templateUrl: 'app/usuarios/registrar-usuarios/registrar-usuarios.html',
+                controller: 'registrarUsuariosController'
             });
     });
 })();
