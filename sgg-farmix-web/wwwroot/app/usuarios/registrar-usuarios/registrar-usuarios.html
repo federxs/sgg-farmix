@@ -37,7 +37,7 @@
                         <label class="control-label" for="apellido">
                             Apellido (*)
                         </label>
-                        <input name="apellido" type="text" class="form-control" placeholder="apellido" required
+                        <input name="apellido" type="text" class="form-control" placeholder="Apellido" required
                                ng-disabled="!habilitar"
                                ng-model="usuario.apellido" />
                         <div ng-show="formRegistrarUsuario.apellido.$touched">
@@ -54,12 +54,12 @@
             <div class="panel-body">
 
                 <div class="row">
-                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formRegistrarUsuario.usuario.$touched && formRegistrarUsuario.usuario.$valid,
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarUsuario.usuario.$touched && formRegistrarUsuario.usuario.$valid,
                  'has-error has-feedback':formRegistrarUsuario.usuario.$touched && formRegistrarUsuario.usuario.$invalid}">
                         <label class="control-label" for="usuario">
                             Usuario (*)
                         </label>
-                        <input name="usuario" type="text" class="form-control" placeholder="usuario" required
+                        <input name="usuario" type="text" class="form-control" placeholder="Usuario" required
                                ng-disabled="!habilitar"
                                ng-model="usuario.usuario" />
                         <div ng-show="formRegistrarUsuario.usuario.$touched">
@@ -68,7 +68,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group col-md-6 col-lg-6">
+                    <div class="form-group col-md-4 col-lg-4">
                         <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
                             <label class="control-label" for="Rol">
                                 Rol
@@ -97,7 +97,7 @@
                         <label class="control-label" for="contrasenia">
                             Contrasenia (*)
                         </label>
-                        <input name="contrasenia" type="text" class="form-control" placeholder="contrasenia" required
+                        <input name="contrasenia" type="text" class="form-control" placeholder="Contraseña" required
                                ng-disabled="!habilitar"
                                ng-model="contrasenia.contrasenia" />
                         <div ng-show="formRegistrarUsuario.contrasenia.$touched">
@@ -111,7 +111,7 @@
                         <label class="control-label" for="contraseniaRepetida">
                             Repita la contraseña (*)
                         </label>
-                        <input name="contraseniaRepetida" type="text" class="form-control" placeholder="contraseniaRepetida" required
+                        <input name="contraseniaRepetida" type="text" class="form-control" placeholder="Contraseña" required
                                ng-disabled="!habilitar"
                                ng-model="contraseniaRepetida.contraseniaRepetida" />
                         <div ng-show="formRegistrarUsuario.contraseniaRepetida.$touched">
@@ -124,4 +124,16 @@
             </div>
         </div>
     </fieldset>
+    <div class="row">
+        <button type="submit" style="margin-left:15px;" class="btn btn-primary"
+                ng-disabled="formRegistrarUsuario.$invalid || !habilitar"
+                ng-click="registrar()">
+            Aceptar
+        </button>
+
+        <button type="button" class="btn btn-default"
+                ui-sref="home.usuarios">
+            {{btnVolver}}
+        </button>
+    </div>
 </form>
