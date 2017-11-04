@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('AntibioticoController', function ($ionicLoading, $scope, antibioticoService, $rootScope, registrarEventoService, $state) {
+    .controller('AntibioticoController', function ($ionicLoading, $scope, antibioticoService, $rootScope, registrarEventoService, $state, $localStorage) {
         showIonicLoading().then(obtenerAntibiotico).then(function (_antibioticos) {            
             if ($rootScope.logueado == false) {
                 $state.go('app.bienvenido');
@@ -44,6 +44,6 @@ angular.module('starter')
         }
 
         function obtenerAntibiotico() {
-            return antibioticoService.getDatosAntibiotico();
+            return antibioticoService.getDatosAntibiotico($localStorage.campo);
         }
     });

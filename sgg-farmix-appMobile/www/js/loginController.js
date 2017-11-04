@@ -14,6 +14,7 @@ angular.module('starter')
                         $rootScope.logueado = true;
                         $localStorage.usuario = $scope.loginData.usuario;
                         $localStorage.pass = $scope.loginData.pass;
+                        $localStorage.campo = _login.codigoCampo;
                         $state.go('app.bienvenido');
                     }
                     else {

@@ -4,7 +4,8 @@
 }
 
 .fondoMenu {
-    background-image: url(../img/fondo_login2.jpg);
+    /*-image: url(../img/fondo_login2.jpg);*/
+    background-color: transparent;
 }
 .fondoMenu .itemMenu {
       background-color: #444444;

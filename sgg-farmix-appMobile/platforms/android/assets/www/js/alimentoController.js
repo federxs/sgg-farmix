@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('AlimentoController', function ($ionicLoading, $scope, alimentoService, $rootScope, registrarEventoService, $state) {
+    .controller('AlimentoController', function ($ionicLoading, $scope, alimentoService, $rootScope, registrarEventoService, $state, $localStorage) {
         showIonicLoading().then(obtenerAlimento).then(function (_alimentos) {            
             if($rootScope.logueado == false){
             $state.go('app.bienvenido');
@@ -44,6 +44,6 @@ angular.module('starter')
         }
 
         function obtenerAlimento() {
-            return alimentoService.getDatosAlimento();
+            return alimentoService.getDatosAlimento($localStorage.campo);
         }
     });
