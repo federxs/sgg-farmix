@@ -68,7 +68,7 @@
         };
 
         $scope.cerrarSesion = function () {
-            $localStorage.usuarioInfo = {};
+            $localStorage.usuarioInfo = undefined;
             $state.go('login');
         }
     });

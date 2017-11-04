@@ -181,7 +181,7 @@ namespace sgg_farmix_api.Controllers
                 resultado.estados = new EstadoManager().GetList(idAmbitoEstado);
                 resultado.razas = new RazaManager().GetList();
                 resultado.rodeos = new RodeoManager().GetList(idCampo);
-                resultado.alimentos = new AlimentoManager().GetList();
+                resultado.alimentos = new AlimentoManager().GetList(idCampo);
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
             }
             catch (Exception ex)

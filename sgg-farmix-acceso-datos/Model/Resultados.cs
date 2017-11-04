@@ -20,10 +20,12 @@ namespace sgg_farmix_acceso_datos.Model
         public IEnumerable<Campo> campos { get; set; }
         public IEnumerable<Alimento> alimentos { get; set; }
         public IEnumerable<Rol> roles { get; set; }
+        public IEnumerable<Antibiotico> antibioticos { get; set; }
     } 
 
     public class ResultadoValidacion
     {
         public long resultado { get; set; }
+        public long codigoCampo { get; set; }
     }
 }

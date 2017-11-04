@@ -102,7 +102,9 @@
                     <td>{{item.usuario}}</td>
                     <td>{{item.nombre | uppercase}}</td>
                     <td>{{item.apellido | uppercase}}</td>
-                    <td>{{item.rol | uppercase}}</td>
+                    <td ng-if="item.idRol === 1">Dueño</td>
+                    <td ng-if="item.idRol === 2">Ingeniero</td>
+                    <td ng-if="item.idRol === 3">Peón</td>
                     <td>{{item.fechaAlta}}</td>
                     <td>{{item.fechaBaja}}</td>
                     <td>

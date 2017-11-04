@@ -26,13 +26,14 @@
             });
         }
 
-        function initModificacion(id, usuario) {
+        function initModificacion(id, usuario, codigoCampo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Evento/initEvento',
                 params: {
                     idEvento: id,
-                    usuario: usuario
+                    usuario: usuario,
+                    idCampo: codigoCampo
                 }
             }).then(
             function (data) {

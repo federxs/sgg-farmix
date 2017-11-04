@@ -47,10 +47,16 @@
             //if (isUndefinedOrNull(vm.filtro.idRol)) vm.filtro.idRol = '';
             vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             consultarUsuariosService.obtenerListaUsuarios(vm.filtro).then(function success(data) {
-                vm.rowCollection = data;
-                vm.showSpinner = false;
-                vm.deshabilitar = false;
-                vm.disabledExportar = '';
+                if (data.length === 0) {
+                    vm.rowCollection = [];
+                    toastr.info("No se ha encontrado ningún resultado para esta búsqueda", "Aviso");
+                }                    
+                else {
+                    vm.rowCollection = data;
+                    vm.deshabilitar = false;
+                    vm.disabledExportar = '';
+                }
+                vm.showSpinner = false;                
             }, function error(error) {
                 vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');

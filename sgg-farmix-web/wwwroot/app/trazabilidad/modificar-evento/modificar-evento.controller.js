@@ -34,8 +34,10 @@
             vm.habilitar = false;
             vm.habilitarBtnAceptar = false;
             vm.itemsPorPagina = 9;
-            modificarEventoService.initModificacion($stateParams.id, $localStorage.usuarioInfo.usuario).then(function success(data) {
+            modificarEventoService.initModificacion($stateParams.id, $localStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 vm.vacunas = data.vacunas;
+                vm.alimentos = data.alimentos;
+                vm.antibioticos = data.antibioticos;
                 vm.tiposEventos = data.tipoEvento;
                 vm.rowCollection = data.listaBovinos.listaBovinos;
                 vm.campos = data.campos;
@@ -45,6 +47,8 @@
                     vm.evento = data;
                     vm.evento.idTipoEvento = vm.evento.idTipoEvento.toString();
                     vm.evento.idVacuna = vm.evento.idVacuna.toString();
+                    vm.evento.idAlimento = vm.evento.idAlimento.toString();
+                    vm.evento.idAntibiotico = vm.evento.idAntibiotico.toString();
                     vm.evento.idCampoDestino = vm.evento.idCampoDestino.toString();
                     vm.idRodeoDestino = vm.evento.idRodeoDestino.toString();
                     if (vm.evento.idCampoDestino !== "0") {

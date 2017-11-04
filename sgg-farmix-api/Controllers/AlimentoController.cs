@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 
@@ -16,11 +17,12 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Alimento/GetList")]
         [HttpGet]
-        public IEnumerable<Alimento> GetList()
+        public IEnumerable<Alimento> GetList(string idCampo)
         {
             try
             {
-                return AM.GetList();
+                var id = Regex.Replace(idCampo, @"[^\d]", "");
+                return AM.GetList(Int64.Parse(id));
             }
             catch (Exception ex)
             {

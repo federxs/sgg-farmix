@@ -120,7 +120,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                         parametrosEvento.Add("@idAntibiotico", evento.idAntibiotico);
                         break;
                     case 3: //manejo
-                        parametrosEvento.Add("@idCampoDestino", evento.idCampoDestino);
+                        parametrosEvento.Add("@codigoCampo", evento.idCampoDestino);
                         parametrosEvento.Add("@idRodeoDestino", evento.idRodeoDestino);
                         break;
                     case 4: //alimenticio

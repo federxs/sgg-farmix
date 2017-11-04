@@ -88,18 +88,21 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Evento/initEvento")]
         [HttpGet]
-        public Resultados InitEvento(string idEvento, string usuario)
+        public Resultados InitEvento(string idEvento, string usuario, string idCampo)
         {
             Resultados resultado = new Resultados();
             try
             {
-                var id = Regex.Replace(idEvento, @"[^\d]", "");
-                resultado.vacunas = new VacunaManager().GetList();
+                var idEvent = Regex.Replace(idEvento, @"[^\d]", "");
+                var codigoCampo = Regex.Replace(idCampo, @"[^\d]", "");
+                resultado.vacunas = new VacunaManager().GetList(Int64.Parse(codigoCampo));
                 resultado.tipoEvento = new TipoEventoManager().GetList();
-                resultado.listaBovinos = EM.GetEvento(Int64.Parse(id));
+                resultado.listaBovinos = EM.GetEvento(Int64.Parse(idEvent));
                 resultado.campos = new CampoManager().GetList(usuario);
+                resultado.alimentos = new AlimentoManager().GetList(Int64.Parse(codigoCampo));
+                resultado.antibioticos = new AntibioticoManager().GetList(Int64.Parse(codigoCampo));
                 //resultado.rodeos = new RodeoManager().GetList(resultado.listaBovinos.campoDestino);
-                resultado.rodeos = new RodeoManager().GetList(0);
+                resultado.rodeos = new RodeoManager().GetList(Int64.Parse(codigoCampo));
             }
             catch (Exception ex)
             {
