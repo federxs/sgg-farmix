@@ -81,11 +81,6 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn btn-info" style="margin-top: 25px;background-color:#16A085;" title="Agregar rol" ng-disabled="!habilitar">
-                                <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                            </button>
-                        </div>
                     </div>
                 </div>
 
@@ -93,7 +88,7 @@
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarUsuario.contrasenia.$touched && formModificarUsuario.contrasenia.$valid,
                  'has-error has-feedback':formModificarUsuario.contrasenia.$touched && formModificarUsuario.contrasenia.$invalid}">
                         <label class="control-label" for="contrasenia">
-                            Contrasenia (*)
+                            Contraseña (*)
                         </label>
                         <input name="contrasenia" type="text" class="form-control" placeholder="Contraseña" required
                                ng-disabled="!habilitar"
