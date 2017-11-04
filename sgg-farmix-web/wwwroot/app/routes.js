@@ -127,6 +127,12 @@
                 templateUrl: 'app/usuarios/consultar-usuarios/consultar-usuarios.html',
                 controller: 'consultarUsuariosController'
             })
+            .state('home.modificarUsuario', {
+                url: '/usuarios/modificacion',
+                params: { 'id': null },
+                templateUrl: 'app/usuarios/modificar-usuarios/modificar-usuarios.html',
+                controller: 'modificarUsuariosController'
+            })
             .state('home.registrarUsuario', {
                 url: '/usuarios/registro',
                 templateUrl: 'app/usuarios/registrar-usuarios/registrar-usuarios.html',

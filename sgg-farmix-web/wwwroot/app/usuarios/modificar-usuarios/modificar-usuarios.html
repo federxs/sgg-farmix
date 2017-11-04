@@ -1,0 +1,137 @@
+﻿<form name="formModificarUsuario" novalidate>
+    <fieldset>
+        <div class="alert alert-danger" ng-show=""></div>
+        <div class="row">
+            <div class="col-lg-10">
+                <div style="margin-top:0px;" class="page-header">
+                    <h1>
+                        Usuario
+                        <small>Modificar</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="text-left">Los campos marcados con * son obligatorios: </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Datos Personales</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarUsuario.nombre.$touched && formModificarUsuario.nombre.$valid,
+                 'has-error has-feedback':formModificarUsuario.nombre.$touched && formModificarUsuario.nombre.$invalid}">
+                        <label class="control-label" for="nombre">
+                            Nombre (*)
+                        </label>
+                        <input name="nombre" type="text" class="form-control" placeholder="Nombre" required
+                               ng-disabled="!habilitar"
+                               ng-model="usuario.nombre" />
+                        <div ng-show="formModificarUsuario.nombre.$touched">
+                            <span class="help-block" ng-show="formModificarUsuario.nombre.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarUsuario.apellido.$touched && formModificarUsuario.apellido.$valid,
+                 'has-error has-feedback':formModificarUsuario.apellido.$touched && formModificarUsuario.apellido.$invalid}">
+                        <label class="control-label" for="apellido">
+                            Apellido (*)
+                        </label>
+                        <input name="apellido" type="text" class="form-control" placeholder="Apellido" required
+                               ng-disabled="!habilitar"
+                               ng-model="usuario.apellido" />
+                        <div ng-show="formModificarUsuario.apellido.$touched">
+                            <span class="help-block" ng-show="formModificarUsuario.apellido.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Cuenta</div>
+            <div class="panel-body">
+
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarUsuario.usuario.$touched && formModificarUsuario.usuario.$valid,
+                 'has-error has-feedback':formModificarUsuario.usuario.$touched && formModificarUsuario.usuario.$invalid}">
+                        <label class="control-label" for="usuario">
+                            Usuario (*)
+                        </label>
+                        <input name="usuario" type="text" class="form-control" placeholder="Usuario" required
+                               ng-disabled="!habilitar"
+                               ng-model="usuario.usuario" />
+                        <div ng-show="formModificarUsuario.usuario.$touched">
+                            <span class="help-block" ng-show="formModificarUsuario.usuario.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4">
+                        <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
+                            <label class="control-label" for="Rol">
+                                Rol
+                            </label>
+                            <select class="form-control" name="Rol"
+                                    ng-disabled="!habilitar"
+                                    ng-model="usuario.rol">
+                                <option value="">Seleccione...</option>
+                                <option ng-repeat="item in roles"
+                                        value="{{ item.idRol }}">
+                                    {{ item.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-1 col-lg-1">
+                            <button type="button" class="btn btn-info" style="margin-top: 25px;background-color:#16A085;" title="Agregar rol" ng-disabled="!habilitar">
+                                <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarUsuario.contrasenia.$touched && formModificarUsuario.contrasenia.$valid,
+                 'has-error has-feedback':formModificarUsuario.contrasenia.$touched && formModificarUsuario.contrasenia.$invalid}">
+                        <label class="control-label" for="contrasenia">
+                            Contrasenia (*)
+                        </label>
+                        <input name="contrasenia" type="text" class="form-control" placeholder="Contraseña" required
+                               ng-disabled="!habilitar"
+                               ng-model="contrasenia.contrasenia" />
+                        <div ng-show="formModificarUsuario.contrasenia.$touched">
+                            <span class="help-block" ng-show="formModificarUsuario.contrasenia.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarUsuario.contraseniaRepetida.$touched && formModificarUsuario.contraseniaRepetida.$valid,
+                 'has-error has-feedback':formModificarUsuario.contraseniaRepetida.$touched && formModificarUsuario.contraseniaRepetida.$invalid}">
+                        <label class="control-label" for="contraseniaRepetida">
+                            Repita la contraseña (*)
+                        </label>
+                        <input name="contraseniaRepetida" type="text" class="form-control" placeholder="Contraseña" required
+                               ng-disabled="!habilitar"
+                               ng-model="contraseniaRepetida.contraseniaRepetida" />
+                        <div ng-show="formModificarUsuario.contraseniaRepetida.$touched">
+                            <span class="help-block" ng-show="formModificarUsuario.contraseniaRepetida.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <div class="row">
+        <button type="submit" style="margin-left:15px;" class="btn btn-primary"
+                ng-disabled="formModificarUsuario.$invalid || !habilitar"
+                ng-click="registrar()">
+            Aceptar
+        </button>
+
+        <button type="button" class="btn btn-default"
+                ui-sref="home.usuarios">
+            {{btnVolver}}
+        </button>
+    </div>
+</form>
