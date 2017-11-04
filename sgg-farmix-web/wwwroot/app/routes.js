@@ -133,6 +133,12 @@
                 templateUrl: 'app/usuarios/modificar-usuarios/modificar-usuarios.html',
                 controller: 'modificarUsuariosController'
             })
+            .state('home.detalleUsuario', {
+                url: '/usuarios/detalle',
+                params: { 'id': null },
+                templateUrl: 'app/usuarios/detalle-usuarios/detalle-usuarios.html',
+                controller: 'detalleUsuariosController'
+            })
             .state('home.registrarUsuario', {
                 url: '/usuarios/registro',
                 templateUrl: 'app/usuarios/registrar-usuarios/registrar-usuarios.html',
