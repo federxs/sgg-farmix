@@ -1,19 +1,23 @@
 .fondo {
-    background-color: #229954;
+    /*background-color: #229954;*/
+    background-image:url(../img/fondo_login.jpg);
 }
 
 .fondoMenu {
-    background-color: #FAE5D3;
-}
-h4 {
-    text-align: center;
+    background-image: url(../img/fondo_login2.jpg);
 }
 .bordeBoton {
     border-color: black;
-    background-color: #E59866;
-    color: #fff;
+    background-color: #444444; 
+    color: white;
 }
-
+.td{
+    background-image:url(../img/vacuna.png);
+    background-repeat:no-repeat;
+    height:30%;
+    width:45%;
+    background-position:center;
+}
 .bordeTabla {
     border-color: black;
     background-color: #E59866;
@@ -51,11 +55,48 @@ th, td {
     padding: 8px;
 }
 
-tr:nth-child(even) {
+/*tr:nth-child(even) {
     background-color: #f2f2f2;
-}
+}*/
 
-th {
+/*th {
     background-color: #E59866;
     color: black;
+}*/
+
+.fhm_container {
+  position:absolute;
+  top:0;
+  right:0;
+  left:0;
+  bottom:0;
+}
+
+.fhm_row {
+  /* position: absolute; */
+  height: 50%;
+  left:0;
+  right:0;
+  clear:both;
+}
+.fhm_item {
+  height: 100%;
+  width:50%;
+  background-image:url(../img/vacuna.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid black;
+  float:left;
+}
+.pas{
+  position: relative;
+  bottom: -85%;
+  text-align: center;
+  font-size: 140%;
+}
+.h9{
+    text-align: center;
+}
+.myclass{
+    background-color:transparent;
 }

@@ -1,6 +1,36 @@
 ﻿<ion-view view-title="Registrar Evento">
     <ion-content padding="true" class="fondo">
-        <button ng-click="vacunar()" class="button bordeBoton botonMatriz" ion-button>Vacunacion</button><button ng-click="antibiotico()" class="button bordeBoton botonMatriz" ion-button>Antibiotico</button>        
-        <button ng-click="alimento()" class="button bordeBoton botonMatriz" ion-button>Alimentacion</button><button ng-click="manejar()" class="button bordeBoton botonMatriz" ion-button>Manejo</button>
+        <ion-content id="fhm_page">
+            <div class="fhm_container">
+                <div class="fhm_row">
+                    <div class="fhm_item" ng-click="vacunar()">
+                        <div class="pas">Vacunacion</div>
+                    </div>
+                    <div class="fhm_item" ng-click="antibiotico()">
+                        <div class="pas">Antibiotico</div>
+                    </div>
+                </div>
+                <div class="fhm_row">
+                    <div class="fhm_item" ng-click="alimento()">
+                        <div class="pas">Alimentacion</div>
+                    </div>
+                    <div class="fhm_item" ng-click="manejar()">
+                        <div class="pas">Manejo</div>
+                    </div>
+                </div>               
+            </div>
+        </ion-content>
+        
+        
+        
+        
+        <!--<ion-grid>
+            <ion-row>
+                <ion-col width-50><label>Vacunacion</label></ion-col>
+                <ion-col width-50><img src="img/vacuna.png" ng-click="vacunar()"></ion-col>            
+            </ion-row>
+        </ion-grid>-->
+        <!--<button ng-click="vacunar()" class="td" ion-button>Vacunacion</button><button ng-click="antibiotico()" class="button bordeBoton botonMatriz" ion-button>Antibiotico</button>        
+        <button ng-click="alimento()" class="button bordeBoton botonMatriz" ion-button>Alimentacion</button><button ng-click="manejar()" class="button bordeBoton botonMatriz" ion-button>Manejo</button>-->
     </ion-content>
 </ion-view>
