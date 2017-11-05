@@ -9,13 +9,26 @@
 
     function modificarUsuariosService($http, portalService) {
         var service = {
-            inicializar: inicializar
+            getUsuario: getUsuario,
+            modificar: modificar
         };
 
-        function inicializar() {
+        function getUsuario(id) {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Usuario/Init'
+                url: portalService.getUrlServer() + 'api/Usuario/Get',
+                params: {idUsuario: id}
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function modificar(usuario) {
+            return $http({
+                method: 'PUT',
+                url: portalService.getUrlServer() + 'api/Usuario',
+                params: { usuario: usuario }
             }).then(
             function (data) {
                 return data.data || [];

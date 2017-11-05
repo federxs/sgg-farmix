@@ -9,13 +9,14 @@
 
     function detalleUsuariosService($http, portalService) {
         var service = {
-            inicializar: inicializar
+            getUsuario: getUsuario
         };
 
-        function inicializar() {
+        function getUsuario(id) {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Usuario/Init'
+                url: portalService.getUrlServer() + 'api/Usuario/GetDetalle',
+                params: { idUsuario: id }
             }).then(
             function (data) {
                 return data.data || [];

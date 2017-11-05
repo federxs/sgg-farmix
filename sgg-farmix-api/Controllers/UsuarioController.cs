@@ -91,5 +91,60 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [HttpGet]
+        public Usuario Get(string idUsuario)
+        {
+            try
+            {
+                var id = Regex.Replace(idUsuario, @"[^\d]", "");
+                return UM.Get(Int64.Parse(id));
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Usuario/GetDetalle")]
+        [HttpGet]
+        public UsuarioDetalle GetDetalle(string idUsuario)
+        {
+            try
+            {
+                var id = Regex.Replace(idUsuario, @"[^\d]", "");
+                return UM.GetDetalle(Int64.Parse(id));
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [HttpPut]
+        public Usuario Put(string usuario)
+        {
+            try
+            {
+                var user = JsonConvert.DeserializeObject<Usuario>(usuario);
+                return UM.Update(user.idUsuario, user);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

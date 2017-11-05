@@ -22,19 +22,9 @@
         inicializar();
 
         function inicializar() {
-            registrarUsuariosService.inicializar().then(function success(data) {
-                vm.roles = data.roles;
-                for (var i = 0; i < vm.roles.length; i++) {
-                    if (vm.roles[i].idRol === 1) {
-                        vm.roles.splice(i, 1);
-                        break;
-                    }
-                }
-                vm.showSpinner = false;
-            }, function error(error) {
-                vm.showSpinner = false;
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
-            })
+            vm.roles = [];
+            vm.roles.push({ idRol: 2, nombre: 'Ingeniero' });
+            vm.roles.push({ idRol: 3, nombre: 'Peón' });
         }
 
         function registrar() {

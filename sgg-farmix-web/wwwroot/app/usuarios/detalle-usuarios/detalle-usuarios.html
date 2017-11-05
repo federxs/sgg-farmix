@@ -11,36 +11,39 @@
                 </div>
             </div>
         </div>
-        <div class="text-left">Los campos marcados con * son obligatorios: </div>
         <div class="panel panel-default">
             <div class="panel-heading">Datos Personales</div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formDetalleUsuario.nombre.$touched && formDetalleUsuario.nombre.$valid,
-                 'has-error has-feedback':formDetalleUsuario.nombre.$touched && formDetalleUsuario.nombre.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4">
                         <label class="control-label" for="nombre">
-                            Nombre (*)
+                            Nombre
                         </label>
-                        <input name="nombre" type="text" class="form-control" placeholder="Nombre" required disabled
+                        <input name="nombre" type="text" class="form-control" placeholder="Nombre" disabled
                                ng-model="usuario.nombre" />
-                        <div ng-show="formDetalleUsuario.nombre.$touched">
-                            <span class="help-block" ng-show="formDetalleUsuario.nombre.$error.required">
-                                Este campo es requerido
-                            </span>
-                        </div>
                     </div>
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formDetalleUsuario.apellido.$touched && formDetalleUsuario.apellido.$valid,
-                 'has-error has-feedback':formDetalleUsuario.apellido.$touched && formDetalleUsuario.apellido.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4">
                         <label class="control-label" for="apellido">
-                            Apellido (*)
+                            Apellido
                         </label>
-                        <input name="apellido" type="text" class="form-control" placeholder="Apellido" required disabled
+                        <input name="apellido" type="text" class="form-control" placeholder="Apellido" disabled
                                ng-model="usuario.apellido" />
-                        <div ng-show="formDetalleUsuario.apellido.$touched">
-                            <span class="help-block" ng-show="formDetalleUsuario.apellido.$error.required">
-                                Este campo es requerido
-                            </span>
-                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4">
+                        <label class="control-label" for="nombre">
+                            Fecha Alta
+                        </label>
+                        <input name="nombre" type="text" class="form-control" placeholder="Fecha de Alta" disabled
+                               ng-model="usuario.fechaAlta" />
+                    </div>
+                    <div class="form-group col-md-4 col-lg-4" ng-show="!usuario.fechaBaja">
+                        <label class="control-label" for="apellido">
+                            Fecha Baja
+                        </label>
+                        <input name="apellido" type="text" class="form-control" placeholder="Fecha de Baja" disabled
+                               ng-model="usuario.fechaBaja" />
                     </div>
                 </div>
             </div>
@@ -48,64 +51,29 @@
         <div class="panel panel-default">
             <div class="panel-heading">Cuenta</div>
             <div class="panel-body">
-
                 <div class="row">
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formDetalleUsuario.usuario.$touched && formDetalleUsuario.usuario.$valid,
-                 'has-error has-feedback':formDetalleUsuario.usuario.$touched && formDetalleUsuario.usuario.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4">
                         <label class="control-label" for="usuario">
-                            Usuario (*)
+                            Usuario
                         </label>
-                        <input name="usuario" type="text" class="form-control" placeholder="Usuario" required disabled
+                        <input name="usuario" type="text" class="form-control" placeholder="Usuario" disabled
                                ng-model="usuario.usuario" />
-                        <div ng-show="formDetalleUsuario.usuario.$touched">
-                            <span class="help-block" ng-show="formDetalleUsuario.usuario.$error.required">
-                                Este campo es requerido
-                            </span>
-                        </div>
                     </div>
                     <div class="form-group col-md-4 col-lg-4">
-
                         <label class="control-label" for="Rol">
                             Rol
                         </label>
-                        <select class="form-control" name="Rol" disabled
-                                ng-model="usuario.rol">
-                            <option value="">Seleccione...</option>
-                            <option ng-repeat="item in roles"
-                                    value="{{ item.idRol }}">
-                                {{ item.nombre }}
-                            </option>
-                        </select>
-
+                        <input name="usuario" type="text" class="form-control" placeholder="Rol" disabled
+                               ng-model="usuario.rol" />
                     </div>
                 </div>
-
                 <div class="row">
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formDetalleUsuario.contrasenia.$touched && formDetalleUsuario.contrasenia.$valid,
-                 'has-error has-feedback':formDetalleUsuario.contrasenia.$touched && formDetalleUsuario.contrasenia.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4">
                         <label class="control-label" for="contrasenia">
-                            Contraseña (*)
+                            Contraseña
                         </label>
                         <input name="contrasenia" type="text" class="form-control" placeholder="Contraseña" required disabled
-                               ng-model="contrasenia.contrasenia" />
-                        <div ng-show="formDetalleUsuario.contrasenia.$touched">
-                            <span class="help-block" ng-show="formDetalleUsuario.contrasenia.$error.required">
-                                Este campo es requerido
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formDetalleUsuario.contraseniaRepetida.$touched && formDetalleUsuario.contraseniaRepetida.$valid,
-                 'has-error has-feedback':formDetalleUsuario.contraseniaRepetida.$touched && formDetalleUsuario.contraseniaRepetida.$invalid}">
-                        <label class="control-label" for="contraseniaRepetida">
-                            Repita la contraseña (*)
-                        </label>
-                        <input name="contraseniaRepetida" type="text" class="form-control" placeholder="Contraseña" required disabled
-                               ng-model="contraseniaRepetida.contraseniaRepetida" />
-                        <div ng-show="formDetalleUsuario.contraseniaRepetida.$touched">
-                            <span class="help-block" ng-show="formDetalleUsuario.contraseniaRepetida.$error.required">
-                                Este campo es requerido
-                            </span>
-                        </div>
+                               ng-model="usuario.pass" />
                     </div>
                 </div>
             </div>
@@ -124,3 +92,4 @@
         </button>
     </div>
 </form>
+<div class="loader" ng-show="showSpinner" style="margin:0 auto"></div>
