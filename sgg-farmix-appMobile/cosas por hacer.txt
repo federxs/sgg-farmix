@@ -1,0 +1,4 @@
+-Cancelar el cerrar sesion, y te tira mal el bienvenido
+-Agregar un boton iniciar sesion al principio de la app en el bienvenido
+-Ver las fotos para el registro de eventos y inseminacion
+

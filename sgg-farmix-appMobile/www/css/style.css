@@ -19,6 +19,13 @@
     background-color: #444444; 
     color: white;
 }
+.botonVerificar {
+    border-color: black;
+    background-color: #444444; 
+    color: white;
+    font-size: 12px;
+    padding: 10px 25px;
+}
 .td{
     background-image:url(../img/vacuna.png);
     background-repeat:no-repeat;
@@ -26,10 +33,17 @@
     width:45%;
     background-position:center;
 }
+.select{
+    border-radius: 8px;
+}
 .bordeTabla {
     border-color: black;
-    background-color: #E59866;
+    background-color: #FFFAFA;
     color: black;
+    border-radius: 8px;
+}
+.itemTabla{
+    border-top: 1px solid;
 }
 .botonIniciarSesion{
     width: 100%;
@@ -63,14 +77,6 @@ th, td {
     padding: 8px;
 }
 
-/*tr:nth-child(even) {
-    background-color: #f2f2f2;
-}*/
-
-/*th {
-    background-color: #E59866;
-    color: black;
-}*/
 
 .fhm_container {
   position:absolute;
@@ -81,7 +87,6 @@ th, td {
 }
 
 .fhm_row {
-  /* position: absolute; */
   height: 50%;
   left:0;
   right:0;

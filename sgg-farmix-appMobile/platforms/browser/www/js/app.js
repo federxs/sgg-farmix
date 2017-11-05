@@ -22,7 +22,8 @@ angular.module('starter', ['ionic', 'ngStorage'])
       .state('app', {
           url: '/app',
           abstract: true,
-          templateUrl: 'views/menu.html'
+          templateUrl: 'views/menu.html',
+          controller: 'Controller'
       })
       .state('app.login', {
           cache: false,

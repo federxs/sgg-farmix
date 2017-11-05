@@ -1,6 +1,6 @@
 ﻿<ion-view view-title="Registrar Inseminación">
     <ion-content padding="true" class="fondo">
-        <select class="item item-input" ng-model="evento.tipoInseminacion">
+        <select class="item item-input select" ng-model="evento.tipoInseminacion">
             <option value="0">Seleccione el tipo de la inseminacion</option>
             <option value="1">Inseminacion Artificial</option>
             <option value="2">Inseminacion por Montura</option>
@@ -11,7 +11,7 @@
                 <th>Numero de Caravana</th>
                 <th>Apodo</th>
             </tr>
-            <tr ng-repeat="vaca in vacas">
+            <tr ng-repeat="vaca in vacas" class="itemTabla">
                 <td>{{vaca.numCaravana}}</td>
                 <td>{{vaca.apodo}}</td>
             </tr>
@@ -22,7 +22,7 @@
                 <th>Numero de Caravana</th>
                 <th>Apodo</th>
             </tr>
-            <tr ng-repeat="toro in toros">
+            <tr ng-repeat="toro in toros" class="itemTabla">
                 <td>{{toro.numCaravana}}</td>
                 <td>{{toro.apodo}}</td>
             </tr>
