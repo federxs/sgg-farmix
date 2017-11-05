@@ -122,13 +122,13 @@
                     <input type="password" name="contrasenia" placeholder="Contraseña"
                            ng-model="usuario.pass">
                     <input type="submit" name="login" class="login loginmodal-submit" value="Ingresar"
-                           ng-click="aceptar()" ng-keydown="$event.keyCode === 13 && aceptar()">
+                           ng-click="aceptar()" ng-keyup="$event.keyCode === 13 && aceptar()">
                 </form>
 
                 <div class="login-help">
                     <a>Volver</a>
                 </div>
-                <div class="pull-right"><a ref="" ng-click="ocultarUsuario = true">Usar otra cuenta</a></div>
+                <div class="pull-right"><a ref="" ng-click="ocultarUsuario = true" style="cursor:pointer">Usar otra cuenta</a></div>
             </div>
         </div>
     </div>

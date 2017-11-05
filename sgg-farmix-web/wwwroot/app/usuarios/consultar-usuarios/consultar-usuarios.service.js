@@ -10,7 +10,8 @@
     function consultarUsuariosService($http, portalService) {
         var service = {
             inicializar: inicializar,
-            obtenerListaUsuarios: obtenerListaUsuarios
+            obtenerListaUsuarios: obtenerListaUsuarios,
+            darBajaUser: darBajaUser
         };
 
         function inicializar() {
@@ -28,6 +29,17 @@
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Usuario/GetList',
                 params: { filter: filtro }
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function darBajaUser(idUsuario) {
+            return $http({
+                method: 'PUT',
+                url: portalService.getUrlServer() + 'api/Usuario/DarBaja',
+                params: { idUsuario: idUsuario }
             }).then(
             function (data) {
                 return data.data || [];

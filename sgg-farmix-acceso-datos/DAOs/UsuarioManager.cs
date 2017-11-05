@@ -19,7 +19,25 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public void Delete(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idUsuario", id }
+                };
+                var delete = connection.Execute("spBajaUsuario", parametros, System.Data.CommandType.StoredProcedure);
+                if(delete == 0)
+                    throw new ArgumentException("Baja Usuario Error");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public IEnumerable<Usuario> Get(Usuario entity)
