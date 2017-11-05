@@ -3,11 +3,11 @@
 }
 
 .logoHeader {
-   
+
     padding-top: 10px;
     padding-bottom: 10px;
-     display: table;
-  margin: 0 auto;
+    display: inline-block;
+    margin: 0 auto;
 }
 
 .footer {
