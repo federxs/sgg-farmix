@@ -16,11 +16,11 @@
 
         return service;
 
-        function inicializar(idBovino) {
+        function inicializar(idBovino, codigoCampo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Bovino/initBaja',
-                params: { idBovino: idBovino }
+                params: { idBovino: idBovino, codigoCampo: codigoCampo }
             }).then(
             function (data) {
                 return data.data || [];

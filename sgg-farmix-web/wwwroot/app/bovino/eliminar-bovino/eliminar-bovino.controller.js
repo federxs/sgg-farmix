@@ -5,9 +5,9 @@
         .module('app')
         .controller('eliminarBovinoController', eliminarBovinoController);
 
-    eliminarBovinoController.$inject = ['$scope', 'eliminarBovinoService', '$stateParams', 'toastr'];
+    eliminarBovinoController.$inject = ['$scope', 'eliminarBovinoService', '$stateParams', 'toastr', '$localStorage'];
 
-    function eliminarBovinoController($scope, eliminarBovinoService, $stateParams, toastr) {
+    function eliminarBovinoController($scope, eliminarBovinoService, $stateParams, toastr, $localStorage) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.habilitar = false;
@@ -31,7 +31,7 @@
         //inicializar();      
 
         function inicializar() {            
-            eliminarBovinoService.inicializar($stateParams.id).then(function success(data) {
+            eliminarBovinoService.inicializar($stateParams.id, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 //bovino
                 vm.bovino = data;
                 vm.establecimientos = data.establecimientosDestino.establecimientos;

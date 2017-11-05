@@ -216,14 +216,15 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/initBaja")]
         [HttpGet]
-        public BovinoHeaderEliminar GetBaja(string idBovino)
+        public BovinoHeaderEliminar GetBaja(string idBovino, string codigoCampo)
         {
             try
             {
                 var id = Regex.Replace(idBovino, @"[^\d]", "");
+                var campo = Regex.Replace(codigoCampo, @"[^\d]", "");
                 var bovino = BM.GetDetalleBaja(Int64.Parse(id));
                 Resultados resultado = new Resultados();
-                resultado.establecimientos = new EstablecimientoOrigenManager().GetList(100);
+                resultado.establecimientos = new EstablecimientoOrigenManager().GetList(Int64.Parse(campo));
                 bovino.establecimientosDestino = resultado;
                 return bovino;
             }
