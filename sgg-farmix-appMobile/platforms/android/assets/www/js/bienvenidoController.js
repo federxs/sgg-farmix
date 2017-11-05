@@ -17,6 +17,9 @@ angular.module('starter')
         } else {
             $rootScope.logueado = false;
         }
+        $scope.iniciar = function() {
+            $state.go('app.login');
+        }
         function validarLogin() {
             usuario.idRol = 3;
             return loginService.validarLogin(usuario);
