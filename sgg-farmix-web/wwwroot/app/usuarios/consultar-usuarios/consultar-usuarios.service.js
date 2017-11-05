@@ -11,7 +11,8 @@
         var service = {
             inicializar: inicializar,
             obtenerListaUsuarios: obtenerListaUsuarios,
-            darBajaUser: darBajaUser
+            darBajaUser: darBajaUser,
+            activarUser: activarUser
         };
 
         function inicializar() {
@@ -39,6 +40,17 @@
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Usuario/DarBaja',
+                params: { idUsuario: idUsuario }
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function activarUser(idUsuario) {
+            return $http({
+                method: 'PUT',
+                url: portalService.getUrlServer() + 'api/Usuario/Activar',
                 params: { idUsuario: idUsuario }
             }).then(
             function (data) {

@@ -111,6 +111,7 @@
                         <a ui-sref="home.modificarUsuario({id:item.idUsuario})" title="Modificar" ng-show="item.fechaBaja === ' '"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a ui-sref="home.detalleUsuario({id:item.idUsuario})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
                         <a title="Eliminar" style="cursor:pointer" ng-show="item.fechaBaja === ' '"><span class="glyphicon glyphicon-trash" ng-click="openPopUp(item)"></span></a>
+                        <a title="Activar usuario" style="cursor:pointer" ng-show="item.fechaBaja !== ' '"><span class="fa fa-check-circle-o " ng-click="openPopUpActivar(item)"></span></a>
                     </td>
                 </tr>
             </tbody>
@@ -142,6 +143,25 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" ng-click="eliminar()">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal-->
+<div id="modalConfirmActivacionUser" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar baja de usuario</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea activar al usuario {{usuarioActivo}}?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="activar()">Si</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
             </div>
         </div>

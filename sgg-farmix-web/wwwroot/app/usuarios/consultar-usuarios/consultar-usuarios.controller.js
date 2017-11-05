@@ -13,6 +13,7 @@
         vm.deshabilitar = false;
         vm.disabledExportar = 'disabled';
         var idUsuarioEliminar = 0;
+        var idUsuarioActivar = 0;
         //variables
         vm.usuarios = [];
         vm.filtro = {};
@@ -24,7 +25,9 @@
         vm.exportarExcel = exportarExcel;
         vm.exportarPDF = exportarPDF;
         vm.openPopUp = openPopUp;
+        vm.openPopUpActivar = openPopUpActivar;
         vm.eliminar = eliminar;
+        vm.activar = activar;
 
         function inicializar() {
             vm.showSpinner = true;
@@ -424,6 +427,26 @@
                 $state.reload();
             }, function (error) {
                 $('#modalConfirmEliminacionUser').modal('hide');
+                vm.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
+        }
+
+        function openPopUpActivar(usuario) {
+            vm.usuarioActivo = usuario.usuario;
+            idUsuarioActivar = usuario.idUsuario;
+            $('#modalConfirmActivacionUser').modal('show');
+        }
+
+        function activar() {
+            vm.showSpinner = true;
+            consultarUsuariosService.activarUser(idUsuarioActivar).then(function success() {
+                $('#modalConfirmActivacionUser').modal('hide');
+                toastr.success('Se ha activado al usuario con éxito', 'Éxito');
+                vm.showSpinner = false;
+                $state.reload();
+            }, function (error) {
+                $('#modalConfirmActivacionUser').modal('hide');
                 vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })

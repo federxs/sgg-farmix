@@ -207,5 +207,28 @@ namespace sgg_farmix_acceso_datos.DAOs
                 throw;
             }
         }
+
+        public void Activar(long id)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idUsuario", id }
+                };
+                var activar = connection.Execute("spActivarUsuario", parametros, System.Data.CommandType.StoredProcedure);
+                if(activar == 0)
+                    throw new ArgumentException("Activar Usuario Error");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
