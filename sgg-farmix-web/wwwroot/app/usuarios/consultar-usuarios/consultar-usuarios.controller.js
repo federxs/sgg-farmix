@@ -5,13 +5,14 @@
         .module('app')
         .controller('consultarUsuariosController', consultarUsuariosController);
 
-    consultarUsuariosController.$inject = ['$scope', 'consultarUsuariosService', 'toastr', 'exportador', '$localStorage'];
+    consultarUsuariosController.$inject = ['$scope', 'consultarUsuariosService', 'toastr', 'exportador', '$localStorage', '$state'];
 
-    function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage) {
+    function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage, $state) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.deshabilitar = false;
         vm.disabledExportar = 'disabled';
+        var idUsuarioEliminar = 0;
         //variables
         vm.usuarios = [];
         vm.filtro = {};
@@ -22,6 +23,8 @@
         vm.limpiarCampos = limpiarCampos;
         vm.exportarExcel = exportarExcel;
         vm.exportarPDF = exportarPDF;
+        vm.openPopUp = openPopUp;
+        vm.eliminar = eliminar;
 
         function inicializar() {
             vm.showSpinner = true;
@@ -42,9 +45,6 @@
             vm.showSpinner = true;
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
-            //if (isUndefinedOrNull(vm.filtro.nombre)) vm.filtro.nombre = '';
-            //if (isUndefinedOrNull(vm.filtro.apellido)) vm.filtro.apellido = '';
-            //if (isUndefinedOrNull(vm.filtro.idRol)) vm.filtro.idRol = '';
             vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             consultarUsuariosService.obtenerListaUsuarios(vm.filtro).then(function success(data) {
                 if (data.length === 0) {
@@ -409,8 +409,24 @@
             return dia + '/' + mes + '/' + año;
         }
 
-        function isUndefinedOrNull(val) {
-            return angular.isUndefined(val) || val === null || val == undefined
+        function openPopUp(usuario) {
+            vm.usuario = usuario.usuario;
+            idUsuarioEliminar = usuario.idUsuario;
+            $('#modalConfirmEliminacionUser').modal('show');
+        }
+
+        function eliminar() {
+            vm.showSpinner = true;
+            consultarUsuariosService.darBajaUser(idUsuarioEliminar).then(function success() {
+                $('#modalConfirmEliminacionUser').modal('hide');
+                toastr.success('Se ha dado de baja al usuario con éxito', 'Éxito');
+                vm.showSpinner = false;
+                $state.reload();
+            }, function (error) {
+                $('#modalConfirmEliminacionUser').modal('hide');
+                vm.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
         }
 
     }

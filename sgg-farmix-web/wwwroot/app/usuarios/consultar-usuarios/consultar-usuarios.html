@@ -108,9 +108,9 @@
                     <td>{{item.fechaAlta}}</td>
                     <td>{{item.fechaBaja}}</td>
                     <td>
-                        <a ui-sref="home.modificarUsuario({id:item.idUsuario})" title="Modificar"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a ui-sref="home.modificarUsuario({id:item.idUsuario})" title="Modificar" ng-show="item.fechaBaja === ' '"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a ui-sref="home.detalleUsuario({id:item.idUsuario})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
-                        <a ui-sref="home.eliminarUsuario({id:item.idUsuario})" title="Eliminar"><span class="glyphicon glyphicon-trash"></span></a>
+                        <a title="Eliminar" style="cursor:pointer" ng-show="item.fechaBaja === ' '"><span class="glyphicon glyphicon-trash" ng-click="openPopUp(item)"></span></a>
                     </td>
                 </tr>
             </tbody>
@@ -126,6 +126,25 @@
                 </tr>
             </tfoot>
         </table>
+    </div>
+</div>
+<!--Modal-->
+<div id="modalConfirmEliminacionUser" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar baja de usuario</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea dar de baja al usuario {{usuario}}?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
     </div>
 </div>
 <div class="loader" ng-show="showSpinner" style="margin:0 auto"></div>

@@ -36,7 +36,6 @@
                                 $localStorage.usuarioInfo = {};
                                 $localStorage.usuarioInfo.usuario = vm.usuario.usuario;
                                 $localStorage.usuarioInfo.idRol = vm.usuario.idRol;
-                                //$localStorage.usuarioInfo.codigoCampo = 100;
                             }
                             $('#login-modal').modal('hide');
                             $state.go('seleccionCampo');
