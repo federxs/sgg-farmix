@@ -93,7 +93,7 @@
         }
 
         function obtenerBovino() {
-            return bovinoService.getDatosBovino($scope.id);
+            return bovinoService.getDatosBovino($scope.id, $localStorage.campo);
         }
     });
 })();

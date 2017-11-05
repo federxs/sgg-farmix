@@ -2,6 +2,7 @@
 using sgg_farmix_acceso_datos.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,20 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Usuario Get(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idUsuario", id }
+                };
+                var usuario = connection.GetArray<Usuario>("spObtenerDatosUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public Usuario GetFilter()
@@ -38,7 +52,31 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Usuario Update(long id, Usuario entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idUsuario", id },
+                    {"@nombre", entity.nombre },
+                    {"@apellido", entity.apellido },
+                    {"@usuario", entity.usuario },
+                    {"@idRol", entity.idRol }
+                };
+                var update = connection.Execute("spModificarUsuario", parametros, System.Data.CommandType.StoredProcedure);
+                if(update == 0)
+                    throw new ArgumentException("Update Usuario Error");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public ResultadoValidacion ValidarUsuario(Usuario entity)
@@ -87,6 +125,68 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+            }
+        }
+
+        public Usuario Create(Usuario entity, long codigoCampo)
+        {
+            connection = new SqlServerConnection();
+            DbTransaction transaction = connection.BeginTransaction();
+            try
+            {
+                //var clave = Encrypt.GetMD5(entity.pass);
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@usuario", entity.usuario },
+                    {"@nombre", entity.nombre },
+                    {"@apellido", entity.apellido },
+                    {"@pass", entity.pass },
+                    {"@idRol", entity.idRol },
+                    {"@idPlan", entity.idPlan },
+                    {"@codigoCampo", codigoCampo }
+                };
+                entity.idUsuario = connection.Execute("spRegistrarUsuario", parametros, System.Data.CommandType.StoredProcedure, transaction);
+                if (entity.idUsuario == 0)
+                    throw new ArgumentException("Create Usuario Error");
+                else if(entity.idUsuario == -1)
+                    throw new ArgumentException("El usuario ya existe para este campo");
+                var param = new Dictionary<string, object>
+                {
+                    {"@idUsuario", entity.idUsuario },
+                    {"@codigoCampo", codigoCampo }
+                };
+                var insert = connection.Execute("spRegistrarUsuarioEnCampo", param, System.Data.CommandType.StoredProcedure, transaction);
+                if(insert == 0)
+                    throw new ArgumentException("Create Usuario por Campo Error");
+                connection.Commit(transaction);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                connection.Rollback(transaction);
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public UsuarioDetalle GetDetalle(long id)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idUsuario", id }
+                };
+                var usuario = connection.GetArray<UsuarioDetalle>("spObtenerDetalleUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }

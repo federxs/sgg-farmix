@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('EscribirController', function ($scope, $rootScope, $ionicLoading, bovinoService, $state) {
+    .controller('EscribirController', function ($scope, $rootScope, $ionicLoading, bovinoService, $state, $localStorage) {
         if($rootScope.logueado == false){
             $state.go('app.bienvenido');
         }
@@ -23,7 +23,7 @@ angular.module('starter')
             });
         }
         function getBovinos() {
-            return bovinoService.getBovinos();
+            return bovinoService.getBovinos($localStorage.campo);
         }
 
         $scope.grabar = function (id, escribir) {

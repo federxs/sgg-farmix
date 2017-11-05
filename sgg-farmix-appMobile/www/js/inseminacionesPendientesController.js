@@ -1,5 +1,5 @@
 angular.module('starter')
-.controller('InseminacionesPendientesController', function ($scope, $state, $rootScope, inseminacionService, $ionicLoading) {
+.controller('InseminacionesPendientesController', function ($scope, $state, $rootScope, inseminacionService, $ionicLoading, $localStorage) {
     if($rootScope.logueado == false){
             $state.go('app.bienvenido');
      }
@@ -27,7 +27,7 @@ angular.module('starter')
         }
 
         function getInseminacionesPendientes() {
-            return inseminacionService.getInseminacionesPendientes();
+            return inseminacionService.getInseminacionesPendientes($localStorage.campo);
         }
 
         function convertirFecha(fecha) {

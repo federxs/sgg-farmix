@@ -10,8 +10,8 @@
             });
         };
 
-        this.getInseminacionesPendientes = function () {
-            return $http.get(inseminacionUrl + "ServicioSinConfirmar").then(function (respuesta) {
+        this.getInseminacionesPendientes = function (idCampo) {
+            return $http.get(inseminacionUrl + "ServicioSinConfirmar?idCampo=" + idCampo).then(function (respuesta) {
                 return respuesta.data;
             })
         };

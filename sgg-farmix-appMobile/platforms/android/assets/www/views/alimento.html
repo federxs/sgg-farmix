@@ -1,13 +1,13 @@
 ﻿<ion-view view-title="Evento Alimento">
     <ion-content padding="true" class="fondo">
-        <select class="item item-input" ng-model="evento.alimento" >
+        <select class="item item-input select" ng-model="evento.alimento" >
             <option value="0">Seleccione un Alimento</option>                             
             <option ng-repeat="alimento in alimentos"
                  value = "{{alimento.idAlimento}}">                  
                  {{ alimento.nombre }}
             </option>
         </select><br>
-        <label class="item item-input">            
+        <label class="item item-input select">            
             <input type="number" ng-model="txtKiligramaje.value" placeholder="Ingrese la cantidad de alimento en kilogramos." />
         </label>
         <br />        
@@ -16,7 +16,7 @@
                 <th>Numero de Caravana</th>
                 <th>Apodo</th>
             </tr>
-            <tr ng-repeat="vaca in vacas">
+            <tr ng-repeat="vaca in vacas" class="itemTabla">
                 <td>{{vaca.numCaravana}}</td>
                 <td>{{vaca.apodo}}</td>
             </tr>

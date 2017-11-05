@@ -1,5 +1,5 @@
 angular.module('starter')
-.controller('ResultadoController', function ($stateParams,$rootScope, $scope, bovinoService, $ionicLoading, $state) {
+.controller('ResultadoController', function ($stateParams,$rootScope, $scope, bovinoService, $ionicLoading, $state, $localStorage) {
     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
         if($rootScope.logueado == false){
             $state.go('app.bienvenido');
@@ -15,6 +15,13 @@ angular.module('starter')
                 fecha = "0" + _bovino.fechaNacimiento.substr(2, 1) + "/0"  +  _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(4, 4)
             } else {
                 fecha = "0" + _bovino.fechaNacimiento.substr(3, 1) + "/" + _bovino.fechaNacimiento.substr(0, 2) + "/" + _bovino.fechaNacimiento.substr(5, 4)
+            }
+            var fechaHoy = new Date();
+            fechaHoy = moment(convertirFecha(fechaHoy));
+            var fechaEstimado = $scope.bovino.fechaEstimadaParto.split('/');
+            fechaEstimado = moment(fechaEstimado[2] + '/' + fechaEstimado[1] + '/' + fechaEstimado[0]);
+            if (fechaHoy.diff(fechaEstimado, 'days') >= 1) {
+                $scope.bovino.fechaEstimadaParto = '';
             }
             $scope.bovino.fechaNacimiento = fecha;
             if ($scope.bovino.genero == 0) {
@@ -35,6 +42,19 @@ angular.module('starter')
     }
 
     function obtenerBovino() {
-        return bovinoService.getDatosBovino($stateParams.id);
+        return bovinoService.getDatosBovino($stateParams.id, $localStorage.campo);
+    }
+
+    function convertirFecha(fecha) {
+        var dia = fecha.getDate().toString();
+        if (dia.length === 1) {
+            dia = '0' + dia;
+        }
+        var mes = (fecha.getMonth() + 1).toString();
+        if (mes.length === 1) {
+            mes = '0' + mes;
+        }
+        var ano = fecha.getFullYear().toString();
+        return ano + '/' + mes + '/' + dia;
     }
 });

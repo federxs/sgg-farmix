@@ -1,16 +1,16 @@
 ﻿angular.module('starter')
     .service('bovinoService', function ($http, portalService) {
-        var bovinoUrl = portalService.getUrlServer() + "api/Bovino/initModificacion?idBovino=";
-        var bovinosUrl = portalService.getUrlServer() + "api/Bovino/getListaTags";
+        var bovinoUrl = portalService.getUrlServer() + "api/Bovino/initModificacion?";
+        var bovinosUrl = portalService.getUrlServer() + "api/Bovino/getListaTags?idCampo=";
         var escribirUrl = portalService.getUrlServer() + "api/Bovino/escribirTag";
-        this.getDatosBovino = function (id) {
+        this.getDatosBovino = function (id, idCampo) {
             if (id != "") {
                 for (var i = 0; i < id.length; i++) {
                     if (id.charAt(i) != '0' && id.charAt(i) != '1' && id.charAt(i) != '2' && id.charAt(i) != '3' && id.charAt(i) != '4' && id.charAt(i) != '5' && id.charAt(i) != '6' && id.charAt(i) != '7' && id.charAt(i) != '8' && id.charAt(i) != '9') {
                         return null
                     }
                 }
-                return $http.get(bovinoUrl + id).then(function (respuesta) {
+                return $http.get(bovinoUrl + "idBovino=" + id + "&idCampo=" + idCampo).then(function (respuesta) {
                     if (respuesta.data.bovino != null) {
                         for (var i = 0; i < respuesta.data.categorias.length; i++) {
                             if (respuesta.data.categorias[i].idCategoria == respuesta.data.bovino.idCategoria) {
@@ -38,8 +38,8 @@
             }
         }
         
-        this.getBovinos = function () {
-            return $http.get(bovinosUrl).then(function (respuesta) {
+        this.getBovinos = function (idCampo) {
+            return $http.get(bovinosUrl + idCampo).then(function (respuesta) {
                 return respuesta.data;
             })
         }

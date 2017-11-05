@@ -81,7 +81,7 @@
         <div class="row content">
             <div class="col-md-2 col-lg-2 sidenav">
                 <ul class="list-group" style="margin-top: 20px;">
-                    <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}" style="{{menu.activo}};">
+                    <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}" style="cursor: pointer;{{menu.activo}};">
                         <a style="display:block;" ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0 && menu.menu_Hijos === null" ng-click="activar(menu.idMenu)">
                             <span class="title" style="color:black;">{{menu.nombre}}</span>
                             <i class="pull-left {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>

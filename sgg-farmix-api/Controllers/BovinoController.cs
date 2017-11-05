@@ -29,8 +29,8 @@ namespace sgg_farmix_api.Controllers
                 resultado.estados = new EstadoManager().GetList(1);
                 resultado.razas = new RazaManager().GetList();
                 resultado.rodeos = new RodeoManager().GetList(Int64.Parse(campo));
-                resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
-                resultado.bovino = BM.Get(Int64.Parse(id));
+                resultado.establecimientos = new EstablecimientoOrigenManager().GetList(Int64.Parse(campo));
+                resultado.bovino = BM.Get(Int64.Parse(id), Int64.Parse(campo));
             }
             catch (Exception ex)
             {
@@ -182,7 +182,7 @@ namespace sgg_farmix_api.Controllers
                 resultado.razas = new RazaManager().GetList();
                 resultado.rodeos = new RodeoManager().GetList(idCampo);
                 resultado.alimentos = new AlimentoManager().GetList(idCampo);
-                resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
+                resultado.establecimientos = new EstablecimientoOrigenManager().GetList(idCampo);
             }
             catch (Exception ex)
             {
@@ -223,7 +223,7 @@ namespace sgg_farmix_api.Controllers
                 var id = Regex.Replace(idBovino, @"[^\d]", "");
                 var bovino = BM.GetDetalleBaja(Int64.Parse(id));
                 Resultados resultado = new Resultados();
-                resultado.establecimientos = new EstablecimientoOrigenManager().GetList();
+                resultado.establecimientos = new EstablecimientoOrigenManager().GetList(100);
                 bovino.establecimientosDestino = resultado;
                 return bovino;
             }
@@ -277,11 +277,12 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/getListaTags")]
         [HttpGet]
-        public IEnumerable<TagBovino> GetTagsBovinos()
+        public IEnumerable<TagBovino> GetTagsBovinos(string idCampo)
         {
             try
             {
-                return BM.GetTags();
+                var codigoCampo = Regex.Replace(idCampo, @"[^\d]", "");
+                return BM.GetTags(Int64.Parse(codigoCampo));
             }
             catch (Exception ex)
             {
