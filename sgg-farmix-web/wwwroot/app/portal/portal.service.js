@@ -7,7 +7,8 @@
         portalService.getUrlServer = function () {
             return "http://localhost:2424/";
             //return "http://farmix.somee.com/";
-            // return "http://yo.sooft.com.ar/";
+            //return "http://ec2-54-232-203-99.sa-east-1.compute.amazonaws.com:2424/";
+            //return "http://54.232.203.99:2424/";
         };
 
         /*portal.getDefaultUsuarioImagen = function () {

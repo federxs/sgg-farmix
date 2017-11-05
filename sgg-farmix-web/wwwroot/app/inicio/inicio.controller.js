@@ -11,7 +11,7 @@
         $scope.showSpinner = true;
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
-        $scope.insert = insert;
+        $scope.prueba = prueba;
 
         function inicializar() {
             $scope.showSpinner = true;
@@ -77,10 +77,8 @@
             }
         }
 
-        function insert() {
-            var usuario = { usuario: 'pruebaMobile', pass:'123456', idRol: 3 };
-            //var lista = [12, 17];
-            inicioService.getData(usuario).then(function success(data) {
+        function prueba() {        
+            inicioService.prueba($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 var hola = data;
             })
         }

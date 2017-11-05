@@ -68,19 +68,25 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group col-md-4 col-lg-4">
-                        <label class="control-label" for="Rol">
-                            Rol
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarUsuario.rol.$touched && formRegistrarUsuario.rol.$valid,
+                 'has-error has-feedback':formRegistrarUsuario.rol.$touched && formRegistrarUsuario.rol.$invalid}">
+                        <label class="control-label" for="rol">
+                            Rol (*)
                         </label>
-                        <select class="form-control" name="Rol"
+                        <select class="form-control" name="rol"
                                 ng-disabled="!habilitar"
-                                ng-model="usuario.rol">
+                                ng-model="usuario.idRol" required>
                             <option value="">Seleccione...</option>
                             <option ng-repeat="item in roles"
                                     value="{{ item.idRol }}">
                                 {{ item.nombre }}
                             </option>
                         </select>
+                        <div ng-show="formRegistrarUsuario.rol.$touched">
+                            <span class="help-block" ng-show="formRegistrarUsuario.rol.$error.required">
+                                Este campo es requerido
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -92,7 +98,7 @@
                         </label>
                         <input name="contrasenia" type="text" class="form-control" placeholder="Contraseña" required
                                ng-disabled="!habilitar"
-                               ng-model="contrasenia.contrasenia" />
+                               ng-model="usuario.pass" />
                         <div ng-show="formRegistrarUsuario.contrasenia.$touched">
                             <span class="help-block" ng-show="formRegistrarUsuario.contrasenia.$error.required">
                                 Este campo es requerido
@@ -104,12 +110,16 @@
                         <label class="control-label" for="contraseniaRepetida">
                             Repita la contraseña (*)
                         </label>
-                        <input name="contraseniaRepetida" type="text" class="form-control" placeholder="Contraseña" required
+                        <input name="contraseniaRepetida" type="text" class="form-control" placeholder="Confirmar contraseña" required min=""
                                ng-disabled="!habilitar"
-                               ng-model="contraseniaRepetida.contraseniaRepetida" />
+                               ng-model="contraseniaRepetida.contraseniaRepetida"
+                               ng-blur="validarContrasenias()" />
                         <div ng-show="formRegistrarUsuario.contraseniaRepetida.$touched">
                             <span class="help-block" ng-show="formRegistrarUsuario.contraseniaRepetida.$error.required">
                                 Este campo es requerido
+                            </span>
+                            <span class="help-block" ng-show="formRegistrarUsuario.contraseniaRepetida.$error.min">
+                                Las contraseñas no coinciden
                             </span>
                         </div>
                     </div>

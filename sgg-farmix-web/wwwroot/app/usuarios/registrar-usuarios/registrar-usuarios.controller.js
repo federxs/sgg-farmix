@@ -5,9 +5,9 @@
         .module('app')
         .controller('registrarUsuariosController', registrarUsuariosController);
 
-    registrarUsuariosController.$inject = ['$scope'];
+    registrarUsuariosController.$inject = ['$scope', 'registrarUsuariosService', '$localStorage', 'toastr'];
 
-    function registrarUsuariosController($scope) {
+    function registrarUsuariosController($scope, registrarUsuariosService, $localStorage, toastr) {
         var vm = $scope;
         //variables
         vm.showSpinner = true;
@@ -18,14 +18,50 @@
         //metodos
         vm.inicializar = inicializar;
         vm.registrar = registrar;
+        vm.validarContrasenias = validarContrasenias;
         inicializar();
 
         function inicializar() {
-            vm.showSpinner = false;
+            registrarUsuariosService.inicializar().then(function success(data) {
+                vm.roles = data.roles;
+                for (var i = 0; i < vm.roles.length; i++) {
+                    if (vm.roles[i].idRol === 1) {
+                        vm.roles.splice(i, 1);
+                        break;
+                    }
+                }
+                vm.showSpinner = false;
+            }, function error(error) {
+                vm.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
         }
 
-        function registrar() { }
+        function registrar() {
+            vm.usuario.idPlan = 1;
+            vm.habilitar = false;
+            registrarUsuariosService.registrar(vm.usuario, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
+                toastr.success('Se agrego con éxito el usuario ', 'Éxito');
+                vm.btnVolver = "Volver";
+                vm.showSpinner = false;
+            }, function error(error) {
+                vm.showSpinner = false;
+                if (error.data === 'Error: El usuario ya existe para este campo') {
+                    vm.habilitar = true;
+                    toastr.warning('El usuario ya existe para este campo', 'Advertencia')
+                }                    
+                else
+                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
+        }
 
-        function validar() { }
+        function validarContrasenias() {
+            if (vm.usuario.pass === vm.contraseniaRepetida.contraseniaRepetida) {
+                vm.formRegistrarUsuario.contraseniaRepetida.$setValidity("min", true);
+            }
+            else {
+                vm.formRegistrarUsuario.contraseniaRepetida.$setValidity("min", false);
+            }
+        }
     }
 })();

@@ -9,7 +9,8 @@
 
     function inicioService($http, portalService) {
         var service = {
-            inicializar: inicializar
+            inicializar: inicializar,
+            prueba: prueba
         };
 
         function inicializar(id) {
@@ -17,6 +18,17 @@
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Dashboard/Get',
                 params: {id: id}
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function prueba(id) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Bovino/getListaTags',
+                params: { idCampo: id }
             }).then(
             function (data) {
                 return data.data || [];

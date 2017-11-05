@@ -124,14 +124,15 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public Bovino Get(long id)
+        public Bovino Get(long id, long codigoCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@idBovino", id }
+                    {"@idBovino", id },
+                    {"@codigoCampo", codigoCampo }
                 };
                 var bovino = connection.GetArray<Bovino>("spObtenerDatosBovino", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return bovino;
@@ -326,12 +327,15 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<TagBovino> GetTags()
+        public IEnumerable<TagBovino> GetTags(long codigoCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
-                var listaTags = connection.GetArray<TagBovino>("spGetTagsBovinos", null, System.Data.CommandType.StoredProcedure);
+                var parametros = new Dictionary<string, object>{
+                    { "@codigoCampo", codigoCampo}
+                };
+                var listaTags = connection.GetArray<TagBovino>("spGetTagsBovinos", parametros, System.Data.CommandType.StoredProcedure);
                 return listaTags;
             }
             catch (Exception ex)
@@ -375,6 +379,11 @@ namespace sgg_farmix_acceso_datos.DAOs
             {
                 connection.Close();
             }
+        }
+
+        public Bovino Get(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
