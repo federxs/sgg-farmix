@@ -47,7 +47,7 @@
 
         $scope.activar = function (id) {
             if (id === 9) {
-                $scope.cerrarSesion();
+                $scope.abrirModalCerrarSesion();
             }
             else {
                 for (var i = 0; i < $scope.Menu.length; i++) {
@@ -67,8 +67,13 @@
             }
         };
 
+        $scope.abrirModalCerrarSesion = function () {
+            $('#modalConfirmCerrarSesion').modal('show');
+        }
+
         $scope.cerrarSesion = function () {
             $localStorage.usuarioInfo = undefined;
+            $('#modalConfirmCerrarSesion').modal('hide');
             $state.go('login');
         }
     });
