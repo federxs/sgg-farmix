@@ -22,6 +22,7 @@
         inicializar();
 
         function inicializar() {
+            vm.showSpinner = false;
             vm.roles = [];
             vm.roles.push({ idRol: 2, nombre: 'Ingeniero' });
             vm.roles.push({ idRol: 3, nombre: 'Peón' });
@@ -39,7 +40,7 @@
                 if (error.data === 'Error: El usuario ya existe para este campo') {
                     vm.habilitar = true;
                     toastr.warning('El usuario ya existe para este campo', 'Advertencia')
-                }                    
+                }
                 else
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
