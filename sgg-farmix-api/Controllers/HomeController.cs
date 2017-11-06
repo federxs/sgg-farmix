@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 
@@ -23,6 +24,28 @@ namespace sgg_farmix_api.Controllers
             catch (Exception ex)
             {
                 //if (ex.GetType() != typeof(ArgumentException)) Elmah.ErrorSignal.FromCurrentContext().Raise(ex);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Home/GetDatosUserLogueado/{usuario}/{codigoCampo}")]
+        [HttpGet]
+        public UsuarioLogueado GetUser(string usuario, string codigoCampo)
+        {
+            try
+            {
+                var campo = Regex.Replace(codigoCampo, @"[^\d]", "");
+                var usuarioLogueado = new UsuarioManager().GetDatosUserLogueado(usuario, Int64.Parse(campo));
+                usuarioLogueado.menus = MM.GetMenus();
+                return usuarioLogueado;
+
+            }
+            catch (Exception ex)
+            {
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
                 {
                     Content = new StringContent(string.Format("Error: {0}", ex.Message)),

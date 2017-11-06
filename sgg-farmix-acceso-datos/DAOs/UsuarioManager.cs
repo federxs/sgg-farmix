@@ -230,5 +230,28 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection.Close();
             }
         }
+
+        public UsuarioLogueado GetDatosUserLogueado(string user, long campo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@usuario", user },
+                    {"@codigoCampo", campo }
+                };
+                var usuario = connection.GetArray<UsuarioLogueado>("spObtenerDatosUsuarioLogueado", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

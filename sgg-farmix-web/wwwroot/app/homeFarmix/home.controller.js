@@ -12,9 +12,10 @@
 
         $scope.load = function () {
             $scope.showSpinner = true;
-            homeService.getListMenu({}, function (data) {
+            homeService.datosUsuario({ usuario: $localStorage.usuarioInfo.usuario, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
-                $scope.Menu = data;
+                $scope.Menu = data.menus;
+                $scope.usuarioInfo = data;
                 for (var i = 0; i < $scope.Menu.length; i++) {
                     if ($scope.Menu[i].urlMenu === path)
                         $scope.Menu[i].activo = 'background-color:#E59866';

@@ -70,7 +70,7 @@
                 <div class="navbar-header" style="padding-top:10px; padding-bottom:10px">
                     <a href="#" class="navbar-left"><img src="/resources/logo/logo_farmix.png" height="70"></a>
                     <h2 class="navbar-text" style="color:white">
-                        AgroCordoba "Villa María"{{campo}}
+                        "{{usuarioInfo.campo}}"
                     </h2>
                 </div>
             </div>
@@ -85,10 +85,10 @@
                         <img class="img-circle" height="120" width="120" src="../images/C40131.jpg" />
                     </li>
                     <li class="list-group-item" style="background-color:#FAE5D3">
-                        <p>Juancito Perez</p>
+                        <p>{{usuarioInfo.nombre}} {{usuarioInfo.apellido}}</p>
                     </li>
                     <li class="list-group-item" style="background-color:#FAE5D3">
-                        <p>Ingeniero</p>
+                        <p>{{usuarioInfo.rol}}</p>
                     </li>
                 </ul>
                 <ul class="list-group" style="margin-top: 20px;">

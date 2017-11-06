@@ -38,4 +38,13 @@ namespace sgg_farmix_acceso_datos.Model
         public string fechaBaja { get; set; }
         public string rol { get; set; }
     }
+
+    public class UsuarioLogueado
+    {
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public string rol { get; set; }
+        public string campo { get; set; }
+        public IEnumerable<Menu> menus { get; set; }
+    }
 }
