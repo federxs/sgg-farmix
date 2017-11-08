@@ -5,9 +5,9 @@
         .module('app')
         .controller('registrarBovinoController', registrarBovinoController);
 
-    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'toastr', '$state'];
+    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'toastr', '$state', '$localStorage'];
 
-    function registrarBovinoController($scope, registrarBovinoService, toastr, $state) {
+    function registrarBovinoController($scope, registrarBovinoService, toastr, $state, $localStorage) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.habilitar = false;
@@ -39,7 +39,7 @@
 
         function inicializar() {
             vm.habilitar = false;
-            registrarBovinoService.inicializar({ idAmbitoEstado: '1' }, function (data) {
+            registrarBovinoService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                 vm.estados = data.estados;
                 categorias = data.categorias;
                 for (var i = 0; i < categorias.length; i++) {

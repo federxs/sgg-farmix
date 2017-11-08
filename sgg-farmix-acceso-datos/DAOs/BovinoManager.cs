@@ -62,9 +62,10 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var insert = connection.Execute("spRegistrarEventosXBovino", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
                 if (insert == 0)
                     throw new ArgumentException("Create EventosXBovino Error");
+                //parametros = null;
                 parametrosEvento = new Dictionary<string, object>
                 {
-                    {"@idCampoDestino", 1 },
+                    {"@codigoCampo", 1 },
                     {"@idRodeoDestino", entity.idRodeo },
                     {"@idTipoEvento", 3 }
                 };
