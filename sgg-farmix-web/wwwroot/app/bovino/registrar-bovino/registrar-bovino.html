@@ -82,7 +82,7 @@
                             </select>               
                         </div>
                         <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn btn-info" style="margin-top: 25px;background-color:#16A085;" title="Agregar establecimiento" ng-disabled="!habilitar">
+                            <button type="button" class="btn btn-info" style="margin-top: 25px;background-color:#16A085;" title="Agregar establecimiento" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoEstablecimiento">
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar rodeo" ng-disabled="!habilitar">
+                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar rodeo" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoRodeo">
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
@@ -152,7 +152,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1 col-lg-1">
-                                <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar estado" ng-disabled="!habilitar">
+                                <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar estado" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoEstado">
                                     <span class="glyphicon glyphicon-plus" style="color:white"></span>
                                 </button>
                             </div>
@@ -253,7 +253,7 @@
                             </div>
                         </div>
                         <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar categoría" ng-disabled="!habilitar">
+                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar categoría" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoCategoria">
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
@@ -280,7 +280,7 @@
                             </div>
                         </div>
                         <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar alimento" ng-disabled="!habilitar">
+                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar raza" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoRaza">
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
@@ -307,7 +307,7 @@
                             </div>
                         </div>
                         <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top:25px; background-color:#16A085;" title="Agregar rodeo" ng-disabled="!habilitar">
+                            <button type="button" class="btn" style="margin-top:25px; background-color:#16A085;" title="Agregar alimento" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoAlimento">
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
@@ -359,4 +359,118 @@
         </button>
     </div>
 </form>
+<!--Modal nuevo establecimiento-->
+<div id="modalNuevoEstablecimiento" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nuevo Establecimiento origen</h4>
+            </div>
+            <div class="modal-body">
+                <p>Establecimiento</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Agregar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal nuevo rodeo-->
+<div id="modalNuevoRodeo" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nuevo Rodeo</h4>
+            </div>
+            <div class="modal-body">
+                <p>Rodeo</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Agregar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal nuevo estado-->
+<div id="modalNuevoEstado" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nuevo Estado</h4>
+            </div>
+            <div class="modal-body">
+                <p>Estado</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Agregar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal nuevo categoría-->
+<div id="modalNuevoCategoria" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nueva Categoría</h4>
+            </div>
+            <div class="modal-body">
+                <p>Categoría</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Agregar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal nuevo raza-->
+<div id="modalNuevoRaza" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nueva Raza</h4>
+            </div>
+            <div class="modal-body">
+                <p>Raza</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Agregar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal nuevo alimento-->
+<div id="modalNuevoAlimento" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nuevo Alimento</h4>
+            </div>
+            <div class="modal-body">
+                <p>Alimento</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Agregar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>
