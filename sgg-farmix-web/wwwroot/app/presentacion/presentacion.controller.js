@@ -5,10 +5,9 @@
         .module('app')
         .controller('presentacionController', presentacionController);
 
-    presentacionController.$inject = ['$location'];
+    presentacionController.$inject = ['$scope'];
 
-    function presentacionController($location) {
-        /* jshint validthis:true */
+    function presentacionController($scope) {
         var vm = this;
         vm.title = 'caca';
 
