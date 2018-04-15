@@ -13,7 +13,29 @@ namespace sgg_farmix_acceso_datos.DAOs
         private SqlServerConnection connection;
         public Raza Create(Raza entity)
         {
-            throw new NotImplementedException();
+            connection = new SqlServerConnection();
+            try
+            {
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@nombre", entity.nombre }
+                };
+
+                entity.idRaza = connection.Execute("spRegistrarRaza", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.idRaza == 0)
+                    throw new ArgumentException("Create Raza Error");
+                else if (entity.idRaza == -1)
+                    throw new ArgumentException("Raza ya existe");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public IEnumerable<Raza> GetList()

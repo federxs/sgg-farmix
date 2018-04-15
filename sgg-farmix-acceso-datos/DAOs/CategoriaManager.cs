@@ -13,7 +13,30 @@ namespace sgg_farmix_acceso_datos.DAOs
         private SqlServerConnection connection;
         public Categoria Create(Categoria entity)
         {
-            throw new NotImplementedException();
+            connection = new SqlServerConnection();
+            try
+            {
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@nombre", entity.nombre },
+                    {"@genero", entity.genero }
+                };
+
+                entity.idCategoria = connection.Execute("spRegistrarCategoria", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.idCategoria == 0)
+                    throw new ArgumentException("Create Categoria Error");
+                else if (entity.idCategoria == -1)
+                    throw new ArgumentException("Categoria ya existe");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public IEnumerable<Categoria> GetList()

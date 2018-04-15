@@ -21,6 +21,8 @@ namespace sgg_farmix_acceso_datos.Model
         public IEnumerable<Alimento> alimentos { get; set; }
         public IEnumerable<Rol> roles { get; set; }
         public IEnumerable<Antibiotico> antibioticos { get; set; }
+        public IEnumerable<Provincia> provincias { get; set; }
+        public IEnumerable<Localidad> localidades { get; set; }
     } 
 
     public class ResultadoValidacion

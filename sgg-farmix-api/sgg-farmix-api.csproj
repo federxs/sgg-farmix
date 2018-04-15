@@ -188,10 +188,14 @@
     <Compile Include="Controllers\AntibioticoController.cs" />
     <Compile Include="Controllers\BovinoController.cs" />
     <Compile Include="Controllers\CampoController.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\EstablecimientoOrigenController.cs" />
+    <Compile Include="Controllers\EstadoController.cs" />
     <Compile Include="Controllers\EventoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InseminacionController.cs" />
+    <Compile Include="Controllers\RazaController.cs" />
     <Compile Include="Controllers\RodeoController.cs" />
     <Compile Include="Controllers\TactoController.cs" />
     <Compile Include="Controllers\TipoEventoController.cs" />

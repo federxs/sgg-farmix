@@ -386,5 +386,41 @@ namespace sgg_farmix_acceso_datos.DAOs
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Provincia> GetProvincias()
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var lista = connection.GetArray<Provincia>("spObtenerListaProvincias", null, System.Data.CommandType.StoredProcedure);
+                return lista.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public IEnumerable<Localidad> GetLocalidades()
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var lista = connection.GetArray<Localidad>("spObtenerListaLocalidades", null, System.Data.CommandType.StoredProcedure);
+                return lista.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

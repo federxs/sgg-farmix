@@ -313,5 +313,26 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Bovino/cargarProvinciasAndLoc")]
+        [HttpGet]
+        public Resultados GetProvinciasAndLoc()
+        {
+            try
+            {
+                Resultados result = new Resultados();
+                result.provincias = BM.GetProvincias();
+                result.localidades = BM.GetLocalidades();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

@@ -21,6 +21,11 @@
                         idCaravana: '@idCaravana'
                     },
                     isArray: false
+				},
+				cargarProvinciasyLocalidades: {
+				    method: 'GET',
+				    url: portalService.getUrlServer() + 'api/Bovino/cargarProvinciasAndLoc',
+				    isArray: false
 				}
             });
         });
