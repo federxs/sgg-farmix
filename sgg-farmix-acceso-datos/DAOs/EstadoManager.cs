@@ -14,7 +14,30 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Estado Create(Estado entity)
         {
-            throw new NotImplementedException();
+            connection = new SqlServerConnection();
+            try
+            {
+                var parametros = new Dictionary<string, object>
+                {                    
+                    {"@nombre", entity.nombre },
+                    {"@descripcion", entity.descripcion }
+                };
+
+                entity.idEstado = connection.Execute("spRegistrarEstado", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.idEstado == 0)
+                    throw new ArgumentException("Create Estado Error");
+                else if (entity.idEstado == -1)
+                    throw new ArgumentException("Estado ya existe");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void Delete(long id)

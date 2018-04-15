@@ -13,7 +13,30 @@ namespace sgg_farmix_acceso_datos.DAOs
         private SqlServerConnection connection;
         public Alimento Create(Alimento entity)
         {
-            throw new NotImplementedException();
+            connection = new SqlServerConnection();
+            try
+            {
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@nombre", entity.nombre },
+                    {"@codigoCampo", entity.codigoCampo }
+                };
+
+                entity.idAlimento = connection.Execute("spRegistrarAlimento", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.idAlimento == 0)
+                    throw new ArgumentException("Create Alimento Error");
+                else if (entity.idAlimento == -1)
+                    throw new ArgumentException("Alimento ya existe");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void Delete(long id)

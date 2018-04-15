@@ -33,5 +33,22 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public Alimento Post([FromBody]Alimento alimento)
+        {
+            try
+            {
+                return AM.Create(alimento);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Create_Error")
+                });
+            }
+        }
     }
 }

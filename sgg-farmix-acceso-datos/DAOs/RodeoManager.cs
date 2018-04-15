@@ -13,7 +13,31 @@ namespace sgg_farmix_acceso_datos.DAOs
         private SqlServerConnection connection;
         public Rodeo Create(Rodeo entity)
         {
-            throw new NotImplementedException();
+            connection = new SqlServerConnection();
+            try
+            {
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@confinado", entity.confinado },
+                    {"@nombre", entity.nombre },                    
+                    {"@codigoCampo", entity.idCampo }
+                };
+
+                entity.idRodeo = connection.Execute("spRegistrarRodeo", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.idRodeo == 0)
+                    throw new ArgumentException("Create Rodeo Error");
+                else if (entity.idRodeo == -1)
+                    throw new ArgumentException("Rodeo ya existe");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public IEnumerable<Rodeo> GetList(long idCampo)
