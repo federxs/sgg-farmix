@@ -3,15 +3,9 @@
 
     angular.module('app').config(function ($stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider.otherwise("/presentacion");
+        $urlRouterProvider.otherwise("/login");
 
         /// Default
-        $stateProvider
-            .state('presentacion', {
-                url: '/presentacion',
-                templateUrl: 'app/presentacion/presentacion.html',
-                controller: 'presentacionController'
-            });
         $stateProvider
             .state('login', {
                 url: '/login',
