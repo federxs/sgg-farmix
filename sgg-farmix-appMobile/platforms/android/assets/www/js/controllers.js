@@ -28,7 +28,7 @@
                     bovinoService.escribirTag(id);
                 }
                 alert("Se ha grabado el tag escaneado");
-                $state.go('app.escribir');
+                $state.go('app.escribir', {}, { reload: true });
             } else if ($state.current.name == "app.leer") {
                 var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 $state.go('app.resultado/:id', { id: id });

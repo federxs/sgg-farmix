@@ -1,5 +1,6 @@
 ﻿<ion-view view-title="Inseminaciones Pendientes">
     <ion-content padding="true" class="fondo">
+		<ion-refresher pulling-text="Actualizar" on-refresh="cargarInseminacionesPendientes()"></ion-refresher>
         <h3>Inseminaciones para verificar por ecografia</h3>
         <table class="bordeTabla">
             <tr>
