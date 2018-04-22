@@ -38,7 +38,7 @@ angular.module('starter')
                     alert("Escanee el tag de al menos una vaca para continuar");
                 } else {
                     showIonicLoading().then(registrarEvento).then(function () {
-                        alert("Evento manejo registrado satisfactoriamente");
+                        alert("Evento manejo registrado con \u00E9xito");
                         $rootScope.vacas = null;
                         $rootScope.idVacas = [];
                         $state.go('app.registrarEvento');
