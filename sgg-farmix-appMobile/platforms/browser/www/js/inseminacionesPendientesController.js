@@ -17,6 +17,7 @@ angular.module('starter')
                     fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
                     return fechaHoy.diff(fechaInsem, 'days') >= 60
                 }).ToArray();
+				$scope.$broadcast('scroll.refreshComplete');
             }).then($ionicLoading.hide).catch($ionicLoading.hide);
         }
 

@@ -3,12 +3,23 @@
     .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, loginService, $ionicLoading, $localStorage) {
 
         $ionicPlatform.ready(function () {
-            nfc.addNdefListener(tagEscaneado);
+			nfc.addNdefListener(tagEscaneado, iniciar, cancelar);
         });
+		
         if ($rootScope.logueado == false) {
             $state.go('app.bienvenido');
         }
-        tagEscaneado = function (nfcEvent) {
+		
+		function iniciar(){
+			return;
+		}
+		
+		function cancelar(){
+		    alert("Por favor, encienda el NFC y reinicie la aplicaci\u00F3n");
+			return;
+		}
+		
+        function tagEscaneado(nfcEvent) {
             if ($state.current.name == "app.escribirTag") {
                 var id = $rootScope.idEscribir;
                 var mensaje = [ndef.textRecord(id)];
@@ -17,7 +28,7 @@
                     bovinoService.escribirTag(id);
                 }
                 alert("Se ha grabado el tag escaneado");
-                $state.go('app.escribir');
+                $state.go('app.escribir', {}, { reload: true });
             } else if ($state.current.name == "app.leer") {
                 var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 $state.go('app.resultado/:id', { id: id });

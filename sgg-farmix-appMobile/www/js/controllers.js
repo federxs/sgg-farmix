@@ -15,7 +15,7 @@
 		}
 		
 		function cancelar(){
-			alert("Por favor, encienda el NFC y reinicie la aplicación");
+		    alert("Por favor, encienda el NFC y reinicie la aplicaci\u00F3n");
 			return;
 		}
 		
@@ -58,7 +58,7 @@
                                             alert("Esta vaca no puede ser inseminada");
                                         }
                                     } else {
-                                        alert("Un toro no puede ser inseminado, modifique el tipo de inseminación");
+                                        alert("Un toro no puede ser inseminado, modifique el tipo de inseminaci\u00F3n");
                                     }
                                 } else {
                                     if ($rootScope.vacas == undefined || $rootScope.vacas == null) {

@@ -1,9 +1,11 @@
-﻿<ion-modal-view>
+﻿<ion-view view-title="Bienvenido" hide-back-button="true">
     <ion-content padding="true" class="fondo">
         <div class="ic-selected" data-componentid="imagenBienvenida" data-tap-siabled="true">
             <br></br>
             <img src="img/farmix_logo.png" width="100%" height="auto" class="cover" />
             <img src="img/farmix_title_logo.png" width="100%" height="auto" class="cover" />
+            <br></br>
+            <button ng-if="logueado == false" ng-click="iniciar()" class="button bordeBoton botonIniciarSesionBienvenido" type="submit">Iniciar sesi&oacute;n para comenzar</button>
         </div>
     </ion-content>
-</ion-modal-view>
+</ion-view>

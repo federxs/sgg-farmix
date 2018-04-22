@@ -8,7 +8,7 @@ angular.module('starter')
 
         $scope.registrar = function () {
             if ($rootScope.evento.tipoInseminacion == "0") {
-                alert("Seleccione un tipo de inseminación");
+                alert("Seleccione un tipo de inseminaci\u00f3n");
             } else {
                 if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
                     alert("Escanee el tag de al menos una vaca para continuar");

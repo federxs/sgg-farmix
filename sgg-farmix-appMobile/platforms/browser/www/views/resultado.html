@@ -1,43 +1,43 @@
 ﻿<ion-view view-title="Datos del Bovino">
     <ion-content padding="true" class="fondo">
         <table class="bordeTabla">
-            <tr>
+            <tr class="itemTabla">
                 <td>Numero de Caravana</td>
                 <td>{{bovino.numCaravana}}</td>
             </tr>
-            <tr ng-if="bovino.apodo != ''">
+            <tr ng-if="bovino.apodo != ''" class="itemTabla">
                 <td>Apodo</td>
                 <td>{{bovino.apodo}}</td>
             </tr>
-            <tr ng-if="bovino.descripcion != ''">
+            <tr ng-if="bovino.descripcion != ''" class="itemTabla">
                 <td>Descripción</td>
                 <td>{{bovino.descripcion}}</td>
             </tr>
-            <tr>
+            <tr class="itemTabla">
                 <td>Género</td>
                 <td>{{bovino.genero}}</td>
             </tr>
-            <tr>
+            <tr class="itemTabla">
                 <td>Estado</td>
                 <td>{{bovino.idEstado}}</td>
             </tr>
-            <tr ng-if="bovino.fechaEstimadaParto != ''">
+            <tr ng-if="bovino.fechaEstimadaParto != ''" class="itemTabla">
                 <td>Fecha estimada de parto</td>
                 <td>{{bovino.fechaEstimadaParto}}</td>
             </tr>
-            <tr>
+            <tr class="itemTabla">
                 <td>Categoría</td>
                 <td>{{bovino.idCategoria}}</td>
             </tr>
-            <tr>
+            <tr class="itemTabla">
                 <td>Raza</td>
                 <td>{{bovino.idRaza}}</td>
             </tr>
-            <tr>
+            <tr class="itemTabla">
                 <td>Fecha de Nacimiento</td>
                 <td>{{bovino.fechaNacimiento}}</td>
             </tr>
-            <tr>
+            <tr class="itemTabla">
                 <td>Peso</td>
                 <td>{{bovino.peso}} kg.</td>
             </tr>

@@ -1,10 +1,8 @@
 .fondo {
-    /*background-color: #229954;*/
     background-image:url(../img/fondo_login.jpg);
 }
 
 .fondoMenu {
-    /*-image: url(../img/fondo_login2.jpg);*/
     background-color: transparent;
 }
 .fondoMenu .itemMenu {
@@ -47,6 +45,12 @@
 }
 .botonIniciarSesion{
     width: 100%;
+}
+.botonIniciarSesionBienvenido{
+    width: 90%;
+    font-size: 20px;
+    margin-left: 5%;
+    
 }
 .botonCerrarSesion{
     width: 35%;
@@ -92,7 +96,34 @@ th, td {
   right:0;
   clear:both;
 }
-.fhm_item {
+.fhm_itemAntibiotico {
+  height: 100%;
+  width:50%;
+  background-image:url(../img/antibiotico.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid black;
+  float:left;
+}
+.fhm_itemAlimento {
+  height: 100%;
+  width:50%;
+  background-image:url(../img/alimento.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid black;
+  float:left;
+}
+.fhm_itemManejo {
+  height: 100%;
+  width:50%;
+  background-image:url(../img/manejo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid black;
+  float:left;
+}
+.fhm_itemVacuna {
   height: 100%;
   width:50%;
   background-image:url(../img/vacuna.png);
@@ -109,6 +140,8 @@ th, td {
 }
 .h9{
     text-align: center;
+    font-size: 20px;
+
 }
 .myclass{
     background-color:transparent;
