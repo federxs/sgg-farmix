@@ -16,7 +16,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Campo/GetList',
-                params: { usuario: usuario }
+                params: { usuario: usuario },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

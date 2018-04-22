@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using sgg_farmix_acceso_datos.DAOs;
 using sgg_farmix_acceso_datos.Model;
+using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +68,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/Init")]
         [HttpGet]
+        [AutorizationToken]
         public InseminacionInit InitPantallaInseminacion(string idCampo)
         {
             try
@@ -86,6 +88,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/HembrasServicio")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<BovinoItem> HembrasServicio()
         {
             try
@@ -104,6 +107,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/ServicioSinConfirmar")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<ServSinConfirmar> GetServiciosSinConfirmar(string idCampo)
         {
             try
@@ -123,6 +127,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/GetInseminacionesAgrupadasXFechaInsem")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<ServSinConfirmar> GetInseminacionesXFechaInsem(string idCampo)
         {
             try
@@ -142,6 +147,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/PreniadasPorParir")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<PreniadasXParir> GetPreniadasPorParir(string idCampo)
         {
             try
@@ -161,6 +167,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/Lactancias")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<BovinoItem> VacasDandoLactar()
         {
             try
@@ -178,6 +185,7 @@ namespace sgg_farmix_api.Controllers
         }
 
         [HttpGet]
+        [AutorizationToken]
         public InseminacionDetalle Get(string fechaInseminacion)
         {
             try
@@ -196,6 +204,7 @@ namespace sgg_farmix_api.Controllers
 
         //este metodo se usa para actualizar las inseminaciones que aun no tiene tacto realizado
         [HttpPut]
+        [AutorizationToken]
         public Inseminacion Put(string value, string listaVacas, string fechaAnterior)
         {
             try
@@ -233,6 +242,7 @@ namespace sgg_farmix_api.Controllers
         //este metodo se usa para actualizar una inseminacion que ya tuvo un tacto exitoso
         [Route("api/Inseminacion/Update")]
         [HttpPut]
+        [AutorizationToken]
         public Inseminacion Update(string value)
         {
             try
@@ -252,7 +262,8 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/DeleteInseminacion")]
         [HttpPut]
-        public void DeleteEvento(string parametro)
+        [AutorizationToken]
+        public void DeleteInseminacion(string parametro)
         {
             try
             {

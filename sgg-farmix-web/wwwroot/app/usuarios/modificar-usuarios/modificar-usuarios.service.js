@@ -17,7 +17,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Usuario/Get',
-                params: {idUsuario: id}
+                params: { idUsuario: id },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];
@@ -28,7 +29,8 @@
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Usuario',
-                params: { usuario: usuario }
+                params: { usuario: usuario },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

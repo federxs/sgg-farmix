@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('app').service('portalService', function (){//usuarioInfo) {
+    angular.module('app').service('portalService', function ($sessionStorage) {//usuarioInfo) {
         var portalService = {};
 
         portalService.getUrlServer = function () {
@@ -9,6 +9,11 @@
             //return "http://farmix.somee.com/";
             //return "http://ec2-54-232-203-99.sa-east-1.compute.amazonaws.com:2424/";
             //return "http://54.232.203.99:2424/";
+        };
+
+        portalService.getHeadersServer = function () {
+            var headers = { 'Authorization': $sessionStorage.usuarioInfo.token };
+            return headers;
         };
 
         /*portal.getDefaultUsuarioImagen = function () {

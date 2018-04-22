@@ -18,7 +18,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/Get',
-                params: { fechaInseminacion: fecha }
+                params: { fechaInseminacion: fecha },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];
@@ -28,7 +29,8 @@
         function getHembrasServicio() {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Inseminacion/HembrasServicio'
+                url: portalService.getUrlServer() + 'api/Inseminacion/HembrasServicio',
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];
@@ -38,7 +40,8 @@
         function getLactancias() {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Inseminacion/Lactancias'
+                url: portalService.getUrlServer() + 'api/Inseminacion/Lactancias',
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

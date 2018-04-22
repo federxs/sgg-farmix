@@ -17,7 +17,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Dashboard/Get',
-                params: {id: id}
+                params: { id: id },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

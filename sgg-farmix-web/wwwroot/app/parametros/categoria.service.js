@@ -3,7 +3,8 @@
         .factory('categoriaService', function ($resource, portalService) {
             return $resource(portalService.getUrlServer() + 'api/Categoria/', {}, {
                 save: {
-                    method: 'POST'
+                    method: 'POST',
+                    headers: portalService.getHeadersServer()
                 }
             });
         });

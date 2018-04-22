@@ -12,7 +12,6 @@
             consultarServicioSinConfirmar: consultarServicioSinConfirmar,
             getInseminacionesXFechaInsem: getInseminacionesXFechaInsem,
             consultarPreniadasXParir: consultarPreniadasXParir,
-            consultarLactanciasActivas,
             eliminarInseminacion: eliminarInseminacion
         };
 
@@ -22,7 +21,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/Init',
-                params: {idCampo: idCampo}
+                params: { idCampo: idCampo },
+                headers: portalService.getHeadersServer()
             }).then(
            function (data) {
                return data.data || [];
@@ -32,7 +32,8 @@
         function consultarHembrasServicio() {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Inseminacion/HembrasServicio'
+                url: portalService.getUrlServer() + 'api/Inseminacion/HembrasServicio',
+                headers: portalService.getHeadersServer()
             }).then(
            function (data) {
                return data.data || [];
@@ -43,7 +44,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/ServicioSinConfirmar',
-                params: { idCampo: idCampo }
+                params: { idCampo: idCampo },
+                headers: portalService.getHeadersServer()
             }).then(
            function (data) {
                return data.data || [];
@@ -54,7 +56,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/GetInseminacionesAgrupadasXFechaInsem',
-                params: { idCampo: idCampo }
+                params: { idCampo: idCampo },
+                headers: portalService.getHeadersServer()
             }).then(
            function (data) {
                return data.data || [];
@@ -65,17 +68,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/PreniadasPorParir',
-                params: { idCampo: idCampo }
-            }).then(
-           function (data) {
-               return data.data || [];
-           });
-        }
-
-        function consultarLactanciasActivas() {
-            return $http({
-                method: 'GET',
-                url: portalService.getUrlServer() + 'api/Inseminacion/LactanciasActivas'
+                params: { idCampo: idCampo },
+                headers: portalService.getHeadersServer()
             }).then(
            function (data) {
                return data.data || [];
@@ -86,7 +80,8 @@
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Inseminacion/DeleteInseminacion',
-                params: { parametro: parametro }
+                params: { parametro: parametro },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

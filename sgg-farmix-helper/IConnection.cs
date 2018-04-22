@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using Newtonsoft.Json.Linq;
 using System.Data;
+using System.Data.SqlClient;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.OracleClient;
 
-namespace sgg_farmix_acceso_datos.Helper
+namespace sgg_farmix_helper
 {
     public interface IConnection
     {
@@ -35,4 +36,3 @@ namespace sgg_farmix_acceso_datos.Helper
         void Close();
     }
 }
-

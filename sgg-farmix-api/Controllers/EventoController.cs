@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using sgg_farmix_acceso_datos.DAOs;
 using sgg_farmix_acceso_datos.Model;
+using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Evento/GetListaEventos")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<EventosItem> GetList(string filtro)
         {
             try
@@ -69,6 +71,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Evento/Get")]
         [HttpGet]
+        [AutorizationToken]
         public EventoDetalle Get(string idEvento)
         {
             try
@@ -88,6 +91,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Evento/initEvento")]
         [HttpGet]
+        [AutorizationToken]
         public Resultados InitEvento(string idEvento, string usuario, string idCampo)
         {
             Resultados resultado = new Resultados();
@@ -117,6 +121,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Evento/GetEventoForModificacion")]
         [HttpGet]
+        [AutorizationToken]
         public Evento GetEventoForModificacion(string idEvento)
         {
             try
@@ -135,6 +140,7 @@ namespace sgg_farmix_api.Controllers
         }
 
         [HttpPut]
+        [AutorizationToken]
         public Evento Put(string value, string lista)
         {
             try
@@ -171,6 +177,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Evento/DeleteEvento")]
         [HttpPut]
+        [AutorizationToken]
         public void DeleteEvento(string idEvento)
         {
             try

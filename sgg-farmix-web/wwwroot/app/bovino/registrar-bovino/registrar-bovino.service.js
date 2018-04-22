@@ -9,14 +9,17 @@
                         idAmbitoEstado: '@idAmbitoEstado',
                         idCampo: '@idCampo'
                     },
+                    headers: portalService.getHeadersServer(),
                     isArray: false
                 },
                 save: {
-                    method: 'POST'
+                    method: 'POST',
+                    headers: portalService.getHeadersServer(),
                 },
 				existeIdCaravana: {
 					method: 'GET',
-                    url: portalService.getUrlServer() + 'api/Bovino/existeIdCaravana/:idCaravana',              
+					url: portalService.getUrlServer() + 'api/Bovino/existeIdCaravana/:idCaravana',
+					headers: portalService.getHeadersServer(),
                     params: {
                         idCaravana: '@idCaravana'
                     },
@@ -25,6 +28,7 @@
 				cargarProvinciasyLocalidades: {
 				    method: 'GET',
 				    url: portalService.getUrlServer() + 'api/Bovino/cargarProvinciasAndLoc',
+				    headers: portalService.getHeadersServer(),
 				    isArray: false
 				}
             });

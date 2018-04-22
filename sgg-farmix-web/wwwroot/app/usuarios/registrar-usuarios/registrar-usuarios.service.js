@@ -27,7 +27,8 @@
             return $http({
                 method: 'POST',
                 url: portalService.getUrlServer() + 'api/Usuario/Post',
-                params: { usuario: usuario, codigoCampo: codigoCampo }
+                params: { usuario: usuario, codigoCampo: codigoCampo },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

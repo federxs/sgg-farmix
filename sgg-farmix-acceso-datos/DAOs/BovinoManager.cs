@@ -1,5 +1,6 @@
 ﻿using sgg_farmix_acceso_datos.Helper;
 using sgg_farmix_acceso_datos.Model;
+using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -91,6 +92,8 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
+                transaction = null;
             }
         }
 
@@ -112,6 +115,11 @@ namespace sgg_farmix_acceso_datos.DAOs
             catch (Exception ex)
             {
                 throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
             }
         }
 
@@ -145,6 +153,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -196,6 +205,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -232,6 +242,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -254,6 +265,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -276,6 +288,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -300,6 +313,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -325,6 +339,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -346,6 +361,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -379,6 +395,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -402,6 +419,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -420,6 +438,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
     }

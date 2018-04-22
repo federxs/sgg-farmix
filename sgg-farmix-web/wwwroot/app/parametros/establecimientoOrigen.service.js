@@ -3,7 +3,8 @@
         .factory('establecimientoOrigenService', function ($resource, portalService) {
             return $resource(portalService.getUrlServer() + 'api/EstablecimientoOrigen/', {}, {
                 save: {
-                    method: 'POST'
+                    method: 'POST',
+                    headers: portalService.getHeadersServer()
                 }
             });
         });

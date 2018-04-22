@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -63,10 +63,7 @@
     <Compile Include="DAOs\TipoEventoManager.cs" />
     <Compile Include="DAOs\UsuarioManager.cs" />
     <Compile Include="DAOs\VacunaManager.cs" />
-    <Compile Include="Helper\Atributes.cs" />
-    <Compile Include="Helper\IConnection.cs" />
     <Compile Include="Helper\IManager.cs" />
-    <Compile Include="Helper\SqlServerConnection.cs" />
     <Compile Include="Model\Alimento.cs" />
     <Compile Include="Model\AmbitoEstado.cs" />
     <Compile Include="Model\Antibiotico.cs" />
@@ -92,6 +89,16 @@
     <Compile Include="Model\Vacuna.cs" />
     <Compile Include="Model\Venta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\sgg-farmix-helper\sgg-farmix-helper.csproj">
+      <Project>{66C6B34F-23CC-41A2-A902-933A0FD18D97}</Project>
+      <Name>sgg-farmix-helper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

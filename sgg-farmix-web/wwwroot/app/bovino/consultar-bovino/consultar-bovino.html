@@ -46,7 +46,7 @@
                 <select class="form-control" name="categoria" required
                         ng-model="filtro.idCategoria" ng-disabled="disabled">
                     <option value="0">Seleccione...</option>
-                    <option ng-repeat="item in categorias"
+                    <option ng-repeat="item in categorias | filter: { genero: filtro.genero }"
                             value="{{ item.idCategoria }}">
                         {{ item.nombre }}
                     </option>
@@ -57,7 +57,7 @@
                     Sexo
                 </label>
                 <select class="form-control" name="genero" required
-                        ng-model="filtro.genero" ng-disabled="disabled" ng-change="changeSexo()">
+                        ng-model="filtro.genero" ng-disabled="disabled">
                     <option value="2">Seleccione...</option>
                     <option value="0">Hembra</option>
                     <option value="1">Macho</option>
@@ -112,7 +112,7 @@
                         ng-model="filtro.accionPeso" ng-disabled="disabled">
                     <option value="0">Seleccione...</option>
                     <option value="mayor">Mayor</option>
-                    <option value="menor">Menor</option>
+                    <option value="menor">Menor ó igual</option>
                 </select>
             </div>
             <div style="margin-top:24px" class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarBovino.peso.$touched && formConsultarBovino.peso.$valid,

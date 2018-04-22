@@ -9,7 +9,8 @@
             datosUsuario: {
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Home/GetDatosUserLogueado/:usuario/:codigoCampo',
-                params: { usuario: '@usuario', codigoCampo: '@codigoCampo' }
+                params: { usuario: '@usuario', codigoCampo: '@codigoCampo' },
+                headers: portalService.getHeadersServer()
             }
         });
     });

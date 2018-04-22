@@ -18,7 +18,8 @@
         function inicializar() {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/Usuario/Init'
+                url: portalService.getUrlServer() + 'api/Usuario/Init',
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];
@@ -29,7 +30,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Usuario/GetList',
-                params: { filter: filtro }
+                params: { filter: filtro },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];
@@ -40,7 +42,8 @@
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Usuario/DarBaja',
-                params: { idUsuario: idUsuario }
+                params: { idUsuario: idUsuario },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];
@@ -51,7 +54,8 @@
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Usuario/Activar',
-                params: { idUsuario: idUsuario }
+                params: { idUsuario: idUsuario },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

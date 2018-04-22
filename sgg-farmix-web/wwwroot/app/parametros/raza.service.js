@@ -3,7 +3,8 @@
         .factory('razaService', function ($resource, portalService) {
             return $resource(portalService.getUrlServer() + 'api/Raza/', {}, {
                 save: {
-                    method: 'POST'
+                    method: 'POST',
+                    headers: portalService.getHeadersServer()
                 }
             });
         });

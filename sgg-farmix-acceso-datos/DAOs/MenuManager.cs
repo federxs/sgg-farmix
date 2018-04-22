@@ -1,5 +1,6 @@
 ﻿using sgg_farmix_acceso_datos.Helper;
 using sgg_farmix_acceso_datos.Model;
+using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,9 +48,9 @@ namespace sgg_farmix_acceso_datos.DAOs
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
-                    {
-                        {"@Usu_Id", null }
-                    };
+                {
+                    {"@Usu_Id", null }
+                };
                 var lista = connection.GetArray<Menu>("spGetMenues", parametros, System.Data.CommandType.StoredProcedure);
 
                 List <Menu> list = lista.ToList();
@@ -80,6 +81,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
 
         }
