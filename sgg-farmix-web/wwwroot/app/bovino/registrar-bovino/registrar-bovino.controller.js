@@ -12,7 +12,6 @@
         vm.showSpinner = true;
         vm.habilitar = false;
         //variables
-        $scope.$state = $state;
         vm.razas = [];
         vm.estados = [];
         vm.categorias = [];

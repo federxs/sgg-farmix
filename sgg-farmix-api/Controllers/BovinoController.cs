@@ -32,6 +32,7 @@ namespace sgg_farmix_api.Controllers
                 resultado.razas = new RazaManager().GetList();
                 resultado.rodeos = new RodeoManager().GetList(Int64.Parse(campo));
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList(Int64.Parse(campo));
+                resultado.alimentos = new AlimentoManager().GetList(Int64.Parse(campo));
                 resultado.bovino = BM.Get(Int64.Parse(id), Int64.Parse(campo));
             }
             catch (Exception ex)
