@@ -106,14 +106,19 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public ResultadoValidacion ValidarUsuario(Usuario entity)
         {
+            Random randomToken;
             try
             {
                 connection = new SqlServerConnection();
+                string claveEncriptada = Encrypt.GetMD5(entity.pass);
+                randomToken = new Random();
+                string token = StaticFunctions.GetRandomPassword(randomToken, 8);
                 var parametros = new Dictionary<string, object>
                 {
                     {"@usuario", entity.usuario },
                     {"@pass", entity.pass },
-                    {"@rol", entity.idRol }
+                    {"@rol", entity.idRol },
+                    //{"@token", token }
                 };
                 var result = connection.GetArray<ResultadoValidacion>("spValidarUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return result;
@@ -161,13 +166,13 @@ namespace sgg_farmix_acceso_datos.DAOs
             DbTransaction transaction = connection.BeginTransaction();
             try
             {
-                //var clave = Encrypt.GetMD5(entity.pass);
+                var clave = Encrypt.GetMD5(entity.pass);
                 var parametros = new Dictionary<string, object>
                 {
                     {"@usuario", entity.usuario },
                     {"@nombre", entity.nombre },
                     {"@apellido", entity.apellido },
-                    {"@pass", entity.pass },
+                    {"@pass", clave },
                     {"@idRol", entity.idRol },
                     {"@idPlan", entity.idPlan },
                     {"@codigoCampo", codigoCampo }
