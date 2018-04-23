@@ -1,36 +1,4 @@
-﻿<style>
-    .loader {
-        border: 16px solid #f3f3f3;
-        border-radius: 50%;
-        border-top: 16px solid #3498db;
-        width: 200px;
-        height: 200px;
-        -webkit-animation: spin 2s linear infinite;
-        animation: spin 2s linear infinite;
-    }
-
-    @-webkit-keyframes spin {
-        0% {
-            -webkit-transform: rotate(0deg);
-        }
-
-        100% {
-            -webkit-transform: rotate(360deg);
-        }
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-</style>
-
-<!doctype html>
+﻿<!doctype html>
 <html lang="en" ng-app="app">
 <head>
     <meta charset="utf-8" />
@@ -49,6 +17,8 @@
     <link rel="stylesheet" type="text/css" href="lib/css/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="lib/css/custom/custom.css" />
     <link href="lib/css/bootstrap/css/datetimepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="lib/css/custom/index.css" />
+
     <!--<link rel="stylesheet" ; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">-->
     <!--JS-->
     <script src="lib/js/angular/angular.min.js"></script>
@@ -92,6 +62,8 @@
     <script src="app/parametros/categoria.service.js"></script>
     <script src="app/parametros/raza.service.js"></script>
     <script src="app/parametros/alimento.service.js"></script>
+    <script src="app/presentacion/presentacion.service.js"></script>
+
     <!--Controllers-->
     <script src="app/bovino/consultar-bovino/consultar-bovino.controller.js"></script>
     <script src="app/bovino/registrar-bovino/registrar-bovino.controller.js"></script>
@@ -121,8 +93,6 @@
     <script src="app/usuarios/modificar-usuarios/modificar-usuarios.controller.js"></script>
     <script src="app/usuarios/detalle-usuarios/detalle-usuarios.service.js"></script>
     <script src="app/usuarios/detalle-usuarios/detalle-usuarios.controller.js"></script>
-
-    <!--<script type="text/javascript" src="lib/js/plugins.js"></script>
-    <script type="text/javascript" src="lib/js/actions.js"></script>-->
+    <script src="app/presentacion/presentacion.controller.js"></script>
 </body>
 </html>

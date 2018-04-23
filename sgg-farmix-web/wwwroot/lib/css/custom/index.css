@@ -1,24 +1,4 @@
-﻿.navbar-inverse {
-    border: none;
-}
-
-.logoHeader {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    display: block;
-    margin: 0 auto;
-}
-
-.footer {
-    color: white;
-    padding: 15px;
-    bottom: 0;
-    width: 100%;
-    margin-top: 0px !important;
-    text-align: center;
-}
-
-.loader {
+﻿.loader {
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid #3498db;

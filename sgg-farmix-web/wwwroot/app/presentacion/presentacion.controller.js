@@ -5,14 +5,15 @@
         .module('app')
         .controller('presentacionController', presentacionController);
 
-    presentacionController.$inject = ['$scope'];
+    presentacionController.$inject = ['$scope', 'presentacionService'];
 
-    function presentacionController($scope) {
-        var vm = this;
-        vm.title = 'caca';
+    function presentacionController($scope, presentacionService) {
+        var vm = $scope;
+        vm.texto = "prueba";
+        vm.init = init;
 
-        activate();
-
-        function activate() { }
+        function init() {
+            vm.texto = vm.texto + "1";
+        }
     }
 })();

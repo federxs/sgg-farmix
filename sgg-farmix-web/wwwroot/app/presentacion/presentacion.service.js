@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .factory('presentacion', presentacion);
+        .factory('presentacionService', presentacionService);
 
-    presentacion.$inject = ['$http'];
+    presentacionService.$inject = ['$http'];
 
-    function presentacion($http) {
+    function presentacionService($http) {
         var service = {
             getData: getData
         };
