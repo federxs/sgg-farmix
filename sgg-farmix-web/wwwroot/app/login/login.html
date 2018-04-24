@@ -4,7 +4,6 @@
     <title>LOGIN</title>
     <meta charset="utf-8" />
     <title></title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 </head>
 <body>
     <style>
@@ -125,10 +124,11 @@
                            ng-click="aceptar()" ng-keyup="$event.keyCode === 13 && aceptar()">
                 </form>
 
-                <div class="login-help">
-                    <a>Volver</a>
+                <div class="row">
+                    <button ui-sref="presentacion">Volver</button>
+                    <div class="pull-right"><a ref="" ng-click="ocultarUsuario = true" style="cursor:pointer">Usar otra cuenta</a></div>
                 </div>
-                <div class="pull-right"><a ref="" ng-click="ocultarUsuario = true" style="cursor:pointer">Usar otra cuenta</a></div>
+                
             </div>
         </div>
     </div>
