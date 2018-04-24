@@ -116,9 +116,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametros = new Dictionary<string, object>
                 {
                     {"@usuario", entity.usuario },
-                    {"@pass", entity.pass },
+                    {"@pass", claveEncriptada },
                     {"@rol", entity.idRol },
-                    //{"@token", token }
+                    {"@token", token }
                 };
                 var result = connection.GetArray<ResultadoValidacion>("spValidarUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return result;
