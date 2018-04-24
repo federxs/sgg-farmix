@@ -17,7 +17,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Evento/GetListaEventos',
-                params: { filtro: filtro }
+                params: { filtro: filtro },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];
@@ -28,7 +29,8 @@
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Evento/DeleteEvento',
-                params: { idEvento: id }
+                params: { idEvento: id },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

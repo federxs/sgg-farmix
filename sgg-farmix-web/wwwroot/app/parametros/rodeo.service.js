@@ -3,7 +3,8 @@
         .factory('rodeoService', function ($resource, portalService) {
             return $resource(portalService.getUrlServer() + 'api/Rodeo/', {}, {
                 save: {
-                    method: 'POST'
+                    method: 'POST',
+                    headers: portalService.getHeadersServer()
                 }
             });
         });

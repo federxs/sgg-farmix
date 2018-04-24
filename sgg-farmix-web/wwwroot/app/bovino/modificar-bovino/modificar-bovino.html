@@ -82,7 +82,7 @@
                             </select>
                         </div>
                         <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn btn-info" style="margin-top: 25px;background-color:#16A085;" title="Agregar establecimiento" ng-disabled="!habilitar">
+                            <button type="button" class="btn btn-info" style="margin-top: 25px;background-color:#16A085;" title="Agregar establecimiento" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoEstablecimiento" ng-click="cargarProvinciasyLocalidades()">
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                         <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar rodeo" ng-disabled="!habilitar">
+                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar rodeo" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoRodeo">
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
@@ -152,7 +152,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1 col-lg-1">
-                                <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar estado" ng-disabled="!habilitar">
+                                <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar estado" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoEstado">
                                     <span class="glyphicon glyphicon-plus" style="color:white"></span>
                                 </button>
                             </div>
@@ -200,7 +200,7 @@
                         <label class="control-label" for="peso">
                             Peso (kg) (*)
                         </label>
-                        <input name="peso" type="number" class="form-control" min="0" max="1000" required placeholder="Peso (kg)"
+                        <input name="peso" type="number" class="form-control" ng-blur="getPeso()" min="0" max="1000" required placeholder="Peso (kg)"
                                ng-disabled="!habilitar"
                                ng-model="bovino.peso" />
                         <div ng-show="formModificarBovino.peso.$touched">
@@ -252,7 +252,7 @@
                             </div>
                         </div>
                         <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar categoría" ng-disabled="!habilitar">
+                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar categoría" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoCategoria">
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
@@ -279,11 +279,58 @@
                             </div>
                         </div>
                         <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar raza" ng-disabled="!habilitar">
+                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar raza" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoRaza">
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
                     </div>
+                    <!--<div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$valid,
+                 'has-error has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$invalid}">
+                        <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
+                            <label class="control-label" for="alimento">
+                                Alimento (*)
+                            </label>
+                            <select class="form-control" name="alimento" required
+                                    ng-disabled="!habilitar"
+                                    ng-model="bovino.idAlimento">
+                                <option value="">Seleccione...</option>
+                                <option ng-repeat="item in alimentos"
+                                        value="{{ item.idAlimento }}">
+                                    {{ item.nombre }}
+                                </option>
+                            </select>
+                            <div ng-show="formRegistrarBovino.alimento.$touched">
+                                <span class="help-block" ng-show="formRegistrarBovino.alimento.$error.required">
+                                    Este campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-lg-1">
+                            <button type="button" class="btn" style="margin-top:25px; background-color:#16A085;" title="Agregar alimento" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoAlimento">
+                                <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                            </button>
+                        </div>
+                        <div class="col-md-11 col-lg-11" style="margin-left:-15px;margin-top: 5px;" ng-class="{'has-success has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$valid,
+                 'has-error has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$invalid}">
+                            <label class="control-label" for="cantidad">
+                                Ración alimento (kg/día) (*)
+                            </label>
+                            <input name="cantidad" type="number" class="form-control" min="0" max="{{maxCantidad}}" placeholder="Ración de alimento (kg) por día"
+                                   ng-disabled="!habilitar"
+                                   ng-model="bovino.cantAlimento" required />
+                            <div ng-show="formRegistrarBovino.cantidad.$touched">
+                                <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.required">
+                                    Este campo es requerido
+                                </span>
+                                <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.min">
+                                    El peso no puede ser negativo
+                                </span>
+                                <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.max">
+                                    El máximo es : {{maxCantidad}} kg/día
+                                </span>
+                            </div>
+                        </div>
+                    </div>-->
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12 col-lg-12">
@@ -311,4 +358,288 @@
         </button>
     </div>
 </form>
+<!--Modal nuevo establecimiento-->
+<div id="modalNuevoEstablecimiento" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <!-- Modal content-->
+        <form name="formRegistrarEstablecimiento" novalidate>
+            <fieldset>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nuevo Establecimiento origen</h4>
+                    </div>
+                    <div class="modal-body" style="height:46%">
+                        <p>Establecimiento</p>
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;" ng-class="{'has-success has-feedback':formRegistrarEstablecimiento.EstabNombre.$touched && formRegistrarEstablecimiento.EstabNombre.$valid,
+                 'has-error has-feedback':formRegistrarEstablecimiento.EstabNombre.$touched && formRegistrarEstablecimiento.EstabNombre.$invalid}">
+                            <label class="control-label" for="EstabNombre">
+                                Nombre (*)
+                            </label>
+                            <input name="EstabNombre" type="text" class="form-control" placeholder="Nombre del establecimiento"
+                                   ng-model="establecimiento.nombre" required maxlength="30" />
+                        </div>
+                        <div ng-show="formRegistrarEstablecimiento.EstabNombre.$touched">
+                            <span class="help-block" ng-show="formRegistrarEstablecimiento.EstabNombre.$error.required" style="color: #e73d4a;">
+                                Este campo es requerido
+                            </span>
+                            <span class="help-block" ng-show="formRegistrarEstablecimiento.EstabNombre.$error.maxlength" style="color: #e73d4a;">
+                                El máximo de caracteres es 30
+                            </span>
+                        </div>
+                        <div class="col-md-11 col-lg-11" style="margin-left: -15px; margin-top: 5px;" ng-class="{'has-success has-feedback':formRegistrarEstablecimiento.provincia.$touched && formRegistrarEstablecimiento.provincia.$valid,
+                 'has-error has-feedback':formRegistrarEstablecimiento.provincia.$touched && formRegistrarEstablecimiento.provincia.$invalid}">
+                            <label class="control-label" for="provincia">
+                                Provincia (*)
+                            </label>
+                            <select class="form-control" name="provincia" required
+                                    ng-model="establecimiento.idProvincia" ng-change="getLocalidades()">
+                                <option value="">Seleccione...</option>
+                                <option ng-repeat="item in provincias"
+                                        value="{{ item.idProvincia }}">
+                                    {{ item.nombre }}
+                                </option>
+                            </select>
+                            <div ng-show="formRegistrarEstablecimiento.provincia.$touched">
+                                <span class="help-block" ng-show="formRegistrarEstablecimiento.provincia.$error.required" style="color: #e73d4a;">
+                                    Este campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-11 col-lg-11" style="margin-left: -15px; margin-top: 5px;" ng-class="{'has-success has-feedback':formRegistrarEstablecimiento.localidad.$touched && formRegistrarEstablecimiento.localidad.$valid,
+                 'has-error has-feedback':formRegistrarEstablecimiento.localidad.$touched && formRegistrarEstablecimiento.localidad.$invalid}">
+                            <label class="control-label" for="localidad">
+                                Localidad (*)
+                            </label>
+                            <select class="form-control" name="localidad" required
+                                    ng-model="establecimiento.idLocalidad" ng-disabled="!establecimiento.idProvincia">
+                                <option value="">Seleccione...</option>
+                                <option ng-repeat="item in localidades"
+                                        value="{{ item.idLocalidad }}">
+                                    {{ item.nombre }}
+                                </option>
+                            </select>
+                            <div ng-show="formRegistrarEstablecimiento.localidad.$touched">
+                                <span class="help-block" ng-show="formRegistrarEstablecimiento.localidad.$error.required" style="color: #e73d4a;">
+                                    Este campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="agregarEstabOrigen()" ng-disabled="!establecimiento.nombre || !establecimiento.idProvincia || !establecimiento.idLocalidad">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<!--Modal nuevo rodeo-->
+<div id="modalNuevoRodeo" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <!-- Modal content-->
+        <form name="formRegistrarRodeo" novalidate>
+            <fieldset>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nuevo Rodeo</h4>
+                    </div>
+                    <div class="modal-body" style="height:27%; margin-top:15px;">
+                        <p>Rodeo</p>
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;" ng-class="{'has-success has-feedback':formRegistrarRodeo.RodeoNombre.$touched && formRegistrarRodeo.RodeoNombre.$valid,
+                 'has-error has-feedback':formRegistrarRodeo.RodeoNombre.$touched && formRegistrarRodeo.RodeoNombre.$invalid}">
+                            <label class="control-label" for="RodeoNombre">
+                                Nombre (*)
+                            </label>
+                            <input name="RodeoNombre" type="text" class="form-control" placeholder="Nombre del rodeo"
+                                   ng-model="rodeo.nombre" required />
+                        </div>
+                        <div ng-show="formRegistrarRodeo.RodeoNombre.$touched">
+                            <span class="help-block" ng-show="formRegistrarRodeo.RodeoNombre.$error.required" style="color: #e73d4a;">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                        <div class="col-md-12 col-lg-12" style="margin-top: 10px;">
+                            <input type="checkbox" name="checkConfinado" ng-true-value="1" ng-false-value="0" ng-model="rodeo.confinado"> Confinado?<br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="agregarRodeo()" ng-disabled="!rodeo.nombre">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<!--Modal nuevo estado-->
+<div id="modalNuevoEstado" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <form name="formRegistrarEstado" novalidate>
+            <fieldset>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nuevo Estado</h4>
+                    </div>
+                    <div class="modal-body" style="height:35%">
+                        <p>Estado</p>
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;" ng-class="{'has-success has-feedback':formRegistrarEstado.EstadoNombre.$touched && formRegistrarEstado.EstadoNombre.$valid,
+                 'has-error has-feedback':formRegistrarEstado.EstadoNombre.$touched && formRegistrarEstado.EstadoNombre.$invalid}">
+                            <label class="control-label" for="EstadoNombre">
+                                Nombre (*)
+                            </label>
+                            <input name="EstadoNombre" type="text" class="form-control" placeholder="Nombre del estado"
+                                   ng-model="estado.nombre" required maxlength="30" />
+                        </div>
+                        <div ng-show="formRegistrarEstado.EstadoNombre.$touched">
+                            <span class="help-block" ng-show="formRegistrarEstado.EstadoNombre.$error.required" style="color: #e73d4a;">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px; margin-top:10px">
+                            <label class="control-label" for="descripcion">
+                                Descripción
+                            </label>
+                            <textarea name="EstadoDescrip" type="text" rows="2" class="form-control" placeholder="Descripción del estado"
+                                      ng-model="estado.descripcion"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="agregarEstado()" ng-disabled="!estado.nombre">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<!--Modal nueva categoría-->
+<div id="modalNuevoCategoria" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <form name="formRegistrarCategoria" novalidate>
+            <fieldset>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nueva Categoría</h4>
+                    </div>
+                    <div class="modal-body" style="height:30%">
+                        <p>Categoría</p>
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;" ng-class="{'has-success has-feedback':formRegistrarCategoria.CategoriaNombre.$touched && formRegistrarCategoria.CategoriaNombre.$valid,
+                 'has-error has-feedback':formRegistrarCategoria.CategoriaNombre.$touched && formRegistrarCategoria.CategoriaNombre.$invalid}">
+                            <label class="control-label" for="CategoriaNombre">
+                                Nombre (*)
+                            </label>
+                            <input name="CategoriaNombre" type="text" class="form-control" placeholder="Nombre de la categoría"
+                                   ng-model="categoria.nombre" required maxlength="30" />
+                        </div>
+                        <div ng-show="formRegistrarCategoria.CategoriaNombre.$touched">
+                            <span class="help-block" ng-show="formRegistrarCategoria.CategoriaNombre.$error.required" style="color: #e73d4a;">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                        <div class="form-group col-md-12 col-lg-12" style="margin-top:10px; margin-left: -10px;">
+                            <label class="control-label" for="sexo">
+                                Sexo (*)
+                            </label>
+                            <div ng-init="categoria.genero = 0">
+                                <label class="radio-inline">
+                                    <input type="radio" name="genero" value="0"
+                                           ng-model="categoria.genero">
+                                    Hembra
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="genero" value="1"
+                                           ng-model="categoria.genero">
+                                    Macho
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="agregarCategoria()" ng-disabled="!categoria.nombre">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<!--Modal nueva raza-->
+<div id="modalNuevoRaza" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <form name="formRegistrarRaza" novalidate>
+            <fieldset>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nueva Raza</h4>
+                    </div>
+                    <div class="modal-body" style="height:20%">
+                        <p>Raza</p>
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;" ng-class="{'has-success has-feedback':formRegistrarRaza.RazaNombre.$touched && formRegistrarRaza.RazaNombre.$valid,
+                 'has-error has-feedback':formRegistrarRaza.RazaNombre.$touched && formRegistrarRaza.RazaNombre.$invalid}">
+                            <label class="control-label" for="RazaNombre">
+                                Nombre (*)
+                            </label>
+                            <input name="RazaNombre" type="text" class="form-control" placeholder="Nombre de la raza"
+                                   ng-model="raza.nombre" required />
+                        </div>
+                        <div ng-show="formRegistrarRaza.RazaNombre.$touched">
+                            <span class="help-block" ng-show="formRegistrarRaza.RazaNombre.$error.required" style="color: #e73d4a;">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="agregarRaza()" ng-disabled="!raza.nombre">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<!--Modal nuevo alimento-->
+<div id="modalNuevoAlimento" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <form name="formRegistrarAlimento" novalidate>
+            <fieldset>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nuevo Alimento</h4>
+                    </div>
+                    <div class="modal-body" style="height:20%">
+                        <p>Alimento</p>
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;" ng-class="{'has-success has-feedback':formRegistrarAlimento.AlimentoNombre.$touched && formRegistrarAlimento.AlimentoNombre.$valid,
+                 'has-error has-feedback':formRegistrarAlimento.AlimentoNombre.$touched && formRegistrarAlimento.AlimentoNombre.$invalid}">
+                            <label class="control-label" for="AlimentoNombre">
+                                Nombre (*)
+                            </label>
+                            <input name="AlimentoNombre" type="text" class="form-control" placeholder="Nombre del alimento"
+                                   ng-model="alimento.nombre" required />
+                        </div>
+                        <div ng-show="formRegistrarAlimento.AlimentoNombre.$touched">
+                            <span class="help-block" ng-show="formRegistrarAlimento.AlimentoNombre.$error.required" style="color: #e73d4a;">
+                                Este campo es requerido
+                            </span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" ng-click="agregarAlimento()" ng-disabled="!alimento.nombre">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
 <div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>

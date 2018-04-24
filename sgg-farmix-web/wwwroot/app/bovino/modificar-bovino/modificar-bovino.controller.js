@@ -5,9 +5,9 @@
         .module('app')
         .controller('modificarBovinoController', modificarBovinoController);
 
-    modificarBovinoController.$inject = ['$scope', 'modificarBovinoService', 'toastr', '$stateParams', '$localStorage'];
+    modificarBovinoController.$inject = ['$scope', 'modificarBovinoService', 'toastr', '$stateParams', '$localStorage', 'establecimientoOrigenService', 'rodeoService', 'estadoService', 'categoriaService', 'razaService', 'alimentoService', 'registrarBovinoService', '$state'];
 
-    function modificarBovinoController($scope, modificarBovinoService, toastr, $stateParams, $localStorage) {
+    function modificarBovinoController($scope, modificarBovinoService, toastr, $stateParams, $localStorage, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, registrarBovinoService, $state) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.habilitar = false;
@@ -17,6 +17,15 @@
         vm.cambiarSexo = cambiarSexo;
         vm.idCaravanaChange = idCaravanaChange;
         vm.getFecha = getFecha;
+        vm.getPeso = getPeso;
+        vm.cargarProvinciasyLocalidades = cargarProvinciasyLocalidades;
+        vm.getLocalidades = getLocalidades;
+        vm.agregarEstabOrigen = agregarEstabOrigen;
+        vm.agregarRodeo = agregarRodeo;
+        vm.agregarEstado = agregarEstado;
+        vm.agregarCategoria = agregarCategoria;
+        vm.agregarRaza = agregarRaza;
+        vm.agregarAlimento = agregarAlimento;
         //variables
         vm.razas = [];
         vm.estados = [];
@@ -30,7 +39,15 @@
         vm.btnVolver = "Volver";
         vm.checkH = false;
         vm.checkM = false;
+        vm.establecimiento = new establecimientoOrigenService();
+        vm.rodeo = new rodeoService();
+        vm.estado = new estadoService();
+        vm.categoria = new categoriaService();
+        vm.raza = new razaService();
+        vm.alimento = new alimentoService();
         $('#datetimepicker4').datetimepicker();
+        vm.maxCantidad = 0;
+        var localidadesOriginales = [];
 
         function inicializar() {
             vm.showSpinner = true;
@@ -44,18 +61,14 @@
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
+                vm.alimentos = data.alimentos;
 
                 //bovino
                 vm.bovino = data.bovino;
+                //vm.bovino.idEstablecimientoOrigen = vm.bovino.idEstablecimientoOrigen.toString();
                 vm.bovino.idAlimento = 0;
                 vm.bovino.cantAlimento = 0;
-                nroCaravanaOriginal = vm.bovino.numCaravana;
-                //if (vm.bovino.fechaNacimiento[8] === " ")
-                  //  var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 8).split('/');
-                //else
-                  //  var fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10).split('/');
-                //vm.bovino.fechaNacimiento = new Date(fechaNacimiento[2], (parseInt(fechaNacimiento[1] - 1)).toString(), fechaNacimiento[0]);
-                vm.bovino.fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10);
+                nroCaravanaOriginal = vm.bovino.numCaravana;vm.bovino.fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10);
                 if (vm.bovino.genero === 0) {
                     vm.checkH = true;
                     vm.checkM = false;
@@ -117,6 +130,10 @@
             }
         };
 
+        function getPeso() {
+            vm.maxCantidad = (12 * vm.bovino.peso) / 100;
+        };
+
         function modificar() {
             vm.showSpinner = true;
             vm.habilitar = false;
@@ -163,8 +180,10 @@
             return dia + '/' + mes + '/' + año;
         };
 
-        function idCaravanaChange() {
+        function idCaravanaChange() {            
             if (vm.bovino.numCaravana !== nroCaravanaOriginal) {
+                vm.showSpinner = true;
+                vm.habilitar = false;
                 modificarBovinoService.existeIdCaravana(vm.bovino.numCaravana).then(function success(data) {
                     if (data[0] === "1") {
                         vm.formModificarBovino.idCaravana.$setValidity("existeIdCaravana", false);
@@ -172,13 +191,16 @@
                     else {
                         vm.formModificarBovino.idCaravana.$setValidity("existeIdCaravana", true);
                     }
+                    vm.showSpinner = false;
+                    vm.habilitar = true;
                 }, function (error) {
                     vm.showSpinner = false;
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }
-            else if(vm.bovino.numCaravana === nroCaravanaOriginal)
+            else if(vm.bovino.numCaravana === nroCaravanaOriginal){
                 vm.formModificarBovino.idCaravana.$setValidity("existeIdCaravana", true);
+            }
         };
 
         function getFecha() {
@@ -196,6 +218,136 @@
                 vm.formModificarBovino.fechaNac.$setValidity("min", false);
             else
                 vm.formModificarBovino.fechaNac.$setValidity("min", true);
-        }
+        };
+
+        function cargarProvinciasyLocalidades() {
+            registrarBovinoService.cargarProvinciasyLocalidades({}, function (data) {
+                vm.provincias = data.provincias;
+                localidadesOriginales = data.localidades;
+            }, function error(error) {
+                vm.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
+        };
+
+        function getLocalidades() {
+            vm.localidades = Enumerable.From(localidadesOriginales).Where(function (x) {
+                return x.idProvincia === parseInt(vm.establecimiento.idProvincia);
+            }).ToArray();
+        };
+
+        function agregarEstabOrigen() {
+            vm.showSpinner = true;
+            vm.habilitar = false;
+            vm.establecimiento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+            vm.establecimiento.$save(function (data) {
+                toastr.success('Se agrego con éxito el establecimiento origen ', 'Éxito');
+                vm.showSpinner = false;
+                $('#modalNuevoEstablecimiento').modal('hide');
+                $state.reload();
+            }, function (error) {
+                vm.showSpinner = false;
+                vm.habilitar = true;
+                if (error.statusText === 'Establecimiento Origen ya existe')
+                    toastr.warning('El establecimiento origen que intenta registrar, ya existe en este campo', 'Advertencia');
+                else
+                    toastr.error('La operación no se pudo completar', 'Error');
+            });
+        };
+
+        function agregarRodeo() {
+            vm.showSpinner = true;
+            vm.habilitar = false;
+            vm.rodeo.idCampo = $localStorage.usuarioInfo.codigoCampo;
+            vm.rodeo.$save(function (data) {
+                toastr.success('Se agrego con éxito el rodeo', 'Éxito');
+                vm.showSpinner = false;
+                $('#modalNuevoRodeo').modal('hide');
+                $state.reload();
+            }, function (error) {
+                vm.showSpinner = false;
+                vm.habilitar = true;
+                if (error.statusText === 'Rodeo ya existe')
+                    toastr.warning('El rodeo que intenta registrar, ya existe', 'Advertencia');
+                else
+                    toastr.error('La operación no se pudo completar', 'Error');
+            });
+        };
+
+        function agregarEstado() {
+            vm.showSpinner = true;
+            vm.habilitar = false;
+            vm.estado.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+            vm.estado.$save(function (data) {
+                toastr.success('Se agrego con éxito el estado ', 'Éxito');
+                vm.showSpinner = false;
+                $('#modalNuevoEstado').modal('hide');
+                $state.reload();
+            }, function (error) {
+                vm.showSpinner = false;
+                vm.habilitar = true;
+                if (error.statusText === 'Estado ya existe')
+                    toastr.warning('El estado que intenta registrar, ya existe', 'Advertencia');
+                else
+                    toastr.error('La operación no se pudo completar', 'Error');
+            });
+        };
+
+        function agregarCategoria() {
+            vm.showSpinner = true;
+            vm.habilitar = false;
+            vm.categoria.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+            vm.categoria.$save(function (data) {
+                toastr.success('Se agrego con éxito la categoría ', 'Éxito');
+                vm.showSpinner = false;
+                $('#modalNuevoCategoria').modal('hide');
+                $state.reload();
+            }, function (error) {
+                vm.showSpinner = false;
+                vm.habilitar = true;
+                if (error.statusText === 'Categoria ya existe')
+                    toastr.warning('La categoría que intenta registrar, ya existe', 'Advertencia');
+                else
+                    toastr.error('La operación no se pudo completar', 'Error');
+            });
+        };
+
+        function agregarRaza() {
+            vm.showSpinner = true;
+            vm.habilitar = false;
+            vm.raza.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+            vm.raza.$save(function (data) {
+                toastr.success('Se agrego con éxito el alimento ', 'Éxito');
+                vm.showSpinner = false;
+                $('#modalNuevoRaza').modal('hide');
+                $state.reload();
+            }, function (error) {
+                vm.showSpinner = false;
+                vm.habilitar = true;
+                if (error.statusText === 'Raza ya existe')
+                    toastr.warning('La raza que intenta registrar, ya existe', 'Advertencia');
+                else
+                    toastr.error('La operación no se pudo completar', 'Error');
+            });
+        };
+
+        function agregarAlimento() {
+            vm.showSpinner = true;
+            vm.habilitar = false;
+            vm.alimento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+            vm.alimento.$save(function (data) {
+                toastr.success('Se agrego con éxito el establecimiento origen ', 'Éxito');
+                vm.showSpinner = false;
+                $('#modalNuevoAlimento').modal('hide');
+                $state.reload();
+            }, function (error) {
+                vm.showSpinner = false;
+                vm.habilitar = true;
+                if (error.statusText === 'Alimento ya existe')
+                    toastr.warning('El alimento que intenta registrar, ya existe', 'Advertencia');
+                else
+                    toastr.error('La operación no se pudo completar', 'Error');
+            });
+        };
     }
 })();

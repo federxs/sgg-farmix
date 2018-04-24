@@ -3,10 +3,14 @@
         var inseminacionUrl = portalService.getUrlServer() + "api/Inseminacion/";
 
         this.registrarInseminacion = function (inseminacion) {
+			listaToros = '';
+			if($rootScope.idToros != undefined){
+				listaToros = $rootScope.idToros.toString();
+			}
             $http({
                 method: 'POST',
                 url: inseminacionUrl + "Insert",
-                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: $rootScope.idToros.toString() }
+                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: listaToros }
             });
         };
 

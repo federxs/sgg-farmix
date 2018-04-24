@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('cerrarSesionController', function ($scope, $rootScope, $state, $ionicLoading, $ionicPlatform, $ionicPopup, $localStorage) {
+    .controller('cerrarSesionController', function ($scope, $rootScope, $state, $localStorage, $ionicHistory) {
         if ($rootScope.logueado == false) {
             $state.go('app.login');
         }

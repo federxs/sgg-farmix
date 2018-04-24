@@ -6,13 +6,14 @@
         homeService,
         $state,
         $localStorage,
+        $sessionStorage,
         toastr
         ) {
         $scope.Menu = [];
 
         $scope.load = function () {
             $scope.showSpinner = true;
-            homeService.datosUsuario({ usuario: $localStorage.usuarioInfo.usuario, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
+            homeService.datosUsuario({ usuario: $sessionStorage.usuarioInfo.usuario, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;
@@ -74,6 +75,7 @@
 
         $scope.cerrarSesion = function () {
             $localStorage.usuarioInfo = undefined;
+            $sessionStorage.usuarioInfo = undefined;
             $('#modalConfirmCerrarSesion').modal('hide');
             $state.go('login');
         }

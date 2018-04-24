@@ -14,13 +14,13 @@ angular.module('starter')
                     }
                     var inseminacion = { idTipoTacto: $rootScope.evento.tipoVerificacion, exitoso: exitoso, idInseminacion: $stateParams.idInseminacion };
                     verificacionInseminacionService.registrarVerificacionInseminacion(inseminacion);
-                    alert("Verificacion registrada con exito");
+                    alert("Verificaci\u00F3n registrada con exito");
                     $state.go("app.inseminacionesPendientes");
                 } else {
-                    alert("Seleccione el tipo de verificacion");
+                    alert("Seleccione el tipo de verificaci\u00F3n");
                 }
             } else {
-                alert("Seleccione el resultado de la verificacion");
+                alert("Seleccione el resultado de la verificaci\u00F3n");
             }
         }
     });

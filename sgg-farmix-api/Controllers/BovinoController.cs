@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using sgg_farmix_acceso_datos.DAOs;
 using sgg_farmix_acceso_datos.Model;
+using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/initModificacion")]
         [HttpGet]
+        [AutorizationToken]
         public Resultados Get(string idBovino, string idCampo)
         {
             Resultados resultado = new Resultados();
@@ -30,6 +32,7 @@ namespace sgg_farmix_api.Controllers
                 resultado.razas = new RazaManager().GetList();
                 resultado.rodeos = new RodeoManager().GetList(Int64.Parse(campo));
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList(Int64.Parse(campo));
+                resultado.alimentos = new AlimentoManager().GetList(Int64.Parse(campo));
                 resultado.bovino = BM.Get(Int64.Parse(id), Int64.Parse(campo));
             }
             catch (Exception ex)
@@ -45,6 +48,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/BovinoConsultar/getListaBovinos")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<BovinoItem> GetList(string filtro)
         {
             try
@@ -82,6 +86,7 @@ namespace sgg_farmix_api.Controllers
         //este metodo sirve para la validacion del nro de caravana en la regitración
         [Route("api/Bovino/existeIdCaravana/{idCaravana}")]
         [HttpGet]
+        [AutorizationToken]
         public string ValidarNroCaravana(string idCaravana)
         {
             try
@@ -102,6 +107,7 @@ namespace sgg_farmix_api.Controllers
         //este metodo sirve para la validacion del nro de caravana en la modificacion
         [Route("api/Bovino/existeIdCaravana")]
         [HttpGet]
+        [AutorizationToken]
         public string ValidarNroCaravana1(string idCaravana)
         {
             try
@@ -120,6 +126,7 @@ namespace sgg_farmix_api.Controllers
         }
 
         [HttpPost]
+        [AutorizationToken]
         public Bovino Post([FromBody]Bovino bovino)
         {
             try
@@ -137,6 +144,7 @@ namespace sgg_farmix_api.Controllers
         }
 
         [HttpPut]
+        [AutorizationToken]
         public Bovino Put(string value)
         {
             try
@@ -172,6 +180,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/inicializar/{idAmbitoEstado}/{idCampo}")]
         [HttpGet]
+        [AutorizationToken]
         public Resultados GetListas(long idAmbitoEstado, long idCampo)
         {
             Resultados resultado = new Resultados();
@@ -197,6 +206,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/initDetalle")]
         [HttpGet]
+        [AutorizationToken]
         public BovinoDetalle GetDetalle(string idBovino)
         {
             try
@@ -216,6 +226,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/initBaja")]
         [HttpGet]
+        [AutorizationToken]
         public BovinoHeaderEliminar GetBaja(string idBovino, string codigoCampo)
         {
             try
@@ -240,6 +251,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/darBajaMuerte")]
         [HttpPut]
+        [AutorizationToken]
         public void DeleteMuerte(string idBovino, string fechaMuerte)
         {
             try
@@ -259,6 +271,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/darBajaVenta")]
         [HttpPost]
+        [AutorizationToken]
         public void DeleteVenta(string venta)
         {
             try
@@ -316,6 +329,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/cargarProvinciasAndLoc")]
         [HttpGet]
+        [AutorizationToken]
         public Resultados GetProvinciasAndLoc()
         {
             try

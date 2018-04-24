@@ -18,7 +18,6 @@
         vm.limpiarCampos = limpiarCampos;
         vm.exportarExcel = exportarExcel;
         vm.exportarPDF = exportarPDF;
-        vm.changeSexo = changeSexo;
         //variables
         vm.razas = [];
         vm.estados = [];
@@ -27,7 +26,6 @@
         vm.establecimientos = [];
         vm.filtro = {};
         vm.cursor = '';
-        var categorias = [];
         function inicializar() {
             vm.showSpinner = true;
             vm.disabled = 'disabled';
@@ -36,7 +34,6 @@
             consultarBovinoService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                 vm.estados = data.estados;
                 vm.categorias = data.categorias;
-                categorias = data.categorias;
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
@@ -431,24 +428,6 @@
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
-        }
-
-        function changeSexo() {
-            vm.categorias = [];
-            if (vm.filtro.genero === '0') {
-                for (var i = 0; i < categorias.length; i++) {
-                    if (categorias[i].genero === 0)
-                        vm.categorias.push(categorias[i]);
-                }
-            }
-            else if (vm.filtro.genero === '1') {
-                for (var j = 0; j < categorias.length; j++) {
-                    if (categorias[j].genero === 1)
-                        vm.categorias.push(categorias[j]);
-                }
-            }
-            else
-                vm.filtro.idCategoria = '2';
         }
 
         function convertirFecha(fecha) {

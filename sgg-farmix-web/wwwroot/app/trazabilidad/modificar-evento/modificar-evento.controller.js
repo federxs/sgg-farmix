@@ -5,9 +5,9 @@
         .module('app')
         .controller('modificarEventoController', modificarEventoController);
 
-    modificarEventoController.$inject = ['$scope', 'modificarEventoService', '$stateParams', 'tipoEventoService', 'toastr', '$localStorage'];
+    modificarEventoController.$inject = ['$scope', 'modificarEventoService', '$stateParams', 'tipoEventoService', 'toastr', '$localStorage', '$sessionStorage'];
 
-    function modificarEventoController($scope, modificarEventoService, $stateParams, tipoEventoService, toastr, $localStorage) {
+    function modificarEventoController($scope, modificarEventoService, $stateParams, tipoEventoService, toastr, $localStorage, $sessionStorage) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.habilitar = false;
@@ -34,7 +34,7 @@
             vm.habilitar = false;
             vm.habilitarBtnAceptar = false;
             vm.itemsPorPagina = 9;
-            modificarEventoService.initModificacion($stateParams.id, $localStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
+            modificarEventoService.initModificacion($stateParams.id, $sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 vm.vacunas = data.vacunas;
                 vm.alimentos = data.alimentos;
                 vm.antibioticos = data.antibioticos;

@@ -12,7 +12,6 @@
         vm.showSpinner = true;
         vm.habilitar = false;
         //variables
-        $scope.$state = $state;
         vm.razas = [];
         vm.estados = [];
         vm.categorias = [];
@@ -40,7 +39,6 @@
         vm.registrar = registrar;
         vm.inicializar = inicializar();
         vm.idCaravanaChange = idCaravanaChange;
-        vm.changeSexo = changeSexo;
         vm.getFecha = getFecha;
         vm.getPeso = getPeso;
         vm.cargarProvinciasyLocalidades = cargarProvinciasyLocalidades;
@@ -57,11 +55,7 @@
             vm.habilitar = false;
             registrarBovinoService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                 vm.estados = data.estados;
-                categorias = data.categorias;
-                for (var i = 0; i < categorias.length; i++) {
-                    if (categorias[i].genero === 0)
-                        vm.categorias.push(categorias[i]);
-                }
+                vm.categorias = data.categorias;
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
@@ -103,6 +97,8 @@
         };
 
         function idCaravanaChange() {
+            vm.showSpinner = true;
+            vm.habilitar = false;
             if (vm.bovino.numCaravana !== undefined && vm.bovino.numCaravana !== '') {
                 registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.numCaravana }, function (data) {
                     if (data[0] === "1") {
@@ -111,6 +107,8 @@
                     else {
                         vm.formRegistrarBovino.idCaravana.$setValidity("existeIdCaravana", true);
                     }
+                    vm.showSpinner = false;
+                    vm.habilitar = true;
                 }, function (error) {
                     vm.showSpinner = false;
                     toastr.error('La operación no se pudo completar', 'Error');
@@ -132,22 +130,6 @@
 
         function getPeso() {
             vm.maxCantidad = (12 * vm.bovino.peso) / 100;
-        };
-
-        function changeSexo() {
-            vm.categorias = [];
-            if (vm.bovino.genero === '0') {
-                for (var i = 0; i < categorias.length; i++) {
-                    if (categorias[i].genero === 0)
-                        vm.categorias.push(categorias[i]);
-                }
-            }
-            else {
-                for (var j = 0; j < categorias.length; j++) {
-                    if (categorias[j].genero === 1)
-                        vm.categorias.push(categorias[j]);
-                }
-            }
         };
 
         function getFecha() {

@@ -18,7 +18,6 @@ angular.module('starter', ['ionic', 'ngStorage'])
 
 .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-
       .state('app', {
           url: '/app',
           abstract: true,
@@ -159,9 +158,9 @@ angular.module('starter', ['ionic', 'ngStorage'])
                     controller: 'VerificarInseminacionController'
                 }
             }
-        }).state('app.cerrarSesion', {
+        })
+        .state('app.cerrarSesion', {
             url: '/cerrarSesion',
-            params: { idInseminacion: null },
             views: {
                 'menuContent': {
                     templateUrl: 'views/cerrarSesion.html',

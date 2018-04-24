@@ -233,6 +233,10 @@
       <Project>{1DA7A5D4-5504-4712-90DF-FBF01AE01D4A}</Project>
       <Name>sgg-farmix-acceso-datos</Name>
     </ProjectReference>
+    <ProjectReference Include="..\sgg-farmix-helper\sgg-farmix-helper.csproj">
+      <Project>{66C6B34F-23CC-41A2-A902-933A0FD18D97}</Project>
+      <Name>sgg-farmix-helper</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

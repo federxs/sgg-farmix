@@ -16,7 +16,8 @@
         function inicializar() {
             return $http({
                 method: 'GET',
-                url: portalService.getUrlServer() + 'api/TipoEvento/GetList'
+                url: portalService.getUrlServer() + 'api/TipoEvento/GetList',
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

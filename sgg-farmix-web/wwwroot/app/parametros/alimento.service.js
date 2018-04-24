@@ -3,7 +3,8 @@
         .factory('alimentoService', function ($resource, portalService) {
             return $resource(portalService.getUrlServer() + 'api/Alimento/', {}, {
                 save: {
-                    method: 'POST'
+                    method: 'POST',
+                    headers: portalService.getHeadersServer()
                 }
             });
         });

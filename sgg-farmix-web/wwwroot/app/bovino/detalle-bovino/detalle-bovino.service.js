@@ -16,7 +16,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Bovino/initDetalle',
-                params: { idBovino: idBovino }
+                params: { idBovino: idBovino },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

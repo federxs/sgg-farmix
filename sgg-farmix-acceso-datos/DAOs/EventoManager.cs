@@ -1,5 +1,6 @@
 ﻿using sgg_farmix_acceso_datos.Helper;
 using sgg_farmix_acceso_datos.Model;
+using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -34,6 +35,11 @@ namespace sgg_farmix_acceso_datos.DAOs
             {
                 throw;
             }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
         }
 
         public IEnumerable<Evento> Get(Evento entity)
@@ -60,6 +66,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -97,6 +104,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 
@@ -170,6 +178,8 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
+                transaction = null;
             }
         }
 
@@ -193,8 +203,10 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
+
         public Evento Update(long id, Evento entity, List<long> lista)
         {
             connection = new SqlServerConnection();
@@ -215,12 +227,12 @@ namespace sgg_farmix_acceso_datos.DAOs
                 else
                 {
                     var parametrosEvento = new Dictionary<string, object>
-                {
-                    {"@idEvento", id },
-                    {"@idTipoEvento", entity.idTipoEvento },
-                    {"@fechaHora", entity.fechaHora },
-                    {"@cantidad", entity.cantidad }
-                };
+                    {
+                        {"@idEvento", id },
+                        {"@idTipoEvento", entity.idTipoEvento },
+                        {"@fechaHora", entity.fechaHora },
+                        {"@cantidad", entity.cantidad }
+                    };
                     switch (entity.idTipoEvento)
                     {
                         case 1:
@@ -241,9 +253,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                     if (update == 0)
                         throw new ArgumentException("Update evento error");
                     var parametrosDetalle = new Dictionary<string, object>
-                {
-                    {"@idEvento", id }
-                };
+                    {
+                        {"@idEvento", id }
+                    };
                     connection.Execute("spDeleteDetalleXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
                     var insertDetalle = 0;
                     parametrosDetalle.Add("@idBovino", 0);
@@ -258,10 +270,10 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {
                         var insert = 0;
                         var parametros = new Dictionary<string, object>
-                    {
-                        {"@idRodeo", entity.idRodeoDestino },
-                        {"@idBovino", 0 }
-                    };
+                        {
+                            {"@idRodeo", entity.idRodeoDestino },
+                            {"@idBovino", 0 }
+                        };
                         for (int i = 0; i < lista.Count; i++)
                         {
                             parametros["@idBovino"] = lista.ElementAt(i);
@@ -282,6 +294,8 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
+                transaction = null;
             }
         }
     }

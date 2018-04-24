@@ -1,5 +1,6 @@
 ﻿using sgg_farmix_acceso_datos.DAOs;
 using sgg_farmix_acceso_datos.Model;
+using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace sgg_farmix_api.Controllers
         private DashboarManager DM = new DashboarManager();
 
         [HttpGet]
+        [AutorizationToken]
         public DashBoard Get(string id)
         {
             try

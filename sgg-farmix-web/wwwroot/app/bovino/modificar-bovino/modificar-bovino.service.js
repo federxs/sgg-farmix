@@ -18,7 +18,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Bovino/initModificacion',
-                params: { idBovino: idBovino, idCampo: idCampo }
+                params: { idBovino: idBovino, idCampo: idCampo },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];
@@ -29,7 +30,8 @@
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Bovino',
-                params: { value: bovino }
+                params: { value: bovino },
+                headers: portalService.getHeadersServer()
             })
         }
 
@@ -40,6 +42,7 @@
                 params: {
                     idCaravana: idCaravana
                 },
+                headers: portalService.getHeadersServer(),
                 isArray: false
             }).then(
             function (data) {

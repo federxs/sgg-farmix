@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using sgg_farmix_acceso_datos.DAOs;
 using sgg_farmix_acceso_datos.Model;
+using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Usuario/GetList")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<Usuario> GetList(string filter)
         {
             try
@@ -55,6 +57,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Usuario/Init")]
         [HttpGet]
+        [AutorizationToken]
         public Resultados Get()
         {
             Resultados resultado = new Resultados();
@@ -74,6 +77,7 @@ namespace sgg_farmix_api.Controllers
         }
 
         [HttpPost]
+        [AutorizationToken]
         public Usuario Post(string usuario, string codigoCampo)
         {
             try
@@ -93,6 +97,7 @@ namespace sgg_farmix_api.Controllers
         }
 
         [HttpGet]
+        [AutorizationToken]
         public Usuario Get(string idUsuario)
         {
             try
@@ -112,6 +117,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Usuario/GetDetalle")]
         [HttpGet]
+        [AutorizationToken]
         public UsuarioDetalle GetDetalle(string idUsuario)
         {
             try
@@ -130,6 +136,7 @@ namespace sgg_farmix_api.Controllers
         }
 
         [HttpPut]
+        [AutorizationToken]
         public Usuario Put(string usuario)
         {
             try
@@ -149,6 +156,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Usuario/DarBaja")]
         [HttpPut]
+        [AutorizationToken]
         public void BajaUsuario(string idUsuario)
         {
             try
@@ -168,6 +176,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Usuario/Activar")]
         [HttpPut]
+        [AutorizationToken]
         public void ActivarUsuario(string idUsuario)
         {
             try

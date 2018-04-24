@@ -19,7 +19,8 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Evento/GetEventoForModificacion',
-                params: { idEvento: id }
+                params: { idEvento: id },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];
@@ -34,7 +35,8 @@
                     idEvento: id,
                     usuario: usuario,
                     idCampo: codigoCampo
-                }
+                },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];
@@ -45,7 +47,8 @@
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Evento',
-                params: { value: evento, lista: lista }
+                params: { value: evento, lista: lista },
+                headers: portalService.getHeadersServer()
             })
         }
 
@@ -55,7 +58,8 @@
                 url: portalService.getUrlServer() + 'api/Rodeo/GetList',
                 params: {
                     campo: campo
-                }
+                },
+                headers: portalService.getHeadersServer()
             }).then(
             function (data) {
                 return data.data || [];

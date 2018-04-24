@@ -22,7 +22,7 @@
                         <label class="control-label" for="idCaravana">
                             N° de Caravana (*)
                         </label>
-                        <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" min="0" required
+                        <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" min="1" required
                                ng-disabled="!habilitar"
                                ng-model="bovino.numCaravana"
                                ng-blur="idCaravanaChange()" />
@@ -166,13 +166,13 @@
                             <label class="radio-inline">
                                 <input type="radio" name="genero" value="0"
                                        ng-disabled="!habilitar"
-                                       ng-model="bovino.genero" ng-click="changeSexo()">
+                                       ng-model="bovino.genero">
                                 Hembra
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="genero" value="1"
                                        ng-disabled="!habilitar"
-                                       ng-model="bovino.genero" ng-click="changeSexo()">
+                                       ng-model="bovino.genero">
                                 Macho
                             </label>
                         </div>
@@ -241,7 +241,7 @@
                                     ng-disabled="!habilitar"
                                     ng-model="bovino.idCategoria">
                                 <option value="">Seleccione...</option>
-                                <option ng-repeat="item in categorias"
+                                <option ng-repeat="item in categorias | filter: bovino.genero"
                                         value="{{ item.idCategoria }}">
                                     {{ item.nombre }}
                                 </option>

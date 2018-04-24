@@ -5,6 +5,7 @@
                 inicializar: {
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Bovino/inicializar/:idAmbitoEstado/:idCampo',
+                    headers: portalService.getHeadersServer(),
                     params: {
                         idAmbitoEstado: '@idAmbitoEstado',
                         idCampo: '@idCampo'
@@ -14,6 +15,7 @@
                 obtenerListaBovinos: {
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/BovinoConsultar/getListaBovinos',
+                    headers: portalService.getHeadersServer(),
                     isArray: true
                 }
             });

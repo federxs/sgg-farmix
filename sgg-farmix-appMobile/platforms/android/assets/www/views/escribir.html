@@ -4,24 +4,33 @@
         <h3>Bovinos con Tag sin grabar</h3>
         <table class="bordeTabla">
             <tr>
-                <th><strong>Numero de Caravana</strong></th>
+                <th><strong>Número de Caravana</strong></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="bovino in bovinos">
+            <tr ng-repeat="bovino in bovinos | limitTo:10">
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, true)" ion-button class="botonVerificar">Grabar Tag</button></td>
             </tr>
-        </table><br />
-        <h3>Bovinos con Tag ya grabados</h3>
+        </table>
+		<button ng-disabled="pagina == 0" ng-click="pagina=pagina-1">
+			Anterior
+		</button>
+		<button ng-disabled="pagina >= bovinos.length/10 - 1" ng-click="pagina=pagina+1">
+			Siguiente
+		</button><br />
+        <h3>Bovinos con Tag ya grabados</h3>       
+        <div>
+            <dir-pagination-controls></dir-pagination-controls>
+        </div>
         <table class="bordeTabla">
             <tr>
-                <th><strong>Numero de Caravana</strong></th>
+                <th><strong>Número de Caravana</strong></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="bovino in bovinosEscritos" class="itemTabla">
+            <tr dir-paginate="bovino in bovinosEscritos | itemsPerPage: 5" class="itemTabla">
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, false)" ion-button class="botonVerificar">Grabar Tag</button></td>
-            </tr>
-        </table>
+            </tr>            
+        </table>        
     </ion-content>
 </ion-view>

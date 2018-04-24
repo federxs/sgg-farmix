@@ -5,9 +5,9 @@
         .module('app')
         .controller('loginController', loginController);
 
-    loginController.$inject = ['$scope', 'toastr', 'loginService', '$localStorage', '$state'];
+    loginController.$inject = ['$scope', 'toastr', 'loginService', '$localStorage', '$state', '$sessionStorage'];
 
-    function loginController($scope, toastr, loginService, $localStorage, $state) {
+    function loginController($scope, toastr, loginService, $localStorage, $state, $sessionStorage) {
         var vm = $scope;
         vm.usuario = {};
         vm.ocultarUsuario = true;
@@ -19,8 +19,8 @@
         function inicializar() {
             var obj = document.getElementById('btn_login');
             obj.click();
-            if ($localStorage.usuarioInfo !== undefined) {
-                vm.usuario.usuario = $localStorage.usuarioInfo.usuario;
+            if ($sessionStorage.usuarioInfo !== undefined) {
+                vm.usuario.usuario = $sessionStorage.usuarioInfo.usuario;
                 vm.ocultarUsuario = false;
             }
         }
@@ -32,10 +32,11 @@
                 loginService.consultar($scope.usuario)
                     .then(function success(data) {
                         if (data.resultado === 1) {
-                            if ($localStorage.usuarioInfo === undefined) {
-                                $localStorage.usuarioInfo = {};
-                                $localStorage.usuarioInfo.usuario = vm.usuario.usuario;
-                                $localStorage.usuarioInfo.idRol = vm.usuario.idRol;
+                            if ($sessionStorage.usuarioInfo === undefined) {
+                                $sessionStorage.usuarioInfo = {};
+                                $sessionStorage.usuarioInfo.usuario = vm.usuario.usuario;
+                                $sessionStorage.usuarioInfo.idRol = vm.usuario.idRol;
+                                $sessionStorage.usuarioInfo.token = data.token;
                             }
                             $('#login-modal').modal('hide');
                             $state.go('seleccionCampo');
