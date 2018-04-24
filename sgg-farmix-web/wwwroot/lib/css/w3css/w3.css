@@ -178,12 +178,49 @@ textarea {
     font: inherit;
 }
 /* End extract */
+html, body {
+    font-family: Verdana,sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}
 
+html {
+    overflow-x: hidden;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+h5 {
+    font-size: 18px;
+}
+
+h6 {
+    font-size: 16px;
+}
 
 .w3-serif {
     font-family: serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Segoe UI",Arial,sans-serif;
+    font-weight: 400;
+    margin: 10px 0;
+}
 
 .w3-wide {
     letter-spacing: 4px;
@@ -316,18 +353,11 @@ a {
     .w3-ul li {
         padding: 8px 16px;
         border-bottom: 1px solid #ddd;
-        background-color: #FAE5D3;
-        font-size: large !important;
     }
 
         .w3-ul li:last-child {
             border-bottom: none;
         }
-
-    .w3-ul ul.a {
-        list-style-type: none;
-    }
-
 
 .w3-tooltip, .w3-display-container {
     position: relative;
@@ -890,7 +920,7 @@ a {
 }
 
 .w3-circle {
-    border-radius: 70%;
+    border-radius: 50%;
 }
 
 .w3-round-small {
@@ -928,7 +958,7 @@ a {
 }
 
 .w3-code, .w3-codespan {
-    font-family: 'Roboto', 'Open Sans', sans-serif;
+    font-family: Consolas,"courier new";
     font-size: 16px;
 }
 
@@ -1261,7 +1291,6 @@ a {
     padding-top: 16px !important;
     padding-bottom: 16px !important;
 }
-
 
 .w3-padding-24 {
     padding-top: 24px !important;
