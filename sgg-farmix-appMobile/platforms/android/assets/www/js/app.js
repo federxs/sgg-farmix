@@ -4,11 +4,11 @@ angular.module('starter', ['ionic', 'ngStorage', 'angularUtils.directives.dirPag
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
-        if (/*cordova.platformId === "ios" &&*/ window.cordova && window.cordova.plugins.Keyboard) {
+        /*if (/*cordova.platformId === "ios" &&* window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             cordova.plugins.Keyboard.disableScroll(true);
 
-        }
+        }*/
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();

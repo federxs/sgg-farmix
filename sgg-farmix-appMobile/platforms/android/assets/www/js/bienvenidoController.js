@@ -4,10 +4,13 @@ angular.module('starter')
             var usuario = {};
             usuario.usuario = $localStorage.usuario;
             usuario.pass = $localStorage.pass;
+            alert(usuario.usuario);
             showIonicLoading().then(validarLogin).then(function (_login) {
                 if (_login.resultado == "1") {
                     $rootScope.logueado = true;
+                    alert("funcion");
                 } else {
+                    alert("funciona");
                     $rootScope.logueado = false;
                     $localStorage.usuario = undefined;
                     $localStorage.pass = undefined;
