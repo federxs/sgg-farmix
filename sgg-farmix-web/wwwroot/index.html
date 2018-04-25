@@ -1,25 +1,32 @@
-﻿<!doctype html>
-<html lang="en" ng-app="app">
+﻿<!DOCTYPE html>
+<html lang="es-ar" ng-app="app">
 <head>
-    <meta charset="utf-8" />
+    <title>Farmix - Sistema de Gestión Ganadera</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="" name="description" />
-    <meta content="" name="author" />
+    <meta content="Página web del Sistema de Gestión Ganadera Farmix" name="description" />
+    <meta content="Lissandrello, Lucas" name="author" />
+    <meta content="Ordoñez, Jeremías" name="author" />
+    <meta content="Paván, Matías" name="author" />
+    <meta content="Prado Macat, Federico" name="author" />
     <link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body ng-cloak class="{{$state.current.data.bodyClass}}" ng-class="{'page-sidebar-closed': settings.layout.pageSidebarClosed}">
     <div ui-view></div>
     <!--CSS-->
+    <link rel="stylesheet" type="text/css" href="lib/css/custom/index.css" />
+    <link rel="stylesheet" type="text/css" href="lib/css/custom/custom.css" />
+    <link rel="stylesheet" type="text/css" href="lib/css/custom/login.css" />
+    <link rel="stylesheet" type="text/css" href="lib/css/w3css/w3.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/w3css/w3-theme-black.css">
+    <link rel="stylesheet" type="text/css" href="lib/css/bootstrap/css/datetimepicker.css" />
     <link rel="stylesheet" type="text/css" href="lib/css/angular-toastr/angular-toastr.css" />
     <link rel="stylesheet" type="text/css" href="lib/css/animate/animate.min.css" />
     <link rel="stylesheet" type="text/css" href="lib/css/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="lib/css/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="lib/css/custom/custom.css" />
-    <link href="lib/css/bootstrap/css/datetimepicker.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="lib/css/custom/index.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-    <!--<link rel="stylesheet" ; href="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.css">-->
     <!--JS-->
     <script src="lib/js/angular/angular.min.js"></script>
     <script src="lib/js/angular/angular-ui-router.min.js"></script>
@@ -38,10 +45,11 @@
     <script src="lib/js/bootstrap/datetimepicker.js"></script>
     <script src="lib/js/linq.js"></script>
     <script src="lib/js/jspdf.min.js"></script>
-    <!--<script src="https://unpkg.com/ng-table@2.0.2/bundles/ng-table.min.js"></script>-->
+
     <!--APP-->
     <script src="app.js"></script>
     <script src="app/routes.js"></script>
+
     <!--Services-->
     <script src="app/portal/portal.service.js"></script>
     <script src="app/homeFarmix/home.service.js"></script>
@@ -69,7 +77,7 @@
     <script src="app/bovino/registrar-bovino/registrar-bovino.controller.js"></script>
     <script src="app/bovino/modificar-bovino/modificar-bovino.controller.js"></script>
     <script src="app/bovino/detalle-bovino/detalle-bovino.controller.js"></script>
-    <script src="app/bovino/eliminar-bovino/eliminar-bovino.controller.js"></script>    
+    <script src="app/bovino/eliminar-bovino/eliminar-bovino.controller.js"></script>
     <script src="app/trazabilidad/consultar-trazabilidad/consultar-trazabilidad.controller.js"></script>
     <script src="app/inicio/inicio.controller.js"></script>
     <script src="app/exportador/exportador.js"></script>
