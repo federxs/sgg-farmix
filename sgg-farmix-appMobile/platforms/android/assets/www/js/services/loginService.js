@@ -7,7 +7,6 @@
                 url: loginUrl,
                 params: { usuario: usuario }
             }).then(function (respuesta) {
-                alert(respuesta);
                 return respuesta.data;
             });
         };
