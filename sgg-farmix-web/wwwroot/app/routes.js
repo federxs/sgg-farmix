@@ -19,6 +19,12 @@
                 controller: 'seleccionCampoController'
             });
         $stateProvider
+            .state('registrarCampo', {
+                url: '/registrarCampo',
+                templateUrl: 'app/campo/registrar-campo.html',
+                controller: 'registrarCampoController'
+            });
+        $stateProvider
             .state('home', {
                 url: '/home',
                 templateUrl: 'app/master.html',

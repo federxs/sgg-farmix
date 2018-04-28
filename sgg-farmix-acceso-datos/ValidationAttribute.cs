@@ -1,12 +1,16 @@
-﻿using System;
+﻿using sgg_farmix_acceso_datos.Helper;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace sgg_farmix_helper
+namespace sgg_farmix_acceso_datos
 {
     public class AutorizationTokenAttribute : ActionFilterAttribute
     {
@@ -28,14 +32,33 @@ namespace sgg_farmix_helper
                 else
                 {
                     long validar = 0;
-                    parametros = new Dictionary<string, object>
+                    if (!param.Contains("-"))
                     {
-                        {"@nombreApp", null },
-                        {"@token", param }
-                        //{"@TokenVigencia", int.Parse(ConfigurationManager.AppSettings["TokenVigencia"]) }
-                    };
+                        parametros = new Dictionary<string, object>
+                        {
+                            {"@NombreApp", null },
+                            {"@Usu_Token", param },
+                            {"@TokenVigencia", int.Parse(ConfigurationManager.AppSettings["TokenVigencia"]) }
+                        };
 
-                    validar = connection.Execute("spValidarToken", parametros, System.Data.CommandType.StoredProcedure);
+                        validar = connection.Execute("Token_Validar", parametros, System.Data.CommandType.StoredProcedure);
+                    }
+                    else
+                    {
+                        var nombreApp = param.Split('-')[1];
+                        if (nombreApp.Equals("5") || nombreApp.Equals("10067"))
+                            validar = 1;
+                        else
+                        {
+                            parametros = new Dictionary<string, object>
+                            {
+                                {"@NombreApp", nombreApp },
+                                {"@Usu_Token", param.Split('-')[0] },
+                                {"@TokenVigencia", 0 }
+                            };
+                            validar = connection.Execute("Token_Validar", parametros, System.Data.CommandType.StoredProcedure);
+                        }
+                    }
 
                     if (validar == 0)
                     {

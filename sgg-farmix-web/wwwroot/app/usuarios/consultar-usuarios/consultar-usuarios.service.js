@@ -12,7 +12,8 @@
             inicializar: inicializar,
             obtenerListaUsuarios: obtenerListaUsuarios,
             darBajaUser: darBajaUser,
-            activarUser: activarUser
+            activarUser: activarUser,
+            validarCantidadUsuariosPlan: validarCantidadUsuariosPlan
         };
 
         function inicializar() {
@@ -55,6 +56,17 @@
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Usuario/Activar',
                 params: { idUsuario: idUsuario },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+        function validarCantidadUsuariosPlan(filtro) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Usuario/GetList',
+                params: { filter: filtro },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

@@ -2,35 +2,35 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("Sooft.Framework.DataAccess")]
+// La información general de un ensamblado se controla mediante el siguiente 
+// conjunto de atributos. Cambie estos valores de atributo para modificar la información
+// asociada con un ensamblado.
+[assembly: AssemblyTitle("sgg-farmix-helper")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Sooft.Framework.DataAccess")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2015")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("sgg-farmix-helper")]
+[assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
+// Si establece ComVisible en false, los tipos de este ensamblado no estarán visibles 
+// para los componentes COM.  Si necesita obtener acceso a un tipo de este ensamblado desde 
+// COM, establezca el atributo ComVisible en true en este tipo.
 [assembly: ComVisible(false)]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("66c6b34f-23cc-41a2-a902-933a0fd18d97")]
+// El siguiente GUID sirve como id. de typelib si este proyecto se expone a COM.
+[assembly: Guid("fd5d07c0-844f-42c0-826e-18f2502f33ee")]
 
-// Version information for an assembly consists of the following four values:
+// La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
+//      Versión principal
+//      Versión secundaria 
+//      Número de compilación
+//      Revisión
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
+// Puede especificar todos los valores o usar los valores predeterminados de número de compilación y de revisión 
+// mediante el carácter '*', como se muestra a continuación:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

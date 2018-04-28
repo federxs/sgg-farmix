@@ -28,6 +28,7 @@
         vm.openPopUpActivar = openPopUpActivar;
         vm.eliminar = eliminar;
         vm.activar = activar;
+        vm.validarCantUsuarios = validarCantUsuarios;
 
         function inicializar() {
             vm.showSpinner = true;
@@ -451,6 +452,20 @@
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }
+
+        function validarCantUsuarios() {
+            vm.showSpinner = true;
+            consultarUsuariosService.validarCantidadUsuariosPlan(idUsuarioActivar).then(function success() {
+                $('#modalConfirmActivacionUser').modal('hide');
+                toastr.success('Se ha activado al usuario con éxito', 'Éxito');
+                vm.showSpinner = false;
+                $state.reload();
+            }, function (error) {
+                $('#modalConfirmActivacionUser').modal('hide');
+                vm.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
+        };
 
     }
 })();

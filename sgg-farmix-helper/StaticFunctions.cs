@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.Threading.Tasks;
-using Excel = Microsoft.Office.Interop.Excel;
+//using Excel = Microsoft.Office.Interop.Excel;
 
 namespace sgg_farmix_helper
 {
@@ -211,7 +207,7 @@ namespace sgg_farmix_helper
            
         }
 
-        public static byte[] ExportToExcel(this DataTable Tbl, string ExcelFilePath = null)
+        /*public static byte[] ExportToExcel(this DataTable Tbl, string ExcelFilePath = null)
         {
             try
             {
@@ -306,6 +302,6 @@ namespace sgg_farmix_helper
             {
                 throw new Exception("ExportToExcel: \n" + ex.Message);
             }
-        }
+        }*/
     }
 }

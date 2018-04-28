@@ -16,5 +16,11 @@ namespace sgg_farmix_acceso_datos.Model
         public string unidad { get; set; }
         public long idLocalidad { get; set; }
         public long codigoCampo { get; set; }
+        public string usuario { get; set; }
+    }
+
+    public class ResultadoValidacionCampo
+    {
+        public bool resultado { get; set; }
     }
 }

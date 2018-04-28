@@ -50,5 +50,24 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Campo/validarCantCamposXUsuario")]
+        [HttpGet]
+        [AutorizationToken]
+        public ResultadoValidacionCampo ValidarCantCamposUsuario(string usuario)
+        {
+            try
+            {
+                return CM.ValidarCantidadCampos(usuario);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }
