@@ -33,16 +33,7 @@
                     pageTitle: 'Farmix - Home',
                     bodyClass: 'master'
                 }
-            });
-        $stateProvider
-            .state('home.registrarBovino', {
-                url: '/bovino/registrar',
-                templateUrl: 'app/bovino/registrar-bovino/registrar-bovino.html',
-                controller: 'registrarBovinoController',
-                data: {
-                    pageTitle: 'Farmix - Registrar Bovino'
-                }
-            });
+            });        
         $stateProvider
              .state('home.inicio', {
                  url: '/inicio',
@@ -60,18 +51,27 @@
                 data: {
                     pageTitle: 'Farmix - Consulta de Bovinos'
                 }
-            });
-        $stateProvider
+            })
+        //$stateProvider
+            .state('home.registrarBovino', {
+                url: '/bovino/registrar',
+                templateUrl: 'app/bovino/registrar-bovino/registrar-bovino.html',
+                controller: 'registrarBovinoController',
+                data: {
+                    pageTitle: 'Farmix - Registrar Bovino'
+                }
+            })
+        //$stateProvider
             .state('home.detalleBovino', {
                 url: '/bovino/detalle',
-                params: { 'id': null },
+                params: { 'id': null, 'evento': null , 'proviene': null, 'fecha': null, 'desde': null },
                 templateUrl: 'app/bovino/detalle-bovino/detalle-bovino.html',
                 controller: 'detalleBovinoController',
                 data: {
                     pageTitle: 'Farmix - Detalle de Bovino'
                 }
-            });
-        $stateProvider
+            })
+        //$stateProvider
             .state('home.modificarBovino', {
                 url: '/bovino/modificacion',
                 params: { 'id': null },
@@ -80,8 +80,8 @@
                 data: {
                     pageTitle: 'Farmix - Modificación de Bovino'
                 }
-            });
-        $stateProvider
+            })
+        //$stateProvider
             .state('home.eliminarBovino', {
                 url: '/bovino/darDeBaja',
                 params: { 'id': null },

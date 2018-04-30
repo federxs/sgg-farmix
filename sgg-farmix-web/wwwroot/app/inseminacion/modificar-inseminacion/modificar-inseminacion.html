@@ -140,7 +140,7 @@
                             <td>{{item.estadoNombre | uppercase}}</td>
                             <td>{{item.peso}}</td>
                             <td>
-                                <a ui-sref="home.detalleBovino({id:item.idBovino})"><span class="glyphicon glyphicon-search"></span></a>
+                                <a ui-sref="home.detalleBovino({id:item.idBovino, fecha: fecha, desde: desde, proviene: 'ModificarInseminacion'})"><span class="glyphicon glyphicon-search"></span></a>
                                 <a class="cursor" ng-click="openPopUp(item.idBovino, item.numCaravana)" title="Borrar vaca de inseminación" ng-show="showEliminar"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
@@ -211,7 +211,7 @@
                     </div>
                 </div>
                 <button type="button" class="btn btn-default pull-right"
-                        ui-sref="home.detalleBovino({id:vaca.idBovino})" style="margin-top: 10px;">
+                        ui-sref="home.detalleBovino({id:vaca.idBovino, fecha: fecha, desde: desde, proviene: 'ModificarInseminacion'})" style="margin-top: 10px;">
                     Ir a detalle de bovino
                 </button>
             </div>

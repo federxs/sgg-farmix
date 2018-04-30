@@ -22,8 +22,9 @@
         function inicializar() {
             vm.showSpinner = true;
             vm.disabled = true;
-            vm.itemsPorPagina = 9;
+            vm.itemsPorPagina = 9;            
             if ($stateParams.fecha !== null) {
+                vm.fecha = $stateParams.fecha;
                 detalleInseminacionService.getInseminacion($stateParams.fecha).then(function success(data) {
                     vm.inseminacion = data;
                     if (vm.inseminacion.fechaEstimadaNacimiento !== '') {
