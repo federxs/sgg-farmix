@@ -43,19 +43,15 @@
             google.charts.setOnLoadCallback(drawChart);
 
             function drawChart() {
-                var total = 0;
+                var container = document.getElementById('graficoRazas');
+                var chart = new google.visualization.PieChart(container);
+                var dataTable = new google.visualization.DataTable();
+
+                dataTable.addColumn({ type: 'string', id: 'Raza' });
+                dataTable.addColumn({ type: 'number', id: 'Cantidad' });
                 for (var i = 0; i < graficoRaza.length; i++) {
-                    total += graficoRaza[i].cantidadBovinos;
+                    dataTable.addRows([[graficoRaza[i].raza, graficoRaza[i].cantidadBovinos]]);
                 }
-                var datos = [];
-                for (var i = 0; i < graficoRaza.length; i++) {
-                    datos.push({ categoria: graficoRaza[i].raza, cant: graficoRaza[i].cantidadBovinos })
-                    //$scope.myChartObject.data.rows.push({ c: [{ v: graficoRaza[i].raza }, { v: parseFloat((graficoRaza[i].cantidadBovinos * 100) / total) }] })
-                }
-                var data = google.visualization.arrayToDataTable([
-                  ['Task', 'Hours per Day'],
-                  datos
-                ]);
 
                 var options = {
                     'width': '100%',
@@ -66,37 +62,35 @@
                         'textStyle': { 'fontSize': 18 }
                     }
                 };
-
-                var chart = new google.visualization.PieChart(document.getElementById('graficoCategorias'));
-                chart.draw(data, options);
+                chart.draw(dataTable, options);
             }
         }
 
-        //function cargarGraficoRazas(graficoRaza) {
-        //    $scope.myChartObject.type = "PieChart";
-        //    $scope.myChartObject.options = {
-        //        'width': '100%',
-        //        'height': '100%',
-        //        'chartArea': { 'width': '100%', 'height': '100%' },
-        //        'legend': {
-        //            'position': 'left',
-        //            'textStyle': { 'fontSize': 18 }
-        //        }
-        //    };
-        //    $scope.myChartObject.data = {
-        //        "cols": [
-        //        { id: "t", label: "Raza", type: "string" },
-        //        { id: "s", label: "Cantidad", type: "number" }
-        //        ], "rows": []
-        //    }
-        //    var total = 0;
-        //    for (var i = 0; i < graficoRaza.length; i++) {
-        //        total += graficoRaza[i].cantidadBovinos;
-        //    }
-        //    for (var i = 0; i < graficoRaza.length; i++) {
-        //        $scope.myChartObject.data.rows.push({ c: [{ v: graficoRaza[i].raza }, { v: parseFloat((graficoRaza[i].cantidadBovinos * 100) / total) }] })
-        //    }
-        //}
+        /*function cargarGraficoRazas(graficoRaza) {
+            $scope.myChartObject.type = "PieChart";
+            $scope.myChartObject.options = {
+                'width': '100%',
+                'height': '100%',
+                'chartArea': { 'width': '100%', 'height': '100%' },
+                'legend': {
+                    'position': 'left',
+                    'textStyle': { 'fontSize': 18 }
+                }
+            };
+            $scope.myChartObject.data = {
+                "cols": [
+                { id: "t", label: "Raza", type: "string" },
+                { id: "s", label: "Cantidad", type: "number" }
+                ], "rows": []
+            }
+            var total = 0;
+            for (var i = 0; i < graficoRaza.length; i++) {
+                total += graficoRaza[i].cantidadBovinos;
+            }
+            for (var i = 0; i < graficoRaza.length; i++) {
+                $scope.myChartObject.data.rows.push({ c: [{ v: graficoRaza[i].raza }, { v: parseFloat((graficoRaza[i].cantidadBovinos * 100) / total) }] })
+            }
+        }
 
         function cargarGraficoCategorias(graficoCatego) {
             //grafico de barras de categorias
@@ -117,6 +111,32 @@
             }
             for (var i = 0; i < graficoCatego.length; i++) {
                 $scope.graficoCategorias.data.rows.push({ c: [{ v: graficoCatego[i].categoria }, { v: graficoCatego[i].cantidad }] });
+            }
+        }*/
+
+        function cargarGraficoCategorias(graficoCatego) {
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var container = document.getElementById('graficoCategorias');
+                var chart = new google.visualization.ColumnChart(container);
+                var dataTable = new google.visualization.DataTable();
+
+                dataTable.addColumn({ type: 'string', id: 'Categoria', label: 'Categorias' });
+                dataTable.addColumn({ type: 'number', id: 'Cantidad', label: 'Cantidad de bovinos' });
+                for (var i = 0; i < graficoCatego.length; i++) {
+                    dataTable.addRows([[graficoCatego[i].categoria, graficoCatego[i].cantidad]]);
+                }
+
+                var options = {
+                    'theme': 'maximized',
+                    'width': '100%',
+                    'height': '100%',
+                    //'chartArea': { 'left': 50, 'top': 30, 'right': 0, 'bottom': 50 },
+                    'hAxis': { 'textPosition': 'out' }
+                };
+                chart.draw(dataTable, options);
             }
         }
 
