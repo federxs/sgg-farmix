@@ -117,5 +117,28 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = null;
             }
         }
+
+        public ResultadoValidacion GetInconsistencias(long codigoCampo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", codigoCampo }
+                };
+                var resultado = connection.GetArray<ResultadoValidacion>("spObtenerInconsistenciasPorCampo", parametros, System.Data.CommandType.StoredProcedure);
+                return resultado.First();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }
