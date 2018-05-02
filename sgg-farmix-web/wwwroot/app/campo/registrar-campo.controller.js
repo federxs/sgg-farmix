@@ -15,10 +15,16 @@
         vm.habilitar = true;
         vm.campo = {};
         var localidadesOriginales = [];
+        vm.imageToUpload = [];
+        vm.toDelete = [];
         //metodos
         vm.inicializar = inicializar();
         vm.registrar = registrar;
         vm.getLocalidades = getLocalidades;
+        vm.selectUnselectImage = selectUnselectImage;
+        vm.ImageClass = ImageClass;
+        vm.deleteImagefromModel = deleteImagefromModel;
+        vm.UploadImg = UploadImg;
 
         function inicializar() {
             vm.campo = new registrarCampoService();
@@ -51,6 +57,44 @@
             vm.localidades = Enumerable.From(localidadesOriginales).Where(function (x) {
                 return x.idProvincia === parseInt(vm.campo.idProvincia);
             }).ToArray();
+        };
+
+        function selectUnselectImage(item) {
+            var index = vm.toDelete.indexOf(item);
+            if (index != -1) {
+                vm.toDelete.splice(index, 1);
+            } else {
+                $scope.toDelete.push(item)
+            }
+        };
+
+        function ImageClass(item) {
+            var index = vm.toDelete.indexOf(item);
+            if (index != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        function deleteImagefromModel() {
+            if (vm.toDelete != [] && vm.toDelete.length > 0) {
+                angular.forEach($scope.toDelete, function (value, key) {
+                    var index = vm.imageToUpload.indexOf(value);
+                    var indexToDelete = vm.toDelete.indexOf(value);
+                    if (index != -1) {
+                        vm.imageToUpload.splice(index, 1);
+                        vm.toDelete.splice(indexToDelete, 1);
+                    }
+                });
+            }
+            else {
+                toastr.info('Debe seleccionar una imágen para borrar', 'Aviso');
+            }
+        };
+
+        function UploadImg($files, $invalidFiles) {
+            $scope.imageToUpload = $files
         };
     }
 })();
