@@ -16,6 +16,11 @@
             return headers;
         };
 
+        portalService.getContentUndefined = function () {
+            var headers = { 'Authorization': $sessionStorage.usuarioInfo.token, 'Content-Type': undefined };
+            return headers;
+        };
+
         /*portal.getDefaultUsuarioImagen = function () {
             return "../images/portal/default-user.png";
         };

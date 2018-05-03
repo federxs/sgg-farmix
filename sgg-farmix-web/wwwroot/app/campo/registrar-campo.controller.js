@@ -42,6 +42,8 @@
             vm.habilitar = false;
             vm.showSpinner = true;
             vm.campo.usuario = $sessionStorage.usuarioInfo.usuario;
+            if (vm.imageToUpload[0])
+                vm.campo.imagen = vm.imageToUpload[0];
             vm.campo.$save(function success(data) {
                 toastr.success('Se agrego con éxito el campo', 'Éxito');
                 vm.showSpinner = false;

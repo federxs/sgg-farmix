@@ -10,7 +10,15 @@
                 },
                 save: {
                     method: 'POST',
-                    headers: portalService.getHeadersServer(),
+                    transformRequest: function (data) {
+                        var formData = new FormData();
+                        formData.append("campo", angular.toJson(data));
+                        if (data.imagen) {
+                            formData.append("file" + 0, data.imagen);
+                        }
+                        return formData;
+                    },
+                    headers: portalService.getContentUndefined()
                 },
                 validarCantCamposUsuario: {
                     method: 'GET',
