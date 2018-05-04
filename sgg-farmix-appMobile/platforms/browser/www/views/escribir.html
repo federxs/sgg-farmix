@@ -2,32 +2,33 @@
     <ion-content padding="true" class="fondo">
         <ion-refresher pulling-text="Actualizar" on-refresh="cargarBovinos()"></ion-refresher>
         <h3>Bovinos con Tag sin grabar</h3>
+        <div>
+            <dir-pagination-controls pagination-id="singrabar"></dir-pagination-controls>
+        </div>
         <table class="bordeTabla">
             <tr>
-                <th><strong>Numero de Caravana</strong></th>
+                <th><strong>Número de Caravana</strong></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="bovino in bovinos | limitTo:10">
+            <tr dir-paginate="bovino in bovinos | itemsPerPage: 5" pagination-id="singrabar" class="itemTabla">
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, true)" ion-button class="botonVerificar">Grabar Tag</button></td>
             </tr>
         </table>
-		<button ng-disabled="pagina == 0" ng-click="pagina=pagina-1">
-			Anterior
-		</button>
-		<button ng-disabled="pagina >= bovinos.length/10 - 1" ng-click="pagina=pagina+1">
-			Siguiente
-		</button><br />
-        <h3>Bovinos con Tag ya grabados</h3>
+		<br />
+        <h3>Bovinos con Tag ya grabados</h3>       
+        <div>
+            <dir-pagination-controls pagination-id="grabados"></dir-pagination-controls>
+        </div>
         <table class="bordeTabla">
             <tr>
-                <th><strong>Numero de Caravana</strong></th>
+                <th><strong>Número de Caravana</strong></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="bovino in bovinosEscritos" class="itemTabla">
+            <tr dir-paginate="bovino in bovinosEscritos | itemsPerPage: 5" pagination-id="grabados" class="itemTabla">
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, false)" ion-button class="botonVerificar">Grabar Tag</button></td>
-            </tr>
-        </table>
+            </tr>            
+        </table>        
     </ion-content>
 </ion-view>

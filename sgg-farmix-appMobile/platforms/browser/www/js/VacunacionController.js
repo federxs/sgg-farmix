@@ -20,7 +20,7 @@ angular.module('starter')
                         alert("Escanee el tag de al menos una vaca para continuar");
                     } else {
                         showIonicLoading().then(registrarEvento).then(function () {
-                            alert("Vacunacion registrada satisfactoriamente");
+                            alert("Vacunaci\u00F3n registrada con \u00E9xito");
                             $rootScope.vacas = null;
                             $rootScope.idVacas = [];
                             $state.go('app.registrarEvento');
@@ -28,7 +28,7 @@ angular.module('starter')
                     }
                 }
             } else {
-                alert("Ingrese una cantidad de miligramos valida.");
+                alert("Ingrese una cantidad de miligramos v\u00E1lida.");
             }
         };
 

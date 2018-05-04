@@ -14,13 +14,13 @@ angular.module('starter')
         $scope.registrar = function () {
             if($scope.txtMiligramaje.value > 0){
             if ($scope.evento.antibiotico == "0") {
-                alert("Seleccione un antibiótico para continuar");
+                alert("Seleccione un antibi\u00F3tico para continuar");
             } else {
                 if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
                 alert("Escanee el tag de al menos una vaca para continuar");
             } else {
                 showIonicLoading().then(registrarEvento).then(function () {
-                    alert("Antibiótico registrado satisfactoriamente");
+                    alert("Antibi\u00F3tico registrado satisfactoriamente");
                     $rootScope.vacas = null;
                     $rootScope.idVacas = [];
                     $state.go('app.registrarEvento');
@@ -28,7 +28,7 @@ angular.module('starter')
             }
           }            
         } else{
-            alert("Ingrese una cantidad de miligramos valida.");
+                alert("Ingrese una cantidad de miligramos v\u00E1lida.");
             }
         };
 

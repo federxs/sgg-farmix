@@ -8,7 +8,6 @@ angular.module('starter')
                 if (_login.resultado == "1") {
                     $rootScope.logueado = true;
                 } else {
-                    alert("Funciona");
                     $rootScope.logueado = false;
                     $localStorage.usuario = undefined;
                     $localStorage.pass = undefined;
