@@ -40,12 +40,16 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<Raza> GetList()
+        public IEnumerable<Raza> GetList(long codigoCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<Raza>("spGetRazas", null, System.Data.CommandType.StoredProcedure);
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", codigoCampo }
+                };
+                var lista = connection.GetArray<Raza>("spGetRazas", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
             catch (Exception)

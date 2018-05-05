@@ -27,9 +27,9 @@ namespace sgg_farmix_api.Controllers
             {
                 var id = Regex.Replace(idBovino, @"[^\d]", "");
                 var campo = Regex.Replace(idCampo, @"[^\d]", "");
-                resultado.categorias = new CategoriaManager().GetList();
-                resultado.estados = new EstadoManager().GetList(1);
-                resultado.razas = new RazaManager().GetList();
+                resultado.categorias = new CategoriaManager().GetList(Int64.Parse(campo));
+                resultado.estados = new EstadoManager().GetList(Int64.Parse(campo));
+                resultado.razas = new RazaManager().GetList(Int64.Parse(campo));
                 resultado.rodeos = new RodeoManager().GetList(Int64.Parse(campo));
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList(Int64.Parse(campo));
                 resultado.alimentos = new AlimentoManager().GetList(Int64.Parse(campo));
@@ -186,9 +186,9 @@ namespace sgg_farmix_api.Controllers
             Resultados resultado = new Resultados();
             try
             {
-                resultado.categorias = new CategoriaManager().GetList();
-                resultado.estados = new EstadoManager().GetList(idAmbitoEstado);
-                resultado.razas = new RazaManager().GetList();
+                resultado.categorias = new CategoriaManager().GetList(idCampo);
+                resultado.estados = new EstadoManager().GetList(idCampo);
+                resultado.razas = new RazaManager().GetList(idCampo);
                 resultado.rodeos = new RodeoManager().GetList(idCampo);
                 resultado.alimentos = new AlimentoManager().GetList(idCampo);
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList(idCampo);

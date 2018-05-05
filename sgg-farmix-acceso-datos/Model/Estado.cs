@@ -11,6 +11,6 @@ namespace sgg_farmix_acceso_datos.Model
         public long idEstado { get; set; }
         public string nombre { get; set; }
         public string descripcion { get; set; }
-        public long idAmbitoEstado { get; set; }
+        public int genero { get; set; }
     }
 }

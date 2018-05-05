@@ -61,14 +61,14 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Estado> GetList(long idAmbito)
+        public IEnumerable<Estado> GetList(long codigoCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@idAmbitoEstado", idAmbito }
+                    {"@codigoCampo", codigoCampo }
                 };
                 var lista = connection.GetArray<Estado>("spGetEstados", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
