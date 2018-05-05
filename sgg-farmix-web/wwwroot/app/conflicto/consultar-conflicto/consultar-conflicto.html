@@ -1,0 +1,60 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h1>
+                Resolución de Conflictos
+                <small> Criterios de búsqueda</small>
+            </h1>
+        </div>
+    </div>
+</div>
+
+<div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
+    <div class="pull-right" style="margin-bottom:5px">
+        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
+            <i class="fa fa-file-excel-o"></i>
+        </button>
+        <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
+            <i class="fa fa-file-pdf-o"></i>
+        </button>
+        <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
+            <i class="fa fa-print"></i>
+        </a>
+    </div>
+    <div>
+        <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th st-sort="fecha">Fecha</th>
+                    <th st-sort="tipoEvento">Tipo de Evento</th>
+                    <th>Resolver</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in displayedCollection">
+                    <td>{{item.numCaravana}}</td>
+                    <td>{{item.categoriaNombre | uppercase}}</td>
+                    <td>{{item.sexo | uppercase}}</td>
+                    <td>{{item.razaNombre | uppercase}}</td>
+                    <td>{{item.rodeoNombre | uppercase}}</td>
+                    <td>{{item.estadoNombre | uppercase}}</td>
+                    <td>{{item.peso}}</td>
+                    <td>
+                        <a ui-sref="home.resolverConflicto({id:item.idConflicto})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <label for="items">Registros por página</label>
+                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                    </td>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
