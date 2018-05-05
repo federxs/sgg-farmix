@@ -1,19 +1,13 @@
 ﻿(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .factory('consultarConflicto', consultarConflicto);
-
-    consultarConflicto.$inject = ['$http'];
-
-    function consultarConflicto($http) {
-        var service = {
-            getData: getData
-        };
-
-        return service;
-
-        function getData() { }
-    }
+    angular.module('app')
+        .factory('consultarBovinoService', function ($resource, portalService) {
+            return $resource(portalService.getUrlServer() + 'api/conflictos', {}, {
+                obtenerConflictos: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/conflictos',
+                    headers: portalService.getHeadersServer(),
+                    isArray: true
+                }
+            });
+        });
 })();

@@ -8,7 +8,64 @@
         </div>
     </div>
 </div>
+<form name="formConsultarConflicto" novalidate>
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarConflicto.numCaravana.$touched && formConsultarConflicto.numCaravana.$valid,
+                 'has-error has-feedback':formConsultarConflicto.numCaravana.$touched && formConsultarConflicto.numCaravana.$invalid}">
+                <label>
+                    N° Caravana
+                </label>
+                <input class="form-control" name="numCaravana" type="number" ng-model="filtro.numCaravana" placeholder="N° Caravana" min="0" ng-disabled="disabled" />
+                <div ng-show="formConsultarConflicto.numCaravana.$touched">
+                    <span class="help-block" ng-show="formConsultarConflicto.numCaravana.$error.min">
+                        El número de Caravana no puede ser negativo
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Categoría
+                </label>
+                <select class="form-control" name="categoria" required
+                        ng-model="filtro.idCategoria" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in categorias | filter: { genero: filtro.genero }"
+                            value="{{ item.idCategoria }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Sexo
+                </label>
+                <select class="form-control" name="genero" required
+                        ng-model="filtro.genero" ng-disabled="disabled">
+                    <option value="2">Seleccione...</option>
+                    <option value="0">Hembra</option>
+                    <option value="1">Macho</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label>
+                    Raza
+                </label>
+                <select class="form-control" name="raza" required
+                        ng-model="filtro.idRaza" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in razas"
+                            value="{{ item.idRaza }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+</form>
 
+<!--TABLA-->
+<legend style="margin-bottom: 5px;" ng-show="rowCollection.length > 0">Resultados</legend>
 <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
     <div class="pull-right" style="margin-bottom:5px">
         <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
@@ -34,11 +91,6 @@
                 <tr ng-repeat="item in displayedCollection">
                     <td>{{item.numCaravana}}</td>
                     <td>{{item.categoriaNombre | uppercase}}</td>
-                    <td>{{item.sexo | uppercase}}</td>
-                    <td>{{item.razaNombre | uppercase}}</td>
-                    <td>{{item.rodeoNombre | uppercase}}</td>
-                    <td>{{item.estadoNombre | uppercase}}</td>
-                    <td>{{item.peso}}</td>
                     <td>
                         <a ui-sref="home.resolverConflicto({id:item.idConflicto})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
                     </td>

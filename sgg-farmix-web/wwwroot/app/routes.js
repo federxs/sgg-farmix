@@ -13,19 +13,6 @@
                 controller: 'loginController'
             });
         $stateProvider
-            .state('consultarConflicto', {
-                url: '/conflicto',
-                templateUrl: 'app/conflicto/consultar-conflicto/consultar-conflicto.html',
-                controller: 'consultarConflictoController'
-            })
-        //$stateProvider
-            .state('resolverConflicto', {
-                url: '/conflicto/resolver',
-                params: { 'id': null },
-                templateUrl: 'app/conflicto/resolver-conflicto/resolver-conflicto.html',
-                controller: 'resolverConflictoController'
-            });
-        $stateProvider
             .state('seleccionCampo', {
                 url: '/login/seleccion-campo',
                 templateUrl: 'app/seleccion-campo/seleccion-campo.html',
@@ -56,6 +43,19 @@
                      pageTitle: 'Farmix - Inicio'
                  }
              });
+        $stateProvider
+            .state('home.consultarConflicto', {
+                url: '/conflicto',
+                templateUrl: 'app/conflicto/consultar-conflicto/consultar-conflicto.html',
+                controller: 'consultarConflictoController'
+            })
+        //$stateProvider
+            .state('home.resolverConflicto', {
+                url: '/conflicto/resolver',
+                params: { 'id': null },
+                templateUrl: 'app/conflicto/resolver-conflicto/resolver-conflicto.html',
+                controller: 'resolverConflictoController'
+            });
         $stateProvider
             .state('home.bovino', {
                 url: '/bovino',
