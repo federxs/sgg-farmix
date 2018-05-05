@@ -5,6 +5,7 @@ using System.Data;
 using System.IO;
 using System.Net.Mail;
 using System.Text;
+
 //using Excel = Microsoft.Office.Interop.Excel;
 
 namespace sgg_farmix_helper
@@ -214,64 +215,63 @@ namespace sgg_farmix_helper
                 if (Tbl == null || Tbl.Columns.Count == 0)
                     throw new Exception("ExportToExcel: Null or empty input table!\n");
 
-                // load excel, and create a new workbook
-                Excel.Application excelApp = new Excel.Application();
-                excelApp.Workbooks.Add();
+        //        // load excel, and create a new workbook
+        //        Excel.Application excelApp = new Excel.Application();
+        //        excelApp.Workbooks.Add();
 
-                // single worksheet
-                Excel._Worksheet workSheet = excelApp.ActiveSheet;
+        //        // single worksheet
+        //        Excel._Worksheet workSheet = excelApp.ActiveSheet;
 
-                workSheet.Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                workSheet.Cells.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+        //        workSheet.Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+        //        workSheet.Cells.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
 
-                // column headings
-                for (int i = 0; i < Tbl.Columns.Count; i++)
-                {
-                    workSheet.Cells[1, (i + 1)] = Tbl.Columns[i].ColumnName;
+        //        // column headings
+        //        for (int i = 0; i < Tbl.Columns.Count; i++)
+        //        {
+        //            workSheet.Cells[1, (i + 1)] = Tbl.Columns[i].ColumnName;
                     
-                    switch (Tbl.Columns[i].ColumnName ){
-                        case "MvsDescripcion":
-                            workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length+21;
-                            break;
-                        case "ClienteFinal":
-                            workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length + 21;
-                            break;
-                        case "Opcionales": 
-                            workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length+55;
-                            break;
-                        default:
-                            workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length + 5;
-                            break;
-                        }
+        //            switch (Tbl.Columns[i].ColumnName ){
+        //                case "MvsDescripcion":
+        //                    workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length+21;
+        //                    break;
+        //                case "ClienteFinal":
+        //                    workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length + 21;
+        //                    break;
+        //                case "Opcionales": 
+        //                    workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length+55;
+        //                    break;
+        //                default:
+        //                    workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length + 5;
+        //                    break;
+        //                }
 
-                }
+        //        }
 
-                // rows
-                for (int i = 0; i < Tbl.Rows.Count; i++)
-                {
-                    // to do: format datetime values before printing
-                    for (int j = 0; j < Tbl.Columns.Count; j++)
-                    {
-                        workSheet.Cells[(i + 2), (j + 1)] = Tbl.Rows[i][j];
-                    }
-                }
+        //        // rows
+        //        for (int i = 0; i < Tbl.Rows.Count; i++)
+        //        {
+        //            // to do: format datetime values before printing
+        //            for (int j = 0; j < Tbl.Columns.Count; j++)
+        //            {
+        //                workSheet.Cells[(i + 2), (j + 1)] = Tbl.Rows[i][j];
+        //            }
+        //        }
 
-                //Used Range Rows
-                Excel.Range rows = workSheet.UsedRange.Rows;
+        //        //Used Range Rows
+        //        Excel.Range rows = workSheet.UsedRange.Rows;
 
-                //set borders 
-                rows.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+        //        //set borders 
+        //        rows.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                //set gray and bold columns headings
-                foreach (Excel.Range row in rows)
-                {
-                    if (!string.IsNullOrEmpty(row.Cells[1].Value as String)) {
-                        row.Interior.ColorIndex = 15;
-                        row.EntireRow.Font.Bold = true; 
-                    }
+        //        //set gray and bold columns headings
+        //        foreach (Excel.Range row in rows)
+        //        {
+        //            if (!string.IsNullOrEmpty(row.Cells[1].Value as String)) {
+        //                row.Interior.ColorIndex = 15;
+        //                row.EntireRow.Font.Bold = true; 
+        //            }
 
-                    break;
-                    
+        //            break;
                 }
 
 
