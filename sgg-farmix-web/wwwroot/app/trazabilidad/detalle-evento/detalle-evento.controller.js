@@ -20,6 +20,7 @@
             vm.showSpinner = true;
             vm.disabled = true;
             vm.itemsPorPagina = 9;
+            vm.idEvento = $stateParams.id;
             detalleEventoService.getEvento($stateParams.id).then(function success(data) {
                 //evento
                 vm.evento = data;

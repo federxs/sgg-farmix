@@ -30,6 +30,7 @@
         function inicializar() {
             vm.showSpinner = true;
             vm.habilitar = false;
+            vm.fecha = $stateParams.fecha;
             modificarInseminacionService.getInseminacion($stateParams.fecha).then(function success(data) {
                 //inseminacion
                 vm.inseminacion = data;

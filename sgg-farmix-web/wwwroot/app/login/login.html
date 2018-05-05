@@ -6,7 +6,9 @@
             <div class="loginmodal-container">
                 <div>
                     <img src="../../images/mati-03.png" height="200" width="200" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px; " />
-                </div><form>
+                </div>
+                <form>
+                    <h4 class="text-center" ng-show="!ocultarUsuario">{{usuario.usuario}}</h4>
                     <input type="text" name="usuario" placeholder="Usuario"
                            ng-model="usuario.usuario" ng-show="ocultarUsuario">
                     <input type="password" name="contrasenia" placeholder="Contraseña"
@@ -15,12 +17,16 @@
                            ng-click="aceptar()" ng-keyup="$event.keyCode === 13 && aceptar()">
                 </form>
 
-                <div class="login-help">
+                <!--<div class="login-help">
                     <a>Volver</a>
+                </div>-->
+                <div>
+                    <a class="pull-right" ng-click="ocultarUsuario = true" style="cursor:pointer">Ingresar con otra cuenta</a>
+                    <a class="pull-right" style="cursor:pointer">¿Olvido su contraseña?</a>
                 </div>
-                <div class="pull-right"><a ref="" ng-click="ocultarUsuario = true" style="cursor:pointer">Usar otra cuenta</a></div>
             </div>
         </div>
     </div>
-    <div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>
 </body>
+</html>
+<div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>

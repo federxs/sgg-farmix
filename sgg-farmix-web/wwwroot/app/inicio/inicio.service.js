@@ -10,6 +10,7 @@
     function inicioService($http, portalService) {
         var service = {
             inicializar: inicializar,
+            obtenerInconsistencias: obtenerInconsistencias,
             prueba: prueba
         };
 
@@ -24,6 +25,18 @@
                 return data.data || [];
             });
         }
+
+        function obtenerInconsistencias(codigoCampo) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Campo/GetInconsistencias',
+                params: { codigoCampo: codigoCampo },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            })
+        };
 
         function prueba(id) {
             return $http({

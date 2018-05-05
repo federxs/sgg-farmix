@@ -17,22 +17,28 @@
         <ion-content class="fondoMenu">
             <ion-list>
                 <ion-item ng-if="logueado == false" menu-close href="#/app/login">
-                    Iniciar sesi&oacute;n
+                    <span class="textMenu"><img src="img/iniciar_sesion.png"></img></span>
+                    <span class="textMenu">Iniciar sesi&oacute;n</span>
                 </ion-item>
                 <ion-item ng-if="logueado == true" menu-close href="#/app/leer">
-                    <img src="img/ini.png">Leer</img>
+                        <span class="textMenu"><img src="img/leer.png"></img></span>
+                        <span class="textMenu">Leer Tag</span>
                 </ion-item>
                 <ion-item ng-if="logueado == true" menu-close href="#/app/escribir">
-                    Grabar Tag
+                    <span class="textMenu"><img src="img/grabar_tag.png"></img></span>
+                    <span class="textMenu">Grabar Tag</span>
                 </ion-item>
                 <ion-item ng-if="logueado == true" menu-close href="#/app/registrarEvento">
-                    Registrar Evento
+                    <span class="textMenu"><img src="img/registrar_evento.png"></img></span>
+                    <span class="textMenu">Registrar Evento</span>
                 </ion-item>
                 <ion-item ng-if="logueado == true" menu-close href="#/app/inseminacionMenu">
-                    Inseminaci&oacute;n
+                    <span class="textMenu"><img src="img/inseminacion.png"></img></span>
+                    <span class="textMenu">Inseminaci&oacute;n</span>
                 </ion-item>
                 <ion-item ng-if="logueado == true" menu-close href="#/app/cerrarSesion">
-                    Cerrar Sesi&oacute;n
+                    <span class="textMenu"><img src="img/cerrar_sesion.png"></img></span>
+                    <span class="textMenu">Cerrar Sesi&oacute;n</span>
                 </ion-item>
             </ion-list>
         </ion-content>

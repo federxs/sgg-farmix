@@ -9,7 +9,8 @@
         'toastr',
         'googlechart',
         'smart-table',
-        'toastr'
+        'toastr',
+        'ngFileUpload'
         //'ui.bootstrap'
     ]);    
 })();

@@ -38,6 +38,14 @@ module.exports = [
         "file": "plugins/phonegap-nfc/www/phonegap-nfc.js",
         "pluginId": "phonegap-nfc",
         "runs": true
+    },
+    {
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "pluginId": "cordova-sqlite-storage",
+        "clobbers": [
+            "SQLitePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -49,7 +57,8 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-whitelist": "1.2.2",
     "ionic-plugin-keyboard": "2.2.1",
-    "phonegap-nfc": "0.6.6"
+    "phonegap-nfc": "0.6.6",
+    "cordova-sqlite-storage": "2.3.1"
 };
 // BOTTOM OF METADATA
 });

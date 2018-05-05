@@ -34,6 +34,7 @@
             vm.habilitar = false;
             vm.habilitarBtnAceptar = false;
             vm.itemsPorPagina = 9;
+            vm.idEvento = $stateParams.id;
             modificarEventoService.initModificacion($stateParams.id, $sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 vm.vacunas = data.vacunas;
                 vm.alimentos = data.alimentos;

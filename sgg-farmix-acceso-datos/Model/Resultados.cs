@@ -30,5 +30,6 @@ namespace sgg_farmix_acceso_datos.Model
         public long resultado { get; set; }
         public long codigoCampo { get; set; }
         public string token { get; set; }
+        public int inconsistencias { get; set; }
     }
 }

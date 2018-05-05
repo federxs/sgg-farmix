@@ -80,7 +80,8 @@
                 <div class="panel-title"><h4>Proporción de vacas según la raza</h4></div>
             </div>
             <div class="panel-body">
-                <div google-chart chart="myChartObject"></div>
+                <div id="graficoRazas"></div>
+                <!--<div google-chart chart="myChartObject"></div>-->
             </div>
         </div>
     </div>
@@ -90,7 +91,8 @@
                 <div class="panel-title"><h4>Cantidad de vacunos según la categoría</h4></div>
             </div>
             <div class="panel-body">
-                <div google-chart chart="graficoCategorias"></div>
+                <div id="graficoCategorias"></div>
+                <!--<div google-chart chart="graficoCategorias"></div>-->
             </div>
         </div>
     </div>
@@ -105,3 +107,25 @@
     </button>-->
 </div>
 <div class="loader" ng-show="showSpinner" style="margin:0 auto"></div>
+<!--Modal inconsistencias-->
+<div id="modalInconsistencias" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Inconsistencias</h4>
+            </div>
+            <div class="modal-body" style="height:20%; margin-top:15px;">
+                <div class="text-center">
+                    <p><b>Usted tiene {{inconsistencias}} inconsistencia/s que resolver.</b></p>
+                    <p><b>¿Desea resolverlas ahora o mas tarde?</b></p>
+                </div>                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ui-sref="home.inconsistencias">Ahora</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Mas tarde</button>
+            </div>
+        </div>
+    </div>
+</div>

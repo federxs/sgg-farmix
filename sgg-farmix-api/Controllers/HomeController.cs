@@ -3,11 +3,9 @@ using sgg_farmix_acceso_datos.Model;
 using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Http;
 
 namespace sgg_farmix_api.Controllers
@@ -44,7 +42,6 @@ namespace sgg_farmix_api.Controllers
                 var usuarioLogueado = new UsuarioManager().GetDatosUserLogueado(usuario, Int64.Parse(campo));
                 usuarioLogueado.menus = MM.GetMenus();
                 return usuarioLogueado;
-
             }
             catch (Exception ex)
             {

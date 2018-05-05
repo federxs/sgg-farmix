@@ -203,7 +203,7 @@
                             <td>{{item.rodeoNombre | uppercase}}</td>
                             <td>{{item.peso}}</td>
                             <td>
-                                <a ui-sref="home.detalleBovino({id:item.idBovino})" ng-show="showBotones" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
+                                <a ui-sref="home.detalleBovino({id:item.idBovino, evento: idEvento, proviene: 'ModificarEvento'})" ng-show="showBotones" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
                                 <a class="cursor" ng-click="openPopUp(item.idBovino, item.numCaravana)" ng-show="showBotones" title="Borrar bovino del evento"><span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>

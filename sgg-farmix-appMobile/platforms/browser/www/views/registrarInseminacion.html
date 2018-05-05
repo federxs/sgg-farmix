@@ -2,13 +2,13 @@
     <ion-content padding="true" class="fondo">
         <select class="item item-input select" ng-model="evento.tipoInseminacion">
             <option value="0">Seleccione el tipo de la inseminacion</option>
-            <option value="1">Inseminacion Artificial</option>
-            <option value="2">Inseminacion por Montura</option>
+            <option value="1">Inseminación Artificial</option>
+            <option value="2">Inseminación por Montura</option>
         </select>
         <h4>Vacas a inseminar</h4>
         <table class="bordeTabla">
             <tr>
-                <th>Numero de Caravana</th>
+                <th>Número de Caravana</th>
                 <th>Apodo</th>
             </tr>
             <tr ng-repeat="vaca in vacas" class="itemTabla">
@@ -19,7 +19,7 @@
         <h4 ng-if="evento.tipoInseminacion==2">Toros involucrados en la inseminaci&oacute;n</h4>
         <table ng-if="evento.tipoInseminacion==2" class="bordeTabla">
             <tr>
-                <th>Numero de Caravana</th>
+                <th>Número de Caravana</th>
                 <th>Apodo</th>
             </tr>
             <tr ng-repeat="toro in toros" class="itemTabla">

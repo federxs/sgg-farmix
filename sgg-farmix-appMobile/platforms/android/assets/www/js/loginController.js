@@ -10,16 +10,21 @@ angular.module('starter')
                 alert("El usuario y la contrase\u00F1a no pueden estar vac\u00edos.");
             } else {
                 showIonicLoading().then(validarLogin).then(function (_login) {
-                    if (_login.resultado == "1") {
-                        $rootScope.logueado = true;
-                        $localStorage.usuario = $scope.loginData.usuario;
-                        $localStorage.pass = $scope.loginData.pass;
-                        $localStorage.campo = _login.codigoCampo;
-                        $state.go('app.bienvenido');
-                    }
-                    else {
+                    if (_login == null) {
                         $rootScope.logueado = false;
                         alert("Usuario o contrase\u00F1a incorrecto.");
+                    }else{
+                        if (_login.resultado == "1") {
+                            $rootScope.logueado = true;
+                            $localStorage.usuario = $scope.loginData.usuario;
+                            $localStorage.pass = $scope.loginData.pass;
+                            $localStorage.campo = _login.codigoCampo;
+                            $state.go('app.bienvenido');
+                        }
+                        else {
+                            $rootScope.logueado = false;
+                            alert("Usuario o contrase\u00F1a incorrecto.");
+                        }
                     }
                 }).then($ionicLoading.hide).catch($ionicLoading.hide);
             }

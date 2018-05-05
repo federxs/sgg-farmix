@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.Threading.Tasks;
+
 //using Excel = Microsoft.Office.Interop.Excel;
 
 namespace sgg_farmix_helper
@@ -211,12 +208,12 @@ namespace sgg_farmix_helper
            
         }
 
-        //public static byte[] ExportToExcel(this DataTable Tbl, string ExcelFilePath = null)
-        //{
-        //    try
-        //    {
-        //        if (Tbl == null || Tbl.Columns.Count == 0)
-        //            throw new Exception("ExportToExcel: Null or empty input table!\n");
+        /*public static byte[] ExportToExcel(this DataTable Tbl, string ExcelFilePath = null)
+        {
+            try
+            {
+                if (Tbl == null || Tbl.Columns.Count == 0)
+                    throw new Exception("ExportToExcel: Null or empty input table!\n");
 
         //        // load excel, and create a new workbook
         //        Excel.Application excelApp = new Excel.Application();
@@ -275,37 +272,36 @@ namespace sgg_farmix_helper
         //            }
 
         //            break;
-                    
-        //        }
+                }
 
 
-        //        // check fielpath
-        //        if (ExcelFilePath != null && ExcelFilePath != "")
-        //        {
-        //            try
-        //            {
-        //                using (var ms = new MemoryStream())
-        //                {
-        //                   excelApp.Workbooks[1].SaveCopyAs(ms);
-        //                   return ms.ToArray();
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                throw new Exception("ExportToExcel: Excel file could not be saved! Check filepath.\n"
-        //                    + ex.Message);
-        //            }
-        //        }
-        //        else    // no filepath is given
-        //        {
-        //            excelApp.Visible = true;
-        //            return null;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception("ExportToExcel: \n" + ex.Message);
-        //    }
-        //}
+                // check fielpath
+                if (ExcelFilePath != null && ExcelFilePath != "")
+                {
+                    try
+                    {
+                        using (var ms = new MemoryStream())
+                        {
+                           excelApp.Workbooks[1].SaveCopyAs(ms);
+                           return ms.ToArray();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("ExportToExcel: Excel file could not be saved! Check filepath.\n"
+                            + ex.Message);
+                    }
+                }
+                else    // no filepath is given
+                {
+                    excelApp.Visible = true;
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("ExportToExcel: \n" + ex.Message);
+            }
+        }*/
     }
 }

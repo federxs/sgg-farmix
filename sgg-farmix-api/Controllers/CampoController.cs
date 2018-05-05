@@ -1,12 +1,15 @@
-﻿using sgg_farmix_acceso_datos.DAOs;
+﻿using Newtonsoft.Json;
+using sgg_farmix_acceso_datos.DAOs;
 using sgg_farmix_acceso_datos.Model;
 using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -16,11 +19,56 @@ namespace sgg_farmix_api.Controllers
     {
         private CampoManager CM = new CampoManager();
         [HttpPost]
-        public Campo Post([FromBody] Campo campo)
+        [AutorizationToken]
+        public async Task<Campo> Post()
         {
             try
             {
-                return CM.Create(campo);
+                if (!Request.Content.IsMimeMultipartContent())
+                {
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+                }
+
+                string root = HttpContext.Current.Server.MapPath("~/App_Data");
+                var provider = new MultipartFormDataStreamProvider(root);
+
+                try
+                {
+                    // Read the form data.
+                    var result = await Request.Content.ReadAsMultipartAsync(provider);
+                    if (result.FormData["campo"] == null)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.BadRequest);
+                    }
+                    var campoObject = JsonConvert.DeserializeObject<Campo>(result.FormData["campo"]);
+
+                    var campoNuevo = CM.Create(campoObject);
+
+                    foreach (MultipartFileData file in provider.FileData)
+                    {
+                        var multimediaObject = new Multimedia
+                        {
+                            mulTipo = file.Headers.ContentType.MediaType.StartsWith("image", StringComparison.InvariantCulture) ? 1 : 2,
+                            mulPath = $"{file.LocalFileName.Split('\\').Last()}.{ file.Headers.ContentType.MediaType.Split('/').Last()}",
+                            idCampo = campoNuevo.idCampo
+                        };
+                        var newFileName = $"{campoNuevo.idCampo}_Imagen.{file.Headers.ContentType.MediaType.Split('/').Last()}";
+                        MoveFiles.MoveFilesToFolder(file.LocalFileName, newFileName, campoNuevo.idCampo.ToString());
+
+                        multimediaObject.mulPath = newFileName;
+
+                        new MultimediaManager().Create(multimediaObject);
+
+                        Trace.WriteLine(file.Headers.ContentDisposition.FileName);
+                        Trace.WriteLine("Server file path: " + file.LocalFileName);
+                    }
+
+                    return campoNuevo;
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
             }
             catch (Exception ex)
             {
@@ -40,6 +88,44 @@ namespace sgg_farmix_api.Controllers
             try
             {
                 return CM.GetList(usuario);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Campo/validarCantCamposXUsuario")]
+        [HttpGet]
+        [AutorizationToken]
+        public ResultadoValidacionCampo ValidarCantCamposUsuario(string usuario)
+        {
+            try
+            {
+                return CM.ValidarCantidadCampos(usuario);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Campo/GetInconsistencias")]
+        [HttpGet]
+        [AutorizationToken]
+        public ResultadoValidacion GetInconsistencias(long codigoCampo)
+        {
+            try
+            {
+                return CM.GetInconsistencias(codigoCampo);
             }
             catch (Exception ex)
             {

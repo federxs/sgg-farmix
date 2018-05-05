@@ -10,7 +10,36 @@
             $state.go('app.bienvenido');
         }
 		
-		function iniciar(){
+        function iniciar() {
+            //$rootScope.ban = true;
+            $rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' }, function () {
+                $rootScope.db.transaction(function (tx) {
+                    //idCampo irrelevante - el usuario solo tiene acceso a un campo en la app (, idCampo INTEGER)
+                    //Ambito estado lo mismo (solo hay uno con estado - Bovino)
+                    //BOOL no existe, se usa INTEGER con valor 0 o 1. INTEGER(1) representa eso.
+                    //REAL seria Float
+                    //Los bovinos muertos los tenemos locales? Los Borrados? EstablecimientoOrigen?
+                    //DATE no existe, se usa TEXT
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Alimento(idAlimento INTEGER PRIMARY KEY, nombre TEXT)");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Antibiotico(idAntibiotico INTEGER PRIMARY KEY, nombre TEXT)");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Categoria(idCategoria INTEGER PRIMARY KEY, nombre TEXT, genero INTEGER(1))");
+                    //tx.executeSql("CREATE TABLE IF NOT EXISTS EstablecimientoOrigen(idEstablecimiento INTEGER PRIMARY KEY, nombre TEXT)");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Estado(idEstado INTEGER PRIMARY KEY, nombre TEXT, descripcion TEXT)");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Raza(idRaza INTEGER PRIMARY KEY, nombre TEXT)");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Rodeo(idRodeo INTEGER PRIMARY KEY, nombre TEXT, confinado INTEGER(1))");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS TipoEvento(idTipoEvento INTEGER PRIMARY KEY, descripcion TEXT)");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS TipoInseminacion(idTipo INTEGER PRIMARY KEY, descripcion TEXT)");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS TipoTacto(idTipoTacto INTEGER PRIMARY KEY, descripcion TEXT)");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Vacuna(idVacuna INTEGER PRIMARY KEY, nombre TEXT)");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Bovino(idBovino INTEGER PRIMARY KEY, numCaravana INTEGER, apodo TEXT, descripcion TEXT, fechaNacimiento TEXT, genero INTEGER(1), peso REAL, pesoAlNacer REAL, fechaMuerte TEXT, idCategoria INTEGER, idRaza INTEGER, idRodeo INTEGER, idEstablecimientoOrigen INTEGER, idEstado INTEGER, escrito INTEGER(1), FOREIGN KEY(idCategoria) REFERENCES Categoria (idCategoria), FOREIGN KEY(idRaza) REFERENCES Raza (idRaza), FOREIGN KEY(idRodeo) REFERENCES Rodeo (idRodeo), FOREIGN KEY(idEstablecimientoOrigen) REFERENCES EstablecimientoOrigen (idEstablecimiento), FOREIGN KEY(idEstado) REFERENCES Estado (idEstado))");
+                    //El CampoDestino no seria al pedo en Evento?
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Evento(idEvento INTEGER PRIMARY KEY, fechaHora TEXT, cantidad REAL, idTipoEvento INTEGER, idVacuna INTEGER, idAntibiotico INTEGER, idAlimento INTEGER, idRodeoDestino INTEGER, FOREIGN KEY(idTipoEvento) REFERENCES TipoEvento (idTipoEvento), FOREIGN KEY(idVacuna) REFERENCES Vacuna (idVacuna), FOREIGN KEY(idAntibotico) REFERENCES Antibiotico (idAntibiotico), FOREIGN KEY(idAlimento) REFERENCES Alimento (idAlimento), FOREIGN KEY(idRodeoDestino) REFERENCES Rodeo (idRodeo))");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS EventosXBovino(idBovino INTEGER, idEvento INTEGER, PRIMARY KEY (idBovino, idEvento), FOREIGN KEY (idBovino) REFERENCES Bovino (idBovino), FOREIGN KEY (idEvento) REFERENCES Evento (idEvento))");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Inseminacion(idInseminacion INTEGER PRIMARY KEY, idVaca INTEGER, fechaInseminacion TEXT, fechaEstimadaNacimiento TEXT, tipoInseminacion INTEGER, FOREIGN KEY (idVaca) REFERENCES Bovino (idBovino), FOREIGN KEY (tipoInseminacion) REFERENCES TipoInseminacion (idTipo))");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS TorosXInseminacion(idInseminacion INTEGER, idToro INTEGER, PRIMARY KEY(idInseminacion, idToro), FOREIGN KEY idInseminacion REFERENCES Inseminacion (idInseminacion), FOREIGN KEY idToro REFERENCES Bovino (idBovino))");
+                    tx.executeSql("CREATE TABLE IF NOT EXISTS Tacto(idInseminacion INTEGER, fechaTacto TEXT, exitoso INTEGER(1), idTipoTacto INTEGER, PRIMARY KEY (idInseminacion, fechaTacto), FOREIGN KEY (idInseminacion) REFERENCES Inseminacion (idInseminacion), FOREIGN KEY idTipoTacto REFERENCES TipoTacto (idTipoTacto))");
+                });
+            });
 			return;
 		}
 		
