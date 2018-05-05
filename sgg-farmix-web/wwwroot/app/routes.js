@@ -150,6 +150,12 @@
                 templateUrl: 'app/usuarios/registrar-usuarios/registrar-usuarios.html',
                 controller: 'registrarUsuariosController'
             });
+        $stateProvider
+            .state('home.configuracion', {
+                url: '/configuracion',
+                templateUrl: 'app/configuracion/configuracion.html',
+                controller: 'configuracionController'
+            })
     });
 })();
 
