@@ -14,7 +14,7 @@ angular.module('starter')
                                 //si la ultima vez fue sin conexion, realizar post
                                 //tirar a los services que hagan el post
                             }
-                            //alimentoService.getDatosAlimento($localStorage.campo);
+                            alimentoService.getDatosAlimento($localStorage.campo);
                         } else {
                             $rootScope.logueado = false;
                             $localStorage.usuario = undefined;
@@ -34,7 +34,7 @@ angular.module('starter')
                 //si la ultima vez fue sin conexion, realizar post
                 //tirar a los services que hagan el post
             }
-            //alimentoService.getDatosAlimento($localStorage.campo);
+            alimentoService.getDatosAlimento($localStorage.campo);
         };
         $scope.iniciar = function() {
             $state.go('app.login');

@@ -10,16 +10,21 @@
 
     .service('alimentoServiceDB', function ($q, $rootScope) {
         this.getDatosAlimento = function () {
-            var db;
-            db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
+            //var resultado = {};
+            //$rootScope.db.executeSql("SELECT idAlimento, nombre FROM Alimento", [], function (rs) {
+            //    console.log(rs.rows.item(2).idAlimento);
+            //    resultado = rs;
+            //}, function (error) {
+            //    console.log('SELECT SQL statement ERROR: ' + error.message);
+            //});
+            //return resultado;
             return $q(function (resolve, reject) {
-                    db.executeSql("SELECT idAlimento, nombre FROM Alimento", [],
-                      function (resultado) {
-                          resolve(rows(resultado));
-                          alert("dasd");
-                      },
-                      reject);
-                });
+                $rootScope.db.executeSql("SELECT idAlimento, nombre FROM Alimento", [],
+                  function (resultado) {
+                      resolve(rows(resultado));
+                  },
+                  reject);
+            });
         };
 
         this.actualizarAlimentos = function (alimentos) {
@@ -32,6 +37,14 @@
                 $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
             });
         }
+
+        function rows(resultado) {
+            var items = [];
+            for (var i = 0; i < resultado.rows.length; i++) {
+                items.push(resultado.rows.item(i));
+            }
+            return items;
+        };
     })
 
     .service('alimentoService', function (alimentoServiceHTTP, alimentoServiceDB, conexion) {

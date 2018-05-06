@@ -1,6 +1,6 @@
 angular.module('starter')
     .controller('AlimentoController', function ($ionicLoading, $scope, alimentoService, $rootScope, registrarEventoService, $state, $localStorage) {
-        showIonicLoading().then(obtenerAlimento).then(function (_alimentos) {           
+        showIonicLoading().then(obtenerAlimento).then(function (_alimentos) {
             if($rootScope.logueado == false){
                 $state.go('app.bienvenido');
             }

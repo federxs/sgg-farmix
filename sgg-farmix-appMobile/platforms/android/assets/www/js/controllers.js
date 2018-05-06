@@ -12,8 +12,8 @@
 		
         function iniciar() {
             //$rootScope.ban = true;
-            var db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' }, function () {
-                db.transaction(function (tx) {
+            $rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' }, function () {
+                $rootScope.db.transaction(function (tx) {
                     //idCampo irrelevante - el usuario solo tiene acceso a un campo en la app (, idCampo INTEGER)
                     //Ambito estado lo mismo (solo hay uno con estado - Bovino)
                     //BOOL no existe, se usa INTEGER con valor 0 o 1. INTEGER(1) representa eso.
@@ -37,7 +37,6 @@
                     tx.executeSql("CREATE TABLE IF NOT EXISTS Tacto(idInseminacion INTEGER, fechaTacto TEXT, exitoso INTEGER(1), idTipoTacto INTEGER, PRIMARY KEY (idInseminacion, fechaTacto), FOREIGN KEY (idInseminacion) REFERENCES Inseminacion (idInseminacion), FOREIGN KEY (idTipoTacto) REFERENCES TipoTacto (idTipoTacto))");
                 });
             });
-            db.close;
 			return;
 		}
 		
