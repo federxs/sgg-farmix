@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('starter').service('portalService', function () {//usuarioInfo) {
+    angular.module('starter').service('portalService', function ($localStorage) {//usuarioInfo) {
         var portalService = {};
 
         portalService.getUrlServer = function () {
@@ -20,17 +20,17 @@
 
         portal.getDefaultUsuarioRecursos = function () {
             return "recursos.es-AR.json";
-        };
+        };*/
 
-        portal.getHeadersServer = function () {
-            var headers = { 'Authorization': usuarioInfo.getToken() };
+        portalService.getHeadersServer = function () {
+            var headers = { 'Authorization': $localStorage.token };
             return headers;
         };
-        portal.getContentUndefined = function () {
+        /*portal.getContentUndefined = function () {
             var headers = { 'Authorization': usuarioInfo.getToken(), 'Content-Type': undefined };
             return headers;
         };*/
-
+        
         return portalService;
     });
 })();

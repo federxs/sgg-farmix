@@ -30,6 +30,9 @@
         },
         "cordova-sqlite-storage": {
             "PACKAGE_NAME": "com.farmix.appMobile"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.farmix.appMobile"
         }
     },
     "dependent_plugins": {}

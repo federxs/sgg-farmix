@@ -10,7 +10,7 @@
                         return null
                     }
                 }
-                return $http.get(bovinoUrl + "idBovino=" + id + "&idCampo=" + idCampo).then(function (respuesta) {
+                return $http.get(bovinoUrl + "idBovino=" + id + "&idCampo=" + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
                     if (respuesta.data.bovino != null) {
                         for (var i = 0; i < respuesta.data.categorias.length; i++) {
                             if (respuesta.data.categorias[i].idCategoria == respuesta.data.bovino.idCategoria) {
@@ -39,7 +39,7 @@
         }
         
         this.getBovinos = function (idCampo) {
-            return $http.get(bovinosUrl + idCampo).then(function (respuesta) {
+            return $http.get(bovinosUrl + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
                 return respuesta.data;
             })
         }
@@ -48,7 +48,8 @@
             $http({
                 method: 'PUT',
                 url: escribirUrl,
-                params: { idBovino: id }
+                params: { idBovino: id },
+                headers: portalService.getHeadersServer()
             });
         };
     });
