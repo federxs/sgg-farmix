@@ -10,14 +10,6 @@
 
     .service('alimentoServiceDB', function ($q, $rootScope) {
         this.getDatosAlimento = function () {
-            //var resultado = {};
-            //$rootScope.db.executeSql("SELECT idAlimento, nombre FROM Alimento", [], function (rs) {
-            //    console.log(rs.rows.item(2).idAlimento);
-            //    resultado = rs;
-            //}, function (error) {
-            //    console.log('SELECT SQL statement ERROR: ' + error.message);
-            //});
-            //return resultado;
             return $q(function (resolve, reject) {
                 $rootScope.db.executeSql("SELECT idAlimento, nombre FROM Alimento", [],
                   function (resultado) {

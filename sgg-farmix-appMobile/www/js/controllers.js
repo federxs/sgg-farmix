@@ -35,6 +35,8 @@
                     tx.executeSql("CREATE TABLE IF NOT EXISTS Inseminacion(idInseminacion INTEGER PRIMARY KEY, idVaca INTEGER, fechaInseminacion TEXT, fechaEstimadaNacimiento TEXT, tipoInseminacion INTEGER, FOREIGN KEY (idVaca) REFERENCES Bovino (idBovino), FOREIGN KEY (tipoInseminacion) REFERENCES TipoInseminacion (idTipo))");
                     tx.executeSql("CREATE TABLE IF NOT EXISTS TorosXInseminacion(idInseminacion INTEGER, idToro INTEGER, PRIMARY KEY(idInseminacion, idToro), FOREIGN KEY (idInseminacion) REFERENCES Inseminacion (idInseminacion), FOREIGN KEY (idToro) REFERENCES Bovino (idBovino))");
                     tx.executeSql("CREATE TABLE IF NOT EXISTS Tacto(idInseminacion INTEGER, fechaTacto TEXT, exitoso INTEGER(1), idTipoTacto INTEGER, PRIMARY KEY (idInseminacion, fechaTacto), FOREIGN KEY (idInseminacion) REFERENCES Inseminacion (idInseminacion), FOREIGN KEY (idTipoTacto) REFERENCES TipoTacto (idTipoTacto))");
+                    tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(1, 'Artificial')");
+                    tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(2, 'Montura')");
                 });
             });
 			return;
