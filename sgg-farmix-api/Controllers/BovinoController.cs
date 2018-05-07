@@ -84,15 +84,16 @@ namespace sgg_farmix_api.Controllers
         }
 
         //este metodo sirve para la validacion del nro de caravana en la regitración
-        [Route("api/Bovino/existeIdCaravana/{idCaravana}")]
+        [Route("api/Bovino/existeIdCaravana/{idCaravana}/{codigoCampo}")]
         [HttpGet]
         [AutorizationToken]
-        public string ValidarNroCaravana(string idCaravana)
+        public string ValidarNroCaravana(string idCaravana, string codigoCampo)
         {
             try
             {
                 var numero = Regex.Replace(idCaravana, @"[^\d]", "");
-                return BM.ValidarCaravana(Int64.Parse(numero));
+                var codCampo = Regex.Replace(codigoCampo, @"[^\d]", "");
+                return BM.ValidarCaravana(Int64.Parse(numero), Int64.Parse(codCampo));
             }
             catch (Exception ex)
             {
@@ -108,12 +109,13 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Bovino/existeIdCaravana")]
         [HttpGet]
         [AutorizationToken]
-        public string ValidarNroCaravana1(string idCaravana)
+        public string ValidarNroCaravana1(string idCaravana, string codigoCampo)
         {
             try
             {
                 var numero = Regex.Replace(idCaravana, @"[^\d]", "");
-                return BM.ValidarCaravana(Int64.Parse(numero));
+                var codCampo = Regex.Replace(codigoCampo, @"[^\d]", "");
+                return BM.ValidarCaravana(Int64.Parse(numero), Int64.Parse(codCampo));
             }
             catch (Exception ex)
             {
@@ -338,6 +340,25 @@ namespace sgg_farmix_api.Controllers
                 result.provincias = BM.GetProvincias();
                 result.localidades = BM.GetLocalidades();
                 return result;
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Bovino/verificarCantBovinosXAdmin")]
+        [HttpGet]
+        [AutorizationToken]
+        public ResultadoValidacionCampo ValidarCantidadBovinos(string usuario)
+        {
+            try
+            {
+                return BM.ValidarCantidadBovinos(usuario);
             }
             catch (Exception ex)
             {

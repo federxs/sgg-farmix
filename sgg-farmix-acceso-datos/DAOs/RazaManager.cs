@@ -19,7 +19,8 @@ namespace sgg_farmix_acceso_datos.DAOs
             {
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@nombre", entity.nombre }
+                    {"@nombre", entity.nombre },
+                    {"@codigoCampo", entity.codigoCampo }
                 };
 
                 entity.idRaza = connection.Execute("spRegistrarRaza", parametros, System.Data.CommandType.StoredProcedure);

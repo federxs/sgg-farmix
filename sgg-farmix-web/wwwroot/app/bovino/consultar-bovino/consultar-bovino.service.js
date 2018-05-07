@@ -17,6 +17,15 @@
                     url: portalService.getUrlServer() + 'api/BovinoConsultar/getListaBovinos',
                     headers: portalService.getHeadersServer(),
                     isArray: true
+                },
+                validarCantBovinos: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Bovino/verificarCantBovinosXAdmin',
+                    params: {
+                        usuario: '@usuario'
+                    },
+                    headers: portalService.getHeadersServer(),
+                    isArray: false
                 }
             });
         });

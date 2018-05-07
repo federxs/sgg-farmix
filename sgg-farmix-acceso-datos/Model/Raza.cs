@@ -10,5 +10,6 @@ namespace sgg_farmix_acceso_datos.Model
     {
         public long  idRaza { get; set; }
         public string nombre { get; set; }
+        public long codigoCampo { get; set; }
     }
 }

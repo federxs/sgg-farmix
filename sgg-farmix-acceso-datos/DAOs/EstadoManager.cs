@@ -21,8 +21,11 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametros = new Dictionary<string, object>
                 {                    
                     {"@nombre", entity.nombre },
-                    {"@descripcion", entity.descripcion }
+                    {"@descripcion", entity.descripcion },
+                    {"@codigoCampo", entity.codigoCampo }
                 };
+                if (entity.genero < 2)
+                    parametros.Add("@genero", entity.genero);
 
                 entity.idEstado = connection.Execute("spRegistrarEstado", parametros, System.Data.CommandType.StoredProcedure);
                 if (entity.idEstado == 0)

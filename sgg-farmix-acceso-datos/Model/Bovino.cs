@@ -28,6 +28,8 @@ namespace sgg_farmix_acceso_datos.Model
         public long idAlimento { get; set; }
         public float cantAlimento { get; set; }
         public string fechaEstimadaParto { get; set; }
+        public string usuario { get; set; }
+        public long? codigoCampo { get; set; }
     }
 
     public class BovinoFilter

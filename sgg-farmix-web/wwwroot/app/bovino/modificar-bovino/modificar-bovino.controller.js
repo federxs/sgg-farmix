@@ -26,6 +26,7 @@
         vm.agregarCategoria = agregarCategoria;
         vm.agregarRaza = agregarRaza;
         vm.agregarAlimento = agregarAlimento;
+        vm.changeEstados = changeEstados;
         //variables
         vm.razas = [];
         vm.estados = [];
@@ -34,6 +35,7 @@
         vm.fechaDeHoy = new Date();
         var categorias = [];
         var nroCaravanaOriginal = 0;
+        var estados = [];
         //vm.habilitar = true;
         vm.inicializar = inicializar;
         vm.btnVolver = "Volver";
@@ -57,6 +59,7 @@
                 vm.habilitar = false;
                 //combos
                 vm.estados = data.estados;
+                estados = angular.copy(data.estados);
                 categorias = data.categorias;
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
@@ -95,7 +98,7 @@
                 } else {
                     vm.bovino.idEstablecimientoOrigen = "";
                 }
-
+                vm.changeEstados();
                 //seteamos a "" las variables 0
                 angular.forEach(vm.bovino, function (value, key) {
                     if (parseInt(value) === 0 && key !== 'idBovino' && key !== 'idAlimento' && key !== 'cantAlimento') {
@@ -184,7 +187,7 @@
             if (vm.bovino.numCaravana !== nroCaravanaOriginal) {
                 vm.showSpinner = true;
                 vm.habilitar = false;
-                modificarBovinoService.existeIdCaravana(vm.bovino.numCaravana).then(function success(data) {
+                modificarBovinoService.existeIdCaravana(vm.bovino.numCaravana, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                     if (data[0] === "1") {
                         vm.formModificarBovino.idCaravana.$setValidity("existeIdCaravana", false);
                     }
@@ -348,6 +351,23 @@
                 else
                     toastr.error('La operación no se pudo completar', 'Error');
             });
+        };
+
+        function changeEstados() {
+            if (vm.bovino.genero === '1' || vm.bovino.genero === 1) {
+                vm.estados = [];
+                for (var i = 0; i < estados.length; i++) {
+                    if (estados[i].genero === 1 || estados[i].genero === 2)
+                        vm.estados.push(estados[i]);
+                }
+            }
+            else if (vm.bovino.genero === '0' || vm.bovino.genero === 0) {
+                vm.estados = [];
+                for (var i = 0; i < estados.length; i++) {
+                    if (estados[i].genero === 0 || estados[i].genero === 2)
+                        vm.estados.push(estados[i]);
+                }
+            }
         };
     }
 })();

@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarBovinoController', consultarBovinoController);
 
-    consultarBovinoController.$inject = ['$scope', 'consultarBovinoService', 'toastr', 'exportador', '$localStorage'];
+    consultarBovinoController.$inject = ['$scope', 'consultarBovinoService', 'toastr', 'exportador', '$localStorage', '$sessionStorage', '$state'];
 
-    function consultarBovinoController($scope, consultarBovinoService, toastr, exportador, $localStorage) {
+    function consultarBovinoController($scope, consultarBovinoService, toastr, exportador, $localStorage, $sessionStorage, $state) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.disabled = 'disabled';
@@ -18,6 +18,9 @@
         vm.limpiarCampos = limpiarCampos;
         vm.exportarExcel = exportarExcel;
         vm.exportarPDF = exportarPDF;
+        vm.validarCantBovinos = validarCantBovinos;
+        vm.changeEstados = changeEstados;
+        vm.changeCategorias = changeCategorias;
         //variables
         vm.razas = [];
         vm.estados = [];
@@ -26,6 +29,8 @@
         vm.establecimientos = [];
         vm.filtro = {};
         vm.cursor = '';
+        var estados = [];
+        var categorias = [];
         function inicializar() {
             vm.showSpinner = true;
             vm.disabled = 'disabled';
@@ -33,7 +38,9 @@
             vm.itemsPorPagina = 9;
             consultarBovinoService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                 vm.estados = data.estados;
+                estados = angular.copy(data.estados);
                 vm.categorias = data.categorias;
+                categorias = angular.copy(data.categorias);
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
@@ -442,5 +449,51 @@
             return dia + '/' + mes + '/' + año;
         }
 
+        function validarCantBovinos() {
+            consultarBovinoService.validarCantBovinos({ usuario: $sessionStorage.usuarioInfo.usuario }, function success(data) {
+                if (data.resultado)
+                    $state.go('home.registrarBovino');
+                else
+                    toastr.info("No puede agregar mas bovinos, verifique su plan contratado.", "Aviso");
+            }, function error(error) {
+                toastr.error("Se ha producido un error, reintentar.");
+            });
+        };
+
+        function changeEstados() {
+            if (vm.filtro.genero === '1') {
+                vm.estados = [];
+                for (var i = 0; i < estados.length; i++) {
+                    if (estados[i].genero === 1 || estados[i].genero === 2)
+                        vm.estados.push(estados[i]);
+                }
+            }
+            else if (vm.filtro.genero === '0') {
+                vm.estados = [];
+                for (var i = 0; i < estados.length; i++) {
+                    if (estados[i].genero === 0 || estados[i].genero === 2)
+                        vm.estados.push(estados[i]);
+                }
+            }
+        };
+
+        function changeCategorias() {
+            if (vm.filtro.genero === '1') {
+                vm.categorias = [];
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].genero === 1)
+                        vm.categorias.push(categorias[i]);
+                }
+            }
+            else if (vm.filtro.genero === '0' || vm.filtro.genero === 0) {
+                vm.categorias = [];
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].genero === 0)
+                        vm.categorias.push(categorias[i]);
+                }
+            }
+            else
+                vm.categorias = categorias;
+        };
     }
 })();

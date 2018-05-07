@@ -31,7 +31,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                     { "@idRaza", entity.idRaza },
                     { "@idRodeo", entity.idRodeo },
                     { "@idEstado", entity.idEstado },
-                    { "@borrado", 0 }
+                    { "@borrado", 0 },
+                    { "@usuario", entity.usuario },
+                    { "@codigoCampo", entity.codigoCampo }
                 };
                 if (entity.pesoAlNacer != 0)
                     parametros.Add("@pesoAlNacer", entity.pesoAlNacer);
@@ -97,17 +99,18 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public string ValidarCaravana(long numCaravana)
+        public string ValidarCaravana(long numCaravana, long codigoCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@numCaravana", numCaravana }
+                    {"@numCaravana", numCaravana },
+                    {"@codigoCampo", codigoCampo }
                 };
                 var resultado = connection.Execute("spValidarCaravana", parametros, System.Data.CommandType.StoredProcedure);
-                if (resultado == 1) //existe ese numero de caravana ya en el sistema
+                if (resultado == 1) //existe ese numero de caravana ya en el sistema para ese campo
                     return "1";
                 else
                     return "0";
@@ -430,6 +433,29 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = new SqlServerConnection();
                 var lista = connection.GetArray<Localidad>("spObtenerListaLocalidades", null, System.Data.CommandType.StoredProcedure);
                 return lista.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
+        public ResultadoValidacionCampo ValidarCantidadBovinos(string usuario)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@usuario", usuario }
+                };
+                var resultado = connection.GetArray<ResultadoValidacionCampo>("spValidarCantidadBovinosXAdmin", parametros, System.Data.CommandType.StoredProcedure);
+                return resultado.First();
             }
             catch (Exception ex)
             {
