@@ -3,9 +3,9 @@
     .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, loginService, $ionicLoading, $localStorage) {
 
         $ionicPlatform.ready(function () {
-            nfc.addNdefListener(tagEscaneado, iniciar, cancelar);
+            //nfc.addNdefListener(tagEscaneado, iniciar, cancelar);
             //descomenta Luki para que te funcione sin NFC
-            //nfc.addNdefListener(tagEscaneado, cancelar, iniciar);
+            nfc.addNdefListener(tagEscaneado, cancelar, iniciar);
         });
 		
         if ($rootScope.logueado == false) {
@@ -38,10 +38,10 @@
                     tx.executeSql("CREATE TABLE IF NOT EXISTS Inseminacion(idInseminacion INTEGER PRIMARY KEY, idVaca INTEGER, fechaInseminacion TEXT, fechaEstimadaNacimiento TEXT, tipoInseminacion INTEGER, paraActualizar INTEGER(1), FOREIGN KEY (idVaca) REFERENCES Bovino (idBovino), FOREIGN KEY (tipoInseminacion) REFERENCES TipoInseminacion (idTipo))");
                     tx.executeSql("CREATE TABLE IF NOT EXISTS TorosXInseminacion(idInseminacion INTEGER, idToro INTEGER, PRIMARY KEY(idInseminacion, idToro), FOREIGN KEY (idInseminacion) REFERENCES Inseminacion (idInseminacion), FOREIGN KEY (idToro) REFERENCES Bovino (idBovino))");
                     tx.executeSql("CREATE TABLE IF NOT EXISTS Tacto(idInseminacion INTEGER, fechaTacto TEXT, exitoso INTEGER(1), idTipoTacto INTEGER, PRIMARY KEY (idInseminacion, fechaTacto), FOREIGN KEY (idInseminacion) REFERENCES Inseminacion (idInseminacion), FOREIGN KEY (idTipoTacto) REFERENCES TipoTacto (idTipoTacto))");
-                    /*no son al vicio?
+                    
                     tx.executeSql("CREATE TABLE IF NOT EXISTS TipoInseminacion(idTipo INTEGER PRIMARY KEY, descripcion TEXT)");
                     tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(1, 'Artificial')");
-                    tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(2, 'Montura')");*/
+                    tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(2, 'Montura')");
                 });
             });
 			return;
