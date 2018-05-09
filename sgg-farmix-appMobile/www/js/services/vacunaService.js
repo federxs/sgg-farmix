@@ -7,10 +7,11 @@
             });            
         };
     })
+
     .service('vacunaServiceDB', function ($q, $rootScope) {
         this.getDatosVacuna = function () {
             return $q(function (resolve, reject) {
-                $rootScope.db.executeSql("SELECT idVacuna, nombre FROM Vacuna", [],
+                $rootScope.db.executeSql("SELECT * FROM Vacuna", [],
                   function (resultado) {
                       resolve(rows(resultado));
                   },

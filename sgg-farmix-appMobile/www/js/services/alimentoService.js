@@ -11,7 +11,7 @@
     .service('alimentoServiceDB', function ($q, $rootScope) {
         this.getDatosAlimento = function () {
             return $q(function (resolve, reject) {
-                $rootScope.db.executeSql("SELECT idAlimento, nombre FROM Alimento", [],
+                $rootScope.db.executeSql("SELECT * FROM Alimento", [],
                   function (resultado) {
                       resolve(rows(resultado));
                   },

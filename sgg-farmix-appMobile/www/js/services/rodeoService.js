@@ -7,10 +7,11 @@
             });            
         };
     })
+
     .service('rodeoServiceDB', function ($q, $rootScope) {
         this.getDatosRodeo = function () {
             return $q(function (resolve, reject) {
-                $rootScope.db.executeSql("SELECT idRodeo, nombre, confinado FROM Rodeo", [],
+                $rootScope.db.executeSql("SELECT * FROM Rodeo", [],
                   function (resultado) {
                       resolve(rows(resultado));
                   },

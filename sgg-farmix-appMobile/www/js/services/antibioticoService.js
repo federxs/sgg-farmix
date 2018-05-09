@@ -7,36 +7,37 @@
             });            
         };
     })
-.service('antibioticoServiceDB', function ($q, $rootScope) {
-    this.getDatosAntibiotico = function () {
-        return $q(function (resolve, reject) {
-            $rootScope.db.executeSql("SELECT idAntibiotico, nombre FROM Antibiotico", [],
-              function (resultado) {
-                  resolve(rows(resultado));
-              },
-              reject);
-        });
-    };
 
-    this.actualizarAntibioticos = function (antibioticos) {
-        var sqlStatments = [];
-        antibioticos.forEach(function (antibiotico) {
-            sqlStatments.push(["INSERT OR IGNORE INTO Antibiotico(idAntibiotico, nombre) VALUES(?, ?)", [antibiotico.idAntibiotico, antibiotico.nombre]]);
-        });
+    .service('antibioticoServiceDB', function ($q, $rootScope) {
+        this.getDatosAntibiotico = function () {
+            return $q(function (resolve, reject) {
+                $rootScope.db.executeSql("SELECT * FROM Antibiotico", [],
+                  function (resultado) {
+                      resolve(rows(resultado));
+                  },
+                  reject);
+            });
+        };
 
-        return $q(function (resolve, reject) {
-            $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
-        });
-    }
+        this.actualizarAntibioticos = function (antibioticos) {
+            var sqlStatments = [];
+            antibioticos.forEach(function (antibiotico) {
+                sqlStatments.push(["INSERT OR IGNORE INTO Antibiotico(idAntibiotico, nombre) VALUES(?, ?)", [antibiotico.idAntibiotico, antibiotico.nombre]]);
+            });
 
-    function rows(resultado) {
-        var items = [];
-        for (var i = 0; i < resultado.rows.length; i++) {
-            items.push(resultado.rows.item(i));
+            return $q(function (resolve, reject) {
+                $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
+            });
         }
-        return items;
-    };
-})
+
+        function rows(resultado) {
+            var items = [];
+            for (var i = 0; i < resultado.rows.length; i++) {
+                items.push(resultado.rows.item(i));
+            }
+            return items;
+        };
+    })
 
     .service('antibioticoService', function (antibioticoServiceHTTP, antibioticoServiceDB, conexion) {
         this.getDatosAntibiotico = function (idCampo) {

@@ -19,8 +19,28 @@
                 return respuesta.data;
             })
         };
+
+        this.actualizarInseminacionesBackend = function (inseminacion) {
+			
+            //
+        };
     })
      .service('inseminacionServiceDB', function ($q, $rootScope) {
+         this.registrarInseminacion = function (inseminacion) {
+             var sqlStatments = [];
+             $rootScope.idVacas.forEach(function (vaca) {
+                 //Ver que id pasarle para la inseminacion
+                 sqlStatments.push(["INSERT OR IGNORE INTO Inseminacion(idInseminacion, idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion, paraActualizar) VALUES(?, ?, ?, ?, ?, 1)", [vaca.idVaca, vaca.idVaca, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, inseminacion.tipoInseminacion]]);
+                 $rootScope.idToros.forEach(function (id) {
+                     sqlStatments.push(["INSERT OR IGNORE INTO TorosXInseminacion(idInseminacion, idToro) VALUES(?, ?)", [vaca.idVaca, id]]);
+                 });
+             });
+
+             return $q(function (resolve, reject) {
+                 $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
+             });
+         }
+
          this.getInseminacionesPendientes = function () {
              return $q(function (resolve, reject) {
                  $rootScope.db.executeSql("SELECT i.idInseminacion, i.idVaca, ti.descripcion, i.fechaInseminacion FROM Inseminacion i JOIN TipoInseminacion ti ON i.tipoInseminacion=ti.idTipo", [],
@@ -48,6 +68,17 @@
              });
          }
 
+         this.getInseminacionesParaActualizarBackend = function () {
+             //Pasar esto y pasar los Toros por rootScope pero dsp borrarlos
+             return $q(function (resolve, reject) {
+                 $rootScope.db.executeSql("SELECT * FROM Inseminacion WHERE paraActualizar=1", [],
+                   function (resultado) {
+                       resolve(rows(resultado));
+                   },
+                   reject);
+             });
+         }; 
+
          function rows(resultado) {
              var items = [];
              for (var i = 0; i < resultado.rows.length; i++) {
@@ -67,6 +98,23 @@
                     .then(function () { return inseminaciones; });
             } else {
                 return inseminacionServiceDB.getInseminacionesPendientes();
+            }
+        }
+
+        this.registrarInseminacion = function (inseminacion) {
+            if (conexion.online()) {
+                inseminacionServiceHTTP.registrarInseminacion(inseminacion);
+            } else {
+                inseminacionServiceDB.registrarInseminacion(inseminacion);
+            }
+        }
+
+        this.actualizarInseminacionesBackend = function (inseminacion) {
+            if (conexion.online()) {
+                var inseminaciones;
+                return inseminacionServiceDB.getInseminacionesParaActualizarBackend()
+                    .then(function (respuesta) { inseminaciones = respuesta; })
+                    .then(function () { inseminacionServiceHTTP.actualizarInseminacionesBackend(inseminaciones); });
             }
         }
     });
