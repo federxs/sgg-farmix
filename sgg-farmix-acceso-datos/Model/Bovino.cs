@@ -87,10 +87,21 @@ namespace sgg_farmix_acceso_datos.Model
         public Resultados establecimientosDestino { get; set; }
     }
     
+    //A esta clase la van a usar los chicos en la App para llenar la BD local
     public class TagBovino
     {
         public long idBovino { get; set; }
         public long numCaravana { get; set; }
         public bool escrito { get; set; }
+        public string apodo { get; set; }
+        public string descripcion { get; set; }
+        public string fechaNacimiento { get; set; }
+        public int genero { get; set; }
+        public float peso { get; set; }
+        public float pesoAlNacer { get; set; }
+        public long idCategoria { get; set; }
+        public long idRaza { get; set; }
+        public long idRodeo { get; set; }
+        public long idEstado { get; set; }
     }
 }

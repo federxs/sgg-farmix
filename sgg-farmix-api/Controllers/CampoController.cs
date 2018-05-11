@@ -52,8 +52,8 @@ namespace sgg_farmix_api.Controllers
                             mulPath = $"{file.LocalFileName.Split('\\').Last()}.{ file.Headers.ContentType.MediaType.Split('/').Last()}",
                             idCampo = campoNuevo.idCampo
                         };
-                        var newFileName = $"{campoNuevo.idCampo}_Imagen.{file.Headers.ContentType.MediaType.Split('/').Last()}";
-                        MoveFiles.MoveFilesToFolder(file.LocalFileName, newFileName, campoNuevo.idCampo.ToString());
+                        var newFileName = $"{campoNuevo.codigoCampo}_ImagenCampo.{file.Headers.ContentType.MediaType.Split('/').Last()}";
+                        MoveFiles.MoveFilesToFolder(file.LocalFileName, newFileName, campoNuevo.codigoCampo.ToString());
 
                         multimediaObject.mulPath = newFileName;
 

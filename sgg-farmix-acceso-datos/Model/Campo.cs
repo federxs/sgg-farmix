@@ -18,6 +18,7 @@ namespace sgg_farmix_acceso_datos.Model
         public long codigoCampo { get; set; }
         public string usuario { get; set; }
         public Multimedia multimedia { get; set; }
+        public string imagen { get; set; }
     }
 
     public class ResultadoValidacionCampo

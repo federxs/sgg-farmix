@@ -5,6 +5,15 @@
                 save: {
                     method: 'POST',
                     headers: portalService.getHeadersServer()
+                },
+                get: {
+                    method: 'GET',
+                    headers: portalService.getHeadersServer(),
+                    url: portalService.getUrlServer() + 'api/Alimento/GetList',
+                    params: {
+                        idCampo: '@idCampo'
+                    },
+                    isArray: true
                 }
             });
         });

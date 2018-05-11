@@ -1,7 +1,7 @@
 ﻿(function () {
     angular.module('app')
-        .factory('rodeoService', function ($resource, portalService) {
-            return $resource(portalService.getUrlServer() + 'api/Rodeo/', {}, {
+        .factory('antibioticoService', function ($resource, portalService) {
+            return $resource(portalService.getUrlServer() + 'api/Antibiotico/', {}, {
                 save: {
                     method: 'POST',
                     headers: portalService.getHeadersServer()
@@ -9,9 +9,9 @@
                 get: {
                     method: 'GET',
                     headers: portalService.getHeadersServer(),
-                    url: portalService.getUrlServer() + 'api/Rodeo/GetList',
+                    url: portalService.getUrlServer() + 'api/Antibiotico/GetList',
                     params: {
-                        campo: '@campo'
+                        idCampo: '@idCampo'
                     },
                     isArray: true
                 }
