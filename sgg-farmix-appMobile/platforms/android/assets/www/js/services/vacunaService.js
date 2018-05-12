@@ -4,7 +4,7 @@
         this.getDatosVacuna = function (idCampo) {
             return $http.get(vacunaUrl + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
                 return respuesta.data;
-            });            
+            });
         };
     })
 

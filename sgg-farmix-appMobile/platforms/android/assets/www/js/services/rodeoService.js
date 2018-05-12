@@ -4,7 +4,7 @@
         this.getDatosRodeo = function (idCampo) {
             return $http.get(rodeoUrl + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
                 return respuesta.data;
-            });            
+            });
         };
     })
 

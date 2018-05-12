@@ -23,6 +23,7 @@ angular.module('starter')
                 $rootScope.logueado = false;
             }
         }
+        $rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
         if (!$localStorage.ultimaConConexion) {
             //si la ultima vez fue sin conexion, realizar post
             //tirar a los services que hagan el post
