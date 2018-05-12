@@ -10,7 +10,8 @@
             $http({
                 method: 'POST',
                 url: inseminacionUrl + "Insert",
-                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: listaToros }
+                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: listaToros },
+                headers: portalService.getHeadersServer()
             });
         };
 

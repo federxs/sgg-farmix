@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('BienvenidoController', function ($scope, $rootScope, $state, $ionicLoading, $ionicPlatform, loginService, $localStorage, conexion, alimentoService) {
+    .controller('BienvenidoController', function ($scope, $rootScope, $state, $ionicLoading, $ionicPlatform, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService) {
         if (!$rootScope.logueado) {
             if (($localStorage.usuario != undefined) && ($localStorage.pass != undefined)) {
                 if (conexion.online()) {
@@ -9,12 +9,6 @@ angular.module('starter')
                     showIonicLoading().then(validarLogin).then(function (_login) {
                         if (_login.resultado == "1") {
                             $rootScope.logueado = true;
-                            //hay conexion
-                            if (!$localStorage.ultimaConConexion) {
-                                //si la ultima vez fue sin conexion, realizar post
-                                //tirar a los services que hagan el post
-                            }
-                            alimentoService.getDatosAlimento($localStorage.campo);
                         } else {
                             $rootScope.logueado = false;
                             $localStorage.usuario = undefined;
@@ -28,14 +22,19 @@ angular.module('starter')
             } else {
                 $rootScope.logueado = false;
             }
-        } else {
-            //hay conexion
-            if (!$localStorage.ultimaConConexion) {
-                //si la ultima vez fue sin conexion, realizar post
-                //tirar a los services que hagan el post
-            }
+        }
+        if (!$localStorage.ultimaConConexion) {
+            //si la ultima vez fue sin conexion, realizar post
+            //tirar a los services que hagan el post
+        }
+        if ($rootScope.logueado == true) {
             alimentoService.getDatosAlimento($localStorage.campo);
-        };
+            antibioticoService.getDatosAntibiotico($localStorage.campo);
+            bovinoService.getBovinos($localStorage.campo);
+            rodeoService.getDatosRodeo($localStorage.campo);
+            vacunaService.getDatosVacuna($localStorage.campo);
+        }
+                
         $scope.iniciar = function() {
             $state.go('app.login');
         }

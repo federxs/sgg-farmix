@@ -4,7 +4,7 @@
         var bovinosUrl = portalService.getUrlServer() + "api/Bovino/getListaTags?idCampo=";
         var escribirUrl = portalService.getUrlServer() + "api/Bovino/escribirTag";
         this.getDatosBovino = function (id, idCampo) {
-            if (id != "") {
+            if (id != "" || id != undefined) {
                 for (var i = 0; i < id.length; i++) {
                     if (id.charAt(i) != '0' && id.charAt(i) != '1' && id.charAt(i) != '2' && id.charAt(i) != '3' && id.charAt(i) != '4' && id.charAt(i) != '5' && id.charAt(i) != '6' && id.charAt(i) != '7' && id.charAt(i) != '8' && id.charAt(i) != '9') {
                         return null
