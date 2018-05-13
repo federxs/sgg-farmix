@@ -40,7 +40,7 @@
                 {
                     idConflicto:1,
                     fecha: "asdasd",
-                    tipoEvento: "asdasd
+                    tipoEvento: "asdasd"
 
                 }, {
                     idConflicto:2,
