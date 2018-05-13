@@ -322,6 +322,7 @@ sgg-farmix-api/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 .vs/config/applicationhost.config
 sgg-farmix-acceso-datos/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
 sgg-farmix-api/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+sgg-farmix-api/App_Data/*
 
 #Estos son archivos que agregue, que quiero que m ignore el GIT xq dsp se arma sino
 sgg-farmix-web\bin\Debug\netcoreapp1.0\sgg-farmix-web.dll

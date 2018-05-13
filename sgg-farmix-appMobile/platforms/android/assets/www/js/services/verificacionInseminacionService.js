@@ -6,7 +6,8 @@
             $http({
                 method: 'POST',
                 url: verificacionInseminacionUrl,
-                params: { tacto: inseminacion }
+                params: { tacto: inseminacion },
+                headers: portalService.getHeadersServer()
             });
         };
     });

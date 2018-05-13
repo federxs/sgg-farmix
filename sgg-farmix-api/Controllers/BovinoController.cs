@@ -27,9 +27,9 @@ namespace sgg_farmix_api.Controllers
             {
                 var id = Regex.Replace(idBovino, @"[^\d]", "");
                 var campo = Regex.Replace(idCampo, @"[^\d]", "");
-                resultado.categorias = new CategoriaManager().GetList();
-                resultado.estados = new EstadoManager().GetList(1);
-                resultado.razas = new RazaManager().GetList();
+                resultado.categorias = new CategoriaManager().GetList(Int64.Parse(campo));
+                resultado.estados = new EstadoManager().GetList(Int64.Parse(campo));
+                resultado.razas = new RazaManager().GetList(Int64.Parse(campo));
                 resultado.rodeos = new RodeoManager().GetList(Int64.Parse(campo));
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList(Int64.Parse(campo));
                 resultado.alimentos = new AlimentoManager().GetList(Int64.Parse(campo));
@@ -84,15 +84,16 @@ namespace sgg_farmix_api.Controllers
         }
 
         //este metodo sirve para la validacion del nro de caravana en la regitración
-        [Route("api/Bovino/existeIdCaravana/{idCaravana}")]
+        [Route("api/Bovino/existeIdCaravana/{idCaravana}/{codigoCampo}")]
         [HttpGet]
         [AutorizationToken]
-        public string ValidarNroCaravana(string idCaravana)
+        public string ValidarNroCaravana(string idCaravana, string codigoCampo)
         {
             try
             {
                 var numero = Regex.Replace(idCaravana, @"[^\d]", "");
-                return BM.ValidarCaravana(Int64.Parse(numero));
+                var codCampo = Regex.Replace(codigoCampo, @"[^\d]", "");
+                return BM.ValidarCaravana(Int64.Parse(numero), Int64.Parse(codCampo));
             }
             catch (Exception ex)
             {
@@ -108,12 +109,13 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Bovino/existeIdCaravana")]
         [HttpGet]
         [AutorizationToken]
-        public string ValidarNroCaravana1(string idCaravana)
+        public string ValidarNroCaravana1(string idCaravana, string codigoCampo)
         {
             try
             {
                 var numero = Regex.Replace(idCaravana, @"[^\d]", "");
-                return BM.ValidarCaravana(Int64.Parse(numero));
+                var codCampo = Regex.Replace(codigoCampo, @"[^\d]", "");
+                return BM.ValidarCaravana(Int64.Parse(numero), Int64.Parse(codCampo));
             }
             catch (Exception ex)
             {
@@ -186,9 +188,9 @@ namespace sgg_farmix_api.Controllers
             Resultados resultado = new Resultados();
             try
             {
-                resultado.categorias = new CategoriaManager().GetList();
-                resultado.estados = new EstadoManager().GetList(idAmbitoEstado);
-                resultado.razas = new RazaManager().GetList();
+                resultado.categorias = new CategoriaManager().GetList(idCampo);
+                resultado.estados = new EstadoManager().GetList(idCampo);
+                resultado.razas = new RazaManager().GetList(idCampo);
                 resultado.rodeos = new RodeoManager().GetList(idCampo);
                 resultado.alimentos = new AlimentoManager().GetList(idCampo);
                 resultado.establecimientos = new EstablecimientoOrigenManager().GetList(idCampo);
@@ -338,6 +340,25 @@ namespace sgg_farmix_api.Controllers
                 result.provincias = BM.GetProvincias();
                 result.localidades = BM.GetLocalidades();
                 return result;
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Bovino/verificarCantBovinosXAdmin")]
+        [HttpGet]
+        [AutorizationToken]
+        public ResultadoValidacionCampo ValidarCantidadBovinos(string usuario)
+        {
+            try
+            {
+                return BM.ValidarCantidadBovinos(usuario);
             }
             catch (Exception ex)
             {

@@ -1,14 +1,13 @@
 angular.module('starter')
     .controller('AlimentoController', function ($ionicLoading, $scope, alimentoService, $rootScope, registrarEventoService, $state, $localStorage) {
-        showIonicLoading().then(obtenerAlimento).then(function (_alimentos) {            
+        showIonicLoading().then(obtenerAlimento).then(function (_alimentos) {
             if($rootScope.logueado == false){
-            $state.go('app.bienvenido');
+                $state.go('app.bienvenido');
             }
             $scope.alimentos = _alimentos;
             $scope.evento = {};
             $scope.txtKiligramaje = {};
             $scope.evento.alimento = "0";
-            
         }).then($ionicLoading.hide).catch($ionicLoading.hide);
 
         $scope.registrar = function () {

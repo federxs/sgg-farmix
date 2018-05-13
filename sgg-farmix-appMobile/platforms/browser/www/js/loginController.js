@@ -6,27 +6,32 @@ angular.module('starter')
         $rootScope.logueado = false;
         $scope.loginData = {};        
         $scope.doLogin = function () {
-            if (($scope.loginData.usuario === undefined || $scope.loginData.usuario === "") || ($scope.loginData.pass === undefined || $scope.loginData.pass === "")) {
-                alert("El usuario y la contrase\u00F1a no pueden estar vac\u00edos.");
-            } else {
-                showIonicLoading().then(validarLogin).then(function (_login) {
-                    if (_login == null) {
-                        $rootScope.logueado = false;
-                        alert("Usuario o contrase\u00F1a incorrecto.");
-                    }else{
-                        if (_login.resultado == "1") {
-                            $rootScope.logueado = true;
-                            $localStorage.usuario = $scope.loginData.usuario;
-                            $localStorage.pass = $scope.loginData.pass;
-                            $localStorage.campo = _login.codigoCampo;
-                            $state.go('app.bienvenido');
-                        }
-                        else {
+            if (conexion.online()) {
+                if (($scope.loginData.usuario === undefined || $scope.loginData.usuario === "") || ($scope.loginData.pass === undefined || $scope.loginData.pass === "")) {
+                    alert("El usuario y la contrase\u00F1a no pueden estar vac\u00edos.");
+                } else {
+                    showIonicLoading().then(validarLogin).then(function (_login) {
+                        if (_login == null) {
                             $rootScope.logueado = false;
                             alert("Usuario o contrase\u00F1a incorrecto.");
+                        } else {
+                            if (_login.resultado == "1") {
+                                $rootScope.logueado = true;
+                                $localStorage.usuario = $scope.loginData.usuario;
+                                $localStorage.pass = $scope.loginData.pass;
+                                $localStorage.campo = _login.codigoCampo;
+                                $localStorage.token = _login.token;
+                                $state.go('app.bienvenido');
+                            }
+                            else {
+                                $rootScope.logueado = false;
+                                alert("Usuario o contrase\u00F1a incorrecto.");
+                            }
                         }
-                    }
-                }).then($ionicLoading.hide).catch($ionicLoading.hide);
+                    }).then($ionicLoading.hide).catch($ionicLoading.hide);
+                }
+            } else {
+                alert("No hay conexi\u00F3n a Internet para ingresar al sistema.");
             }
       }
         function validarLogin() {

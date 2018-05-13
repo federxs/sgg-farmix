@@ -5,9 +5,9 @@
         .module('app')
         .controller('registrarBovinoController', registrarBovinoController);
 
-    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'establecimientoOrigenService', 'rodeoService', 'estadoService', 'categoriaService', 'razaService', 'alimentoService', 'toastr', '$state', '$localStorage'];
+    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'establecimientoOrigenService', 'rodeoService', 'estadoService', 'categoriaService', 'razaService', 'alimentoService', 'toastr', '$state', '$localStorage', '$sessionStorage'];
 
-    function registrarBovinoController($scope, registrarBovinoService, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, toastr, $state, $localStorage) {
+    function registrarBovinoController($scope, registrarBovinoService, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, toastr, $state, $localStorage, $sessionStorage) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.habilitar = false;
@@ -34,6 +34,7 @@
         vm.alimento = new alimentoService();
         var categorias = [];
         var localidadesOriginales = [];
+        var estados = [];
         $('#datetimepicker4').datetimepicker();
         //funciones
         vm.registrar = registrar;
@@ -49,13 +50,16 @@
         vm.agregarCategoria = agregarCategoria;
         vm.agregarRaza = agregarRaza;
         vm.agregarAlimento = agregarAlimento;
-
+        vm.changeEstados = changeEstados;
+        vm.changeCategorias = changeCategorias;
 
         function inicializar() {
             vm.habilitar = false;
             registrarBovinoService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                 vm.estados = data.estados;
+                estados = angular.copy(data.estados);
                 vm.categorias = data.categorias;
+                categorias = angular.copy(data.categorias);
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
@@ -65,6 +69,8 @@
                 vm.bovino = new registrarBovinoService();
                 vm.bovino.genero = 0;
                 vm.rodeo.confinado = 0;
+                vm.changeCategorias();
+                changeEstados();
             }, function error(error) {
                 vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
@@ -78,6 +84,8 @@
             if (vm.bovino.pesoAlNacer !== undefined && vm.bovino.pesoAlNacer !== '')
                 vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
             //vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
+            vm.bovino.usuario = $sessionStorage.usuarioInfo.usuario;
+            vm.bovino.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.bovino.$save(function (data) {
                 toastr.success('Se agrego con éxito el bovino ', 'Éxito');
                 //vm.habilitar = false;
@@ -85,6 +93,7 @@
                 vm.showSpinner = false;
             }, function (error) {
                 vm.showSpinner = false;
+                vm.habilitar = false;
                 if (error.statusText === 'Bovino ya existe') {
                     toastr.warning('Ya existe un bovino con ese número de caravana', 'Advertencia');
                     var fecha = vm.bovino.fechaNacimiento.split('/');
@@ -99,8 +108,8 @@
         function idCaravanaChange() {
             vm.showSpinner = true;
             vm.habilitar = false;
-            if (vm.bovino.numCaravana !== undefined && vm.bovino.numCaravana !== '') {
-                registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.numCaravana }, function (data) {
+            if (vm.bovino.numCaravana) {
+                registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.numCaravana, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                     if (data[0] === "1") {
                         vm.formRegistrarBovino.idCaravana.$setValidity("existeIdCaravana", false);
                     }
@@ -246,7 +255,7 @@
             vm.habilitar = false;
             vm.raza.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.raza.$save(function (data) {
-                toastr.success('Se agrego con éxito el alimento ', 'Éxito');
+                toastr.success('Se agrego con éxito la raza ', 'Éxito');
                 vm.showSpinner = false;
                 $('#modalNuevoRaza').modal('hide');
                 $state.reload();
@@ -265,7 +274,7 @@
             vm.habilitar = false;
             vm.alimento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.alimento.$save(function (data) {
-                toastr.success('Se agrego con éxito el establecimiento origen ', 'Éxito');
+                toastr.success('Se agrego con éxito el alimento ', 'Éxito');
                 vm.showSpinner = false;
                 $('#modalNuevoAlimento').modal('hide');
                 $state.reload();
@@ -277,6 +286,40 @@
                 else
                     toastr.error('La operación no se pudo completar', 'Error');
             });
+        };
+
+        function changeEstados() {
+            if (vm.bovino.genero === '1' || vm.bovino.genero === 1) {
+                vm.estados = [];
+                for (var i = 0; i < estados.length; i++) {
+                    if (estados[i].genero === 1 || estados[i].genero === 2)
+                        vm.estados.push(estados[i]);
+                }
+            }
+            else if (vm.bovino.genero === '0' || vm.bovino.genero === 0) {
+                vm.estados = [];
+                for (var i = 0; i < estados.length; i++) {
+                    if (estados[i].genero === 0 || estados[i].genero === 2)
+                        vm.estados.push(estados[i]);
+                }
+            }
+        };
+
+        function changeCategorias() {
+            if (vm.bovino.genero === '1') {
+                vm.categorias = [];
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].genero === 1)
+                        vm.categorias.push(categorias[i]);
+                }
+            }
+            else if (vm.bovino.genero === '0' || vm.bovino.genero === 0) {
+                vm.categorias = [];
+                for (var i = 0; i < categorias.length; i++) {
+                    if (categorias[i].genero === 0)
+                        vm.categorias.push(categorias[i]);
+                }
+            }
         };
     }
 })();

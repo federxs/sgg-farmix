@@ -18,10 +18,11 @@
                 },
 				existeIdCaravana: {
 					method: 'GET',
-					url: portalService.getUrlServer() + 'api/Bovino/existeIdCaravana/:idCaravana',
+					url: portalService.getUrlServer() + 'api/Bovino/existeIdCaravana/:idCaravana/:codigoCampo',
 					headers: portalService.getHeadersServer(),
                     params: {
-                        idCaravana: '@idCaravana'
+                        idCaravana: '@idCaravana',
+                        codigoCampo: '@codigoCampo'
                     },
                     isArray: false
 				},

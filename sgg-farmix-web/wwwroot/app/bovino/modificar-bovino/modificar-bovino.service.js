@@ -35,12 +35,13 @@
             })
         }
 
-        function existeIdCaravana(idCaravana) {
+        function existeIdCaravana(idCaravana, codigoCampo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Bovino/existeIdCaravana',
                 params: {
-                    idCaravana: idCaravana
+                    idCaravana: idCaravana,
+                    codigoCampo, codigoCampo
                 },
                 headers: portalService.getHeadersServer(),
                 isArray: false

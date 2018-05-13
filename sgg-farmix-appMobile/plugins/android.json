@@ -13,6 +13,9 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.farmix.appMobile"
         },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.farmix.appMobile"
+        },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.farmix.appMobile"
         },
@@ -22,13 +25,13 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.farmix.appMobile"
         },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.farmix.appMobile"
+        },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.farmix.appMobile"
         },
         "phonegap-nfc": {
-            "PACKAGE_NAME": "com.farmix.appMobile"
-        },
-        "cordova-sqlite-storage": {
             "PACKAGE_NAME": "com.farmix.appMobile"
         }
     },

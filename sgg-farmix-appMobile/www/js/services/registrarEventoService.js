@@ -6,7 +6,8 @@
             $http({
                 method: 'POST',
                 url: eventoUrl,
-                params: { evento: evento, lista: $rootScope.idVacas.toString() }
+                params: { evento: evento, lista: $rootScope.idVacas.toString() },
+                headers: portalService.getHeadersServer()
             });
         };
     });

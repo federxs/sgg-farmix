@@ -21,8 +21,11 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametros = new Dictionary<string, object>
                 {                    
                     {"@nombre", entity.nombre },
-                    {"@descripcion", entity.descripcion }
+                    {"@descripcion", entity.descripcion },
+                    {"@codigoCampo", entity.codigoCampo }
                 };
+                if (entity.genero < 2)
+                    parametros.Add("@genero", entity.genero);
 
                 entity.idEstado = connection.Execute("spRegistrarEstado", parametros, System.Data.CommandType.StoredProcedure);
                 if (entity.idEstado == 0)
@@ -61,14 +64,14 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Estado> GetList(long idAmbito)
+        public IEnumerable<Estado> GetList(long codigoCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@idAmbitoEstado", idAmbito }
+                    {"@codigoCampo", codigoCampo }
                 };
                 var lista = connection.GetArray<Estado>("spGetEstados", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;

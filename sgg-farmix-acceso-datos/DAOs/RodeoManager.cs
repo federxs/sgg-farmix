@@ -20,7 +20,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametros = new Dictionary<string, object>
                 {
                     {"@confinado", entity.confinado },
-                    {"@nombre", entity.nombre },                    
+                    {"@nombre", entity.nombre },
                     {"@codigoCampo", entity.idCampo }
                 };
 
@@ -47,12 +47,9 @@ namespace sgg_farmix_acceso_datos.DAOs
             try
             {
                 connection = new SqlServerConnection();
-                Dictionary<string, object> parametros = null;
-                if (idCampo != 0)
-                {
-                    parametros = new Dictionary<string, object>();
-                    parametros.Add("@idCampo", idCampo);
-                }
+                var parametros = new Dictionary<string, object> {
+                    {"@idCampo",  idCampo}
+                };
                 var lista = connection.GetArray<Rodeo>("spGetRodeos", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }

@@ -1,5 +1,6 @@
 ﻿using sgg_farmix_acceso_datos.DAOs;
 using sgg_farmix_acceso_datos.Model;
+using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Vacuna/GetList")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<Vacuna> GetList(string idCampo)
         {
             try
@@ -33,5 +35,6 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
     }
 }

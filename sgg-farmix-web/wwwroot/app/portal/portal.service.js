@@ -1,14 +1,13 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('app').service('portalService', function ($sessionStorage) {//usuarioInfo) {
+    angular.module('app').service('portalService', function ($sessionStorage, $localStorage) {//usuarioInfo) {
         var portalService = {};
 
         portalService.getUrlServer = function () {
             return "http://localhost:2424/";
             //return "http://farmix.somee.com/";
             //return "http://ec2-54-232-203-99.sa-east-1.compute.amazonaws.com:2424/";
-            //return "http://54.232.203.99:2424/";
         };
 
         portalService.getHeadersServer = function () {
@@ -19,6 +18,10 @@
         portalService.getContentUndefined = function () {
             var headers = { 'Authorization': $sessionStorage.usuarioInfo.token, 'Content-Type': undefined };
             return headers;
+        };
+
+        portalService.getFolderImagenCampo = function () {
+            return "Images\\Campo\\";
         };
 
         /*portal.getDefaultUsuarioImagen = function () {

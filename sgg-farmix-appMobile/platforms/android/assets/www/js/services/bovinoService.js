@@ -1,16 +1,16 @@
 ﻿angular.module('starter')
-    .service('bovinoService', function ($http, portalService) {
+    .service('bovinoServiceHTTP', function ($http, portalService) {
         var bovinoUrl = portalService.getUrlServer() + "api/Bovino/initModificacion?";
         var bovinosUrl = portalService.getUrlServer() + "api/Bovino/getListaTags?idCampo=";
         var escribirUrl = portalService.getUrlServer() + "api/Bovino/escribirTag";
         this.getDatosBovino = function (id, idCampo) {
-            if (id != "") {
+            if (id != "" || id != undefined) {
                 for (var i = 0; i < id.length; i++) {
                     if (id.charAt(i) != '0' && id.charAt(i) != '1' && id.charAt(i) != '2' && id.charAt(i) != '3' && id.charAt(i) != '4' && id.charAt(i) != '5' && id.charAt(i) != '6' && id.charAt(i) != '7' && id.charAt(i) != '8' && id.charAt(i) != '9') {
                         return null
                     }
                 }
-                return $http.get(bovinoUrl + "idBovino=" + id + "&idCampo=" + idCampo).then(function (respuesta) {
+                return $http.get(bovinoUrl + "idBovino=" + id + "&idCampo=" + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
                     if (respuesta.data.bovino != null) {
                         for (var i = 0; i < respuesta.data.categorias.length; i++) {
                             if (respuesta.data.categorias[i].idCategoria == respuesta.data.bovino.idCategoria) {
@@ -40,6 +40,7 @@
         
         this.getBovinos = function (idCampo) {
             return $http.get(bovinosUrl + idCampo).then(function (respuesta) {
+            //return $http.get(bovinosUrl + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
                 return respuesta.data;
             })
         }
@@ -48,7 +49,136 @@
             $http({
                 method: 'PUT',
                 url: escribirUrl,
-                params: { idBovino: id }
+                params: { idBovino: id },
+                headers: portalService.getHeadersServer()
             });
         };
+
+        this.actualizarBovinosBackend = function (bovinos) {
+            for (var i = 0; i < bovinos.length; i++) {
+                $http({
+                    method: 'PUT',
+                    url: escribirUrl,
+                    params: { idBovino: bovinos[i].idBovino },
+                    headers: portalService.getHeadersServer()
+                }); 
+            }
+        }
+    })
+
+    .service('bovinoServiceDB', function ($q, $rootScope) {
+        this.getDatosBovino = function (id) {
+            return $q(function (resolve, reject) {
+                $rootScope.db.executeSql("SELECT * FROM Bovino WHERE idBovino=?", [id],
+                  function (resultado) {
+                      resolve(resultado.rows.item(0));
+                  },
+                  reject);
+            });
+        }
+
+        this.actualizarDatosBovino = function (bovino) {
+            $rootScope.db.executeSql("UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, escrito=?, fechaEstimadaParto=?, paraActualizar=0 WHERE idBovino=?", [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, bovino.genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.idBovino]);
+        }
+        
+        this.getBovinos = function () {
+            return $q(function (resolve, reject) {
+                $rootScope.db.executeSql("SELECT * FROM Bovino", [],
+                  function (resultado) {
+                      resolve(rows(resultado));
+                  },
+                  reject);
+            });
+        }
+
+        this.actualizarBovinos = function (bovinos) {
+            var sqlStatments = [];
+            bovinos.forEach(function (bovino) {
+                sqlStatments.push(["INSERT OR IGNORE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, paraActualizar, fechaEstimadaParto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, bovino.genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada]]);
+            });
+
+            return $q(function (resolve, reject) {
+                $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
+            });
+        }
+
+        this.escribirTag = function (id) {
+            $rootScope.db.executeSql("UPDATE Bovino SET escrito=1, paraActualizar=1 WHERE idBovino=?", [id]);
+        };
+
+        this.getBovinosParaActualizarBackend = function () {
+            return $q(function (resolve, reject) {
+                $rootScope.db.executeSql("SELECT * FROM Bovino WHERE paraActualizar=1", [],
+                  function (resultado) {
+                      resolve(rows(resultado));
+                  },
+                  reject);
+            });
+        };
+
+        this.actualizarBovinosActualizados = function (bovinos) {
+            var sqlStatments = [];
+            bovinos.forEach(function (bovino) {
+                //creo que se podria hacer con un solo update, con un idBovino IN (idsBovinos), pero no tengo ganas de verlo ahora
+                sqlStatments.push(["UPDATE Bovino SET paraActualizar=0 WHERE idBovino=?", [bovino.idBovino]]);
+            });
+
+            return $q(function (resolve, reject) {
+                $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
+            });
+        }; 
+
+        function rows(resultado) {
+            var items = [];
+            for (var i = 0; i < resultado.rows.length; i++) {
+                items.push(resultado.rows.item(i));
+            }
+            return items;
+        };
+    })
+
+    .service('bovinoService', function (bovinoServiceHTTP, bovinoServiceDB, conexion) {
+        this.getDatosBovino = function (id, idCampo) {
+            if (conexion.online()) {
+                var bovino;
+                return bovinoServiceHTTP.getDatosBovino(id, idCampo)
+                    .then(function (respuesta) { bovino = respuesta; })
+                    .then(function () { bovinoServiceDB.actualizarDatosBovino(bovino); })
+                    .then(function () { return bovino; });
+            } else {
+                return bovinoServiceDB.getDatosBovino(id);
+            }
+        }
+
+        this.getBovinos = function (idCampo) {
+            if (conexion.online()) {
+                var bovinos;
+                return bovinoServiceHTTP.getBovinos(idCampo)
+                    .then(function (respuesta) { bovinos = respuesta; })
+                    .then(function () { bovinoServiceDB.actualizarBovinos(bovinos); })
+                    .then(function () { return bovinos; });
+            } else {
+                return bovinoServiceDB.getBovinos();
+            }
+        }
+
+        this.escribirTag = function (id) {
+            if (conexion.online()) {
+                bovinoServiceHTTP.escribirTag(id)
+            } else {
+                bovinoServiceDB.escribirTag(id);
+            }
+        };
+
+        this.actualizarBovinosBackend = function () {
+            if (conexion.online()) {
+                var bovinos;
+                return bovinoServiceDB.getBovinosParaActualizarBackend()
+                    .then(function (respuesta) { bovinos = respuesta; })
+                    .then(function () { bovinoServiceHTTP.actualizarBovinosBackend(bovinos); })
+                    /*Ver si no hay errores antes de tirar, como ver errores? Ni idea ahora, no se si las promesas "funcionan" asi.
+                    .then(function () { bovinoServiceDB.actualizarBovinosActualizados(bovinos); });
+                    */
+            }
+        }
     });

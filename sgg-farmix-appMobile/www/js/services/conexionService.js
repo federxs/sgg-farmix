@@ -14,4 +14,4 @@
         $rootScope.online = navigator.onLine ? navigator.onLine : navigator.connection.type != "none";
         document.addEventListener("online", function () { cambiarEstado(true); }, false);
         document.addEventListener("offline", function () { cambiarEstado(false); }, false);
-});
+    });
