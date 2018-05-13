@@ -10,8 +10,29 @@
     function resolverConflictoController($scope) {
         var vm = this;
 
-        activate();
+        /////VARIABLES
+        vm.eventoAnterior = {};
+        vm.eventoResultante = {};
+        vm.eventoNuevo = {};
+        vm.maxDate = new Date();
 
-        function activate() { }
+        /////METODOS
+        vm.init = init();
+        vm.seleccionarEvento = seleccionarEvento();
+
+        init();
+
+        function init() { }
+
+        function seleccionarEvento(evento) {
+            vm.eventoResultante.fecha = evento.fecha;
+            vm.eventoResultante.cantidad = evento.cantidad;
+            vm.eventoResultante.tipoEvento = evento.tipoEvento;
+            vm.eventoResultante.vacuna = evento.vacuna;
+            vm.eventoResultante.antibiotico = evento.antibiotico;
+            vm.eventoResultante.alimento = evento.alimento;
+            vm.eventoResultante.rodeoDestino = evento.rodeoDestino;
+            vm.eventoResultante.campoDestino = evento.campoDestino;
+        }
     }
 })();

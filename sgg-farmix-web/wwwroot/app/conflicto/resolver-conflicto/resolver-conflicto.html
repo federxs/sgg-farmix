@@ -12,112 +12,196 @@
     <div>
         <p>Seleccione los datos que desea mantener</p>
     </div>
-    <div class="row">
-        <div class="col-xs-4">
-            <p>Evento Anterior</p>
-            <div class="form-group">
-                <label>Fecha</label>
-                <input type="date" class="form-control" placeholder="Fecha">
+    <form name="formResolverConflicto" novalidate>
+        <div class="row">
+            <div class="col-xs-4">
+                <!--Inicio Columna de Anterior-->
+                <h4>Evento Anterior</h4>
+                <div class="form-group">
+                    <label class="control-label">Fecha</label>
+                    <input type="date" class="form-control" placeholder="Fecha"
+                           ng-model="eventoAnterior.fecha">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Cantidad</label>
+                    <input type="number" class="form-control" placeholder="Cantidad"
+                           ng-model="eventoAnterior.cantidad">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Tipo de Evento</label>
+                    <input type="text" class="form-control" placeholder="Tipo de Evento"
+                           ng-model="eventoAnterior.tipoEvento">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Vacuna</label>
+                    <input type="text" class="form-control" placeholder="Vacuna"
+                           ng-model="eventoAnterior.vacuna">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Antibiótico</label>
+                    <input type="text" class="form-control" placeholder="Antibiótico"
+                           ng-model="eventoAnterior.antibiotico">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Alimento</label>
+                    <input type="text" class="form-control" placeholder="Alimento"
+                           ng-model="eventoAnterior.alimento">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Rodeo Destino</label>
+                    <input type="text" class="form-control" placeholder="Rodeo Destino"
+                           ng-model="eventoAnterior.rodeoDestino">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Campo Destino</label>
+                    <input type="text" class="form-control" placeholder="Campo Destino"
+                           ng-model="eventoAnterior.campoDestino">
+                </div>
+
+                <button type="button" class="btn btn-primary"
+                        ng-click="seleccionarEvento(eventoAnterior)">
+                    Seleccionar este evento
+                </button>
             </div>
-            <div class="form-group">
-                <label>Cantidad</label>
-                <input type="number" class="form-control" placeholder="Cantidad">
+            <!--Inicio Columna de Resultado-->
+            <div class="col-xs-4">
+                <h4>Resultado</h4>
+                <div class="form-group">
+                    <label class="control-label">Fecha</label>
+                    <input type="date" class="form-control" placeholder="Fecha" name="fecha" min="2000-01-01" max="{{maxDate | date:'yyyy-MM-dd'}}"
+                           ng-model="eventoResultante.fecha">
+                    <div ng-show="formResolverConflicto.fecha.$touched">
+                        <span class="help-block" ng-show="formResolverConflicto.fecha.$error.required">
+                            Este campo es requerido
+                        </span>
+                        <span class="help-block" ng-show="formResolverConflicto.fecha.$error.max || formResolverConflicto.fecha.$error.min">
+                            Debe ingresar una fecha válida
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Cantidad</label>
+                    <input type="number" class="form-control" placeholder="Cantidad" name="cantidad"
+                           ng-model="eventoResultante.cantidad">
+                    <div ng-show="formResolverConflicto.cantidad.$touched">
+                        <span class="help-block" ng-if="formResolverConflicto.cantidad.$error.required || eventoResultante.cantidad == 0 ">
+                            Este campo es requerido
+                        </span>
+                        <span class="help-block" ng-if="formResolverConflicto.cantidad.$error.min">
+                            La cantidad no puede ser negativa
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Tipo de Evento</label>
+                    <input type="text" class="form-control" placeholder="Tipo de Evento" name="tipoEvento"
+                           ng-model="eventoResultante.tipoEvento">
+                    <div ng-show="formResolverConflicto.tipoEvento.$touched">
+                        <span class="help-block" ng-if="formResolverConflicto.tipoEvento.$error.required">
+                            Este campo es requerido
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Vacuna</label>
+                    <input type="text" class="form-control" placeholder="Vacuna" name="vacuna"
+                           ng-model="eventoResultante.vacuna">
+                    <div ng-show="formResolverConflicto.vacuna.$touched">
+                        <span class="help-block" ng-if="formResolverConflicto.vacuna.$error.required">
+                            Este campo es requerido
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Antibiótico</label>
+                    <input type="text" class="form-control" placeholder="Antibiótico" name="antibiotico"
+                           ng-model="eventoResultante.antibiotico">
+                    <div ng-show="formResolverConflicto.antibiotico.$touched">
+                        <span class="help-block" ng-if="formResolverConflicto.antibiotico.$error.required">
+                            Este campo es requerido
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Alimento</label>
+                    <input type="text" class="form-control" placeholder="Alimento" name="alimento"
+                           ng-model="eventoResultante.alimento">
+                    <div ng-show="formResolverConflicto.alimento.$touched">
+                        <span class="help-block" ng-if="formResolverConflicto.alimento.$error.required">
+                            Este campo es requerido
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Rodeo Destino</label>
+                    <input type="text" class="form-control" placeholder="Rodeo Destino" name="rodeoDestino"
+                           ng-model="eventoResultante.rodeoDestino">
+                    <div ng-show="formResolverConflicto.rodeoDestino.$touched">
+                        <span class="help-block" ng-if="formResolverConflicto.rodeoDestino.$error.required">
+                            Este campo es requerido
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Campo Destino</label>
+                    <input type="text" class="form-control" placeholder="Campo Destino" name="campoDestino"
+                           ng-model="eventoResultante.campoDestino">
+                    <div ng-show="formResolverConflicto.campoDestino.$touched">
+                        <span class="help-block" ng-if="formResolverConflicto.campoDestino.$error.required">
+                            Este campo es requerido
+                        </span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Tipo de Evento</label>
-                <input type="text" class="form-control" placeholder="Tipo de Evento">
-            </div>
-            <div class="form-group">
-                <label>Vacuna</label>
-                <input type="text" class="form-control" placeholder="Vacuna">
-            </div>
-            <div class="form-group">
-                <label>Antibiótico</label>
-                <input type="text" class="form-control" placeholder="Antibiótico">
-            </div>
-            <div class="form-group">
-                <label>Alimento</label>
-                <input type="text" class="form-control" placeholder="Alimento">
-            </div>
-            <div class="form-group">
-                <label>Rodeo Destino</label>
-                <input type="text" class="form-control" placeholder="Rodeo Destino">
-            </div>
-            <div class="form-group">
-                <label>Campo Destino</label>
-                <input type="text" class="form-control" placeholder="Campo Destino">
+            <!--Inicio Columna de Nuevo-->
+            <div class="col-xs-4">
+                <h4>Evento Nuevo</h4>
+                <div class="form-group">
+                    <label class="control-label">Fecha</label>
+                    <input type="date" class="form-control" placeholder="Fecha"
+                           ng-model="eventoNuevo.fecha">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Cantidad</label>
+                    <input type="number" class="form-control" placeholder="Cantidad"
+                           ng-model="eventoNuevo.cantidad">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Tipo de Evento</label>
+                    <input type="text" class="form-control" placeholder="Tipo de Evento"
+                           ng-model="eventoNuevo.tipoEvento">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Vacuna</label>
+                    <input type="text" class="form-control" placeholder="Vacuna"
+                           ng-model="eventoNuevo.vacuna">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Antibiótico</label>
+                    <input type="text" class="form-control" placeholder="Antibiótico"
+                           ng-model="eventoNuevo.antibiotico">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Alimento</label>
+                    <input type="text" class="form-control" placeholder="Alimento"
+                           ng-model="eventoNuevo.alimento">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Rodeo Destino</label>
+                    <input type="text" class="form-control" placeholder="Rodeo Destino"
+                           ng-model="eventoNuevo.rodeoDestino">
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Campo Destino</label>
+                    <input type="text" class="form-control" placeholder="Campo Destino"
+                           ng-model="eventoNuevo.campoDestino">
+                </div>
+
+                <button type="button" class="btn btn-primary"
+                        ng-click="seleccionarEvento(eventoNuevo)">
+                    Seleccionar este evento
+                </button>
             </div>
         </div>
-        <div class="col-xs-4">
-            <p>Resultado</p>
-            <div class="form-group">
-                <label>Fecha</label>
-                <input type="date" class="form-control" placeholder="Fecha">
-            </div>
-            <div class="form-group">
-                <label>Cantidad</label>
-                <input type="number" class="form-control" placeholder="Cantidad">
-            </div>
-            <div class="form-group">
-                <label>Tipo de Evento</label>
-                <input type="text" class="form-control" placeholder="Tipo de Evento">
-            </div>
-            <div class="form-group">
-                <label>Vacuna</label>
-                <input type="text" class="form-control" placeholder="Vacuna">
-            </div>
-            <div class="form-group">
-                <label>Antibiótico</label>
-                <input type="text" class="form-control" placeholder="Antibiótico">
-            </div>
-            <div class="form-group">
-                <label>Alimento</label>
-                <input type="text" class="form-control" placeholder="Alimento">
-            </div>
-            <div class="form-group">
-                <label>Rodeo Destino</label>
-                <input type="text" class="form-control" placeholder="Rodeo Destino">
-            </div>
-            <div class="form-group">
-                <label>Campo Destino</label>
-                <input type="text" class="form-control" placeholder="Campo Destino">
-            </div>
-        </div>
-        <div class="col-xs-4">
-            <p>Evento Nuevo</p>
-            <div ng-include="'./inputs.html'"></div>
-            <div class="form-group">
-                <label>Fecha</label>
-                <input type="date" class="form-control" placeholder="Fecha">
-            </div>
-            <div class="form-group">
-                <label>Cantidad</label>
-                <input type="number" class="form-control" placeholder="Cantidad">
-            </div>
-            <div class="form-group">
-                <label>Tipo de Evento</label>
-                <input type="text" class="form-control" placeholder="Tipo de Evento">
-            </div>
-            <div class="form-group">
-                <label>Vacuna</label>
-                <input type="text" class="form-control" placeholder="Vacuna">
-            </div>
-            <div class="form-group">
-                <label>Antibiótico</label>
-                <input type="text" class="form-control" placeholder="Antibiótico">
-            </div>
-            <div class="form-group">
-                <label>Alimento</label>
-                <input type="text" class="form-control" placeholder="Alimento">
-            </div>
-            <div class="form-group">
-                <label>Rodeo Destino</label>
-                <input type="text" class="form-control" placeholder="Rodeo Destino">
-            </div>
-            <div class="form-group">
-                <label>Campo Destino</label>
-                <input type="text" class="form-control" placeholder="Campo Destino">
-            </div>
-        </div>
-    </div>
+    </form>
 </div>
