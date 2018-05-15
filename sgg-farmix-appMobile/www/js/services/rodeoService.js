@@ -21,8 +21,14 @@
 
         this.actualizarRodeos = function (rodeos) {
             var sqlStatments = [];
+            var confinado;
             rodeos.forEach(function (rodeo) {
-                sqlStatments.push(["INSERT OR IGNORE INTO Rodeo(idRodeo, nombre, confinado) VALUES(?, ?, ?)", [rodeo.idAlimento, rodeo.nombre, rodeo.confinado]]);
+                if (rodeo.confinado) {
+                    confinado = 1;
+                } else {
+                    confinado = 0;
+                }
+                sqlStatments.push(["INSERT OR IGNORE INTO Rodeo(idRodeo, nombre, confinado) VALUES(?, ?, ?)", [rodeo.idAlimento, rodeo.nombre, confinado]]);
             });
 
             return $q(function (resolve, reject) {
