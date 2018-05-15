@@ -37,6 +37,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
                 connection.Close();
+                connection = null;
             }
         }
 

@@ -119,7 +119,7 @@
                 <tr>
                     <td>
                         <label for="items">Registros por página</label>
-                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="deshabilitar">
+                        <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="deshabilitar">
                     </td>
                     <td colspan="5" class="text-center">
                         <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>

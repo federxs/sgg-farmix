@@ -14,7 +14,31 @@ namespace sgg_farmix_acceso_datos.DAOs
         private SqlServerConnection connection;
         public Antibiotico Create(Antibiotico entity)
         {
-            throw new NotImplementedException();
+            connection = new SqlServerConnection();
+            try
+            {
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@nombre", entity.nombre },
+                    {"@codigoCampo", entity.codigoCampo }
+                };
+
+                entity.idAntibiotico = connection.Execute("spRegistrarAntibiotico", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.idAntibiotico == 0)
+                    throw new ArgumentException("Create Antibiotico Error");
+                else if (entity.idAntibiotico == -1)
+                    throw new ArgumentException("Antibiotico ya existe");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
         }
 
         public void Delete(long id)

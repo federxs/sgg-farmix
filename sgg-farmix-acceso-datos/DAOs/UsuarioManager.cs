@@ -276,5 +276,28 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = null;
             }
         }
+
+        public Usuario GetPerfil(string usuario)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@usuario", usuario }
+                };
+                var perfil = connection.GetArray<Usuario>("spObtenerPerfilUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                return perfil;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }

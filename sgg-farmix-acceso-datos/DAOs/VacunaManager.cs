@@ -14,7 +14,31 @@ namespace sgg_farmix_acceso_datos.DAOs
         private SqlServerConnection connection;
         public Vacuna Create(Vacuna entity)
         {
-            throw new NotImplementedException();
+            connection = new SqlServerConnection();
+            try
+            {
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@nombre", entity.nombre },
+                    {"@codigoCampo", entity.codigoCampo }
+                };
+
+                entity.idVacuna = connection.Execute("spRegistrarVacuna", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.idVacuna == 0)
+                    throw new ArgumentException("Create Vacuna Error");
+                else if (entity.idVacuna == -1)
+                    throw new ArgumentException("Vacuna ya existe");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
         }
 
         public void Delete(long id)

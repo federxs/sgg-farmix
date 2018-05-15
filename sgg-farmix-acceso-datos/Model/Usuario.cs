@@ -17,6 +17,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string fechaBaja { get; set; }
         public long idRol { get; set; }
         public long idPlan { get; set; }
+        public string rol { get; set; }
     }
 
     public class UsuarioFilter

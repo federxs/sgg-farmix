@@ -9,7 +9,8 @@
 
     function configuracionService($http, portalService) {
         var service = {
-            inicializar: inicializar
+            inicializar: inicializar,
+            getDatosPerfilUsuario: getDatosPerfilUsuario
         };
 
         function inicializar(id) {
@@ -22,7 +23,19 @@
             function (data) {
                 return data.data || [];
             });
-        }        
+        }
+
+        function getDatosPerfilUsuario(usuario) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Usuario/GetDatosPerfil',
+                params: { usuario: usuario },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
 
         return service;
     }

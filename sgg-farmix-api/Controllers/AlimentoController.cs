@@ -18,6 +18,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Alimento/GetList")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<Alimento> GetList(string idCampo)
         {
             try

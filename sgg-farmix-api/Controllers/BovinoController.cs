@@ -67,6 +67,7 @@ namespace sgg_farmix_api.Controllers
         }
 
         [HttpGet]
+        [AutorizationToken]
         public BovinoFilter GetFilter()
         {
             try
@@ -164,6 +165,7 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
+        [AutorizationToken]
         public int Delete([FromBody] Bovino value)
         {
             try
@@ -293,6 +295,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/getListaTags")]
         [HttpGet]
+        [AutorizationToken]
         public IEnumerable<TagBovino> GetTagsBovinos(string idCampo)
         {
             try
@@ -312,6 +315,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Bovino/escribirTag")]
         [HttpPut]
+        [AutorizationToken]
         public bool EscribirTag(string idBovino)
         {
             try

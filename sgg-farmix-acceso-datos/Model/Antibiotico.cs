@@ -10,5 +10,6 @@ namespace sgg_farmix_acceso_datos.Model
     {
         public long idAntibiotico { get; set; }
         public string nombre { get; set; }
+        public long codigoCampo { get; set; }
     }
 }

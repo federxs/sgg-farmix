@@ -191,5 +191,24 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Usuario/GetDatosPerfil")]
+        [HttpGet]
+        [AutorizationToken]
+        public Usuario GetPerfil(string usuario)
+        {
+            try
+            {
+                return UM.GetPerfil(usuario);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

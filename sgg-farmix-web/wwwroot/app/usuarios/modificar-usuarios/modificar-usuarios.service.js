@@ -35,7 +35,8 @@
             function (data) {
                 return data.data || [];
             });
-        }
+        }   
+
 
         return service;
     }

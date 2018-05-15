@@ -186,7 +186,7 @@
                 <tr>
                     <td>
                         <label for="items" ng-show="rowCollection.length > 1">Registros por página</label>
-                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">
+                        <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">
                         <!--<select class="input-sm form-control"
                                 ng-model="itemsPorPagina">
                             <option value="10">10</option>
@@ -243,7 +243,7 @@
                 <tr>
                     <td>
                         <label for="items" ng-show="rowCollection.length > 1">Registros por página</label>
-                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">
+                        <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">
                         <!--<select class="input-sm form-control"
                                 ng-model="itemsPorPagina">
                             <option value="10">10</option>
