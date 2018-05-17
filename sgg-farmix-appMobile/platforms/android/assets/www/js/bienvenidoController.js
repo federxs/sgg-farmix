@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('BienvenidoController', function ($scope, $rootScope, $state, $ionicLoading, $ionicPlatform, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService) {
+    .controller('BienvenidoController', function ($scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService) {
         if (!$rootScope.logueado) {
             if (($localStorage.usuario != undefined) && ($localStorage.pass != undefined)) {
                 if (conexion.online()) {
