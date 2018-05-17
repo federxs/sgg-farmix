@@ -3,10 +3,10 @@
         var inseminacionUrl = portalService.getUrlServer() + "api/Inseminacion/";
 
         this.registrarInseminacion = function (inseminacion) {
-			listaToros = '';
-			if($rootScope.idToros != undefined){
-				listaToros = $rootScope.idToros.toString();
-			}
+            listaToros = '';
+            if ($rootScope.idToros != undefined) {
+                listaToros = $rootScope.idToros.toString();
+            }
             $http({
                 method: 'POST',
                 url: inseminacionUrl + "Insert",
@@ -22,23 +22,22 @@
         };
 
         this.actualizarInseminacionesBackend = function (inseminacion) {
-			
+
             //
         };
     })
      .service('inseminacionServiceDB', function ($q, $rootScope) {
+         //
          this.registrarInseminacion = function (inseminacion) {
-             var sqlStatments = [];
-             $rootScope.idVacas.forEach(function (vaca) {
-                 //Ver que id pasarle para la inseminacion
-                 sqlStatments.push(["INSERT OR IGNORE INTO Inseminacion(idInseminacion, idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion, paraActualizar) VALUES(?, ?, ?, ?, ?, 1)", [vaca.idVaca, vaca.idVaca, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, inseminacion.tipoInseminacion]]);
-                 $rootScope.idToros.forEach(function (id) {
-                     sqlStatments.push(["INSERT OR IGNORE INTO TorosXInseminacion(idInseminacion, idToro) VALUES(?, ?)", [vaca.idVaca, id]]);
+             $rootScope.db.transaction(function (tx) {
+                 tx.executeSql("INSERT OR IGNORE INTO EVENTO(idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion, paraActualizar) VALUES(?, ?, ?, ?, 1)", [vaca.idVaca, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, inseminacion.tipoInseminacion]);
+                 var idInseminacion = tx.executeSql("SELECT last_insert_rowid() FROM Inseminacion", [],
+                     function (resultado) {
+                         resolve(resultado.rows.item(0));
+                     }, reject);
+                 $rootScope.idToros.forEach(function (idToro) {
+                     tx.executeSql("INSERT OR IGNORE INTO TorosXInseminacion(idInseminacion, idToro) VALUES(?, ?)", [idInseminacion, idToro]);
                  });
-             });
-
-             return $q(function (resolve, reject) {
-                 $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
              });
          }
 
@@ -78,7 +77,7 @@
                    },
                    reject);
              });
-         }; 
+         };
 
          function rows(resultado) {
              var items = [];

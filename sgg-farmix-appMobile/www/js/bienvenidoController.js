@@ -24,10 +24,11 @@ angular.module('starter')
             }
         }
         $rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
-        if (!$localStorage.ultimaConConexion) {
+        /*if (!$localStorage.ultimaConConexion) {
             //si la ultima vez fue sin conexion, realizar post
             //tirar a los services que hagan el post
-        }
+            va en Background, variable para ver si hay algo para actualizar
+        }*/
         if ($rootScope.logueado == true) {
             alimentoService.getDatosAlimento($localStorage.campo);
             antibioticoService.getDatosAntibiotico($localStorage.campo);

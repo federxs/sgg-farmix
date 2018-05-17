@@ -54,15 +54,13 @@
             });
         };
 
-        this.actualizarBovinosBackend = function (bovinos) {
-            for (var i = 0; i < bovinos.length; i++) {
-                $http({
-                    method: 'PUT',
-                    url: escribirUrl,
-                    params: { idBovino: bovinos[i].idBovino },
-                    headers: portalService.getHeadersServer()
-                });
-            }
+        this.actualizarBovinoBackend = function (bovino) {
+            $http({
+                method: 'PUT',
+                url: escribirUrl,
+                params: { idBovino: bovino.idBovino },
+                headers: portalService.getHeadersServer()
+            });
         }
     })
 
@@ -135,16 +133,8 @@
             });
         };
 
-        this.actualizarBovinosActualizados = function (bovinos) {
-            var sqlStatments = [];
-            bovinos.forEach(function (bovino) {
-                //creo que se podria hacer con un solo update, con un idBovino IN (idsBovinos), pero no tengo ganas de verlo ahora
-                sqlStatments.push(["UPDATE Bovino SET paraActualizar=0 WHERE idBovino=?", [bovino.idBovino]]);
-            });
-
-            return $q(function (resolve, reject) {
-                $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
-            });
+        this.actualizarBovinoActualizado = function (bovino) {
+            $rootScope.db.executeSql("UPDATE Bovino SET paraActualizar=0 WHERE idBovino=?", [bovino.idBovino]);
         };
 
         function rows(resultado) {
@@ -193,11 +183,13 @@
             if (conexion.online()) {
                 var bovinos;
                 return bovinoServiceDB.getBovinosParaActualizarBackend()
-                    .then(function (respuesta) { bovinos = respuesta; })
-                    .then(function () { bovinoServiceHTTP.actualizarBovinosBackend(bovinos); })
-                /*Ver si no hay errores antes de tirar, como ver errores? Ni idea ahora, no se si las promesas "funcionan" asi.
-                .then(function () { bovinoServiceDB.actualizarBovinosActualizados(bovinos); });
-                */
+                    .then(function (respuesta) {
+                        bovinos = respuesta;
+                        for (var i = 0; i < resultado.rows.length; i++) {
+                            bovinoServiceHTTP.actualizarBovinoBackend(bovinos[i]);
+                            bovinoServiceDB.actualizarBovinoActualizado(bovino[i]);
+                        }
+                    })
             }
         }
     });
