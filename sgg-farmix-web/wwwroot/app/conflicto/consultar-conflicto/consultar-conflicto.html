@@ -109,7 +109,6 @@
                     <td>{{item.fecha}}</td>
                     <td>{{item.estado | uppercase}}</td>
                     <td>
-                        <a ui-sref="home.resolverConflicto({idEvento:item.idEvento, idEventoConfl: item.idEventoConflictivo, idInseminacion: item.idInseminacion, idInseminConfl: item.idInseminacionConflictiva})" title="Solucionar" ng-show="item.estado === 'Pendiente'"><span class="glyphicon glyphicon-check"></span></a>
                         <a ui-sref="home.resolverConflicto({id:item.idConflicto})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>                        
                     </td>
                 </tr>
