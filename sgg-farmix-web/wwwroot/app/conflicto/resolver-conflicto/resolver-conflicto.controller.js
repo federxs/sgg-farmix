@@ -11,14 +11,35 @@
         var vm = $scope;
 
         /////VARIABLES
-        vm.eventoAnterior = {};
+        vm.eventoAnterior = {
+            fecha: "01-01-1994",
+            cantidad: 23,
+            tipoEvento: "Manejo",
+            vacuna: "Antirrabica",
+            campoDestino: "CampoLukiense",
+            antibiotico: "Paracetamol",
+            alimento: "Alfafafa",
+            rodeoDestino: "Rodeopijudo"
+        };
+        vm.eventoAnterior.fechaInseminacion = "01-01-1994";
         vm.eventoResultante = {};
-        vm.eventoNuevo = {};
+        vm.eventoNuevo = {
+            fecha: "01-01-1999",
+            cantidad: 234,
+            tipoEvento: "Manejo1",
+            vacuna: "Antirrabica1",
+            campoDestino: "CampoDeLurulu",
+            antibiotico: "Merca",
+            alimento: "Alfafita",
+            rodeoDestino: "Rodeocacon"
+        };
         vm.maxDate = new Date();
 
         /////METODOS
         vm.init = init();
         vm.seleccionarEvento = seleccionarEvento;
+        vm.seleccionarPropiedad = seleccionarPropiedad;
+        vm.isUndefinedOrNull = isUndefinedOrNull;
 
         function init() {
             vm.showSpinner = true;
@@ -48,6 +69,14 @@
             vm.eventoResultante.alimento = evento.alimento;
             vm.eventoResultante.rodeoDestino = evento.rodeoDestino;
             vm.eventoResultante.campoDestino = evento.campoDestino;
+        }
+
+        function seleccionarPropiedad(evento, propiedad) {
+            vm.eventoResultante[propiedad] = evento[propiedad];
+        }
+
+        function isUndefinedOrNull(val) {
+            return angular.isUndefined(val) || val === null
         }
     }
 })();
