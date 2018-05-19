@@ -31,7 +31,6 @@
             exitoso: '',
             tipoTacto: ''
         };
-        //vm.inseminacionAnterior.fechaInseminacion = "01-01-1994";
 
         /////METODOS
         vm.init = init();
