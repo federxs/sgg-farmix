@@ -14,8 +14,8 @@
     </div>
     <form name="formResolverConflicto" novalidate>
         <!--
-        Comienza tacto conflictivo
-    -->
+            Comienza tacto conflictivo
+        -->
         <div ng-if="isUndefinedOrNull(inseminacionAnterior)">
             <div class="row">
                 <div class="col-md-12">
@@ -53,10 +53,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Exitoso</label>
+                        <label class="control-label">Resultado de Tacto</label>
+                        <input type="text" class="form-control" placeholder="Resultado de Tacto"
+                               ng-model="tactoAnterior.resultado" disabled>
                     </div>
                     <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoAnterior, 'exitoso')">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoAnterior, 'resultado')">
                             <span class="glyphicon glyphicon-plus" style="color:white"></span>
                         </button>
                     </div>
@@ -81,14 +83,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Exitoso</label>
+                        <label class="control-label">Resultado de Tacto</label>
+                        <input type="text" class="form-control" placeholder="Resultado de Tacto"
+                               ng-model="tactoResultante.resultado" disabled>
                     </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoResultante, 'exitoso')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
-                    </div>
-
                 </div>
                 <!--Inicio Columna de Nuevo-->
                 <div class="col-md-4">
@@ -116,10 +114,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">Exitoso</label>
+                        <label class="control-label">Resultado de Tacto</label>
+                        <input type="text" class="form-control" placeholder="Resultado de Tacto"
+                               ng-model="tactoNuevo.resultado" disabled>
                     </div>
                     <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'exitoso')">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'resultado')">
                             <span class="glyphicon glyphicon-plus" style="color:white"></span>
                         </button>
                     </div>

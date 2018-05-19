@@ -11,10 +11,10 @@
         var vm = $scope;
 
         /////VARIABLES
-        vm.inseminacionAnterior = {
-            fechaInseminacion: new Date(),
-            tipoInseminacion: 'Montura'
-        };
+        //vm.inseminacionAnterior = {
+        //    fechaInseminacion: new Date(),
+        //    tipoInseminacion: 'Montura'
+        //};
         vm.inseminacionResultante = {};
         vm.inseminacionNueva = {
             fechaInseminacion: new Date(),
@@ -22,13 +22,13 @@
         };
         vm.tactoAnterior = {
             fechaTacto: '',
-            exitoso: '',
+            resultado: '',
             tipoTacto: ''
         };
         vm.tactoResultante = {};
         vm.tactoNuevo = {
             fechaTacto: '',
-            exitoso: '',
+            resultado: '',
             tipoTacto: ''
         };
 
@@ -66,7 +66,7 @@
         function seleccionarTacto(tacto) {
             vm.tactoResultante.fechaTacto = tacto.fechaTacto;
             vm.tactoResultante.tipoTacto = tacto.tipoTacto;
-            vm.tactoResultante.exitoso = tacto.exitoso;
+            vm.tactoResultante.resultado = tacto.resultado;
         }
 
         function seleccionarPropiedadInseminacion(inseminacion, propiedad) {
