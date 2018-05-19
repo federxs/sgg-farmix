@@ -7,6 +7,7 @@ angular.module('starter')
                     $rootScope.logueado = false;
                     $localStorage.usuario = undefined;
                     $localStorage.pass = undefined;
+                    $localStorage.actualizar = true;
                     $state.go('app.bienvenido');
         };
         $scope.cancelar = function () {            

@@ -38,7 +38,9 @@ angular.module('starter')
         }
 
         function registrarEvento() {
-            var evento = { idTipoEvento: 4, idAlimento: $scope.evento.alimento, cantidad: $scope.txtKiligramaje.value };
+            var date = new Date();
+            var formattedDate = moment(date).format('YYYYMMDDHHmmss');
+            var evento = { idTipoEvento: 4, idAlimento: $scope.evento.alimento, cantidad: $scope.txtKiligramaje.value, fechaHora: formattedDate };
             return registrarEventoService.registrarEvento(evento);
         }
 

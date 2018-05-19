@@ -34,9 +34,10 @@
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Bovino(idBovino INTEGER PRIMARY KEY, numCaravana INTEGER, apodo TEXT, descripcion TEXT, fechaNacimiento TEXT, genero INTEGER(1), peso REAL, pesoAlNacer REAL, idCategoria INTEGER, idRaza INTEGER, idRodeo INTEGER, idEstado INTEGER, escrito INTEGER(1), paraActualizar INTEGER(1), fechaEstimadaParto TEXT, FOREIGN KEY(idCategoria) REFERENCES Categoria (idCategoria), FOREIGN KEY(idRaza) REFERENCES Raza (idRaza), FOREIGN KEY(idRodeo) REFERENCES Rodeo (idRodeo), FOREIGN KEY(idEstado) REFERENCES Estado (idEstado))");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Evento(idEvento INTEGER PRIMARY KEY, fechaHora TEXT, cantidad REAL, idTipoEvento INTEGER, idVacuna INTEGER, idAntibiotico INTEGER, idAlimento INTEGER, idRodeoDestino INTEGER, FOREIGN KEY(idTipoEvento) REFERENCES TipoEvento (idTipoEvento), FOREIGN KEY(idVacuna) REFERENCES Vacuna (idVacuna), FOREIGN KEY(idAntibiotico) REFERENCES Antibiotico (idAntibiotico), FOREIGN KEY(idAlimento) REFERENCES Alimento (idAlimento), FOREIGN KEY(idRodeoDestino) REFERENCES Rodeo (idRodeo))");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS EventosXBovino(idBovino INTEGER, idEvento INTEGER, PRIMARY KEY (idBovino, idEvento), FOREIGN KEY (idBovino) REFERENCES Bovino (idBovino), FOREIGN KEY (idEvento) REFERENCES Evento (idEvento))");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Inseminacion(idInseminacion INTEGER PRIMARY KEY, idVaca INTEGER, fechaInseminacion TEXT, fechaEstimadaNacimiento TEXT, tipoInseminacion INTEGER, paraActualizar INTEGER(1), FOREIGN KEY (idVaca) REFERENCES Bovino (idBovino), FOREIGN KEY (tipoInseminacion) REFERENCES TipoInseminacion (idTipo))");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS Inseminacion(idInseminacion INTEGER PRIMARY KEY, idVaca INTEGER, fechaInseminacion TEXT, fechaEstimadaNacimiento TEXT, tipoInseminacion INTEGER, FOREIGN KEY (idVaca) REFERENCES Bovino (idBovino), FOREIGN KEY (tipoInseminacion) REFERENCES TipoInseminacion (idTipo))");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS TorosXInseminacion(idInseminacion INTEGER, idToro INTEGER, PRIMARY KEY(idInseminacion, idToro), FOREIGN KEY (idInseminacion) REFERENCES Inseminacion (idInseminacion), FOREIGN KEY (idToro) REFERENCES Bovino (idBovino))");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Tacto(idInseminacion INTEGER, fechaTacto TEXT, exitoso INTEGER(1), idTipoTacto INTEGER, PRIMARY KEY (idInseminacion, fechaTacto), FOREIGN KEY (idInseminacion) REFERENCES Inseminacion (idInseminacion), FOREIGN KEY (idTipoTacto) REFERENCES TipoTacto (idTipoTacto))");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS Tacto(idInseminacion INTEGER, fechaTacto TEXT, exitoso INTEGER(1), idTipoTacto INTEGER, PRIMARY KEY (idInseminacion, fechaTacto), FOREIGN KEY (idTipoTacto) REFERENCES TipoTacto (idTipoTacto))");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS InseminacionPendiente(idInseminacion INTEGER PRIMARY KEY, fechaInseminacion TEXT, tipoInseminacion INTEGER, idVaca INTEGER, FOREIGN KEY (tipoInseminacion) REFERENCES TipoInseminacion (idTipo))");
 
                 tx.executeSql("CREATE TABLE IF NOT EXISTS TipoInseminacion(idTipo INTEGER PRIMARY KEY, descripcion TEXT)");
                 tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(1, 'Artificial')");
@@ -68,39 +69,35 @@
                 if ($rootScope.idVacas == undefined || estaEscaneado($scope.id) == false) {
                     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
                         if (_bovino != null && _bovino.borrado == false) {
-                            if ($state.current.name != "app.antibiotico" || _bovino.idEstado == "Enfermo") {
-                                if ($state.current.name == "app.registrarInseminacion") {
-                                    if ($rootScope.evento.tipoInseminacion == "2" && _bovino.genero == 1) {
-                                        if ($rootScope.toros == undefined || $rootScope.toros == null) {
-                                            $rootScope.toros = [];
-                                            $rootScope.idToros = [];
+                            if ($state.current.name == "app.registrarInseminacion") {
+                                if ($rootScope.evento.tipoInseminacion == "2" && _bovino.genero == 1) {
+                                    if ($rootScope.toros == undefined || $rootScope.toros == null) {
+                                        $rootScope.toros = [];
+                                        $rootScope.idToros = [];
+                                    }
+                                    $rootScope.toros.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
+                                    $rootScope.idToros.push($scope.id);
+                                } else if (_bovino.genero == 0) {
+                                    if (_bovino.idEstado == "Activo" && (_bovino.idCategoria == "Ternera" || _bovino.idCategoria == "Vaquilla" || _bovino.idCategoria == "Vaquillona")) {
+                                        if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
+                                            $rootScope.vacas = [];
+                                            $rootScope.idVacas = [];
                                         }
-                                        $rootScope.toros.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
-                                        $rootScope.idToros.push($scope.id);
-                                    } else if (_bovino.genero == 0) {
-                                        if (_bovino.idEstado == "Activo" && (_bovino.idCategoria == "Ternera" || _bovino.idCategoria == "Vaquilla" || _bovino.idCategoria == "Vaquillona")) {
-                                            if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
-                                                $rootScope.vacas = [];
-                                                $rootScope.idVacas = [];
-                                            }
-                                            $rootScope.vacas.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
-                                            $rootScope.idVacas.push($scope.id);
-                                        } else {
-                                            alert("Esta vaca no puede ser inseminada");
-                                        }
+                                        $rootScope.vacas.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
+                                        $rootScope.idVacas.push($scope.id);
                                     } else {
-                                        alert("Un toro no puede ser inseminado, modifique el tipo de inseminaci\u00F3n");
+                                        alert("Esta vaca no puede ser inseminada");
                                     }
                                 } else {
-                                    if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
-                                        $rootScope.vacas = [];
-                                        $rootScope.idVacas = [];
-                                    }
-                                    $rootScope.vacas.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
-                                    $rootScope.idVacas.push($scope.id);
+                                    alert("Un toro no puede ser inseminado, modifique el tipo de inseminaci\u00F3n");
                                 }
                             } else {
-                                alert("El animal registrado no se encuentra enfermo");
+                                if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
+                                    $rootScope.vacas = [];
+                                    $rootScope.idVacas = [];
+                                }
+                                $rootScope.vacas.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
+                                $rootScope.idVacas.push($scope.id);
                             }
                         } else {
                             alert("El tag escaneado no se encuentra dentro de los animales registrados");

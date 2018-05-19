@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('RegistrarInseminacionController', function ($scope, $rootScope, inseminacionService, $ionicLoading, $state) {
+    .controller('RegistrarInseminacionController', function ($scope, $rootScope, inseminacionService, $ionicLoading, $state, $localStorage) {
         if($rootScope.logueado == false){
             $state.go('app.bienvenido');
         }
@@ -38,7 +38,9 @@ angular.module('starter')
 
         function registrarInseminacion()
         {
-            var inseminacion = { tipoInseminacion: $rootScope.evento.tipoInseminacion.toString() };
-            return inseminacionService.registrarInseminacion(inseminacion);
+            var date = new Date();
+            var formattedDate = moment(date).format('YYYYMMDD');
+            var inseminacion = { tipoInseminacion: $rootScope.evento.tipoInseminacion.toString(), fechaInseminacion: formattedDate };
+            return inseminacionService.registrarInseminacion(inseminacion, $localStorage.campo);
         }
     });

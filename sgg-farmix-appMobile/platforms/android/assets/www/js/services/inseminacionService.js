@@ -2,15 +2,15 @@
     .service('inseminacionServiceHTTP', function ($http, portalService, $rootScope) {
         var inseminacionUrl = portalService.getUrlServer() + "api/Inseminacion/";
 
-        this.registrarInseminacion = function (inseminacion) {
-			listaToros = '';
-			if($rootScope.idToros != undefined){
-				listaToros = $rootScope.idToros.toString();
-			}
+        this.registrarInseminacion = function (inseminacion, idCampo) {
+            listaToros = '';
+            if ($rootScope.idToros != undefined) {
+                listaToros = $rootScope.idToros.toString();
+            }
             $http({
                 method: 'POST',
                 url: inseminacionUrl + "Insert",
-                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: listaToros },
+                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: listaToros, codigoCampo: idCampo },
                 headers: portalService.getHeadersServer()
             });
         };
@@ -20,31 +20,27 @@
                 return respuesta.data;
             })
         };
-
-        this.actualizarInseminacionesBackend = function (inseminacion) {
-			
-            //
-        };
     })
+
      .service('inseminacionServiceDB', function ($q, $rootScope) {
          this.registrarInseminacion = function (inseminacion) {
-             var sqlStatments = [];
-             $rootScope.idVacas.forEach(function (vaca) {
-                 //Ver que id pasarle para la inseminacion
-                 sqlStatments.push(["INSERT OR IGNORE INTO Inseminacion(idInseminacion, idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion, paraActualizar) VALUES(?, ?, ?, ?, ?, 1)", [vaca.idVaca, vaca.idVaca, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, inseminacion.tipoInseminacion]]);
-                 $rootScope.idToros.forEach(function (id) {
-                     sqlStatments.push(["INSERT OR IGNORE INTO TorosXInseminacion(idInseminacion, idToro) VALUES(?, ?)", [vaca.idVaca, id]]);
-                 });
-             });
-
-             return $q(function (resolve, reject) {
-                 $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
+             $rootScope.db.transaction(function (tx) {
+                 $rootScope.idVacas.forEach(function (id) {
+                     tx.executeSql("INSERT OR IGNORE INTO EVENTO(idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion, paraActualizar) VALUES(?, ?, ?, ?, 1)", [id, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, inseminacion.tipoInseminacion]);
+                     var idInseminacion = tx.executeSql("SELECT last_insert_rowid() FROM Inseminacion", [],
+                         function (resultado) {
+                             resolve(resultado.rows.item(0));
+                         }, reject);
+                     $rootScope.idToros.forEach(function (idToro) {
+                         tx.executeSql("INSERT OR IGNORE INTO TorosXInseminacion(idInseminacion, idToro) VALUES(?, ?)", [idInseminacion, idToro]);
+                     });
+                 })
              });
          }
 
          this.getInseminacionesPendientes = function () {
              return $q(function (resolve, reject) {
-                 $rootScope.db.executeSql("SELECT i.idInseminacion, i.idVaca, ti.descripcion, i.fechaInseminacion FROM Inseminacion i JOIN TipoInseminacion ti ON i.tipoInseminacion=ti.idTipo", [],
+                 $rootScope.db.executeSql("SELECT * FROM InseminacionPendiente", [],
                    function (resultado) {
                        resolve(rows(resultado));
                    },
@@ -52,7 +48,7 @@
              });
          };
 
-         this.actualizarInseminaciones = function (inseminaciones) {
+         this.actualizarInseminacionesPendientes = function (inseminaciones) {
              var sqlStatments = [];
              var tipoInseminacion;
              inseminaciones.forEach(function (inseminacion) {
@@ -61,7 +57,7 @@
                  } else {
                      tipoInseminacion = 1;
                  }
-                 sqlStatments.push(["INSERT OR IGNORE INTO Inseminacion(idInseminacion, idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion) VALUES(?, ?, ?, ?, ?)", [inseminacion.idInseminacion, inseminacion.idVaca, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, tipoInseminacion]]);
+                 sqlStatments.push(["INSERT OR IGNORE INTO InseminacionPendiente(idInseminacion, fechaInseminacion, tipoInseminacion, idVaca) VALUES(?, ?, ?, ?)", [inseminacion.idInseminacion, inseminacion.fechaInseminacion, inseminacion.tipoInseminacion, inseminacion.idVaca]]);
              });
 
              return $q(function (resolve, reject) {
@@ -70,15 +66,29 @@
          }
 
          this.getInseminacionesParaActualizarBackend = function () {
-             //Pasar esto y pasar los Toros por rootScope pero dsp borrarlos
              return $q(function (resolve, reject) {
-                 $rootScope.db.executeSql("SELECT * FROM Inseminacion WHERE paraActualizar=1", [],
+                 $rootScope.db.executeSql("SELECT * FROM Inseminacion", [],
                    function (resultado) {
                        resolve(rows(resultado));
                    },
                    reject);
              });
-         }; 
+         };
+
+         this.getListaTorosParaActualizarBackend = function (idInseminacion) {
+             return $q(function (resolve, reject) {
+                 $rootScope.db.executeSql("SELECT * FROM TorosXInseminacion WHERE idInseminacion = ?", [idInseminacion],
+                   function (resultado) {
+                       resolve(rows(resultado));
+                   },
+                   reject);
+             });
+         };
+
+         this.limpiarInseminaciones = function () {
+             $rootScope.db.executeSql("DELETE FROM TorosXInseminacion");
+             $rootScope.db.executeSql("DELETE FROM Inseminacion");
+         };
 
          function rows(resultado) {
              var items = [];
@@ -95,7 +105,7 @@
                 var inseminaciones;
                 return inseminacionServiceHTTP.getInseminacionesPendientes(idCampo)
                     .then(function (respuesta) { inseminaciones = respuesta; })
-                    .then(function () { inseminacionServiceDB.actualizarInseminaciones(inseminaciones); })
+                    .then(function () { inseminacionServiceDB.actualizarInseminacionesPendientes(inseminaciones); })
                     .then(function () { return inseminaciones; });
             } else {
                 return inseminacionServiceDB.getInseminacionesPendientes();
@@ -110,12 +120,26 @@
             }
         }
 
-        this.actualizarInseminacionesBackend = function (inseminacion) {
+        this.actualizarInseminacionesBackend = function () {
             if (conexion.online()) {
                 var inseminaciones;
                 return inseminacionServiceDB.getInseminacionesParaActualizarBackend()
                     .then(function (respuesta) { inseminaciones = respuesta; })
-                    .then(function () { inseminacionServiceHTTP.actualizarInseminacionesBackend(inseminaciones); });
+                    .then(function () {
+                        inseminaciones.forEach(function (inseminacion) {
+                            $rootScope.idVacas = [];
+                            $rootScope.idVacas.push = [inseminacion.idVaca];
+                            $rootScope.idToros = [];
+                            var toros = inseminacionServiceDB.getListaTorosParaActualizarBackend(inseminacion.idInseminacion);
+                            toros.forEach(function (toro) {
+                                $rootScope.idToros.push = [toro.idToro];
+                            })
+                            inseminacion = { tipoInseminacion: inseminacion.tipoInseminacion, fechaInseminacion: inseminacion.fechaInseminacion };
+                            inseminacionServiceHTTP.registrarInseminacion(inseminacion);
+                        }).then(function () {
+                            inseminacionServiceDB.limpiarInseminaciones();
+                        })
+                    });
             }
         }
     });

@@ -1,7 +1,6 @@
 ﻿angular.module('starter')
     .service('conexion', function ($rootScope) {
         function cambiarEstado(online) {
-            console.log("cambio estado: " + online);
             $rootScope.$apply(function () {
                 $rootScope.online = online;
             });

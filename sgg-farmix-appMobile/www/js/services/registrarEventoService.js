@@ -25,6 +25,39 @@
                 });
             });
         };
+
+        this.getEventosParaActualizarBackend = function () {
+            return $q(function (resolve, reject) {
+                $rootScope.db.executeSql("SELECT * FROM Evento", [],
+                  function (resultado) {
+                      resolve(rows(resultado));
+                  },
+                  reject);
+            });
+        };
+
+        this.getListaBovinosParaActualizarBackend = function (idEvento) {
+            return $q(function (resolve, reject) {
+                $rootScope.db.executeSql("SELECT * FROM BovinosXEvento WHERE idEvento = ?", [idEvento],
+                  function (resultado) {
+                      resolve(rows(resultado));
+                  },
+                  reject);
+            });
+        };
+
+        this.limpiarEventos = function () {
+            $rootScope.db.executeSql("DELETE FROM BovinosXEvento");
+            $rootScope.db.executeSql("DELETE FROM Evento");
+        };
+
+        function rows(resultado) {
+            var items = [];
+            for (var i = 0; i < resultado.rows.length; i++) {
+                items.push(resultado.rows.item(i));
+            }
+            return items;
+        };
     })
 
     .service('registrarEventoService', function (registrarEventoServiceHTTP, registrarEventoServiceDB, conexion) {
@@ -33,6 +66,28 @@
                 registrarEventoServiceHTTP.registrarEvento(evento);
             } else {
                 registrarEventoServiceDB.registrarEvento(evento);
+            }
+        }
+
+        this.actualizarEventosBackend = function () {
+            if (conexion.online()) {
+                var eventos;
+                return registrarEventoServiceDB.getEventosParaActualizarBackend()
+                    .then(function (respuesta) { eventos = respuesta; })
+                    .then(function () {
+                        eventos.forEach(function (evento) {
+                            $rootScope.idVacas = [];
+                            var vacas = registrarEventoServiceDB.getListaBovinosParaActualizarBackend(evento.idEvento);
+                            vacas.forEach(function (vaca) {
+                                $rootScope.idVacas.push = [vaca.idBovino];
+                            })
+                            //controlar el tema de los ids, cuando es alimento no tiene vacuna
+                            evento = { idTipoEvento: evento.idTipoEvento, idAlimento: evento.idAlimento, idVacuna: evento.idVacuna, idAntibiotico: evento.idAntibiotico, idRodeoDestino: evento.idRodeoDestino, cantidad: evento.cantidad, fechaHora: evento.fechaHora };
+                            registrarEventoServiceHTTP.registrarEvento(evento);
+                        }).then(function () {
+                            registrarEventoServiceDB.limpiarEventos();
+                        })
+                    });
             }
         }
     });

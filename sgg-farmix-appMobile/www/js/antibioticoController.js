@@ -39,7 +39,9 @@ angular.module('starter')
         }
 
         function registrarEvento() {
-            var evento = { idTipoEvento: 2, idAntibiotico: $scope.evento.antibiotico, cantidad: $scope.txtMiligramaje.value };
+            var date = new Date();
+            var formattedDate = moment(date).format('YYYYMMDDHHmmss');
+            var evento = { idTipoEvento: 2, idAntibiotico: $scope.evento.antibiotico, cantidad: $scope.txtMiligramaje.value, fechaHora: formattedDate };
             return registrarEventoService.registrarEvento(evento);
         }
 

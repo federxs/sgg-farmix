@@ -21,6 +21,7 @@ angular.module('starter')
                                 $localStorage.pass = $scope.loginData.pass;
                                 $localStorage.campo = _login.codigoCampo;
                                 $localStorage.token = _login.token;
+                                $localStorage.actualizar = false;
                                 $state.go('app.bienvenido');
                             }
                             else {

@@ -8,6 +8,8 @@ angular.module('starter')
                     usuario.pass = $localStorage.pass;
                     showIonicLoading().then(validarLogin).then(function (_login) {
                         if (_login.resultado == "1") {
+                            $localStorage.campo = _login.codigoCampo;
+                            $localStorage.token = _login.token;
                             $rootScope.logueado = true;
                         } else {
                             $rootScope.logueado = false;
@@ -29,7 +31,7 @@ angular.module('starter')
             //tirar a los services que hagan el post
             va en Background, variable para ver si hay algo para actualizar
         }*/
-        if ($rootScope.logueado == true) {
+        if ($rootScope.logueado == true && conexion.online) {
             alimentoService.getDatosAlimento($localStorage.campo);
             antibioticoService.getDatosAntibiotico($localStorage.campo);
             bovinoService.getBovinos($localStorage.campo);

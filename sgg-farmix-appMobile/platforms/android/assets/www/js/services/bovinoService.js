@@ -39,8 +39,7 @@
         }
 
         this.getBovinos = function (idCampo) {
-            return $http.get(bovinosUrl + idCampo).then(function (respuesta) {
-                //return $http.get(bovinosUrl + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
+            return $http.get(bovinosUrl + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
                 return respuesta.data;
             })
         }
@@ -54,19 +53,17 @@
             });
         };
 
-        this.actualizarBovinosBackend = function (bovinos) {
-            for (var i = 0; i < bovinos.length; i++) {
-                $http({
-                    method: 'PUT',
-                    url: escribirUrl,
-                    params: { idBovino: bovinos[i].idBovino },
-                    headers: portalService.getHeadersServer()
-                });
-            }
+        this.actualizarBovinoBackend = function (bovino) {
+            $http({
+                method: 'PUT',
+                url: escribirUrl,
+                params: { idBovino: bovino.idBovino },
+                headers: portalService.getHeadersServer()
+            });
         }
     })
 
-    .service('bovinoServiceDB', function ($q, $rootScope) {
+    .service('bovinoServiceDB', function ($q, $rootScope, $localStorage) {
         this.getDatosBovino = function (id) {
             return $q(function (resolve, reject) {
                 $rootScope.db.executeSql("SELECT * FROM Bovino WHERE idBovino=?", [id],
@@ -78,14 +75,14 @@
         }
 
         this.actualizarDatosBovino = function (bovino) {
-            var genero = 0, escrito = 0;
+            var genero = 0;//, escrito = 0;
             if (bovino.genero) {
                 genero = 1;
             }
-            if (bovino.escrito) {
+            /*if (bovino.escrito) {
                 escrito = 1;
-            }
-            $rootScope.db.executeSql("UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, escrito=?, fechaEstimadaParto=?, paraActualizar=0 WHERE idBovino=?", [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito, bovino.fechaEstimada, bovino.idBovino]);
+            }*/
+            $rootScope.db.executeSql("UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, escrito=?, fechaEstimadaParto=?, paraActualizar=0 WHERE idBovino=?", [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.idBovino]);
         }
 
         this.getBovinos = function () {
@@ -112,13 +109,17 @@
                 } else {
                     escrito = 0;
                 }
-                sqlStatments.push(["INSERT OR IGNORE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, paraActualizar, fechaEstimadaParto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito, bovino.fechaEstimada]]);
+                if ($localStorage.actualizar) {
+                    sqlStatments.push(["UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, escrito=?, fechaEstimadaParto=?, paraActualizar=0 WHERE idBovino=?"], [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.idBovino]);
+                } else {
+                    sqlStatments.push(["INSERT OR IGNORE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, paraActualizar, fechaEstimadaParto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito, bovino.fechaEstimada]]);
+                }
             });
-            console.log(sqlStatments[0]);
 
             return $q(function (resolve, reject) {
                 $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
             });
+            $localStorage.actualizar = true;
         }
 
         this.escribirTag = function (id) {
@@ -135,16 +136,8 @@
             });
         };
 
-        this.actualizarBovinosActualizados = function (bovinos) {
-            var sqlStatments = [];
-            bovinos.forEach(function (bovino) {
-                //creo que se podria hacer con un solo update, con un idBovino IN (idsBovinos), pero no tengo ganas de verlo ahora
-                sqlStatments.push(["UPDATE Bovino SET paraActualizar=0 WHERE idBovino=?", [bovino.idBovino]]);
-            });
-
-            return $q(function (resolve, reject) {
-                $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
-            });
+        this.actualizarBovinoActualizado = function (bovino) {
+            $rootScope.db.executeSql("UPDATE Bovino SET paraActualizar=0 WHERE idBovino=?", [bovino.idBovino]);
         };
 
         function rows(resultado) {
@@ -193,11 +186,13 @@
             if (conexion.online()) {
                 var bovinos;
                 return bovinoServiceDB.getBovinosParaActualizarBackend()
-                    .then(function (respuesta) { bovinos = respuesta; })
-                    .then(function () { bovinoServiceHTTP.actualizarBovinosBackend(bovinos); })
-                /*Ver si no hay errores antes de tirar, como ver errores? Ni idea ahora, no se si las promesas "funcionan" asi.
-                .then(function () { bovinoServiceDB.actualizarBovinosActualizados(bovinos); });
-                */
+                    .then(function (respuesta) {
+                        bovinos = respuesta;
+                        for (var i = 0; i < resultado.rows.length; i++) {
+                            bovinoServiceHTTP.actualizarBovinoBackend(bovinos[i]);
+                            bovinoServiceDB.actualizarBovinoActualizado(bovino[i]);
+                        }
+                    })
             }
         }
     });
