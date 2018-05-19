@@ -11,47 +11,46 @@
         var vm = $scope;
 
         /////VARIABLES
-        vm.eventoAnterior = {
-            fecha: "01-01-1994",
-            cantidad: 23,
-            tipoEvento: "Manejo2",
-            vacuna: "Antirrabica",
-            campoDestino: "CampoLukiense",
-            antibiotico: "Paracetamol",
-            alimento: "Alfafafa",
-            rodeoDestino: "Rodeopijudo"
+        vm.inseminacionAnterior = {
+            fechaInseminacion: new Date(),
+            tipoInseminacion: 'Montura'
         };
-        //vm.eventoAnterior.fechaInseminacion = "01-01-1994";
-        vm.eventoResultante = {};
-        vm.eventoNuevo = {
-            fecha: "01-01-1999",
-            cantidad: 234,
-            tipoEvento: "Manejo1",
-            vacuna: "Antirrabica1",
-            campoDestino: "CampoDeLurulu",
-            antibiotico: "Merca",
-            alimento: "Alfafita",
-            rodeoDestino: "Rodeocacon"
+        vm.inseminacionResultante = {};
+        vm.inseminacionNueva = {
+            fechaInseminacion: new Date(),
+            tipoInseminacion: 'Artificial'
         };
-        vm.maxDate = new Date();
+        vm.tactoAnterior = {
+            fechaTacto: '',
+            exitoso: '',
+            tipoTacto: ''
+        };
+        vm.tactoResultante = {};
+        vm.tactoNuevo = {
+            fechaTacto: '',
+            exitoso: '',
+            tipoTacto: ''
+        };
+        //vm.inseminacionAnterior.fechaInseminacion = "01-01-1994";
 
         /////METODOS
         vm.init = init();
-        vm.seleccionarEvento = seleccionarEvento;
-        vm.seleccionarPropiedad = seleccionarPropiedad;
+        vm.seleccionarInseminacion = seleccionarInseminacion;
+        vm.seleccionarTacto = seleccionarTacto;
+        vm.seleccionarPropiedadInseminacion = seleccionarPropiedadInseminacion;
+        vm.seleccionarPropiedadTacto = seleccionarPropiedadTacto;
         vm.isUndefinedOrNull = isUndefinedOrNull;
 
         function init() {
             vm.showSpinner = true;
-            if($stateParams)
-            {
+            if ($stateParams) {
                 if (!$stateParams.idInseminacion)
                     $stateParams.idInseminacion = 0;
                 if (!$stateParams.idInseminConfl)
                     $stateParams.idInseminConfl = 0;
-                resolverConflictoService.getDatos($stateParams.idEvento, $stateParams.idEventoConfl, $stateParams.idInseminacion, $stateParams.idInseminConfl).then(function success(data) {
-                    vm.eventoAnterior = data.eventoAnterior;
-                    vm.eventoNuevo = data.eventoNuevo;
+                resolverConflictoService.getDatos($stateParams.idinseminacion, $stateParams.idinseminacionConfl, $stateParams.idInseminacion, $stateParams.idInseminConfl).then(function success(data) {
+                    vm.inseminacionAnterior = data.inseminacionAnterior;
+                    vm.inseminacionNueva = data.inseminacionNueva;
                     vm.showSpinner = false;
                 }, function error(error) {
                     vm.showSpinner = false;
@@ -60,19 +59,23 @@
             }
         }
 
-        function seleccionarEvento(evento) {
-            vm.eventoResultante.fecha = evento.fecha;
-            vm.eventoResultante.cantidad = evento.cantidad;
-            vm.eventoResultante.tipoEvento = evento.tipoEvento;
-            vm.eventoResultante.vacuna = evento.vacuna;
-            vm.eventoResultante.antibiotico = evento.antibiotico;
-            vm.eventoResultante.alimento = evento.alimento;
-            vm.eventoResultante.rodeoDestino = evento.rodeoDestino;
-            vm.eventoResultante.campoDestino = evento.campoDestino;
+        function seleccionarInseminacion(inseminacion) {
+            vm.inseminacionResultante.fechaInseminacion = inseminacion.fechaInseminacion;
+            vm.inseminacionResultante.tipoInseminacion = inseminacion.tipoInseminacion;
         }
 
-        function seleccionarPropiedad(evento, propiedad) {
-            vm.eventoResultante[propiedad] = evento[propiedad];
+        function seleccionarTacto(tacto) {
+            vm.tactoResultante.fechaTacto = tacto.fechaTacto;
+            vm.tactoResultante.tipoTacto = tacto.tipoTacto;
+            vm.tactoResultante.exitoso = tacto.exitoso;
+        }
+
+        function seleccionarPropiedadInseminacion(inseminacion, propiedad) {
+            vm.inseminacionResultante[propiedad] = inseminacion[propiedad];
+        }
+
+        function seleccionarPropiedadTacto(tacto, propiedad) {
+            vm.tactoResultante[propiedad] = tacto[propiedad];
         }
 
         function isUndefinedOrNull(val) {
