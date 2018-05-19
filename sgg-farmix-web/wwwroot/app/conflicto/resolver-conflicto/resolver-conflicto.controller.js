@@ -14,14 +14,14 @@
         vm.eventoAnterior = {
             fecha: "01-01-1994",
             cantidad: 23,
-            tipoEvento: "Manejo",
+            tipoEvento: "Manejo2",
             vacuna: "Antirrabica",
             campoDestino: "CampoLukiense",
             antibiotico: "Paracetamol",
             alimento: "Alfafafa",
             rodeoDestino: "Rodeopijudo"
         };
-        vm.eventoAnterior.fechaInseminacion = "01-01-1994";
+        //vm.eventoAnterior.fechaInseminacion = "01-01-1994";
         vm.eventoResultante = {};
         vm.eventoNuevo = {
             fecha: "01-01-1999",

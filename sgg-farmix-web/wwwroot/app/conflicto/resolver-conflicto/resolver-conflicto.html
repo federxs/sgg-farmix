@@ -28,15 +28,17 @@
                         <span class="glyphicon glyphicon-plus" style="color:white"></span>
                     </button>
                 </div>
-                <div class="form-group">
-                    <label class="control-label">Cantidad</label>
-                    <input type="number" class="form-control" placeholder="Cantidad"
-                           ng-model="eventoAnterior.cantidad" disabled>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'cantidad')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
+                <div ng-if="eventoAnterior.tipoEvento !== 'Manejo'">
+                    <div class="form-group">
+                        <label class="control-label">Cantidad {{eventoAnterior.tipoEvento === 'Alimenticio' ? '(Kg.)' : '(Mg.)'}}</label>
+                        <input type="number" class="form-control" placeholder="Cantidad"
+                               ng-model="eventoAnterior.cantidad" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'cantidad')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Tipo de Evento</label>
@@ -48,59 +50,67 @@
                         <span class="glyphicon glyphicon-plus" style="color:white"></span>
                     </button>
                 </div>
-
-                <div class="form-group">
-                    <label class="control-label">Vacuna</label>
-                    <input type="text" class="form-control" placeholder="Vacuna"
-                           ng-model="eventoAnterior.vacuna" disabled>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'vacuna')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">Antibiótico</label>
-                    <input type="text" class="form-control" placeholder="Antibiótico"
-                           ng-model="eventoAnterior.antibiotico" disabled>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'antibiotico')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
+                <div ng-if="eventoAnterior.tipoEvento === 'Vacunación'">
+                    <div class="form-group">
+                        <label class="control-label">Vacuna</label>
+                        <input type="text" class="form-control" placeholder="Vacuna"
+                               ng-model="eventoAnterior.vacuna" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'vacuna')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label">Alimento</label>
-                    <input type="text" class="form-control" placeholder="Alimento"
-                           ng-model="eventoAnterior.alimento" disabled>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'alimento')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Rodeo Destino</label>
-                    <input type="text" class="form-control" placeholder="Rodeo Destino"
-                           ng-model="eventoAnterior.rodeoDestino" disabled>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'rodeoDestino')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
+                <div ng-if="eventoAnterior.tipoEvento === 'Antibiótico'">
+                    <div class="form-group">
+                        <label class="control-label">Antibiótico</label>
+                        <input type="text" class="form-control" placeholder="Antibiótico"
+                               ng-model="eventoAnterior.antibiotico" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'antibiotico')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label">Campo Destino</label>
-                    <input type="text" class="form-control" placeholder="Campo Destino"
-                           ng-model="eventoAnterior.campoDestino" disabled>
+                <div ng-if="eventoAnterior.tipoEvento === 'Alimentación'">
+                    <div class="form-group">
+                        <label class="control-label">Alimento</label>
+                        <input type="text" class="form-control" placeholder="Alimento"
+                               ng-model="eventoAnterior.alimento" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'alimento')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'campoDestino')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
+
+                <div ng-if="eventoAnterior.tipoEvento === 'Manejo'">
+                    <div class="form-group">
+                        <label class="control-label">Rodeo Destino</label>
+                        <input type="text" class="form-control" placeholder="Rodeo Destino"
+                               ng-model="eventoAnterior.rodeoDestino" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'rodeoDestino')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Campo Destino</label>
+                        <input type="text" class="form-control" placeholder="Campo Destino"
+                               ng-model="eventoAnterior.campoDestino" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoAnterior, 'campoDestino')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="button" class="btn btn-primary"
@@ -117,7 +127,7 @@
                            ng-model="eventoResultante.fechaHora" disabled>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Cantidad</label>
+                    <label class="control-label">Cantidad {{eventoAnterior.tipoEvento === 'Alimenticio' ? '(Kg.)' : '(Mg.)'}}</label>
                     <input type="number" class="form-control" placeholder="Cantidad" name="cantidad"
                            ng-model="eventoResultante.cantidad" disabled>
                 </div>
@@ -167,15 +177,17 @@
                     </button>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label">Cantidad</label>
-                    <input type="number" class="form-control" placeholder="Cantidad"
-                           ng-model="eventoNuevo.cantidad" disabled>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'cantidad')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
+                <div ng-if="eventoAnterior.tipoEvento !== 'Manejo'">
+                    <div class="form-group">
+                        <label class="control-label">Cantidad {{eventoAnterior.tipoEvento === 'Alimenticio' ? '(Kg.)' : '(Mg.)'}}</label>
+                        <input type="number" class="form-control" placeholder="Cantidad"
+                               ng-model="eventoNuevo.cantidad" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'cantidad')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -188,60 +200,67 @@
                         <span class="glyphicon glyphicon-plus" style="color:white"></span>
                     </button>
                 </div>
-
-                <div class="form-group">
-                    <label class="control-label">Vacuna</label>
-                    <input type="text" class="form-control" placeholder="Vacuna"
-                           ng-model="eventoNuevo.vacuna" disabled>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'vacuna')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Antibiótico</label>
-                    <input type="text" class="form-control" placeholder="Antibiótico"
-                           ng-model="eventoNuevo.antibiotico" disabled>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'antibiotico')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
+                <div ng-if="eventoAnterior.tipoEvento === 'Vacunación'">
+                    <div class="form-group">
+                        <label class="control-label">Vacuna</label>
+                        <input type="text" class="form-control" placeholder="Vacuna"
+                               ng-model="eventoNuevo.vacuna" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'vacuna')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label">Alimento</label>
-                    <input type="text" class="form-control" placeholder="Alimento"
-                           ng-model="eventoNuevo.alimento" disabled>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'alimento')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label">Rodeo Destino</label>
-                    <input type="text" class="form-control" placeholder="Rodeo Destino"
-                           ng-model="eventoNuevo.rodeoDestino" disabled>
-                </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'rodeoDestino')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
+                <div ng-if="eventoAnterior.tipoEvento === 'Antibiótico'">
+                    <div class="form-group">
+                        <label class="control-label">Antibiótico</label>
+                        <input type="text" class="form-control" placeholder="Antibiótico"
+                               ng-model="eventoNuevo.antibiotico" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'antibiotico')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="control-label">Campo Destino</label>
-                    <input type="text" class="form-control" placeholder="Campo Destino"
-                           ng-model="eventoNuevo.campoDestino" disabled>
+                <div ng-if="eventoAnterior.tipoEvento === 'Alimentación'">
+                    <div class="form-group">
+                        <label class="control-label">Alimento</label>
+                        <input type="text" class="form-control" placeholder="Alimento"
+                               ng-model="eventoNuevo.alimento" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'alimento')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
                 </div>
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'campoDestino')">
-                        <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                    </button>
+
+                <div ng-if="eventoAnterior.tipoEvento === 'Manejo'">
+                    <div class="form-group">
+                        <label class="control-label">Rodeo Destino</label>
+                        <input type="text" class="form-control" placeholder="Rodeo Destino"
+                               ng-model="eventoNuevo.rodeoDestino" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'rodeoDestino')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label">Campo Destino</label>
+                        <input type="text" class="form-control" placeholder="Campo Destino"
+                               ng-model="eventoNuevo.campoDestino" disabled>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedad(eventoNuevo, 'campoDestino')">
+                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="button" class="btn btn-primary"
