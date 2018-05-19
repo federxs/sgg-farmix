@@ -19,43 +19,43 @@
                 <h4>Evento Anterior</h4>
                 <div class="form-group">
                     <label class="control-label">Fecha</label>
-                    <input type="date" class="form-control" placeholder="Fecha"
-                           ng-model="eventoAnterior.fecha">
+                    <input type="text" class="form-control" placeholder="Fecha"
+                           ng-model="eventoAnterior.fechaHora" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Cantidad</label>
                     <input type="number" class="form-control" placeholder="Cantidad"
-                           ng-model="eventoAnterior.cantidad">
+                           ng-model="eventoAnterior.cantidad" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Tipo de Evento</label>
                     <input type="text" class="form-control" placeholder="Tipo de Evento"
-                           ng-model="eventoAnterior.tipoEvento">
+                           ng-model="eventoAnterior.tipoEvento" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Vacuna</label>
                     <input type="text" class="form-control" placeholder="Vacuna"
-                           ng-model="eventoAnterior.vacuna">
+                           ng-model="eventoAnterior.vacuna" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Antibiótico</label>
                     <input type="text" class="form-control" placeholder="Antibiótico"
-                           ng-model="eventoAnterior.antibiotico">
+                           ng-model="eventoAnterior.antibiotico" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Alimento</label>
                     <input type="text" class="form-control" placeholder="Alimento"
-                           ng-model="eventoAnterior.alimento">
+                           ng-model="eventoAnterior.alimento" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Rodeo Destino</label>
                     <input type="text" class="form-control" placeholder="Rodeo Destino"
-                           ng-model="eventoAnterior.rodeoDestino">
+                           ng-model="eventoAnterior.rodeoDestino" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Campo Destino</label>
                     <input type="text" class="form-control" placeholder="Campo Destino"
-                           ng-model="eventoAnterior.campoDestino">
+                           ng-model="eventoAnterior.campoDestino" disabled>
                 </div>
 
                 <button type="button" class="btn btn-primary"
@@ -68,8 +68,8 @@
                 <h4>Resultado</h4>
                 <div class="form-group">
                     <label class="control-label">Fecha</label>
-                    <input type="date" class="form-control" placeholder="Fecha" name="fecha" min="2000-01-01" max="{{maxDate | date:'yyyy-MM-dd'}}"
-                           ng-model="eventoResultante.fecha">
+                    <input type="text" class="form-control" placeholder="Fecha"
+                           ng-model="eventoResultante.fechaHora" disabled>
                     <div ng-show="formResolverConflicto.fecha.$touched">
                         <span class="help-block" ng-show="formResolverConflicto.fecha.$error.required">
                             Este campo es requerido
@@ -82,7 +82,7 @@
                 <div class="form-group">
                     <label class="control-label">Cantidad</label>
                     <input type="number" class="form-control" placeholder="Cantidad" name="cantidad"
-                           ng-model="eventoResultante.cantidad">
+                           ng-model="eventoResultante.cantidad" disabled>
                     <div ng-show="formResolverConflicto.cantidad.$touched">
                         <span class="help-block" ng-if="formResolverConflicto.cantidad.$error.required || eventoResultante.cantidad == 0 ">
                             Este campo es requerido
@@ -95,7 +95,7 @@
                 <div class="form-group">
                     <label class="control-label">Tipo de Evento</label>
                     <input type="text" class="form-control" placeholder="Tipo de Evento" name="tipoEvento"
-                           ng-model="eventoResultante.tipoEvento">
+                           ng-model="eventoResultante.tipoEvento" disabled>
                     <div ng-show="formResolverConflicto.tipoEvento.$touched">
                         <span class="help-block" ng-if="formResolverConflicto.tipoEvento.$error.required">
                             Este campo es requerido
@@ -105,7 +105,7 @@
                 <div class="form-group">
                     <label class="control-label">Vacuna</label>
                     <input type="text" class="form-control" placeholder="Vacuna" name="vacuna"
-                           ng-model="eventoResultante.vacuna">
+                           ng-model="eventoResultante.vacuna" disabled>
                     <div ng-show="formResolverConflicto.vacuna.$touched">
                         <span class="help-block" ng-if="formResolverConflicto.vacuna.$error.required">
                             Este campo es requerido
@@ -115,7 +115,7 @@
                 <div class="form-group">
                     <label class="control-label">Antibiótico</label>
                     <input type="text" class="form-control" placeholder="Antibiótico" name="antibiotico"
-                           ng-model="eventoResultante.antibiotico">
+                           ng-model="eventoResultante.antibiotico" disabled>
                     <div ng-show="formResolverConflicto.antibiotico.$touched">
                         <span class="help-block" ng-if="formResolverConflicto.antibiotico.$error.required">
                             Este campo es requerido
@@ -125,7 +125,7 @@
                 <div class="form-group">
                     <label class="control-label">Alimento</label>
                     <input type="text" class="form-control" placeholder="Alimento" name="alimento"
-                           ng-model="eventoResultante.alimento">
+                           ng-model="eventoResultante.alimento" disabled>
                     <div ng-show="formResolverConflicto.alimento.$touched">
                         <span class="help-block" ng-if="formResolverConflicto.alimento.$error.required">
                             Este campo es requerido
@@ -136,7 +136,7 @@
                     <label class="control-label">Rodeo Destino</label>
                     <input type="text" class="form-control" placeholder="Rodeo Destino" name="rodeoDestino"
                            ng-model="eventoResultante.rodeoDestino">
-                    <div ng-show="formResolverConflicto.rodeoDestino.$touched">
+                    <div ng-show="formResolverConflicto.rodeoDestino.$touched" disabled>
                         <span class="help-block" ng-if="formResolverConflicto.rodeoDestino.$error.required">
                             Este campo es requerido
                         </span>
@@ -145,7 +145,7 @@
                 <div class="form-group">
                     <label class="control-label">Campo Destino</label>
                     <input type="text" class="form-control" placeholder="Campo Destino" name="campoDestino"
-                           ng-model="eventoResultante.campoDestino">
+                           ng-model="eventoResultante.campoDestino" disabled>
                     <div ng-show="formResolverConflicto.campoDestino.$touched">
                         <span class="help-block" ng-if="formResolverConflicto.campoDestino.$error.required">
                             Este campo es requerido
@@ -158,43 +158,43 @@
                 <h4>Evento Nuevo</h4>
                 <div class="form-group">
                     <label class="control-label">Fecha</label>
-                    <input type="date" class="form-control" placeholder="Fecha"
-                           ng-model="eventoNuevo.fecha">
+                    <input type="text" class="form-control" placeholder="Fecha"
+                           ng-model="eventoNuevo.fechaHora" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Cantidad</label>
                     <input type="number" class="form-control" placeholder="Cantidad"
-                           ng-model="eventoNuevo.cantidad">
+                           ng-model="eventoNuevo.cantidad" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Tipo de Evento</label>
                     <input type="text" class="form-control" placeholder="Tipo de Evento"
-                           ng-model="eventoNuevo.tipoEvento">
+                           ng-model="eventoNuevo.tipoEvento" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Vacuna</label>
                     <input type="text" class="form-control" placeholder="Vacuna"
-                           ng-model="eventoNuevo.vacuna">
+                           ng-model="eventoNuevo.vacuna" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Antibiótico</label>
                     <input type="text" class="form-control" placeholder="Antibiótico"
-                           ng-model="eventoNuevo.antibiotico">
+                           ng-model="eventoNuevo.antibiotico" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Alimento</label>
                     <input type="text" class="form-control" placeholder="Alimento"
-                           ng-model="eventoNuevo.alimento">
+                           ng-model="eventoNuevo.alimento" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Rodeo Destino</label>
                     <input type="text" class="form-control" placeholder="Rodeo Destino"
-                           ng-model="eventoNuevo.rodeoDestino">
+                           ng-model="eventoNuevo.rodeoDestino" disabled>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Campo Destino</label>
                     <input type="text" class="form-control" placeholder="Campo Destino"
-                           ng-model="eventoNuevo.campoDestino">
+                           ng-model="eventoNuevo.campoDestino" disabled>
                 </div>
 
                 <button type="button" class="btn btn-primary"
@@ -205,3 +205,4 @@
         </div>
     </form>
 </div>
+<div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>

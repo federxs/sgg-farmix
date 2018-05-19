@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app')
-        .factory('consultarBovinoService', function ($resource, portalService) {
-            return $resource(portalService.getUrlServer() + 'api/conflictos', {}, {
+        .factory('consultarConflictoService', function ($resource, portalService) {
+            return $resource(portalService.getUrlServer() + 'api/Inconsistencia', {}, {
                 obtenerConflictos: {
                     method: 'GET',
-                    url: portalService.getUrlServer() + 'api/conflictos',
+                    url: portalService.getUrlServer() + 'api/Inconsistencia/GetList',
                     headers: portalService.getHeadersServer(),
                     isArray: true
                 }

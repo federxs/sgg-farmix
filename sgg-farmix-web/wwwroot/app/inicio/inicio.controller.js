@@ -5,12 +5,13 @@
         .module('app')
         .controller('inicioController', inicioController);
 
-    inicioController.$inject = ['$scope', 'inicioService', 'toastr', '$localStorage'];
+    inicioController.$inject = ['$scope', 'inicioService', 'toastr', '$localStorage', '$state'];
 
-    function inicioController($scope, inicioService, toastr, $localStorage) {
+    function inicioController($scope, inicioService, toastr, $localStorage, $state) {
         $scope.showSpinner = true;
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
+        $scope.irAConflictos = irAConflictos;
         $scope.prueba = prueba;
 
         function inicializar() {
@@ -139,6 +140,11 @@
                 chart.draw(dataTable, options);
             }
         }
+
+        function irAConflictos() {
+            $('#modalInconsistencias').modal('hide');
+            $state.go('home.consultarConflicto');
+        };
 
         function prueba() {
             inicioService.prueba($localStorage.usuarioInfo.codigoCampo).then(function success(data) {

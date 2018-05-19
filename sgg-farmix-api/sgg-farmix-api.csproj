@@ -195,6 +195,7 @@
     <Compile Include="Controllers\EstadoController.cs" />
     <Compile Include="Controllers\EventoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InconsistenciaController.cs" />
     <Compile Include="Controllers\InseminacionController.cs" />
     <Compile Include="Controllers\RazaController.cs" />
     <Compile Include="Controllers\RodeoController.cs" />
