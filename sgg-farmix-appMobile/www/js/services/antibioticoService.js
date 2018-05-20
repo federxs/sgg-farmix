@@ -22,6 +22,7 @@
         this.actualizarAntibioticos = function (antibioticos) {
             var sqlStatments = [];
             antibioticos.forEach(function (antibiotico) {
+                //lo mismo que en actualizarAlimentos
                 sqlStatments.push(["INSERT OR IGNORE INTO Antibiotico(idAntibiotico, nombre) VALUES(?, ?)", [antibiotico.idAntibiotico, antibiotico.nombre]]);
             });
 

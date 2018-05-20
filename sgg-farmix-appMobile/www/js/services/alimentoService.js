@@ -22,6 +22,7 @@
         this.actualizarAlimentos = function (alimentos) {
             var sqlStatments = [];
             alimentos.forEach(function (alimento) {
+                //y si borran un alimento del sistema? no se borrarian de la bd local. Habria que hacer un delet tabla Alimento y despues insert como en DSM.
                 sqlStatments.push(["INSERT OR IGNORE INTO Alimento(idAlimento, nombre) VALUES(?, ?)", [alimento.idAlimento, alimento.nombre]]);
             });
 

@@ -110,6 +110,7 @@
                     escrito = 0;
                 }
                 if ($localStorage.actualizar) {
+                    //los bovinos que se pongan en borrado=1 en amazon, aca los seguiriamos teniendo... creo que no habria drama no? no se rompe nada jaja
                     sqlStatments.push(["UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, escrito=?, fechaEstimadaParto=?, paraActualizar=0 WHERE idBovino=?"], [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.idBovino]);
                 } else {
                     sqlStatments.push(["INSERT OR IGNORE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, paraActualizar, fechaEstimadaParto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito, bovino.fechaEstimada]]);
@@ -190,7 +191,7 @@
                         bovinos = respuesta;
                         for (var i = 0; i < resultado.rows.length; i++) {
                             bovinoServiceHTTP.actualizarBovinoBackend(bovinos[i]);
-                            bovinoServiceDB.actualizarBovinoActualizado(bovino[i]);
+                            bovinoServiceDB.actualizarBovinoActualizado(bovinos[i]);
                         }
                     })
             }
