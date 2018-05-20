@@ -69,24 +69,30 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public InconsistenciaResolver Get(long idEvento, long idEveConflic, long idInsem, long idInsemConflic)
+        public InconsistenciaResolver Get(long idTacto, string fechaTacto, long idTactoConflic, string fechaTactoConfl, long idInsem, long idInsemConflic)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>();
                 var obj = new InconsistenciaResolver();
-                if(idEvento != 0 && idEveConflic != 0)
+                if(idTacto != 0 && idTactoConflic != 0 && fechaTacto != "" && fechaTactoConfl != "")
                 {
-                    parametros.Add("@idEvento", idEvento);
-                    obj.eventoAnterior = connection.GetArray<EventoDetalle>("spGetEvento", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                    parametros.Add("@idInseminacion", idTacto);
+                    parametros.Add("@fechaTacto", fechaTacto);
+                    obj.tactoAnterior = connection.GetArray<Tacto>("spObtenerDatosTacto", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                     parametros = new Dictionary<string, object>();
-                    parametros.Add("@idEvento", idEveConflic);
-                    obj.eventoNuevo = connection.GetArray<EventoDetalle>("spObtenerDatosEventoConflictivo", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                    parametros.Add("@idInseminacion", idTactoConflic);
+                    parametros.Add("@fechaTacto", fechaTactoConfl);
+                    obj.tactoNuevo = connection.GetArray<Tacto>("spObtenerDatosTactoConflictivo", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 }
                 else if(idInsem != 0 && idInsemConflic != 0)
                 {
-
+                    parametros.Add("@idInseminacion", idInsem);
+                    obj.inseminacionAnterior = connection.GetArray<InseminacionDetalle>("spObtenerDatosInseminacionXId", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                    parametros = new Dictionary<string, object>();
+                    parametros.Add("@idInseminacion", idInsemConflic);
+                    obj.inseminacionNueva = connection.GetArray<InseminacionDetalle>("spObtenerDatosInseminacionConflictivaXId", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 }
                 //var lista = connection.GetArray<Inconsistencia>("spObtenerListaInconsistencias", parametros, System.Data.CommandType.StoredProcedure);
                 return obj;

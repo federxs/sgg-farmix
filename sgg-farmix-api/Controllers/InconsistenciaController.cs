@@ -39,11 +39,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Inconsistencia/Get")]
         [HttpGet]
         [AutorizationToken]
-        public InconsistenciaResolver Get(long idEvento, long idEventoConflictivo, long idInseminacion, long idInseminacionConflictiva)
+        public InconsistenciaResolver Get(long idTacto, string fechaTacto, long idTactoConflictivo, string fechaTactoConflictivo, long idInseminacion, long idInseminacionConflictiva)
         {
             try
             {
-                return IM.Get(idEvento, idEventoConflictivo, idInseminacion, idInseminacionConflictiva);
+                return IM.Get(idTacto, fechaTacto, idTactoConflictivo, fechaTactoConflictivo, idInseminacion, idInseminacionConflictiva);
             }
             catch (Exception ex)
             {

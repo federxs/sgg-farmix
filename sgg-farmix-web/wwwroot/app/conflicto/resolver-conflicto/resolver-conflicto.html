@@ -18,11 +18,11 @@
         -->
         <div ng-if="isUndefinedOrNull(inseminacionAnterior)">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" ng-show="tactoAnterior">
                     <div class="form-group">
                         <label class="control-label">Bovino</label>
                         <input type="text" class="form-control" placeholder="Bovino"
-                               ng-model="tactoAnterior.vaca" disabled>
+                               ng-model="tactoAnterior.numCaravanaBovino" disabled>
                     </div>
                 </div>
             </div>
@@ -55,16 +55,16 @@
                     <div class="form-group">
                         <label class="control-label">Resultado de Tacto</label>
                         <input type="text" class="form-control" placeholder="Resultado de Tacto"
-                               ng-model="tactoAnterior.resultado" disabled>
+                               ng-model="tactoAnterior.exitoso" disabled>
                     </div>
                     <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoAnterior, 'resultado')">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoAnterior, 'exitoso')">
                             <span class="glyphicon glyphicon-plus" style="color:white"></span>
                         </button>
                     </div>
 
                     <button type="button" class="btn btn-primary"
-                            ng-click="seleccionarTacto(TactoAnterior)">
+                            ng-click="seleccionarTacto(tactoAnterior)">
                         Seleccionar este tacto
                     </button>
                 </div>
@@ -85,7 +85,7 @@
                     <div class="form-group">
                         <label class="control-label">Resultado de Tacto</label>
                         <input type="text" class="form-control" placeholder="Resultado de Tacto"
-                               ng-model="tactoResultante.resultado" disabled>
+                               ng-model="tactoResultante.exitoso" disabled>
                     </div>
                 </div>
                 <!--Inicio Columna de Nuevo-->
@@ -94,7 +94,7 @@
                     <div class="form-group">
                         <label class="control-label">Fecha de Tacto</label>
                         <input type="datetime" class="form-control" placeholder="Fecha de Tacto"
-                               ng-model="tactoNueva.fechaTacto" disabled>
+                               ng-model="tactoNuevo.fechaTacto" disabled>
                     </div>
                     <div class="col-md-1">
                         <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'fechaTacto')">
@@ -116,10 +116,10 @@
                     <div class="form-group">
                         <label class="control-label">Resultado de Tacto</label>
                         <input type="text" class="form-control" placeholder="Resultado de Tacto"
-                               ng-model="tactoNuevo.resultado" disabled>
+                               ng-model="tactoNuevo.exitoso" disabled>
                     </div>
                     <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'resultado')">
+                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'exitoso')">
                             <span class="glyphicon glyphicon-plus" style="color:white"></span>
                         </button>
                     </div>
@@ -139,13 +139,13 @@
         -->
         <div ng-if="!isUndefinedOrNull(inseminacionAnterior)">
             <div class="row">
-                <div class="col-md-12">
+                <!--<div class="col-md-12">
                     <div class="form-group">
                         <label class="control-label">Bovino</label>
                         <input type="text" class="form-control" placeholder="Bovino"
                                ng-model="inseminacionAnterior.vaca" disabled>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="row">
                 <div class="col-md-4">

@@ -18,7 +18,7 @@
                 <select class="form-control" name="categoria" required
                         ng-model="filtro.tipo" ng-disabled="disabled">
                     <option value="0">Seleccione...</option>
-                    <option value="1">Evento</option>
+                    <option value="1">Tacto</option>
                     <option value="2">Inseminación</option>
                 </select>
             </div>
@@ -109,7 +109,7 @@
                     <td>{{item.fecha}}</td>
                     <td>{{item.estado | uppercase}}</td>
                     <td>
-                        <a ui-sref="home.resolverConflicto({id:item.idConflicto})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>                        
+                        <a ui-sref="home.resolverConflicto({idTacto: item.idTacto, fechaTacto: item.fechaTacto, idTactoConfl: item.idTactoConflictivo, fechaTactoConfl: item.fechaTactoConflictivo, idInseminacion: item.idInseminacion, idInseminConfl: item.idInseminacionConflictiva})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>                        
                     </td>
                 </tr>
             </tbody>

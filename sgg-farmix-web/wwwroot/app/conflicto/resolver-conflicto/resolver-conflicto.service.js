@@ -12,13 +12,15 @@
             getDatos: getDatos
         };
 
-        function getDatos(idEve, idEveC, idIns, idInsC) {
+        function getDatos(idTac, fechaTac, idTacC, fechaTacC, idIns, idInsC) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inconsistencia/Get',
                 params: {
-                    idEvento: idEve,
-                    idEventoConflictivo: idEveC,
+                    idTacto: idTac,
+                    fechaTacto: fechaTac,
+                    idTactoConflictivo: idTacC,
+                    fechaTactoConflictivo: fechaTacC,
                     idInseminacion: idIns,
                     idInseminacionConflictiva: idInsC
                 },

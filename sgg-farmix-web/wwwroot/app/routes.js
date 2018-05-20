@@ -52,7 +52,7 @@
         //$stateProvider
             .state('home.resolverConflicto', {
                 url: '/conflicto/resolver',
-                params: { 'idEvento': null, 'idEventoConfl': null, 'idInseminacion': null, 'idInseminConfl': null },
+                params: { 'idTacto': null, 'fechaTacto': null, 'idTactoConfl': null, 'fechaTactoConfl': null, 'idInseminacion': null, 'idInseminConfl': null },
                 templateUrl: 'app/conflicto/resolver-conflicto/resolver-conflicto.html',
                 controller: 'resolverConflictoController'
             });

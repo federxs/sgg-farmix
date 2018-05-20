@@ -11,26 +11,8 @@
         var vm = $scope;
 
         /////VARIABLES
-        //vm.inseminacionAnterior = {
-        //    fechaInseminacion: new Date(),
-        //    tipoInseminacion: 'Montura'
-        //};
         vm.inseminacionResultante = {};
-        vm.inseminacionNueva = {
-            fechaInseminacion: new Date(),
-            tipoInseminacion: 'Artificial'
-        };
-        vm.tactoAnterior = {
-            fechaTacto: '',
-            resultado: '',
-            tipoTacto: ''
-        };
         vm.tactoResultante = {};
-        vm.tactoNuevo = {
-            fechaTacto: '',
-            resultado: '',
-            tipoTacto: ''
-        };
 
         /////METODOS
         vm.init = init();
@@ -42,20 +24,32 @@
 
         function init() {
             vm.showSpinner = true;
-            if ($stateParams) {
+            if (($stateParams.idTacto && $stateParams.idTactoConfl && $stateParams.fechaTacto && $stateParams.fechaTactoConfl) || ($stateParams.idInseminacion && $stateParams.idInseminConfl)) {
+                if (!$stateParams.idTacto)
+                    $stateParams.idTacto = 0;
+                if (!$stateParams.idTactoConfl)
+                    $stateParams.idTactoConfl = 0;
                 if (!$stateParams.idInseminacion)
                     $stateParams.idInseminacion = 0;
                 if (!$stateParams.idInseminConfl)
                     $stateParams.idInseminConfl = 0;
-                resolverConflictoService.getDatos($stateParams.idinseminacion, $stateParams.idinseminacionConfl, $stateParams.idInseminacion, $stateParams.idInseminConfl).then(function success(data) {
-                    vm.inseminacionAnterior = data.inseminacionAnterior;
-                    vm.inseminacionNueva = data.inseminacionNueva;
+                if (!$stateParams.fechaTacto)
+                    $stateParams.fechaTacto = '';
+                if (!$stateParams.fechaTactoConfl)
+                    $stateParams.fechaTactoConfl = '';
+                resolverConflictoService.getDatos($stateParams.idTacto, $stateParams.fechaTacto, $stateParams.idTactoConfl, $stateParams.fechaTactoConfl, $stateParams.idInseminacion, $stateParams.idInseminConfl).then(function success(data) {
+                    vm.tactoAnterior = data.tactoAnterior; //Es el ultimo tacto registrado en base
+                    vm.tactoNuevo = data.tactoNuevo; //Es el tacto que se intento registrar en base, pero produjo un conflicto
+                    vm.inseminacionAnterior = data.inseminacionAnterior; //Es la ultima inseminacion registrada en base
+                    vm.inseminacionNueva = data.inseminacionNueva; //Es la inseminacion que se intento registrar pero produjo un conflicto
                     vm.showSpinner = false;
                 }, function error(error) {
                     vm.showSpinner = false;
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
+            else
+                vm.showSpinner = false;
         }
 
         function seleccionarInseminacion(inseminacion) {
@@ -66,7 +60,7 @@
         function seleccionarTacto(tacto) {
             vm.tactoResultante.fechaTacto = tacto.fechaTacto;
             vm.tactoResultante.tipoTacto = tacto.tipoTacto;
-            vm.tactoResultante.resultado = tacto.resultado;
+            vm.tactoResultante.exitoso = tacto.exitoso;
         }
 
         function seleccionarPropiedadInseminacion(inseminacion, propiedad) {

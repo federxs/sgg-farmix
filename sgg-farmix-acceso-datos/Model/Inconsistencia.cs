@@ -8,8 +8,10 @@ namespace sgg_farmix_acceso_datos.Model
 {
     public class Inconsistencia
     {
-        public long? idEvento { get; set; }
-        public long? idEventoConflictivo { get; set; }
+        public long? idTacto { get; set; }
+        public string fechaTacto { get; set; }
+        public long? idTactoConflictivo { get; set; }
+        public string fechaTactoConflictivo { get; set; }
         public long? idInseminacion { get; set; }
         public long? idInseminacionConflictiva { get; set; }
         public string tipo { get; set; }
@@ -28,9 +30,9 @@ namespace sgg_farmix_acceso_datos.Model
 
     public class InconsistenciaResolver
     {
-        public EventoDetalle eventoAnterior { get; set; }
-        public EventoDetalle eventoNuevo { get; set; }
-        public Inseminacion inseminacionAnterior { get; set; }
-        public Inseminacion inseminacionResultante { get; set; }
+        public Tacto tactoAnterior { get; set; }
+        public Tacto tactoNuevo { get; set; }
+        public InseminacionDetalle inseminacionAnterior { get; set; }
+        public InseminacionDetalle inseminacionNueva { get; set; }
     }
 }

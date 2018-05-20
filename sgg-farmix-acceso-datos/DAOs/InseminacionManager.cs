@@ -75,7 +75,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametros = new Dictionary<string, object>
                 {
                     {"@tipoInseminacion", entity.tipoInseminacion },
-                    {"@idVaca", 0 }
+                    {"@idVaca", 0 },
+                    {"@fechaHora", entity.fechaInseminacion },
+                    {"@codigoCampo", entity.codigoCampo }
                 };
                 for (int i = 0; i < listVacas.Count; i++)
                 {

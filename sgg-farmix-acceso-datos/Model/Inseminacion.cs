@@ -13,6 +13,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string fechaInseminacion { get; set; }
         public string fechaEstimadaNacimiento { get; set; }
         public long tipoInseminacion { get; set; }
+        public long codigoCampo { get; set; }
     }
     public class InseminacionInit
     {
@@ -45,6 +46,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string fechaEstimadaNacimiento { get; set; }
         public string tipoInseminacion { get; set; }
         public int idTipoInseminacion { get; set; }
+        public long numCaravanaBovino { get; set; }
         public IEnumerable<BovinoItem> listaBovinos { get; set; }
         public IEnumerable<Tacto> tactos { get; set; }
     }
