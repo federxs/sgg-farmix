@@ -140,8 +140,18 @@ namespace sgg_farmix_acceso_datos.DAOs
                     throw new ArgumentException("Create Evento Error");
                 var parametrosDetalle = new Dictionary<string, object>()
                 {
-                    {"@idEvento", evento.idEvento }
+                    {"@idEvento", evento.idEvento },
+                    {"@idTipoEvento", evento.idTipoEvento }
                 };
+                switch (evento.idTipoEvento)
+                {
+                    case 3: //manejo
+                        parametrosEvento.Add("@idRodeoDestino", evento.idRodeoDestino);
+                        break;
+                    case 4: //alimenticio
+                        parametrosEvento.Add("@idAlimento", evento.idAlimento);
+                        break;
+                }
                 var insert = 0;
                 parametrosDetalle.Add("@idBovino", 0);
                 for (int i = 0; i < lista.Count; i++)

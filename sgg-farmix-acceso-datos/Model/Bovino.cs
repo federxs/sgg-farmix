@@ -30,6 +30,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string fechaEstimadaParto { get; set; }
         public string usuario { get; set; }
         public long? codigoCampo { get; set; }
+        public string diasFaltantesXDarALuz { get; set; }
     }
 
     public class BovinoFilter

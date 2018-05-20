@@ -51,7 +51,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     {"@idTipoTacto", tacto.idTipoTacto },
                     {"@exitoso", tacto.exitoso },
-                    {"@idInseminacion", tacto.idInseminacion }
+                    {"@idInseminacion", tacto.idInseminacion },
+                    {"@fechaTacto", tacto.fechaTacto },
+                    {"@codigoCampo", tacto.codigoCampo }
                 };
                 var insert = connection.Execute("spRegistrarTactoXInseminacion", parametros, System.Data.CommandType.StoredProcedure);
                 return tacto;
