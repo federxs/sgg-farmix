@@ -25,19 +25,21 @@ angular.module('starter')
                 $rootScope.logueado = false;
             }
         }
-        $rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
+        //$rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
+
         /*if (!$localStorage.ultimaConConexion) {
             //si la ultima vez fue sin conexion, realizar post
             //tirar a los services que hagan el post
             va en Background, variable para ver si hay algo para actualizar
         }*/
-        if ($rootScope.logueado == true && conexion.online) {
+
+        /*if ($rootScope.logueado == true && conexion.online) {
             alimentoService.getDatosAlimento($localStorage.campo);
             antibioticoService.getDatosAntibiotico($localStorage.campo);
             bovinoService.getBovinos($localStorage.campo);
             rodeoService.getDatosRodeo($localStorage.campo);
             vacunaService.getDatosVacuna($localStorage.campo);
-        }
+        }*/
                 
         $scope.iniciar = function() {
             $state.go('app.login');

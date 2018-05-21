@@ -1,17 +1,27 @@
 (function () {
     angular.module('starter')
-    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, loginService, $ionicLoading, $localStorage) {
+    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, loginService, $ionicLoading, $localStorage, alimentoService, antibioticoService, rodeoService, vacunaService) {
 
         $ionicPlatform.ready(function () {
-            nfc.addNdefListener(tagEscaneado, iniciar, cancelar);
+            //abrimos la db acá
+            $rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
+            //nfc.addNdefListener(tagEscaneado, iniciar, cancelar);
             //descomenta Luki para que te funcione sin NFC
-            //nfc.addNdefListener(tagEscaneado, cancelar, iniciar);
+            nfc.addNdefListener(tagEscaneado, cancelar, iniciar);
         });
 
         if ($rootScope.logueado == false) {
             $state.go('app.bienvenido');
         }
-
+        function cargarDataBase() {
+            if ($rootScope.logueado == true && conexion.online) {
+                alimentoService.getDatosAlimento($localStorage.campo);
+                antibioticoService.getDatosAntibiotico($localStorage.campo);
+                bovinoService.getBovinos($localStorage.campo);
+                rodeoService.getDatosRodeo($localStorage.campo);
+                vacunaService.getDatosVacuna($localStorage.campo);
+            }
+        }
         function iniciar() {
             //$rootScope.ban = true;
             $rootScope.db.transaction(function (tx) {
@@ -43,6 +53,7 @@
                 tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(1, 'Artificial')");
                 tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(2, 'Montura')");
             });
+            cargarDataBase();
             return;
         }
 
