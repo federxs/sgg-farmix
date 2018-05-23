@@ -1,6 +1,6 @@
 (function () {
     angular.module('starter')
-    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, loginService, $ionicLoading, $localStorage, alimentoService, antibioticoService, rodeoService, vacunaService) {
+    .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, loginService, $ionicLoading, $localStorage, alimentoService, antibioticoService, rodeoService, vacunaService, conexion) {
 
         $ionicPlatform.ready(function () {
             //abrimos la db acá
@@ -13,15 +13,16 @@
         if ($rootScope.logueado == false) {
             $state.go('app.bienvenido');
         }
-        function cargarDataBase() {
-            if ($rootScope.logueado == true && conexion.online) {
-                alimentoService.getDatosAlimento($localStorage.campo);
-                antibioticoService.getDatosAntibiotico($localStorage.campo);
-                bovinoService.getBovinos($localStorage.campo);
-                rodeoService.getDatosRodeo($localStorage.campo);
-                vacunaService.getDatosVacuna($localStorage.campo);
-            }
-        }
+        //function cargarDataBase() {
+        //    alert($rootScope.logueado);
+        //    if ($rootScope.logueado == true && conexion.online() == true) {
+        //        alimentoService.getDatosAlimento($localStorage.campo);
+        //        antibioticoService.getDatosAntibiotico($localStorage.campo);
+        //        bovinoService.getBovinos($localStorage.campo);
+        //        rodeoService.getDatosRodeo($localStorage.campo);
+        //        vacunaService.getDatosVacuna($localStorage.campo);
+        //    }
+        //}
         function iniciar() {
             //$rootScope.ban = true;
             $rootScope.db.transaction(function (tx) {
@@ -53,7 +54,7 @@
                 tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(1, 'Artificial')");
                 tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(2, 'Montura')");
             });
-            cargarDataBase();
+            //cargarDataBase();
             return;
         }
 

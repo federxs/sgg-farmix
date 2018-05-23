@@ -1,22 +1,26 @@
 angular.module('starter')
     .controller('BienvenidoController', function ($scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService) {
-        if (!$rootScope.logueado) {
+        if (!$rootScope.logueado || $rootScope.logueado == undefined) {
             if (($localStorage.usuario != undefined) && ($localStorage.pass != undefined)) {
                 if (conexion.online()) {
                     var usuario = {};
                     usuario.usuario = $localStorage.usuario;
                     usuario.pass = $localStorage.pass;
+                    //showIonicLoading();
+                    //var _login = validarLogin();
                     showIonicLoading().then(validarLogin).then(function (_login) {
                         if (_login.resultado == "1") {
                             $localStorage.campo = _login.codigoCampo;
                             $localStorage.token = _login.token;
                             $rootScope.logueado = true;
+                            cargarDataBase();
                         } else {
                             $rootScope.logueado = false;
                             $localStorage.usuario = undefined;
                             $localStorage.pass = undefined;
                             $state.go('app.login');
                         }
+                        //$ionicLoading.hide;
                     }).then($ionicLoading.hide).catch($ionicLoading.hide);
                 } else {
                     $rootScope.logueado = true;
@@ -24,6 +28,19 @@ angular.module('starter')
             } else {
                 $rootScope.logueado = false;
             }
+        }
+        function cargarDataBase() {
+            //if ($rootScope.logueado == true && conexion.online() == true) {
+            try{
+                alimentoService.getDatosAlimento($localStorage.campo);
+                antibioticoService.getDatosAntibiotico($localStorage.campo);
+                bovinoService.getBovinos($localStorage.campo);
+                rodeoService.getDatosRodeo($localStorage.campo);
+                vacunaService.getDatosVacuna($localStorage.campo);
+            }catch(error){
+                console.log(error);
+            }
+            //}
         }
         //$rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
 

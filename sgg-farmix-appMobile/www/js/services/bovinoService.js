@@ -109,18 +109,19 @@
                 } else {
                     escrito = 0;
                 }
-                if ($localStorage.actualizar) {
-                    //los bovinos que se pongan en borrado=1 en amazon, aca los seguiriamos teniendo... creo que no habria drama no? no se rompe nada jaja
+                //igual nos quedarian los bovinos que fueron borrados desde el sistema, nos quedarian en nuestra bd local... (supongo que no hay drama).
+                sqlStatments.push(["INSERT OR REPLACE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, paraActualizar, fechaEstimadaParto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito, bovino.fechaEstimada]]);
+               /* if ($localStorage.actualizar) {
                     sqlStatments.push(["UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, escrito=?, fechaEstimadaParto=?, paraActualizar=0 WHERE idBovino=?"], [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.idBovino]);
                 } else {
                     sqlStatments.push(["INSERT OR IGNORE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, paraActualizar, fechaEstimadaParto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito, bovino.fechaEstimada]]);
-                }
+                }*/
             });
 
             return $q(function (resolve, reject) {
                 $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
             });
-            $localStorage.actualizar = true;
+            //$localStorage.actualizar = true;
         }
 
         this.escribirTag = function (id) {

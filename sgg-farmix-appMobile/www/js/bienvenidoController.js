@@ -1,6 +1,6 @@
 angular.module('starter')
     .controller('BienvenidoController', function ($scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService) {
-        if (!$rootScope.logueado) {
+        if (!$rootScope.logueado || $rootScope.logueado == undefined) {
             if (($localStorage.usuario != undefined) && ($localStorage.pass != undefined)) {
                 if (conexion.online()) {
                     var usuario = {};
@@ -11,6 +11,7 @@ angular.module('starter')
                             $localStorage.campo = _login.codigoCampo;
                             $localStorage.token = _login.token;
                             $rootScope.logueado = true;
+                            cargarDataBase();
                         } else {
                             $rootScope.logueado = false;
                             $localStorage.usuario = undefined;
@@ -23,6 +24,17 @@ angular.module('starter')
                 }
             } else {
                 $rootScope.logueado = false;
+            }
+        }
+        function cargarDataBase() {
+            try{
+                alimentoService.getDatosAlimento($localStorage.campo);
+                antibioticoService.getDatosAntibiotico($localStorage.campo);
+                bovinoService.getBovinos($localStorage.campo);
+                rodeoService.getDatosRodeo($localStorage.campo);
+                vacunaService.getDatosVacuna($localStorage.campo);
+            }catch(error){
+                console.log(error);
             }
         }
         //$rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
