@@ -6,8 +6,6 @@ angular.module('starter')
                     var usuario = {};
                     usuario.usuario = $localStorage.usuario;
                     usuario.pass = $localStorage.pass;
-                    //showIonicLoading();
-                    //var _login = validarLogin();
                     showIonicLoading().then(validarLogin).then(function (_login) {
                         if (_login.resultado == "1") {
                             $localStorage.campo = _login.codigoCampo;
@@ -20,7 +18,6 @@ angular.module('starter')
                             $localStorage.pass = undefined;
                             $state.go('app.login');
                         }
-                        //$ionicLoading.hide;
                     }).then($ionicLoading.hide).catch($ionicLoading.hide);
                 } else {
                     $rootScope.logueado = true;
@@ -30,7 +27,6 @@ angular.module('starter')
             }
         }
         function cargarDataBase() {
-            //if ($rootScope.logueado == true && conexion.online() == true) {
             try{
                 alimentoService.getDatosAlimento($localStorage.campo);
                 antibioticoService.getDatosAntibiotico($localStorage.campo);
@@ -40,7 +36,6 @@ angular.module('starter')
             }catch(error){
                 console.log(error);
             }
-            //}
         }
         //$rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
 
