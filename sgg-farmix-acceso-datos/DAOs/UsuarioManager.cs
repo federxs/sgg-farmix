@@ -174,7 +174,6 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@apellido", entity.apellido },
                     {"@pass", clave },
                     {"@idRol", entity.idRol },
-                    {"@idPlan", entity.idPlan },
                     {"@codigoCampo", codigoCampo }
                 };
                 entity.idUsuario = connection.Execute("spRegistrarUsuario", parametros, System.Data.CommandType.StoredProcedure, transaction);
@@ -288,6 +287,29 @@ namespace sgg_farmix_acceso_datos.DAOs
                 };
                 var perfil = connection.GetArray<Usuario>("spObtenerPerfilUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return perfil;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
+        public ResultadoValidacionCampo ValidarCantidadUsuarios(string usuario)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@usuario", usuario }
+                };
+                var resultado = connection.GetArray<ResultadoValidacionCampo>("spValidarCantidadUsuarios", parametros, System.Data.CommandType.StoredProcedure);
+                return resultado.First();
             }
             catch (Exception ex)
             {

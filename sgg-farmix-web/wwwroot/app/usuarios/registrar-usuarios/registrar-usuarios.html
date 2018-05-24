@@ -52,7 +52,6 @@
         <div class="panel panel-default">
             <div class="panel-heading">Cuenta</div>
             <div class="panel-body">
-
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarUsuario.usuario.$touched && formRegistrarUsuario.usuario.$valid,
                  'has-error has-feedback':formRegistrarUsuario.usuario.$touched && formRegistrarUsuario.usuario.$invalid}">
@@ -89,7 +88,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarUsuario.contrasenia.$touched && formRegistrarUsuario.contrasenia.$valid,
                  'has-error has-feedback':formRegistrarUsuario.contrasenia.$touched && formRegistrarUsuario.contrasenia.$invalid}">
@@ -121,6 +119,50 @@
                             <span class="help-block" ng-show="formRegistrarUsuario.contraseniaRepetida.$error.min">
                                 Las contraseñas no coinciden
                             </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row margin-top-20">
+                        <div ng-show="imageToUpload.length != 0">
+                            <img ng-repeat="img in imageToUpload"
+                                 ngf-thumbnail="img"
+                                 class="thumbnailImg"
+                                 ng-click="selectUnselectImage(img)"
+                                 ng-class="{selectedImgToDelete: ImageClass(img)}" />
+                        </div>
+                        <div class="col-md-12 margin-top-20">
+                            <!-- The fileinput-button span is used to style the file input field as button ng-model="imageToUpload"-->
+                            <span class="btn font-white fileinput-button  margin-right-10"
+                                  ngf-select="UploadImg($files, $invalidFiles)"
+                                  ngf-model-invalid="invalidFiles"
+                                  ngf-model-options="modelOptionsObj"
+                                  ngf-multiple="true"
+                                  ngf-pattern="image/*"
+                                  ngf-accept="true"
+                                  ng-disabled="disabled"
+                                  ngf-capture="capture"
+                                  ngf-drag-over-class="dragOverClassObj"
+                                  ngf-validate="true"
+                                  ngf-resize="{width: 670 , height: 377, centerCrop: true}"
+                                  ngf-resize-if="$width > 670 || $height > 377 || $width < 670 || $height < 377"
+                                  ngf-dimensions="dimensionsFn($file, $width, $height)"
+                                  ngf-duration="durationFn($file, $duration)"
+                                  ngf-keep="'distinct'"
+                                  ngf-fix-orientation="orientation"
+                                  ngf-max-files="1"
+                                  ngf-ignore-invalid="ignoreInvalid"
+                                  ngf-run-all-validations="runAllValidations"
+                                  ngf-allow-dir="allowDir">
+                                <i class="fa fa-plus"></i>
+                                <span> Agregar Imágen... </span>
+                            </span>
+                            <button type="button" class="btn red delete" ng-click="deleteImagefromModel()">
+                                <i class="fa fa-trash"></i>
+                                <span> Borrar Archivos... </span>
+                            </button>
+                            <!-- The global file processing state -->
+                            <span class="fileupload-process"> </span>
                         </div>
                     </div>
                 </div>

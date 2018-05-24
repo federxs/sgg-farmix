@@ -8,6 +8,10 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web.Http;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Web;
+using System.Diagnostics;
+using System.Linq;
 
 namespace sgg_farmix_api.Controllers
 {
@@ -76,13 +80,59 @@ namespace sgg_farmix_api.Controllers
 
         [HttpPost]
         [AutorizationToken]
-        public Usuario Post(string usuario, string codigoCampo)
+        public async Task<Usuario> Post()
         {
             try
             {
-                var user = JsonConvert.DeserializeObject<Usuario>(usuario);
-                var codCampo = Regex.Replace(codigoCampo, @"[^\d]", "");
-                return UM.Create(user, Int64.Parse(codCampo));
+                if (!Request.Content.IsMimeMultipartContent())
+                {
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+                }
+
+                string root = HttpContext.Current.Server.MapPath("~/App_Data");
+                var provider = new MultipartFormDataStreamProvider(root);
+
+                try
+                {
+                    // Read the form data.
+                    var result = await Request.Content.ReadAsMultipartAsync(provider);
+                    if (result.FormData["usuario"] == null)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.BadRequest);
+                    }
+                    var usuarioObject = JsonConvert.DeserializeObject<Usuario>(result.FormData["usuario"]);
+
+                    var usuarioNuevo = UM.Create(usuarioObject, usuarioObject.codigoCampo);
+
+                    foreach (MultipartFileData file in provider.FileData)
+                    {
+                        var multimediaObject = new Multimedia
+                        {
+                            mulTipo = file.Headers.ContentType.MediaType.StartsWith("image", StringComparison.InvariantCulture) ? 1 : 2,
+                            mulPath = $"{file.LocalFileName.Split('\\').Last()}.{ file.Headers.ContentType.MediaType.Split('/').Last()}",
+                            idCampo = 0
+                        };
+                        var newFileName = $"{usuarioNuevo.idUsuario}_ImagenUsuario.{file.Headers.ContentType.MediaType.Split('/').Last()}";
+                        MoveFiles.MoveFilesUsuarioToFolder(file.LocalFileName, newFileName);
+
+                        multimediaObject.mulPath = newFileName;
+
+                        new MultimediaManager().Create(multimediaObject);
+
+                        Trace.WriteLine(file.Headers.ContentDisposition.FileName);
+                        Trace.WriteLine("Server file path: " + file.LocalFileName);
+                    }
+
+                    return usuarioNuevo;
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+
+                //var user = JsonConvert.DeserializeObject<Usuario>(usuario);
+                //var codCampo = Regex.Replace(codigoCampo, @"[^\d]", "");
+                //return UM.Create(user, Int64.Parse(codCampo));
             }
             catch (Exception ex)
             {
@@ -200,6 +250,25 @@ namespace sgg_farmix_api.Controllers
             try
             {
                 return UM.GetPerfil(usuario);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Usuario/ValidarCantUsuarios")]
+        [HttpGet]
+        [AutorizationToken]
+        public ResultadoValidacionCampo ValidarCantCamposUsuario(string usuario)
+        {
+            try
+            {
+                return UM.ValidarCantidadUsuarios(usuario);
             }
             catch (Exception ex)
             {

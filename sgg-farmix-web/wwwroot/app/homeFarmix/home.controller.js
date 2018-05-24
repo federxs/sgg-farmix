@@ -10,6 +10,7 @@
         toastr
         ) {
         $scope.Menu = [];
+        var spinnerBar = angular.element(document.querySelector('#spinnerBar'));
 
         $scope.load = function () {
             $scope.showSpinner = true;
@@ -79,5 +80,13 @@
             $('#modalConfirmCerrarSesion').modal('hide');
             $state.go('login');
         }
+
+        $scope.blockSpinner = function () {
+            spinnerBar.modal('show');
+        };
+
+        $scope.unBlockSpinner = function () {
+            spinnerBar.modal('hide');
+        };
     });
 })();

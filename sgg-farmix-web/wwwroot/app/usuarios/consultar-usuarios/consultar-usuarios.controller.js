@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarUsuariosController', consultarUsuariosController);
 
-    consultarUsuariosController.$inject = ['$scope', 'consultarUsuariosService', 'toastr', 'exportador', '$localStorage', '$state'];
+    consultarUsuariosController.$inject = ['$scope', 'consultarUsuariosService', 'toastr', 'exportador', '$localStorage', '$state', '$sessionStorage'];
 
-    function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage, $state) {
+    function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage, $state, $sessionStorage) {
         var vm = $scope;
         vm.showSpinner = true;
         vm.deshabilitar = false;
@@ -455,15 +455,14 @@
 
         function validarCantUsuarios() {
             vm.showSpinner = true;
-            consultarUsuariosService.validarCantidadUsuariosPlan(idUsuarioActivar).then(function success() {
-                $('#modalConfirmActivacionUser').modal('hide');
-                toastr.success('Se ha activado al usuario con éxito', 'Éxito');
+            consultarUsuariosService.validarCantidadUsuariosPlan($sessionStorage.usuarioInfo.usuario).then(function success(data) {
+                if (data.resultado)
+                    $state.go('home.registrarUsuario');
+                else
+                    toastr.info("No puede agregar mas usuarios, verifique su plan contratado.", "Aviso");
                 vm.showSpinner = false;
-                $state.reload();
             }, function (error) {
-                $('#modalConfirmActivacionUser').modal('hide');
-                vm.showSpinner = false;
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                toastr.error("Se ha producido un error, reintentar.");
             })
         };
 

@@ -1,40 +1,34 @@
 ﻿(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .factory('registrarUsuariosService', registrarUsuariosService);
-
-    registrarUsuariosService.$inject = ['$http', 'portalService'];
-
-    function registrarUsuariosService($http, portalService) {
-        var service = {
-            inicializar: inicializar,
-            registrar: registrar
-        };
-
-        function inicializar() {
-            return $http({
-                method: 'GET',
-                url: portalService.getUrlServer() + 'api/Usuario/Init'
-            }).then(
-            function (data) {
-                return data.data || [];
+    angular.module('app')
+        .factory('registrarUsuariosService', function ($resource, portalService) {
+            return $resource(portalService.getUrlServer() + 'api/Usuario/', {}, {
+                inicializar: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Usuario/Init',
+                    headers: portalService.getHeadersServer(),
+                    isArray: false
+                },
+                save: {
+                    method: 'POST',
+                    transformRequest: function (data) {
+                        var formData = new FormData();
+                        formData.append("usuario", angular.toJson(data));
+                        if (data.imagen) {
+                            formData.append("file" + 0, data.imagen);
+                        }
+                        return formData;
+                    },
+                    headers: portalService.getContentUndefined()
+                },
+                validarCantCamposUsuario: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Campo/validarCantCamposXUsuario',
+                    params: {
+                        usuario: '@usuario'
+                    },
+                    headers: portalService.getHeadersServer(),
+                    isArray: false
+                }
             });
-        }
-
-        function registrar(usuario, codigoCampo) {
-            return $http({
-                method: 'POST',
-                url: portalService.getUrlServer() + 'api/Usuario/Post',
-                params: { usuario: usuario, codigoCampo: codigoCampo },
-                headers: portalService.getHeadersServer()
-            }).then(
-            function (data) {
-                return data.data || [];
-            });
-        }
-
-        return service;
-    }
+        });
 })();
