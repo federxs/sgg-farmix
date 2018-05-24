@@ -105,10 +105,10 @@
             });
         };
 
-        function idCaravanaChange() {
-            vm.showSpinner = true;
-            vm.habilitar = false;
+        function idCaravanaChange() {            
             if (vm.bovino.numCaravana) {
+                vm.showSpinner = true;
+                vm.habilitar = false;
                 registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.numCaravana, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                     if (data[0] === "1") {
                         vm.formRegistrarBovino.idCaravana.$setValidity("existeIdCaravana", false);
@@ -122,7 +122,7 @@
                     vm.showSpinner = false;
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
-            }
+            }            
         };
 
         function convertirFecha(fecha) {

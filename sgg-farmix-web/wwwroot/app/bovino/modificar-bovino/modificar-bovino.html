@@ -284,8 +284,8 @@
                             </button>
                         </div>
                     </div>
-                    <!--<div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$valid,
-                 'has-error has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.alimento.$touched && formModificarBovino.alimento.$valid,
+                 'has-error has-feedback':formModificarBovino.alimento.$touched && formModificarBovino.alimento.$invalid}">
                         <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
                             <label class="control-label" for="alimento">
                                 Alimento (*)
@@ -299,8 +299,8 @@
                                     {{ item.nombre }}
                                 </option>
                             </select>
-                            <div ng-show="formRegistrarBovino.alimento.$touched">
-                                <span class="help-block" ng-show="formRegistrarBovino.alimento.$error.required">
+                            <div ng-show="formModificarBovino.alimento.$touched">
+                                <span class="help-block" ng-show="formModificarBovino.alimento.$error.required">
                                     Este campo es requerido
                                 </span>
                             </div>
@@ -310,27 +310,27 @@
                                 <span class="glyphicon glyphicon-plus" style="color:white"></span>
                             </button>
                         </div>
-                        <div class="col-md-11 col-lg-11" style="margin-left:-15px;margin-top: 5px;" ng-class="{'has-success has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$valid,
-                 'has-error has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$invalid}">
+                        <div class="col-md-11 col-lg-11" style="margin-left:-15px;margin-top: 5px;" ng-class="{'has-success has-feedback':formModificarBovino.cantidad.$touched && formModificarBovino.cantidad.$valid,
+                 'has-error has-feedback':formModificarBovino.cantidad.$touched && formModificarBovino.cantidad.$invalid}">
                             <label class="control-label" for="cantidad">
                                 Ración alimento (kg/día) (*)
                             </label>
                             <input name="cantidad" type="number" class="form-control" min="0" max="{{maxCantidad}}" placeholder="Ración de alimento (kg) por día"
                                    ng-disabled="!habilitar"
                                    ng-model="bovino.cantAlimento" required />
-                            <div ng-show="formRegistrarBovino.cantidad.$touched">
-                                <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.required">
+                            <div ng-show="formModificarBovino.cantidad.$touched">
+                                <span class="help-block" ng-show="formModificarBovino.cantidad.$error.required">
                                     Este campo es requerido
                                 </span>
-                                <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.min">
+                                <span class="help-block" ng-show="formModificarBovino.cantidad.$error.min">
                                     El peso no puede ser negativo
                                 </span>
-                                <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.max">
+                                <span class="help-block" ng-show="formModificarBovino.cantidad.$error.max">
                                     El máximo es : {{maxCantidad}} kg/día
                                 </span>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12 col-lg-12">

@@ -69,8 +69,8 @@
                 //bovino
                 vm.bovino = data.bovino;
                 //vm.bovino.idEstablecimientoOrigen = vm.bovino.idEstablecimientoOrigen.toString();
-                vm.bovino.idAlimento = 0;
-                vm.bovino.cantAlimento = 0;
+                //vm.bovino.idAlimento = 0;
+                //vm.bovino.cantAlimento = 0;
                 nroCaravanaOriginal = vm.bovino.numCaravana;vm.bovino.fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10);
                 if (vm.bovino.genero === 0) {
                     vm.checkH = true;
@@ -93,6 +93,8 @@
                 vm.bovino.idCategoria = data.bovino.idCategoria.toString();
                 vm.bovino.idEstado = data.bovino.idEstado.toString();
                 vm.bovino.idRodeo = data.bovino.idRodeo.toString();
+                vm.bovino.idAlimento = data.bovino.idAlimento.toString();
+                vm.maxCantidad = (12 * vm.bovino.peso) / 100;
                 if (data.bovino.idEstablecimientoOrigen != 0) {
                     vm.bovino.idEstablecimientoOrigen = data.bovino.idEstablecimientoOrigen.toString();
                 } else {
@@ -153,6 +155,7 @@
                 vm.bovino.idEstablecimientoOrigen = 0;
             if (vm.checkH === true) vm.bovino.genero = 0;
             else if (vm.checkM === true) vm.bovino.genero = 1;
+            vm.bovino.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             modificarBovinoService.modificar(vm.bovino).then(function success(data) {
                 if (vm.bovino.pesoAlNacer === 0 || vm.bovino.pesoAlNacer === undefined)
                     vm.bovino.pesoAlNacer = '';

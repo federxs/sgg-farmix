@@ -49,18 +49,24 @@ namespace sgg_farmix_acceso_datos.DAOs
                     throw new ArgumentException("Create Bovino Error"); 
                 else if (entity.idBovino == 1)
                     throw new ArgumentException("Bovino ya existe");
+                var fechaHora = DateTime.Now.ToString("yyyyMMddHHmmss");
                 var parametrosEvento = new Dictionary<string, object>
                 {
                     {"@cant", entity.cantAlimento },
-                    {"@idTipoEvento", 4 }
+                    {"@idTipoEvento", 4 },
+                    {"@fechaHora", fechaHora },
+                    {"@idAlimento", entity.idAlimento }
                 };
                 var idEvento = connection.Execute("spRegistrarEvento", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
                 if(idEvento == 0)
-                    throw new ArgumentException("Create Evento Error");
+                    throw new ArgumentException("Create Evento Error");               
                 parametrosEvento = new Dictionary<string, object>
                 {
                     {"@idBovino", entity.idBovino },
-                    {"@idEvento", idEvento }
+                    {"@idEvento", idEvento },
+                    {"@idTipoEvento", 4 },
+                    {"@fechaHora", fechaHora },
+                    {"@cantAlimento", entity.cantAlimento }
                 };
                 var insert = connection.Execute("spRegistrarEventosXBovino", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
                 if (insert == 0)
@@ -68,15 +74,19 @@ namespace sgg_farmix_acceso_datos.DAOs
                 //parametros = null;
                 parametrosEvento = new Dictionary<string, object>
                 {
-                    {"@codigoCampo", 1 },
+                    {"@codigoCampo", entity.codigoCampo },
                     {"@idRodeoDestino", entity.idRodeo },
-                    {"@idTipoEvento", 3 }
+                    {"@idTipoEvento", 3 },
+                    {"@fechaHora", fechaHora }
                 };
                 idEvento = connection.Execute("spRegistrarEvento", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
                 parametrosEvento = new Dictionary<string, object>
                 {
                     {"@idBovino", entity.idBovino },
-                    {"@idEvento", idEvento }
+                    {"@idEvento", idEvento },
+                    {"@idTipoEvento", 3 },
+                    {"@fechaHora", fechaHora },
+                    {"@idRodeoDestino", entity.idRodeo }
                 };
                 insert = connection.Execute("spRegistrarEventosXBovino", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
                 if (insert == 0)
@@ -183,7 +193,10 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@idCatego", entity.idCategoria },
                     {"@idRaza", entity.idRaza },
                     {"@idRodeo", entity.idRodeo },
-                    {"@idEstado", entity.idEstado }
+                    {"@idEstado", entity.idEstado },
+                    {"@idAlimento", entity.idAlimento },
+                    {"@cantAlimento", entity.cantAlimento },
+                    {"@codigoCampo", entity.codigoCampo }
                 };
                 if (entity.pesoAlNacer != 0)
                     parametros.Add("@pesoAlNacer", entity.pesoAlNacer);

@@ -117,7 +117,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametrosEvento = new Dictionary<string, object>
                 {
                     {"@cant", evento.cantidad },
-                    {"@idTipoEvento", evento.idTipoEvento }
+                    {"@idTipoEvento", evento.idTipoEvento },
+                    {"@fechaHora", evento.fechaHora }
                 };
                 switch (evento.idTipoEvento)
                 {
@@ -141,10 +142,14 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametrosDetalle = new Dictionary<string, object>()
                 {
                     {"@idEvento", evento.idEvento },
-                    {"@idTipoEvento", evento.idTipoEvento }
+                    {"@idTipoEvento", evento.idTipoEvento },
+                    {"@fechaHora", evento.fechaHora }
                 };
                 switch (evento.idTipoEvento)
                 {
+                    case 1: //vacunacion
+                        parametrosEvento.Add("@idVacuna", evento.idVacuna);
+                        break;
                     case 3: //manejo
                         parametrosEvento.Add("@idRodeoDestino", evento.idRodeoDestino);
                         break;
