@@ -5,9 +5,9 @@
         $ionicPlatform.ready(function () {
             //abrimos la db acá
             $rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
-            nfc.addNdefListener(tagEscaneado, iniciar, cancelar);
+            //nfc.addNdefListener(tagEscaneado, iniciar, cancelar);
             //descomenta Luki para que te funcione sin NFC
-            //nfc.addNdefListener(tagEscaneado, cancelar, iniciar);
+            nfc.addNdefListener(tagEscaneado, cancelar, iniciar);
         });
 
         if ($rootScope.logueado == false) {

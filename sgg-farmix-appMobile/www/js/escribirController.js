@@ -1,6 +1,5 @@
 angular.module('starter')
     .controller('EscribirController', function ($scope, $rootScope, $ionicLoading, bovinoService, $state, $localStorage) {
-		$scope.pagina = 1;
         if($rootScope.logueado == false){
             $state.go('app.bienvenido');
         }
