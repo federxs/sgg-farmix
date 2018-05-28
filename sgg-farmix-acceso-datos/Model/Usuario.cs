@@ -43,10 +43,13 @@ namespace sgg_farmix_acceso_datos.Model
 
     public class UsuarioLogueado
     {
+        public long idUsuario { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
         public string rol { get; set; }
         public string campo { get; set; }
         public IEnumerable<Menu> menus { get; set; }
+        public string usuarioImagen { get; set; }
+        public string usuario { get; set; }
     }
 }

@@ -7,7 +7,8 @@
         $state,
         $localStorage,
         $sessionStorage,
-        toastr
+        toastr,
+        portalService
         ) {
         $scope.Menu = [];
         var spinnerBar = angular.element(document.querySelector('#spinnerBar'));
@@ -18,6 +19,7 @@
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;
+                $scope.usuarioInfo.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.usuarioInfo.usuarioImagen + "?cache=" + (new Date()).getTime();
                 for (var i = 0; i < $scope.Menu.length; i++) {
                     if ($scope.Menu[i].urlMenu === path)
                         $scope.Menu[i].activo = 'background-color:#E59866';

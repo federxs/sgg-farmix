@@ -110,7 +110,7 @@ namespace sgg_farmix_api.Controllers
                         {
                             mulTipo = file.Headers.ContentType.MediaType.StartsWith("image", StringComparison.InvariantCulture) ? 1 : 2,
                             mulPath = $"{file.LocalFileName.Split('\\').Last()}.{ file.Headers.ContentType.MediaType.Split('/').Last()}",
-                            idCampo = 0
+                            idUsuario = usuarioNuevo.idUsuario
                         };
                         var newFileName = $"{usuarioNuevo.idUsuario}_ImagenUsuario.{file.Headers.ContentType.MediaType.Split('/').Last()}";
                         MoveFiles.MoveFilesUsuarioToFolder(file.LocalFileName, newFileName);
@@ -245,11 +245,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Usuario/GetDatosPerfil")]
         [HttpGet]
         [AutorizationToken]
-        public Usuario GetPerfil(string usuario)
+        public UsuarioLogueado GetPerfil(long campo, string usuario)
         {
             try
             {
-                return UM.GetPerfil(usuario);
+                return UM.GetDatosUserLogueado(usuario, campo);
             }
             catch (Exception ex)
             {
@@ -269,6 +269,73 @@ namespace sgg_farmix_api.Controllers
             try
             {
                 return UM.ValidarCantidadUsuarios(usuario);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Usuario/UpdatePerfil")]
+        [HttpPut]
+        [AutorizationToken]
+        public async Task<UsuarioLogueado> ActualizarPerfil()
+        {
+            try
+            {
+                if (!Request.Content.IsMimeMultipartContent())
+                {
+                    throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+                }
+
+                string root = HttpContext.Current.Server.MapPath("~/App_Data");
+                var provider = new MultipartFormDataStreamProvider(root);
+
+                try
+                {
+                    // Read the form data.
+                    var result = await Request.Content.ReadAsMultipartAsync(provider);
+                    if (result.FormData["usuario"] == null)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.BadRequest);
+                    }
+                    var usuarioObject = JsonConvert.DeserializeObject<UsuarioLogueado>(result.FormData["usuario"]);
+
+                    var usuarioNuevo = UM.UpdatePerfil(usuarioObject);
+
+                    if (usuarioNuevo.idUsuario > 0)
+                    {
+                        foreach (MultipartFileData file in provider.FileData)
+                        {
+                            var multimediaObject = new Multimedia
+                            {
+                                mulTipo = file.Headers.ContentType.MediaType.StartsWith("image", StringComparison.InvariantCulture) ? 1 : 2,
+                                mulPath = $"{file.LocalFileName.Split('\\').Last()}.{ file.Headers.ContentType.MediaType.Split('/').Last()}",
+                                idUsuario = usuarioNuevo.idUsuario
+                            };
+                            var newFileName = $"{usuarioNuevo.idUsuario}_ImagenUsuario.{file.Headers.ContentType.MediaType.Split('/').Last()}";
+                            MoveFiles.DeleteFilesUsuarioToFolder(file.LocalFileName, newFileName);
+                            MoveFiles.MoveFilesUsuarioToFolder(file.LocalFileName, newFileName);
+
+                            multimediaObject.mulPath = newFileName;
+
+                            new MultimediaManager().Update(0, multimediaObject);
+
+                            Trace.WriteLine(file.Headers.ContentDisposition.FileName);
+                            Trace.WriteLine("Server file path: " + file.LocalFileName);
+                        }
+                    }
+
+                    return usuarioNuevo;
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
             }
             catch (Exception ex)
             {

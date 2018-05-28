@@ -24,6 +24,10 @@
             return "Images\\Campo\\";
         };
 
+        portalService.getFolderImagenUsuario = function () {
+            return "Images\\Usuario\\";
+        };
+
         /*portal.getDefaultUsuarioImagen = function () {
             return "../images/portal/default-user.png";
         };

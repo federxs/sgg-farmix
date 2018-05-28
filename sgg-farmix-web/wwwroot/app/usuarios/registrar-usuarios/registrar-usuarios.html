@@ -129,7 +129,8 @@
                                  ngf-thumbnail="img"
                                  class="thumbnailImg"
                                  ng-click="selectUnselectImage(img)"
-                                 ng-class="{selectedImgToDelete: ImageClass(img)}" />
+                                 ng-class="{selectedImgToDelete: ImageClass(img)}"
+                                 ng-disabled="!habilitar" />
                         </div>
                         <div class="col-md-12 margin-top-20">
                             <!-- The fileinput-button span is used to style the file input field as button ng-model="imageToUpload"-->
@@ -140,7 +141,7 @@
                                   ngf-multiple="true"
                                   ngf-pattern="image/*"
                                   ngf-accept="true"
-                                  ng-disabled="disabled"
+                                  ng-disabled="!habilitar"
                                   ngf-capture="capture"
                                   ngf-drag-over-class="dragOverClassObj"
                                   ngf-validate="true"
@@ -157,7 +158,7 @@
                                 <i class="fa fa-plus"></i>
                                 <span> Agregar Imágen... </span>
                             </span>
-                            <button type="button" class="btn red delete" ng-click="deleteImagefromModel()">
+                            <button type="button" class="btn red delete" ng-click="deleteImagefromModel()" ng-disabled="!habilitar">
                                 <i class="fa fa-trash"></i>
                                 <span> Borrar Archivos... </span>
                             </button>

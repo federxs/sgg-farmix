@@ -20,9 +20,12 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametros = new Dictionary<string, object>
                 {
                     {"@mulTipo", entity.mulTipo },
-                    {"@mulPath", entity.mulPath },
-                    {"@idCampo", entity.idCampo }
+                    {"@mulPath", entity.mulPath }
                 };
+                if (entity.idCampo != 0)
+                    parametros.Add("@idCampo", entity.idCampo);
+                if (entity.idUsuario != 0)
+                    parametros.Add("@idUsuario", entity.idUsuario);
 
                 entity.mulId = connection.Execute("spRegistrarMultimedia", parametros, System.Data.CommandType.StoredProcedure);
                 return entity;
@@ -60,7 +63,28 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Multimedia Update(long id, Multimedia entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>()
+                {
+                    {"@idUsuario", entity.idUsuario },
+                    {"@mulPath", entity.mulPath }
+                };
+                entity.mulId = connection.Execute("spActualizarMultimedia", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.mulId == 0)
+                    throw new ArgumentException("Update Perfil Error");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
         }
     }
 }

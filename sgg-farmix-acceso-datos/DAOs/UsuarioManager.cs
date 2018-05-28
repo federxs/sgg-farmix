@@ -321,5 +321,32 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = null;
             }
         }
+
+        public UsuarioLogueado UpdatePerfil(UsuarioLogueado entity)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>()
+                {
+                    {"@nombre", entity.nombre },
+                    {"@apellido", entity.apellido },
+                    {"@usuario", entity.usuario }
+                };
+                entity.idUsuario = connection.Execute("spActualizarDatosPerfil", parametros, System.Data.CommandType.StoredProcedure);
+                if (entity.idUsuario == 0)
+                    throw new ArgumentException("Update Perfil Error");
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }

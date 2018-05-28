@@ -1,43 +1,30 @@
 ﻿(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .factory('configuracionService', configuracionService);
-
-    configuracionService.$inject = ['$http', 'portalService'];
-
-    function configuracionService($http, portalService) {
-        var service = {
-            inicializar: inicializar,
-            getDatosPerfilUsuario: getDatosPerfilUsuario
-        };
-
-        function inicializar(id) {
-            return $http({
-                method: 'GET',
-                url: portalService.getUrlServer() + 'api/Dashboard/Get',
-                params: { id: id },
-                headers: portalService.getHeadersServer()
-            }).then(
-            function (data) {
-                return data.data || [];
+    angular.module('app')
+        .factory('configuracionService', function ($resource, portalService) {
+            return $resource(portalService.getUrlServer() + 'api/Usuario/', {}, {
+                actualizarPerfilUsuario: {
+                    method: 'PUT',
+                    url: portalService.getUrlServer() + 'api/Usuario/UpdatePerfil',
+                    transformRequest: function (data) {
+                        var formData = new FormData();
+                        formData.append("usuario", angular.toJson(data));
+                        if (data.imagen) {
+                            formData.append("file" + 0, data.imagen);
+                        }
+                        return formData;
+                    },
+                    headers: portalService.getContentUndefined()
+                },
+                getDatosPerfilUsuario: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Usuario/GetDatosPerfil',
+                    params: {
+                        usuario: '@usuario',
+                        campo: '@campo'
+                    },
+                    headers: portalService.getHeadersServer(),
+                    isArray: false
+                }
             });
-        }
-
-        function getDatosPerfilUsuario(usuario) {
-            return $http({
-                method: 'GET',
-                url: portalService.getUrlServer() + 'api/Usuario/GetDatosPerfil',
-                params: { usuario: usuario },
-                headers: portalService.getHeadersServer()
-            }).then(
-            function (data) {
-                return data.data || [];
-            });
-        }
-
-        return service;
-    }
-
+        });
 })();

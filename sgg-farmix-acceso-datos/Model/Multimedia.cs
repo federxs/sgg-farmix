@@ -12,5 +12,6 @@ namespace sgg_farmix_acceso_datos.Model
         public int mulTipo { get; set; }
         public string mulPath { get; set; }
         public long idCampo { get; set; }
+        public long idUsuario { get; set; }
     }
 }

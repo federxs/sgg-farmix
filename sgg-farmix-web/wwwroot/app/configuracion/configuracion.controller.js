@@ -5,9 +5,9 @@
         .module('app')
         .controller('configuracionController', configuracionController);
 
-    configuracionController.$inject = ['$scope', 'configuracionService', 'toastr', '$localStorage', '$sessionStorage', 'razaService', '$timeout', 'alimentoService', 'rodeoService', 'estadoService', 'categoriaService', 'establecimientoOrigenService', 'antibioticoService', 'vacunaService', 'registrarBovinoService'];
+    configuracionController.$inject = ['$scope', 'configuracionService', 'toastr', '$localStorage', '$sessionStorage', 'razaService', '$timeout', 'alimentoService', 'rodeoService', 'estadoService', 'categoriaService', 'establecimientoOrigenService', 'antibioticoService', 'vacunaService', 'registrarBovinoService', 'portalService', '$state'];
 
-    function configuracionController($scope, configuracionService, toastr, $localStorage, $sessionStorage, razaService, $timeout, alimentoService, rodeoService, estadoService, categoriaService, establecimientoOrigenService, antibioticoService, vacunaService, registrarBovinoService) {
+    function configuracionController($scope, configuracionService, toastr, $localStorage, $sessionStorage, razaService, $timeout, alimentoService, rodeoService, estadoService, categoriaService, establecimientoOrigenService, antibioticoService, vacunaService, registrarBovinoService, portalService, $state) {
         $scope.showSpinner = true;
         $scope.itemsPorPagina = 5;
         $scope.nuevaRaza = false;
@@ -18,6 +18,8 @@
         $scope.nuevoEstab = false;
         $scope.nuevoAntibiotico = false;
         $scope.nuevaVacuna = false;
+        $scope.showBorrar = false;
+        $scope.toDelete = [];
         var localidadesOriginales = [];
         $scope.inicializar = inicializar();
         $scope.popupRazas = popupRazas;
@@ -39,10 +41,15 @@
         $scope.agregarVacuna = agregarVacuna;
         $scope.agregarCategoria = agregarCategoria;
         $scope.popupPerfil = popupPerfil;
+        $scope.modificarPerfil = modificarPerfil;
+        $scope.UploadImg = UploadImg;
+        $scope.ImageClass = ImageClass;
+        $scope.selectUnselectImage = selectUnselectImage;
+        $scope.deleteImagefromModel = deleteImagefromModel;
 
         function inicializar() {
             $scope.showSpinner = true;
-            cargarProvinciasyLocalidades();            
+            cargarProvinciasyLocalidades();
         }
 
         function popupAlimentos() {
@@ -142,8 +149,10 @@
         };
 
         function popupPerfil() {
-            configuracionService.getDatosPerfilUsuario($sessionStorage.usuarioInfo.usuario).then(function success(data) {
+            $scope.imageToUpload = [];
+            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: $sessionStorage.usuarioInfo.usuario }, function (data) {
                 $scope.perfilUsuario = data;
+                $scope.perfilUsuario.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfilUsuario.usuarioImagen + "?cache=" + (new Date()).getTime();
                 $('#modalPerfilUser').modal('show');
             }, function (error) {
 
@@ -301,6 +310,69 @@
                 else
                     toastr.error('La operación no se pudo completar', 'Error');
             });
+        };
+
+        function modificarPerfil() {
+            if ($scope.imageToUpload[0])
+                $scope.perfilUsuario.imagen = $scope.imageToUpload[0];
+            $scope.perfilUsuario.usuario = $sessionStorage.usuarioInfo.usuario;
+            $scope.perfilUsuario.$actualizarPerfilUsuario(function(data) {
+                toastr.success('Datos del perfil actualizados', 'Éxito');
+                $('#modalPerfilUser').modal('hide');
+                $state.reload();
+            }, function (error) {
+
+            });
+        };
+
+        function UploadImg($files, $invalidFiles) {
+            $scope.imageToUpload = $files;
+            if ($scope.perfilUsuario.usuarioImagen) {
+                $scope.perfilUsuario.usuarioImagen = undefined;
+            }
+        };
+
+        function selectUnselectImage(item) {
+            if (!$scope.showBorrar) {
+                $scope.toDelete = [];
+                $scope.showBorrar = true;
+                var index = $scope.toDelete.indexOf(item);
+                if (index != -1) {
+                    $scope.toDelete.splice(index, 1);
+                } else {
+                    $scope.toDelete.push(item)
+                }
+            }
+            else {
+                $scope.toDelete = [];
+                $scope.showBorrar = false;
+            }
+        };
+
+        function ImageClass(item) {
+            var index = $scope.toDelete.indexOf(item);
+            if (index != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        function deleteImagefromModel() {
+            if ($scope.toDelete != [] && $scope.toDelete.length > 0) {
+                angular.forEach($scope.toDelete, function (value, key) {
+                    var index = $scope.imageToUpload.indexOf(value);
+                    var indexToDelete = $scope.toDelete.indexOf(value);
+                    if (index != -1) {
+                        $scope.imageToUpload.splice(index, 1);
+                        $scope.toDelete.splice(indexToDelete, 1);
+                        $scope.showBorrar = false;
+                    }
+                });
+            }
+            else {
+                toastr.info('Debe seleccionar una imágen para borrar', 'Aviso');
+            }
         };
     }//fin controlador
 })();
