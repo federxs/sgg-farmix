@@ -150,12 +150,15 @@
 
         function popupPerfil() {
             $scope.imageToUpload = [];
+            $scope.toDelete = [];
+            $scope.showBorrar = false;
             configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: $sessionStorage.usuarioInfo.usuario }, function (data) {
                 $scope.perfilUsuario = data;
                 $scope.perfilUsuario.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfilUsuario.usuarioImagen + "?cache=" + (new Date()).getTime();
                 $('#modalPerfilUser').modal('show');
             }, function (error) {
-
+                $scope.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
 
@@ -321,7 +324,8 @@
                 $('#modalPerfilUser').modal('hide');
                 $state.reload();
             }, function (error) {
-
+                $scope.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
 

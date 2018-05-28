@@ -81,8 +81,8 @@
         <div class="row content">
             <div class="col-md-2 col-lg-2 sidenav">
                 <ul class="list-group">
-                    <li class="list-group-item" style="background-color:#FAE5D3">
-                        <img class="img-circle" height="120" width="120" src="{{usuarioInfo.usuarioImagen}}" />
+                    <li class="list-group-item" style="background-color: #FAE5D3; cursor:pointer;">
+                        <img class="img-circle" height="120" width="120" src="{{usuarioInfo.usuarioImagen}}" ng-click="modificarImagenPerfil()" />
                     </li>
                     <li class="list-group-item" style="background-color:#FAE5D3">
                         <p>{{usuarioInfo.nombre}} {{usuarioInfo.apellido}}</p>
@@ -118,7 +118,13 @@
             </div>
         </div>
     </div>
-    <!--Modal-->
+    
+    <footer class="footer" style="background-color:#229954;">
+        <div class="container">
+            <p>Farmix 2018. Versión 2.0</p>
+        </div>
+    </footer>
+    <!--Modal cerrar sesion-->
     <div id="modalConfirmCerrarSesion" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -138,10 +144,90 @@
         </div>
     </div>
     <!--Modal-->
-    <footer class="footer" style="background-color:#229954;">
-        <div class="container">
-            <p>Farmix 2017. Versión 1.0</p>
+    <!--Modal perfil user-->
+    <div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">Mi Perfil</h4>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <div ng-show="imageToUpload.length != 0">
+                            <img ng-repeat="img in imageToUpload"
+                                 ngf-thumbnail="img"
+                                 class="img-circle"
+                                 width="140" height="140"
+                                 ng-click="selectUnselectImage(img)"
+                                 ng-class="{selectedImgToDelete: ImageClass(img)}"
+                                 ng-disabled="!habilitar" />
+                        </div>
+                        <img src="{{perfil.usuarioImagen}}" width="140" height="140" border="0" class="img-circle" ng-show="perfil.usuarioImagen">
+                        <br />
+                        <span><strong>Cargo: </strong></span>
+                        <span class="label label-info">{{perfil.rol}}</span>
+                        <div class="col-md-12 margin-top-20" style="margin-top:5px;">
+                            <!-- The fileinput-button span is used to style the file input field as button ng-model="imageToUpload"-->
+                            <span class="btn font-white fileinput-button  margin-right-10"
+                                  ngf-select="UploadImg($files, $invalidFiles)"
+                                  ngf-model-invalid="invalidFiles"
+                                  ngf-model-options="modelOptionsObj"
+                                  ngf-multiple="true"
+                                  ngf-pattern="image/*"
+                                  ngf-accept="true"
+                                  ng-disabled="disabled"
+                                  ngf-capture="capture"
+                                  ngf-drag-over-class="dragOverClassObj"
+                                  ngf-validate="true"
+                                  ngf-resize="{width: 670 , height: 377, centerCrop: true}"
+                                  ngf-resize-if="$width > 670 || $height > 377 || $width < 670 || $height < 377"
+                                  ngf-dimensions="dimensionsFn($file, $width, $height)"
+                                  ngf-duration="durationFn($file, $duration)"
+                                  ngf-keep="'distinct'"
+                                  ngf-fix-orientation="orientation"
+                                  ngf-max-files="1"
+                                  ngf-ignore-invalid="ignoreInvalid"
+                                  ngf-run-all-validations="runAllValidations"
+                                  ngf-allow-dir="allowDir"
+                                  ng-show="!showBorrar && imageToUpload.length === 0">
+                                <i class="fa fa-refresh"></i>
+                                <span> Cambiar imágen... </span>
+                            </span>
+                            <button type="button" class="btn red delete" ng-click="deleteImagefromModel()" ng-show="showBorrar">
+                                <i class="fa fa-trash"></i>
+                                <span>Eliminar imágen...</span>
+                            </button>
+                            <!-- The global file processing state -->
+                            <span class="fileupload-process"> </span>
+                        </div>
+                    </center>
+                    <hr>
+                    <center>
+                        <p class="text-left">
+                            <strong>Datos: </strong><br>
+                            <label class="control-label" for="UsuarioNombre">
+                                Nombre
+                            </label>
+                            <input name="UsuarioNombre" type="text" class="form-control" placeholder="Nombre del usuario"
+                                   ng-model="perfil.nombre" required maxlength="30" disabled />
+                            <label class="control-label" for="UsuarioApe">
+                                Apellido
+                            </label>
+                            <input name="UsuarioApe" type="text" class="form-control" placeholder="Apellido del usuario"
+                                   ng-model="perfil.apellido" required maxlength="30" disabled />
+                        </p>
+                        <br>
+                    </center>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-success" ng-disabled="(!perfil.usuarioImagen && imageToUpload.length === 0)" ng-click="guardarImagenPerfil()">Guardar</button>
+                    </center>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+
 </body>
 </html>
