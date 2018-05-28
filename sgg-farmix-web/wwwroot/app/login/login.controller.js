@@ -108,7 +108,7 @@
                         }
                         else
                             toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.");
-                        setTimeout()
+                        //setTimeout()
                         waitingDialog.hide();
                         //vm.showSpinner = false;
                     },
