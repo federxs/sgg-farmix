@@ -22,7 +22,7 @@
         /* Set gray background color and 100% height */
         .sidenav {
             padding-top: 20px;
-            background-color: #FAE5D3;            
+            background-color: #FAE5D3;
         }
 
         /* Set black background color, white text and some padding */
@@ -55,11 +55,11 @@
         li a:link {
             text-decoration: none;
         }
+
         li a:hover {
             font-weight: 700;
             text-decoration: none;
         }
-        
     </style>
 </head>
 <body>
@@ -74,6 +74,9 @@
                 </div>
             </div>
 
+            <div class="pull-right">
+                <a ui-sref="home.consultarConflicto()" style="text-decoration:none; color:#ffffff"><span class="fa fa-2x fa-bell"></span> <span class="badge">{{inconsistencias}}</span></a><br>
+            </div>
         </div>
     </nav>
     <div class="container-fluid text-center" style="background-color:#FAE5D3;">
@@ -121,7 +124,7 @@
             </div>
         </div>
     </div>
-    
+
     <footer class="footer" style="background-color:#229954;">
         <div class="container">
             <p>Farmix 2018. Versión 2.0</p>

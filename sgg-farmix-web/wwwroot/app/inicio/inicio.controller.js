@@ -12,7 +12,6 @@
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
         $scope.irAConflictos = irAConflictos;
-        //$scope.prueba = prueba;
 
         function inicializar() {
             $scope.showSpinner = true;
