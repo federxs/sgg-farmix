@@ -18,7 +18,8 @@
 
         $scope.load = function () {
             $scope.showSpinner = true;
-            homeService.datosUsuario({ usuario: $sessionStorage.usuarioInfo.usuario, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
+            //homeService.datosUsuario({ usuario: $sessionStorage.usuarioInfo.usuario, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
+            homeService.datosUsuario($sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;

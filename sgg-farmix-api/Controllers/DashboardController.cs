@@ -16,6 +16,7 @@ namespace sgg_farmix_api.Controllers
     {
         private DashboarManager DM = new DashboarManager();
 
+        [Route("api/Dashboard/Get")]
         [HttpGet]
         [AutorizationToken]
         public DashBoard Get(string id)

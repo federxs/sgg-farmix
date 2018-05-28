@@ -121,6 +121,11 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@token", token }
                 };
                 var result = connection.GetArray<ResultadoValidacion>("spValidarUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                if(result.resultado == 0)
+                {
+                    parametros["@rol"] = 2;
+                    result = connection.GetArray<ResultadoValidacion>("spValidarUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                }
                 return result;
             }
             catch (Exception ex)

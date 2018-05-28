@@ -11,7 +11,7 @@
         var service = {
             inicializar: inicializar,
             obtenerInconsistencias: obtenerInconsistencias,
-            prueba: prueba
+            //prueba: prueba
         };
 
         function inicializar(id) {
@@ -38,16 +38,16 @@
             })
         };
 
-        function prueba(id) {
-            return $http({
-                method: 'GET',
-                url: portalService.getUrlServer() + 'api/Bovino/getListaTags',
-                params: { idCampo: id }
-            }).then(
-            function (data) {
-                return data.data || [];
-            });
-        }
+        //function prueba(id) {
+        //    return $http({
+        //        method: 'GET',
+        //        url: portalService.getUrlServer() + 'api/Bovino/getListaTags',
+        //        params: { idCampo: id }
+        //    }).then(
+        //    function (data) {
+        //        return data.data || [];
+        //    });
+        //}
 
         return service;
     }
