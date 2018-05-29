@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ngStorage'])
+angular.module('starter', ['ionic', 'ngStorage', 'angular-table'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {

@@ -1,14 +1,13 @@
 angular.module('starter')
     .controller('AlimentoController', function ($ionicLoading, $scope, alimentoService, $rootScope, registrarEventoService, $state, $localStorage) {
-        showIonicLoading().then(obtenerAlimento).then(function (_alimentos) {            
+        showIonicLoading().then(obtenerAlimento).then(function (_alimentos) {
             if($rootScope.logueado == false){
-            $state.go('app.bienvenido');
+                $state.go('app.bienvenido');
             }
             $scope.alimentos = _alimentos;
             $scope.evento = {};
             $scope.txtKiligramaje = {};
             $scope.evento.alimento = "0";
-            
         }).then($ionicLoading.hide).catch($ionicLoading.hide);
 
         $scope.registrar = function () {
@@ -39,7 +38,9 @@ angular.module('starter')
         }
 
         function registrarEvento() {
-            var evento = { idTipoEvento: 4, idAlimento: $scope.evento.alimento, cantidad: $scope.txtKiligramaje.value };
+            var date = new Date();
+            var formattedDate = moment(date).format('YYYYMMDDHHmmss');
+            var evento = { idTipoEvento: 4, idAlimento: $scope.evento.alimento, cantidad: $scope.txtKiligramaje.value, fechaHora: formattedDate };
             return registrarEventoService.registrarEvento(evento);
         }
 

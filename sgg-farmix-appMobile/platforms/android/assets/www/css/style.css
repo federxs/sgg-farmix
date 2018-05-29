@@ -154,5 +154,26 @@ th, td {
     display: inline-block;
     vertical-align: middle;
 }
+.pagination at-pagination{
+    display: inline-block;
+    vertical-align: middle;
+}
 
+.pagination a {
+    color: black;
+    background-color: #FFFAFA;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #444444;
+}
+
+.pagination a.active {
+    background-color: #444444;
+    color: white;
+    border: 1px solid #444444;
+}
+
+.pagination a:hover:not(.active) {background-color: black;}
 

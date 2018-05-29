@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('LoginController', function ($scope, $rootScope, $state, $ionicLoading, $ionicPlatform, loginService, $localStorage) {
+    .controller('LoginController', function ($scope, $rootScope, $state, $ionicLoading, $ionicPlatform, loginService, $localStorage, conexion) {
         if ($rootScope.logueado == true) {
             $state.go('app.bienvenido');
         }
@@ -21,6 +21,7 @@ angular.module('starter')
                                 $localStorage.pass = $scope.loginData.pass;
                                 $localStorage.campo = _login.codigoCampo;
                                 $localStorage.token = _login.token;
+                                $localStorage.actualizar = false;
                                 $state.go('app.bienvenido');
                             }
                             else {

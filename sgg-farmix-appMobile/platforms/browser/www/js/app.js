@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ngStorage', 'angularUtils.directives.dirPagination'])
+angular.module('starter', ['ionic', 'ngStorage', 'angular-table'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {

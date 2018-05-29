@@ -1,34 +1,38 @@
-﻿<ion-view view-title="Grabar Tag">
+﻿<ion-view view-title="Grabar Tag" cache-view="false">
     <ion-content padding="true" class="fondo">
         <ion-refresher pulling-text="Actualizar" on-refresh="cargarBovinos()"></ion-refresher>
         <h3>Bovinos con Tag sin grabar</h3>
-        <div>
-            <dir-pagination-controls pagination-id="singrabar"></dir-pagination-controls>
-        </div>
         <table class="bordeTabla">
             <tr>
                 <th><strong>Número de Caravana</strong></th>
                 <th></th>
             </tr>
-            <tr dir-paginate="bovino in bovinos | itemsPerPage: 5" pagination-id="singrabar" class="itemTabla">
+            <tr ng-repeat="bovino in bovinos" class="itemTabla">
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, true)" ion-button class="botonVerificar">Grabar Tag</button></td>
             </tr>
         </table>
 		<br />
-        <h3>Bovinos con Tag ya grabados</h3>       
-        <div>
-            <dir-pagination-controls pagination-id="grabados"></dir-pagination-controls>
-        </div>
-        <table class="bordeTabla">
+        <h3>Bovinos con Tag ya grabados</h3>        
+        <!--<table class="bordeTabla">                                             
             <tr>
                 <th><strong>Número de Caravana</strong></th>
                 <th></th>
             </tr>
-            <tr dir-paginate="bovino in bovinosEscritos | itemsPerPage: 5" pagination-id="grabados" class="itemTabla">
+            <tr ng-repeat="bovino in bovinosEscritos" class="itemTabla">
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, false)" ion-button class="botonVerificar">Grabar Tag</button></td>
-            </tr>            
-        </table>        
-    </ion-content>
+            </tr>
+        </table>-->
+        <table class="bordeTabla" at-table at-paginated at-list="list" at-config="config">
+            <thead></thead>
+            <tbody>
+                <tr>
+                    <td at-implicit at-attribute="numCaravana"></td>
+                    <td><button ng-click="grabar(bovino.idBovino, false)" ion-button class="botonVerificar">Grabar Tag</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <at-pagination class="pagination" at-list="list" at-config="config"></at-pagination>
+</ion-content>
 </ion-view>
