@@ -43,12 +43,12 @@
                      ng-if="desde === 'preniez'">
                     <!--grilla de tactos-->
                     <legend style="margin-bottom: 5px;">
-                        Tactos
+                        Tacto
                     </legend>
                     <table st-table="displayedCollection" st-safe-src="tactos" class="table table-striped">
                         <thead>
                             <tr>
-                                <th st-sort="numero">N°</th>
+                                <!--<th st-sort="numero">N°</th>-->
                                 <th st-sort="fechaTacto">Fecha</th>
                                 <th st-sort="tipoTacto">Tipo</th>
                                 <th st-sort="exitoso">Resultado</th>
@@ -56,7 +56,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in displayedCollection">
-                                <td>{{item.numero }}</td>
+                                <!--<td>{{item.numero }}</td>-->
                                 <td>{{item.fechaTacto}}</td>
                                 <td>{{item.tipoTacto | uppercase}}</td>
                                 <td>{{item.exitoso | uppercase}}</td>

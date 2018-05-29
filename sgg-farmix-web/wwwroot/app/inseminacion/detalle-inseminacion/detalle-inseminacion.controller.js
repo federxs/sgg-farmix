@@ -30,9 +30,9 @@
                     if (vm.inseminacion.fechaEstimadaNacimiento !== '') {
                         vm.vaca = vm.inseminacion.listaBovinos[0];
                         vm.tactos = vm.inseminacion.tactos;
-                        for (var i = 0; i < vm.tactos.length; i++) {
-                            vm.tactos[i].numero = (i + 1);
-                        }
+                        //for (var i = 0; i < vm.tactos.length; i++) {
+                        //    vm.tactos[i].numero = (i + 1);
+                        //}
                     }
                     else
                         vm.rowCollection = vm.inseminacion.listaBovinos;
