@@ -1,0 +1,51 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h1>
+                Reporte
+                <small> Bovinos</small>
+            </h1>
+        </div>
+    </div>
+</div>
+<div>
+    <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+        <thead>
+            <tr>
+                <th st-sort="orden">N° Orden</th>
+                <th st-sort="caravana">N° Caravana</th>
+                <th st-sort="sexo">Sexo</th>
+                <th st-sort="raza">Raza</th>
+                <th st-sort="categoría">Categoría</th>
+                <th st-sort="edad">Edad</th>
+                <th st-sort="peso">Peso (kg)</th>
+                <th st-sort="estado">Estado</th>
+                <th st-sort="rodeo">Rodeo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in displayedCollection">
+                <td>{{item.id}}</td>
+                <td>{{item.caravana}}</td>
+                <td>{{item.sexo | uppercase}}</td>
+                <td>{{item.raza | uppercase}}</td>
+                <td>{{item.categoria | uppercase}}</td>
+                <td>{{item.edad}}</td>
+                <td>{{item.peso}}</td>
+                <td>{{item.estado | uppercase}}</td>
+                <td>{{item.rodeo | uppercase}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>
+                    <label for="items">Registros por página</label>
+                    <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                </td>
+                <td colspan="5" class="text-center">
+                    <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

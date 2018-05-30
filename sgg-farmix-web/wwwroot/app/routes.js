@@ -50,6 +50,18 @@
                  controller: ''
              });
         $stateProvider
+             .state('home.reportes', {
+                 url: '/reportes',
+                 templateUrl: 'app/reportes/consultar-reportes.html',
+                 controller: 'consultarReportesController'
+             });
+        $stateProvider
+             .state('home.reporteBovino', {
+                 url: '/reportes/bovinos',
+                 templateUrl: 'app/reportes/reporte-bovino/reporte-bovino.html',
+                 controller: 'reporteBovinoController'
+             });
+        $stateProvider
             .state('home.consultarConflicto', {
                 url: '/conflicto',
                 templateUrl: 'app/conflicto/consultar-conflicto/consultar-conflicto.html',
