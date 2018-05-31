@@ -13,14 +13,15 @@
         vm.inseminacion = {};
         vm.desde = $stateParams.desde;
         vm.itemsPorPaginaTacto = 10;
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.disabled = true;
         //funciones
         vm.inicializar = inicializar();
 
 
         function inicializar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.disabled = true;
             vm.itemsPorPagina = 9;            
             if ($stateParams.fecha !== null) {
@@ -30,17 +31,16 @@
                     if (vm.inseminacion.fechaEstimadaNacimiento !== '') {
                         vm.vaca = vm.inseminacion.listaBovinos[0];
                         vm.tactos = vm.inseminacion.tactos;
-                        //for (var i = 0; i < vm.tactos.length; i++) {
-                        //    vm.tactos[i].numero = (i + 1);
-                        //}
                     }
                     else
                         vm.rowCollection = vm.inseminacion.listaBovinos;
                     vm.tituloTabla = 'Bovinos que participaron de la inseminación';
                     vm.disabled = false;
-                    vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
+                    //vm.showSpinner = false;
                 }, function error(error) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
@@ -49,9 +49,11 @@
                     vm.rowCollection = data;
                     vm.tituloTabla = 'Hembras para servicio';
                     vm.disabled = false;
-                    vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
+                    //vm.showSpinner = false;
                 }, function error(error) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 })
             }
@@ -60,13 +62,15 @@
                     vm.rowCollection = data;
                     vm.tituloTabla = 'Vacas dando de lactar';
                     vm.disabled = false;
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
                 }, function error(error) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 })
             }
-            vm.showSpinner = false;
+            //vm.showSpinner = false;
         }//fin inicializar
 
 

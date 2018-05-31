@@ -10,7 +10,7 @@
     function registrarCampoController($scope, registrarCampoService, $localStorage, toastr, $sessionStorage, $state) {
         var vm = $scope;
         //variables
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.btnVolver = "Cancelar";
         vm.habilitar = true;
         vm.campo = {};
@@ -28,28 +28,34 @@
 
         function inicializar() {
             vm.campo = new registrarCampoService();
-            vm.showSpinner = false;
+            //vm.showSpinner = false;
+            $scope.$parent.blockSpinner();
             registrarCampoService.inicializar({}, function (data) {
                 vm.provincias = data.provincias;
                 localidadesOriginales = data.localidades;
+                $scope.$parent.unBlockSpinner();
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         };
 
         function registrar() {
             vm.habilitar = false;
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             vm.campo.usuario = $sessionStorage.usuarioInfo.usuario;
             if (vm.imageToUpload[0])
                 vm.campo.imagen = vm.imageToUpload[0];
             vm.campo.$save(function success(data) {
                 toastr.success('Se agrego con éxito el campo', 'Éxito');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 $state.go('seleccionCampo');
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 vm.habilitar = true;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });

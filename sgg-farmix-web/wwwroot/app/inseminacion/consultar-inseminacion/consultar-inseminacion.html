@@ -139,8 +139,6 @@
         </li>
     </ul>
 </div>
-<!--<button ng-click="insert()">Insertar inseminacion</button>-->
-<!--<button ng-click="insertarTacto()">Insertar tacto</button>-->
 <!--/////RESULTADOS//////-->
 <legend style="margin-bottom: 5px;"
         ng-show="rowCollection.length > 0">
@@ -186,14 +184,7 @@
                 <tr>
                     <td>
                         <label for="items" ng-show="rowCollection.length > 1">Registros por página</label>
-                        <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">
-                        <!--<select class="input-sm form-control"
-                                ng-model="itemsPorPagina">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="50">50</option>
-                        </select>-->
+                        <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">                        
                     </td>
                     <td colspan="5" class="text-center">
                         <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
@@ -222,7 +213,6 @@
                     <th st-sort="tipoInseminacion">Tipo de Inseminación</th>
                     <th st-sort="fechaInseminacion">Fecha Inseminación</th>
                     <th st-sort="fechaEstimadaParto">Fecha estimada Parto</th>
-                    <!--<th st-sort="cantidadVacas">Cantidad de bovinos que participaron</th>-->
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -231,7 +221,6 @@
                     <td>{{item.tipoInseminacion | uppercase}}</td>
                     <td>{{item.fechaInseminacion}}</td>
                     <td>{{item.fechaEstimadaParto}}</td>
-                    <!--<td>{{item.cantidadVacas}}</td>-->
                     <td>
                         <a ui-sref="home.modificarInseminacion({fecha: item.fechaInseminacion, desde: 'preniez'})" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
                         <a ui-sref="home.detalleInseminacion({fecha: item.fechaInseminacion, desde: 'preniez'})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
@@ -243,14 +232,7 @@
                 <tr>
                     <td>
                         <label for="items" ng-show="rowCollection.length > 1">Registros por página</label>
-                        <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">
-                        <!--<select class="input-sm form-control"
-                                ng-model="itemsPorPagina">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="30">30</option>
-                            <option value="50">50</option>
-                        </select>-->
+                        <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">                       
                     </td>
                     <td colspan="5" class="text-center">
                         <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
@@ -278,4 +260,3 @@
         </div>
     </div>
 </div>
-<div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>

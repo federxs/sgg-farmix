@@ -10,7 +10,7 @@
     function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state, exportador, $localStorage) {
         var vm = $scope;
         //variables
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.showHembrasParaServicio = true;
         vm.showServiciosSinConfirm = false;
         vm.showHembrasPreniadas = false;
@@ -41,7 +41,8 @@
         inicializar();
 
         function inicializar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.showServSinConfirm = true;
             vm.showProxPartos = true;
             consultarInseminacionService.inicializar($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
@@ -49,6 +50,7 @@
                 serviciosSinConfirmar();
                 proximosPartos();
             }, function error(error) {
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }
@@ -86,6 +88,7 @@
                     }).Count();
                     //vm.showSpinner = false;
                 }, function error(error) {
+                    $scope.$parent.unBlockSpinner();
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
@@ -101,6 +104,7 @@
 
         //carga la tablita de servicios sin confirmar
         function obtenerServSinConfirm(rango) {
+            $scope.$parent.blockSpinner();
             vm.showServiciosSinConfirm = true;
             vm.showHembrasPreniadas = false;
             vm.itemsPorPagina = 10;
@@ -143,7 +147,9 @@
                         }
                         break;
                 }
+                $scope.$parent.unBlockSpinner();
             }, function error(error) {
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }
@@ -173,8 +179,10 @@
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
                         return fechaParto.diff(fechaHoy, 'days') >= 30 && fechaParto.diff(fechaHoy, 'days') < 60 && fechaParto.diff(fechaHoy, 'days') > 0
                     }).Count();
-                    vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
+                    //vm.showSpinner = false;
                 }, function error(error) {
+                    $scope.$parent.unBlockSpinner();
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
@@ -455,7 +463,8 @@
         }
 
         function eliminar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             var parametro = '';
             if (idInseminacionAEliminar !== 0)
                 parametro = idInseminacionAEliminar;
@@ -464,11 +473,13 @@
             consultarInseminacionService.eliminarInseminacion(parametro).then(function success() {
                 $('#modalConfirmEliminar').modal('hide');
                 toastr.success('Inseminación eliminada con éxito', 'Éxito');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 $state.reload();
             }, function (error) {
                 $('#modalConfirmEliminar').modal('hide');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }

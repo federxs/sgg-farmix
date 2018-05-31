@@ -40,16 +40,7 @@
     <meta content="" name="author" />
     <link rel="shortcut icon" href="favicon.ico" />
 </head>
-<body ng-cloak class="{{$state.current.data.bodyClass}}" ng-class="{'page-sidebar-closed': settings.layout.pageSidebarClosed}">
-    <div id="spinnerBar" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" style="display: none;">
-        <div class="modal-body">
-            <div class="page-spinner-bar" style="display: inline;">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-        </div>
-    </div>
+<body>
     <div ui-view></div>
     <!--CSS-->
     <link rel="stylesheet" type="text/css" href="lib/css/angular-toastr/angular-toastr.css" />
@@ -70,7 +61,7 @@
     <script src="lib/js/angular/angular-toastr.tpls.js"></script>
     <script type="text/javascript" src="lib/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="lib/js/jquery/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="lib/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/js/bootstrap/bootstrap.js"></script>
     <script type="text/javascript" src="lib/google-charts/ng-google-chart.js"></script>
     <script type="text/javascript" src="lib/smart-table/smart-table.js"></script>
     <script type="text/javascript" src="lib/google-charts/timeLines.js"></script>

@@ -9,7 +9,7 @@
 
     function modificarInseminacionController($scope, modificarInseminacionService, toastr, $stateParams) {
         var vm = $scope;
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.habilitar = false;
         //funciones
         vm.modificar = modificar;
@@ -28,7 +28,8 @@
         var fechaInseminacionOriginal = '';
 
         function inicializar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.habilitar = false;
             vm.fecha = $stateParams.fecha;
             modificarInseminacionService.getInseminacion($stateParams.fecha).then(function success(data) {
@@ -40,9 +41,6 @@
                     $('#datetimepicker5').datetimepicker();
                     vm.vaca = vm.inseminacion.listaBovinos[0];
                     vm.tactos = vm.inseminacion.tactos;
-                    //for (var i = 0; i < vm.tactos.length; i++) {
-                    //    vm.tactos[i].numero = (i + 1);
-                    //}
                 }
                 else
                     vm.rowCollection = vm.inseminacion.listaBovinos;
@@ -51,22 +49,19 @@
                     { idTipoInseminacion: '1', descripcion: 'Artificial' },
                     { idTipoInseminacion: '2', descripcion: 'Montura' }
                 ];
-                //seteamos a "" las variables 0
-                //angular.forEach(vm.bovino, function (value, key) {
-                //    if (parseInt(value) === 0 && key !== 'idBovino' && key !== 'idAlimento' && key !== 'cantAlimento') {
-                //        vm.bovino[key] = '';
-                //    }
-                //});
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 vm.habilitar = true;
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         };
 
         function antesDeModificar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             vm.showEliminar = true;
             var lista = [];
@@ -88,23 +83,27 @@
             if (vm.desde === 'servicioSinConfirm') {
                 modificarInseminacionService.modificar(vm.inseminacion, lista.toString(), fechaInseminacionOriginal).then(function success(data) {
                     //vm.habilitar = false;
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinnerSave();
                     $('#modalConfirmEliminarInseminacion').modal('hide');
                     vm.showEliminar = false;
                     toastr.success('Se modificó la inseminación con éxito ', 'Éxito');
                 }, function error(data) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBllockSpinnerSave();
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }
             else {
                 modificarInseminacionService.update(vm.inseminacion).then(function success(data) {
                     //vm.habilitar = false;
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinnerSave();
                     $('#modalConfirmEliminarInseminacion').modal('hide');
                     toastr.success('Se modificó la inseminación con éxito ', 'Éxito');
                 }, function error(data) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinnerSave();
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }

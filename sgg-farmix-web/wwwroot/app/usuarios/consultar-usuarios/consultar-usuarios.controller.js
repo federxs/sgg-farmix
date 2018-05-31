@@ -9,7 +9,7 @@
 
     function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage, $state, $sessionStorage) {
         var vm = $scope;
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.deshabilitar = false;
         vm.disabledExportar = 'disabled';
         var idUsuarioEliminar = 0;
@@ -31,7 +31,8 @@
         vm.validarCantUsuarios = validarCantUsuarios;
 
         function inicializar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.deshabilitar = true;
             vm.disabledExportar = 'disabled';
             vm.itemsPorPagina = 9;
@@ -40,13 +41,15 @@
                 vm.filtro.idRol = '0';
                 consultar();
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         };
 
         function consultar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
             vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
@@ -60,9 +63,11 @@
                     vm.deshabilitar = false;
                     vm.disabledExportar = '';
                 }
-                vm.showSpinner = false;                
+                $scope.$parent.unBlockSpinner();
+                //vm.showSpinner = false;                
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         };
@@ -420,15 +425,18 @@
         }
 
         function eliminar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             consultarUsuariosService.darBajaUser(idUsuarioEliminar).then(function success() {
                 $('#modalConfirmEliminacionUser').modal('hide');
                 toastr.success('Se ha dado de baja al usuario con éxito', 'Éxito');
-                vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
+                //vm.showSpinner = false;
                 $state.reload();
             }, function (error) {
                 $('#modalConfirmEliminacionUser').modal('hide');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }
@@ -440,28 +448,34 @@
         }
 
         function activar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             consultarUsuariosService.activarUser(idUsuarioActivar).then(function success() {
                 $('#modalConfirmActivacionUser').modal('hide');
                 toastr.success('Se ha activado al usuario con éxito', 'Éxito');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 $state.reload();
             }, function (error) {
                 $('#modalConfirmActivacionUser').modal('hide');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }
 
         function validarCantUsuarios() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             consultarUsuariosService.validarCantidadUsuariosPlan($sessionStorage.usuarioInfo.usuario).then(function success(data) {
                 if (data.resultado)
                     $state.go('home.registrarUsuario');
                 else
                     toastr.info("No puede agregar mas usuarios, verifique su plan contratado.", "Aviso");
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
             }, function (error) {
+                $scope.$parent.unBlockSpinner();
                 toastr.error("Se ha producido un error, reintentar.");
             })
         };

@@ -1,117 +1,190 @@
-﻿<section id="what-we-do">
-    <div class="container-fluid">
-        <h2 class="section-title mb-2 h1">Configuración</h2>
-        <p class="text-center text-muted h5">Administrar la configuración general del sistema a nuestro gusto, es ideal para sentirnos cómodos dentro de él y así obtener una excelente navegabilidad.</p>
-        <div class="row mt-5">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-md-offset-2 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-1">
-                        <h3 class="card-title">Periódo de consulta</h3>
-                        <p class="card-text">En esta sección podrá modificar el periódo de consulta desde donde el sistema se basará para obtener la información.</p>
-                        <a style="cursor:pointer" title="Modificar" class="read-more">Modificar<i class="fa fa-angle-double-right ml-2"></i></a>
+﻿<div>
+    <section id="what-we-do">
+        <div class="container-fluid">
+            <h2 class="section-title mb-2 h1">Configuración</h2>
+            <p class="text-center text-muted h5">Administrar la configuración general del sistema a nuestro gusto, es ideal para sentirnos cómodos dentro de él y así obtener una excelente navegabilidad.</p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block block-1">
+                            <h3 class="card-title">Periódo de consulta</h3>
+                            <p class="card-text">En esta sección podrá modificar el periódo de consulta desde donde el sistema se basará para obtener la información.</p>
+                            <a style="cursor:pointer" title="Modificar" class="read-more">Modificar<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block block-2">
+                            <h3 class="card-title">Perfil de usuario</h3>
+                            <p class="card-text">En esta sección podrá modificar ciertos aspectos de su Perfil.</p>
+                            <a style="cursor:pointer" title="Modificar" ng-click="popupPerfil()" class="read-more">Modificar<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block block-al">
+                            <h3 class="card-title">Alimentos</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Alimentos cargados en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupAlimentos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block block-ant">
+                            <h3 class="card-title">Antibióticos</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Antibióticos cargados en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupAntibioticos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block block-3">
+                            <h3 class="card-title">Categorías</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Categorías cargadas en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupCategorias()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block block-estab">
+                            <h3 class="card-title">Establecimientos origen</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Establecimientos Origen cargados en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupEstablecimientos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block block-estad">
+                            <h3 class="card-title">Estados</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Estados cargados en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupEstados()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block block-3">
+                            <h3 class="card-title">Razas</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Razas cargadas en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupRazas()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block block-3">
+                            <h3 class="card-title">Rodeos</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Rodeos cargados en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupRodeos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-block block-vac">
+                            <h3 class="card-title">Vacunas</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Vacunas cargadas en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupVacunas()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-block block-3">
+                            <h3 class="card-title">Special title</h3>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="javascript:void();" title="Read more" class="read-more">Read more<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <!--<div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-block block-al">
+                            <h3 class="card-title">Alimentos</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Alimentos cargados en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupAlimentos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-block block-ant">
+                            <h3 class="card-title">Antibióticos</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Antibióticos cargados en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupAntibioticos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-block block-3">
+                            <h3 class="card-title">Categorías</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Categorías cargadas en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupCategorias()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-2">
-                        <h3 class="card-title">Perfil de usuario</h3>
-                        <p class="card-text">En esta sección podrá modificar ciertos aspectos de su Perfil.</p>
-                        <a style="cursor:pointer" title="Modificar" ng-click="popupPerfil()" class="read-more">Modificar<i class="fa fa-angle-double-right ml-2"></i></a>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-block block-estab">
+                            <h3 class="card-title">Establecimientos origen</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Establecimientos Origen cargados en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupEstablecimientos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-block block-estad">
+                            <h3 class="card-title">Estados</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Estados cargados en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupEstados()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-block block-3">
+                            <h3 class="card-title">Razas</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Razas cargadas en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupRazas()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-3">
-                        <h3 class="card-title">Special title</h3>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="javascript:void();" title="Read more" class="read-more">Read more<i class="fa fa-angle-double-right ml-2"></i></a>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-block block-3">
+                            <h3 class="card-title">Rodeos</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Rodeos cargados en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupRodeos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+                    <div class="card">
+                        <div class="card-block block-vac">
+                            <h3 class="card-title">Vacunas</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Vacunas cargadas en el sistema para su campo.</p>
+                            <a style="cursor:pointer" ng-click="popupVacunas()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>-->
         </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-al">
-                        <h3 class="card-title">Alimentos</h3>
-                        <p class="card-text">En esta sección podrá modificar/agregar Alimentos cargados en el sistema para su campo.</p>
-                        <a style="cursor:pointer" ng-click="popupAlimentos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-ant">
-                        <h3 class="card-title">Antibióticos</h3>
-                        <p class="card-text">En esta sección podrá modificar/agregar Antibióticos cargados en el sistema para su campo.</p>
-                        <a style="cursor:pointer" ng-click="popupAntibioticos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-3">
-                        <h3 class="card-title">Categorías</h3>
-                        <p class="card-text">En esta sección podrá modificar/agregar Categorías cargadas en el sistema para su campo.</p>
-                        <a style="cursor:pointer" ng-click="popupCategorias()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-estab">
-                        <h3 class="card-title">Establecimientos origen</h3>
-                        <p class="card-text">En esta sección podrá modificar/agregar Establecimientos Origen cargados en el sistema para su campo.</p>
-                        <a style="cursor:pointer" ng-click="popupEstablecimientos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-estad">
-                        <h3 class="card-title">Estados</h3>
-                        <p class="card-text">En esta sección podrá modificar/agregar Estados cargados en el sistema para su campo.</p>
-                        <a style="cursor:pointer" ng-click="popupEstados()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-3">
-                        <h3 class="card-title">Razas</h3>
-                        <p class="card-text">En esta sección podrá modificar/agregar Razas cargadas en el sistema para su campo.</p>
-                        <a style="cursor:pointer" ng-click="popupRazas()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-3">
-                        <h3 class="card-title">Rodeos</h3>
-                        <p class="card-text">En esta sección podrá modificar/agregar Rodeos cargados en el sistema para su campo.</p>
-                        <a style="cursor:pointer" ng-click="popupRodeos()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
-                <div class="card">
-                    <div class="card-block block-vac">
-                        <h3 class="card-title">Vacunas</h3>
-                        <p class="card-text">En esta sección podrá modificar/agregar Vacunas cargadas en el sistema para su campo.</p>
-                        <a style="cursor:pointer" ng-click="popupVacunas()" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<div class="loader" ng-show="showSpinner" style="margin:0 auto"></div>
+    </section>
+</div>
 <!--Modal nuevo establecimiento-->
 <div id="modalNuevoEstablecimiento" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -782,7 +855,7 @@
                              ng-disabled="!habilitar" />
                     </div>
                     <img src="{{perfilUsuario.usuarioImagen}}" width="140" height="140" border="0" class="img-circle" ng-show="perfilUsuario.usuarioImagen">
-                    <br />                    
+                    <br />
                     <span><strong>Cargo: </strong></span>
                     <span class="label label-info">{{perfilUsuario.rol}}</span>
                     <div class="col-md-12 margin-top-20" style="margin-top:5px;">

@@ -5,13 +5,14 @@
         .module('app')
         .controller('inicioController', inicioController);
 
-    inicioController.$inject = ['$scope', 'inicioService', 'toastr', '$localStorage', '$state'];
+    inicioController.$inject = ['$scope', 'inicioService', 'toastr', '$localStorage', '$state', '$timeout'];
 
-    function inicioController($scope, inicioService, toastr, $localStorage, $state) {
+    function inicioController($scope, inicioService, toastr, $localStorage, $state, $timeout) {
         //$scope.showSpinner = true;
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
         $scope.irAConflictos = irAConflictos;
+        $scope.cerrar = cerrar;
 
         function inicializar() {
             //$scope.showSpinner = true;
@@ -23,10 +24,11 @@
                 $scope.vacasPreniadas = data.vacasPreniadas;
                 cargarGraficoRazas(data.graficoRaza);
                 cargarGraficoCategorias(data.graficoCategorias);
-                $scope.$parent.unBlockSpinner();
+                //$scope.$parent.unBlockSpinner();
                 //$scope.showSpinner = false;
                 inicioService.obtenerInconsistencias($localStorage.usuarioInfo.codigoCampo)
                    .then(function success(data) {
+                       $scope.$parent.unBlockSpinner();
                        if (data.inconsistencias > 0) {
                            $scope.inconsistencias = data.inconsistencias;
                            $('#modalInconsistencias').modal('show');
@@ -39,6 +41,12 @@
                 //$scope.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
+        };
+
+        function cerrar() {
+            $timeout(function () {
+                $('#modalInconsistencias').modal('hide');
+            }, 500);            
         };
 
         function cargarGraficoRazas(graficoRaza) {
