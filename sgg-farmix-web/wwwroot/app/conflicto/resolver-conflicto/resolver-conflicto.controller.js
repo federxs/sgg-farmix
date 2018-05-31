@@ -20,6 +20,8 @@
         vm.seleccionarTacto = seleccionarTacto;
         vm.seleccionarPropiedadInseminacion = seleccionarPropiedadInseminacion;
         vm.seleccionarPropiedadTacto = seleccionarPropiedadTacto;
+        vm.resolverInseminacion = resolverInseminacion;
+        vm.resolverTacto = resolverTacto;
         vm.isUndefinedOrNull = isUndefinedOrNull;
 
         function init() {
@@ -48,8 +50,10 @@
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
-            else
+            else {
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 vm.showSpinner = false;
+            }               
         }
 
         function seleccionarInseminacion(inseminacion) {
@@ -70,6 +74,24 @@
         function seleccionarPropiedadTacto(tacto, propiedad) {
             vm.tactoResultante[propiedad] = tacto[propiedad];
         }
+
+        function resolverInseminacion() {
+            var obj = { inseminacionAnterior: vm.inseminacionAnterior, inseminacionNueva: vm.inseminacionNueva, inseminacionResultante: vm.inseminacionResultante };
+            resolverConflictoService.resolver(obj).then(function success(data) {
+
+            }, function error(error) {
+
+            });
+        };
+
+        function resolverTacto() {
+            var obj = { tactoAnterior: vm.tactoAnterior, tactoNuevo: vm.tactoNuevo, tactoResultante: vm.tactoResultante };
+            resolverConflictoService.resolver(obj).then(function success(data) {
+
+            }, function error(error) {
+
+            });
+        };
 
         function isUndefinedOrNull(val) {
             return angular.isUndefined(val) || val === null

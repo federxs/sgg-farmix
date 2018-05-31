@@ -9,7 +9,8 @@
 
     function resolverConflictoService($http, portalService) {
         var service = {
-            getDatos: getDatos
+            getDatos: getDatos,
+            resolver: resolver
         };
 
         function getDatos(idTac, fechaTac, idTacC, fechaTacC, idIns, idInsC) {
@@ -31,6 +32,15 @@
             });
         }
 
+        function resolver(resolucion) {
+            return $http({
+                method: 'POST',
+                url: portalService.getUrlServer() + 'api/Inconsistencia/Post',
+                params: { value: resolucion },
+                headers: portalService.getHeadersServer()
+            })
+        }
+
         function initModificacion(id, usuario, codigoCampo) {
             return $http({
                 method: 'GET',
@@ -47,14 +57,7 @@
             });
         }
 
-        function modificar(evento, lista) {
-            return $http({
-                method: 'PUT',
-                url: portalService.getUrlServer() + 'api/Evento',
-                params: { value: evento, lista: lista },
-                headers: portalService.getHeadersServer()
-            })
-        }
+        
 
         function getRodeos(campo) {
             return $http({

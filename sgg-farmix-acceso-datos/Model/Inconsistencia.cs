@@ -32,7 +32,9 @@ namespace sgg_farmix_acceso_datos.Model
     {
         public Tacto tactoAnterior { get; set; }
         public Tacto tactoNuevo { get; set; }
+        public Tacto tactoResultante { get; set; }
         public InseminacionDetalle inseminacionAnterior { get; set; }
         public InseminacionDetalle inseminacionNueva { get; set; }
+        public InseminacionDetalle inseminacionResultante { get; set; }
     }
 }

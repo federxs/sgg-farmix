@@ -87,6 +87,11 @@
                         <input type="text" class="form-control" placeholder="Resultado de Tacto"
                                ng-model="tactoResultante.exitoso" disabled>
                     </div>
+                    <button type="button" class="btn btn-success"
+                            data-toggle="modal" data-target="#modalConfirmResolverTactoConflictivo"
+                            ng-disabled="!tactoResultante.fechaTacto || !tactoResultante.tipoTacto || !tactoResultante.exitoso">
+                        Resolver Conflicto
+                    </button>
                 </div>
                 <!--Inicio Columna de Nuevo-->
                 <div class="col-md-4">
@@ -131,8 +136,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <!--
             Comienza Inseminacion conflictiva
@@ -191,6 +194,11 @@
                         <input type="text" class="form-control" placeholder="Tipo de Inseminación"
                                ng-model="inseminacionResultante.tipoInseminacion" disabled>
                     </div>
+                    <button type="button" class="btn btn-success"
+                            data-toggle="modal" data-target="#modalConfirmResolverInseminacionConflictiva"
+                            ng-disabled="!inseminacionResultante.fechaInseminacion || !inseminacionResultante.tipoInseminacion">
+                        Resolver Conflicto
+                    </button>
                 </div>
                 <!--Inicio Columna de Nuevo-->
                 <div class="col-md-4">
@@ -231,4 +239,53 @@
         ui-sref="home.consultarConflicto">
     Volver
 </button>
-<div class="loader" ng-show="showSpinner" style="margin:0 auto; margin-left: 500px; margin-top:-500px"></div>
+<!--Modal confirmar resolucion de inseminacion conflictiva-->
+<div id="modalConfirmResolverInseminacionConflictiva" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar Resolución</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea resolver este conflicto de Inseminaciones con los siguientes datos?</p>
+                <center>
+                    <span class="alert-info"><b>Fecha Inseminación: {{inseminacionResultante.fechaInseminacion}}</b></span>
+                    <br />
+                    <span class="alert-info"><b>Tipo de Inseminación: {{inseminacionResultante.tipoInseminacion}}</b></span>
+                </center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="resolverInseminacion()">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal confirmar resolucion de inseminacion conflictiva-->
+<div id="modalConfirmResolverTactoConflictivo" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar Resolución</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea resolver este conflicto de Tactos con los siguientes datos?</p>
+                <center>
+                    <span class="alert-info"><b>Fecha de Tacto: {{tactoResultante.fechaTacto}}</b></span>
+                    <br />
+                    <span class="alert-info"><b>Tipo de Tacto: {{tactoResultante.tipoTacto}}</b></span>
+                    <br />
+                    <span class="alert-info"><b>Resultado del Tacto: {{tactoResultante.exitoso}}</b></span>
+                </center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="resolverTacto()">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
+    </div>
+</div>

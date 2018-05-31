@@ -54,5 +54,25 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Inconsistencia/Post")]
+        [HttpPost]
+        [AutorizationToken]
+        public InconsistenciaResolver Post(string value)
+        {
+            try
+            {
+                var resultado = JsonConvert.DeserializeObject<InconsistenciaResolver>(value);
+                return IM.Create(resultado);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

@@ -17,6 +17,11 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
+        public InconsistenciaResolver Create(InconsistenciaResolver entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(long id)
         {
             throw new NotImplementedException();
