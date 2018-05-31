@@ -9,7 +9,7 @@
 
     function consultarTrazabilidadController($scope, tipoEventoService, toastr, consultarTrazabilidadService, $state, exportador, $localStorage) {
         var vm = $scope;
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.disabled = 'disabled';
         vm.disabledExportar = 'disabled';
         vm.tipoEventoPopUp = '';
@@ -36,7 +36,8 @@
         $('#datetimepicker5').datetimepicker();
 
         function inicializar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.disabledExportar = 'disabled';
             vm.disabled = 'disabled';
             vm.itemsPorPagina = 9;
@@ -47,13 +48,15 @@
                 vm.disabled = '';
                 consultar();
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
 
         function consultar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
             if (vm.filtro.fechaDesde !== undefined) {
@@ -76,7 +79,7 @@
             consultarTrazabilidadService.getListaEventos(angular.toJson(vm.filtro, false)).then(function success(data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
                     vm.disabled = '';
                     vm.rowCollection = [];
                     $('#timeline').hide();
@@ -87,12 +90,14 @@
                     if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null)
                         cargarLineaTiempoEventos();
                     if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
                     vm.disabled = '';
                     vm.disabledExportar = '';
                 }
+                $scope.$parent.unBlockSpinner();
             }), function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             };
         };
@@ -340,15 +345,18 @@
         }
 
         function eliminar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             consultarTrazabilidadService.eliminarEvento(idEventoAEliminar).then(function success() {
                 $('#modalConfirmEliminar').modal('hide');
                 toastr.success('Evento eliminado con éxito', 'Éxito');
-                vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
+                //vm.showSpinner = false;
                 $state.reload();
             }, function (error) {
                 $('#modalConfirmEliminar').modal('hide');
-                vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
+                //vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }
@@ -376,7 +384,7 @@
         }
 
         function cargarLineaTiempoEventos() {
-            var list = ordenarFechasMenorAMayor(vm.rowCollection);
+            //var list = ordenarFechasMenorAMayor(vm.rowCollection);
             google.charts.load('current', { 'packages': ['timeline'] });
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {

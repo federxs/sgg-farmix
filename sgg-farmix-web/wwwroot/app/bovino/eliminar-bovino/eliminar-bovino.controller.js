@@ -9,7 +9,7 @@
 
     function eliminarBovinoController($scope, eliminarBovinoService, $stateParams, toastr, $localStorage) {
         var vm = $scope;
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.habilitar = false;
         vm.tiposEliminacion = [
             { id: '1', nombre: 'Venta' },
@@ -30,12 +30,14 @@
         
         //inicializar();      
 
-        function inicializar() {            
+        function inicializar() {
+            $scope.$parent.blockSpinner();
             eliminarBovinoService.inicializar($stateParams.id, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 //bovino
                 vm.bovino = data;
                 vm.establecimientos = data.establecimientosDestino.establecimientos;
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 vm.habilitar = true;
                 vm.nroCaravana = vm.bovino.numCaravana;
                 vm.formEliminarBovino.fechaMuerte.$setValidity("min", true);
@@ -48,23 +50,27 @@
                     }
                 })
             }, function error(error) {
-                vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
+                //vm.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }
 
         function eliminar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             $('#modalConfirmEliminar').modal('hide');
             if (vm.tipoEliminacionSeleccionada === "2") {
                 //var fecha = convertirFecha(vm.bajaBovino.fechaMuerte);
                 eliminarBovinoService.bajaMuerte(vm.bovino.idBovino, vm.bajaBovino.fechaMuerte).then(function success(data) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinnerSave();
                     vm.btnVolver = "Volver";
                     toastr.success('Se dio de baja el bovino con éxito ', 'Éxito');
                 }, function error(data) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinnerSave();
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }
@@ -72,10 +78,12 @@
                 vm.bajaBovino.monto = vm.bajaBovino.monto.toString().replace(',', '.');
                 vm.bajaBovino.idBovino = vm.bovino.idBovino;
                 eliminarBovinoService.bajaVenta(vm.bajaBovino).then(function success(data) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinnerSave();
                     vm.btnVolver = "Volver";
                     toastr.success('Se vendio el bovino con éxito ', 'Éxito');
                 }, function error(data) {
+                    $scope.$parent.unBlockSpinnerSave();
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }

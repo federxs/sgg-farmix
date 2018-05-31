@@ -8,13 +8,14 @@
     inicioController.$inject = ['$scope', 'inicioService', 'toastr', '$localStorage', '$state'];
 
     function inicioController($scope, inicioService, toastr, $localStorage, $state) {
-        $scope.showSpinner = true;
+        //$scope.showSpinner = true;
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
         $scope.irAConflictos = irAConflictos;
 
         function inicializar() {
-            $scope.showSpinner = true;
+            //$scope.showSpinner = true;
+            $scope.$parent.blockSpinner();
             inicioService.inicializar($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 $scope.cantBovinos = data.bovinos;
                 $scope.cantEventos = data.eventos;
@@ -22,7 +23,8 @@
                 $scope.vacasPreniadas = data.vacasPreniadas;
                 cargarGraficoRazas(data.graficoRaza);
                 cargarGraficoCategorias(data.graficoCategorias);
-                $scope.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
+                //$scope.showSpinner = false;
                 inicioService.obtenerInconsistencias($localStorage.usuarioInfo.codigoCampo)
                    .then(function success(data) {
                        if (data.inconsistencias > 0) {
@@ -33,10 +35,11 @@
                        toastr.error("Se ha producido un error, reintentar.");
                    });
             }, function error(error) {
-                $scope.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
+                //$scope.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
-        }
+        };
 
         function cargarGraficoRazas(graficoRaza) {
             google.charts.load('current', { 'packages': ['corechart'] });
@@ -64,7 +67,7 @@
                 };
                 chart.draw(dataTable, options);
             }
-        }
+        };
 
         function cargarGraficoCategorias(graficoCatego) {
             google.charts.load('current', { 'packages': ['corechart'] });
@@ -90,7 +93,7 @@
                 };
                 chart.draw(dataTable, options);
             }
-        }
+        };
 
         function irAConflictos() {
             $('#modalInconsistencias').modal('hide');

@@ -44,7 +44,7 @@
                         options = {};
                     }
                     if (typeof message === 'undefined') {
-                        message = 'Cargando';
+                        message = 'Cargando...';
                     }
                     var settings = $.extend({
                         dialogSize: 'm',
@@ -78,7 +78,6 @@
 
         })(jQuery);
 
-
         function inicializar() {
             var obj = document.getElementById('btn_login');
             obj.click();
@@ -106,15 +105,19 @@
                             //$('#login-modal').modal('hide');
                             $state.go('seleccionCampo');
                         }
-                        else
+                        else {
                             toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.");
+                            $('#login-modal').modal('show');
+                        }                            
                         //setTimeout()
                         waitingDialog.hide();
                         //vm.showSpinner = false;
                     },
                     function error(error) {
-                        vm.showSpinner = false;
-                        toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.");
+                        //vm.showSpinner = false;
+                        waitingDialog.hide();
+                        toastr.error("Ha ocurrido un problema. Reintente nuevamente.");
+                        $('#login-modal').modal('show');
                     });
             }
         }

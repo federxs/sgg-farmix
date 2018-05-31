@@ -12,13 +12,120 @@
         configuracionService
         ) {
         $scope.Menu = [];
-        var spinnerBar = angular.element(document.querySelector('#spinnerBar'));
         $scope.showBorrar = false;
         $scope.toDelete = [];
 
+        var spinnerBar = spinnerBar || (function ($) {
+            'use strict';
+
+            // Creating modal dialog's DOM
+            var $dialog = $(
+                '<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">' +
+                '<div class="modal-dialog modal-m">' +
+                '<div class="modal-content">' +
+                    '<div class="modal-header"><h3 style="margin:0;"></h3></div>' +
+                    '<div class="modal-body">' +
+                        '<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%"></div></div>' +
+                    '</div>' +
+                '</div></div></div>');
+            return {
+                show: function (message, options) {
+                    // Assigning defaults
+                    if (typeof options === 'undefined') {
+                        options = {};
+                    }
+                    if (typeof message === 'undefined') {
+                        message = 'Cargando...';
+                    }
+                    var settings = $.extend({
+                        dialogSize: 'm',
+                        progressType: '',
+                        onHide: null // This callback runs after the dialog was hidden
+                    }, options);
+
+                    // Configuring dialog
+                    $dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
+                    $dialog.find('.progress-bar').attr('class', 'progress-bar');
+                    if (settings.progressType) {
+                        $dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+                    }
+                    $dialog.find('h3').text(message);
+                    // Adding callbacks
+                    if (typeof settings.onHide === 'function') {
+                        $dialog.off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+                            settings.onHide.call($dialog);
+                        });
+                    }
+                    // Opening dialog
+                    $dialog.modal();
+                },
+                /**
+                 * Closes dialog
+                 */
+                hide: function () {
+                    $dialog.modal('hide');
+                }
+            };
+
+        })(jQuery);
+
+        var spinnerBarGuardado = spinnerBarGuardado || (function ($) {
+            'use strict';
+
+            // Creating modal dialog's DOM
+            var $dialog = $(
+                '<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">' +
+                '<div class="modal-dialog modal-m">' +
+                '<div class="modal-content">' +
+                    '<div class="modal-header"><h3 style="margin:0;"></h3></div>' +
+                    '<div class="modal-body">' +
+                        '<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%;background-color: green;"></div></div>' +
+                    '</div>' +
+                '</div></div></div>');
+            return {
+                show: function (message, options) {
+                    // Assigning defaults
+                    if (typeof options === 'undefined') {
+                        options = {};
+                    }
+                    if (typeof message === 'undefined') {
+                        message = 'Guardando...';
+                    }
+                    var settings = $.extend({
+                        dialogSize: 'm',
+                        progressType: '',
+                        onHide: null // This callback runs after the dialog was hidden
+                    }, options);
+
+                    // Configuring dialog
+                    $dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
+                    $dialog.find('.progress-bar').attr('class', 'progress-bar');
+                    if (settings.progressType) {
+                        $dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+                    }
+                    $dialog.find('h3').text(message);
+                    // Adding callbacks
+                    if (typeof settings.onHide === 'function') {
+                        $dialog.off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+                            settings.onHide.call($dialog);
+                        });
+                    }
+                    // Opening dialog
+                    $dialog.modal();
+                },
+                /**
+                 * Closes dialog
+                 */
+                hide: function () {
+                    $dialog.modal('hide');
+                }
+            };
+
+        })(jQuery);
+
         $scope.load = function () {
-            $scope.showSpinner = true;
-            //homeService.datosUsuario({ usuario: $sessionStorage.usuarioInfo.usuario, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
+            //$scope.showSpinner = true;
+            spinnerBar.show();
             homeService.datosUsuario($sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data.menus;
@@ -38,10 +145,12 @@
                 }
                 if (path === 'home.undefined') {
                     $scope.Menu[0].activo = 'background-color:#E59866';
+                    //spinnerBar.hide();
                     $state.go('home.inicio');
                 }
             }, function (error) {
-                $scope.showSpinner = false;
+                spinnerBar.hide();
+                //$scope.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
@@ -90,12 +199,15 @@
         $scope.modificarImagenPerfil = function () {
             $scope.imageToUpload = [];
             $scope.showBorrar = false;
+            spinnerBar.show();
             configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: $sessionStorage.usuarioInfo.usuario }, function (data) {
                 $scope.perfil = data;
                 $scope.perfil.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfil.usuarioImagen + "?cache=" + (new Date()).getTime();
+                spinnerBar.hide();
                 $('#modalPerfil').modal('show');
             }, function (error) {
-                $scope.showSpinner = false;
+                spinnerBar.hide();
+                //$scope.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
@@ -151,23 +263,34 @@
         };
 
         $scope.blockSpinner = function () {
-            spinnerBar.modal('show');
+            spinnerBar.show();
         };
 
         $scope.unBlockSpinner = function () {
-            spinnerBar.modal('hide');
+            spinnerBar.hide();
+        };
+
+        $scope.blockSpinnerSave = function () {
+            spinnerBarGuardado.show();
+        };
+
+        $scope.unBlockSpinnerSave = function () {
+            spinnerBarGuardado.hide();
         };
 
         $scope.guardarImagenPerfil = function () {
+            spinnerBar.show();
             if ($scope.imageToUpload[0])
                 $scope.perfil.imagen = $scope.imageToUpload[0];
             $scope.perfil.usuario = $sessionStorage.usuarioInfo.usuario;
             $scope.perfil.$actualizarPerfilUsuario(function (data) {
                 toastr.success('Imágen actualizada', 'Éxito');
+                spinnerBar.hide();
                 $('#modalPerfil').modal('hide');
                 $state.reload();
             }, function (error) {
-                $scope.showSpinner = false;
+                spinnerBar.hide();
+                //$scope.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };

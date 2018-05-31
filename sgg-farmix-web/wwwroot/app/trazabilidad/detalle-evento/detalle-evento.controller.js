@@ -9,7 +9,7 @@
 
     function detalleEventoController($scope, detalleEventoService, $stateParams, toastr) {
         var vm = $scope;
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.disabled = true;
         //funciones
         vm.inicializar = inicializar();
@@ -17,7 +17,8 @@
         vm.evento = {};
 
         function inicializar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.disabled = true;
             vm.itemsPorPagina = 9;
             vm.idEvento = $stateParams.id;
@@ -32,9 +33,11 @@
                         vm.evento[key] = '';
                     }
                 });
-                vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
+                //vm.showSpinner = false;
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }//fin inicializar

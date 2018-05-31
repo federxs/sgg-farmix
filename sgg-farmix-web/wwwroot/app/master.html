@@ -65,17 +65,19 @@
 <body>
     <nav class="navbar" style="margin-bottom: 0px">
         <div style="background:#229954" class="container-fluid">
-            <div class="" id="myNavbar">
-                <div class="navbar-header" style="padding-top:10px; padding-bottom:10px">
+            <div class="col-md-12" id="myNavbar">
+                <div class="col-md-8 navbar-header" style="padding-top:10px; padding-bottom:10px">
                     <a href="#" class="navbar-left"><img src="/resources/logo/logo_farmix.png" height="70"></a>
                     <h2 class="navbar-text" style="color:white">
                         "{{usuarioInfo.campo}}"
                     </h2>
                 </div>
-            </div>
-
-            <div class="pull-right">
-                <a ui-sref="home.consultarConflicto()" style="text-decoration:none; color:#ffffff"><span class="fa fa-2x fa-bell"></span> <span class="badge">{{inconsistencias}}</span></a><br>
+                <div class="col-md-4">
+                    <a ui-sref="home.consultarConflicto()" style="text-decoration:none; color:#ffffff" class="navbar-text pull-right" title="Resolver conflictos">
+                        <span class="fa fa-2x fa-bell" style="margin-top: 10px;font-size:2.5em;"></span>
+                        <span class="badge">{{usuarioInfo.cantidadInconsistencias}}</span>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>

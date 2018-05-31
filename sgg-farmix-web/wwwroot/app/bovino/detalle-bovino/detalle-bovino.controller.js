@@ -9,7 +9,7 @@
 
     function detalleBovinoController($scope, detalleBovinoService, $stateParams, toastr) {
         var vm = $scope;
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         //funciones
         vm.inicializar = inicializar;
         //variables
@@ -30,7 +30,8 @@
                     vm.volver = 'home.detalleInseminacion({fecha:"' + $stateParams.fecha + '", desde: "' + $stateParams.desde + '"})';
                 else if($stateParams.proviene === 'ModificarInseminacion')
                     vm.volver = 'home.modificarInseminacion({fecha:"' + $stateParams.fecha + '", desde: "' + $stateParams.desde + '"})';
-            vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
+            //vm.showSpinner = true;
             detalleBovinoService.inicializar($stateParams.id).then(function success(data) {
                 vm.checkH = false;
                 vm.checkM = false;
@@ -52,9 +53,11 @@
                         vm.bovino[key] = '';
                     }
                 });
-                vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
+                //vm.showSpinner = false;
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }//fin inicializar

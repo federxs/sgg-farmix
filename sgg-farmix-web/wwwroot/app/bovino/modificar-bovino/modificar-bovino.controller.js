@@ -9,7 +9,7 @@
 
     function modificarBovinoController($scope, modificarBovinoService, toastr, $stateParams, $localStorage, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, registrarBovinoService, $state) {
         var vm = $scope;
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.habilitar = false;
         //funciones
         vm.modificar = modificar;
@@ -52,7 +52,8 @@
         var localidadesOriginales = [];
 
         function inicializar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.habilitar = false;
             modificarBovinoService.inicializar($stateParams.id, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 vm.categorias = [];
@@ -107,10 +108,12 @@
                         vm.bovino[key] = '';
                     }
                 });
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 vm.habilitar = true;
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         };
@@ -140,7 +143,8 @@
         };
 
         function modificar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             vm.bovino.peso = vm.bovino.peso.toString().replace(',', '.');
             vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
@@ -166,10 +170,12 @@
                 if (vm.bovino.idEstablecimientoOrigen === 0 || vm.bovino.idEstablecimientoOrigen === undefined)
                     vm.bovino.idEstablecimientoOrigen = '';
                 //vm.habilitar = false;
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 toastr.success('Se modificó el bovino con éxito ', 'Éxito');
             }, function error(data) {
-                vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
+                //vm.showSpinner = false;
                 toastr.error('La operación no se pudo completar', 'Error');
             })
         };
@@ -188,7 +194,8 @@
 
         function idCaravanaChange() {            
             if (vm.bovino.numCaravana !== nroCaravanaOriginal) {
-                vm.showSpinner = true;
+                //vm.showSpinner = true;
+                $scope.$parent.blockSpinner();
                 vm.habilitar = false;
                 modificarBovinoService.existeIdCaravana(vm.bovino.numCaravana, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                     if (data[0] === "1") {
@@ -197,10 +204,12 @@
                     else {
                         vm.formModificarBovino.idCaravana.$setValidity("existeIdCaravana", true);
                     }
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
                     vm.habilitar = true;
                 }, function (error) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }
@@ -227,11 +236,14 @@
         };
 
         function cargarProvinciasyLocalidades() {
+            $scope.$parent.blockSpinner();
             registrarBovinoService.cargarProvinciasyLocalidades({}, function (data) {
                 vm.provincias = data.provincias;
                 localidadesOriginales = data.localidades;
+                $scope.$parent.unBlockSpinner();
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         };
@@ -243,16 +255,19 @@
         };
 
         function agregarEstabOrigen() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             vm.establecimiento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.establecimiento.$save(function (data) {
                 toastr.success('Se agrego con éxito el establecimiento origen ', 'Éxito');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoEstablecimiento').modal('hide');
                 $state.reload();
             }, function (error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 vm.habilitar = true;
                 if (error.statusText === 'Establecimiento Origen ya existe')
                     toastr.warning('El establecimiento origen que intenta registrar, ya existe en este campo', 'Advertencia');
@@ -262,16 +277,19 @@
         };
 
         function agregarRodeo() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             vm.rodeo.idCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.rodeo.$save(function (data) {
                 toastr.success('Se agrego con éxito el rodeo', 'Éxito');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoRodeo').modal('hide');
                 $state.reload();
             }, function (error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 vm.habilitar = true;
                 if (error.statusText === 'Rodeo ya existe')
                     toastr.warning('El rodeo que intenta registrar, ya existe', 'Advertencia');
@@ -281,16 +299,19 @@
         };
 
         function agregarEstado() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             vm.estado.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.estado.$save(function (data) {
                 toastr.success('Se agrego con éxito el estado ', 'Éxito');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoEstado').modal('hide');
                 $state.reload();
             }, function (error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 vm.habilitar = true;
                 if (error.statusText === 'Estado ya existe')
                     toastr.warning('El estado que intenta registrar, ya existe', 'Advertencia');
@@ -300,16 +321,19 @@
         };
 
         function agregarCategoria() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             vm.categoria.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.categoria.$save(function (data) {
                 toastr.success('Se agrego con éxito la categoría ', 'Éxito');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoCategoria').modal('hide');
                 $state.reload();
             }, function (error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 vm.habilitar = true;
                 if (error.statusText === 'Categoria ya existe')
                     toastr.warning('La categoría que intenta registrar, ya existe', 'Advertencia');
@@ -319,16 +343,19 @@
         };
 
         function agregarRaza() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             vm.raza.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.raza.$save(function (data) {
                 toastr.success('Se agrego con éxito el alimento ', 'Éxito');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoRaza').modal('hide');
                 $state.reload();
             }, function (error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 vm.habilitar = true;
                 if (error.statusText === 'Raza ya existe')
                     toastr.warning('La raza que intenta registrar, ya existe', 'Advertencia');
@@ -338,16 +365,19 @@
         };
 
         function agregarAlimento() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             vm.alimento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.alimento.$save(function (data) {
                 toastr.success('Se agrego con éxito el establecimiento origen ', 'Éxito');
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoAlimento').modal('hide');
                 $state.reload();
             }, function (error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 vm.habilitar = true;
                 if (error.statusText === 'Alimento ya existe')
                     toastr.warning('El alimento que intenta registrar, ya existe', 'Advertencia');

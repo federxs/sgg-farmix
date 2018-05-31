@@ -9,7 +9,7 @@
 
     function consultarBovinoController($scope, consultarBovinoService, toastr, exportador, $localStorage, $sessionStorage, $state) {
         var vm = $scope;
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.disabled = 'disabled';
         vm.disabledExportar = 'disabled';
         //funciones
@@ -32,7 +32,8 @@
         var estados = [];
         var categorias = [];
         function inicializar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
             vm.itemsPorPagina = 9;
@@ -53,13 +54,15 @@
                 vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
                 consultar();
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
 
         function consultar() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
             if (vm.filtro.peso === '' || vm.filtro.peso === undefined) vm.filtro.peso = 0;
@@ -67,7 +70,7 @@
             consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
                     vm.disabled = '';
                     vm.rowCollection = [];
                     vm.filtro.peso = '';
@@ -77,12 +80,14 @@
                     vm.rowCollection = data;
                     if (vm.filtro.peso === 0) vm.filtro.peso = '';
                     if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
                     vm.disabled = '';
                     vm.disabledExportar = '';
                 }
+                $scope.$parent.unBlockSpinner();
             }, function (error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
@@ -450,11 +455,15 @@
         }
 
         function validarCantBovinos() {
+            $scope.$parent.blockSpinner();
             consultarBovinoService.validarCantBovinos({ usuario: $sessionStorage.usuarioInfo.usuario }, function success(data) {
                 if (data.resultado)
                     $state.go('home.registrarBovino');
-                else
+                else {
+                    $scope.$parent.unBlockSpinner();
                     toastr.info("No puede agregar mas bovinos, verifique su plan contratado.", "Aviso");
+                }                    
+                //$scope.$parent.unBlockSpinner();
             }, function error(error) {
                 toastr.error("Se ha producido un error, reintentar.");
             });

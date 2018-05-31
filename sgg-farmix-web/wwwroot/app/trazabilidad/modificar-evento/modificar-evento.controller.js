@@ -9,7 +9,7 @@
 
     function modificarEventoController($scope, modificarEventoService, $stateParams, tipoEventoService, toastr, $localStorage, $sessionStorage) {
         var vm = $scope;
-        vm.showSpinner = true;
+        //vm.showSpinner = true;
         vm.habilitar = false;
         vm.habilitarBtnAceptar = false;
         vm.showBotones = true;
@@ -30,7 +30,8 @@
 
         function inicializar() {
             vm.showBotones = true;
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             vm.habilitar = false;
             vm.habilitarBtnAceptar = false;
             vm.itemsPorPagina = 9;
@@ -60,15 +61,18 @@
                             vm.evento[key] = '';
                         }
                     });
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
                     vm.habilitar = true;
                     vm.habilitarBtnAceptar = true;
                 }, function error(error) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         }//fin inicializar
@@ -99,8 +103,10 @@
             if (ids.length === 0) {
                 openPopUpConfirmElimEvento();
             }
-            else
+            else {
+                $scope.$parent.blockSpinnerSave();
                 modificarEvento(ids);
+            }                
         }
 
         function modificarEvento(ids) {
@@ -110,8 +116,11 @@
                 vm.habilitarBtnAceptar = false;
                 toastr.success('Se modificó el evento con éxito ', 'Éxito');
                 $('#modalConfirmEliminEvento').modal('hide');
+                $scope.$parent.unBlockSpinnerSave();
+
             }, function error(data) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 toastr.error('La operación no se pudo completar', 'Error');
                 $('#modalConfirmEliminEvento').modal('hide');
             })
@@ -198,6 +207,7 @@
                     break;
                 }
             }
+            $scope.$parent.blockSpinner();
             modificarEventoService.getRodeos(campo).then(function success(data) {
                 vm.rodeos = data;
                 var encontre = false;
@@ -212,8 +222,10 @@
                     vm.idRodeoDestino = '';
                     vm.habilitarBtnAceptar = false;
                 }
+                $scope.$parent.unBlockSpinner();
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             })
         }
