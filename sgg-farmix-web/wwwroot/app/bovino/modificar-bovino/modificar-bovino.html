@@ -67,51 +67,53 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4">
-                        <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
                             <label class="control-label" for="establecimientoOrigen">
                                 Establecimiento de Origen
                             </label>
-                            <select class="form-control" name="establecimientoOrigen"
-                                    ng-disabled="!habilitar"
-                                    ng-model="bovino.idEstablecimientoOrigen">
-                                <option value="">Seleccione...</option>
-                                <option ng-repeat="item in establecimientos"
-                                        value="{{ item.idEstablecimiento }}">
-                                    {{ item.nombre }}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn btn-info" style="margin-top: 25px;background-color:#16A085;" title="Agregar establecimiento" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoEstablecimiento" ng-click="cargarProvinciasyLocalidades()">
-                                <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                            </button>
+                            <section style="padding: 0px;">
+                                <div class="input-group">
+                                    <select class="form-control" name="establecimientoOrigen"
+                                            ng-disabled="!habilitar"
+                                            ng-model="bovino.idEstablecimientoOrigen"
+                                            style="width:100%">
+                                        <option value="">Seleccione...</option>
+                                        <option ng-repeat="item in establecimientos"
+                                                value="{{ item.idEstablecimiento }}">
+                                            {{ item.nombre }}
+                                        </option>
+                                    </select>
+                                    <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar establecimiento" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoEstablecimiento" ng-click="cargarProvinciasyLocalidades()"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                                </div>
+                            </section>
                         </div>
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.rodeo.$touched && formModificarBovino.rodeo.$valid,
                  'has-error has-feedback':formModificarBovino.rodeo.$touched && formModificarBovino.rodeo.$invalid}">
-                        <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
                             <label class="control-label" for="rodeo">
                                 Rodeo (*)
                             </label>
-                            <select class="form-control" name="rodeo" required
-                                    ng-disabled="!habilitar"
-                                    ng-model="bovino.idRodeo">
-                                <option value="">Seleccione...</option>
-                                <option ng-repeat="item in rodeos"
-                                        value="{{ item.idRodeo }}">
-                                    {{ item.nombre }}
-                                </option>
-                            </select>
+                            <section style="padding: 0px;">
+                                <div class="input-group">
+                                    <select class="form-control" name="rodeo" required
+                                            ng-disabled="!habilitar"
+                                            ng-model="bovino.idRodeo"
+                                            style="width:100%;">
+                                        <option value="">Seleccione...</option>
+                                        <option ng-repeat="item in rodeos"
+                                                value="{{ item.idRodeo }}">
+                                            {{ item.nombre }}
+                                        </option>
+                                    </select>
+                                    <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar rodeo" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoRodeo"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                                </div>
+                            </section>
                             <div ng-show="formModificarBovino.rodeo.$touched">
                                 <span class="help-block" ng-show="formModificarBovino.rodeo.$error.required">
                                     Este campo es requerido
                                 </span>
                             </div>
-                        </div>
-                        <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar rodeo" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoRodeo">
-                                <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -132,29 +134,30 @@
                     <div class="form-group" ng-class="{'has-success has-feedback':formModificarBovino.estado.$touched && formModificarBovino.estado.$valid,
                  'has-error has-feedback':formModificarBovino.estado.$touched && formModificarBovino.estado.$invalid}">
                         <div class="col-md-4 col-lg-4">
-                            <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
+                            <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
                                 <label class="control-label" for="estado">
                                     Estado (*)
                                 </label>
-                                <select class="form-control" name="estado" required
-                                        ng-disabled="!habilitar"
-                                        ng-model="bovino.idEstado">
-                                    <option value="">Seleccione...</option>
-                                    <option ng-repeat="item in estados"
-                                            value="{{ item.idEstado }}">
-                                        {{ item.nombre }}
-                                    </option>
-                                </select>
+                                <section style="padding: 0px;">
+                                    <div class="input-group">
+                                        <select class="form-control" name="estado" required
+                                                ng-disabled="!habilitar"
+                                                ng-model="bovino.idEstado"
+                                                style="width:100%;">
+                                            <option value="">Seleccione...</option>
+                                            <option ng-repeat="item in estados"
+                                                    value="{{ item.idEstado }}">
+                                                {{ item.nombre }}
+                                            </option>
+                                        </select>
+                                        <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar estado" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoEstado"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                                    </div>
+                                </section>
                                 <div ng-show="formModificarBovino.estado.$touched">
                                     <span class="help-block" ng-show="formModificarBovino.estado.$error.required">
                                         Este campo es requerido
                                     </span>
                                 </div>
-                            </div>
-                            <div class="col-md-1 col-lg-1">
-                                <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar estado" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoEstado">
-                                    <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -232,83 +235,86 @@
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.categoria.$touched && formModificarBovino.categoria.$valid,
                  'has-error has-feedback':formModificarBovino.categoria.$touched && formModificarBovino.categoria.$invalid}">
-                        <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
                             <label class="control-label" for="categoria">
                                 Categoría (*)
                             </label>
-                            <select class="form-control" name="categoria" required
-                                    ng-disabled="!habilitar"
-                                    ng-model="bovino.idCategoria">
-                                <option value="">Seleccione...</option>
-                                <option ng-repeat="item in categorias"
-                                        value="{{ item.idCategoria }}">
-                                    {{ item.nombre }}
-                                </option>
-                            </select>
+                            <section style="padding: 0px;">
+                                <div class="input-group">
+                                    <select class="form-control" name="categoria" required
+                                            ng-disabled="!habilitar"
+                                            ng-model="bovino.idCategoria"
+                                            style="width:100%;">
+                                        <option value="">Seleccione...</option>
+                                        <option ng-repeat="item in categorias"
+                                                value="{{ item.idCategoria }}">
+                                            {{ item.nombre }}
+                                        </option>
+                                    </select>
+                                    <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar categoría" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoCategoria"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                                </div>
+                            </section>
                             <div ng-show="formModificarBovino.categoria.$touched">
                                 <span class="help-block" ng-show="formModificarBovino.categoria.$error.required">
                                     Este campo es requerido
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar categoría" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoCategoria">
-                                <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                            </button>
-                        </div>
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.raza.$touched && formModificarBovino.raza.$valid,
                  'has-error has-feedback':formModificarBovino.raza.$touched && formModificarBovino.raza.$invalid}">
-                        <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
                             <label class="control-label" for="raza">
                                 Raza (*)
                             </label>
-                            <select class="form-control" name="raza" required
-                                    ng-disabled="!habilitar"
-                                    ng-model="bovino.idRaza">
-                                <option value="">Seleccione...</option>
-                                <option ng-repeat="item in razas"
-                                        value="{{ item.idRaza }}">
-                                    {{ item.nombre }}
-                                </option>
-                            </select>
+                            <section style="padding: 0px;">
+                                <div class="input-group">
+                                    <select class="form-control" name="raza" required
+                                            ng-disabled="!habilitar"
+                                            ng-model="bovino.idRaza"
+                                            style="width:100%;">
+                                        <option value="">Seleccione...</option>
+                                        <option ng-repeat="item in razas"
+                                                value="{{ item.idRaza }}">
+                                            {{ item.nombre }}
+                                        </option>
+                                    </select>
+                                    <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar raza" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoRaza"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                                </div>
+                            </section>
                             <div ng-show="formModificarBovino.raza.$touched">
                                 <span class="help-block" ng-show="formModificarBovino.raza.$error.required">
                                     Este campo es requerido
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top: 25px; background-color:#16A085;" title="Agregar raza" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoRaza">
-                                <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                            </button>
-                        </div>
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarBovino.alimento.$touched && formModificarBovino.alimento.$valid,
                  'has-error has-feedback':formModificarBovino.alimento.$touched && formModificarBovino.alimento.$invalid}">
-                        <div class="col-md-11 col-lg-11" style="margin-left: -15px;">
+                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
                             <label class="control-label" for="alimento">
                                 Alimento (*)
                             </label>
-                            <select class="form-control" name="alimento" required
-                                    ng-disabled="!habilitar"
-                                    ng-model="bovino.idAlimento">
-                                <option value="">Seleccione...</option>
-                                <option ng-repeat="item in alimentos"
-                                        value="{{ item.idAlimento }}">
-                                    {{ item.nombre }}
-                                </option>
-                            </select>
+                            <section style="padding: 0px;">
+                                <div class="input-group">
+                                    <select class="form-control" name="alimento" required
+                                            ng-disabled="!habilitar"
+                                            ng-model="bovino.idAlimento"
+                                            style="width:100%;">
+                                        <option value="">Seleccione...</option>
+                                        <option ng-repeat="item in alimentos"
+                                                value="{{ item.idAlimento }}">
+                                            {{ item.nombre }}
+                                        </option>
+                                    </select>
+                                    <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar alimento" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoAlimento"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                                </div>
+                            </section>
                             <div ng-show="formModificarBovino.alimento.$touched">
                                 <span class="help-block" ng-show="formModificarBovino.alimento.$error.required">
                                     Este campo es requerido
                                 </span>
                             </div>
-                        </div>
-                        <div class="col-md-1 col-lg-1">
-                            <button type="button" class="btn" style="margin-top:25px; background-color:#16A085;" title="Agregar alimento" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoAlimento">
-                                <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                            </button>
                         </div>
                         <div class="col-md-11 col-lg-11" style="margin-left:-15px;margin-top: 5px;" ng-class="{'has-success has-feedback':formModificarBovino.cantidad.$touched && formModificarBovino.cantidad.$valid,
                  'has-error has-feedback':formModificarBovino.cantidad.$touched && formModificarBovino.cantidad.$invalid}">
