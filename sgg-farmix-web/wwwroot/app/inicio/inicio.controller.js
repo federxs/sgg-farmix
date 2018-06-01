@@ -24,7 +24,7 @@
                 $scope.vacasPreniadas = data.vacasPreniadas;
                 cargarGraficoRazas(data.graficoRaza);
                 cargarGraficoCategorias(data.graficoCategorias);
-                //$scope.$parent.unBlockSpinner();
+                $scope.$parent.unBlockSpinner();
                 //$scope.showSpinner = false;
                 inicioService.obtenerInconsistencias($localStorage.usuarioInfo.codigoCampo)
                    .then(function success(data) {

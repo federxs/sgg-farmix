@@ -1,244 +1,289 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
 <head>
-    <title>Farmix</title>
-    <meta charset="utf-8">
+    <title>Farmix-Sistema de Gestión Ganadera</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Glance Design Dashboard Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <!-- Bootstrap Core CSS -->
+    <!--//Metis Menu -->
     <style>
-        /* Remove the navbar's default margin-bottom and rounded borders */
-        .navbar {
-            margin-bottom: 0px;
-            border-radius: 0;
-        }
-
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-        .row.content {
-            height: auto;
-        }
-
-        /* Set gray background color and 100% height */
-        .sidenav {
-            padding-top: 20px;
-            background-color: #FAE5D3;
-        }
-
-        /* Set black background color, white text and some padding */
-        footer {
-            color: white;
-            padding: 15px;
-            bottom: 0;
+        #chartdiv {
             width: 100%;
-            margin-top: 90px;
-            text-align: center;
-        }
-
-        /* On small screens, set height to 'auto' for sidenav and grid */
-        @media screen and (max-width: 767px) {
-            .sidenav {
-                height: auto;
-                padding: 15px;
-            }
-
-            .row.content {
-                height: auto;
-            }
-        }
-
-        /*SUMADOS POR FEDE*/
-        .list-group-item {
-            background: #03A9F4;
-        }
-
-        li a:link {
-            text-decoration: none;
-        }
-
-        li a:hover {
-            font-weight: 700;
-            text-decoration: none;
+            height: 295px;
         }
     </style>
 </head>
-<body>
-    <nav class="navbar" style="margin-bottom: 0px">
-        <div style="background:#229954" class="container-fluid">
-            <div class="col-md-12" id="myNavbar">
-                <div class="col-md-8 navbar-header" style="padding-top:10px; padding-bottom:10px">
-                    <a href="#" class="navbar-left"><img src="/resources/logo/logo_farmix.png" height="70"></a>
-                    <h2 class="navbar-text" style="color:white">
-                        "{{usuarioInfo.campo}}"
-                    </h2>
-                </div>
-                <div class="col-md-4">
-                    <a ui-sref="home.consultarConflicto()" style="text-decoration:none; color:#ffffff" class="navbar-text pull-right" title="Resolver conflictos">
-                        <span class="fa fa-2x fa-bell" style="margin-top: 10px;font-size:2.5em;"></span>
-                        <span class="badge">{{usuarioInfo.cantidadInconsistencias}}</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <div class="container-fluid text-center" style="background-color:#FAE5D3;">
-        <div class="row content">
-            <div class="col-md-2 col-lg-2 sidenav">
-                <ul class="list-group">
-                    <li class="list-group-item" style="background-color: #FAE5D3; cursor:pointer;">
-                        <img class="img-circle" height="120" width="120" src="{{usuarioInfo.usuarioImagen}}" ng-click="modificarImagenPerfil()" />
-                    </li>
-                    <li class="list-group-item" style="background-color:#FAE5D3">
-                        <p>{{usuarioInfo.nombre}} {{usuarioInfo.apellido}}</p>
-                    </li>
-                    <li class="list-group-item" style="background-color:#FAE5D3">
-                        <p>{{usuarioInfo.rol}}</p>
-                    </li>
-                </ul>
-                <ul class="list-group" style="margin-top: 20px;">
-                    <li class="list-group-item" ng-repeat="menu in Menu" ng-class="{dropdown: menu.Menu_Hijos.length > 0}" style="cursor: pointer;{{menu.activo}}; text-align: left">
-                        <a style="display:block;" ui-sref="{{menu.urlMenu}}" ng-if="menu.idMenuPadre === 0 && menu.menu_Hijos === null && menu.urlMenu" ng-click="activar(menu.idMenu)">
-                            <span class="title" style="color:black;">{{menu.nombre}}</span>
-                            <i class="pull-right {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
-                        </a>
-                        <a style="display:block;" ng-if="!menu.urlMenu" ng-click="activar(menu.idMenu)">
-                            <span class="title" style="color:black;">{{menu.nombre}}</span>
-                            <i class="pull-right {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
-                        </a>
-                        <a href="javascript:;" class="nav-link nav-toggle" ng-if="menu.menu_Hijos.length > 0" data-target="#demo" style="color:black" data-toggle="collapse" ng-click="desactivarMenuHijos(menu)">
-                            {{menu.nombre}}<span class="title caret pull-right" style="margin-top:5px;"></span>
-                            <i class="pull-right {{menu.menIcono}}" aria-hidden="true" style="color:black"></i>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul style="margin-top:10px" id="demo" class="collapse list-group" ng-if="menu.menu_Hijos.length > 0">
-                            <li class="list-group-item" ng-repeat="menuHijo in menu.menu_Hijos" style="{{menuHijo.activo}}">
-                                <a ui-sref="{{menuHijo.urlMenu}}" ng-click="activar(menuHijo.idMenu)">
-                                    <span class="title" style="color:black">{{menuHijo.nombre}}</span>
-                                    <i class="pull-right {{menuHijo.menIcono}}" aria-hidden="true" style="color:black"></i>
+<body class="">
+    <div class="main-content">
+        <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+            <!--left-fixed -navigation-->
+            <aside class="sidebar-left">
+                <nav class="navbar navbar-inverse">
+                    <div class="navbar-header ">
+
+                        <div style="margin:10px auto;display:table">
+                            <img src="../images/logo.png" style="width:150px;margin-top: 20px;">
+                        </div>
+                    </div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <h1><a class="navbar-brand">  <b>FARMIX</b><span class="dashboard_text">Sistema de Gestión Ganadera</span></a></h1>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="sidebar-menu">
+                            <li class="treeview" ng-repeat="menu in Menu">
+                                <a ui-sref="{{menu.urlMenu}}">
+                                    <i class="{{menu.menIcono}}"></i> <span>{{menu.nombre}}</span>
                                 </a>
                             </li>
                         </ul>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-10 col-lg-10 text-left" style="background-color:white!important;padding-bottom:20px">
-                <div ui-view class="fade-in-up"> </div>
-            </div>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </nav>
+            </aside>
         </div>
-        <div>
+        <!--left-fixed -navigation-->
+        <!-- header-starts -->
+        <div class="sticky-header header-section ">
+            <div class="header-left">
 
-        </div>
-    </div>
-
-    <footer class="footer" style="background-color:#229954;">
-        <div class="container">
-            <p>Farmix 2018. Versión 2.0</p>
-        </div>
-    </footer>
-    <!--Modal cerrar sesion-->
-    <div id="modalConfirmCerrarSesion" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Atención</h4>
+                <!--toggle button start-->
+                <button id="showLeftPush" ng-click="cerrarMenu()"><i class="fa fa-bars"></i></button>
+                <!--toggle button end-->
+                <div class="profile_details_left">
+                    <!--notifications of menu start -->
+                    <ul class="nofitications-dropdown">
+                        <!--<li class="dropdown head-dpdn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">4</span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="notification_header">
+                                        <h3>You have 3 new messages</h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/1.jpg" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet</p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li class="odd">
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/4.jpg" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet </p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/3.jpg" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet </p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/2.jpg" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet </p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="notification_bottom">
+                                        <a href="#">See all messages</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>-->
+                        <li class="dropdown head-dpdn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">4</span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="notification_header">
+                                        <h3>You have 3 new notification</h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/4.jpg" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet</p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li class="odd">
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/1.jpg" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet </p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/3.jpg" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet </p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="user_img"><img src="images/2.jpg" alt=""></div>
+                                        <div class="notification_desc">
+                                            <p>Lorem ipsum dolor amet </p>
+                                            <p><span>1 hour ago</span></p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="notification_bottom">
+                                        <a href="#">See all notifications</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--<li class="dropdown head-dpdn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i><span class="badge blue1">8</span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="notification_header">
+                                        <h3>You have 8 pending task</h3>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Database update</span><span class="percentage">40%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar yellow" style="width:40%;"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Dashboard done</span><span class="percentage">90%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar green" style="width:90%;"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Mobile App</span><span class="percentage">33%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar red" style="width: 33%;"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <div class="task-info">
+                                            <span class="task-desc">Issues fixed</span><span class="percentage">80%</span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="progress progress-striped active">
+                                            <div class="bar  blue" style="width: 80%;"></div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="notification_bottom">
+                                        <a href="#">See all pending tasks</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>-->
+                    </ul>
+                    <div class="clearfix"> </div>
                 </div>
-                <div class="modal-body">
-                    <p>¿Está seguro que desea cerrar sesión?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" ng-click="cerrarSesion()">Si</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
-                </div>
+                <!--notification menu end -->
+                <div class="clearfix"> </div>
             </div>
-        </div>
-    </div>
-    <!--Modal-->
-    <!--Modal perfil user-->
-    <div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h4 class="modal-title" id="myModalLabel">Mi Perfil</h4>
+            <div class="header-right">
+                <div class="profile_details">
+                    <ul>
+                        <li class="dropdown profile_details_drop">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <div class="profile_img">
+                                    <span class="prfil-img"><img class="img-circle" style="height: 50px;width:50px" src="{{usuarioInfo.usuarioImagen}}" alt=""> </span>
+                                    <div class="user-name">
+                                        <p>{{usuarioInfo.nombre}} {{usuarioInfo.apellido}}</p>
+                                        <span>{{usuarioInfo.rol}}</span>
+                                    </div>
+                                    <i class="fa fa-angle-down lnr"></i>
+                                    <i class="fa fa-angle-up lnr"></i>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu drp-mnu">
+                                <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
+                                <li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
+                                <li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li>
+                                <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-                <div class="modal-body">
-                    <center>
-                        <div ng-show="imageToUpload.length != 0">
-                            <img ng-repeat="img in imageToUpload"
-                                 ngf-thumbnail="img"
-                                 class="img-circle"
-                                 width="140" height="140"
-                                 ng-click="selectUnselectImage(img)"
-                                 ng-class="{selectedImgToDelete: ImageClass(img)}"
-                                 ng-disabled="!habilitar" />
-                        </div>
-                        <img src="{{perfil.usuarioImagen}}" width="140" height="140" border="0" class="img-circle" ng-show="perfil.usuarioImagen">
-                        <br />
-                        <span><strong>Cargo: </strong></span>
-                        <span class="label label-info">{{perfil.rol}}</span>
-                        <div class="col-md-12 margin-top-20" style="margin-top:5px;">
-                            <!-- The fileinput-button span is used to style the file input field as button ng-model="imageToUpload"-->
-                            <span class="btn font-white fileinput-button  margin-right-10"
-                                  ngf-select="UploadImg($files, $invalidFiles)"
-                                  ngf-model-invalid="invalidFiles"
-                                  ngf-model-options="modelOptionsObj"
-                                  ngf-multiple="true"
-                                  ngf-pattern="image/*"
-                                  ngf-accept="true"
-                                  ng-disabled="disabled"
-                                  ngf-capture="capture"
-                                  ngf-drag-over-class="dragOverClassObj"
-                                  ngf-validate="true"
-                                  ngf-resize="{width: 670 , height: 377, centerCrop: true}"
-                                  ngf-resize-if="$width > 670 || $height > 377 || $width < 670 || $height < 377"
-                                  ngf-dimensions="dimensionsFn($file, $width, $height)"
-                                  ngf-duration="durationFn($file, $duration)"
-                                  ngf-keep="'distinct'"
-                                  ngf-fix-orientation="orientation"
-                                  ngf-max-files="1"
-                                  ngf-ignore-invalid="ignoreInvalid"
-                                  ngf-run-all-validations="runAllValidations"
-                                  ngf-allow-dir="allowDir"
-                                  ng-show="!showBorrar && imageToUpload.length === 0">
-                                <i class="fa fa-refresh"></i>
-                                <span> Cambiar imágen... </span>
-                            </span>
-                            <button type="button" class="btn red delete" ng-click="deleteImagefromModel()" ng-show="showBorrar">
-                                <i class="fa fa-trash"></i>
-                                <span>Eliminar imágen...</span>
-                            </button>
-                            <!-- The global file processing state -->
-                            <span class="fileupload-process"> </span>
-                        </div>
-                    </center>
-                    <hr>
-                    <center>
-                        <p class="text-left">
-                            <strong>Datos: </strong><br>
-                            <label class="control-label" for="UsuarioNombre">
-                                Nombre
-                            </label>
-                            <input name="UsuarioNombre" type="text" class="form-control" placeholder="Nombre del usuario"
-                                   ng-model="perfil.nombre" required maxlength="30" disabled />
-                            <label class="control-label" for="UsuarioApe">
-                                Apellido
-                            </label>
-                            <input name="UsuarioApe" type="text" class="form-control" placeholder="Apellido del usuario"
-                                   ng-model="perfil.apellido" required maxlength="30" disabled />
-                        </p>
-                        <br>
-                    </center>
-                </div>
-                <div class="modal-footer">
-                    <center>
-                        <button type="button" class="btn btn-success" ng-disabled="(!perfil.usuarioImagen && imageToUpload.length === 0)" ng-click="guardarImagenPerfil()">Guardar</button>
-                    </center>
-                </div>
+                <div class="clearfix"> </div>
             </div>
+            <div class="clearfix"> </div>
         </div>
+        <!-- //header-ends -->
+        <!-- main content start-->
+        <div id="page-wrapper">
+            <div ui-view class="fade-in-up"> </div>
+        </div>
+        <!--//sreen-gallery-cursual---->
     </div>
-
+    <!--footer-->
+    <div class="footer">
+        <p>Farmix 2018. Versión 2.0</p>
+    </div>
+    <!--//footer-->
 </body>
 </html>

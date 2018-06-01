@@ -15,6 +15,11 @@
         $scope.showBorrar = false;
         $scope.toDelete = [];
 
+        var body = document.body;
+        classie.toggle(body, 'cbp-spmenu-push');
+
+        $('.sidebar-menu').SidebarNav();
+
         var spinnerBar = spinnerBar || (function ($) {
             'use strict';
 
@@ -131,23 +136,24 @@
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;
                 $scope.usuarioInfo.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.usuarioInfo.usuarioImagen + "?cache=" + (new Date()).getTime();
-                for (var i = 0; i < $scope.Menu.length; i++) {
-                    if ($scope.Menu[i].urlMenu === path)
-                        $scope.Menu[i].activo = 'background-color:#E59866';
-                    else if ($scope.Menu[i].menu_Hijos !== null && $scope.Menu[i].menu_Hijos.length > 0) {
-                        $scope.Menu[i].activo = 'background-color:#FAE5D3';
-                        for (var j = 0; j < $scope.Menu[i].menu_Hijos.length; j++) {
-                            $scope.Menu[i].menu_Hijos[j].activo = 'background-color:#FAE5D3';
-                        }
-                    }
-                    else
-                        $scope.Menu[i].activo = 'background-color:#FAE5D3';
-                }
-                if (path === 'home.undefined') {
-                    $scope.Menu[0].activo = 'background-color:#E59866';
-                    //spinnerBar.hide();
-                    $state.go('home.inicio');
-                }
+                spinnerBar.hide();
+                //for (var i = 0; i < $scope.Menu.length; i++) {
+                //    if ($scope.Menu[i].urlMenu === path)
+                //        $scope.Menu[i].activo = 'background-color:#E59866';
+                //    else if ($scope.Menu[i].menu_Hijos !== null && $scope.Menu[i].menu_Hijos.length > 0) {
+                //        $scope.Menu[i].activo = 'background-color:#FAE5D3';
+                //        for (var j = 0; j < $scope.Menu[i].menu_Hijos.length; j++) {
+                //            $scope.Menu[i].menu_Hijos[j].activo = 'background-color:#FAE5D3';
+                //        }
+                //    }
+                //    else
+                //        $scope.Menu[i].activo = 'background-color:#FAE5D3';
+                //}
+                //if (path === 'home.undefined') {
+                //    $scope.Menu[0].activo = 'background-color:#E59866';
+                //    //spinnerBar.hide();
+                //    $state.go('home.inicio');
+                //}
             }, function (error) {
                 spinnerBar.hide();
                 //$scope.showSpinner = false;
@@ -276,6 +282,27 @@
 
         $scope.unBlockSpinnerSave = function () {
             spinnerBarGuardado.hide();
+        };
+
+        $scope.cerrarMenu = function () {
+            var menuLeft = document.getElementById('cbp-spmenu-s1');
+            var showLeftPush = document.getElementById('showLeftPush');
+			body = document.body;
+
+            //showLeftPush.onclick = function () {
+			    classie.toggle(showLeftPush, 'active');
+                classie.toggle(body, 'cbp-spmenu-push-toright');
+                classie.toggle(menuLeft, 'cbp-spmenu-open');
+                disableOther('showLeftPush');
+            //};
+
+
+            function disableOther(button) {
+                if (button !== 'showLeftPush') {
+                    classie.toggle(showLeftPush, 'disabled');
+                }
+            }          
+
         };
 
         $scope.guardarImagenPerfil = function () {
