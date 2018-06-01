@@ -25,7 +25,8 @@
         vm.isUndefinedOrNull = isUndefinedOrNull;
 
         function init() {
-            vm.showSpinner = true;
+            //vm.showSpinner = true;
+            $scope.$parent.blockSpinner();
             if (($stateParams.idTacto && $stateParams.idTactoConfl && $stateParams.fechaTacto && $stateParams.fechaTactoConfl) || ($stateParams.idInseminacion && $stateParams.idInseminConfl)) {
                 if (!$stateParams.idTacto)
                     $stateParams.idTacto = 0;
@@ -44,15 +45,18 @@
                     vm.tactoNuevo = data.tactoNuevo; //Es el tacto que se intento registrar en base, pero produjo un conflicto
                     vm.inseminacionAnterior = data.inseminacionAnterior; //Es la ultima inseminacion registrada en base
                     vm.inseminacionNueva = data.inseminacionNueva; //Es la inseminacion que se intento registrar pero produjo un conflicto
-                    vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
+                    //vm.showSpinner = false;
                 }, function error(error) {
-                    vm.showSpinner = false;
+                    //vm.showSpinner = false;
+                    $scope.$parent.unBlockSpinner();
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 });
             }
             else {
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
-                vm.showSpinner = false;
+                $scope.$parent.unBlockSpinner();
+                //vm.showSpinner = false;
             }               
         }
 
@@ -76,20 +80,22 @@
         }
 
         function resolverInseminacion() {
+            $scope.$parent.blockSpinnerSave();
             var obj = { inseminacionAnterior: vm.inseminacionAnterior, inseminacionNueva: vm.inseminacionNueva, inseminacionResultante: vm.inseminacionResultante };
             resolverConflictoService.resolver(obj).then(function success(data) {
-
+                $scope.$parent.unBlockSpinnerSave();
             }, function error(error) {
-
+                $scope.$parent.unBlockSpinnerSave();
             });
         };
 
         function resolverTacto() {
+            $scope.$parent.blockSpinnerSave();
             var obj = { tactoAnterior: vm.tactoAnterior, tactoNuevo: vm.tactoNuevo, tactoResultante: vm.tactoResultante };
             resolverConflictoService.resolver(obj).then(function success(data) {
-
+                $scope.$parent.unBlockSpinnerSave();
             }, function error(error) {
-
+                $scope.$parent.unBlockSpinnerSave();
             });
         };
 

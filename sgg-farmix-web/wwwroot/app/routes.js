@@ -62,8 +62,8 @@
                  controller: 'reporteBovinoController'
              });
         $stateProvider
-            .state('home.consultarConflicto', {
-                url: '/conflicto',
+            .state('home.conflictos', {
+                url: '/conflictos',
                 templateUrl: 'app/conflicto/consultar-conflicto/consultar-conflicto.html',
                 controller: 'consultarConflictoController'
             })

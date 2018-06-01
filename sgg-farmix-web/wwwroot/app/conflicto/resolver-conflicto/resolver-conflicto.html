@@ -32,37 +32,34 @@
                     <h4>Tacto Anterior</h4>
                     <div class="form-group">
                         <label class="control-label">Fecha de Tacto</label>
-                        <input type="text" class="form-control" placeholder="Fecha de Tacto"
-                               ng-model="tactoAnterior.fechaTacto" disabled>
+                        <section style="padding: 0px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Fecha de Tacto"
+                                       ng-model="tactoAnterior.fechaTacto" disabled style="width:100%;">
+                                <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-disabled="!habilitar" ng-click="seleccionarPropiedadTacto(tactoAnterior, 'fechaTacto')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            </div>
+                        </section>
                     </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoAnterior, 'fechaTacto')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
-                    </div>
-
                     <div class="form-group">
                         <label class="control-label">Tipo de Tacto</label>
-                        <input type="text" class="form-control" placeholder="Tipo de Tacto"
-                               ng-model="tactoAnterior.tipoTacto" disabled>
+                        <section style="padding: 0px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Tipo de Tacto"
+                                       ng-model="tactoAnterior.tipoTacto" disabled style="width:100%;">
+                                <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoAnterior, 'tipoTacto')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            </div>
+                        </section>
                     </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoAnterior, 'tipoTacto')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
-                    </div>
-
                     <div class="form-group">
                         <label class="control-label">Resultado de Tacto</label>
-                        <input type="text" class="form-control" placeholder="Resultado de Tacto"
-                               ng-model="tactoAnterior.exitoso" disabled>
+                        <section style="padding: 0px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Resultado de Tacto"
+                                       ng-model="tactoAnterior.exitoso" disabled style="width:100%;">
+                                <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoAnterior, 'exitoso')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            </div>
+                        </section>
                     </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoAnterior, 'exitoso')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
-                    </div>
-
                     <button type="button" class="btn btn-primary"
                             ng-click="seleccionarTacto(tactoAnterior)">
                         Seleccionar este tacto
@@ -87,48 +84,47 @@
                         <input type="text" class="form-control" placeholder="Resultado de Tacto"
                                ng-model="tactoResultante.exitoso" disabled>
                     </div>
-                    <button type="button" class="btn btn-success"
-                            data-toggle="modal" data-target="#modalConfirmResolverTactoConflictivo"
-                            ng-disabled="!tactoResultante.fechaTacto || !tactoResultante.tipoTacto || !tactoResultante.exitoso">
-                        Resolver Conflicto
-                    </button>
+                    <center>
+                        <button type="button" class="btn btn-success btn-lg"
+                                data-toggle="modal" data-target="#modalConfirmResolverTactoConflictivo"
+                                ng-disabled="!tactoResultante.fechaTacto || !tactoResultante.tipoTacto || !tactoResultante.exitoso">
+                            Resolver Conflicto
+                        </button>
+                    </center>
                 </div>
                 <!--Inicio Columna de Nuevo-->
                 <div class="col-md-4">
                     <h4>Tacto Nuevo</h4>
                     <div class="form-group">
                         <label class="control-label">Fecha de Tacto</label>
-                        <input type="datetime" class="form-control" placeholder="Fecha de Tacto"
-                               ng-model="tactoNuevo.fechaTacto" disabled>
+                        <section style="padding: 0px;">
+                            <div class="input-group">
+                                <input type="datetime" class="form-control" placeholder="Fecha de Tacto"
+                                       ng-model="tactoNuevo.fechaTacto" disabled style="width:100%;">
+                                <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'fechaTacto')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            </div>
+                        </section>
                     </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'fechaTacto')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
-                    </div>
-
                     <div class="form-group">
                         <label class="control-label">Tipo de Tacto</label>
-                        <input type="text" class="form-control" placeholder="Tipo de Tacto"
-                               ng-model="tactoNuevo.tipoTacto" disabled>
+                        <section style="padding: 0px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Tipo de Tacto"
+                                       ng-model="tactoNuevo.tipoTacto" disabled style="width:100%;">
+                                <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'tipoTacto')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            </div>
+                        </section>
                     </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'tipoTacto')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
-                    </div>
-
                     <div class="form-group">
                         <label class="control-label">Resultado de Tacto</label>
-                        <input type="text" class="form-control" placeholder="Resultado de Tacto"
-                               ng-model="tactoNuevo.exitoso" disabled>
+                        <section style="padding: 0px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Resultado de Tacto"
+                                       ng-model="tactoNuevo.exitoso" disabled style="width:100%;">
+                                <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'exitoso')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            </div>
+                        </section>
                     </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadTacto(tactoNuevo, 'exitoso')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
-                    </div>
-
                     <button type="button" class="btn btn-primary"
                             ng-click="seleccionarTacto(tactoNuevo)">
                         Seleccionar este tacto
@@ -142,40 +138,29 @@
         -->
         <div ng-if="!isUndefinedOrNull(inseminacionAnterior)">
             <div class="row">
-                <!--<div class="col-md-12">
-                    <div class="form-group">
-                        <label class="control-label">Bovino</label>
-                        <input type="text" class="form-control" placeholder="Bovino"
-                               ng-model="inseminacionAnterior.vaca" disabled>
-                    </div>
-                </div>-->
-            </div>
-            <div class="row">
                 <div class="col-md-4">
                     <!--Inicio Columna de Anterior-->
                     <h4>Inseminación Anterior</h4>
                     <div class="form-group">
                         <label class="control-label">Fecha de Inseminación</label>
-                        <input type="text" class="form-control" placeholder="Fecha de Inseminación"
-                               ng-model="inseminacionAnterior.fechaInseminacion" disabled>
-                    </div>
-
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadInseminacion(inseminacionAnterior, 'fechaInseminacion')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
+                        <section style="padding: 0px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Fecha de Inseminación"
+                                       ng-model="inseminacionAnterior.fechaInseminacion" disabled style="width:100%;">
+                                <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-click="seleccionarPropiedadInseminacion(inseminacionAnterior, 'fechaInseminacion')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            </div>
+                        </section>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Tipo de Inseminación</label>
-                        <input type="text" class="form-control" placeholder="Tipo de Inseminación"
-                               ng-model="inseminacionAnterior.tipoInseminacion" disabled>
+                        <section style="padding: 0px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Tipo de Inseminación"
+                                       ng-model="inseminacionAnterior.tipoInseminacion" disabled style="width:100%;">
+                                <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-click="seleccionarPropiedadInseminacion(inseminacionAnterior, 'tipoInseminacion')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            </div>
+                        </section>
                     </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadInseminacion(inseminacionAnterior, 'tipoInseminacion')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
-                    </div>
-
                     <button type="button" class="btn btn-primary"
                             ng-click="seleccionarInseminacion(inseminacionAnterior)">
                         Seleccionar esta inseminación
@@ -194,37 +179,37 @@
                         <input type="text" class="form-control" placeholder="Tipo de Inseminación"
                                ng-model="inseminacionResultante.tipoInseminacion" disabled>
                     </div>
-                    <button type="button" class="btn btn-success"
-                            data-toggle="modal" data-target="#modalConfirmResolverInseminacionConflictiva"
-                            ng-disabled="!inseminacionResultante.fechaInseminacion || !inseminacionResultante.tipoInseminacion">
-                        Resolver Conflicto
-                    </button>
+                    <center>
+                        <button type="button" class="btn btn-success btn-lg"
+                                data-toggle="modal" data-target="#modalConfirmResolverInseminacionConflictiva"
+                                ng-disabled="!inseminacionResultante.fechaInseminacion || !inseminacionResultante.tipoInseminacion">
+                            Resolver Conflicto
+                        </button>
+                    </center>                    
                 </div>
                 <!--Inicio Columna de Nuevo-->
                 <div class="col-md-4">
                     <h4>Inseminación Nueva</h4>
                     <div class="form-group">
                         <label class="control-label">Fecha de Inseminación</label>
-                        <input type="datetime" class="form-control" placeholder="Fecha de Inseminación"
-                               ng-model="inseminacionNueva.fechaInseminacion" disabled>
+                        <section style="padding: 0px;">
+                            <div class="input-group">
+                                <input type="datetime" class="form-control" placeholder="Fecha de Inseminación"
+                                       ng-model="inseminacionNueva.fechaInseminacion" disabled style="width:100%;">
+                                <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-click="seleccionarPropiedadInseminacion(inseminacionNueva, 'fechaInseminacion')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            </div>
+                        </section>
                     </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadInseminacion(inseminacionNueva, 'fechaInseminacion')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
-                    </div>
-
                     <div class="form-group">
                         <label class="control-label">Tipo de Inseminación</label>
-                        <input type="text" class="form-control" placeholder="Tipo de Inseminación"
-                               ng-model="inseminacionNueva.tipoInseminacion" disabled>
+                        <section style="padding: 0px;">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Tipo de Inseminación"
+                                       ng-model="inseminacionNueva.tipoInseminacion" disabled style="width:100%;">
+                                <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-click="seleccionarPropiedadInseminacion(inseminacionNueva, 'tipoInseminacion')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            </div>
+                        </section>                       
                     </div>
-                    <div class="col-md-1">
-                        <button type="button" class="btn btn-info" style="background-color:#16A085;" title="Agregar" ng-click="seleccionarPropiedadInseminacion(inseminacionNueva, 'tipoInseminacion')">
-                            <span class="glyphicon glyphicon-plus" style="color:white"></span>
-                        </button>
-                    </div>
-
                     <button type="button" class="btn btn-primary"
                             ng-click="seleccionarInseminacion(inseminacionNueva)">
                         Seleccionar esta inseminación
