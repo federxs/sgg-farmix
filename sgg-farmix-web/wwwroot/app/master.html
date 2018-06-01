@@ -125,8 +125,8 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             </ul>
                         </li>-->
                         <li class="dropdown head-dpdn">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">4</span></a>
-                            <ul class="dropdown-menu">
+                            <a class="dropdown-toggle" ui-sref="home.conflictos"><i class="fa fa-bell"></i><span class="badge blue">{{usuarioInfo.cantidadInconsistencias}}</span></a>
+                            <!--<ul class="dropdown-menu">
                                 <li>
                                     <div class="notification_header">
                                         <h3>You have 3 new notification</h3>
@@ -177,7 +177,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                         <a href="#">See all notifications</a>
                                     </div>
                                 </li>
-                            </ul>
+                            </ul>-->
                         </li>
                         <!--<li class="dropdown head-dpdn">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i><span class="badge blue1">8</span></a>
@@ -261,10 +261,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                 </div>
                             </a>
                             <ul class="dropdown-menu drp-mnu">
-                                <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                                <li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
+                                <li> <a ui-sref="home.configuracion"><i class="fa fa-cog"></i> Configuraciones</a> </li>
                                 <li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li>
-                                <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                                <li> <a data-toggle="modal" data-target="#modalConfirmCerrarSesion" style="cursor:pointer;"><i class="fa fa-sign-out"></i> Logout</a> </li>
                             </ul>
                         </li>
                     </ul>
@@ -284,6 +283,27 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
     <div class="footer">
         <p>Farmix 2018. Versión 2.0</p>
     </div>
+
+    <div id="modalConfirmCerrarSesion" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Atención</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea cerrar sesión?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="cerrarSesion()">Si</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!--//footer-->
 </body>
 </html>

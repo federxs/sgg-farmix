@@ -79,12 +79,12 @@
             <div class="col-md-12 col-lg-12">
                 <button class="btn btn-default"
                         ng-click="limpiarCampos()" ng-disabled="disabled">
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="fa fa-trash"></span>
                     Limpiar Campos
                 </button>
                 <button class="btn btn-primary"
                         ng-click="consultar()" ng-disabled="formConsultarTrazabilidad.$invalid || disabled">
-                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="fa fa-search"></span>
                     Buscar
                 </button>
             </div>
@@ -119,9 +119,9 @@
                 <td>{{item.fechaHora }}</td>
                 <td>{{item.cantidadBovinos}}</td>
                 <td>
-                    <a ui-sref="home.modificarEvento({id: item.idEvento})" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a ui-sref="home.detalleEvento({id: item.idEvento})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
-                    <a><span class="glyphicon glyphicon-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.tipoEvento, item.fechaHora, item.idEvento)"></span></a>
+                    <a ui-sref="home.modificarEvento({id: item.idEvento})" title="Editar"><span class="fa fa-pencil"></span></a>
+                    <a ui-sref="home.detalleEvento({id: item.idEvento})" title="Ver"><span class="fa fa-search"></span></a>
+                    <a><span class="fa fa-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.tipoEvento, item.fechaHora, item.idEvento)"></span></a>
                 </td>
             </tr>
         </tbody>

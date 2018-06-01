@@ -105,7 +105,7 @@
 
         function irAConflictos() {
             $('#modalInconsistencias').modal('hide');
-            $state.go('home.consultarConflicto');
+            $state.go('home.conflictos');
         };
 
         //function prueba() {

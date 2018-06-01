@@ -12,7 +12,7 @@
         <div class="page-header">
             <div class="pull-right" style="margin-top: 13px;">
                 <button class="btn btn-success" ng-click="validarCantUsuarios()" ng-disabled="deshabilitar">
-                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="fa fa-plus"></span>
                     Nuevo
                 </button>
             </div>
@@ -59,12 +59,12 @@
             <div class="col-md-12 col-lg-12">
                 <button class="btn btn-default"
                         ng-click="limpiarCampos()" ng-disabled="deshabilitar">
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="fa fa-trash"></span>
                     Limpiar Campos
                 </button>
                 <button class="btn btn-primary"
                         ng-click="consultar()" ng-disabled="formConsultarBovino.$invalid || deshabilitar">
-                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="fa fa-search"></span>
                     Buscar
                 </button>
             </div>
@@ -108,9 +108,9 @@
                     <td>{{item.fechaAlta}}</td>
                     <td>{{item.fechaBaja}}</td>
                     <td>
-                        <a ui-sref="home.modificarUsuario({id:item.idUsuario})" title="Modificar" ng-show="item.fechaBaja === ' '"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a ui-sref="home.detalleUsuario({id:item.idUsuario})" title="Ver"><span class="glyphicon glyphicon-search"></span></a>
-                        <a title="Eliminar" style="cursor:pointer" ng-show="item.fechaBaja === ' '"><span class="glyphicon glyphicon-trash" ng-click="openPopUp(item)"></span></a>
+                        <a ui-sref="home.modificarUsuario({id:item.idUsuario})" title="Modificar" ng-show="item.fechaBaja === ' '"><span class="fa fa-pencil"></span></a>
+                        <a ui-sref="home.detalleUsuario({id:item.idUsuario})" title="Ver"><span class="fa fa-search"></span></a>
+                        <a title="Eliminar" style="cursor:pointer" ng-show="item.fechaBaja === ' '"><span class="fa fa-trash" ng-click="openPopUp(item)"></span></a>
                         <a title="Activar usuario" style="cursor:pointer" ng-show="item.fechaBaja !== ' '"><span class="fa fa-check-circle-o " ng-click="openPopUpActivar(item)"></span></a>
                     </td>
                 </tr>
