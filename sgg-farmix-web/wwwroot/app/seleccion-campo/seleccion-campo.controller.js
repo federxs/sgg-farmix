@@ -35,7 +35,7 @@
 
         function seleccionarCampo(codigo) {
             $localStorage.usuarioInfo.codigoCampo = codigo;
-            $state.go('home.inicio');
+            $state.go('home');
         };
 
         function validarCantCampos() {

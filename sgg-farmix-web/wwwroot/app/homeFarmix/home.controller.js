@@ -136,7 +136,7 @@
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;
                 $scope.usuarioInfo.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.usuarioInfo.usuarioImagen + "?cache=" + (new Date()).getTime();
-                spinnerBar.hide();
+                //spinnerBar.hide();
                 //for (var i = 0; i < $scope.Menu.length; i++) {
                 //    if ($scope.Menu[i].urlMenu === path)
                 //        $scope.Menu[i].activo = 'background-color:#E59866';
@@ -152,7 +152,7 @@
                 //if (path === 'home.undefined') {
                 //    $scope.Menu[0].activo = 'background-color:#E59866';
                 //    //spinnerBar.hide();
-                //    $state.go('home.inicio');
+                $state.go('home.inicio');
                 //}
             }, function (error) {
                 spinnerBar.hide();
@@ -287,13 +287,13 @@
         $scope.cerrarMenu = function () {
             var menuLeft = document.getElementById('cbp-spmenu-s1');
             var showLeftPush = document.getElementById('showLeftPush');
-			body = document.body;
+            body = document.body;
 
             //showLeftPush.onclick = function () {
-			    classie.toggle(showLeftPush, 'active');
-                classie.toggle(body, 'cbp-spmenu-push-toright');
-                classie.toggle(menuLeft, 'cbp-spmenu-open');
-                disableOther('showLeftPush');
+            classie.toggle(showLeftPush, 'active');
+            classie.toggle(body, 'cbp-spmenu-push-toright');
+            classie.toggle(menuLeft, 'cbp-spmenu-open');
+            disableOther('showLeftPush');
             //};
 
 
@@ -301,7 +301,7 @@
                 if (button !== 'showLeftPush') {
                     classie.toggle(showLeftPush, 'disabled');
                 }
-            }          
+            }
 
         };
 
