@@ -15,10 +15,15 @@
         $scope.showBorrar = false;
         $scope.toDelete = [];
 
+        //Redimenciona el tamaño del body
         var body = document.body;
-        classie.toggle(body, 'cbp-spmenu-push');
+        var menuLeft = document.getElementById('cbp-spmenu-s1');
+        if (body.className.indexOf('cbp-spmenu-push') === -1 || !body.className)
+            classie.toggle(body, 'cbp-spmenu-push');
+        else if (menuLeft.className.indexOf('cbp-spmenu-left') !== -1 && menuLeft.className.indexOf('cbp-spmenu-open') === -1 && body.className.indexOf('cbp-spmenu-push-toright') !== -1)
+            classie.toggle(menuLeft, 'cbp-spmenu-open');
 
-        $('.sidebar-menu').SidebarNav();
+        //$('.sidebar-menu').SidebarNav();
 
         var spinnerBar = spinnerBar || (function ($) {
             'use strict';
@@ -152,7 +157,7 @@
                 //if (path === 'home.undefined') {
                 //    $scope.Menu[0].activo = 'background-color:#E59866';
                 //    //spinnerBar.hide();
-                $state.go('home.inicio');
+                //state.go('home.inicio');
                 //}
             }, function (error) {
                 spinnerBar.hide();
@@ -285,7 +290,7 @@
         };
 
         $scope.cerrarMenu = function () {
-            var menuLeft = document.getElementById('cbp-spmenu-s1');
+            menuLeft = document.getElementById('cbp-spmenu-s1');
             var showLeftPush = document.getElementById('showLeftPush');
             body = document.body;
 
@@ -311,7 +316,7 @@
                 $scope.perfil.imagen = $scope.imageToUpload[0];
             $scope.perfil.usuario = $sessionStorage.usuarioInfo.usuario;
             $scope.perfil.$actualizarPerfilUsuario(function (data) {
-                toastr.success('Imágen actualizada', 'Éxito');
+                toastr.success('Datos actualizados', 'Éxito');
                 spinnerBar.hide();
                 $('#modalPerfil').modal('hide');
                 $state.reload();
