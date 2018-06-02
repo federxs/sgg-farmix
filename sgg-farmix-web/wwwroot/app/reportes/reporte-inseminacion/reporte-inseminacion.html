@@ -8,7 +8,17 @@
         </div>
     </div>
 </div>
-
+<div class="row">
+    <button type="button" class="btn btn-default"
+            ui-sref="home.reportes">
+        Volver
+    </button>
+</div>
+<div>
+    <h4>
+        Campo: <b>{{usuarioInfo.campo}}</b>
+    </h4>
+</div>
 <div ng-include="'./includes/hembras-para-servir'" ng-if="vm.tablaActiva == 0"></div>
 <div ng-include="'./includes/lactancias-activas'" ng-if="vm.tablaActiva == 1"></div>
 <div ng-include="'./includes/preniadas'" ng-if="vm.tablaActiva == 2"></div>

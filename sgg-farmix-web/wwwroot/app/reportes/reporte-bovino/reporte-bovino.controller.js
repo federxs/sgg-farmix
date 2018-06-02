@@ -24,6 +24,7 @@
 
 
         function inicializar() {
+            $scope.$parent.unBlockSpinner();
             //reporteBovinoService.inicializar({
             //    idAmbitoEstado: '1',
             //    idCampo: $localStorage.usuarioInfo.codigoCampo
