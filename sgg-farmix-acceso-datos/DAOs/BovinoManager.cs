@@ -33,7 +33,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                     { "@idEstado", entity.idEstado },
                     { "@borrado", 0 },
                     { "@usuario", entity.usuario },
-                    { "@codigoCampo", entity.codigoCampo }
+                    { "@codigoCampo", entity.codigoCampo },
+                    { "@enfermo", entity.enfermo }
                 };
                 if (entity.pesoAlNacer != 0)
                     parametros.Add("@pesoAlNacer", entity.pesoAlNacer);
@@ -196,7 +197,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@idEstado", entity.idEstado },
                     {"@idAlimento", entity.idAlimento },
                     {"@cantAlimento", entity.cantAlimento },
-                    {"@codigoCampo", entity.codigoCampo }
+                    {"@codigoCampo", entity.codigoCampo },
+                    {"@enfermo", entity.enfermo }
                 };
                 if (entity.pesoAlNacer != 0)
                     parametros.Add("@pesoAlNacer", entity.pesoAlNacer);

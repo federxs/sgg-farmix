@@ -148,13 +148,13 @@ namespace sgg_farmix_acceso_datos.DAOs
                 switch (evento.idTipoEvento)
                 {
                     case 1: //vacunacion
-                        parametrosEvento.Add("@idVacuna", evento.idVacuna);
+                        parametrosDetalle.Add("@idVacuna", evento.idVacuna);
                         break;
                     case 3: //manejo
-                        parametrosEvento.Add("@idRodeoDestino", evento.idRodeoDestino);
+                        parametrosDetalle.Add("@idRodeoDestino", evento.idRodeoDestino);
                         break;
                     case 4: //alimenticio
-                        parametrosEvento.Add("@idAlimento", evento.idAlimento);
+                        parametrosDetalle.Add("@idAlimento", evento.idAlimento);
                         break;
                 }
                 var insert = 0;
@@ -166,22 +166,22 @@ namespace sgg_farmix_acceso_datos.DAOs
                     if (insert == 0)
                         throw new ArgumentException("Create EventosXBovino Error");
                 }
-                if (evento.idTipoEvento == 3)
-                {
-                    insert = 0;
-                    var parametros = new Dictionary<string, object>
-                    {
-                        {"@idRodeo", evento.idRodeoDestino },
-                        {"@idBovino", 0 }
-                    };
-                    for (int i = 0; i < lista.Count; i++)
-                    {
-                        parametros["@idBovino"] = lista.ElementAt(i);
-                        insert = connection.Execute("spActualizarRodeoBovino", parametros, System.Data.CommandType.StoredProcedure, transaction);
-                        if (insert == 0)
-                            throw new ArgumentException("Update rodeo bovino Error");
-                    }
-                }
+                //if (evento.idTipoEvento == 3)
+                //{
+                //    insert = 0;
+                //    var parametros = new Dictionary<string, object>
+                //    {
+                //        {"@idRodeo", evento.idRodeoDestino },
+                //        {"@idBovino", 0 }
+                //    };
+                //    for (int i = 0; i < lista.Count; i++)
+                //    {
+                //        parametros["@idBovino"] = lista.ElementAt(i);
+                //        insert = connection.Execute("spActualizarRodeoBovino", parametros, System.Data.CommandType.StoredProcedure, transaction);
+                //        if (insert == 0)
+                //            throw new ArgumentException("Update rodeo bovino Error");
+                //    }
+                //}
                 connection.Commit(transaction);
                 return evento;
             }

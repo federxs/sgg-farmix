@@ -52,11 +52,16 @@
         vm.agregarAlimento = agregarAlimento;
         vm.changeEstados = changeEstados;
         vm.changeCategorias = changeCategorias;
+        vm.changeEstadosXEnfermo = changeEstadosXEnfermo;
 
         function inicializar() {
             //$scope.$parent.blockSpinner();
             vm.habilitar = false;
             registrarBovinoService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
+                for (var i = 0; i < data.estados.length; i++) {
+                    if (data.estados[i].idEstado === 4 || data.estados[i].idEstado === 5)
+                        data.estados.splice(i, 1);
+                }
                 vm.estados = data.estados;
                 estados = angular.copy(data.estados);
                 vm.categorias = data.categorias;
@@ -72,7 +77,7 @@
                 vm.bovino.genero = 0;
                 vm.rodeo.confinado = 0;
                 vm.changeCategorias();
-                changeEstados();                
+                changeEstados();
             }, function error(error) {
                 //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
@@ -111,7 +116,7 @@
             });
         };
 
-        function idCaravanaChange() {            
+        function idCaravanaChange() {
             if (vm.bovino.numCaravana) {
                 $scope.$parent.blockSpinner();
                 //vm.showSpinner = true;
@@ -131,7 +136,7 @@
                     $scope.$parent.unBlockSpinner();
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
-            }            
+            }
         };
 
         function convertirFecha(fecha) {
@@ -332,6 +337,22 @@
                     if (estados[i].genero === 0 || estados[i].genero === 2)
                         vm.estados.push(estados[i]);
                 }
+            }
+        };
+
+        function changeEstadosXEnfermo() {
+            if (vm.bovino.enfermo === 1) {
+                vm.estados = [];
+                for (var i = 0; i < estados.length; i++) {
+                    if (estados[i].idEstado !== 1)
+                        vm.estados.push(estados[i]);
+                }
+                vm.bovino.idEstado = '3';
+            }
+            else {
+                vm.estados = estados;
+                if (vm.bovino.idEstado === '3')
+                    vm.bovino.idEstado = '';
             }
         };
 
