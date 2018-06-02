@@ -8,17 +8,7 @@
         </div>
     </div>
 </div>
-<div class="pull-right" style="margin-bottom:5px">
-    <button class="btn btn-success font-white" ng-click="vm.exportarExcel()" title="Exportar a Excel" ng-disabled="rowCollection.size <= 0">
-        <i class="fa fa-file-excel-o"></i>
-    </button>
-    <button class="btn btn-success font-white" title="Exportar a PDF" ng-disabled="rowCollection.size <= 0">
-        <i class="fa fa-file-pdf-o"></i>
-    </button>
-    <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="rowCollection.size <= 0">
-        <i class="fa fa-print"></i>
-    </a>
-</div>
+
 <div>
     <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
         <thead>
