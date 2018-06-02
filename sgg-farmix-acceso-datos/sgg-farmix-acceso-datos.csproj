@@ -86,6 +86,7 @@
     <Compile Include="Model\Pais.cs" />
     <Compile Include="Model\Provincia.cs" />
     <Compile Include="Model\Raza.cs" />
+    <Compile Include="Model\Reportes.cs" />
     <Compile Include="Model\Resultados.cs" />
     <Compile Include="Model\Rodeo.cs" />
     <Compile Include="Model\Rol.cs" />

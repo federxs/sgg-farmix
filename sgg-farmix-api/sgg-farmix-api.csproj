@@ -198,6 +198,7 @@
     <Compile Include="Controllers\InconsistenciaController.cs" />
     <Compile Include="Controllers\InseminacionController.cs" />
     <Compile Include="Controllers\RazaController.cs" />
+    <Compile Include="Controllers\ReportesController.cs" />
     <Compile Include="Controllers\RodeoController.cs" />
     <Compile Include="Controllers\TactoController.cs" />
     <Compile Include="Controllers\TipoEventoController.cs" />

@@ -1,16 +1,15 @@
 ﻿(function () {
     angular.module('app')
         .factory('reporteBovinoService', function ($resource, portalService) {
-            return $resource(portalService.getUrlServer() + 'api/BovinoConsultar/', {}, {
+            return $resource(portalService.getUrlServer() + 'api/Reportes/', {}, {
                 inicializar: {
                     method: 'GET',
-                    url: portalService.getUrlServer() + 'api/Reportes/Bovinos/:idAmbitoEstado/:idCampo',
+                    url: portalService.getUrlServer() + 'api/Reportes/Bovinos',
                     headers: portalService.getHeadersServer(),
                     params: {
-                        idAmbitoEstado: '@idAmbitoEstado',
-                        idCampo: '@idCampo'
+                        codigoCampo: '@codigoCampo'
                     },
-                    isArray: false
+                    isArray: true
                 }
             });
         });
