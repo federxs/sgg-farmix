@@ -62,6 +62,12 @@
                  controller: 'reporteBovinoController'
              });
         $stateProvider
+             .state('home.reporteInseminacion', {
+                 url: '/reportes/inseminaciones',
+                 templateUrl: 'app/reportes/reporte-inseminacion/reporte-inseminacion.html',
+                 controller: 'reporteInseminacionController'
+             });
+        $stateProvider
             .state('home.conflictos', {
                 url: '/conflictos',
                 templateUrl: 'app/conflicto/consultar-conflicto/consultar-conflicto.html',
