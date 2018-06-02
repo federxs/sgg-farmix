@@ -362,10 +362,14 @@
         }
 
         function ordenarFechasMenorAMayor(lista) {
-            var fechaInicial, fechaSgte, aux;
-            for (var i = 0; i < lista.length; i++) {
+            var listaARetornar = [];
+            for (var i = lista.length - 1; i >= 0; i--) {
+                listaARetornar.push(lista[i]);
+            }
+            /*var fechaInicial, fechaSgte, aux;
+            for (var i = lista.length - 1; i > 0 ; i--) {
                 fechaInicial = new Date(lista[i].fechaHora.substring(6, 10), parseInt(lista[i].fechaHora.substring(3, 5)) - 1, lista[i].fechaHora.substring(0, 2));
-                for (var j = i + 1; j < lista.length; j++) {
+                for (var j = i - 1; j > 0; j--) {
                     fechaSgte = new Date(lista[j].fechaHora.substring(6, 10), parseInt(lista[j].fechaHora.substring(3, 5)) - 1, lista[j].fechaHora.substring(0, 2));
                     if (fechaSgte < fechaInicial) {
                         aux = lista[i];
@@ -379,12 +383,12 @@
                         lista[j] = aux;
                     }
                 }
-            }
-            return lista;
+            }*/
+            return listaARetornar;
         }
 
         function cargarLineaTiempoEventos() {
-            //var list = ordenarFechasMenorAMayor(vm.rowCollection);
+            var list = ordenarFechasMenorAMayor(vm.rowCollection);
             google.charts.load('current', { 'packages': ['timeline'] });
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
@@ -396,11 +400,11 @@
                 dataTable.addColumn({ type: 'date', id: 'Start' });
                 dataTable.addColumn({ type: 'date', id: 'End' });
                 var fechaSiguiente, horaSiguiente;
-                for (var i = 0; i < vm.rowCollection.length; i++) {
+                for (var i = 0; i < list.length; i++) {
                     var descrEvento = "";
-                    var fechaAnterior = vm.rowCollection[i].fechaHora.substring(0, 10).split('/');
-                    var horaAnterior = vm.rowCollection[i].fechaHora.substring(11, 16).split(':');
-                    switch (vm.rowCollection[i].tipoEvento) {
+                    var fechaAnterior = list[i].fechaHora.substring(0, 10).split('/');
+                    var horaAnterior = list[i].fechaHora.substring(11, 16).split(':');
+                    switch (list[i].tipoEvento) {
                         case 'Vacunación':
                         case 'Antibiótico':
                             fechaSiguiente = new Date(fechaAnterior[2], parseInt(fechaAnterior[1]) - 1, fechaAnterior[0], horaAnterior[0], horaAnterior[1]);
@@ -410,11 +414,11 @@
                             fechaSiguiente = fechaSiguiente.substring(0, 10).split('/');
                             break;
                         case 'Manejo':
-                            idManejo.push(vm.rowCollection[i].idEvento);
-                            var index = vm.rowCollection.findIndex(encontrarManejo);
+                            idManejo.push(list[i].idEvento);
+                            var index = list.findIndex(encontrarManejo);
                             if (index !== -1) {
-                                fechaSiguiente = vm.rowCollection[index].fechaHora.substring(0, 10).split('/');
-                                horaSiguiente = vm.rowCollection[index].fechaHora.substring(11, 16).split(':');
+                                fechaSiguiente = list[index].fechaHora.substring(0, 10).split('/');
+                                horaSiguiente = list[index].fechaHora.substring(11, 16).split(':');
                             }
                             else {
                                 fechaSiguiente = convertirFecha(new Date());
@@ -423,11 +427,11 @@
                             }
                             break;
                         case 'Alimenticio':
-                            idAlimenticio.push(vm.rowCollection[i].idEvento);
-                            var index = vm.rowCollection.findIndex(encontrarAlimenticio);
+                            idAlimenticio.push(list[i].idEvento);
+                            var index = list.findIndex(encontrarAlimenticio);
                             if (index !== -1){
-                                fechaSiguiente = vm.rowCollection[index].fechaHora.substring(0, 10).split('/');
-                                horaSiguiente = vm.rowCollection[index].fechaHora.substring(11, 16).split(':');
+                                fechaSiguiente = list[index].fechaHora.substring(0, 10).split('/');
+                                horaSiguiente = list[index].fechaHora.substring(11, 16).split(':');
                             }
                             else {
                                 fechaSiguiente = convertirFecha(new Date());
@@ -437,7 +441,7 @@
                             break;
                     }
                     dataTable.addRows([
-                  [vm.rowCollection[i].tipoEvento, new Date(fechaAnterior[2], parseInt(fechaAnterior[1]) - 1, fechaAnterior[0], horaAnterior[0], horaAnterior[1]), new Date(fechaSiguiente[2], parseInt(fechaSiguiente[1]) - 1, fechaSiguiente[0], horaSiguiente[0], horaSiguiente[1])]]);
+                  [list[i].tipoEvento, new Date(fechaAnterior[2], parseInt(fechaAnterior[1]) - 1, fechaAnterior[0], horaAnterior[0], horaAnterior[1]), new Date(fechaSiguiente[2], parseInt(fechaSiguiente[1]) - 1, fechaSiguiente[0], horaSiguiente[0], horaSiguiente[1])]]);
                 }
                 chart.draw(dataTable);
             }

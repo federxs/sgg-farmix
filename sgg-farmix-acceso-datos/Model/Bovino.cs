@@ -31,6 +31,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string usuario { get; set; }
         public long? codigoCampo { get; set; }
         public string diasFaltantesXDarALuz { get; set; }
+        public int enfermo { get; set; }
     }
 
     public class BovinoFilter
@@ -75,6 +76,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string categoria { get; set; }
         public string raza { get; set; }
         public string descripcion { get; set; }
+        public int enfermo { get; set; }
     }
 
     public class BovinoHeaderEliminar
