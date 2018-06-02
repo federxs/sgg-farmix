@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div ng-include="'./includes/hembras-para-servir'" ng-if=""></div>
-<div ng-include="'./includes/lactancias-activas'" ng-if=""></div>
-<div ng-include="'./includes/preniadas'" ng-if=""></div>
-<div ng-include="'./includes/servicios-sin-confirmar'" ng-if=""></div>
+<div ng-include="'./includes/hembras-para-servir'" ng-if="vm.tablaActiva == 0"></div>
+<div ng-include="'./includes/lactancias-activas'" ng-if="vm.tablaActiva == 1"></div>
+<div ng-include="'./includes/preniadas'" ng-if="vm.tablaActiva == 2"></div>
+<div ng-include="'./includes/servicios-sin-confirmar'" ng-if="vm.tablaActiva == 3"></div>

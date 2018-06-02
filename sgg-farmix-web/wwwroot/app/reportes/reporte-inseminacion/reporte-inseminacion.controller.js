@@ -18,6 +18,10 @@
         vm.disabledExportar = 'disabled';
         vm.bovinos = [];
         vm.itemsPorPagina = 50;
+        vm.hembrasParaServir = [];
+        vm.lactanciasActivas = [];
+        vm.preniadas = [];
+        vm.serviciosSinConfirmar = [];
 
 
         inicializar()
