@@ -8,12 +8,6 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <button type="button" class="btn btn-default"
-            ui-sref="home.reportes">
-        Volver
-    </button>
-</div>
 <div>
     <h4>
         Campo: <b>{{usuarioInfo.campo}}</b>
@@ -31,6 +25,7 @@
                 <th st-sort="anos">Edad</th>
                 <th st-sort="peso">Peso (Kg)</th>
                 <th st-sort="estado">Estado</th>
+                <th st-sort="enfermo">Enfermo</th>
                 <th st-sort="rodeo">Rodeo</th>
             </tr>
         </thead>
@@ -44,6 +39,7 @@
                 <td>{{item.anos}} años y {{item.meses}} meses</td>
                 <td>{{item.peso}}</td>
                 <td>{{item.estado | uppercase}}</td>
+                <td>{{item.enfermo | uppercase}}</td>
                 <td>{{item.rodeo | uppercase}}</td>
             </tr>
         </tbody>
@@ -59,4 +55,10 @@
             </tr>
         </tfoot>
     </table>
+</div>
+<div class="row">
+    <button type="button" class="btn btn-default"
+            ui-sref="home.reportes">
+        Volver
+    </button>
 </div>
