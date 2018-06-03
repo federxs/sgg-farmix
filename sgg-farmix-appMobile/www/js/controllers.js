@@ -5,9 +5,9 @@
         $ionicPlatform.ready(function () {
             //abrimos la db acá
             $rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
-            //nfc.addNdefListener(tagEscaneado, iniciar, cancelar);
+            nfc.addNdefListener(tagEscaneado, iniciar, cancelar);
             //descomenta Luki para que te funcione sin NFC
-            nfc.addNdefListener(tagEscaneado, cancelar, iniciar);
+            //nfc.addNdefListener(tagEscaneado, cancelar, iniciar);
         });
 
         if ($rootScope.logueado == false) {
@@ -28,21 +28,16 @@
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Categoria(idCategoria INTEGER PRIMARY KEY, nombre TEXT, genero INTEGER(1))");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Estado(idEstado INTEGER PRIMARY KEY, nombre TEXT, descripcion TEXT)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Raza(idRaza INTEGER PRIMARY KEY, nombre TEXT)");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Rodeo(idRodeo INTEGER PRIMARY KEY, nombre TEXT, confinado INTEGER(1))");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS TipoEvento(idTipoEvento INTEGER PRIMARY KEY, descripcion TEXT)");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS TipoTacto(idTipoTacto INTEGER PRIMARY KEY, descripcion TEXT)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Vacuna(idVacuna INTEGER PRIMARY KEY, nombre TEXT)");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Bovino(idBovino INTEGER PRIMARY KEY, numCaravana INTEGER, apodo TEXT, descripcion TEXT, fechaNacimiento TEXT, genero INTEGER(1), peso REAL, pesoAlNacer REAL, idCategoria INTEGER, idRaza INTEGER, idRodeo INTEGER, idEstado INTEGER, escrito INTEGER(1), paraActualizar INTEGER(1), fechaEstimadaParto TEXT, FOREIGN KEY(idCategoria) REFERENCES Categoria (idCategoria), FOREIGN KEY(idRaza) REFERENCES Raza (idRaza), FOREIGN KEY(idRodeo) REFERENCES Rodeo (idRodeo), FOREIGN KEY(idEstado) REFERENCES Estado (idEstado))");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Evento(idEvento INTEGER PRIMARY KEY, fechaHora TEXT, cantidad REAL, idTipoEvento INTEGER, idVacuna INTEGER, idAntibiotico INTEGER, idAlimento INTEGER, idRodeoDestino INTEGER, FOREIGN KEY(idTipoEvento) REFERENCES TipoEvento (idTipoEvento), FOREIGN KEY(idVacuna) REFERENCES Vacuna (idVacuna), FOREIGN KEY(idAntibiotico) REFERENCES Antibiotico (idAntibiotico), FOREIGN KEY(idAlimento) REFERENCES Alimento (idAlimento), FOREIGN KEY(idRodeoDestino) REFERENCES Rodeo (idRodeo))");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS EventosXBovino(idBovino INTEGER, idEvento INTEGER, PRIMARY KEY (idBovino, idEvento), FOREIGN KEY (idBovino) REFERENCES Bovino (idBovino), FOREIGN KEY (idEvento) REFERENCES Evento (idEvento))");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Inseminacion(idInseminacion INTEGER PRIMARY KEY, idVaca INTEGER, fechaInseminacion TEXT, fechaEstimadaNacimiento TEXT, tipoInseminacion INTEGER, FOREIGN KEY (idVaca) REFERENCES Bovino (idBovino), FOREIGN KEY (tipoInseminacion) REFERENCES TipoInseminacion (idTipo))");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS TorosXInseminacion(idInseminacion INTEGER, idToro INTEGER, PRIMARY KEY(idInseminacion, idToro), FOREIGN KEY (idInseminacion) REFERENCES Inseminacion (idInseminacion), FOREIGN KEY (idToro) REFERENCES Bovino (idBovino))");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Tacto(idInseminacion INTEGER, fechaTacto TEXT, exitoso INTEGER(1), idTipoTacto INTEGER, PRIMARY KEY (idInseminacion, fechaTacto), FOREIGN KEY (idTipoTacto) REFERENCES TipoTacto (idTipoTacto))");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS InseminacionPendiente(idInseminacion INTEGER PRIMARY KEY, fechaInseminacion TEXT, tipoInseminacion INTEGER, idVaca INTEGER, FOREIGN KEY (tipoInseminacion) REFERENCES TipoInseminacion (idTipo))");
-
-                tx.executeSql("CREATE TABLE IF NOT EXISTS TipoInseminacion(idTipo INTEGER PRIMARY KEY, descripcion TEXT)");
-                tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(1, 'Artificial')");
-                tx.executeSql("INSERT INTO TipoInseminacion(idTipo, descripcion) VALUES(2, 'Montura')");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS Bovino(idBovino INTEGER PRIMARY KEY, numCaravana INTEGER, apodo TEXT, descripcion TEXT, fechaNacimiento TEXT, genero INTEGER(1), peso REAL, pesoAlNacer REAL, idCategoria INTEGER, idRaza INTEGER, idRodeo INTEGER, idEstado INTEGER, escrito INTEGER(1), paraActualizar INTEGER(1), fechaEstimadaParto TEXT)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS Evento(idEvento INTEGER PRIMARY KEY, fechaHora TEXT, cantidad REAL, idTipoEvento INTEGER, idVacuna INTEGER, idAntibiotico INTEGER, idAlimento INTEGER, idRodeoDestino INTEGER)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS EventosXBovino(idBovino INTEGER, idEvento INTEGER, PRIMARY KEY (idBovino, idEvento))");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS Inseminacion(idInseminacion INTEGER PRIMARY KEY, idVaca INTEGER, fechaInseminacion TEXT, fechaEstimadaNacimiento TEXT, tipoInseminacion INTEGER)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS TorosXInseminacion(idInseminacion INTEGER, idToro INTEGER, PRIMARY KEY(idInseminacion, idToro))");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS Tacto(idInseminacion INTEGER, fechaTacto TEXT, exitoso INTEGER(1), idTipoTacto INTEGER, PRIMARY KEY (idInseminacion, fechaTacto))");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS InseminacionPendiente(idInseminacion INTEGER PRIMARY KEY, fechaInseminacion TEXT, tipoInseminacion INTEGER, idVaca INTEGER)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS Nacimiento(idNacimiento INTEGER PRIMARY KEY, fechaNacimiento TEXT)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS BovinosXNacimiento(idNacimiento INTEGER, idBovino Integer, PRIMARY KEY (idNacimiento, idBovino))");
             });
             return;
         }
@@ -62,14 +57,14 @@
                 }
                 alert("Se ha grabado el tag escaneado");
                 $state.go('app.escribir', {}, { reload: true });
-            } else if ($state.current.name == "app.leer") {
+            } else if ($state.current.name == "app.leer" || $state.current.name == "app.resultado/:id") {
                 var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 $state.go('app.resultado/:id', { id: id });
             } else if ($state.current.name == "app.vacunacion" || $state.current.name == "app.manejo" || $state.current.name == "app.antibiotico" || $state.current.name == "app.alimento" || $state.current.name == "app.registrarInseminacion") {
                 $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 if ($rootScope.idVacas == undefined || estaEscaneado($scope.id) == false) {
                     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
-                        if (_bovino != null && _bovino.borrado == false) {
+                        if (_bovino != null) {
                             if ($state.current.name == "app.registrarInseminacion") {
                                 if ($rootScope.evento.tipoInseminacion == "2" && _bovino.genero == 1) {
                                     if ($rootScope.toros == undefined || $rootScope.toros == null) {

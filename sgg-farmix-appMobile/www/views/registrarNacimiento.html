@@ -1,0 +1,16 @@
+﻿<ion-view view-title="Registrar Nacimiento" cache-view="false">
+    <ion-content padding="true" class="fondo">
+        <h4>Vacas que parieron</h4>
+        <table class="bordeTabla">
+            <tr>
+                <th>Número de Caravana</th>
+                <th>Apodo</th>
+            </tr>
+            <tr ng-repeat="vaca in vacas" class="itemTabla">
+                <td>{{vaca.numCaravana}}</td>
+                <td>{{vaca.apodo}}</td>
+            </tr>
+        </table><br>
+        <button ng-click="registrar()" class="button bordeBoton botonInseminacion" ion-button>Registrar Nacimiento</button>
+    </ion-content>
+</ion-view>

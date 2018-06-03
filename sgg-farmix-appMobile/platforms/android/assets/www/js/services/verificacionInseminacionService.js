@@ -47,21 +47,22 @@
         };
     })
 
-    .service('verificacionInseminacionService', function (conexion, verificacionInseminacionServiceHTTP, verificacionInseminacionServiceDB) {
+    .service('verificacionInseminacionService', function ($rootScope, verificacionInseminacionServiceHTTP, verificacionInseminacionServiceDB, $localStorage) {
         this.registrarVerificacionInseminacion = function (inseminacion, fechaTacto) {
-            if (conexion.online()) {
+            if ($rootScope.online) {
                 verificacionInseminacionServiceHTTP.registrarVerificacionInseminacion(inseminacion, fechaTacto);
             } else {
+                $localStorage.actualizar = true;
                 verificacionInseminacionServiceDB.registrarVerificacionInseminacion(inseminacion, fechaTacto);
             }
         };
 
         this.actualizarVerificacionesBackend = function () {
-            if (conexion.online()) {
-                var verificaciones;
-                return verificacionInseminacionServiceDB.getVerificacionesParaActualizarBackend()
-                    .then(function (respuesta) { verificaciones = respuesta; })
-                    .then(function () {
+            var verificaciones;
+            return verificacionInseminacionServiceDB.getVerificacionesParaActualizarBackend()
+                .then(function (respuesta) { verificaciones = respuesta; })
+                .then(function () {
+                    if (verificaciones.lenght > 0) {
                         verificaciones.forEach(function (verificacion) {
                             var fechaTacto = verificacion.fechaTacto;
                             verificacion = { idTipoTacto: verificacion.idTipoTacto, exitoso: verificacion.exitoso, idInseminacion: verificacion.idInseminacion };
@@ -69,7 +70,7 @@
                         }).then(function () {
                             verificacionInseminacionServiceDB.limpiarVerificaciones();
                         })
-                    });
-            }
+                    }
+                });
         }
     });

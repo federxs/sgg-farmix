@@ -9,4 +9,7 @@ angular.module('starter')
     $scope.verificarInseminacion = function () {
         $state.go('app.inseminacionesPendientes');
     }
+    $scope.registrarNacimiento = function () {
+        $state.go('app.registrarNacimiento');
+    }
 });

@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ngStorage', 'angular-table'])
+angular.module('starter', ['ionic', 'ngStorage'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -156,6 +156,15 @@ angular.module('starter', ['ionic', 'ngStorage', 'angular-table'])
                 'menuContent': {
                     templateUrl: 'views/verificarInseminacion.html',
                     controller: 'VerificarInseminacionController'
+                }
+            }
+        })
+        .state('app.registrarNacimiento', {
+            url: '/registrarNacimiento/',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/registrarNacimiento.html',
+                    controller: 'RegistrarNacimientoController'
                 }
             }
         })

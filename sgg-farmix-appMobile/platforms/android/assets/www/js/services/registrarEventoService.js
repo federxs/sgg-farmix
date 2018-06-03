@@ -2,6 +2,7 @@
     .service('registrarEventoServiceHTTP', function ($http, portalService, $rootScope) {
         var eventoUrl = portalService.getUrlServer() + "api/Evento/Insert";
         this.registrarEvento = function (evento) {
+            console.log("enviamo evento");
 
             $http({
                 method: 'POST',
@@ -60,34 +61,38 @@
         };
     })
 
-    .service('registrarEventoService', function (registrarEventoServiceHTTP, registrarEventoServiceDB, conexion) {
+    .service('registrarEventoService', function (registrarEventoServiceHTTP, registrarEventoServiceDB, $rootScope, $localStorage) {
         this.registrarEvento = function (evento) {
-            if (conexion.online()) {
+            if ($rootScope.online) {
                 registrarEventoServiceHTTP.registrarEvento(evento);
             } else {
+                $localStorage.actualizar = true;
                 registrarEventoServiceDB.registrarEvento(evento);
             }
         }
 
         this.actualizarEventosBackend = function () {
-            if (conexion.online()) {
-                var eventos;
-                return registrarEventoServiceDB.getEventosParaActualizarBackend()
-                    .then(function (respuesta) { eventos = respuesta; })
-                    .then(function () {
+            var eventos;
+            console.log("aca tamo");
+            return registrarEventoServiceDB.getEventosParaActualizarBackend()
+                .then(function (respuesta) { eventos = respuesta; })
+                .then(function () {
+                    console.log(eventos);
+                    if (eventos.length > 0) {
+                        console.log("tenemo evento");
                         eventos.forEach(function (evento) {
                             $rootScope.idVacas = [];
                             var vacas = registrarEventoServiceDB.getListaBovinosParaActualizarBackend(evento.idEvento);
                             vacas.forEach(function (vaca) {
                                 $rootScope.idVacas.push = [vaca.idBovino];
                             })
-                            //controlar el tema de los ids, cuando es alimento no tiene vacuna
                             evento = { idTipoEvento: evento.idTipoEvento, idAlimento: evento.idAlimento, idVacuna: evento.idVacuna, idAntibiotico: evento.idAntibiotico, idRodeoDestino: evento.idRodeoDestino, cantidad: evento.cantidad, fechaHora: evento.fechaHora };
                             registrarEventoServiceHTTP.registrarEvento(evento);
+                            console.log("evento enviao");
                         }).then(function () {
                             registrarEventoServiceDB.limpiarEventos();
                         })
-                    });
-            }
+                    }
+                });
         }
     });

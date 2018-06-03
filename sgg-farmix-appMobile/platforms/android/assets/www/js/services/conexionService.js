@@ -1,8 +1,22 @@
 ﻿angular.module('starter')
-    .service('conexion', function ($rootScope) {
+    .service('servicio', function (bovinoService, inseminacionService, nacimientoService, registrarEventoService, verificacionInseminacionService) {
+        this.posts = function () {
+            bovinoService.actualizarBovinosBackend();
+            inseminacionService.actualizarInseminacionesBackend();
+            nacimientoService.actualizarNacimientosBackend();
+            registrarEventoService.actualizarEventosBackend();
+            verificacionInseminacionService.actualizarVerificacionesBackend();
+        }
+    })
+
+    .service('conexion', function ($rootScope, servicio, $localStorage) {
         function cambiarEstado(online) {
             $rootScope.$apply(function () {
                 $rootScope.online = online;
+                if (online && $localStorage.actualizar) {
+                    servicio.posts();
+                    $localStorage.actualizar = false;
+                }
             });
         }
 

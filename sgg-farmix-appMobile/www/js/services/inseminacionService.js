@@ -26,7 +26,7 @@
          this.registrarInseminacion = function (inseminacion) {
              $rootScope.db.transaction(function (tx) {
                  $rootScope.idVacas.forEach(function (id) {
-                     tx.executeSql("INSERT OR IGNORE INTO EVENTO(idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion, paraActualizar) VALUES(?, ?, ?, ?, 1)", [id, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, inseminacion.tipoInseminacion]);
+                     tx.executeSql("INSERT OR IGNORE INTO Inseminacion(idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion, paraActualizar) VALUES(?, ?, ?, ?, 1)", [id, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, inseminacion.tipoInseminacion]);
                      var idInseminacion = tx.executeSql("SELECT last_insert_rowid() FROM Inseminacion", [],
                          function (resultado) {
                              resolve(resultado.rows.item(0));
@@ -99,9 +99,9 @@
          };
      })
 
-    .service('inseminacionService', function (inseminacionServiceHTTP, inseminacionServiceDB, conexion) {
+    .service('inseminacionService', function (inseminacionServiceHTTP, inseminacionServiceDB, $rootScope, $localStorage) {
         this.getInseminacionesPendientes = function (idCampo) {
-            if (conexion.online()) {
+            if ($rootScope.online) {
                 var inseminaciones;
                 return inseminacionServiceHTTP.getInseminacionesPendientes(idCampo)
                     .then(function (respuesta) { inseminaciones = respuesta; })
@@ -113,19 +113,20 @@
         }
 
         this.registrarInseminacion = function (inseminacion) {
-            if (conexion.online()) {
+            if ($rootScope.online) {
                 inseminacionServiceHTTP.registrarInseminacion(inseminacion);
             } else {
+                $localStorage.actualizar = true;
                 inseminacionServiceDB.registrarInseminacion(inseminacion);
             }
         }
 
         this.actualizarInseminacionesBackend = function () {
-            if (conexion.online()) {
-                var inseminaciones;
-                return inseminacionServiceDB.getInseminacionesParaActualizarBackend()
-                    .then(function (respuesta) { inseminaciones = respuesta; })
-                    .then(function () {
+            var inseminaciones;
+            return inseminacionServiceDB.getInseminacionesParaActualizarBackend()
+                .then(function (respuesta) { inseminaciones = respuesta; })
+                .then(function () {
+                    if (inseminaciones.lenght > 0) {
                         inseminaciones.forEach(function (inseminacion) {
                             $rootScope.idVacas = [];
                             $rootScope.idVacas.push = [inseminacion.idVaca];
@@ -139,7 +140,7 @@
                         }).then(function () {
                             inseminacionServiceDB.limpiarInseminaciones();
                         })
-                    });
-            }
+                    }
+                });
         }
     });

@@ -14,7 +14,7 @@
         </table>
 		<br />
         <h3>Bovinos con Tag ya grabados</h3>        
-        <!--<table class="bordeTabla">                                             
+        <table class="bordeTabla">                                             
             <tr>
                 <th><strong>Número de Caravana</strong></th>
                 <th></th>
@@ -23,16 +23,6 @@
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, false)" ion-button class="botonVerificar">Grabar Tag</button></td>
             </tr>
-        </table>-->
-        <at-pagination class="pagination" at-list="list" at-config="config"></at-pagination>
-        <table class="bordeTabla" at-table at-paginated at-list="list" at-config="config">
-            <thead></thead>
-            <tbody>
-                <tr>
-                    <td at-implicit at-attribute="numCaravana" at-title="Número de Caravana"></td>
-                    <td><button ng-click="grabar(bovino.idBovino, false)" ion-button class="botonVerificar">Grabar Tag</button></td>
-                </tr>
-            </tbody>
         </table>
 </ion-content>
 </ion-view>

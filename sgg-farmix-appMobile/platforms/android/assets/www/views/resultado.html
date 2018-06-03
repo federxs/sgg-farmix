@@ -41,6 +41,9 @@
                 <td>Peso</td>
                 <td>{{bovino.peso}} kg.</td>
             </tr>
+            <tr ng-if="bovino.enfermo == '1'"  class="itemTabla">
+                <td colspan="2" align="center">Esta enfermo</td>
+            </tr>
         </table>
     </ion-content>
 </ion-view>

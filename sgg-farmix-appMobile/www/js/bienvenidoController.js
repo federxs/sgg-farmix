@@ -1,41 +1,43 @@
 angular.module('starter')
-    .controller('BienvenidoController', function ($scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService) {
-        if (!$rootScope.logueado || $rootScope.logueado == undefined) {
-            if (($localStorage.usuario != undefined) && ($localStorage.pass != undefined)) {
-                if (conexion.online()) {
-                    var usuario = {};
-                    usuario.usuario = $localStorage.usuario;
-                    usuario.pass = $localStorage.pass;
-                    showIonicLoading().then(validarLogin).then(function (_login) {
-                        if (_login.resultado == "1") {
-                            $localStorage.campo = _login.codigoCampo;
-                            $localStorage.token = _login.token;
-                            $rootScope.logueado = true;
-                            cargarDataBase();
-                        } else {
-                            $rootScope.logueado = false;
-                            $localStorage.usuario = undefined;
-                            $localStorage.pass = undefined;
-                            $state.go('app.login');
-                        }
-                    }).then($ionicLoading.hide).catch($ionicLoading.hide);
+    .controller('BienvenidoController', function ($ionicPlatform, $scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService) {
+        $ionicPlatform.ready(function () {
+            if (!$rootScope.logueado || $rootScope.logueado == undefined) {
+                if (($localStorage.usuario != undefined) && ($localStorage.pass != undefined)) {
+                    if (conexion.online()) {
+                        $scope.usuario = {};
+                        $scope.usuario.usuario = $localStorage.usuario;
+                        $scope.usuario.pass = $localStorage.pass;
+                        showIonicLoading().then(validarLogin).then(function (_login) {
+                            if (_login.resultado == "1") {
+                                $localStorage.campo = _login.codigoCampo;
+                                $localStorage.token = _login.token;
+                                $rootScope.logueado = true;
+                                cargarDataBase();
+                            } else {
+                                $rootScope.logueado = false;
+                                $localStorage.usuario = undefined;
+                                $localStorage.pass = undefined;
+                                $state.go('app.login');
+                            }
+                        }).then($ionicLoading.hide).catch($ionicLoading.hide);
+                    } else {
+                        $rootScope.logueado = true;
+                    }
                 } else {
-                    $rootScope.logueado = true;
+                    $rootScope.logueado = false;
                 }
             } else {
-                $rootScope.logueado = false;
+                if ($rootScope.logueado) {
+                    cargarDataBase();
+                }
             }
-        }
+        }); 
         function cargarDataBase() {
-            try{
-                alimentoService.getDatosAlimento($localStorage.campo);
-                antibioticoService.getDatosAntibiotico($localStorage.campo);
-                bovinoService.getBovinos($localStorage.campo);
-                rodeoService.getDatosRodeo($localStorage.campo);
-                vacunaService.getDatosVacuna($localStorage.campo);
-            }catch(error){
-                console.log(error);
-            }
+            alimentoService.getDatosAlimento($localStorage.campo);
+            antibioticoService.getDatosAntibiotico($localStorage.campo);
+            bovinoService.getBovinos($localStorage.campo);
+            rodeoService.getDatosRodeo($localStorage.campo);
+            vacunaService.getDatosVacuna($localStorage.campo);
         }
         //$rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
 
@@ -52,13 +54,13 @@ angular.module('starter')
             rodeoService.getDatosRodeo($localStorage.campo);
             vacunaService.getDatosVacuna($localStorage.campo);
         }*/
-                
-        $scope.iniciar = function() {
+
+        $scope.iniciar = function () {
             $state.go('app.login');
         }
         function validarLogin() {
-            usuario.idRol = 3;
-            return loginService.validarLogin(usuario);
+            $scope.usuario.idRol = 3;
+            return loginService.validarLogin($scope.usuario);
         }
         function showIonicLoading() {
             return $ionicLoading.show({
