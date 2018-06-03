@@ -9,7 +9,7 @@
 
     function eliminarBovinoController($scope, eliminarBovinoService, $stateParams, toastr, $localStorage) {
         var vm = $scope;
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.habilitar = false;
         vm.tiposEliminacion = [
             { id: '1', nombre: 'Venta' },

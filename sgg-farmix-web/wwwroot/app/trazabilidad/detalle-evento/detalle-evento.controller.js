@@ -9,7 +9,7 @@
 
     function detalleEventoController($scope, detalleEventoService, $stateParams, toastr) {
         var vm = $scope;
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.disabled = true;
         //funciones
         vm.inicializar = inicializar();

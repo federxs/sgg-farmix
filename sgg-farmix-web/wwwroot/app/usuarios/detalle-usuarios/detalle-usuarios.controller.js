@@ -10,7 +10,7 @@
     function detalleUsuariosController($scope, detalleUsuariosService, $stateParams, toastr) {
         var vm = $scope;
         //variables
-
+        window.scrollTo(0, 0);
         //metodos
         vm.inicializar = inicializar;
         inicializar();

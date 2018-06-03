@@ -9,7 +9,7 @@
 
     function consultarTrazabilidadController($scope, tipoEventoService, toastr, consultarTrazabilidadService, $state, exportador, $localStorage) {
         var vm = $scope;
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.disabled = 'disabled';
         vm.disabledExportar = 'disabled';
         vm.tipoEventoPopUp = '';

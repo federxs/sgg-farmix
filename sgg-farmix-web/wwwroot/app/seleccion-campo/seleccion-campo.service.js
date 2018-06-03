@@ -12,11 +12,11 @@
             consultar: consultar
         };
 
-        function consultar(usuario) {
+        function consultar(usuario, idRol) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Campo/GetList',
-                params: { usuario: usuario },
+                params: { usuario: usuario, idRol: idRol },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

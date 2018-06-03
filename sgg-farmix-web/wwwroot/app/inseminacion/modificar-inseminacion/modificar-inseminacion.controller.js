@@ -9,7 +9,7 @@
 
     function modificarInseminacionController($scope, modificarInseminacionService, toastr, $stateParams) {
         var vm = $scope;
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.habilitar = false;
         //funciones
         vm.modificar = modificar;

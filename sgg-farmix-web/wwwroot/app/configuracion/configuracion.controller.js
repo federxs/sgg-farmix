@@ -8,7 +8,7 @@
     configuracionController.$inject = ['$scope', 'configuracionService', 'toastr', '$localStorage', '$sessionStorage', 'razaService', '$timeout', 'alimentoService', 'rodeoService', 'estadoService', 'categoriaService', 'establecimientoOrigenService', 'antibioticoService', 'vacunaService', 'registrarBovinoService', 'portalService', '$state'];
 
     function configuracionController($scope, configuracionService, toastr, $localStorage, $sessionStorage, razaService, $timeout, alimentoService, rodeoService, estadoService, categoriaService, establecimientoOrigenService, antibioticoService, vacunaService, registrarBovinoService, portalService, $state) {
-        //$scope.showSpinner = true;
+        window.scrollTo(0, 0);
         $scope.itemsPorPagina = 5;
         $scope.nuevaRaza = false;
         $scope.nuevoAlimento = false;
@@ -178,7 +178,7 @@
             $scope.toDelete = [];
             //$scope.showBorrar = false;
             $scope.$parent.blockSpinner();
-            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: $sessionStorage.usuarioInfo.usuario }, function (data) {
+            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: $sessionStorage.usuarioInfo.usuario, idRol: $sessionStorage.usuarioInfo.idRol }, function (data) {
                 $scope.perfilUsuario = data;
                 $scope.perfilUsuario.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfilUsuario.usuarioImagen + "?cache=" + (new Date()).getTime();
                 $scope.$parent.unBlockSpinner();

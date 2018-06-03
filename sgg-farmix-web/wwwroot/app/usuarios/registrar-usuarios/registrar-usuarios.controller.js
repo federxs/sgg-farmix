@@ -10,7 +10,7 @@
     function registrarUsuariosController($scope, registrarUsuariosService, $localStorage, toastr) {
         var vm = $scope;
         //variables
-        vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.btnVolver = "Cancelar";
         vm.habilitar = true;
         vm.imageToUpload = [];
@@ -27,14 +27,17 @@
         inicializar();
 
         function inicializar() {
+            $scope.$parent.blockSpinner();
             vm.usuario = new registrarUsuariosService();
-            vm.showSpinner = false;
+            //vm.showSpinner = false;
             vm.roles = [];
             vm.roles.push({ idRol: 2, nombre: 'Ingeniero' });
             vm.roles.push({ idRol: 3, nombre: 'Peón' });
+            $scope.$parent.unBlockSpinner();
         };
 
         function registrar() {
+            $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             if (vm.imageToUpload[0])
                 vm.usuario.imagen = vm.imageToUpload[0];
@@ -42,9 +45,11 @@
             vm.usuario.$save(function (data) {
                 toastr.success('Se agrego con éxito el usuario ', 'Éxito');
                 vm.btnVolver = "Volver";
-                vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
+                //vm.showSpinner = false;
             }, function error(error) {
-                vm.showSpinner = false;
+                //vm.showSpinner = false;
+                $scope.$parent.unBlockSpinnerSave();
                 if (error.data === 'Error: El usuario ya existe para este campo') {
                     vm.habilitar = true;
                     toastr.warning('El usuario ya existe para este campo', 'Advertencia')

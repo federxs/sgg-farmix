@@ -12,11 +12,11 @@
             datosUsuario: datosUsuario
         };
 
-        function datosUsuario(usuario, codigoCampo) {
+        function datosUsuario(usuario, codigoCampo, idRol) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Home/GetDatosUserLogueado',
-                params: { usuario: usuario, codigoCampo: codigoCampo },
+                params: { usuario: usuario, codigoCampo: codigoCampo, idRol: idRol },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

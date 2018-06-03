@@ -9,10 +9,10 @@
 
     function consultarConflictoController($scope, consultarConflictoService, toastr, $localStorage, $state, exportador) {
         var vm = $scope;
+        window.scrollTo(0, 0);
         vm.fechaDeHoy = new Date();
         $('#datetimepicker4').datetimepicker();
         $('#datetimepicker5').datetimepicker();
-
 
         vm.init = init();
         vm.consultar = consultar;

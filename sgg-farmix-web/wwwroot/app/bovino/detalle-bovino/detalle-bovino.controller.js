@@ -9,7 +9,7 @@
 
     function detalleBovinoController($scope, detalleBovinoService, $stateParams, toastr) {
         var vm = $scope;
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         //funciones
         vm.inicializar = inicializar;
         //variables

@@ -9,7 +9,7 @@
 
     function consultarBovinoController($scope, consultarBovinoService, toastr, exportador, $localStorage, $sessionStorage, $state) {
         var vm = $scope;
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.disabled = 'disabled';
         vm.disabledExportar = 'disabled';
         //funciones

@@ -307,41 +307,43 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$valid,
+                    <div class="col-md-4 col-lg-4">
+                        <div class="form-group" ng-class="{'has-success has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$valid,
                  'has-error has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$invalid}">
-                        <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
-                            <label class="control-label" for="alimento">
-                                Alimento (*)
-                            </label>
-                            <section style="padding: 0px;">
-                                <div class="input-group">
-                                    <select class="form-control" name="alimento" required
-                                            ng-disabled="!habilitar"
-                                            ng-model="bovino.idAlimento"
-                                            style="width:100%;">
-                                        <option value="">Seleccione...</option>
-                                        <option ng-repeat="item in alimentos"
-                                                value="{{ item.idAlimento }}">
-                                            {{ item.nombre }}
-                                        </option>
-                                    </select>
-                                    <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar alimento" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoAlimento"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                            <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
+                                <label class="control-label" for="alimento">
+                                    Alimento (*)
+                                </label>
+                                <section style="padding: 0px;">
+                                    <div class="input-group">
+                                        <select class="form-control" name="alimento" required
+                                                ng-disabled="!habilitar"
+                                                ng-model="bovino.idAlimento"
+                                                style="width:100%;">
+                                            <option value="">Seleccione...</option>
+                                            <option ng-repeat="item in alimentos"
+                                                    value="{{ item.idAlimento }}">
+                                                {{ item.nombre }}
+                                            </option>
+                                        </select>
+                                        <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar alimento" ng-disabled="!habilitar" data-toggle="modal" data-target="#modalNuevoAlimento"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
+                                    </div>
+                                </section>
+                                <div ng-show="formRegistrarBovino.alimento.$touched">
+                                    <span class="help-block" ng-show="formRegistrarBovino.alimento.$error.required">
+                                        Este campo es requerido
+                                    </span>
                                 </div>
-                            </section>
-                            <div ng-show="formRegistrarBovino.alimento.$touched">
-                                <span class="help-block" ng-show="formRegistrarBovino.alimento.$error.required">
-                                    Este campo es requerido
-                                </span>
                             </div>
                         </div>
-                        <div class="col-md-11 col-lg-11" style="margin-left:-15px;margin-top: 5px;" ng-class="{'has-success has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$valid,
+                        <div class="form-group" style="margin-top: 5px;" ng-class="{'has-success has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$valid,
                  'has-error has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$invalid}">
                             <label class="control-label" for="cantidad">
                                 Ración alimento (kg/día) (*)
                             </label>
-                            <input name="cantidad" type="number" class="form-control" min="0" max="{{maxCantidad}}" placeholder="Ración de alimento (kg) por día"
+                            <input name="cantidad" type="number" class="form-control" min="0" placeholder="Ración de alimento (kg) por día"
                                    ng-disabled="!habilitar"
-                                   ng-model="bovino.cantAlimento" required />
+                                   ng-model="bovino.cantAlimento" required />                            
                             <div ng-show="formRegistrarBovino.cantidad.$touched">
                                 <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.required">
                                     Este campo es requerido
@@ -349,10 +351,10 @@
                                 <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.min">
                                     El peso no puede ser negativo
                                 </span>
-                                <span class="help-block" ng-show="formRegistrarBovino.cantidad.$error.max">
-                                    El máximo es : {{maxCantidad}} kg/día
-                                </span>
                             </div>
+                            <span class="help-block" ng-show="showCantAlimentoOptima" style="font-size: 11px;color: #5581af;margin-left:0;">
+                                Se recomiendo que la ración de alimento por día sea de: {{maxCantidad}} Kg.
+                            </span>
                         </div>
                     </div>
                 </div>

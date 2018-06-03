@@ -14,6 +14,7 @@
         $scope.Menu = [];
         $scope.showBorrar = false;
         $scope.toDelete = [];
+        window.scrollTo(0, 0);
 
         //Redimenciona el tamaño del body
         var body = document.body;
@@ -136,7 +137,7 @@
         $scope.load = function () {
             //$scope.showSpinner = true;
             spinnerBar.show();
-            homeService.datosUsuario($sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
+            homeService.datosUsuario($sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo, $sessionStorage.usuarioInfo.idRol).then(function success(data) {
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;
@@ -211,7 +212,7 @@
             $scope.imageToUpload = [];
             $scope.showBorrar = false;
             spinnerBar.show();
-            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: $sessionStorage.usuarioInfo.usuario }, function (data) {
+            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: $sessionStorage.usuarioInfo.usuario, idRol: $sessionStorage.usuarioInfo.idRol }, function (data) {
                 $scope.perfil = data;
                 $scope.perfil.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfil.usuarioImagen + "?cache=" + (new Date()).getTime();
                 spinnerBar.hide();

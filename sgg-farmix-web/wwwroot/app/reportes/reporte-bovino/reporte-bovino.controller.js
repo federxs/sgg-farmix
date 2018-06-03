@@ -15,6 +15,7 @@
 
 
         //variables
+        window.scrollTo(0, 0);
         vm.disabledExportar = 'disabled';
         vm.bovinos = [];
         vm.itemsPorPagina = 50;

@@ -9,7 +9,7 @@
 
     function registrarBovinoController($scope, registrarBovinoService, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, toastr, $state, $localStorage, $sessionStorage) {
         var vm = $scope;
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.habilitar = false;
         //variables
         vm.razas = [];
@@ -36,6 +36,7 @@
         var localidadesOriginales = [];
         var estados = [];
         $('#datetimepicker4').datetimepicker();
+        vm.showCantAlimentoOptima = false;
         //funciones
         vm.registrar = registrar;
         vm.inicializar = inicializar();
@@ -152,7 +153,8 @@
         };
 
         function getPeso() {
-            vm.maxCantidad = (12 * vm.bovino.peso) / 100;
+            vm.maxCantidad = ((12 * vm.bovino.peso) / 100).toFixed(2);
+            vm.showCantAlimentoOptima = true;
         };
 
         function getFecha() {

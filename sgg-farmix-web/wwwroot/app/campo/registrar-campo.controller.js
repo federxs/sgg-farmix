@@ -10,7 +10,7 @@
     function registrarCampoController($scope, registrarCampoService, $localStorage, toastr, $sessionStorage, $state) {
         var vm = $scope;
         //variables
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.btnVolver = "Cancelar";
         vm.habilitar = true;
         vm.campo = {};

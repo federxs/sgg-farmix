@@ -10,7 +10,7 @@
     function modificarUsuariosController($scope, $stateParams, modificarUsuariosService, toastr) {
         var vm = $scope;
         //variables
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.btnVolver = "Cancelar";
         vm.habilitar = true;
         //metodos

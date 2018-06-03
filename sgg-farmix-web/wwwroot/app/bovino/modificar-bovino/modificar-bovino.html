@@ -336,7 +336,7 @@
                             <label class="control-label" for="cantidad">
                                 Ración alimento (kg/día) (*)
                             </label>
-                            <input name="cantidad" type="number" class="form-control" min="0" max="{{maxCantidad}}" placeholder="Ración de alimento (kg) por día"
+                            <input name="cantidad" type="number" class="form-control" min="0" placeholder="Ración de alimento (kg) por día"
                                    ng-disabled="!habilitar"
                                    ng-model="bovino.cantAlimento" required />
                             <div ng-show="formModificarBovino.cantidad.$touched">
@@ -346,10 +346,10 @@
                                 <span class="help-block" ng-show="formModificarBovino.cantidad.$error.min">
                                     El peso no puede ser negativo
                                 </span>
-                                <span class="help-block" ng-show="formModificarBovino.cantidad.$error.max">
-                                    El máximo es : {{maxCantidad}} kg/día
-                                </span>
                             </div>
+                            <span class="help-block" ng-show="showCantAlimentoOptima" style="font-size: 11px;color: #5581af;margin-left:0;">
+                                Se recomiendo que la ración de alimento por día sea de: {{maxCantidad}} Kg.
+                            </span>
                         </div>
                     </div>
                 </div>

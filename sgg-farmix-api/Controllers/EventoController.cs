@@ -92,7 +92,7 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Evento/initEvento")]
         [HttpGet]
         [AutorizationToken]
-        public Resultados InitEvento(string idEvento, string usuario, string idCampo)
+        public Resultados InitEvento(string idEvento, string usuario, string idCampo, long idRol)
         {
             Resultados resultado = new Resultados();
             try
@@ -102,7 +102,7 @@ namespace sgg_farmix_api.Controllers
                 resultado.vacunas = new VacunaManager().GetList(Int64.Parse(codigoCampo));
                 resultado.tipoEvento = new TipoEventoManager().GetList();
                 resultado.listaBovinos = EM.GetEvento(Int64.Parse(idEvent));
-                resultado.campos = new CampoManager().GetList(usuario);
+                resultado.campos = new CampoManager().GetList(usuario, idRol);
                 resultado.alimentos = new AlimentoManager().GetList(Int64.Parse(codigoCampo));
                 resultado.antibioticos = new AntibioticoManager().GetList(Int64.Parse(codigoCampo));
                 //resultado.rodeos = new RodeoManager().GetList(resultado.listaBovinos.campoDestino);

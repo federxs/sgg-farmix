@@ -9,8 +9,8 @@
 
     function modificarBovinoController($scope, modificarBovinoService, toastr, $stateParams, $localStorage, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, registrarBovinoService, $state) {
         var vm = $scope;
-        //vm.showSpinner = true;
-        vm.habilitar = false;
+        window.scrollTo(0, 0);
+        vm.habilitar = false;        
         //funciones
         vm.modificar = modificar;
         vm.inicializar = inicializar();
@@ -51,6 +51,7 @@
         $('#datetimepicker4').datetimepicker();
         vm.maxCantidad = 0;
         var localidadesOriginales = [];
+        vm.showCantAlimentoOptima = false;
 
         function inicializar() {
             //vm.showSpinner = true;
@@ -71,12 +72,8 @@
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
                 vm.alimentos = data.alimentos;
-
                 //bovino
                 vm.bovino = data.bovino;
-                //vm.bovino.idEstablecimientoOrigen = vm.bovino.idEstablecimientoOrigen.toString();
-                //vm.bovino.idAlimento = 0;
-                //vm.bovino.cantAlimento = 0;
                 nroCaravanaOriginal = vm.bovino.numCaravana;vm.bovino.fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10);
                 if (vm.bovino.genero === 0) {
                     vm.checkH = true;
@@ -100,7 +97,8 @@
                 vm.bovino.idEstado = data.bovino.idEstado.toString();
                 vm.bovino.idRodeo = data.bovino.idRodeo.toString();
                 vm.bovino.idAlimento = data.bovino.idAlimento.toString();
-                vm.maxCantidad = (12 * vm.bovino.peso) / 100;
+                vm.maxCantidad = ((12 * vm.bovino.peso) / 100).toFixed();
+                vm.showCantAlimentoOptima = true;
                 if (data.bovino.idEstablecimientoOrigen != 0) {
                     vm.bovino.idEstablecimientoOrigen = data.bovino.idEstablecimientoOrigen.toString();
                 } else {
@@ -144,7 +142,8 @@
         };
 
         function getPeso() {
-            vm.maxCantidad = (12 * vm.bovino.peso) / 100;
+            vm.maxCantidad = ((12 * vm.bovino.peso) / 100).toFixed(2);
+            vm.showCantAlimentoOptima = true;
         };
 
         function modificar() {

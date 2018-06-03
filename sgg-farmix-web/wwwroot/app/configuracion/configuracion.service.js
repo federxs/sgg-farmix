@@ -20,7 +20,8 @@
                     url: portalService.getUrlServer() + 'api/Usuario/GetDatosPerfil',
                     params: {
                         usuario: '@usuario',
-                        campo: '@campo'
+                        campo: '@campo',
+                        idRol: '@idRol'
                     },
                     headers: portalService.getHeadersServer(),
                     isArray: false

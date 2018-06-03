@@ -245,11 +245,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Usuario/GetDatosPerfil")]
         [HttpGet]
         [AutorizationToken]
-        public UsuarioLogueado GetPerfil(long campo, string usuario)
+        public UsuarioLogueado GetPerfil(long campo, string usuario, long idRol)
         {
             try
             {
-                return UM.GetDatosUserLogueado(usuario, campo);
+                return UM.GetDatosUserLogueado(usuario, campo, idRol);
             }
             catch (Exception ex)
             {

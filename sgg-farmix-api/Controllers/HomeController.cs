@@ -18,12 +18,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Home/GetDatosUserLogueado")]
         [HttpGet]
         [AutorizationToken]
-        public UsuarioLogueado GetUser(string usuario, string codigoCampo)
+        public UsuarioLogueado GetUser(string usuario, string codigoCampo, long idRol)
         {
             try
             {
                 var campo = Regex.Replace(codigoCampo, @"[^\d]", "");
-                var usuarioLogueado = UM.GetDatosUserLogueado(usuario, Int64.Parse(campo));
+                var usuarioLogueado = UM.GetDatosUserLogueado(usuario, Int64.Parse(campo), idRol);
                 usuarioLogueado.menus = MM.GetMenus();
                 return usuarioLogueado;
             }

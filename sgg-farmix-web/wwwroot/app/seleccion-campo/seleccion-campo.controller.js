@@ -10,7 +10,7 @@
     function seleccionCampoController($scope, toastr, seleccionCampoService, $localStorage, $state, $sessionStorage, registrarCampoService, portalService) {
         var vm = $scope;
         vm.usuario = {};
-        vm.showSpinner = false;
+        window.scrollTo(0, 0);
 
         vm.inicializar = inicializar();
         vm.seleccionarCampo = seleccionarCampo;
@@ -19,7 +19,7 @@
         //var imagenes = ['../../images/campo1.jpg', '../../images/campo2.jpg', '../../images/campo3.jpg', '../../images/campo4.jpg', '../../images/campo5.jpg'];
 
         function inicializar() {
-            seleccionCampoService.consultar($sessionStorage.usuarioInfo.usuario)
+            seleccionCampoService.consultar($sessionStorage.usuarioInfo.usuario, $sessionStorage.usuarioInfo.idRol)
                    .then(function success(data) {
                        $scope.campos = data;
                        for (var i = 0; i < $scope.campos.length; i++) {

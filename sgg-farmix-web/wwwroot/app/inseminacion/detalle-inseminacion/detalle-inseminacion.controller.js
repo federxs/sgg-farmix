@@ -10,10 +10,10 @@
     function detalleInseminacionController($scope, detalleInseminacionService, $stateParams, toastr) {
         var vm = $scope;
         //variables
+        window.scrollTo(0, 0);
         vm.inseminacion = {};
         vm.desde = $stateParams.desde;
         vm.itemsPorPaginaTacto = 10;
-        //vm.showSpinner = true;
         vm.disabled = true;
         //funciones
         vm.inicializar = inicializar();
@@ -70,6 +70,8 @@
                     toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 })
             }
+            else
+                $scope.$parent.unBlockSpinner();
             //vm.showSpinner = false;
         }//fin inicializar
 

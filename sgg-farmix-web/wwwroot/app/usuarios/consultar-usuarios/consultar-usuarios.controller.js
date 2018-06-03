@@ -9,7 +9,7 @@
 
     function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage, $state, $sessionStorage) {
         var vm = $scope;
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.deshabilitar = false;
         vm.disabledExportar = 'disabled';
         var idUsuarioEliminar = 0;
@@ -470,10 +470,10 @@
             consultarUsuariosService.validarCantidadUsuariosPlan($sessionStorage.usuarioInfo.usuario).then(function success(data) {
                 if (data.resultado)
                     $state.go('home.registrarUsuario');
-                else
+                else {
                     toastr.info("No puede agregar mas usuarios, verifique su plan contratado.", "Aviso");
-                //vm.showSpinner = false;
-                $scope.$parent.unBlockSpinner();
+                    $scope.$parent.unBlockSpinner();
+                }                              
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
                 toastr.error("Se ha producido un error, reintentar.");

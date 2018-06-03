@@ -9,6 +9,7 @@
 
     function inicioController($scope, inicioService, toastr, $localStorage, $state, $timeout) {
         //$scope.showSpinner = true;
+        window.scrollTo(0, 0);
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
         $scope.irAConflictos = irAConflictos;

@@ -10,7 +10,7 @@
     function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state, exportador, $localStorage) {
         var vm = $scope;
         //variables
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.showHembrasParaServicio = true;
         vm.showServiciosSinConfirm = false;
         vm.showHembrasPreniadas = false;

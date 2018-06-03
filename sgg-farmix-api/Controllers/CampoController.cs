@@ -83,11 +83,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Campo/GetList")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<Campo> GetList(string usuario)
+        public IEnumerable<Campo> GetList(string usuario, long idRol)
         {
             try
             {
-                return CM.GetList(usuario);
+                return CM.GetList(usuario, idRol);
             }
             catch (Exception ex)
             {

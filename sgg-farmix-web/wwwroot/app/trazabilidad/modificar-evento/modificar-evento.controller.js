@@ -9,7 +9,7 @@
 
     function modificarEventoController($scope, modificarEventoService, $stateParams, tipoEventoService, toastr, $localStorage, $sessionStorage) {
         var vm = $scope;
-        //vm.showSpinner = true;
+        window.scrollTo(0, 0);
         vm.habilitar = false;
         vm.habilitarBtnAceptar = false;
         vm.showBotones = true;
@@ -36,7 +36,7 @@
             vm.habilitarBtnAceptar = false;
             vm.itemsPorPagina = 9;
             vm.idEvento = $stateParams.id;
-            modificarEventoService.initModificacion($stateParams.id, $sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
+            modificarEventoService.initModificacion($stateParams.id, $sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo, $sessionStorage.usuarioInfo.idRol).then(function success(data) {
                 vm.vacunas = data.vacunas;
                 vm.alimentos = data.alimentos;
                 vm.antibioticos = data.antibioticos;

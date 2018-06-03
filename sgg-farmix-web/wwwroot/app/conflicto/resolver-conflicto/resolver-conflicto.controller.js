@@ -9,7 +9,7 @@
 
     function resolverConflictoController($scope, $stateParams, resolverConflictoService, toastr) {
         var vm = $scope;
-
+        window.scrollTo(0, 0);
         /////VARIABLES
         vm.inseminacionResultante = {};
         vm.tactoResultante = {};
