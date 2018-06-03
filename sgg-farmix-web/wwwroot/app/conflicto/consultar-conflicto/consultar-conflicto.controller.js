@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarConflictoController', consultarConflictoController);
 
-    consultarConflictoController.$inject = ['$scope', 'consultarConflictoService', 'toastr', '$localStorage', '$state', 'exportador'];
+    consultarConflictoController.$inject = ['$scope', 'consultarConflictoService', 'toastr', '$localStorage', '$state', 'exportador', '$stateParams'];
 
-    function consultarConflictoController($scope, consultarConflictoService, toastr, $localStorage, $state, exportador) {
+    function consultarConflictoController($scope, consultarConflictoService, toastr, $localStorage, $state, exportador, $stateParams) {
         var vm = $scope;
         window.scrollTo(0, 0);
         vm.fechaDeHoy = new Date();
@@ -23,12 +23,16 @@
         vm.exportarPDF = exportarPDF;
 
         function init() {
+            if ($localStorage.proviene) {
+                $localStorage.proviene = null;
+                $state.reload();
+            }                
             vm.itemsPorPagina = 9;
             //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             vm.filtro = {};
             vm.filtro.tipo = '0';
-            vm.filtro.estado = '0';
+            vm.filtro.estado = '2';
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
             vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;

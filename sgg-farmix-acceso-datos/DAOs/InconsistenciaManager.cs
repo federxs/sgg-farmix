@@ -19,7 +19,39 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public InconsistenciaResolver Create(InconsistenciaResolver entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>();
+                if(entity.inseminacionAnterior != null && entity.inseminacionNueva != null && entity.inseminacionResultante != null)
+                {
+                    parametros.Add("@idInseminacionAnterior", entity.inseminacionAnterior.idInseminacion);
+                    parametros.Add("@idInseminacionConflictiva", entity.inseminacionNueva.idInseminacion);
+                    parametros.Add("@fechaInseminacion", entity.inseminacionResultante.fechaInseminacion);
+                    parametros.Add("@tipoInseminacion", entity.inseminacionNueva.idTipoInseminacion);
+                    var update = connection.Execute("spResolverInseminacionConflictiva", parametros, System.Data.CommandType.StoredProcedure);
+                }
+                else if(entity.tactoAnterior != null && entity.tactoNuevo != null && entity.tactoResultante != null)
+                {
+                    parametros.Add("@idInseminacionAnterior", entity.tactoAnterior.idInseminacion);
+                    parametros.Add("@idInseminacionConflictiva", entity.tactoNuevo.idInseminacion);
+                    parametros.Add("@fechaTactoAnterior", entity.tactoAnterior.fechaTacto);
+                    parametros.Add("@fechaTacto", entity.tactoResultante.fechaTacto);
+                    parametros.Add("@exitoso", entity.tactoResultante.exitoso);
+                    parametros.Add("@idTipoTacto", entity.tactoResultante.idTipoTacto);
+                    var update = connection.Execute("spResolverTactoConflictivo", parametros, System.Data.CommandType.StoredProcedure);
+                }
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
         }
 
         public void Delete(long id)

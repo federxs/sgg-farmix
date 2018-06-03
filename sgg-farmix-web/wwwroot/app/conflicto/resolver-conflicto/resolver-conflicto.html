@@ -78,11 +78,15 @@
                         <input type="text" class="form-control" placeholder="Tipo de Tacto"
                                ng-model="tactoResultante.tipoTacto" disabled>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label">Resultado de Tacto</label>
                         <input type="text" class="form-control" placeholder="Resultado de Tacto"
                                ng-model="tactoResultante.exitoso" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Caravana de la vaca</label>
+                        <input type="text" class="form-control" placeholder="Caravana de la vaca"
+                               ng-model="tactoAnterior.numCaravanaBovino" disabled>
                     </div>
                     <center>
                         <button type="button" class="btn btn-success btn-lg"
@@ -161,10 +165,12 @@
                             </div>
                         </section>
                     </div>
-                    <button type="button" class="btn btn-primary"
-                            ng-click="seleccionarInseminacion(inseminacionAnterior)">
-                        Seleccionar esta inseminación
-                    </button>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary"
+                                ng-click="seleccionarInseminacion(inseminacionAnterior)">
+                            Seleccionar esta inseminación
+                        </button>
+                    </div>
                 </div>
                 <!--Inicio Columna de Resultado-->
                 <div class="col-md-4">
@@ -179,13 +185,20 @@
                         <input type="text" class="form-control" placeholder="Tipo de Inseminación"
                                ng-model="inseminacionResultante.tipoInseminacion" disabled>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label">Caravana de la vaca</label>
+                        <div class="">
+                            <input type="text" class="form-control" placeholder="Caravana de la vaca"
+                                   ng-model="inseminacionAnterior.numCaravanaBovino" disabled style="width:100%;">
+                        </div>
+                    </div>
                     <center>
                         <button type="button" class="btn btn-success btn-lg"
                                 data-toggle="modal" data-target="#modalConfirmResolverInseminacionConflictiva"
                                 ng-disabled="!inseminacionResultante.fechaInseminacion || !inseminacionResultante.tipoInseminacion">
                             Resolver Conflicto
                         </button>
-                    </center>                    
+                    </center>
                 </div>
                 <!--Inicio Columna de Nuevo-->
                 <div class="col-md-4">
@@ -208,12 +221,14 @@
                                        ng-model="inseminacionNueva.tipoInseminacion" disabled style="width:100%;">
                                 <span class="input-group-addon" style="margin-top: 25px;background-color:#16A085;cursor:pointer" title="Agregar" ng-click="seleccionarPropiedadInseminacion(inseminacionNueva, 'tipoInseminacion')"><i class="glyphicon glyphicon-plus" style="color:white"></i></span>
                             </div>
-                        </section>                       
+                        </section>
                     </div>
-                    <button type="button" class="btn btn-primary"
-                            ng-click="seleccionarInseminacion(inseminacionNueva)">
-                        Seleccionar esta inseminación
-                    </button>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary"
+                                ng-click="seleccionarInseminacion(inseminacionNueva)">
+                            Seleccionar esta inseminación
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -248,7 +263,7 @@
         </div>
     </div>
 </div>
-<!--Modal confirmar resolucion de inseminacion conflictiva-->
+<!--Modal confirmar resolucion de tacto conflictiva-->
 <div id="modalConfirmResolverTactoConflictivo" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->

@@ -5,9 +5,9 @@
         .module('app')
         .controller('resolverConflictoController', resolverConflictoController);
 
-    resolverConflictoController.$inject = ['$scope', '$stateParams', 'resolverConflictoService', 'toastr'];
+    resolverConflictoController.$inject = ['$scope', '$stateParams', 'resolverConflictoService', 'toastr', '$state', '$localStorage'];
 
-    function resolverConflictoController($scope, $stateParams, resolverConflictoService, toastr) {
+    function resolverConflictoController($scope, $stateParams, resolverConflictoService, toastr, $state, $localStorage) {
         var vm = $scope;
         window.scrollTo(0, 0);
         /////VARIABLES
@@ -57,26 +57,30 @@
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 $scope.$parent.unBlockSpinner();
                 //vm.showSpinner = false;
-            }               
+            }
         }
 
         function seleccionarInseminacion(inseminacion) {
             vm.inseminacionResultante.fechaInseminacion = inseminacion.fechaInseminacion;
             vm.inseminacionResultante.tipoInseminacion = inseminacion.tipoInseminacion;
+            vm.inseminacionResultante.idTipoInseminacion = inseminacion.idTipoInseminacion;
         }
 
         function seleccionarTacto(tacto) {
             vm.tactoResultante.fechaTacto = tacto.fechaTacto;
             vm.tactoResultante.tipoTacto = tacto.tipoTacto;
+            vm.tactoResultante.idTipoTacto = tacto.idTipoTacto;
             vm.tactoResultante.exitoso = tacto.exitoso;
         }
 
         function seleccionarPropiedadInseminacion(inseminacion, propiedad) {
             vm.inseminacionResultante[propiedad] = inseminacion[propiedad];
+            vm.inseminacionResultante.idTipoInseminacion = inseminacion.idTipoInseminacion;
         }
 
         function seleccionarPropiedadTacto(tacto, propiedad) {
             vm.tactoResultante[propiedad] = tacto[propiedad];
+            vm.tactoResultante.idTipoTacto = tacto.idTipoTacto;
         }
 
         function resolverInseminacion() {
@@ -84,8 +88,13 @@
             var obj = { inseminacionAnterior: vm.inseminacionAnterior, inseminacionNueva: vm.inseminacionNueva, inseminacionResultante: vm.inseminacionResultante };
             resolverConflictoService.resolver(obj).then(function success(data) {
                 $scope.$parent.unBlockSpinnerSave();
+                $('#modalConfirmResolverInseminacionConflictiva').modal('hide');
+                toastr.success('Conflicto resuelto con éxito');
+                $localStorage.proviene = 'resolver';
+                $state.go('home.conflictos');
             }, function error(error) {
                 $scope.$parent.unBlockSpinnerSave();
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
 
@@ -94,8 +103,13 @@
             var obj = { tactoAnterior: vm.tactoAnterior, tactoNuevo: vm.tactoNuevo, tactoResultante: vm.tactoResultante };
             resolverConflictoService.resolver(obj).then(function success(data) {
                 $scope.$parent.unBlockSpinnerSave();
+                $('#modalConfirmResolverTactoConflictivo').modal('hide');
+                toastr.success('Conflicto resuelto con éxito');
+                $localStorage.proviene = 'resolver';
+                $state.go('home.conflictos');
             }, function error(error) {
                 $scope.$parent.unBlockSpinnerSave();
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
 

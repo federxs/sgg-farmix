@@ -109,7 +109,7 @@
                     <td>{{item.fecha}}</td>
                     <td>{{item.estado | uppercase}}</td>
                     <td>
-                        <a ui-sref="home.resolverConflicto({idTacto: item.idTacto, fechaTacto: item.fechaTacto, idTactoConfl: item.idTactoConflictivo, fechaTactoConfl: item.fechaTactoConflictivo, idInseminacion: item.idInseminacion, idInseminConfl: item.idInseminacionConflictiva})" title="Ver"><span class="fa fa-search"></span></a>                        
+                        <a ng-show="item.estado !== 'Solucionado'" ui-sref="home.resolverConflicto({idTacto: item.idTacto, fechaTacto: item.fechaTacto, idTactoConfl: item.idTactoConflictivo, fechaTactoConfl: item.fechaTactoConflictivo, idInseminacion: item.idInseminacion, idInseminConfl: item.idInseminacionConflictiva})" title="Ver"><span class="fa fa-search"></span></a>                        
                     </td>
                 </tr>
             </tbody>
