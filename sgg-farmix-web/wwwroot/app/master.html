@@ -238,11 +238,15 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                 </li>
                             </ul>
                         </li>-->
-                    </ul>
-                    <h2 class="center-block" style="color:white;margin-left: 100px;">
-                        "{{usuarioInfo.campo}}"
-                    </h2>
+                    </ul>                    
                     <div class="clearfix"> </div>
+                </div>
+                <div style="margin-top: 10px;">
+                    <center>
+                        <h2 class="center-block" style="color:white;margin-left: 100px;">
+                            "{{usuarioInfo.campo}}"
+                        </h2>
+                    </center>
                 </div>
                 <!--notification menu end -->
                 <div class="clearfix"> </div>
@@ -266,6 +270,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             <ul class="dropdown-menu drp-mnu">
                                 <li> <a ui-sref="home.configuracion"><i class="fa fa-cog"></i> Configuraciones</a> </li>
                                 <li> <a ng-click="modificarImagenPerfil()" style="cursor:pointer;"><i class="fa fa-suitcase"></i> Perfil</a> </li>
+                                <li> <a ui-sref="seleccionCampo" style="cursor:pointer;"><i class="fa fa-dot-circle-o"></i> Ir a selección de Campos</a> </li>
                                 <li> <a data-toggle="modal" data-target="#modalConfirmCerrarSesion" style="cursor:pointer;"><i class="fa fa-sign-out"></i> Cerrar Sesión</a> </li>
                             </ul>
                         </li>
