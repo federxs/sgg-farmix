@@ -10,7 +10,7 @@
     function modificarBovinoController($scope, modificarBovinoService, toastr, $stateParams, $localStorage, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, registrarBovinoService, $state) {
         var vm = $scope;
         window.scrollTo(0, 0);
-        vm.habilitar = false;        
+        vm.habilitar = false;
         //funciones
         vm.modificar = modificar;
         vm.inicializar = inicializar();
@@ -74,7 +74,7 @@
                 vm.alimentos = data.alimentos;
                 //bovino
                 vm.bovino = data.bovino;
-                nroCaravanaOriginal = vm.bovino.numCaravana;vm.bovino.fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10);
+                nroCaravanaOriginal = vm.bovino.numCaravana; vm.bovino.fechaNacimiento = vm.bovino.fechaNacimiento.substring(0, 10);
                 if (vm.bovino.genero === 0) {
                     vm.checkH = true;
                     vm.checkM = false;
@@ -97,7 +97,7 @@
                 vm.bovino.idEstado = data.bovino.idEstado.toString();
                 vm.bovino.idRodeo = data.bovino.idRodeo.toString();
                 vm.bovino.idAlimento = data.bovino.idAlimento.toString();
-                vm.maxCantidad = ((12 * vm.bovino.peso) / 100).toFixed();
+                vm.maxCantidad = ((12 * vm.bovino.peso) / 100).toFixed(2);
                 vm.showCantAlimentoOptima = true;
                 if (data.bovino.idEstablecimientoOrigen != 0) {
                     vm.bovino.idEstablecimientoOrigen = data.bovino.idEstablecimientoOrigen.toString();
@@ -196,7 +196,7 @@
             return dia + '/' + mes + '/' + año;
         };
 
-        function idCaravanaChange() {            
+        function idCaravanaChange() {
             if (vm.bovino.numCaravana !== nroCaravanaOriginal) {
                 //vm.showSpinner = true;
                 $scope.$parent.blockSpinner();
@@ -217,7 +217,7 @@
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }
-            else if(vm.bovino.numCaravana === nroCaravanaOriginal){
+            else if (vm.bovino.numCaravana === nroCaravanaOriginal) {
                 vm.formModificarBovino.idCaravana.$setValidity("existeIdCaravana", true);
             }
         };
