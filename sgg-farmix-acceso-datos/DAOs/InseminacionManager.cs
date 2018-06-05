@@ -83,6 +83,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     parametros["@idVaca"] = listVacas.ElementAt(i);
                     entity.idInseminacion = connection.Execute("spRegistrarInseminacion", parametros, System.Data.CommandType.StoredProcedure, transaction);
+                    //Si devuelvo un -1 como idInseminacion, esto significa que se inserto una inseminacion conflictiva
                     if (entity.idInseminacion == 0)
                         throw new ArgumentException("Create Inseminacion Error");
                     if (listToros != null && entity.tipoInseminacion == 2)
@@ -92,12 +93,14 @@ namespace sgg_farmix_acceso_datos.DAOs
                             {"@idInseminacion", entity.idInseminacion },
                             {"@idToro", 0 }
                         };
-                        if (listToros.Count == 1)
-                            parametrosToros["@idToro"] = listToros.ElementAt(0);
-                        var insert = connection.Execute("spRegistrarToroXInseminacion", parametrosToros, System.Data.CommandType.StoredProcedure, transaction);
-                        if (insert == 0)
-                            throw new ArgumentException("Create Inseminacion Error");
-
+                        //if (listToros.Count == 1)
+                        for (int j = 0; i < listToros.Count; j++)
+                        {
+                            parametrosToros["@idToro"] = listToros.ElementAt(j);
+                            var insert = connection.Execute("spRegistrarToroXInseminacion", parametrosToros, System.Data.CommandType.StoredProcedure, transaction);
+                            if (insert == 0)
+                                throw new ArgumentException("Create Inseminacion Error");
+                        }
                     }
                 }
                 connection.Commit(transaction);

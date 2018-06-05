@@ -23,6 +23,7 @@
         vm.resolverInseminacion = resolverInseminacion;
         vm.resolverTacto = resolverTacto;
         vm.isUndefinedOrNull = isUndefinedOrNull;
+        vm.seleccionarToros = seleccionarToros;
 
         function init() {
             //vm.showSpinner = true;
@@ -66,6 +67,10 @@
             vm.inseminacionResultante.idTipoInseminacion = inseminacion.idTipoInseminacion;
         }
 
+        function seleccionarToros(toros) {
+            vm.inseminacionResultante.listaBovinos = toros;
+        }
+
         function seleccionarTacto(tacto) {
             vm.tactoResultante.fechaTacto = tacto.fechaTacto;
             vm.tactoResultante.tipoTacto = tacto.tipoTacto;
@@ -82,6 +87,7 @@
             vm.tactoResultante[propiedad] = tacto[propiedad];
             vm.tactoResultante.idTipoTacto = tacto.idTipoTacto;
         }
+        
 
         function resolverInseminacion() {
             $scope.$parent.blockSpinnerSave();
