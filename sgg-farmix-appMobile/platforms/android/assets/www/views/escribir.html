@@ -13,13 +13,21 @@
             </tr>
         </table>
 		<br />
-        <h3>Bovinos con Tag ya grabados</h3>        
+        <h3>Bovinos con Tag ya grabados</h3>
+        <simple-pagination current-page="settings.currentPage"
+                           offset="settings.offset"
+                           page-limit="settings.pageLimit"
+                           page-limits="settings.pageLimits"
+                           on-update="callback()"
+                           total="bovinosEscritos.length">
+        </simple-pagination>
+        <br>  
         <table class="bordeTabla">                                             
             <tr>
                 <th><strong>Número de Caravana</strong></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="bovino in bovinosEscritos" class="itemTabla">
+            <tr ng-repeat="bovino in (bovinosEscritos | limitTo:settings.pageLimit:settings.offset)" class="itemTabla">
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, false)" ion-button class="botonVerificar">Grabar Tag</button></td>
             </tr>
