@@ -12,8 +12,10 @@ angular.module('starter')
                     if ($rootScope.evento.resultado == "2") {
                         exitoso = false;
                     }
+                    var date = new Date();
+                    var formattedDate = moment(date).format('YYYYMMDD');
                     var inseminacion = { idTipoTacto: $rootScope.evento.tipoVerificacion, exitoso: exitoso, idInseminacion: $stateParams.idInseminacion };
-                    verificacionInseminacionService.registrarVerificacionInseminacion(inseminacion);
+                    verificacionInseminacionService.registrarVerificacionInseminacion(inseminacion, formattedDate);
                     alert("Verificaci\u00F3n registrada con exito");
                     $state.go("app.inseminacionesPendientes");
                 } else {
