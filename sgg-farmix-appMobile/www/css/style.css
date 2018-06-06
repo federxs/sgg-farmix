@@ -158,21 +158,22 @@ th, td {
 .simple-pagination p {
   display: inline-block;
   line-height: 24px;
-  margin: 0 10px 0 0;
 }
-
 .simple-pagination__button {
   background: #444444;
   border: 1px solid #444444;
-  /*padding: 0px 6px;*/
   color:white;
   font-size: 15px;
   padding: 8px 15px;
 }
-.simple-pagination__pages{
-    font-size: 15px;  
+.simple-pagination__page-limit .active {
+  font-weight: bold;
 }
-
+.disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
 
 
 
