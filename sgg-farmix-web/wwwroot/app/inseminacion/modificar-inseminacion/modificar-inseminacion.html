@@ -62,7 +62,7 @@
                             Fecha estimada de parición
                         </label>
                         <div name="fechaParicion">
-                            <input type="datetime" placeholder="Fecha estimada de nacimiento" name="fechaParicion" class="form-control" id='datetimepicker5' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" ng-blur="getFechaParicion()" data-date-format="DD/MM/YYYY" ng-model="inseminacion.fechaEstimadaNacimiento" valueAsDate="{{inseminacion.fechaEstimadaNacimiento}}" />
+                            <input type="datetime" placeholder="Fecha del Tacto" name="fechaTacto" class="form-control" id='datetimepicker5' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" ng-blur="getFechaParicion()" data-date-format="DD/MM/YYYY" ng-model="inseminacion.fechaEstimadaNacimiento" valueAsDate="{{inseminacion.fechaEstimadaNacimiento}}" />
                         </div>
                         <div ng-show="formModificarInseminacion.fechaParicion.$touched">
                             <span class="help-block" ng-show="formModificarInseminacion.fechaParicion.$error.max || formModificarInseminacion.fechaParicion.$error.min">
@@ -87,9 +87,35 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in displayedCollection">
-                                <td>{{item.fechaTacto}}</td>
-                                <td>{{item.tipoTacto | uppercase}}</td>
-                                <td>{{item.exitoso | uppercase}}</td>
+                                <td>
+                                    <input type="datetime" placeholder="Fecha inseminación" name="fechaInseminacion" class="form-control" id='datetimepicker6' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" ng-blur="getFecha()" data-date-format="DD/MM/YYYY" ng-model="item.fechaTacto" valueAsDate="{{item.fechaTacto}}" />                                    
+                                </td>
+                                <td>
+                                    <select class="form-control" name="tipoTacto"
+                                            ng-disabled="!habilitar"
+                                            ng-model="item.idTipoTacto"
+                                            style="width:100%;">
+                                        <option value="">Seleccione...</option>
+                                        <option value="1">Tacto</option>
+                                        <option value="2">Ecografía</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <div>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="exitoso" value="1"
+                                                   ng-disabled="!habilitar"
+                                                   ng-model="item.exitoso">
+                                            Exitoso
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="exitoso" value="0"
+                                                   ng-disabled="!habilitar"
+                                                   ng-model="item.exitoso">
+                                            Fallido
+                                        </label>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -246,7 +272,7 @@
                                 ui-sref="home.detalleBovino({id:vaca.idBovino, fecha: fecha, desde: desde, proviene: 'ModificarInseminacion'})" style="margin-top: 10px;">
                             Ir a detalle de la Vaca
                         </button>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">Datos del toro</div>
@@ -301,7 +327,7 @@
                                 ui-sref="home.detalleBovino({id:toro.idBovino, fecha: fecha, desde: desde, proviene: 'ModificarInseminacion'})" style="margin-top: 10px;">
                             Ir a detalle de la Toro
                         </button>
-                    </div>                   
+                    </div>
                 </div>
             </div>
         </div>

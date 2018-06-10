@@ -31,6 +31,7 @@
         var fechaInseminacionOriginal = '';
         var lista = [];
         var listaToros = [];
+        $('#datetimepicker6').datetimepicker();
 
         function inicializar() {
             //vm.showSpinner = true;
@@ -43,15 +44,19 @@
                 vm.inseminacion.idTipoInseminacion = vm.inseminacion.idTipoInseminacion.toString();
                 fechaInseminacionOriginal = vm.inseminacion.fechaInseminacion;
                 if (vm.inseminacion.fechaEstimadaNacimiento !== '') {
-                    $('#datetimepicker5').datetimepicker();
+                    $('#datetimepicker5').datetimepicker();                    
                     vm.vaca = vm.inseminacion.listaBovinos[0];
-                    vm.toro = vm.inseminacion.listaToros[0];
+                    if (vm.inseminacion.listaToros)
+                        vm.toro = vm.inseminacion.listaToros[0];
                     vm.tactos = vm.inseminacion.tactos;
+                    for (var i = 0; i < vm.tactos.length; i++) {
+                        vm.tactos[i].idTipoTacto = vm.tactos[i].idTipoTacto.toString();
+                    }
                 }
                 else {
                     vm.rowCollection = vm.inseminacion.listaBovinos;
                     vm.torosCollection = vm.inseminacion.listaToros;
-                }                    
+                }
                 vm.tituloTabla = 'Vacas que participaron de la inseminación';
                 vm.tiposInseminacion = [
                     { idTipoInseminacion: '1', descripcion: 'Artificial' },
@@ -70,7 +75,7 @@
         function antesDeModificar() {
             //vm.showSpinner = true;            
             vm.habilitar = false;
-            vm.showEliminar = true;            
+            vm.showEliminar = true;
             if (vm.rowCollection !== undefined) {
                 for (var i = 0; i < vm.rowCollection.length; i++) {
                     lista.push(vm.rowCollection[i].idBovino);
@@ -88,7 +93,7 @@
             vm.inseminacion.tipoInseminacion = vm.inseminacion.idTipoInseminacion;
             if ((lista.length === 0 && vm.inseminacion.tipoInseminacion === 1) || (lista.length === 0 && vm.inseminacion.tipoInseminacion === '2' && listaToros.length === 0))
                 $('#modalConfirmEliminarInseminacion').modal('show');
-            else if(lista.length > 0 && vm.inseminacion.tipoInseminacion === '2' && listaToros.length === 0)
+            else if (lista.length > 0 && vm.inseminacion.tipoInseminacion === '2' && listaToros.length === 0)
                 $('#modalConfirmEliminarInseminacionSinToros').modal('show');
             else
                 modificar();

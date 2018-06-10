@@ -197,7 +197,7 @@ button#showLeftPush {
     display: block;
     background: #2d6696fc;
     background: none;
-    color: #fff;
+    /*color: #fff;*/
     margin-top: 10px;
 }
 
