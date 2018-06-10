@@ -49,5 +49,6 @@ namespace sgg_farmix_acceso_datos.Model
         public long numCaravanaBovino { get; set; }
         public IEnumerable<BovinoItem> listaBovinos { get; set; }
         public IEnumerable<Tacto> tactos { get; set; }
+        public IEnumerable<BovinoItem> listaToros { get; set; }
     }
 }

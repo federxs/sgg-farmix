@@ -168,17 +168,16 @@
                             </label>
                             <div>
                                 <div class="row">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="genero" value="0"
-                                               ng-disabled="!habilitar"
-                                               ng-model="bovino.genero" ng-checked="checkH" ng-click="cambiarSexo(); changeEstados()">
+                                    <label class="radio-inline" disabled style="cursor:default">
+                                        <input type="radio" name="genero" value="0" disabled
+                                               ng-model="bovino.genero" ng-checked="checkH"> <!--ng-click="cambiarSexo(); changeEstados()"-->
                                         Hembra
                                     </label>
                                 </div>
                                 <div class="row">
-                                    <label class="radio-inline">
+                                    <label class="radio-inline"disabled style="cursor:default">
                                         <input type="radio" name="genero" value="1"
-                                               ng-model="bovino.genero" ng-checked="checkM" ng-click="cambiarSexo(); changeEstados()">
+                                               ng-model="bovino.genero" ng-checked="checkM" disabled> <!--ng-click="cambiarSexo(); changeEstados()"-->
                                         Macho
                                     </label>
                                 </div>
