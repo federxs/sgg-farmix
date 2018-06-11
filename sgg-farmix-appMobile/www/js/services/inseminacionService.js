@@ -2,7 +2,7 @@
     .service('inseminacionServiceHTTP', function ($http, portalService, $rootScope) {
         var inseminacionUrl = portalService.getUrlServer() + "api/Inseminacion/";
 
-        this.registrarInseminacion = function (inseminacion, idCampo) {
+        this.registrarInseminacion = function (inseminacion) {
             listaToros = '';
             if ($rootScope.idToros != undefined) {
                 listaToros = $rootScope.idToros.toString();
@@ -10,7 +10,7 @@
             $http({
                 method: 'POST',
                 url: inseminacionUrl + "Insert",
-                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: listaToros, codigoCampo: idCampo },
+                params: { inseminacion: inseminacion, listaVacas: $rootScope.idVacas.toString(), listaToros: listaToros },
                 headers: portalService.getHeadersServer()
             });
         };

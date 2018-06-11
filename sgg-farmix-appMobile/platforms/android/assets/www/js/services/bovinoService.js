@@ -78,7 +78,7 @@
 
         this.getBovinos = function () {
             return $q(function (resolve, reject) {
-                $rootScope.db.executeSql("SELECT * FROM Bovino", [],
+                $rootScope.db.executeSql("SELECT * FROM Bovino ORDER BY numCaravana", [],
                   function (resultado) {
                       resolve(rows(resultado));
                   },

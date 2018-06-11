@@ -20,7 +20,7 @@ angular.module('starter')
                         $rootScope.bovinos.push(_bovinos[i]);
                     }
                 }
-				//$scope.$broadcast('scroll.refreshComplete');
+				$scope.$broadcast('scroll.refreshComplete');
             }).then($ionicLoading.hide).catch($ionicLoading.hide);
         }
         function showIonicLoading() {

@@ -40,7 +40,7 @@ angular.module('starter')
         {
             var date = new Date();
             var formattedDate = moment(date).format('YYYYMMDD');
-            var inseminacion = { tipoInseminacion: $rootScope.evento.tipoInseminacion.toString(), fechaInseminacion: formattedDate };
-            return inseminacionService.registrarInseminacion(inseminacion, $localStorage.campo);
+            var inseminacion = { tipoInseminacion: $rootScope.evento.tipoInseminacion.toString(), fechaInseminacion: formattedDate, codigoCampo: $localStorage.campo };
+            return inseminacionService.registrarInseminacion(inseminacion);
         }
     });
