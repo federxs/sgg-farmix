@@ -25,6 +25,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string tipoEvento { get; set; }
         public string fechaHora { get; set; }
         public long cantidadBovinos { get; set; }
+        public string nombre { get; set; }
     }
 
     public class EventoFilter

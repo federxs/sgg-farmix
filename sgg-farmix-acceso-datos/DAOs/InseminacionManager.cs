@@ -83,6 +83,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     parametros["@idVaca"] = listVacas.ElementAt(i);
                     entity.idInseminacion = connection.Execute("spRegistrarInseminacion", parametros, System.Data.CommandType.StoredProcedure, transaction);
+                    //Si devuelvo un -1 como idInseminacion, esto significa que se inserto una inseminacion conflictiva
                     if (entity.idInseminacion == 0)
                         throw new ArgumentException("Create Inseminacion Error");
                     if (listToros != null && entity.tipoInseminacion == 2)
@@ -92,12 +93,14 @@ namespace sgg_farmix_acceso_datos.DAOs
                             {"@idInseminacion", entity.idInseminacion },
                             {"@idToro", 0 }
                         };
-                        if (listToros.Count == 1)
-                            parametrosToros["@idToro"] = listToros.ElementAt(0);
-                        var insert = connection.Execute("spRegistrarToroXInseminacion", parametrosToros, System.Data.CommandType.StoredProcedure, transaction);
-                        if (insert == 0)
-                            throw new ArgumentException("Create Inseminacion Error");
-
+                        //if (listToros.Count == 1)
+                        for (int j = 0; i < listToros.Count; j++)
+                        {
+                            parametrosToros["@idToro"] = listToros.ElementAt(j);
+                            var insert = connection.Execute("spRegistrarToroXInseminacion", parametrosToros, System.Data.CommandType.StoredProcedure, transaction);
+                            if (insert == 0)
+                                throw new ArgumentException("Create Inseminacion Error");
+                        }
                     }
                 }
                 connection.Commit(transaction);
@@ -246,6 +249,14 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     inseminacion.tactos = connection.GetArray<Tacto>("spObtenerTactosXInseminacion", parametros, System.Data.CommandType.StoredProcedure);
                 }
+                if(inseminacion.idTipoInseminacion == 2)
+                {
+                    parametros = new Dictionary<string, object>
+                    {
+                        {"@idInseminacion", inseminacion.idInseminacion }
+                    };
+                    inseminacion.listaToros = connection.GetArray<BovinoItem>("spObtenerListaTorosXInseminacion", parametros, System.Data.CommandType.StoredProcedure);
+                }
                 return inseminacion;
             }
             catch (Exception ex)
@@ -278,13 +289,13 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Inseminacion Update(Inseminacion entity, List<long> lista, string fechaInseminacionAnterior)
+        public Inseminacion Update(Inseminacion entity, List<long> lista, List<long> listaToros, string fechaInseminacionAnterior)
         {
             connection = new SqlServerConnection();
             DbTransaction transaction = connection.BeginTransaction();
             try
             {
-                if (lista == null)
+                if (lista == null && listaToros == null)
                 {
                     var parametrosInseminacion = new Dictionary<string, object>
                     {
@@ -317,6 +328,30 @@ namespace sgg_farmix_acceso_datos.DAOs
                         if (update == 0)
                             throw new ArgumentException("Update Inseminacion Error");
                     }
+                    if(entity.tipoInseminacion == 2 && listaToros.Count() > 0)
+                    {
+                        var parametrosToros = new Dictionary<string, object>()
+                        {
+                            {"@fechaInseminacion", entity.fechaInseminacion  }
+                        };
+                        var delete = connection.Execute("spDeleteTorosXInseminacion", parametrosToros, System.Data.CommandType.StoredProcedure, transaction);
+                        parametrosToros.Add("@idToro", 0);
+                        for (int i = 0; i < listaToros.Count; i++)
+                        {
+                            parametrosToros["@idToro"] = listaToros.ElementAt(i);
+                            update = connection.Execute("spUpdateToroXInseminacion", parametrosToros, System.Data.CommandType.StoredProcedure, transaction);
+                            if (update == 0)
+                                throw new ArgumentException("Update Inseminacion Error");
+                        }
+                    }
+                    else if(listaToros == null)
+                    {
+                        var parametrosToros = new Dictionary<string, object>()
+                        {
+                            {"@fechaInseminacion", entity.fechaInseminacion  }
+                        };
+                        var delete = connection.Execute("spDeleteTorosXInseminacion", parametrosToros, System.Data.CommandType.StoredProcedure, transaction);
+                    }                        
                 }
                 connection.Commit(transaction);
                 return entity;

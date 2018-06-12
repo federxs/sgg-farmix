@@ -21,7 +21,7 @@
     border-color: black;
     background-color: #444444; 
     color: white;
-    font-size: 12px;
+    font-size: 15px;
     padding: 10px 25px;
 }
 .td{
@@ -154,26 +154,26 @@ th, td {
     display: inline-block;
     vertical-align: middle;
 }
-.pagination at-pagination{
-    display: inline-block;
-    vertical-align: middle;
+
+.simple-pagination p {
+  display: inline-block;
+  line-height: 24px;
+}
+.simple-pagination__button {
+  background: #444444;
+  border: 1px solid #444444;
+  color:white;
+  font-size: 15px;
+  padding: 8px 15px;
+}
+.simple-pagination__page-limit .active {
+  font-weight: bold;
+}
+.disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 
-.pagination a {
-    color: black;
-    background-color: #FFFAFA;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #444444;
-}
 
-.pagination a.active {
-    background-color: #444444;
-    color: white;
-    border: 1px solid #444444;
-}
-
-.pagination a:hover:not(.active) {background-color: black;}
 

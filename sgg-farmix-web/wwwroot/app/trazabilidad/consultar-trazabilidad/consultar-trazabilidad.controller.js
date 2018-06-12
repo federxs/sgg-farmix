@@ -401,7 +401,6 @@
                 dataTable.addColumn({ type: 'date', id: 'End' });
                 var fechaSiguiente, horaSiguiente;
                 for (var i = 0; i < list.length; i++) {
-                    var descrEvento = "";
                     var fechaAnterior = list[i].fechaHora.substring(0, 10).split('/');
                     var horaAnterior = list[i].fechaHora.substring(11, 16).split(':');
                     switch (list[i].tipoEvento) {

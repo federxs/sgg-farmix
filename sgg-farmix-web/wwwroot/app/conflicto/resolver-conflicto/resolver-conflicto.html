@@ -171,6 +171,25 @@
                             Seleccionar esta inseminación
                         </button>
                     </div>
+                    <div class="form-group" ng-show="inseminacionAnterior.idTipoInseminacion === 2">
+                        <label class="control-label">Toros</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> N° de Caravana </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="bovinoA in inseminacionAnterior.listaBovinos">
+                                    <td>{{bovinoA.numCaravana}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-primary"
+                                ng-click="seleccionarToros(inseminacionAnterior.listaBovinos)">
+                            Seleccionar esta lista de Toros
+                        </button>
+                    </div>
                 </div>
                 <!--Inicio Columna de Resultado-->
                 <div class="col-md-4">
@@ -192,10 +211,25 @@
                                    ng-model="inseminacionAnterior.numCaravanaBovino" disabled style="width:100%;">
                         </div>
                     </div>
+                    <div class="form-group" ng-show="inseminacionResultante.idTipoInseminacion === 2">
+                        <label class="control-label">Toros</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> N° de Caravana </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="bovinoR in inseminacionResultante.listaBovinos">
+                                    <td>{{bovinoR.numCaravana}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <center>
                         <button type="button" class="btn btn-success btn-lg"
                                 data-toggle="modal" data-target="#modalConfirmResolverInseminacionConflictiva"
-                                ng-disabled="!inseminacionResultante.fechaInseminacion || !inseminacionResultante.tipoInseminacion">
+                                ng-disabled="!inseminacionResultante.fechaInseminacion || !inseminacionResultante.tipoInseminacion || !inseminacionResultante.idTipoInseminacion || (inseminacionResultante.idTipoInseminacion === 2 && !inseminacionResultante.listaBovinos)">
                             Resolver Conflicto
                         </button>
                     </center>
@@ -227,6 +261,25 @@
                         <button type="button" class="btn btn-primary"
                                 ng-click="seleccionarInseminacion(inseminacionNueva)">
                             Seleccionar esta inseminación
+                        </button>
+                    </div>
+                    <div class="form-group" ng-show="inseminacionNueva.idTipoInseminacion === 2">
+                        <label class="control-label">Toros</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> N° de Caravana </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="bovinoN in inseminacionNueva.listaBovinos">
+                                    <td>{{bovinoN.numCaravana}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-primary"
+                                ng-click="seleccionarToros(inseminacionNueva.listaBovinos)">
+                            Seleccionar esta lista de Toros
                         </button>
                     </div>
                 </div>

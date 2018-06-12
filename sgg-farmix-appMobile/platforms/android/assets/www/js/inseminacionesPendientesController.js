@@ -3,6 +3,12 @@ angular.module('starter')
     if($rootScope.logueado == false){
             $state.go('app.bienvenido');
      }
+     $scope.settings = {
+            currentPage: 0,
+            offset: 0,
+            pageLimit: 5,
+            pageLimits: ['5', '10', '100']
+          };
     function cargarInseminacionesPendientes() {
             showIonicLoading().then(getInseminacionesPendientes).then(function (_inseminaciones) {
                 var fechaHoy = new Date();

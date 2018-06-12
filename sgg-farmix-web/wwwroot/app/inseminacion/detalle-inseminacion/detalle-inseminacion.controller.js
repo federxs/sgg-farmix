@@ -30,10 +30,13 @@
                     vm.inseminacion = data;
                     if (vm.inseminacion.fechaEstimadaNacimiento !== '') {
                         vm.vaca = vm.inseminacion.listaBovinos[0];
+                        vm.toro = vm.inseminacion.listaToros[0];
                         vm.tactos = vm.inseminacion.tactos;
                     }
-                    else
+                    else {
                         vm.rowCollection = vm.inseminacion.listaBovinos;
+                        vm.torosCollection = vm.inseminacion.listaToros;
+                    }                        
                     vm.tituloTabla = 'Bovinos que participaron de la inseminación';
                     vm.disabled = false;
                     $scope.$parent.unBlockSpinner();

@@ -1,5 +1,4 @@
-angular.module('starter', ['ionic', 'ngStorage'])
-
+angular.module('starter', ['ionic', 'ngStorage', 'angularSimplePagination'])
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard

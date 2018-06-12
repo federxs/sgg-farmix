@@ -168,17 +168,16 @@
                             </label>
                             <div>
                                 <div class="row">
-                                    <label class="radio-inline">
-                                        <input type="radio" name="genero" value="0"
-                                               ng-disabled="!habilitar"
-                                               ng-model="bovino.genero" ng-checked="checkH" ng-click="cambiarSexo(); changeEstados()">
+                                    <label class="radio-inline" disabled style="cursor:default">
+                                        <input type="radio" name="genero" value="0" disabled
+                                               ng-model="bovino.genero" ng-checked="checkH"> <!--ng-click="cambiarSexo(); changeEstados()"-->
                                         Hembra
                                     </label>
                                 </div>
                                 <div class="row">
-                                    <label class="radio-inline">
+                                    <label class="radio-inline"disabled style="cursor:default">
                                         <input type="radio" name="genero" value="1"
-                                               ng-model="bovino.genero" ng-checked="checkM" ng-click="cambiarSexo(); changeEstados()">
+                                               ng-model="bovino.genero" ng-checked="checkM" disabled> <!--ng-click="cambiarSexo(); changeEstados()"-->
                                         Macho
                                     </label>
                                 </div>
@@ -448,8 +447,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-click="agregarEstabOrigen()" ng-disabled="!establecimiento.nombre || !establecimiento.idProvincia || !establecimiento.idLocalidad">Agregar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                        <button type="button" class="btn btn-success" ng-click="agregarEstabOrigen()" style="margin-top:10px;" ng-disabled="!establecimiento.nombre || !establecimiento.idProvincia || !establecimiento.idLocalidad">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()" style="margin-top:10px;">Cerrar</button>
                     </div>
                 </div>
             </fieldset>
@@ -487,8 +486,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-click="agregarRodeo()" ng-disabled="!rodeo.nombre">Agregar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                        <button type="button" class="btn btn-success" ng-click="agregarRodeo()" ng-disabled="!rodeo.nombre" style="margin-top:10px;">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()" style="margin-top:10px;">Cerrar</button>
                     </div>
                 </div>
             </fieldset>
@@ -552,8 +551,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-click="agregarEstado()" ng-disabled="!estado.nombre">Agregar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                        <button type="button" class="btn btn-success" ng-click="agregarEstado()" ng-disabled="!estado.nombre" style="margin-top:10px;">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()" style="margin-top:10px;">Cerrar</button>
                     </div>
                 </div>
             </fieldset>
@@ -605,8 +604,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-click="agregarCategoria()" ng-disabled="!categoria.nombre">Agregar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                        <button type="button" class="btn btn-success" ng-click="agregarCategoria()" ng-disabled="!categoria.nombre" style="margin-top:10px;">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()" style="margin-top:10px;">Cerrar</button>
                     </div>
                 </div>
             </fieldset>
@@ -641,8 +640,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-click="agregarRaza()" ng-disabled="!raza.nombre">Agregar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                        <button type="button" class="btn btn-success" ng-click="agregarRaza()" ng-disabled="!raza.nombre" style="margin-top:10px;">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()" style="margin-top:10px;">Cerrar</button>
                     </div>
                 </div>
             </fieldset>
@@ -677,8 +676,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" ng-click="agregarAlimento()" ng-disabled="!alimento.nombre">Agregar</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
+                        <button type="button" class="btn btn-success" ng-click="agregarAlimento()" ng-disabled="!alimento.nombre" style="margin-top:10px;">Agregar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()" style="margin-top:10px;">Cerrar</button>
                     </div>
                 </div>
             </fieldset>

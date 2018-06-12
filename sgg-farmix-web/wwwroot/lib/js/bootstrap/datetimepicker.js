@@ -288,7 +288,7 @@
                     row.push($('<td>').append($('<a>').attr({ 'data-action': 'today', 'title': options.tooltips.today }).append($('<span>').addClass(options.icons.today))));
                 }
                 if (!options.sideBySide && hasDate() && hasTime()) {
-                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'togglePicker', 'title': 'Select Time' }).append($('<span>').addClass(options.icons.time))));
+                    row.push($('<td>').append($('<a>').attr({ 'data-action': 'togglePicker', 'title': 'Selección de horario' }).append($('<span>').addClass(options.icons.time))));
                 }
                 if (options.showClear) {
                     row.push($('<td>').append($('<a>').attr({ 'data-action': 'clear', 'title': options.tooltips.clear }).append($('<span>').addClass(options.icons.clear))));
@@ -2337,14 +2337,14 @@
         },
         tooltips: {
             today: 'Go to today',
-            clear: 'Clear selection',
+            clear: 'Borrar selección',
             close: 'Close the picker',
-            selectMonth: 'Select Month',
-            prevMonth: 'Previous Month',
-            nextMonth: 'Next Month',
-            selectYear: 'Select Year',
-            prevYear: 'Previous Year',
-            nextYear: 'Next Year',
+            selectMonth: 'Selecccionar mes',
+            prevMonth: 'Mes anterior',
+            nextMonth: 'Mes Siguiente',
+            selectYear: 'Seleccionar año',
+            prevYear: 'Año anterior',
+            nextYear: 'Año Siguiente',
             selectDecade: 'Select Decade',
             prevDecade: 'Previous Decade',
             nextDecade: 'Next Decade',

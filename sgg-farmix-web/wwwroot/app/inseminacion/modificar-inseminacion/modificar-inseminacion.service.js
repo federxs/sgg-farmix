@@ -50,11 +50,11 @@
             });
         }
 
-        function modificar(inseminacion, lista, fechaInsemOriginal) {
+        function modificar(inseminacion, lista, listaT , fechaInsemOriginal) {
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Inseminacion',
-                params: { value: inseminacion, listaVacas: lista, fechaAnterior: fechaInsemOriginal },
+                params: { value: inseminacion, listaVacas: lista, listaToros: listaT, fechaAnterior: fechaInsemOriginal },
                 headers: portalService.getHeadersServer()
             })
         }

@@ -12,14 +12,33 @@
                 <td><button ng-click="grabar(bovino.idBovino, true)" ion-button class="botonVerificar">Grabar Tag</button></td>
             </tr>
         </table>
+        <div ng-if="bovinos.length > 5" align="center">
+            <simple-pagination current-page="settings.currentPage"
+                               offset="settings.offset"
+                               page-limit="settings.pageLimit"
+                               page-limits="settings.pageLimits"
+                               on-update="callback()"
+                               total="bovinos.length">
+            </simple-pagination>
+        </div>
 		<br />
-        <h3>Bovinos con Tag ya grabados</h3>        
+        <h3>Bovinos con Tag ya grabados</h3>
+        <div ng-if="bovinosEscritos.length > 5" align="center">
+            <simple-pagination current-page="settings.currentPage"
+                               offset="settings.offset"
+                               page-limit="settings.pageLimit"
+                               page-limits="settings.pageLimits"
+                               on-update="callback()"
+                               total="bovinosEscritos.length">
+            </simple-pagination>
+        </div>
+        <br>  
         <table class="bordeTabla">                                             
             <tr>
                 <th><strong>Número de Caravana</strong></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="bovino in bovinosEscritos" class="itemTabla">
+            <tr ng-repeat="bovino in (bovinosEscritos | limitTo:settings.pageLimit:settings.offset)" class="itemTabla">
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, false)" ion-button class="botonVerificar">Grabar Tag</button></td>
             </tr>

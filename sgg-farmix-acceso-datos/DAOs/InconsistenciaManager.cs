@@ -23,15 +23,28 @@ namespace sgg_farmix_acceso_datos.DAOs
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>();
-                if(entity.inseminacionAnterior != null && entity.inseminacionNueva != null && entity.inseminacionResultante != null)
+                if (entity.inseminacionAnterior != null && entity.inseminacionNueva != null && entity.inseminacionResultante != null)
                 {
                     parametros.Add("@idInseminacionAnterior", entity.inseminacionAnterior.idInseminacion);
                     parametros.Add("@idInseminacionConflictiva", entity.inseminacionNueva.idInseminacion);
                     parametros.Add("@fechaInseminacion", entity.inseminacionResultante.fechaInseminacion);
                     parametros.Add("@tipoInseminacion", entity.inseminacionNueva.idTipoInseminacion);
                     var update = connection.Execute("spResolverInseminacionConflictiva", parametros, System.Data.CommandType.StoredProcedure);
+                    if(entity.inseminacionNueva.idTipoInseminacion == 2)
+                    {
+                        var parametrosToro = new Dictionary<string, object>()
+                        {
+                            {"@idToro", 0 },
+                            {"@idInseminacion", entity.inseminacionAnterior.idInseminacion }
+                        };
+                        for (int i = 0; i < entity.inseminacionNueva.listaBovinos.Count(); i++)
+                        {
+                            parametrosToro["@idToro"] = entity.inseminacionNueva.listaBovinos.ElementAt(i).idBovino;
+                            update = connection.Execute("spActualizarTorosXInseminacionXConflicto", parametrosToro, System.Data.CommandType.StoredProcedure);
+                        }
+                    }
                 }
-                else if(entity.tactoAnterior != null && entity.tactoNuevo != null && entity.tactoResultante != null)
+                else if (entity.tactoAnterior != null && entity.tactoNuevo != null && entity.tactoResultante != null)
                 {
                     parametros.Add("@idInseminacionAnterior", entity.tactoAnterior.idInseminacion);
                     parametros.Add("@idInseminacionConflictiva", entity.tactoNuevo.idInseminacion);
@@ -113,7 +126,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>();
                 var obj = new InconsistenciaResolver();
-                if(idTacto != 0 && idTactoConflic != 0 && fechaTacto != "" && fechaTactoConfl != "")
+                if (idTacto != 0 && idTactoConflic != 0 && fechaTacto != "" && fechaTactoConfl != "")
                 {
                     parametros.Add("@idInseminacion", idTacto);
                     parametros.Add("@fechaTacto", fechaTacto);
@@ -123,13 +136,17 @@ namespace sgg_farmix_acceso_datos.DAOs
                     parametros.Add("@fechaTacto", fechaTactoConfl);
                     obj.tactoNuevo = connection.GetArray<Tacto>("spObtenerDatosTactoConflictivo", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 }
-                else if(idInsem != 0 && idInsemConflic != 0)
+                else if (idInsem != 0 && idInsemConflic != 0)
                 {
                     parametros.Add("@idInseminacion", idInsem);
                     obj.inseminacionAnterior = connection.GetArray<InseminacionDetalle>("spObtenerDatosInseminacionXId", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                    if (obj.inseminacionAnterior.idTipoInseminacion == 2)
+                        obj.inseminacionAnterior.listaBovinos = connection.GetArray<BovinoItem>("spObtenerListaTorosXInseminacion", parametros, System.Data.CommandType.StoredProcedure);
                     parametros = new Dictionary<string, object>();
                     parametros.Add("@idInseminacion", idInsemConflic);
                     obj.inseminacionNueva = connection.GetArray<InseminacionDetalle>("spObtenerDatosInseminacionConflictivaXId", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                    if (obj.inseminacionNueva.idTipoInseminacion == 2)
+                        obj.inseminacionNueva.listaBovinos = connection.GetArray<BovinoItem>("spObtenerListaTorosXInseminacionConflictiva", parametros, System.Data.CommandType.StoredProcedure);
                 }
                 //var lista = connection.GetArray<Inconsistencia>("spObtenerListaInconsistencias", parametros, System.Data.CommandType.StoredProcedure);
                 return obj;

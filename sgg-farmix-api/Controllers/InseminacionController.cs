@@ -205,7 +205,7 @@ namespace sgg_farmix_api.Controllers
         //este metodo se usa para actualizar las inseminaciones que aun no tiene tacto realizado
         [HttpPut]
         [AutorizationToken]
-        public Inseminacion Put(string value, string listaVacas, string fechaAnterior)
+        public Inseminacion Put(string value, string listaVacas, string listaToros, string fechaAnterior)
         {
             try
             {
@@ -227,7 +227,24 @@ namespace sgg_farmix_api.Controllers
                     }
                     ids.Add(long.Parse(aux));
                 }
-                return IM.Update(inseminacion, ids, fechaAnterior);
+                List<long> idsToros = null;
+                if (listaToros != null)
+                {
+                    idsToros = new List<long>();
+                    var aux = "";
+                    for (int i = 0; i < listaToros.Count(); i++)
+                    {
+                        if (listaToros.ElementAt(i) != ',')
+                            aux = aux + listaToros.ElementAt(i);
+                        else
+                        {
+                            idsToros.Add(long.Parse(aux));
+                            aux = "";
+                        }
+                    }
+                    idsToros.Add(long.Parse(aux));
+                }
+                return IM.Update(inseminacion, ids, idsToros, fechaAnterior);
             }
             catch (Exception ex)
             {

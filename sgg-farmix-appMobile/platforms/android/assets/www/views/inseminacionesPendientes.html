@@ -12,16 +12,34 @@
                 <td><button ng-click="verificar(inseminacion.idInseminacion, '2')" ion-button class="botonVerificar">Verificar</button></td>
             </tr>
         </table><br>
-        <h3>Inseminaciones para verificar por tacto</h3>
-        <table class="bordeTabla">
-            <tr>
-                <th><strong>Número de Caravana</strong></th>
-                <th></th>
-            </tr>
-            <tr ng-repeat="inseminacion in inseminacionesTacto" class="itemTabla">
-                <td>{{inseminacion.idVaca}}</td>
-                <td><button ng-click="verificar(inseminacion.idInseminacion, '1')" ion-button class="botonVerificar">Verificar</button></td>
-            </tr>
-        </table><br>
-    </ion-content>
+        <div ng-if="inseminaciones.length > 5" align="center">
+            <simple-pagination current-page="settings.currentPage"
+                               offset="settings.offset"
+                               page-limit="settings.pageLimit"
+                               page-limits="settings.pageLimits"
+                               on-update="callback()"
+                               total="inseminaciones.length">
+            </simple-pagination>
+        </div>
+            <h3>Inseminaciones para verificar por tacto</h3>
+            <div ng-if="inseminacionesTacto.length > 5" align="center">
+                <simple-pagination current-page="settings.currentPage"
+                                   offset="settings.offset"
+                                   page-limit="settings.pageLimit"
+                                   page-limits="settings.pageLimits"
+                                   on-update="callback()"
+                                   total="inseminacionesTacto.length">
+                </simple-pagination>
+            </div>
+            <table class="bordeTabla">
+                <tr>
+                    <th><strong>Número de Caravana</strong></th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="inseminacion in inseminacionesTacto" class="itemTabla">
+                    <td>{{inseminacion.idVaca}}</td>
+                    <td><button ng-click="verificar(inseminacion.idInseminacion, '1')" ion-button class="botonVerificar">Verificar</button></td>
+                </tr>
+            </table><br>
+</ion-content>
 </ion-view>
