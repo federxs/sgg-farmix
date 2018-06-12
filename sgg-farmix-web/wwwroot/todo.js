@@ -2762,6 +2762,7 @@
         vm.resolverInseminacion = resolverInseminacion;
         vm.resolverTacto = resolverTacto;
         vm.isUndefinedOrNull = isUndefinedOrNull;
+        vm.seleccionarToros = seleccionarToros;
 
         function init() {
             //vm.showSpinner = true;
@@ -2805,6 +2806,10 @@
             vm.inseminacionResultante.idTipoInseminacion = inseminacion.idTipoInseminacion;
         }
 
+        function seleccionarToros(toros) {
+            vm.inseminacionResultante.listaBovinos = toros;
+        }
+
         function seleccionarTacto(tacto) {
             vm.tactoResultante.fechaTacto = tacto.fechaTacto;
             vm.tactoResultante.tipoTacto = tacto.tipoTacto;
@@ -2821,6 +2826,7 @@
             vm.tactoResultante[propiedad] = tacto[propiedad];
             vm.tactoResultante.idTipoTacto = tacto.idTipoTacto;
         }
+        
 
         function resolverInseminacion() {
             $scope.$parent.blockSpinnerSave();
@@ -4184,10 +4190,13 @@
                     vm.inseminacion = data;
                     if (vm.inseminacion.fechaEstimadaNacimiento !== '') {
                         vm.vaca = vm.inseminacion.listaBovinos[0];
+                        vm.toro = vm.inseminacion.listaToros[0];
                         vm.tactos = vm.inseminacion.tactos;
                     }
-                    else
+                    else {
                         vm.rowCollection = vm.inseminacion.listaBovinos;
+                        vm.torosCollection = vm.inseminacion.listaToros;
+                    }                        
                     vm.tituloTabla = 'Bovinos que participaron de la inseminación';
                     vm.disabled = false;
                     $scope.$parent.unBlockSpinner();
@@ -4284,11 +4293,11 @@
             });
         }
 
-        function modificar(inseminacion, lista, fechaInsemOriginal) {
+        function modificar(inseminacion, lista, listaT , fechaInsemOriginal) {
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Inseminacion',
-                params: { value: inseminacion, listaVacas: lista, fechaAnterior: fechaInsemOriginal },
+                params: { value: inseminacion, listaVacas: lista, listaToros: listaT, fechaAnterior: fechaInsemOriginal },
                 headers: portalService.getHeadersServer()
             })
         }
@@ -4323,6 +4332,8 @@
         vm.getFecha = getFecha;
         vm.getFechaParicion = getFechaParicion;
         vm.openPopUp = openPopUp;
+        vm.openPopUpToro = openPopUpToro;
+        vm.eliminarToro = eliminarToro;
         vm.eliminar = eliminar;
         vm.antesDeModificar = antesDeModificar;
         //variables
@@ -4331,7 +4342,11 @@
         vm.showEliminar = true;
         $('#datetimepicker4').datetimepicker();
         var idVacaEliminar = 0;
+        var idToroEliminar = 0;
         var fechaInseminacionOriginal = '';
+        var lista = [];
+        var listaToros = [];
+        $('#datetimepicker6').datetimepicker();
 
         function inicializar() {
             //vm.showSpinner = true;
@@ -4344,13 +4359,20 @@
                 vm.inseminacion.idTipoInseminacion = vm.inseminacion.idTipoInseminacion.toString();
                 fechaInseminacionOriginal = vm.inseminacion.fechaInseminacion;
                 if (vm.inseminacion.fechaEstimadaNacimiento !== '') {
-                    $('#datetimepicker5').datetimepicker();
+                    $('#datetimepicker5').datetimepicker();                    
                     vm.vaca = vm.inseminacion.listaBovinos[0];
+                    if (vm.inseminacion.listaToros)
+                        vm.toro = vm.inseminacion.listaToros[0];
                     vm.tactos = vm.inseminacion.tactos;
+                    for (var i = 0; i < vm.tactos.length; i++) {
+                        vm.tactos[i].idTipoTacto = vm.tactos[i].idTipoTacto.toString();
+                    }
                 }
-                else
+                else {
                     vm.rowCollection = vm.inseminacion.listaBovinos;
-                vm.tituloTabla = 'Bovinos que participaron de la inseminación';
+                    vm.torosCollection = vm.inseminacion.listaToros;
+                }
+                vm.tituloTabla = 'Vacas que participaron de la inseminación';
                 vm.tiposInseminacion = [
                     { idTipoInseminacion: '1', descripcion: 'Artificial' },
                     { idTipoInseminacion: '2', descripcion: 'Montura' }
@@ -4366,11 +4388,9 @@
         };
 
         function antesDeModificar() {
-            //vm.showSpinner = true;
-            $scope.$parent.blockSpinnerSave();
+            //vm.showSpinner = true;            
             vm.habilitar = false;
             vm.showEliminar = true;
-            var lista = [];
             if (vm.rowCollection !== undefined) {
                 for (var i = 0; i < vm.rowCollection.length; i++) {
                     lista.push(vm.rowCollection[i].idBovino);
@@ -4378,20 +4398,33 @@
             }
             else
                 lista.push(vm.vaca.idBovino);
-            vm.inseminacion.tipoInseminacion = vm.inseminacion.idTipoInseminacion;
-            if (lista.length === 0)
-                $('#modalConfirmEliminarInseminacion').modal('show');
+            if (vm.torosCollection) {
+                for (var i = 0; i < vm.torosCollection.length; i++) {
+                    listaToros.push(vm.torosCollection[i].idBovino);
+                }
+            }
             else
-                modificar(lista);
+                listaToros.push(vm.toro.idBovino);
+            vm.inseminacion.tipoInseminacion = vm.inseminacion.idTipoInseminacion;
+            if ((lista.length === 0 && vm.inseminacion.tipoInseminacion === 1) || (lista.length === 0 && vm.inseminacion.tipoInseminacion === '2' && listaToros.length === 0))
+                $('#modalConfirmEliminarInseminacion').modal('show');
+            else if (lista.length > 0 && vm.inseminacion.tipoInseminacion === '2' && listaToros.length === 0)
+                $('#modalConfirmEliminarInseminacionSinToros').modal('show');
+            else
+                modificar();
         };
 
-        function modificar(lista) {
+        function modificar() {
+            if (listaToros.length === 0)
+                vm.inseminacion.tipoInseminacion = 1;
+            $scope.$parent.blockSpinnerSave();
             if (vm.desde === 'servicioSinConfirm') {
-                modificarInseminacionService.modificar(vm.inseminacion, lista.toString(), fechaInseminacionOriginal).then(function success(data) {
+                modificarInseminacionService.modificar(vm.inseminacion, lista.toString(), listaToros.toString(), fechaInseminacionOriginal).then(function success(data) {
                     //vm.habilitar = false;
                     //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinnerSave();
                     $('#modalConfirmEliminarInseminacion').modal('hide');
+                    $('#modalConfirmEliminarInseminacionSinToros').modal('hide');
                     vm.showEliminar = false;
                     toastr.success('Se modificó la inseminación con éxito ', 'Éxito');
                 }, function error(data) {
@@ -4427,6 +4460,20 @@
                     vm.rowCollection.splice(i, 1);
             }
             $('#modalConfirmEliminarVaca').modal('hide');
+        }
+
+        function openPopUpToro(id, caravana) {
+            idToroEliminar = id;
+            vm.nroCaravanaToro = caravana;
+            $('#modalConfirmEliminarToro').modal('show');
+        }
+
+        function eliminarToro() {
+            for (var i = 0; i < vm.torosCollection.length; i++) {
+                if (vm.torosCollection[i].idBovino === idToroEliminar)
+                    vm.torosCollection.splice(i, 1);
+            }
+            $('#modalConfirmEliminarToro').modal('hide');
         }
 
         function convertirFecha(fecha) {
@@ -5608,7 +5655,6 @@
                 dataTable.addColumn({ type: 'date', id: 'End' });
                 var fechaSiguiente, horaSiguiente;
                 for (var i = 0; i < list.length; i++) {
-                    var descrEvento = "";
                     var fechaAnterior = list[i].fechaHora.substring(0, 10).split('/');
                     var horaAnterior = list[i].fechaHora.substring(11, 16).split(':');
                     switch (list[i].tipoEvento) {
