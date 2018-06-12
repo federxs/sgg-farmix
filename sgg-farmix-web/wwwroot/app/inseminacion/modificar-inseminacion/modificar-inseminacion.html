@@ -56,16 +56,16 @@
                     </div>
                 </div>
                 <div class="row" ng-show="desde === 'preniez'">
-                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formModificarInseminacion.fechaParicion.$touched && formModificarInseminacion.fechaParicion.$valid,
-                 'has-error has-feedback':formModificarInseminacion.fechaParicion.$touched && formModificarInseminacion.fechaParicion.$invalid}">
+                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formModificarInseminacion.fechaParto.$touched && formModificarInseminacion.fechaParto.$valid,
+                 'has-error has-feedback':formModificarInseminacion.fechaParto.$touched && formModificarInseminacion.fechaParto.$invalid}">
                         <label>
                             Fecha estimada de parición
                         </label>
-                        <div name="fechaParicion">
-                            <input type="datetime" placeholder="Fecha del Tacto" name="fechaTacto" class="form-control" id='datetimepicker5' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" ng-blur="getFechaParicion()" data-date-format="DD/MM/YYYY" ng-model="inseminacion.fechaEstimadaNacimiento" valueAsDate="{{inseminacion.fechaEstimadaNacimiento}}" />
+                        <div name="fechaParto">
+                            <input type="datetime" placeholder="Fecha estimada de parto" name="fechaParto" class="form-control" id='datetimepicker5' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" ng-blur="getFechaParicion()" data-date-format="DD/MM/YYYY" ng-model="inseminacion.fechaEstimadaNacimiento" valueAsDate="{{inseminacion.fechaEstimadaNacimiento}}" />
                         </div>
-                        <div ng-show="formModificarInseminacion.fechaParicion.$touched">
-                            <span class="help-block" ng-show="formModificarInseminacion.fechaParicion.$error.max || formModificarInseminacion.fechaParicion.$error.min">
+                        <div ng-show="formModificarInseminacion.fechaParto.$touched">
+                            <span class="help-block" ng-show="formModificarInseminacion.fechaParto.$error.max || formModificarInseminacion.fechaParto.$error.min">
                                 Debe ingresar una fecha válida
                             </span>
                         </div>
@@ -77,59 +77,50 @@
                     <legend style="margin-bottom: 5px;">
                         Tacto
                     </legend>
-                    <table st-table="displayedCollection" st-safe-src="tactos" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th st-sort="fechaTacto">Fecha</th>
-                                <th st-sort="tipoTacto">Tipo</th>
-                                <th st-sort="exitoso">Resultado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in displayedCollection">
-                                <td>
-                                    <input type="datetime" placeholder="Fecha inseminación" name="fechaInseminacion" class="form-control" id='datetimepicker6' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" ng-blur="getFecha()" data-date-format="DD/MM/YYYY" ng-model="item.fechaTacto" valueAsDate="{{item.fechaTacto}}" />                                    
-                                </td>
-                                <td>
-                                    <select class="form-control" name="tipoTacto"
-                                            ng-disabled="!habilitar"
-                                            ng-model="item.idTipoTacto"
-                                            style="width:100%;">
-                                        <option value="">Seleccione...</option>
-                                        <option value="1">Tacto</option>
-                                        <option value="2">Ecografía</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <div>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="exitoso" value="1"
-                                                   ng-disabled="!habilitar"
-                                                   ng-model="item.exitoso">
-                                            Exitoso
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="exitoso" value="0"
-                                                   ng-disabled="!habilitar"
-                                                   ng-model="item.exitoso">
-                                            Fallido
-                                        </label>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td>
-                                    <label for="items" ng-show="tactos.length > 1">Registros por página</label>
-                                    <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPaginaTacto" ng-disabled="disabled" ng-show="tactos.length > 1">
-                                </td>
-                                <td colspan="5" class="text-center">
-                                    <div st-pagination="" st-items-by-page="itemsPorPaginaTacto" st-displayed-pages="7"></div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <label>
+                                Fecha Tacto
+                            </label>
+                            <div name="fechaTacto">
+                                <input type="datetime" placeholder="Fecha tacto" name="fechaTacto" class="form-control" id='datetimepicker6' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" ng-blur="getFechaTacto()" data-date-format="DD/MM/YYYY" ng-model="tacto.fechaTacto" valueAsDate="{{tacto.fechaTacto}}" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                Tipo Tacto
+                            </label>
+                            <div name="tipoTacto">
+                                <select class="form-control" name="tipoTacto"
+                                        ng-disabled="!habilitar"
+                                        ng-model="tacto.idTipoTacto"
+                                        style="width:100%;">
+                                    <option value="">Seleccione...</option>
+                                    <option value="1">Tacto</option>
+                                    <option value="2">Ecografía</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>
+                                Resultado
+                            </label>
+                            <div name="resultado">
+                                <label class="radio-inline">
+                                    <input type="radio" name="exitoso" value="1"
+                                           ng-disabled="!habilitar"
+                                           ng-model="tacto.exitoso">
+                                    Exitoso
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="exitoso" value="0"
+                                           ng-disabled="!habilitar"
+                                           ng-model="tacto.exitoso">
+                                    Fallido
+                                </label>
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -274,7 +265,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel panel-default" ng-show="inseminacion.idTipoInseminacion === '2'">
                     <div class="panel-heading">Datos del toro</div>
                     <div class="panel-body">
                         <div class="row">

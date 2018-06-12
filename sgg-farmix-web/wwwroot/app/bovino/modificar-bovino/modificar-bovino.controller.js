@@ -107,7 +107,7 @@
                 vm.changeEstados();
                 //seteamos a "" las variables 0
                 angular.forEach(vm.bovino, function (value, key) {
-                    if (parseInt(value) === 0 && key !== 'idBovino' && key !== 'idAlimento' && key !== 'cantAlimento') {
+                    if (parseInt(value) === 0 && key !== 'idBovino' && key !== 'idAlimento' && key !== 'cantAlimento' && key !== 'enfermo') {
                         vm.bovino[key] = '';
                     }
                 });
@@ -163,6 +163,7 @@
                 vm.bovino.idEstablecimientoOrigen = 0;
             if (vm.checkH === true) vm.bovino.genero = 0;
             else if (vm.checkM === true) vm.bovino.genero = 1;
+            vm.bovino
             vm.bovino.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             modificarBovinoService.modificar(vm.bovino).then(function success(data) {
                 if (vm.bovino.pesoAlNacer === 0 || vm.bovino.pesoAlNacer === undefined)

@@ -110,6 +110,7 @@
                     toastr.warning('Ya existe un bovino con ese número de caravana', 'Advertencia');
                     var fecha = vm.bovino.fechaNacimiento.split('/');
                     vm.bovino.fechaNacimiento = new Date(fecha[2], fecha[1], fecha[0]);
+                    vm.habilitar = true;
                 }
                 else {
                     toastr.error('La operación no se pudo completar', 'Error');

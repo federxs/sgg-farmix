@@ -39,7 +39,28 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Tacto Update(long id, Tacto entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idTipoTacto", entity.idTipoTacto },
+                    {"@exitoso", entity.exitoso },
+                    {"@idInseminacion", entity.idInseminacion },
+                    {"@fechaTacto", entity.fechaTacto }
+                };
+                var insert = connection.Execute("spUpdateTacto", parametros, System.Data.CommandType.StoredProcedure);
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
         }
 
         public Tacto Insert(Tacto tacto)

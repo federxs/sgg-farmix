@@ -16,6 +16,7 @@
         vm.inicializar = inicializar();
         vm.getFecha = getFecha;
         vm.getFechaParicion = getFechaParicion;
+        vm.getFechaTacto = getFechaTacto;
         vm.openPopUp = openPopUp;
         vm.openPopUpToro = openPopUpToro;
         vm.eliminarToro = eliminarToro;
@@ -31,7 +32,6 @@
         var fechaInseminacionOriginal = '';
         var lista = [];
         var listaToros = [];
-        $('#datetimepicker6').datetimepicker();
 
         function inicializar() {
             //vm.showSpinner = true;
@@ -44,14 +44,13 @@
                 vm.inseminacion.idTipoInseminacion = vm.inseminacion.idTipoInseminacion.toString();
                 fechaInseminacionOriginal = vm.inseminacion.fechaInseminacion;
                 if (vm.inseminacion.fechaEstimadaNacimiento !== '') {
-                    $('#datetimepicker5').datetimepicker();                    
+                    $('#datetimepicker5').datetimepicker();
+                    $('#datetimepicker6').datetimepicker();
                     vm.vaca = vm.inseminacion.listaBovinos[0];
                     if (vm.inseminacion.listaToros)
                         vm.toro = vm.inseminacion.listaToros[0];
-                    vm.tactos = vm.inseminacion.tactos;
-                    for (var i = 0; i < vm.tactos.length; i++) {
-                        vm.tactos[i].idTipoTacto = vm.tactos[i].idTipoTacto.toString();
-                    }
+                    vm.tacto = vm.inseminacion.tactos[0];
+                    vm.tacto.idTipoTacto = vm.tacto.idTipoTacto.toString();
                 }
                 else {
                     vm.rowCollection = vm.inseminacion.listaBovinos;
@@ -88,7 +87,7 @@
                     listaToros.push(vm.torosCollection[i].idBovino);
                 }
             }
-            else
+            else if (vm.inseminacion.idTipoInseminacion === '2' || vm.inseminacion.idTipoInseminacion === 2)
                 listaToros.push(vm.toro.idBovino);
             vm.inseminacion.tipoInseminacion = vm.inseminacion.idTipoInseminacion;
             if ((lista.length === 0 && vm.inseminacion.tipoInseminacion === 1) || (lista.length === 0 && vm.inseminacion.tipoInseminacion === '2' && listaToros.length === 0))
@@ -119,7 +118,7 @@
                 })
             }
             else {
-                modificarInseminacionService.update(vm.inseminacion).then(function success(data) {
+                modificarInseminacionService.update(vm.inseminacion, vm.tacto).then(function success(data) {
                     //vm.habilitar = false;
                     //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinnerSave();
@@ -196,9 +195,20 @@
             var fechaHoy = new Date();
             var fechaMin = new Date(2000, 1, 1);
             if (fechaEstNacimiento < fechaMin)
-                vm.formModificarInseminacion.fechaParicion.$setValidity("min", false);
+                vm.formModificarInseminacion.fechaParto.$setValidity("min", false);
             else
-                vm.formModificarInseminacion.fechaParicion.$setValidity("min", true);
+                vm.formModificarInseminacion.fechaParto.$setValidity("min", true);
+        }
+
+        function getFechaTacto() {
+            vm.tacto.fechaTacto = $('#datetimepicker6')[0].value;
+            var fechaTacto = new Date(vm.tacto.fechaTacto.substring(6, 10), parseInt(vm.tacto.fechaTacto.substring(3, 5)) - 1, vm.tacto.fechaTacto.substring(0, 2));
+            var fechaHoy = new Date();
+            var fechaMin = new Date(2000, 1, 1);
+            if (fechaTacto < fechaMin)
+                vm.formModificarInseminacion.fechaTacto.$setValidity("min", false);
+            else
+                vm.formModificarInseminacion.fechaTacto.$setValidity("min", true);
         }
     }
 })();

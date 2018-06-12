@@ -260,11 +260,13 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Inseminacion/Update")]
         [HttpPut]
         [AutorizationToken]
-        public Inseminacion Update(string value)
+        public Inseminacion Update(string value, string tacto)
         {
             try
             {
                 var inseminacion = JsonConvert.DeserializeObject<Inseminacion>(value);
+                var objTacto = JsonConvert.DeserializeObject<Tacto>(tacto);
+                new TactoManager().Update(0, objTacto);
                 return IM.Update(inseminacion.idInseminacion, inseminacion);
             }
             catch (Exception ex)

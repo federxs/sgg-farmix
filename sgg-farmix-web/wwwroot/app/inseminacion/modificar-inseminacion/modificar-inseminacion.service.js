@@ -59,11 +59,11 @@
             })
         }
 
-        function update(inseminacion) {
+        function update(inseminacion, tacto) {
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Inseminacion/Update',
-                params: { value: inseminacion },
+                params: { value: inseminacion, tacto: tacto },
                 headers: portalService.getHeadersServer()
             })
         }
