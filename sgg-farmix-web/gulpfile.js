@@ -1,69 +1,26 @@
-//////////////
-//REQUERIDOS
-//////////////
-var gulp = require('gulp'),
-	uglify = require('gulp-uglify'),
-	browserSync = require('browser-sync'),
-	reload = browserSync.reload;
-	
-	
-// ///////////////
-// Log Errors
-// // ////////////
+var gulp = require('gulp');
+var concat = require('gulp-concat');
+var rename = require('gulp-rename');
+var uglify = require('gulp-uglify');
+var angularOrder = require('gulp-angular-order');
 
-function errorlog(err){
-	console.error(err.message);
-	this.emit('end');
-}
-	
-//////////////
-//Tareas Script
-//////////////
-gulp.task('scripts', function(){
-	gulp.src('./wwwroot/**/*.js')
-	.pipe(uglify())
-	.pipe(reload({stream:true}));
+//script paths
+var jsFiles = ['wwwroot/app/*.service.js', 'wwwroot/app/*.controller.js'],
+caca = ['.\wwwroot\app.js', '.\wwwroot\app\**\*.js'],
+    jsDest = 'dist/scripts';
+
+gulp.task('scripts', function() {
+    return gulp.src(jsFiles)
+        .pipe(concat('scripts.js'))
+        .pipe(gulp.dest(jsDest))
+        .pipe(rename('scripts.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(jsDest));
 });
 
-//////////////
-//Tareas CSS
-//////////////
-gulp.task('css', function(){
-	gulp.src('./wwwroot/**/*.css')
-	.pipe(reload({stream:true}));
+gulp.task('orden', function() {
+    return gulp.src(['./wwwroot/app/**/*.js'])
+        .pipe(angularOrder())
+        .pipe(concat('todo.js'))
+        .pipe(gulp.dest('./wwwroot'));
 });
-
-//////////////
-//Tareas HTML
-//////////////
-gulp.task('html', function(){
-	gulp.src('./wwwroot/**/*.html')
-	.pipe(reload({stream:true}));
-});
-
-
-//////////////
-//Tareas Browser-Sync
-//////////////
-gulp.task('browser-sync', function() {
-    browserSync({
-        server: {
-            baseDir: "./wwwroot/"
-        }
-    });
-});
-
-//////////////
-//Tareas Watch
-//////////////
-gulp.task ('watch', function(){
-	gulp.watch('./wwwroot/**/*.js', ['scripts']);
-	gulp.watch('./wwwroot/**/*.css', ['css']);
-  	gulp.watch('./wwwroot/**/*.html', ['html']);
-});
-
-//////////////
-//Tareas Default
-//////////////
-gulp.task('default', ['scripts', 'css' 
-, 'html', 'browser-sync', 'watch']);
