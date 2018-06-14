@@ -16,6 +16,7 @@
         vm.seleccionarCampo = seleccionarCampo;
         vm.validarCantCampos = validarCantCampos;
         $localStorage.usuarioInfo = {};
+        vm.idRol = $sessionStorage.usuarioInfo.idRol;
         //var imagenes = ['../../images/campo1.jpg', '../../images/campo2.jpg', '../../images/campo3.jpg', '../../images/campo4.jpg', '../../images/campo5.jpg'];
 
         function inicializar() {

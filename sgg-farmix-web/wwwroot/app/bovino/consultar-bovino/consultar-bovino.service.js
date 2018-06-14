@@ -22,7 +22,7 @@
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Bovino/verificarCantBovinosXAdmin',
                     params: {
-                        usuario: '@usuario'
+                        campo: '@campo'
                     },
                     headers: portalService.getHeadersServer(),
                     isArray: false

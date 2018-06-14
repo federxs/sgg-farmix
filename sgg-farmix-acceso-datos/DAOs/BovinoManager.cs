@@ -32,7 +32,6 @@ namespace sgg_farmix_acceso_datos.DAOs
                     { "@idRodeo", entity.idRodeo },
                     { "@idEstado", entity.idEstado },
                     { "@borrado", 0 },
-                    { "@usuario", entity.usuario },
                     { "@codigoCampo", entity.codigoCampo },
                     { "@enfermo", entity.enfermo }
                 };
@@ -460,14 +459,14 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public ResultadoValidacionCampo ValidarCantidadBovinos(string usuario)
+        public ResultadoValidacionCampo ValidarCantidadBovinos(long campo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@usuario", usuario }
+                    {"@codigoCampo", campo }
                 };
                 var resultado = connection.GetArray<ResultadoValidacionCampo>("spValidarCantidadBovinosXAdmin", parametros, System.Data.CommandType.StoredProcedure);
                 return resultado.First();

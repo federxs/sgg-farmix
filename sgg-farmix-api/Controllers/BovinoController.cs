@@ -358,11 +358,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Bovino/verificarCantBovinosXAdmin")]
         [HttpGet]
         [AutorizationToken]
-        public ResultadoValidacionCampo ValidarCantidadBovinos(string usuario)
+        public ResultadoValidacionCampo ValidarCantidadBovinos(long campo)
         {
             try
             {
-                return BM.ValidarCantidadBovinos(usuario);
+                return BM.ValidarCantidadBovinos(campo);
             }
             catch (Exception ex)
             {

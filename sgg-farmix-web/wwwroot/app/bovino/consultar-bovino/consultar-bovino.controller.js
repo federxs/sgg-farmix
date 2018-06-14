@@ -456,7 +456,7 @@
 
         function validarCantBovinos() {
             $scope.$parent.blockSpinner();
-            consultarBovinoService.validarCantBovinos({ usuario: $sessionStorage.usuarioInfo.usuario }, function success(data) {
+            consultarBovinoService.validarCantBovinos({ campo: $localStorage.usuarioInfo.codigoCampo }, function success(data) {
                 if (data.resultado)
                     $state.go('home.registrarBovino');
                 else {
@@ -465,6 +465,7 @@
                 }                    
                 //$scope.$parent.unBlockSpinner();
             }, function error(error) {
+                $scope.$parent.unBlockSpinner();
                 toastr.error("Se ha producido un error, reintentar.");
             });
         };

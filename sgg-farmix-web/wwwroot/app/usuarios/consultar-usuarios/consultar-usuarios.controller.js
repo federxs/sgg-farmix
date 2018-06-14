@@ -467,7 +467,7 @@
         function validarCantUsuarios() {
             //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
-            consultarUsuariosService.validarCantidadUsuariosPlan($sessionStorage.usuarioInfo.usuario).then(function success(data) {
+            consultarUsuariosService.validarCantidadUsuariosPlan($localStorage.usuarioInfo.codigoCampo ).then(function success(data) {
                 if (data.resultado)
                     $state.go('home.registrarUsuario');
                 else {

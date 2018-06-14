@@ -266,7 +266,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     {"@usuario", user },
                     {"@codigoCampo", campo },
-                     {"@idRol", idRol }
+                    {"@idRol", idRol }
                 };
                 var usuario = connection.GetArray<UsuarioLogueado>("spObtenerDatosUsuarioLogueado", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return usuario;
@@ -305,14 +305,14 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public ResultadoValidacionCampo ValidarCantidadUsuarios(string usuario)
+        public ResultadoValidacionCampo ValidarCantidadUsuarios(long campo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@usuario", usuario }
+                    {"@codigoCampo", campo }
                 };
                 var resultado = connection.GetArray<ResultadoValidacionCampo>("spValidarCantidadUsuarios", parametros, System.Data.CommandType.StoredProcedure);
                 return resultado.First();

@@ -264,11 +264,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Usuario/ValidarCantUsuarios")]
         [HttpGet]
         [AutorizationToken]
-        public ResultadoValidacionCampo ValidarCantCamposUsuario(string usuario)
+        public ResultadoValidacionCampo ValidarCantCamposUsuario(long campo)
         {
             try
             {
-                return UM.ValidarCantidadUsuarios(usuario);
+                return UM.ValidarCantidadUsuarios(campo);
             }
             catch (Exception ex)
             {

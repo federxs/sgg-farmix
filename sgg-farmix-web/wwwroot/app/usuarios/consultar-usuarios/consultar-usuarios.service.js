@@ -62,11 +62,11 @@
                 return data.data || [];
             });
         }
-        function validarCantidadUsuariosPlan(usuario) {
+        function validarCantidadUsuariosPlan(campo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Usuario/ValidarCantUsuarios',
-                params: { usuario: usuario },
+                params: { campo: campo },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

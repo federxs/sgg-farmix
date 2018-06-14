@@ -99,7 +99,7 @@
                             if ($sessionStorage.usuarioInfo === undefined) {
                                 $sessionStorage.usuarioInfo = {};
                                 $sessionStorage.usuarioInfo.usuario = vm.usuario.usuario;
-                                $sessionStorage.usuarioInfo.idRol = vm.usuario.idRol;
+                                $sessionStorage.usuarioInfo.idRol = data.idRol;
                                 $sessionStorage.usuarioInfo.token = data.token;
                             }
                             //$('#login-modal').modal('hide');

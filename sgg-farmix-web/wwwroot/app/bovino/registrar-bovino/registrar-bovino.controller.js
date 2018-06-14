@@ -94,7 +94,6 @@
             if (vm.bovino.pesoAlNacer !== undefined && vm.bovino.pesoAlNacer !== '')
                 vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
             //vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
-            vm.bovino.usuario = $sessionStorage.usuarioInfo.usuario;
             vm.bovino.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.bovino.$save(function (data) {
                 toastr.success('Se agrego con éxito el bovino ', 'Éxito');
