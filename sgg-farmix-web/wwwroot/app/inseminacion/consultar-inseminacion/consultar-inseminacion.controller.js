@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarInseminacionController', consultarInseminacionController);
 
-    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr', '$state', 'exportador', '$localStorage'];
+    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr', '$state', 'exportador', '$localStorage', '$location', '$anchorScroll'];
 
-    function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state, exportador, $localStorage) {
+    function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state, exportador, $localStorage, $location, $anchorScroll) {
         var vm = $scope;
         //variables
         window.scrollTo(0, 0);
@@ -147,6 +147,8 @@
                         }
                         break;
                 }
+                $location.hash('tablaServiciosSinConfirmar');
+                $anchorScroll();
                 $scope.$parent.unBlockSpinner();
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
@@ -240,6 +242,8 @@
                     }
                     break;
             }
+            $location.hash('tablaServiciosSinConfirmar');
+            $anchorScroll();
         }
 
         function obtenerHembrasParaServicio() {

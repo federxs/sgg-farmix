@@ -5,12 +5,13 @@
         .module('app')
         .controller('modificarInseminacionController', modificarInseminacionController);
 
-    modificarInseminacionController.$inject = ['$scope', 'modificarInseminacionService', 'toastr', '$stateParams'];
+    modificarInseminacionController.$inject = ['$scope', 'modificarInseminacionService', 'toastr', '$stateParams', '$localStorage'];
 
-    function modificarInseminacionController($scope, modificarInseminacionService, toastr, $stateParams) {
+    function modificarInseminacionController($scope, modificarInseminacionService, toastr, $stateParams, $localStorage) {
         var vm = $scope;
         window.scrollTo(0, 0);
         vm.habilitar = false;
+        vm.habilitarXToros = true;
         //funciones
         vm.modificar = modificar;
         vm.inicializar = inicializar();
@@ -22,16 +23,21 @@
         vm.eliminarToro = eliminarToro;
         vm.eliminar = eliminar;
         vm.antesDeModificar = antesDeModificar;
+        vm.buscarTorosCampo = buscarTorosCampo;
+        vm.agregarToro = agregarToro;
+        vm.validarToros = validarToros;
         //variables
         vm.fechaDeHoy = new Date();
         vm.desde = $stateParams.desde;
         vm.showEliminar = true;
+        vm.tituloModalToros = 'Seleccione el o los toros que participaron de esta Inseminación';
         $('#datetimepicker4').datetimepicker();
         var idVacaEliminar = 0;
         var idToroEliminar = 0;
         var fechaInseminacionOriginal = '';
         var lista = [];
         var listaToros = [];
+        var tipoInseminacionOriginal;
 
         function inicializar() {
             //vm.showSpinner = true;
@@ -43,6 +49,7 @@
                 vm.inseminacion = data;
                 vm.inseminacion.idTipoInseminacion = vm.inseminacion.idTipoInseminacion.toString();
                 fechaInseminacionOriginal = vm.inseminacion.fechaInseminacion;
+                tipoInseminacionOriginal = angular.copy(data.idTipoInseminacion.toString());
                 if (vm.inseminacion.fechaEstimadaNacimiento !== '') {
                     $('#datetimepicker5').datetimepicker();
                     $('#datetimepicker6').datetimepicker();
@@ -61,6 +68,8 @@
                     { idTipoInseminacion: '1', descripcion: 'Artificial' },
                     { idTipoInseminacion: '2', descripcion: 'Montura' }
                 ];
+                if (vm.desde === 'preniez')
+                    vm.tituloModalToros = 'Seleccione el toro que participó de esta Inseminación';
                 //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
                 vm.habilitar = true;
@@ -82,7 +91,7 @@
             }
             else
                 lista.push(vm.vaca.idBovino);
-            if (vm.torosCollection) {
+            if (vm.torosCollection && vm.inseminacion.idTipoInseminacion === '2') {
                 for (var i = 0; i < vm.torosCollection.length; i++) {
                     listaToros.push(vm.torosCollection[i].idBovino);
                 }
@@ -90,17 +99,19 @@
             else if (vm.inseminacion.idTipoInseminacion === '2' || vm.inseminacion.idTipoInseminacion === 2)
                 listaToros.push(vm.toro.idBovino);
             vm.inseminacion.tipoInseminacion = vm.inseminacion.idTipoInseminacion;
-            if ((lista.length === 0 && vm.inseminacion.tipoInseminacion === 1) || (lista.length === 0 && vm.inseminacion.tipoInseminacion === '2' && listaToros.length === 0))
+            if ((lista.length === 0 && vm.inseminacion.tipoInseminacion === '1') || (lista.length === 0 && vm.inseminacion.tipoInseminacion === '2' && listaToros.length === 0))
                 $('#modalConfirmEliminarInseminacion').modal('show');
-            else if (lista.length > 0 && vm.inseminacion.tipoInseminacion === '2' && listaToros.length === 0)
+            else if ((lista.length > 0 && vm.inseminacion.tipoInseminacion === '2' && listaToros.length === 0) || (tipoInseminacionOriginal === '2' && vm.inseminacion.idTipoInseminacion === '1'))
                 $('#modalConfirmEliminarInseminacionSinToros').modal('show');
             else
                 modificar();
         };
 
         function modificar() {
-            if (listaToros.length === 0)
+            if (listaToros.length === 0) {
                 vm.inseminacion.tipoInseminacion = 1;
+                vm.torosCollection = [];
+            }                
             $scope.$parent.blockSpinnerSave();
             if (vm.desde === 'servicioSinConfirm') {
                 modificarInseminacionService.modificar(vm.inseminacion, lista.toString(), listaToros.toString(), fechaInseminacionOriginal).then(function success(data) {
@@ -113,16 +124,21 @@
                     toastr.success('Se modificó la inseminación con éxito ', 'Éxito');
                 }, function error(data) {
                     //vm.showSpinner = false;
-                    $scope.$parent.unBllockSpinnerSave();
+                    $scope.$parent.unBlockSpinnerSave();
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }
             else {
+                if (vm.inseminacion.idTipoInseminacion === '1' && tipoInseminacionOriginal === '2')
+                    vm.inseminacion.idToro = 0;
+                else
+                    vm.inseminacion.idToro = vm.toro.idBovino;
                 modificarInseminacionService.update(vm.inseminacion, vm.tacto).then(function success(data) {
                     //vm.habilitar = false;
                     //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinnerSave();
                     $('#modalConfirmEliminarInseminacion').modal('hide');
+                    $('#modalConfirmEliminarInseminacionSinToros').modal('hide');
                     toastr.success('Se modificó la inseminación con éxito ', 'Éxito');
                 }, function error(data) {
                     //vm.showSpinner = false;
@@ -130,13 +146,13 @@
                     toastr.error('La operación no se pudo completar', 'Error');
                 })
             }
-        }
+        };
 
         function openPopUp(id, caravana) {
             idVacaEliminar = id;
             vm.nroCaravana = caravana;
             $('#modalConfirmEliminarVaca').modal('show');
-        }
+        };
 
         function eliminar() {
             for (var i = 0; i < vm.rowCollection.length; i++) {
@@ -144,21 +160,56 @@
                     vm.rowCollection.splice(i, 1);
             }
             $('#modalConfirmEliminarVaca').modal('hide');
-        }
+        };
 
         function openPopUpToro(id, caravana) {
             idToroEliminar = id;
             vm.nroCaravanaToro = caravana;
             $('#modalConfirmEliminarToro').modal('show');
-        }
+        };
 
         function eliminarToro() {
             for (var i = 0; i < vm.torosCollection.length; i++) {
                 if (vm.torosCollection[i].idBovino === idToroEliminar)
                     vm.torosCollection.splice(i, 1);
             }
+            if (vm.torosCollection.length === 0)
+                vm.inseminacion.idTipoInseminacion = '1';
             $('#modalConfirmEliminarToro').modal('hide');
-        }
+        };
+
+        function buscarTorosCampo() {
+            $scope.$parent.blockSpinner();
+            modificarInseminacionService.getTorosCampo($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
+                vm.torosCampo = data;
+                $scope.$parent.unBlockSpinner();
+                $('#modalToros').modal('show');
+            }, function error(error) {
+                $scope.$parent.unBlockSpinner();
+                toastr.error('La operación no se pudo completar', 'Error');
+            });
+        };
+
+        function agregarToro(toro) {
+            if (vm.desde === 'preniez') {
+                vm.toro = toro;
+                $('#modalToros').modal('hide');
+            }
+            else {
+                if (!vm.torosCollection)
+                    vm.torosCollection = [];
+                vm.torosCollection.push(toro);
+            }
+            toastr.success('Se asocio el Toro con número de caravana ' + toro.numCaravana + ' con éxito', 'ÉXITO');
+            vm.habilitarXToros = true;
+        };
+
+        function validarToros() {
+            if (tipoInseminacionOriginal === '1' && vm.inseminacion.idTipoInseminacion === '2')
+                vm.habilitarXToros = false;
+            else
+                vm.habilitarXToros = true;
+        };
 
         function convertirFecha(fecha) {
             var dia, mes, año;

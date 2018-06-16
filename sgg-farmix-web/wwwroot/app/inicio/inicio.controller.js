@@ -14,6 +14,7 @@
         $scope.inicializar = inicializar();
         $scope.irAConflictos = irAConflictos;
         $scope.cerrar = cerrar;
+        $scope.prueba = prueba;
 
         function inicializar() {
             //$scope.showSpinner = true;
@@ -109,10 +110,13 @@
             $state.go('home.conflictos');
         };
 
-        //function prueba() {
-        //    inicioService.prueba($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
-        //        var hola = data;
-        //    })
-        //}
+        function prueba() {
+            var inseminacion = { tipoInseminacion: 2, fechaInseminacion: '20180611', codigoCampo: 100 };
+            var listaToros = '59';
+            var listaVacas = '50';
+            inicioService.prueba(inseminacion, listaVacas, listaToros).then(function success(data) {
+                var hola = data;
+            })
+        }
     }//fin controlador
 })();

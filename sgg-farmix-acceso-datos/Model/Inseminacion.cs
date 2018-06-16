@@ -14,6 +14,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string fechaEstimadaNacimiento { get; set; }
         public long tipoInseminacion { get; set; }
         public long codigoCampo { get; set; }
+        public long idToro { get; set; }
     }
     public class InseminacionInit
     {

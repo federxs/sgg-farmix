@@ -27,7 +27,7 @@
                         </label>
                         <select class="form-control" name="tipoInseminacion" required
                                 ng-disabled="!habilitar"
-                                ng-model="inseminacion.idTipoInseminacion">
+                                ng-model="inseminacion.idTipoInseminacion" ng-change="validarToros()">
                             <option value="">Seleccione...</option>
                             <option ng-repeat="item in tiposInseminacion"
                                     value="{{ item.idTipoInseminacion }}">
@@ -39,7 +39,10 @@
                                 Este campo es requerido
                             </span>
                         </div>
-                    </div>
+                        <div ng-show="inseminacion.idTipoInseminacion === '2' && ((!toro &&  desde === 'preniez') || (!torosCollection &&  desde !== 'preniez'))">
+                            <span style="color:#0f0f73">Usted ha cambiado el Tipo de inseminación a <b>"Montura"</b>. Es necesario asociar 1 o más toros a dicha inseminación, click <a ng-click="buscarTorosCampo()" style="cursor:pointer;">Aquí</a>.</span>
+                        </div>
+                    </div>                    
                     <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formModificarInseminacion.fechaInseminacion.$touched && formModificarInseminacion.fechaInseminacion.$valid,
                  'has-error has-feedback':formModificarInseminacion.fechaInseminacion.$touched && formModificarInseminacion.fechaInseminacion.$invalid}">
                         <label>
@@ -78,7 +81,7 @@
                         Tacto
                     </legend>
                     <div class="col-md-12">
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="margin-left: -25px;">
                             <label>
                                 Fecha Tacto
                             </label>
@@ -265,7 +268,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="panel panel-default" ng-show="inseminacion.idTipoInseminacion === '2'">
+                <div class="panel panel-default" ng-show="inseminacion.idTipoInseminacion === '2' && toro">
                     <div class="panel-heading">Datos del toro</div>
                     <div class="panel-body">
                         <div class="row">
@@ -325,7 +328,7 @@
     </fieldset>
     <div class="row">
         <button type="submit" style="margin-left:15px;" class="btn btn-primary"
-                ng-disabled="formModificarInseminacion.$invalid || !habilitar"
+                ng-disabled="formModificarInseminacion.$invalid || !habilitar || !habilitarXToros"
                 ng-click="antesDeModificar()">
             Aceptar
         </button>
@@ -399,11 +402,65 @@
                 <h4 class="modal-title">Confirmar modificación</h4>
             </div>
             <div class="modal-body">
-                <p>Está inseminación quedo sin toros asociadas, se procedera a pasar la inseminación como <b>"Artificial"</b>. ¿Está seguro que desea seguir adelante con la acción?</p>
+                <p>Está inseminación quedó o quedará sin toros asociadas, se procedera a pasar la inseminación como <b>"Artificial"</b>. ¿Está seguro que desea seguir adelante con la acción?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" ng-click="modificar('', '')">Si</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalToros" class="modal fade" role="dialog" style="overflow-y: scroll;">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Toros de su campo</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{tituloModalToros}}</p>
+                <table st-table="tCollection" st-safe-src="torosCampo" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th st-sort="numCaravana">N° Caravana</th>
+                            <th st-sort="estadoNombre">Estado</th>
+                            <th st-sort="categoriaNombre">Categoría</th>
+                            <th st-sort="razaNombre">Raza</th>
+                            <th st-sort="rodeoNombre">Rodeo</th>
+                            <th st-sort="peso">Peso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="t in tCollection">
+                            <td>{{t.numCaravana}}</td>
+                            <td>{{t.estadoNombre}}</td>
+                            <td>{{t.categoriaNombre | uppercase}}</td>
+                            <td>{{t.razaNombre | uppercase}}</td>
+                            <td>{{t.rodeoNombre | uppercase}}</td>
+                            <td>{{t.peso}}</td>
+                            <td>
+                                <a title="Asociar toro a Inseminación" ng-click="agregarToro(t)" style="cursor:pointer;"><span class="fa fa-plus"></span></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <label for="items">Registros por página</label>
+                                <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                            </td>
+                            <td colspan="5" class="text-center">
+                                <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
             </div>
         </div>
     </div>

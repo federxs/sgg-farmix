@@ -13,7 +13,8 @@
             getHembrasServicio: getHembrasServicio,
             getLactancias: getLactancias,
             modificar: modificar,
-            update: update
+            update: update,
+            getTorosCampo: getTorosCampo
         };
 
         function getInseminacion(fecha) {
@@ -66,6 +67,18 @@
                 params: { value: inseminacion, tacto: tacto },
                 headers: portalService.getHeadersServer()
             })
+        }
+
+        function getTorosCampo(codigoCampo) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Campo/GetToros',
+                params: { codigoCampo: codigoCampo },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
         }
         return service;
     }

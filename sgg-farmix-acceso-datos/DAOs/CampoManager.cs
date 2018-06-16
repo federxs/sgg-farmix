@@ -141,5 +141,28 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = null;
             }
         }
+
+        public IEnumerable<BovinoItem> GetToros(long codigoCampo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", codigoCampo }
+                };
+                var toros = connection.GetArray<BovinoItem>("spGetTorosCampo", parametros, System.Data.CommandType.StoredProcedure);
+                return toros;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }
