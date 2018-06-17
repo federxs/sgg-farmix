@@ -504,5 +504,39 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = null;
             }
         }
+
+        public int CreateNacimiento(string fecha, List<long> madres, long idToro, long codigoCampo)
+        {
+            connection = new SqlServerConnection();
+            try
+            {
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@fechaNacimiento", fecha },
+                    {"@codigoCampo", codigoCampo },
+                    {"@idBovinoMadre", null },
+                    {"@idBovinoPadre", null }
+                };                
+                for (int i = 0; i < madres.Count(); i++)
+                {
+                    parametros["@idBovinoMadre"] = madres.ElementAt(i);
+                    if(idToro != 0)
+                        parametros["@idBovinoPadre"] = idToro;
+                    var insert = connection.Execute("spRegistrarNacimiento", parametros, System.Data.CommandType.StoredProcedure);
+                    if (insert == 0)
+                        throw new ArgumentException("Create Nacimiento Error");
+                }               
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }

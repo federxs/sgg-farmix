@@ -111,10 +111,17 @@
         };
 
         function prueba() {
-            var inseminacion = { tipoInseminacion: 2, fechaInseminacion: '20180611', codigoCampo: 100 };
+            /*var inseminacion = { tipoInseminacion: 2, fechaInseminacion: '20180611', codigoCampo: 100 };
             var listaToros = '59';
             var listaVacas = '50';
             inicioService.prueba(inseminacion, listaVacas, listaToros).then(function success(data) {
+                var hola = data;
+            })*/
+            var fechaNacimiento = '20180617';
+            var listaMadres = '48';
+            var toro = '';
+            var codigoCampo = 100;
+            inicioService.prueba(fechaNacimiento, listaMadres, toro, codigoCampo).then(function success(data) {
                 var hola = data;
             })
         }

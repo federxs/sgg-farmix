@@ -373,5 +373,41 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Bovino/registrarNacimientos")]
+        [HttpPost]
+        [AutorizationToken]
+        public int RegistrarNacimiento(string fechaNacimiento, string listaMadres, string toro, string codigoCampo)
+        {
+            try
+            {
+                List<long> idsMadres = new List<long>();
+                var aux = "";
+                for (int i = 0; i < listaMadres.Count(); i++)
+                {
+                    if (listaMadres.ElementAt(i) != ',')
+                        aux = aux + listaMadres.ElementAt(i);
+                    else
+                    {
+                        idsMadres.Add(long.Parse(aux));
+                        aux = "";
+                    }
+                }
+                idsMadres.Add(long.Parse(aux));
+                long idToro = 0;
+                if (toro != null)
+                    idToro = long.Parse(toro);
+                var codCampo = long.Parse(codigoCampo);
+                return BM.CreateNacimiento(fechaNacimiento, idsMadres, idToro, codCampo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

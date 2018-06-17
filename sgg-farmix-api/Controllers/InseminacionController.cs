@@ -19,6 +19,7 @@ namespace sgg_farmix_api.Controllers
 
         [Route("api/Inseminacion/Insert")]
         [HttpPost]
+        [AutorizationToken]
         public Inseminacion Post(string inseminacion, string listaVacas, string listaToros)
         {
             try

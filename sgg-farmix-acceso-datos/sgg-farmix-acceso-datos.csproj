@@ -83,6 +83,7 @@
     <Compile Include="Model\Menu.cs" />
     <Compile Include="Model\MoveFiles.cs" />
     <Compile Include="Model\Multimedia.cs" />
+    <Compile Include="Model\Nacimiento.cs" />
     <Compile Include="Model\Pais.cs" />
     <Compile Include="Model\Provincia.cs" />
     <Compile Include="Model\Raza.cs" />

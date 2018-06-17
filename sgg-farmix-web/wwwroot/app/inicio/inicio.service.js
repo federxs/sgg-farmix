@@ -38,11 +38,14 @@
             })
         };
 
-        function prueba(inseminacion, vacas, toros) {
+        function prueba(fecha, madres, toro, codigoCampo) {
             return $http({
                 method: 'POST',
-                url: portalService.getUrlServer() + 'api/Inseminacion/Insert',
-                params: { inseminacion: inseminacion, listaVacas: vacas, listaToros: toros }
+                url: portalService.getUrlServer() + 'api/Bovino/registrarNacimientos',
+                params: { fechaNacimiento: fecha, listaMadres: madres, toro: toro, codigoCampo: codigoCampo },
+                headers: portalService.getHeadersServer()
+                //url: portalService.getUrlServer() + 'api/Inseminacion/Insert',
+                //params: { inseminacion: inseminacion, listaVacas: vacas, listaToros: toros }
             }).then(
             function (data) {
                 return data.data || [];
