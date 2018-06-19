@@ -9,6 +9,6 @@
 
     function consultarReportesController($scope) {
         var vm = $scope;
-        
+        $scope.$parent.unBlockSpinner();
     }
 })();
