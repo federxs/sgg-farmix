@@ -1,20 +1,19 @@
 ﻿angular.module('starter')
     .service('nacimientoServiceHTTP', function ($http, portalService) {
-        var nacimientoUrl = portalService.getUrlServer() + "api/Inseminacion/";
+        var nacimientoUrl = portalService.getUrlServer() + "api/Bovino/registrarNacimientos";
 
-        this.registrarNacimiento = function (listaBovinosMadres, fechaNacimiento) {
-
+        this.registrarNacimiento = function (listaBovinosMadres, fechaNacimiento, idToro, idCampo) {
             $http({
                 method: 'POST',
-                url: nacimientoUrl + "Insert",
-                params: { listaMadres: listaBovinosMadres.toString(), fechaNacimiento: fechaNacimiento },
+                url: nacimientoUrl,
+                params: { fechaNacimiento: fechaNacimiento, listaMadres: listaBovinosMadres.toString(), toro: idToro, codigoCampo: idCampo},
                 headers: portalService.getHeadersServer()
             });
         }
     })
 
      .service('nacimientoServiceDB', function ($q, $rootScope) {
-         this.registrarNacimiento = function (listaBovinosMadres, fechaNacimiento) {
+         this.registrarNacimiento = function (listaBovinosMadres, fechaNacimiento, idToro, idCampo) {
              $rootScope.db.transaction(function (tx) {
                  tx.executeSql("INSERT OR IGNORE INTO Nacimiento(fechaNacimiento) VALUES(?)", [fechaNacimiento]);
                  var idNacimiento = tx.executeSql("SELECT last_insert_rowid() FROM Nacimiento", [],
@@ -56,12 +55,12 @@
 
 
     .service('nacimientoService', function (nacimientoServiceHTTP, nacimientoServiceDB, $rootScope, $localStorage) {
-        this.registrarNacimiento = function (listaBovinosMadres, fechaNacimiento) {
+        this.registrarNacimiento = function (listaBovinosMadres, fechaNacimiento, idToro, idCampo) {
             if ($rootScope.online) {
-                nacimientoServiceHTTP.registrarNacimiento(listaBovinosMadres, fechaNacimiento);
+                nacimientoServiceHTTP.registrarNacimiento(listaBovinosMadres, fechaNacimiento, idToro, idCampo);
             } else {
-                $localStorage.actualizar = true;
-                nacimientoServiceDB.registrarNacimiento(listaBovinosMadres, fechaNacimiento);
+                $localStorage.actualizar = false;
+                nacimientoServiceDB.registrarNacimiento(listaBovinosMadres, fechaNacimiento, idToro, idCampo);
             }
         }
 
@@ -76,7 +75,7 @@
                             bovinos.forEach(function (bovino) {
                                 listaBovinosMadres.push = [bovino.idBovino];
                             })
-                            nacimientoServiceHTTP.registrarNacimiento(listaBovinosMadres, nacimiento.fechaNacimiento);
+                            nacimientoServiceHTTP.registrarNacimiento(listaBovinosMadres, fechaNacimiento, idToro, idCampo);
                         }).then(function () {
                             nacimientoServiceDB.limpiarNacimientos();
                         })

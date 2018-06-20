@@ -3,8 +3,6 @@ angular.module('starter')
         if ($rootScope.logueado == false) {
             $state.go('app.bienvenido');
         }
-        $rootScope.evento = {};
-        $rootScope.evento.tipoInseminacion = "0";
 
         $scope.registrar = function () {
             if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
@@ -28,6 +26,6 @@ angular.module('starter')
         function registrarNacimiento() {
             var date = new Date();
             var formattedDate = moment(date).format('YYYYMMDD');
-            return nacimientoService.registrarNacimiento($rootScope.idVacas, formattedDate, $localStorage.campo);
+            return nacimientoService.registrarNacimiento($rootScope.idVacas, formattedDate, $rootScope.idToros[0], $localStorage.campo);
         }
     });

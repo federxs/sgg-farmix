@@ -11,6 +11,14 @@
                 <td>{{vaca.apodo}}</td>
             </tr>
         </table><br>
+        <table ng-if="idToros[0] != '' && idToros[0] != undefined" class="bordeTabla">
+            <tr>
+                <th>Toro padre</th>
+            </tr>
+            <tr class="itemTabla">
+                <td>{{idToros[0]}}</td>
+            </tr>
+        </table>
         <button ng-click="registrar()" class="button bordeBoton botonInseminacion" ion-button>Registrar Nacimiento</button>
     </ion-content>
 </ion-view>

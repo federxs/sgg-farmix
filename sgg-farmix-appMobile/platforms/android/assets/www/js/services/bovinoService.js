@@ -56,24 +56,52 @@
 
     .service('bovinoServiceDB', function ($q, $rootScope, $localStorage) {
         this.getDatosBovino = function (id) {
-            return $q(function (resolve, reject) {
+            var bovino = $q(function (resolve, reject) {
                 $rootScope.db.executeSql("SELECT * FROM Bovino WHERE idBovino=?", [id],
                   function (resultado) {
                       resolve(resultado.rows.item(0));
                   },
                   reject);
             });
+            bovino.idEstado = $q(function (resolve, reject) {
+                $rootScope.db.executeSql("SELECT nombre FROM Estado WHERE idEstado=?", [bovino.idEstado],
+                  function (resultado) {
+                      resolve(resultado.rows.item(0));
+                  },
+                  reject);
+            });
+            bovino.idRaza = $q(function (resolve, reject) {
+                $rootScope.db.executeSql("SELECT nombre FROM Raza WHERE idRaza=?", [bovino.idRaza],
+                  function (resultado) {
+                      resolve(resultado.rows.item(0));
+                  },
+                  reject);
+            });
+            bovino.idCategoria = $q(function (resolve, reject) {
+                $rootScope.db.executeSql("SELECT nombre FROM Categoria WHERE idCategoria=?", [bovino.idCategoria],
+                  function (resultado) {
+                      resolve(resultado.rows.item(0));
+                  },
+                  reject);
+            });
+            return bovino;
         }
 
         this.actualizarDatosBovino = function (bovino) {
-            var genero = 0;//, escrito = 0;
-            if (bovino.genero) {
+            alert(bovino.genero);
+            alert(bovino.enfermo);
+            var genero = 0, enfermo = 0;
+            if (bovino.genero || bovino.genero==1) {
+                alert("genero");
                 genero = 1;
             }
-            /*if (bovino.escrito) {
-                escrito = 1;
-            }*/
-            $rootScope.db.executeSql("UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, escrito=?, fechaEstimadaParto=?, paraActualizar=0 WHERE idBovino=?", [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.idBovino]);
+            if (bovino.enfermo || bovino.enfermo == 1) {
+                alert("enfermo");
+                enfermo = 1;
+            }
+            alert(genero);
+            alert(enfermo);
+            $rootScope.db.executeSql("UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, fechaEstimadaParto=?, enfermo=? paraActualizar=0 WHERE idBovino=?", [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.enfermo, bovino.idBovino]);
         }
 
         this.getBovinos = function () {
@@ -101,18 +129,12 @@
                     escrito = 0;
                 }
                 //igual nos quedarian los bovinos que fueron borrados desde el sistema, nos quedarian en nuestra bd local... (supongo que no hay drama).
-                sqlStatments.push(["INSERT OR REPLACE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, paraActualizar, fechaEstimadaParto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito, bovino.fechaEstimada]]);
-                /* if ($localStorage.actualizar) {
-                     sqlStatments.push(["UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, escrito=?, fechaEstimadaParto=?, paraActualizar=0 WHERE idBovino=?"], [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.idBovino]);
-                 } else {
-                     sqlStatments.push(["INSERT OR IGNORE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, paraActualizar, fechaEstimadaParto) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito, bovino.fechaEstimada]]);
-                 }*/
+                sqlStatments.push(["INSERT OR REPLACE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, paraActualizar) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito]]);
             });
 
             return $q(function (resolve, reject) {
                 $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
             });
-            //$localStorage.actualizar = true;
         }
 
         this.escribirTag = function (id) {
