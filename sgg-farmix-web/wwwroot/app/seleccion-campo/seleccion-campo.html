@@ -187,9 +187,33 @@
             </div>
         </div>
     </div>
-    <div class="circulo" ng-show="idRol === 1">
+    <div class="circulo" ng-show="idRol === 1" style="right:90px">
         <span ng-click="validarCantCampos()" title="Agregar campo">
             <span style="color:white;font-size:35px;vertical-align:middle;margin-top:0">+</span>
         </span>
+    </div>
+    <div class="circulo">
+        <span data-toggle="modal" data-target="#modalConfirmCerrarSesion" title="Cerrar Sesión">
+            <span style="color:white;font-size:35px;vertical-align:middle;margin-top:0"><i class="fa fa-sign-out"></i></span>
+        </span>
+    </div>
+</div>
+
+<div id="modalConfirmCerrarSesion" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Atención</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea cerrar sesión?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="cerrarSesion()">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
     </div>
 </div>

@@ -4,6 +4,13 @@ var rename = require('gulp-rename');
 var uglify = require('gulp-uglify-es').default;
 var angularOrder = require('gulp-angular-order');
 
+
+gulp.task('default', ['watch']);
+
+gulp.task('watch', function() {
+  gulp.watch('./wwwroot/app/**/*.js', ['scripts']);
+});
+
 gulp.task('scripts', function() {
     return gulp.src(['./wwwroot/app/**/*.js'])
         .pipe(angularOrder())

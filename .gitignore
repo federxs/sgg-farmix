@@ -333,3 +333,5 @@ sgg-farmix-web\obj\Debug\netcoreapp1.0\.SDKVersion
 
 
 
+sgg-farmix-web/wwwroot/todo.js
+sgg-farmix-web/wwwroot/todo.min.js

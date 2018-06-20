@@ -15,6 +15,7 @@
         vm.inicializar = inicializar();
         vm.seleccionarCampo = seleccionarCampo;
         vm.validarCantCampos = validarCantCampos;
+        vm.cerrarSesion = cerrarSesion;
         $localStorage.usuarioInfo = {};
         vm.idRol = $sessionStorage.usuarioInfo.idRol;
         //var imagenes = ['../../images/campo1.jpg', '../../images/campo2.jpg', '../../images/campo3.jpg', '../../images/campo4.jpg', '../../images/campo5.jpg'];
@@ -48,6 +49,13 @@
             }, function error(error) {
                 toastr.error("Se ha producido un error, reintentar.");
             });
+        };
+
+        function cerrarSesion() {
+            $localStorage.usuarioInfo = undefined;
+            $sessionStorage.usuarioInfo = undefined;
+            $('#modalConfirmCerrarSesion').modal('hide');
+            $state.go('login');
         };
     }
 })();
