@@ -59,7 +59,7 @@
                 $state.go('app.escribir', {}, { reload: true });
             } else if ($state.current.name == "app.leer" || $state.current.name == "app.resultado/:id") {
                 var id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
-                $state.go('app.resultado/:id', { id: id });
+                $state.go('app.resultado/:id', { id: id }, {reload: true});
             } else if ($state.current.name == "app.vacunacion" || $state.current.name == "app.manejo" || $state.current.name == "app.antibiotico" || $state.current.name == "app.alimento" || $state.current.name == "app.registrarInseminacion") {
                 $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
                 if (($rootScope.idVacas == undefined && $rootScope.idToros == undefined) || estaEscaneado($scope.id) == false) {

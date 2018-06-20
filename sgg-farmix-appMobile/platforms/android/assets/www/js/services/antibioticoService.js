@@ -23,7 +23,7 @@
             var sqlStatments = [];
             antibioticos.forEach(function (antibiotico) {
                 //lo mismo que en actualizarAlimentos
-                sqlStatments.push(["INSERT OR IGNORE INTO Antibiotico(idAntibiotico, nombre) VALUES(?, ?)", [antibiotico.idAntibiotico, antibiotico.nombre]]);
+                sqlStatments.push(["INSERT OR REPLACE INTO Antibiotico(idAntibiotico, nombre) VALUES(?, ?)", [antibiotico.idAntibiotico, antibiotico.nombre]]);
             });
 
             return $q(function (resolve, reject) {

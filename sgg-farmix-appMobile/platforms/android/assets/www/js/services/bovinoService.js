@@ -57,28 +57,7 @@
     .service('bovinoServiceDB', function ($q, $rootScope, $localStorage) {
         this.getDatosBovino = function (id) {
             var bovino = $q(function (resolve, reject) {
-                $rootScope.db.executeSql("SELECT * FROM Bovino WHERE idBovino=?", [id],
-                  function (resultado) {
-                      resolve(resultado.rows.item(0));
-                  },
-                  reject);
-            });
-            bovino.idEstado = $q(function (resolve, reject) {
-                $rootScope.db.executeSql("SELECT nombre FROM Estado WHERE idEstado=?", [bovino.idEstado],
-                  function (resultado) {
-                      resolve(resultado.rows.item(0));
-                  },
-                  reject);
-            });
-            bovino.idRaza = $q(function (resolve, reject) {
-                $rootScope.db.executeSql("SELECT nombre FROM Raza WHERE idRaza=?", [bovino.idRaza],
-                  function (resultado) {
-                      resolve(resultado.rows.item(0));
-                  },
-                  reject);
-            });
-            bovino.idCategoria = $q(function (resolve, reject) {
-                $rootScope.db.executeSql("SELECT nombre FROM Categoria WHERE idCategoria=?", [bovino.idCategoria],
+                $rootScope.db.executeSql("SELECT B.idBovino, B.numCaravana, B.apodo, B.descripcion, B.fechaNacimiento, B.genero, B.peso, B.fechaEstimadaParto, B.enfermo, C.nombre AS idCategoria, R.nombre AS idRaza, E.nombre AS idEstado FROM Bovino B JOIN Categoria C ON B.idCategoria = C.idCategoria JOIN Raza R ON B.idRaza = R.idRaza JOIN Estado E ON B.idEstado = E.idEstado WHERE idBovino=?", [id],
                   function (resultado) {
                       resolve(resultado.rows.item(0));
                   },
@@ -95,7 +74,7 @@
             if (bovino.enfermo || bovino.enfermo == 1) {
                 enfermo = 1;
             }
-            $rootScope.db.executeSql("UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, fechaEstimadaParto=?, enfermo=? paraActualizar=0 WHERE idBovino=?", [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.enfermo, bovino.idBovino]);
+            $rootScope.db.executeSql("UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, fechaEstimadaParto=?, enfermo=?, paraActualizar=0 WHERE idBovino=?", [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.enfermo, bovino.idBovino]);
         }
 
         this.getBovinos = function () {
@@ -123,7 +102,7 @@
                     escrito = 0;
                 }
                 //igual nos quedarian los bovinos que fueron borrados desde el sistema, nos quedarian en nuestra bd local... (supongo que no hay drama).
-                sqlStatments.push(["INSERT OR REPLACE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, paraActualizar) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito]]);
+                sqlStatments.push(["INSERT OR REPLACE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, enfermo, paraActualizar) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito, bovino.enfermo]]);
             });
 
             return $q(function (resolve, reject) {

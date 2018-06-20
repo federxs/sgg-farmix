@@ -1,7 +1,9 @@
 ﻿angular.module('starter')
     .service('servicio', function (bovinoService, inseminacionService, nacimientoService, registrarEventoService, verificacionInseminacionService) {
         this.posts = function () {
+            //funciona
             bovinoService.actualizarBovinosBackend();
+            //probar
             inseminacionService.actualizarInseminacionesBackend();
             nacimientoService.actualizarNacimientosBackend();
             registrarEventoService.actualizarEventosBackend();

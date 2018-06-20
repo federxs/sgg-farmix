@@ -22,7 +22,7 @@
         this.actualizarVacunas = function (vacunas) {
             var sqlStatments = [];
             vacunas.forEach(function (vacuna) {
-                sqlStatments.push(["INSERT OR IGNORE INTO Vacuna(idVacuna, nombre) VALUES(?, ?)", [vacuna.idVacuna, vacuna.nombre]]);
+                sqlStatments.push(["INSERT OR REPLACE INTO Vacuna(idVacuna, nombre) VALUES(?, ?)", [vacuna.idVacuna, vacuna.nombre]]);
             });
 
             return $q(function (resolve, reject) {

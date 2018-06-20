@@ -28,7 +28,7 @@
                 } else {
                     confinado = 0;
                 }
-                sqlStatments.push(["INSERT OR IGNORE INTO Rodeo(idRodeo, nombre, confinado) VALUES(?, ?, ?)", [rodeo.idAlimento, rodeo.nombre, confinado]]);
+                sqlStatments.push(["INSERT OR REPLACE INTO Rodeo(idRodeo, nombre, confinado) VALUES(?, ?, ?)", [rodeo.idAlimento, rodeo.nombre, confinado]]);
             });
 
             return $q(function (resolve, reject) {
