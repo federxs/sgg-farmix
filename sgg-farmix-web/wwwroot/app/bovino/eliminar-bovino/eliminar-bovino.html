@@ -117,7 +117,7 @@
                     </div>
                 </div>
                 <div ng-show="tipoEliminacionSeleccionada == '2'" style="margin-left: -15px;">
-                    <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$valid,
+                    <div class="form-group col-md-6 col-lg-6" style="margin-left: 15px;" ng-class="{'has-success has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$valid,
                              'has-error has-feedback':formEliminarBovino.fechaMuerte.$touched && formEliminarBovino.fechaMuerte.$invalid}">
                         <label class="control-label" for="fechaMuerte">
                             Fecha de Muerte
@@ -159,7 +159,7 @@
                 <h4 class="modal-title">Confirmar eliminación</h4>
             </div>
             <div class="modal-body">
-                <p>¿Está seguro que desea eliminar el bovino con número de caravana {{nroCaravana}}?</p>
+                <p>¿Está seguro que desea dar de <b>Baja</b> el bovino con número de caravana {{nroCaravana}}?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" ng-click="eliminar()">Si</button>

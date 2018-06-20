@@ -21,6 +21,8 @@
         vm.validarCantBovinos = validarCantBovinos;
         vm.changeEstados = changeEstados;
         vm.changeCategorias = changeCategorias;
+        vm.openPopUp = openPopUp;
+        vm.eliminar = eliminar;
         //variables
         vm.razas = [];
         vm.estados = [];
@@ -31,6 +33,7 @@
         vm.cursor = '';
         var estados = [];
         var categorias = [];
+        var idBovinoEliminar = 0;
         function inicializar() {
             //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
@@ -505,5 +508,26 @@
             else
                 vm.categorias = categorias;
         };
+
+        function openPopUp(numCaravana, idBovino) {
+            vm.numCaravana = numCaravana;
+            idBovinoEliminar = idBovino;
+            $('#modalConfirmEliminar').modal('show');
+        };
+
+        function eliminar() {
+            $scope.$parent.blockSpinnerSave();
+            consultarBovinoService.eliminarBovino({ idBovino: idBovinoEliminar, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function () {
+                $('#modalConfirmEliminar').modal('hide');
+                toastr.success('Bovino eliminado con éxito', 'Éxito');
+                $scope.$parent.unBlockSpinnerSave();
+                vm.consultar();
+            }, function (error) {
+                $('#modalConfirmEliminar').modal('hide');
+                $scope.$parent.unBlockSpinnerSave();
+                //vm.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            })
+        }
     }
 })();

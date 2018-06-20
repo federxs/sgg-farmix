@@ -32,7 +32,7 @@ namespace sgg_farmix_acceso_datos.Model
         public long? codigoCampo { get; set; }
         public string diasFaltantesXDarALuz { get; set; }
         public int enfermo { get; set; }
-        public long idNacimiento { get; set; }
+        public long? idNacimiento { get; set; }
     }
 
     public class BovinoFilter

@@ -13,5 +13,6 @@ namespace sgg_farmix_acceso_datos.Model
         public float monto { get; set; }
         public long idEstablecimientoDestino { get; set; }
         public long idBovino { get; set; }
+        public long codigoCampo { get; set; }
     }
 }

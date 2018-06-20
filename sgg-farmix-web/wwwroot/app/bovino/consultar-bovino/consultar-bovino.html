@@ -180,7 +180,8 @@
                     <td>
                         <a ui-sref="home.modificarBovino({id:item.idBovino})" title="Modificar" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="fa fa-pencil"></span></a>
                         <a ui-sref="home.detalleBovino({id:item.idBovino})" title="Ver"><span class="fa fa-search"></span></a>
-                        <a ui-sref="home.eliminarBovino({id:item.idBovino})" title="Eliminar" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="fa fa-trash"></span></a>
+                        <a  title="Eliminar" ng-click="openPopUp(item.numCaravana, item.idBovino)" style="cursor:pointer;" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="fa fa-trash"></span></a>
+                        <a ui-sref="home.eliminarBovino({id:item.idBovino})" title="Dar de baja" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="fa fa-window-close"></span></a>
                     </td>
                 </tr>
             </tbody>
@@ -196,5 +197,24 @@
                 </tr>
             </tfoot>
         </table>
+    </div>
+</div>
+<!--Modal-->
+<div id="modalConfirmEliminar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar eliminación</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea eliminar el bovino con número de caravana {{numCaravana}}?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="eliminar()">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
     </div>
 </div>

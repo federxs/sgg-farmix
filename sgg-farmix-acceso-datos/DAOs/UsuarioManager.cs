@@ -18,14 +18,15 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public void Delete(long id)
+        public void Delete(long id, long codigoCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@idUsuario", id }
+                    {"@idUsuario", id },
+                    {"@codigoCampo", codigoCampo }
                 };
                 var delete = connection.Execute("spBajaUsuario", parametros, System.Data.CommandType.StoredProcedure);
                 if(delete == 0)
@@ -233,14 +234,15 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public void Activar(long id)
+        public void Activar(long id, long codigoCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@idUsuario", id }
+                    {"@idUsuario", id },
+                    {"@codigoCampo", codigoCampo }
                 };
                 var activar = connection.Execute("spActivarUsuario", parametros, System.Data.CommandType.StoredProcedure);
                 if(activar == 0)
@@ -353,6 +355,11 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection.Close();
                 connection = null;
             }
+        }
+
+        public void Delete(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

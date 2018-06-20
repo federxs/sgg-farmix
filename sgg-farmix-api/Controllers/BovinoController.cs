@@ -165,12 +165,14 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
+        [Route("api/Bovino/Delete")]
+        [HttpPut]
         [AutorizationToken]
-        public int Delete([FromBody] Bovino value)
+        public int Delete(long idBovino, long codigoCampo)
         {
             try
             {
-                return BM.Borrar(value.idBovino);
+                return BM.Borrar(idBovino, codigoCampo);
             }
             catch (Exception ex)
             {
@@ -256,12 +258,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Bovino/darBajaMuerte")]
         [HttpPut]
         [AutorizationToken]
-        public void DeleteMuerte(string idBovino, string fechaMuerte)
+        public void DeleteMuerte(string idBovino, string fechaMuerte, long codigoCampo)
         {
             try
             {
                 var id = Regex.Replace(idBovino, @"[^\d]", "");
-                BM.DeleteMuerte(Int64.Parse(id), fechaMuerte);
+                BM.DeleteMuerte(Int64.Parse(id), fechaMuerte, codigoCampo);
             }
             catch (Exception ex)
             {

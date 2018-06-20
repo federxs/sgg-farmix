@@ -427,7 +427,7 @@
         function eliminar() {
             //vm.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
-            consultarUsuariosService.darBajaUser(idUsuarioEliminar).then(function success() {
+            consultarUsuariosService.darBajaUser(idUsuarioEliminar, $localStorage.usuarioInfo.codigoCampo).then(function success() {
                 $('#modalConfirmEliminacionUser').modal('hide');
                 toastr.success('Se ha dado de baja al usuario con éxito', 'Éxito');
                 $scope.$parent.unBlockSpinnerSave();
@@ -450,7 +450,7 @@
         function activar() {
             //vm.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
-            consultarUsuariosService.activarUser(idUsuarioActivar).then(function success() {
+            consultarUsuariosService.activarUser(idUsuarioActivar, $localStorage.usuarioInfo.codigoCampo).then(function success() {
                 $('#modalConfirmActivacionUser').modal('hide');
                 toastr.success('Se ha activado al usuario con éxito', 'Éxito');
                 //vm.showSpinner = false;

@@ -26,6 +26,16 @@
                     },
                     headers: portalService.getHeadersServer(),
                     isArray: false
+                },
+                eliminarBovino: {
+                    method: 'PUT',
+                    url: portalService.getUrlServer() + 'api/Bovino/Delete',
+                    params: {
+                        idBovino: '@idBovino',
+                        codigoCampo: '@codigoCampo'
+                    },
+                    headers: portalService.getHeadersServer(),
+                    isArray: false
                 }
             });
         });

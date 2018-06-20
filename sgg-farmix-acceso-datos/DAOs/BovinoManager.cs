@@ -234,9 +234,30 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public int Borrar(long id)
+        public int Borrar(long id, long codigoCampo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idBovino", id },
+                    {"@codigoCampo", codigoCampo }
+                };
+                var update = connection.Execute("spDeleteBovino", parametros, System.Data.CommandType.StoredProcedure);
+                if (update == 0)
+                    throw new ArgumentException("Baja de bovino por muerte error");
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
         }
 
         public IEnumerable<BovinoItem> GetList(BovinoFilter filter)
@@ -317,7 +338,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public void DeleteMuerte(long id, string fechaMuerte)
+        public void DeleteMuerte(long id, string fechaMuerte, long codigoCampo)
         {
             try
             {
@@ -325,7 +346,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                 var parametros = new Dictionary<string, object>
                 {
                     {"@idBovino", id },
-                    {"@fechaMuerte", fechaMuerte }
+                    {"@fechaMuerte", fechaMuerte },
+                    {"@codigoCampo", codigoCampo }
                 };
                 var update = connection.Execute("spBajaBovinoMuerte", parametros, System.Data.CommandType.StoredProcedure);
                 if (update == 0)
@@ -351,7 +373,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     {"@idBovino", entity.idBovino},
                     {"@idEstabDestino", entity.idEstablecimientoDestino},
-                    {"@monto", entity.monto}
+                    {"@monto", entity.monto},
+                    {"@codigoCampo", entity.codigoCampo }
                 };
                 entity.idVenta = connection.Execute("spRegistrarVenta", parametros, System.Data.CommandType.StoredProcedure);
                 if (entity.idVenta == 0)

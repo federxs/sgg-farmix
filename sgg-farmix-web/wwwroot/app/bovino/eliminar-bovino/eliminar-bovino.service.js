@@ -28,11 +28,11 @@
             });
         }
 
-        function bajaMuerte(idBovino, fechaMuerte) {
+        function bajaMuerte(idBovino, fechaMuerte, codigoCampo) {
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Bovino/darBajaMuerte',
-                params: { idBovino: idBovino, fechaMuerte: fechaMuerte },
+                params: { idBovino: idBovino, fechaMuerte: fechaMuerte, codigoCampo: codigoCampo },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

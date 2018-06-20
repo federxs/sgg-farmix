@@ -205,12 +205,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Usuario/DarBaja")]
         [HttpPut]
         [AutorizationToken]
-        public void BajaUsuario(string idUsuario)
+        public void BajaUsuario(string idUsuario, long codigoCampo)
         {
             try
             {
                 var id = Regex.Replace(idUsuario, @"[^\d]", "");
-                UM.Delete(Int64.Parse(id));
+                UM.Delete(Int64.Parse(id), codigoCampo);
             }
             catch (Exception ex)
             {
@@ -225,12 +225,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Usuario/Activar")]
         [HttpPut]
         [AutorizationToken]
-        public void ActivarUsuario(string idUsuario)
+        public void ActivarUsuario(string idUsuario, long codigoCampo)
         {
             try
             {
                 var id = Regex.Replace(idUsuario, @"[^\d]", "");
-                UM.Activar(Int64.Parse(id));
+                UM.Activar(Int64.Parse(id), codigoCampo);
             }
             catch (Exception ex)
             {

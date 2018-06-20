@@ -63,7 +63,7 @@
             $('#modalConfirmEliminar').modal('hide');
             if (vm.tipoEliminacionSeleccionada === "2") {
                 //var fecha = convertirFecha(vm.bajaBovino.fechaMuerte);
-                eliminarBovinoService.bajaMuerte(vm.bovino.idBovino, vm.bajaBovino.fechaMuerte).then(function success(data) {
+                eliminarBovinoService.bajaMuerte(vm.bovino.idBovino, vm.bajaBovino.fechaMuerte, $localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                     //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinnerSave();
                     vm.btnVolver = "Volver";
@@ -77,6 +77,7 @@
             else {
                 vm.bajaBovino.monto = vm.bajaBovino.monto.toString().replace(',', '.');
                 vm.bajaBovino.idBovino = vm.bovino.idBovino;
+                vm.bajaBovino.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
                 eliminarBovinoService.bajaVenta(vm.bajaBovino).then(function success(data) {
                     //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinnerSave();

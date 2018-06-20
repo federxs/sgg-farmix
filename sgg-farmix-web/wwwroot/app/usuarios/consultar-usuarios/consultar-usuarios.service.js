@@ -39,11 +39,11 @@
             });
         }
 
-        function darBajaUser(idUsuario) {
+        function darBajaUser(idUsuario, codigoCampo) {
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Usuario/DarBaja',
-                params: { idUsuario: idUsuario },
+                params: { idUsuario: idUsuario, codigoCampo: codigoCampo },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {
@@ -51,11 +51,11 @@
             });
         }
 
-        function activarUser(idUsuario) {
+        function activarUser(idUsuario, codigoCampo) {
             return $http({
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Usuario/Activar',
-                params: { idUsuario: idUsuario },
+                params: { idUsuario: idUsuario, codigoCampo: codigoCampo },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {
