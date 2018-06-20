@@ -12,7 +12,7 @@
                 $q(function (resolve, reject) {
                     $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
                 });
-
+                sqlStatments = [];
                 for (var i = 0; i < respuesta.data.razas.length; i++) {
                     raza = respuesta.data.razas[i];
                     sqlStatments.push(["INSERT OR REPLACE INTO Raza(idRaza, nombre) VALUES(?, ?, ?)", [raza.idRaza, raza.nombre]]);
@@ -20,6 +20,7 @@
                 $q(function (resolve, reject) {
                     $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
                 });
+                sqlStatments = [];
                 for (var i = 0; i < respuesta.data.estados.length; i++) {
                     estado = respuesta.data.estados[i];
                     sqlStatments.push(["INSERT OR REPLACE INTO Estado(idEstado, nombre, descripcion) VALUES(?, ?, ?)", [estado.idEstado, estado.nombre, estado.descripcion]]);

@@ -88,19 +88,13 @@
         }
 
         this.actualizarDatosBovino = function (bovino) {
-            alert(bovino.genero);
-            alert(bovino.enfermo);
             var genero = 0, enfermo = 0;
             if (bovino.genero || bovino.genero==1) {
-                alert("genero");
                 genero = 1;
             }
             if (bovino.enfermo || bovino.enfermo == 1) {
-                alert("enfermo");
                 enfermo = 1;
             }
-            alert(genero);
-            alert(enfermo);
             $rootScope.db.executeSql("UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, fechaEstimadaParto=?, enfermo=? paraActualizar=0 WHERE idBovino=?", [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.enfermo, bovino.idBovino]);
         }
 

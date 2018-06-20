@@ -12,7 +12,6 @@
                 $q(function (resolve, reject) {
                     $rootScope.db.sqlBatch(sqlStatments, resolve, reject);
                 });
-
                 for (var i = 0; i < respuesta.data.razas.length; i++) {
                     raza = respuesta.data.razas[i];
                     sqlStatments.push(["INSERT OR REPLACE INTO Raza(idRaza, nombre) VALUES(?, ?, ?)", [raza.idRaza, raza.nombre]]);
