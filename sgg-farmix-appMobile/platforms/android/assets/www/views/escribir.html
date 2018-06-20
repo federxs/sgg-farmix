@@ -7,7 +7,7 @@
                 <th><strong>Número de Caravana</strong></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="bovino in bovinos" class="itemTabla">
+            <tr ng-repeat="bovino in (bovinos | limitTo:settings.pageLimit:settings.offset)" class="itemTabla">
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, true)" ion-button class="botonVerificar">Grabar Tag</button></td>
             </tr>
@@ -24,10 +24,10 @@
 		<br />
         <h3>Bovinos con Tag ya grabados</h3>
         <div ng-if="bovinosEscritos.length > 5" align="center">
-            <simple-pagination current-page="settings.currentPage"
-                               offset="settings.offset"
-                               page-limit="settings.pageLimit"
-                               page-limits="settings.pageLimits"
+            <simple-pagination current-page="settings2.currentPage"
+                               offset="settings2.offset"
+                               page-limit="settings2.pageLimit"
+                               page-limits="settings2.pageLimits"
                                on-update="callback()"
                                total="bovinosEscritos.length">
             </simple-pagination>
@@ -38,7 +38,7 @@
                 <th><strong>Número de Caravana</strong></th>
                 <th></th>
             </tr>
-            <tr ng-repeat="bovino in (bovinosEscritos | limitTo:settings.pageLimit:settings.offset)" class="itemTabla">
+            <tr ng-repeat="bovino in (bovinosEscritos | limitTo:settings2.pageLimit:settings2.offset)" class="itemTabla">
                 <td>{{bovino.numCaravana}}</td>
                 <td><button ng-click="grabar(bovino.idBovino, false)" ion-button class="botonVerificar">Grabar Tag</button></td>
             </tr>

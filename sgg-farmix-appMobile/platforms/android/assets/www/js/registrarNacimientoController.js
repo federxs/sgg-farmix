@@ -28,6 +28,6 @@ angular.module('starter')
         function registrarNacimiento() {
             var date = new Date();
             var formattedDate = moment(date).format('YYYYMMDD');
-            return nacimientoService.registrarNacimiento($rootScope.idVacas, $localStorage.campo);
+            return nacimientoService.registrarNacimiento($rootScope.idVacas, formattedDate, $localStorage.campo);
         }
     });

@@ -8,7 +8,13 @@ angular.module('starter')
             offset: 0,
             pageLimit: 5,
             pageLimits: ['5', '10', '100']
-          };        
+        };
+        $scope.settings2 = {
+            currentPage: 0,
+            offset: 0,
+            pageLimit: 5,
+            pageLimits: ['5', '10', '100']
+        };
         function cargarBovinos() {
             showIonicLoading().then(getBovinos).then(function (_bovinos) {
                 $scope.bovinosEscritos = [];
