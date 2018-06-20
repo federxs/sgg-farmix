@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('BienvenidoController', function ($ionicPlatform, $scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService) {
+    .controller('BienvenidoController', function ($ionicPlatform, $scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService, parametricasService) {
         $ionicPlatform.ready(function () {
             if (!$rootScope.logueado || $rootScope.logueado == undefined) {
                 if (($localStorage.usuario != undefined) && ($localStorage.pass != undefined)) {
@@ -38,6 +38,8 @@ angular.module('starter')
             bovinoService.getBovinos($localStorage.campo);
             rodeoService.getDatosRodeo($localStorage.campo);
             vacunaService.getDatosVacuna($localStorage.campo);
+            //Estado, Raza, Categoria
+            parametricasService.getDatosParametricas($localStorage.campo);
         }
         //$rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
 

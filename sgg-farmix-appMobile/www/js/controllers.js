@@ -29,7 +29,7 @@
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Estado(idEstado INTEGER PRIMARY KEY, nombre TEXT, descripcion TEXT)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Raza(idRaza INTEGER PRIMARY KEY, nombre TEXT)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Vacuna(idVacuna INTEGER PRIMARY KEY, nombre TEXT)");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Bovino(idBovino INTEGER PRIMARY KEY, numCaravana INTEGER, apodo TEXT, descripcion TEXT, fechaNacimiento TEXT, genero INTEGER(1), peso REAL, pesoAlNacer REAL, idCategoria INTEGER, idRaza INTEGER, idRodeo INTEGER, idEstado INTEGER, escrito INTEGER(1), paraActualizar INTEGER(1), fechaEstimadaParto TEXT)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS Bovino(idBovino INTEGER PRIMARY KEY, numCaravana INTEGER, apodo TEXT, descripcion TEXT, fechaNacimiento TEXT, genero INTEGER(1), peso REAL, pesoAlNacer REAL, enfermo INTEGER(1), idCategoria INTEGER, idRaza INTEGER, idRodeo INTEGER, idEstado INTEGER, escrito INTEGER(1), paraActualizar INTEGER(1), fechaEstimadaParto TEXT)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Evento(idEvento INTEGER PRIMARY KEY, fechaHora TEXT, cantidad REAL, idTipoEvento INTEGER, idVacuna INTEGER, idAntibiotico INTEGER, idAlimento INTEGER, idRodeoDestino INTEGER)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS EventosXBovino(idBovino INTEGER, idEvento INTEGER, PRIMARY KEY (idBovino, idEvento))");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Inseminacion(idInseminacion INTEGER PRIMARY KEY, idVaca INTEGER, fechaInseminacion TEXT, fechaEstimadaNacimiento TEXT, tipoInseminacion INTEGER)");
@@ -62,7 +62,7 @@
                 $state.go('app.resultado/:id', { id: id });
             } else if ($state.current.name == "app.vacunacion" || $state.current.name == "app.manejo" || $state.current.name == "app.antibiotico" || $state.current.name == "app.alimento" || $state.current.name == "app.registrarInseminacion") {
                 $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
-                if ($rootScope.idVacas == undefined || estaEscaneado($scope.id) == false) {
+                if (($rootScope.idVacas == undefined && $rootScope.idToros == undefined) || estaEscaneado($scope.id) == false) {
                     showIonicLoading().then(obtenerBovino).then(function (_bovino) {
                         if (_bovino != null) {
                             if ($state.current.name == "app.registrarInseminacion") {
@@ -102,16 +102,49 @@
                 } else {
                     alert("El Bovino ya esta agreagado en la lista");
                 }
-            }
-        };
-
-        function estaEscaneado(id) {
-            for (i = 0; i < $rootScope.idVacas.length; i++) {
-                if ($rootScope.idVacas[i] == id) {
-                    return true;
+            } else if ($state.current.name == "app.registrarNacimiento") {
+                $scope.id = (nfc.bytesToString(nfcEvent.tag.ndefMessage[0].payload)).slice(3);
+                if (($rootScope.idVacas == undefined && $rootScope.idToros == undefined) || estaEscaneado($scope.id) == false) {
+                    showIonicLoading().then(obtenerBovino).then(function (_bovino) {
+                        if (_bovino != null) {
+                            if (_bovino.genero == 1) {
+                                if ($rootScope.toros == undefined || $rootScope.toros == null) {
+                                    $rootScope.toros = [];
+                                    $rootScope.idToros = [];
+                                }
+                                if ($rootScope.idToros.length == 0) {
+                                    $rootScope.toros.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
+                                    $rootScope.idToros.push($scope.id);
+                                } else {
+                                    alert("Solo se puede registrar un toro padre");
+                                }
+                            } else if (_bovino.genero == 0) {
+                                if (_bovino.idEstado == "Pre\u00F1ada") {
+                                    if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
+                                        $rootScope.vacas = [];
+                                        $rootScope.idVacas = [];
+                                    }
+                                    $rootScope.vacas.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
+                                    $rootScope.idVacas.push($scope.id);
+                                } else {
+                                    alert("Esta vaca no esta pre\u00F1ada");
+                                }
+                            }
+                        };
+                    }).then($ionicLoading.hide).catch($ionicLoading.hide);
                 }
             }
-            if ($state.current.name == "app.inseminacion" && $rootScope.evento.tipoInseminacion == "2" && $rootScope.toros != undefined && $rootScope.toros != null) {
+        }
+
+        function estaEscaneado(id) {
+            if ($rootScope.idVacas != undefined && $rootScope.idVacas != null) {
+                for (i = 0; i < $rootScope.idVacas.length; i++) {
+                    if ($rootScope.idVacas[i] == id) {
+                        return true;
+                    }
+                }
+            }
+            if ( (($state.current.name == "app.registrarInseminacion" && $rootScope.evento.tipoInseminacion == "2")|| ($state.current.name == "app.registrarNacimiento")) && $rootScope.toros != undefined && $rootScope.toros != null) {
                 for (i = 0; i < $rootScope.idToros.length; i++) {
                     if ($rootScope.idToros[i] == id) {
                         return true;
