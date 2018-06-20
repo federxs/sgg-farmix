@@ -187,11 +187,11 @@ namespace sgg_farmix_api.Controllers
 
         [HttpGet]
         [AutorizationToken]
-        public InseminacionDetalle Get(string fechaInseminacion)
+        public InseminacionDetalle Get(string fechaInseminacion, int tipoInseminacion)
         {
             try
             {
-                return IM.GetInseminacion(fechaInseminacion);
+                return IM.GetInseminacion(fechaInseminacion, tipoInseminacion);
             }
             catch (Exception ex)
             {

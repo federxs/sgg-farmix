@@ -174,7 +174,7 @@
                     <td>{{item.cantidadVacas}}</td>
                     <td>{{item.cantidadToros}}</td>
                     <td>
-                        <a ui-sref="home.modificarInseminacion({fecha: item.fechaInseminacion, desde: 'servicioSinConfirm'})" title="Editar"><span class="fa fa-pencil"></span></a>
+                        <a ui-sref="home.modificarInseminacion({fecha: item.fechaInseminacion, desde: 'servicioSinConfirm', tipoInseminacion: item.idTipoInseminacion})" title="Editar"><span class="fa fa-pencil"></span></a>
                         <a ui-sref="home.detalleInseminacion({fecha: item.fechaInseminacion, desde: 'servicioSinConfirm'})" title="Ver"><span class="fa fa-search"></span></a>
                         <a><span class="fa fa-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.fechaInseminacion, '')"></span></a>
                     </td>
@@ -222,7 +222,7 @@
                     <td>{{item.fechaInseminacion}}</td>
                     <td>{{item.fechaEstimadaParto}}</td>
                     <td>
-                        <a ui-sref="home.modificarInseminacion({fecha: item.fechaInseminacion, desde: 'preniez'})" title="Editar"><span class="fa fa-pencil"></span></a>
+                        <a ui-sref="home.modificarInseminacion({fecha: item.fechaInseminacion, desde: 'preniez', tipoInseminacion: item.idTipoInseminacion})" title="Editar"><span class="fa fa-pencil"></span></a>
                         <a ui-sref="home.detalleInseminacion({fecha: item.fechaInseminacion, desde: 'preniez'})" title="Ver"><span class="fa fa-search"></span></a>
                         <a><span class="fa fa-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.fechaInseminacion, item.idInseminacion)"></span></a>
                     </td>

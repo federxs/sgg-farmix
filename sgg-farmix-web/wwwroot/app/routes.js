@@ -160,7 +160,7 @@
             })
             .state('home.modificarInseminacion', {
                 url: '/inseminacion/modificar',
-                params: { 'fecha': null, 'desde': null },
+                params: { 'fecha': null, 'desde': null, 'tipoInseminacion': null },
                 templateUrl: 'app/inseminacion/modificar-inseminacion/modificar-inseminacion.html',
                 controller: 'modificarInseminacionController'
             })

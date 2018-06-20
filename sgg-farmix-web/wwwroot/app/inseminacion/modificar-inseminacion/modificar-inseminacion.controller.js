@@ -44,7 +44,8 @@
             $scope.$parent.blockSpinner();
             vm.habilitar = false;
             vm.fecha = $stateParams.fecha;
-            modificarInseminacionService.getInseminacion($stateParams.fecha).then(function success(data) {
+            vm.tipoInseminacion = $stateParams.tipoInseminacion;
+            modificarInseminacionService.getInseminacion($stateParams.fecha, vm.tipoInseminacion).then(function success(data) {
                 //inseminacion
                 vm.inseminacion = data;
                 vm.inseminacion.idTipoInseminacion = vm.inseminacion.idTipoInseminacion.toString();

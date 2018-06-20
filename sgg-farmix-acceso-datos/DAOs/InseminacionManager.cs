@@ -246,17 +246,19 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public InseminacionDetalle GetInseminacion(string fecha)
+        public InseminacionDetalle GetInseminacion(string fecha, int tipoInseminacion)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@fechaInseminacion", fecha }
+                    {"@fechaInseminacion", fecha },
+                    {"@idTipoInseminacion", tipoInseminacion }
                 };
-                var inseminacion = connection.GetArray<InseminacionDetalle>("spObtenerDatosInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                var inseminacion = connection.GetArray<InseminacionDetalle>("spObtenerDatosInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();                
                 inseminacion.listaBovinos = connection.GetArray<BovinoItem>("spObtenerBovinosXInseminacion", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                parametros.Remove("@idTipoInseminacion");
                 if (inseminacion.fechaEstimadaNacimiento != "")
                 {
                     parametros = new Dictionary<string, object>
