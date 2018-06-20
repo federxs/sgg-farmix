@@ -31,6 +31,15 @@
 					url: portalService.getUrlServer() + 'api/Bovino/cargarProvinciasAndLoc',
 					headers: portalService.getHeadersServer(),
 					isArray: false
+				},
+				getBovinoNacido: {
+				    method: 'GET',
+				    url: portalService.getUrlServer() + 'api/Bovino/getDatosBovinoNacido',
+				    headers: portalService.getHeadersServer(),
+				    params: {
+				        idNacimiento: '@idNacimiento'
+				    },
+				    isArray: false
 				}
 			});
 		});

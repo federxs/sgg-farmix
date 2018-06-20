@@ -164,5 +164,34 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = null;
             }
         }
+
+        public IEnumerable<NacimientoItem> GetNacimientos(NacimientoFilter filter)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@fechaDesde", filter.fechaDesde },
+                    {"@fechaHasta", filter.fechaHasta },
+                    {"@codigoCampo", filter.codigoCampo }
+                };
+                if (filter.numCaravanaMadre != 0)
+                    parametros.Add("@numCaravanaMadre", filter.numCaravanaMadre.ToString());
+                if (filter.numCaravanaPadre != 0)
+                    parametros.Add("@numCaravanaPadre", filter.numCaravanaPadre.ToString());
+                var lista = connection.GetArray<NacimientoItem>("spObtenerListaNacimientos", parametros, System.Data.CommandType.StoredProcedure);
+                return lista.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }

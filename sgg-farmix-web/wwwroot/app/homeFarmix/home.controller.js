@@ -135,34 +135,15 @@
         })(jQuery);
 
         $scope.load = function () {
-            //$scope.showSpinner = true;
             spinnerBar.show();
             homeService.datosUsuario($sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo, $sessionStorage.usuarioInfo.idRol).then(function success(data) {
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;
                 $scope.usuarioInfo.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.usuarioInfo.usuarioImagen + "?cache=" + (new Date()).getTime();
-                //spinnerBar.hide();
-                //for (var i = 0; i < $scope.Menu.length; i++) {
-                //    if ($scope.Menu[i].urlMenu === path)
-                //        $scope.Menu[i].activo = 'background-color:#E59866';
-                //    else if ($scope.Menu[i].menu_Hijos !== null && $scope.Menu[i].menu_Hijos.length > 0) {
-                //        $scope.Menu[i].activo = 'background-color:#FAE5D3';
-                //        for (var j = 0; j < $scope.Menu[i].menu_Hijos.length; j++) {
-                //            $scope.Menu[i].menu_Hijos[j].activo = 'background-color:#FAE5D3';
-                //        }
-                //    }
-                //    else
-                //        $scope.Menu[i].activo = 'background-color:#FAE5D3';
-                //}
-                //if (path === 'home.undefined') {
-                //    $scope.Menu[0].activo = 'background-color:#E59866';
-                //    //spinnerBar.hide();
-                //state.go('home.inicio');
-                //}
+                spinnerBar.hide();
             }, function (error) {
                 spinnerBar.hide();
-                //$scope.showSpinner = false;
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };

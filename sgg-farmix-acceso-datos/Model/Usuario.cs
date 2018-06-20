@@ -52,5 +52,6 @@ namespace sgg_farmix_acceso_datos.Model
         public string usuarioImagen { get; set; }
         public string usuario { get; set; }
         public long cantidadInconsistencias { get; set; }
+        public long cantidadNacimientos { get; set; }
     }
 }

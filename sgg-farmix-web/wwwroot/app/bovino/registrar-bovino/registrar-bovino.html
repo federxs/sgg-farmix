@@ -43,7 +43,7 @@
                             N° de Caravana Madre
                         </label>
                         <input name="madre" type="number" class="form-control" min="0" placeholder="N° de Caravana Madre"
-                               ng-disabled="!habilitar"
+                               ng-disabled="!habilitar || !habilitarNacimiento"
                                ng-model="bovino.idBovinoMadre" />
                         <div ng-show="formRegistrarBovino.madre.$touched">
                             <span class="help-block" ng-show="formRegistrarBovino.madre.$error.min">
@@ -56,7 +56,7 @@
                             N° de Caravana Padre
                         </label>
                         <input name="padre" type="number" class="form-control" min="0" placeholder="N° de Caravana Padre"
-                               ng-disabled="!habilitar"
+                               ng-disabled="!habilitar || !habilitarNacimiento"
                                ng-model="bovino.idBovinoPadre" />
                         <div ng-show="formRegistrarBovino.padre.$touched">
                             <span class="help-block" ng-show="formRegistrarBovino.padre.$error.min">
@@ -205,7 +205,7 @@
                             Fecha de Nacimiento (*)
                         </label>
                         <div name="fechaNac">
-                            <input type="datetime" name="fechaNac" class="form-control" id="datetimepicker4" ng-blur="getFecha()" min="2000-01-01" max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar" data-date-format="DD/MM/YYYY" ng-model="bovino.fechaNacimiento" value="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required />
+                            <input type="datetime" name="fechaNac" class="form-control" id="datetimepicker4" ng-blur="getFecha()" min="2000-01-01" max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="!habilitar || !habilitarNacimiento" data-date-format="DD/MM/YYYY" ng-model="bovino.fechaNacimiento" value="{{fechaDeHoy | date:'yyyy-MM-dd'}}" required />
                         </div>
                         <div ng-show="formRegistrarBovino.fechaNac.$touched">
                             <span class="help-block" ng-show="formRegistrarBovino.fechaNac.$error.required">
@@ -379,7 +379,7 @@
         </button>
 
         <button type="button" class="btn btn-default"
-                ui-sref="home.bovino">
+                ng-click="volver()">
             {{btnVolver}}
         </button>
     </div>

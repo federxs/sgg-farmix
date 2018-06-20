@@ -32,6 +32,7 @@ namespace sgg_farmix_acceso_datos.Model
         public long? codigoCampo { get; set; }
         public string diasFaltantesXDarALuz { get; set; }
         public int enfermo { get; set; }
+        public long idNacimiento { get; set; }
     }
 
     public class BovinoFilter
@@ -65,7 +66,7 @@ namespace sgg_farmix_acceso_datos.Model
         public long numCaravana { get; set; }
         public long idBovinoMadre { get; set; }
         public long idBovinoPadre { get; set; }
-        public string establecimientoOrigen{ get; set; }
+        public string establecimientoOrigen { get; set; }
         public string rodeo { get; set; }
         public string apodo { get; set; }
         public string estado { get; set; }
@@ -89,7 +90,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string rodeo { get; set; }
         public Resultados establecimientosDestino { get; set; }
     }
-    
+
     //A esta clase la van a usar los chicos en la App para llenar la BD local
     public class TagBovino
     {
@@ -106,5 +107,21 @@ namespace sgg_farmix_acceso_datos.Model
         public long idRaza { get; set; }
         public long idRodeo { get; set; }
         public long idEstado { get; set; }
+    }
+
+    public class NacimientoFilter
+    {
+        public long numCaravanaMadre { get; set; }
+        public long numCaravanaPadre { get; set; }
+        public string fechaDesde { get; set; }
+        public string fechaHasta { get; set; }
+        public long codigoCampo { get; set; }
+    }
+    public class NacimientoItem
+    {
+        public long idNacimiento { get; set; }
+        public string numCaravanaMadre { get; set; }
+        public string numCaravanaPadre { get; set; }
+        public string fechaNacimiento { get; set; }
     }
 }

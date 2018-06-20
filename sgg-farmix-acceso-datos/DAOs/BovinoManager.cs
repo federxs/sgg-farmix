@@ -47,8 +47,16 @@ namespace sgg_farmix_acceso_datos.DAOs
                 entity.idBovino = connection.Execute("spRegistrarBovino", parametros, System.Data.CommandType.StoredProcedure, transaction);
                 if (entity.idBovino == 0)
                     throw new ArgumentException("Create Bovino Error"); 
-                else if (entity.idBovino == 1)
+                else if (entity.idBovino == -1)
                     throw new ArgumentException("Bovino ya existe");
+                else if(entity.idBovino > 0 && entity.idNacimiento > 0)
+                {
+                    parametros = new Dictionary<string, object>()
+                    {
+                        {"@idNacimiento", entity.idNacimiento }
+                    };
+                    var delete = connection.Execute("spDeleteNacimiento", parametros, System.Data.CommandType.StoredProcedure, transaction);
+                }
                 var fechaHora = DateTime.Now.ToString("yyyyMMddHHmmss");
                 var parametrosEvento = new Dictionary<string, object>
                 {
@@ -527,6 +535,29 @@ namespace sgg_farmix_acceso_datos.DAOs
                         throw new ArgumentException("Create Nacimiento Error");
                 }               
                 return 1;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
+        public Bovino GetDatosBovinoNacido(long idNac)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idNacimiento", idNac }
+                };
+                var bovino = connection.GetArray<Bovino>("spObtenerBovinoNacido", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                return bovino;
             }
             catch (Exception ex)
             {

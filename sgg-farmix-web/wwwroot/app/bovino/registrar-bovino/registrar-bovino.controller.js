@@ -5,9 +5,9 @@
         .module('app')
         .controller('registrarBovinoController', registrarBovinoController);
 
-    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'establecimientoOrigenService', 'rodeoService', 'estadoService', 'categoriaService', 'razaService', 'alimentoService', 'toastr', '$state', '$localStorage', '$sessionStorage'];
+    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'establecimientoOrigenService', 'rodeoService', 'estadoService', 'categoriaService', 'razaService', 'alimentoService', 'toastr', '$state', '$localStorage', '$sessionStorage', '$stateParams'];
 
-    function registrarBovinoController($scope, registrarBovinoService, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, toastr, $state, $localStorage, $sessionStorage) {
+    function registrarBovinoController($scope, registrarBovinoService, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, toastr, $state, $localStorage, $sessionStorage, $stateParams) {
         var vm = $scope;
         window.scrollTo(0, 0);
         vm.habilitar = false;
@@ -22,10 +22,12 @@
         vm.fechaDeHoy = new Date();
         vm.btnVolver = "Cancelar";
         vm.habilitar = true;
+        vm.habilitarNacimiento = true;
         vm.showMjeSuccess = false;
         vm.showMjeError = false;
         vm.mjeExiste = '';
         vm.maxCantidad = 0;
+        vm.volverA = 'home.bovino';
         vm.establecimiento = new establecimientoOrigenService();
         vm.rodeo = new rodeoService();
         vm.estado = new estadoService();
@@ -54,9 +56,10 @@
         vm.changeEstados = changeEstados;
         vm.changeCategorias = changeCategorias;
         vm.changeEstadosXEnfermo = changeEstadosXEnfermo;
+        vm.volver = volver;
 
         function inicializar() {
-            //$scope.$parent.blockSpinner();
+            $scope.$parent.blockSpinner();
             vm.habilitar = false;
             registrarBovinoService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                 for (var i = 0; i < data.estados.length; i++) {
@@ -71,19 +74,45 @@
                 vm.rodeos = data.rodeos;
                 vm.establecimientos = data.establecimientos;
                 vm.alimentos = data.alimentos;
-                $scope.$parent.unBlockSpinner();
-                //vm.showSpinner = false;
                 vm.habilitar = true;
                 vm.bovino = new registrarBovinoService();
                 vm.bovino.genero = 0;
                 vm.rodeo.confinado = 0;
                 vm.changeCategorias();
                 changeEstados();
+                if ($stateParams.idNacimiento) {
+                    registrarBovinoService.getBovinoNacido({ idNacimiento: $stateParams.idNacimiento }, function (data) {
+                        vm.bovino = data;
+                        vm.bovino.numCaravana = '';
+                        vm.bovino.idEstablecimientoOrigen = '';
+                        vm.bovino.idRodeo = '';
+                        vm.bovino.idEstado = '';
+                        vm.bovino.peso = '';
+                        vm.bovino.pesoAlNacer = '';
+                        vm.bovino.idCategoria = '';
+                        vm.bovino.idRaza = '';
+                        vm.bovino.idAlimento = '';
+                        vm.bovino.cantAlimento = '';
+                        vm.habilitarNacimiento = false;
+                        vm.volverA = 'home.nacimientos';
+                        if (vm.bovino.idBovinoPadre === 0) vm.bovino.idBovinoPadre = '';
+                        $scope.$parent.unBlockSpinner();
+                    }, function (error) {
+                        $scope.$parent.unBlockSpinner();
+                        toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                    });
+                }
+                else
+                    $scope.$parent.unBlockSpinner();
             }, function error(error) {
                 //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
+        };
+
+        function volver() {
+            $state.go(vm.volverA);
         };
 
         function registrar() {
@@ -95,14 +124,17 @@
                 vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
             //vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
             vm.bovino.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+            if ($stateParams.idNacimiento)
+                vm.bovino.idNacimiento = $stateParams.idNacimiento;
+            else
+                vm.bovino.idNacimiento = 0;
             vm.bovino.$save(function (data) {
                 toastr.success('Se agrego con éxito el bovino ', 'Éxito');
-                //vm.habilitar = false;
                 vm.btnVolver = "Volver";
-                //vm.showSpinner = false;
+                if ($stateParams.idNacimiento)
+                    $scope.$parent.load();
                 $scope.$parent.unBlockSpinnerSave();
             }, function (error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 vm.habilitar = false;
                 if (error.statusText === 'Bovino ya existe') {

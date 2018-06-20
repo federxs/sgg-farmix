@@ -100,6 +100,7 @@
                 url: '/bovino/registrar',
                 templateUrl: 'app/bovino/registrar-bovino/registrar-bovino.html',
                 controller: 'registrarBovinoController',
+                params: { 'idNacimiento': null },
                 data: {
                     pageTitle: 'Farmix - Registrar Bovino'
                 }
@@ -198,26 +199,12 @@
                 url: '/configuracion',
                 templateUrl: 'app/configuracion/configuracion.html',
                 controller: 'configuracionController'
-            })
+            });
+        $stateProvider
+            .state('home.nacimientos', {
+                url: '/nacimientos',
+                templateUrl: 'app/nacimiento/consultar-nacimientos.html',
+                controller: 'consultarNacimientosController'
+            });
     });
 })();
-
-//,
-//controller: "loginController",
-//resolve: {
-//    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-//        return $ocLazyLoad.load([{
-//            name: 'app',
-//            insertBefore: '#ng_load_plugins_before',
-//            files: [
-//		 //'assets/pages/css/login.min.css',
-//		 //'assets/global/plugins/jquery-validation/js/jquery.validate.min.js',
-//		 //'assets/global/plugins/jquery-validation/js/additional-methods.min.js',
-//		 //'assets/global/scripts/app.min.js',
-//		 //'assets/pages/scripts/login.min.js',
-//		 //'scripts/services/portal/login-service.js',
-//		 //'scripts/controllers/portal/login-controller.js'
-//            ]
-//        }]);
-//    }]
-//}
