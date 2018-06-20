@@ -10,7 +10,7 @@
         'googlechart',
         'smart-table',
         'toastr',
-        'ngFileUpload'
-        //'ui.bootstrap'
+        'ngFileUpload',
+        'ngMap'
     ]);    
 })();
