@@ -271,6 +271,15 @@
             spinnerBarGuardado.hide();
         };
 
+        $scope.errorServicio = function (error) {
+            if (error === 'Token_Invalido') {
+                toastr.error('Lo sentimos, su sesión ha caducado', 'Sesión caducada');
+                $scope.cerrarSesion();
+            }               
+            else
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+        };
+
         $scope.cerrarMenu = function () {
             menuLeft = document.getElementById('cbp-spmenu-s1');
             var showLeftPush = document.getElementById('showLeftPush');

@@ -30,7 +30,6 @@
 
         function inicializar() {
             vm.showBotones = true;
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             vm.habilitar = false;
             vm.habilitarBtnAceptar = false;
@@ -61,19 +60,16 @@
                             vm.evento[key] = '';
                         }
                     });
-                    //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinner();
                     vm.habilitar = true;
                     vm.habilitarBtnAceptar = true;
                 }, function error(error) {
-                    //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinner();
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
                 });
             }, function error(error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         }//fin inicializar
 
@@ -118,11 +114,10 @@
                 $('#modalConfirmEliminEvento').modal('hide');
                 $scope.$parent.unBlockSpinnerSave();
 
-            }, function error(data) {
-                //vm.showSpinner = false;
-                $scope.$parent.unBlockSpinnerSave();
-                toastr.error('La operación no se pudo completar', 'Error');
+            }, function error(error) {
                 $('#modalConfirmEliminEvento').modal('hide');
+                $scope.$parent.unBlockSpinnerSave();
+                $scope.$parent.errorServicio(error.statusText);                
             })
         }
 
@@ -224,9 +219,8 @@
                 }
                 $scope.$parent.unBlockSpinner();
             }, function error(error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         }
 

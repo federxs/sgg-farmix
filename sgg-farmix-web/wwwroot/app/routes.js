@@ -173,7 +173,7 @@
             })
             .state('home.detalleInseminacion', {
                 url: '/inseminacion/detalle',
-                params: { 'fecha': null, 'desde': null },
+                params: { 'fecha': null, 'desde': null, 'tipoInseminacion': null },
                 templateUrl: 'app/inseminacion/detalle-inseminacion/detalle-inseminacion.html',
                 controller: 'detalleInseminacionController'
             });

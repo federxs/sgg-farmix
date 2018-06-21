@@ -51,13 +51,11 @@
                 })
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
-                //vm.showSpinner = false;
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         }
 
         function eliminar() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             $('#modalConfirmEliminar').modal('hide');
@@ -69,9 +67,8 @@
                     vm.btnVolver = "Volver";
                     toastr.success('Se dio de baja el bovino con éxito ', 'Éxito');
                 }, function error(data) {
-                    //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinnerSave();
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
                 })
             }
             else {
@@ -85,7 +82,7 @@
                     toastr.success('Se vendio el bovino con éxito ', 'Éxito');
                 }, function error(data) {
                     $scope.$parent.unBlockSpinnerSave();
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
                 })
             }
         }

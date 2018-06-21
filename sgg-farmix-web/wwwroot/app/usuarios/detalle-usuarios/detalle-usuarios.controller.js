@@ -22,7 +22,7 @@
                 $scope.$parent.unBlockSpinner();
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         }
     }

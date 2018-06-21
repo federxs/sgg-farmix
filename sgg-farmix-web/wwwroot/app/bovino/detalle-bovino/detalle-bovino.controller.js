@@ -54,11 +54,9 @@
                     }
                 });
                 $scope.$parent.unBlockSpinner();
-                //vm.showSpinner = false;
             }, function error(error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         }//fin inicializar
 

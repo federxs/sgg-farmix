@@ -31,7 +31,6 @@
         vm.validarCantUsuarios = validarCantUsuarios;
 
         function inicializar() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             vm.deshabilitar = true;
             vm.disabledExportar = 'disabled';
@@ -41,14 +40,12 @@
                 vm.filtro.idRol = '0';
                 consultar();
             }, function error(error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         };
 
         function consultar() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
@@ -63,12 +60,10 @@
                     vm.deshabilitar = false;
                     vm.disabledExportar = '';
                 }
-                $scope.$parent.unBlockSpinner();
-                //vm.showSpinner = false;                
+                $scope.$parent.unBlockSpinner();        
             }, function error(error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         };
 
@@ -425,19 +420,16 @@
         }
 
         function eliminar() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             consultarUsuariosService.darBajaUser(idUsuarioEliminar, $localStorage.usuarioInfo.codigoCampo).then(function success() {
                 $('#modalConfirmEliminacionUser').modal('hide');
                 toastr.success('Se ha dado de baja al usuario con éxito', 'Éxito');
                 $scope.$parent.unBlockSpinnerSave();
-                //vm.showSpinner = false;
                 $state.reload();
             }, function (error) {
                 $('#modalConfirmEliminacionUser').modal('hide');
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         }
 
@@ -448,24 +440,20 @@
         }
 
         function activar() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             consultarUsuariosService.activarUser(idUsuarioActivar, $localStorage.usuarioInfo.codigoCampo).then(function success() {
                 $('#modalConfirmActivacionUser').modal('hide');
                 toastr.success('Se ha activado al usuario con éxito', 'Éxito');
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 $state.reload();
             }, function (error) {
                 $('#modalConfirmActivacionUser').modal('hide');
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         }
 
         function validarCantUsuarios() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             consultarUsuariosService.validarCantidadUsuariosPlan($localStorage.usuarioInfo.codigoCampo ).then(function success(data) {
                 if (data.resultado)
@@ -476,7 +464,7 @@
                 }                              
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error("Se ha producido un error, reintentar.");
+                $scope.$parent.errorServicio(error.statusText);
             })
         };
 

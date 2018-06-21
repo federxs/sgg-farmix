@@ -71,18 +71,15 @@
                 ];
                 if (vm.desde === 'preniez')
                     vm.tituloModalToros = 'Seleccione el toro que participó de esta Inseminación';
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
                 vm.habilitar = true;
             }, function error(error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         };
 
-        function antesDeModificar() {
-            //vm.showSpinner = true;            
+        function antesDeModificar() {          
             vm.habilitar = false;
             vm.showEliminar = true;
             if (vm.rowCollection !== undefined) {
@@ -115,18 +112,15 @@
             }                
             $scope.$parent.blockSpinnerSave();
             if (vm.desde === 'servicioSinConfirm') {
-                modificarInseminacionService.modificar(vm.inseminacion, lista.toString(), listaToros.toString(), fechaInseminacionOriginal).then(function success(data) {
-                    //vm.habilitar = false;
-                    //vm.showSpinner = false;
+                modificarInseminacionService.modificar(vm.inseminacion, lista.toString(), listaToros.toString(), fechaInseminacionOriginal).then(function success(data) {                   
                     $scope.$parent.unBlockSpinnerSave();
                     $('#modalConfirmEliminarInseminacion').modal('hide');
                     $('#modalConfirmEliminarInseminacionSinToros').modal('hide');
                     vm.showEliminar = false;
                     toastr.success('Se modificó la inseminación con éxito ', 'Éxito');
                 }, function error(data) {
-                    //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinnerSave();
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
                 })
             }
             else {
@@ -135,16 +129,13 @@
                 else
                     vm.inseminacion.idToro = vm.toro.idBovino;
                 modificarInseminacionService.update(vm.inseminacion, vm.tacto).then(function success(data) {
-                    //vm.habilitar = false;
-                    //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinnerSave();
                     $('#modalConfirmEliminarInseminacion').modal('hide');
                     $('#modalConfirmEliminarInseminacionSinToros').modal('hide');
                     toastr.success('Se modificó la inseminación con éxito ', 'Éxito');
                 }, function error(data) {
-                    //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinnerSave();
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
                 })
             }
         };
@@ -187,7 +178,7 @@
                 $('#modalToros').modal('show');
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error('La operación no se pudo completar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 

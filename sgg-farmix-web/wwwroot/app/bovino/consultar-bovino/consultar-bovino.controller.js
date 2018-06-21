@@ -35,7 +35,6 @@
         var categorias = [];
         var idBovinoEliminar = 0;
         function inicializar() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
@@ -57,14 +56,12 @@
                 vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
                 consultar();
             }, function error(error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
         function consultar() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
@@ -73,7 +70,6 @@
             consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';
-                    //vm.showSpinner = false;
                     vm.disabled = '';
                     vm.rowCollection = [];
                     vm.filtro.peso = '';
@@ -83,15 +79,13 @@
                     vm.rowCollection = data;
                     if (vm.filtro.peso === 0) vm.filtro.peso = '';
                     if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
-                    //vm.showSpinner = false;
                     vm.disabled = '';
                     vm.disabledExportar = '';
                 }
                 $scope.$parent.unBlockSpinner();
             }, function (error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -465,11 +459,10 @@
                 else {
                     $scope.$parent.unBlockSpinner();
                     toastr.info("No puede agregar mas bovinos, verifique su plan contratado.", "Aviso");
-                }                    
-                //$scope.$parent.unBlockSpinner();
+                }
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error("Se ha producido un error, reintentar.");
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -525,8 +518,7 @@
             }, function (error) {
                 $('#modalConfirmEliminar').modal('hide');
                 $scope.$parent.unBlockSpinnerSave();
-                //vm.showSpinner = false;
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         }
     }

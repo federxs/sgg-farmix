@@ -28,7 +28,6 @@
                 $state.reload();
             }                
             vm.itemsPorPagina = 9;
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             vm.filtro = {};
             vm.filtro.tipo = '0';
@@ -54,22 +53,19 @@
             consultarConflictoService.obtenerConflictos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';
-                    //vm.showSpinner = false;
                     vm.disabled = '';
                     vm.rowCollection = [];
                     toastr.info("No se ha encontrado ningún resultado para esta búsqueda", "Aviso");
                 }
                 else {
                     vm.rowCollection = data;
-                    //vm.showSpinner = false;
                     vm.disabled = '';
                     vm.disabledExportar = '';
                 }
                 $scope.$parent.unBlockSpinner();
             }, function (error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 

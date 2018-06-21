@@ -46,16 +46,14 @@
                 toastr.success('Se agrego con éxito el usuario ', 'Éxito');
                 vm.btnVolver = "Volver";
                 $scope.$parent.unBlockSpinnerSave();
-                //vm.showSpinner = false;
-            }, function error(error) {
-                //vm.showSpinner = false;
+            }, function error(error) {                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 if (error.data === 'Error: El usuario ya existe para este campo') {
                     vm.habilitar = true;
                     toastr.warning('El usuario ya existe para este campo', 'Advertencia')
                 }
                 else
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
             });
         };
 

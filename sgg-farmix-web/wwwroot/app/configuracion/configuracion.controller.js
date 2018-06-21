@@ -64,7 +64,7 @@
                 $('#modalNuevoAlimento').modal('show');
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error')
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -79,7 +79,7 @@
                 $('#modalNuevoAntibiotico').modal('show');
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar')
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -94,7 +94,7 @@
                 $('#modalNuevoEstado').modal('show');
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -109,7 +109,7 @@
                 $('#modalNuevoEstablecimiento').modal('show');
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -124,7 +124,7 @@
                 $('#modalNuevaCategoria').modal('show');
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -139,7 +139,7 @@
                 $('#modalNuevaRaza').modal('show');
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -154,7 +154,7 @@
                 $('#modalNuevoRodeo').modal('show');
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -169,14 +169,13 @@
                 $('#modalNuevaVacuna').modal('show');
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
         function popupPerfil() {
             $scope.imageToUpload = [];
             $scope.toDelete = [];
-            //$scope.showBorrar = false;
             $scope.$parent.blockSpinner();
             configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: $sessionStorage.usuarioInfo.usuario, idRol: $sessionStorage.usuarioInfo.idRol }, function (data) {
                 $scope.perfilUsuario = data;
@@ -184,9 +183,8 @@
                 $scope.$parent.unBlockSpinner();
                 $('#modalPerfilUser').modal('show');
             }, function (error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -195,11 +193,9 @@
                 $scope.provincias = data.provincias;
                 localidadesOriginales = data.localidades;
                 $scope.$parent.unBlockSpinner();
-                //$scope.showSpinner = false;
             }, function error(error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         };
 
@@ -210,162 +206,138 @@
         };
 
         function agregarEstabOrigen() {
-            //$scope.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             $scope.establecimiento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             $scope.establecimiento.$save(function (data) {
                 toastr.success('Se agrego con éxito el establecimiento origen ', 'Éxito');
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoEstablecimiento').modal('hide');
                 $state.reload();
             }, function (error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 if (error.statusText === 'Establecimiento Origen ya existe')
                     toastr.warning('El establecimiento origen que intenta registrar, ya existe en este campo', 'Advertencia');
                 else
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
             });
         };
 
         function agregarRodeo() {
-            //$scope.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             $scope.rodeo.idCampo = $localStorage.usuarioInfo.codigoCampo;
             $scope.rodeo.$save(function (data) {
                 toastr.success('Se agrego con éxito el rodeo', 'Éxito');
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoRodeo').modal('hide');
                 $state.reload();
             }, function (error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 if (error.statusText === 'Rodeo ya existe')
                     toastr.warning('El rodeo que intenta registrar, ya existe', 'Advertencia');
                 else
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
             });
         };
 
         function agregarEstado() {
-            //$scope.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             $scope.estado.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             $scope.estado.$save(function (data) {
                 toastr.success('Se agrego con éxito el estado ', 'Éxito');
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoEstado').modal('hide');
                 $state.reload();
             }, function (error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 if (error.statusText === 'Estado ya existe')
                     toastr.warning('El estado que intenta registrar, ya existe', 'Advertencia');
                 else
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
             });
         };
 
         function agregarCategoria() {
-            //$scope.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             $scope.categoria.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             $scope.categoria.$save(function (data) {
                 toastr.success('Se agrego con éxito la categoría ', 'Éxito');
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevaCategoria').modal('hide');
                 $state.reload();
             }, function (error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 if (error.statusText === 'Categoria ya existe')
                     toastr.warning('La categoría que intenta registrar, ya existe', 'Advertencia');
                 else
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
             });
         };
 
         function agregarRaza() {
-            //$scope.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             $scope.raza.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             $scope.raza.$save(function (data) {
                 toastr.success('Se agrego con éxito la raza ', 'Éxito');
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevaRaza').modal('hide');
                 $state.reload();
             }, function (error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 if (error.statusText === 'Raza ya existe')
                     toastr.warning('La raza que intenta registrar, ya existe', 'Advertencia');
                 else
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
             });
         };
 
         function agregarAlimento() {
-            //$scope.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             $scope.alimento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             $scope.alimento.$save(function (data) {
                 toastr.success('Se agrego con éxito el alimento ', 'Éxito');
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoAlimento').modal('hide');
                 $state.reload();
             }, function (error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 if (error.statusText === 'Alimento ya existe')
                     toastr.warning('El alimento que intenta registrar, ya existe', 'Advertencia');
                 else
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
             });
         };
 
         function agregarAntibiotico() {
-            //$scope.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             $scope.antibiotico.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             $scope.antibiotico.$save(function (data) {
                 toastr.success('Se agrego con éxito el antibiótico ', 'Éxito');
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevoAntibiotico').modal('hide');
                 $state.reload();
             }, function (error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 if (error.statusText === 'Antibiotico ya existe')
                     toastr.warning('El antibiótico que intenta registrar, ya existe', 'Advertencia');
                 else
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
             });
         };
 
         function agregarVacuna() {
-            //$scope.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             $scope.vacuna.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             $scope.vacuna.$save(function (data) {
                 toastr.success('Se agrego con éxito el vacuna ', 'Éxito');
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 $('#modalNuevaVacuna').modal('hide');
                 $state.reload();
             }, function (error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
                 if (error.statusText === 'Vacuna ya existe')
                     toastr.warning('La vacuna que intenta registrar, ya existe', 'Advertencia');
                 else
-                    toastr.error('La operación no se pudo completar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -380,9 +352,8 @@
                 $('#modalPerfilUser').modal('hide');
                 //$state.reload();
             }, function (error) {
-                //$scope.showSpinner = false;
                 $scope.$parent.unBlockSpinnerSave();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 

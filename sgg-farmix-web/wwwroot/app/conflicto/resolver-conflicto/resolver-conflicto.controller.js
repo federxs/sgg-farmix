@@ -26,7 +26,6 @@
         vm.seleccionarToros = seleccionarToros;
 
         function init() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             if (($stateParams.idTacto && $stateParams.idTactoConfl && $stateParams.fechaTacto && $stateParams.fechaTactoConfl) || ($stateParams.idInseminacion && $stateParams.idInseminConfl)) {
                 if (!$stateParams.idTacto)
@@ -47,17 +46,14 @@
                     vm.inseminacionAnterior = data.inseminacionAnterior; //Es la ultima inseminacion registrada en base
                     vm.inseminacionNueva = data.inseminacionNueva; //Es la inseminacion que se intento registrar pero produjo un conflicto
                     $scope.$parent.unBlockSpinner();
-                    //vm.showSpinner = false;
                 }, function error(error) {
-                    //vm.showSpinner = false;
                     $scope.$parent.unBlockSpinner();
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                    $scope.$parent.errorServicio(error.statusText);
                 });
             }
             else {
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
                 $scope.$parent.unBlockSpinner();
-                //vm.showSpinner = false;
             }
         }
 
@@ -100,7 +96,7 @@
                 $state.go('home.conflictos');
             }, function error(error) {
                 $scope.$parent.unBlockSpinnerSave();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -115,7 +111,7 @@
                 $state.go('home.conflictos');
             }, function error(error) {
                 $scope.$parent.unBlockSpinnerSave();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 

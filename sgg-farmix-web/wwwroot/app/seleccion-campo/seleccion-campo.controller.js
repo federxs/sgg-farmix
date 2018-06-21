@@ -25,13 +25,10 @@
                    .then(function success(data) {
                        $scope.campos = data;
                        for (var i = 0; i < $scope.campos.length; i++) {
-                           //if (!$scope.campos[i].imagen)
-                           //$scope.campos[i].imagen = imagenes[i];
-                           //else
                            $scope.campos[i].imagen = portalService.getUrlServer() + portalService.getFolderImagenCampo() + $scope.campos[i].codigoCampo + '\\' + $scope.campos[i].imagen + "?cache=" + (new Date()).getTime();
                        }
                    }, function error(error) {
-                       toastr.error("Se ha producido un error, reintentar.");
+                       $scope.$parent.errorServicio(error.statusText);
                    });
         };
 
@@ -47,7 +44,7 @@
                 else
                     toastr.info("No puede agregar mas campos, verifique su plan contratado.", "Aviso");
             }, function error(error) {
-                toastr.error("Se ha producido un error, reintentar.");
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 

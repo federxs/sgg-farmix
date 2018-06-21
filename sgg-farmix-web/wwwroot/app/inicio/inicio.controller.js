@@ -8,7 +8,6 @@
     inicioController.$inject = ['$scope', 'inicioService', 'toastr', '$localStorage', '$state', '$timeout'];
 
     function inicioController($scope, inicioService, toastr, $localStorage, $state, $timeout) {
-        //$scope.showSpinner = true;
         window.scrollTo(0, 0);
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
@@ -17,7 +16,6 @@
         $scope.prueba = prueba;
 
         function inicializar() {
-            //$scope.showSpinner = true;
             $scope.$parent.blockSpinner();
             inicioService.inicializar($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 $scope.cantBovinos = data.bovinos;
@@ -27,7 +25,6 @@
                 cargarGraficoRazas(data.graficoRaza);
                 cargarGraficoCategorias(data.graficoCategorias);
                 $scope.$parent.unBlockSpinner();
-                //$scope.showSpinner = false;
                 inicioService.obtenerInconsistencias($localStorage.usuarioInfo.codigoCampo)
                    .then(function success(data) {
                        $scope.$parent.unBlockSpinner();
@@ -36,12 +33,11 @@
                            $('#modalInconsistencias').modal('show');
                        }
                    }, function error(error) {
-                       toastr.error("Se ha producido un error, reintentar.");
+                       $scope.$parent.errorServicio(error.statusText);
                    });
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
-                //$scope.showSpinner = false;
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         };
 

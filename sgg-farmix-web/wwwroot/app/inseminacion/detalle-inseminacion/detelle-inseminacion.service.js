@@ -14,11 +14,11 @@
             getLactancias: getLactancias
         };
 
-        function getInseminacion(fecha) {
+        function getInseminacion(fecha, tipoInseminacion) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/Get',
-                params: { fechaInseminacion: fecha },
+                params: { fechaInseminacion: fecha, tipoInseminacion: tipoInseminacion },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

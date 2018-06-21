@@ -25,7 +25,6 @@
 
         function init() {
             vm.itemsPorPagina = 9;
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             vm.filtro = {};
             vm.filtro.tipo = '0';
@@ -68,9 +67,8 @@
                 }
                 $scope.$parent.unBlockSpinner();
             }, function (error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
@@ -320,7 +318,7 @@
                 //$scope.$parent.unBlockSpinner();
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
-                toastr.error("Se ha producido un error, reintentar.");
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
     }

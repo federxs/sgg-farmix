@@ -36,7 +36,6 @@
         $('#datetimepicker5').datetimepicker();
 
         function inicializar() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             vm.disabledExportar = 'disabled';
             vm.disabled = 'disabled';
@@ -48,14 +47,12 @@
                 vm.disabled = '';
                 consultar();
             }, function error(error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             });
         };
 
         function consultar() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinner();
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
@@ -79,7 +76,6 @@
             consultarTrazabilidadService.getListaEventos(angular.toJson(vm.filtro, false)).then(function success(data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';
-                    //vm.showSpinner = false;
                     vm.disabled = '';
                     vm.rowCollection = [];
                     $('#timeline').hide();
@@ -90,15 +86,13 @@
                     if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null)
                         cargarLineaTiempoEventos();
                     if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
-                    //vm.showSpinner = false;
                     vm.disabled = '';
                     vm.disabledExportar = '';
                 }
                 $scope.$parent.unBlockSpinner();
             }), function error(error) {
-                //vm.showSpinner = false;
                 $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             };
         };
 
@@ -345,19 +339,16 @@
         }
 
         function eliminar() {
-            //vm.showSpinner = true;
             $scope.$parent.blockSpinnerSave();
             consultarTrazabilidadService.eliminarEvento(idEventoAEliminar).then(function success() {
                 $('#modalConfirmEliminar').modal('hide');
                 toastr.success('Evento eliminado con éxito', 'Éxito');
                 $scope.$parent.unBlockSpinnerSave();
-                //vm.showSpinner = false;
                 $state.reload();
             }, function (error) {
                 $('#modalConfirmEliminar').modal('hide');
                 $scope.$parent.unBlockSpinnerSave();
-                //vm.showSpinner = false;
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.$parent.errorServicio(error.statusText);
             })
         }
 
