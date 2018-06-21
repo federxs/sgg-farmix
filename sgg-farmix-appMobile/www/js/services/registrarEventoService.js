@@ -15,12 +15,14 @@
 
     .service('registrarEventoServiceDB', function ($q, $rootScope) {
         this.registrarEvento = function (evento) {
+            console.log(evento);
             $rootScope.db.transaction(function (tx) {
                 tx.executeSql("INSERT OR IGNORE INTO Evento(fechaHora, cantidad, idTipoEvento, idVacuna, idAntibiotico, idAlimento, idRodeoDestino) VALUES(?, ?, ?, ?, ?, ?, ?)", [evento.fechaHora, evento.cantidad, evento.idTipoEvento, evento.idVacuna, evento.idAntibiotico, evento.idAlimento, evento.idRodeoDestino]);
                 var idEvento = tx.executeSql("SELECT last_insert_rowid() FROM Evento", [],
                     function (resultado) {
                         resolve(resultado.rows.item(0));
                     }, reject);
+                console.log(idEvento);
                 $rootScope.idVacas.forEach(function (vaca) {
                     tx.executeSql("INSERT OR IGNORE INTO BovinosXEvento(idEvento, idBovino) VALUES(?, ?)", [idEvento, vaca.idBovino]);
                 });
@@ -66,6 +68,7 @@
             if ($rootScope.online) {
                 registrarEventoServiceHTTP.registrarEvento(evento);
             } else {
+                console.log("no hay conexion, guardamo evento en bd")
                 $localStorage.actualizar = true;
                 registrarEventoServiceDB.registrarEvento(evento);
             }
@@ -73,7 +76,6 @@
 
         this.actualizarEventosBackend = function () {
             var eventos;
-            console.log("aca tamo");
             return registrarEventoServiceDB.getEventosParaActualizarBackend()
                 .then(function (respuesta) { eventos = respuesta; })
                 .then(function () {

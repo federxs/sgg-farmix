@@ -28,6 +28,7 @@
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Categoria(idCategoria INTEGER PRIMARY KEY, nombre TEXT, genero INTEGER(1))");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Estado(idEstado INTEGER PRIMARY KEY, nombre TEXT, descripcion TEXT)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Raza(idRaza INTEGER PRIMARY KEY, nombre TEXT)");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS Rodeo(idRaza INTEGER PRIMARY KEY, nombre TEXT, confinado INTEGER(1))");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Vacuna(idVacuna INTEGER PRIMARY KEY, nombre TEXT)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Bovino(idBovino INTEGER PRIMARY KEY, numCaravana INTEGER, apodo TEXT, descripcion TEXT, fechaNacimiento TEXT, genero INTEGER(1), peso REAL, pesoAlNacer REAL, enfermo INTEGER(1), idCategoria INTEGER, idRaza INTEGER, idRodeo INTEGER, idEstado INTEGER, escrito INTEGER(1), paraActualizar INTEGER(1), fechaEstimadaParto TEXT)");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Evento(idEvento INTEGER PRIMARY KEY, fechaHora TEXT, cantidad REAL, idTipoEvento INTEGER, idVacuna INTEGER, idAntibiotico INTEGER, idAlimento INTEGER, idRodeoDestino INTEGER)");

@@ -18,6 +18,8 @@
                 if (online && $localStorage.actualizar) {
                     servicio.posts();
                     $localStorage.actualizar = false;
+                } else if (!online){
+                    alert("Trabajando sin conexi\u00F3n")
                 }
             });
         }

@@ -1,7 +1,9 @@
 ﻿angular.module('starter')
     .service('servicio', function (bovinoService, inseminacionService, nacimientoService, registrarEventoService, verificacionInseminacionService) {
         this.posts = function () {
+            //funciona
             bovinoService.actualizarBovinosBackend();
+            //probar
             inseminacionService.actualizarInseminacionesBackend();
             nacimientoService.actualizarNacimientosBackend();
             registrarEventoService.actualizarEventosBackend();
@@ -16,6 +18,8 @@
                 if (online && $localStorage.actualizar) {
                     servicio.posts();
                     $localStorage.actualizar = false;
+                } else if (!online){
+                    alert("Trabajando sin conexi\u00F3n")
                 }
             });
         }

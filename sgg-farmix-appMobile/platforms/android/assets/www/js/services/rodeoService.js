@@ -2,6 +2,7 @@
     .service('rodeoServiceHTTP', function ($http, portalService) {
         var rodeoUrl = portalService.getUrlServer() + "api/Rodeo/GetList?campo=";
         this.getDatosRodeo = function (idCampo) {
+            console.log("tenemos rodeos");
             return $http.get(rodeoUrl + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
                 return respuesta.data;
             });
@@ -10,6 +11,7 @@
 
     .service('rodeoServiceDB', function ($q, $rootScope) {
         this.getDatosRodeo = function () {
+            console.log("get rodeos offline");
             return $q(function (resolve, reject) {
                 $rootScope.db.executeSql("SELECT * FROM Rodeo", [],
                   function (resultado) {
@@ -54,6 +56,7 @@
                     .then(function () { rodeoServiceDB.actualizarRodeos(rodeos); })
                     .then(function () { return rodeos; });
             } else {
+                console.log("no hay conexion para los rodeos")
                 return rodeoServiceDB.getDatosRodeo();
             }
         }
