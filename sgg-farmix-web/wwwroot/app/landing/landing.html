@@ -203,6 +203,14 @@
         </div>
     </div>
 
+    <!-- Google Maps -->
+    <div map-lazy-load="https://maps.google.com/maps/api/js"
+         map-lazy-load-params="{{googleMapsUrl}}">
+        <ng-map center="-31.442250, -64.193164" zoom="16" map-type-id="ROADMAP" draggable="false">
+            <marker position="[-31.442250, -64.193164]" title="UTN-FRC" animation="Animation.BOUNCE"></marker>
+        </ng-map>
+    </div>
+
     <!-- Contact Container -->
     <div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
         <div class="w3-row">
@@ -234,12 +242,6 @@
         </div>
     </div>
 
-    <!-- Google Maps -->
-    <!--<div id="googleMap" style="width:100%;height:420px;"></div>-->
-    <div map-lazy-load="https://maps.google.com/maps/api/js"
-         map-lazy-load-params="{{googleMapsUrl}}">
-        <ng-map center="41,-87" zoom="3"></ng-map>
-    </div>
 
     <footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
         <p>Farmix 2018 v1.0</p>
