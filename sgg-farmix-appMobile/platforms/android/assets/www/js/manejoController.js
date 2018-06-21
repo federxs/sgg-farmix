@@ -41,9 +41,6 @@ angular.module('starter')
         }
 
         function obtenerRodeos() {
-            console.log("obtenemos rodeos");
-            var rodeos = rodeoService.getDatosRodeo($localStorage.campo);
-            console.log(rodeos);
-            return rodeos;
+            return rodeoService.getDatosRodeo($localStorage.campo);
         }
     });
