@@ -126,7 +126,7 @@
             return inseminacionServiceDB.getInseminacionesParaActualizarBackend()
                 .then(function (respuesta) { inseminaciones = respuesta; })
                 .then(function () {
-                    if (inseminaciones.lenght > 0) {
+                    if (inseminaciones.length > 0) {
                         inseminaciones.forEach(function (inseminacion) {
                             $rootScope.idVacas = [];
                             $rootScope.idVacas.push = [inseminacion.idVaca];

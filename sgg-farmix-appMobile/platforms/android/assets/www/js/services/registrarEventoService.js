@@ -18,13 +18,15 @@
             console.log(evento);
             $rootScope.db.transaction(function (tx) {
                 tx.executeSql("INSERT OR IGNORE INTO Evento(fechaHora, cantidad, idTipoEvento, idVacuna, idAntibiotico, idAlimento, idRodeoDestino) VALUES(?, ?, ?, ?, ?, ?, ?)", [evento.fechaHora, evento.cantidad, evento.idTipoEvento, evento.idVacuna, evento.idAntibiotico, evento.idAlimento, evento.idRodeoDestino]);
-                var idEvento = tx.executeSql("SELECT last_insert_rowid() FROM Evento", [],
+                var aux = $q(function (resolve, reject) {
+                    tx.executeSql("SELECT last_insert_rowid() as idEvento FROM Evento", [],
                     function (resultado) {
                         resolve(resultado.rows.item(0));
                     }, reject);
-                console.log(idEvento);
+                });
+                console.log(aux);
                 $rootScope.idVacas.forEach(function (vaca) {
-                    tx.executeSql("INSERT OR IGNORE INTO BovinosXEvento(idEvento, idBovino) VALUES(?, ?)", [idEvento, vaca.idBovino]);
+                    tx.executeSql("INSERT OR IGNORE INTO BovinosXEvento(idEvento, idBovino) VALUES(?, ?)", [aux.idEvento, vaca.idBovino]);
                 });
             });
         };

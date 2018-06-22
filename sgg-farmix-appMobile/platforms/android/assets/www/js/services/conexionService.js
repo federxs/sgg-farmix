@@ -4,10 +4,10 @@
             //funciona
             bovinoService.actualizarBovinosBackend();
             //probar
+            verificacionInseminacionService.actualizarVerificacionesBackend();
             inseminacionService.actualizarInseminacionesBackend();
             nacimientoService.actualizarNacimientosBackend();
             registrarEventoService.actualizarEventosBackend();
-            verificacionInseminacionService.actualizarVerificacionesBackend();
         }
     })
 

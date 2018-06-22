@@ -69,7 +69,7 @@
             return nacimientoServiceDB.getNacimientosParaActualizarBackend()
                 .then(function (respuesta) { nacimientos = respuesta; })
                 .then(function () {
-                    if (nacimientos.lenght > 0) {
+                    if (nacimientos.length > 0) {
                         nacimientos.forEach(function (nacimiento) {
                             var bovinos = nacimientoServiceDB.getBovinosXNacimientoParaActualizarBackend(nacimiento.idNacimiento);
                             bovinos.forEach(function (bovino) {
