@@ -14,16 +14,13 @@
 
     .service('verificacionInseminacionServiceDB', function ($q, $rootScope) {
         this.registrarVerificacionInseminacion = function (inseminacion) {
-            console.log(inseminacion);
             $rootScope.db.transaction(function (tx) {
                 var exitoso = 0;
                 if (inseminacion.exitoso) {
                     exitoso = 1;
                 }
                 tx.executeSql("DELETE FROM InseminacionPendiente WHERE idInseminacion = ?", [inseminacion.idInseminacion]);
-                console.log("delete");
                 tx.executeSql("INSERT OR IGNORE INTO Tacto(idInseminacion, fechaTacto, exitoso, idTipoTacto) VALUES (?, ?, ?, ?)", [inseminacion.idInseminacion, inseminacion.fechaTacto, exitoso, inseminacion.idTipoTacto]);
-                console.log("insert");
             })
         };
 
@@ -55,7 +52,6 @@
             if ($rootScope.online) {
                 verificacionInseminacionServiceHTTP.registrarVerificacionInseminacion(inseminacion);
             } else {
-                console.log("no hay conexion para el tacto");
                 $localStorage.actualizar = true;
                 verificacionInseminacionServiceDB.registrarVerificacionInseminacion(inseminacion);
             }
@@ -66,7 +62,6 @@
             return verificacionInseminacionServiceDB.getVerificacionesParaActualizarBackend()
                 .then(function (respuesta) { verificaciones = respuesta; })
                 .then(function () {
-                    console.log(verificaciones);
                     if (verificaciones.length > 0) {
                         verificaciones.forEach(function (verificacion) {
                             var fechaTacto = verificacion.fechaTacto;

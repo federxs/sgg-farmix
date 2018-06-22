@@ -3,11 +3,11 @@
         this.posts = function () {
             //funciona
             bovinoService.actualizarBovinosBackend();
-            //probar
             verificacionInseminacionService.actualizarVerificacionesBackend();
+            //probar
+            registrarEventoService.actualizarEventosBackend();
             inseminacionService.actualizarInseminacionesBackend();
             nacimientoService.actualizarNacimientosBackend();
-            registrarEventoService.actualizarEventosBackend();
         }
     })
 

@@ -17,13 +17,28 @@
         this.registrarEvento = function (evento) {
             console.log(evento);
             $rootScope.db.transaction(function (tx) {
+                /*var vacuna = null, antibiotico = null, alimento = null, rodeo = null;
+                if (evento.idVacuna != undefined) {
+                    vacuna = evento.idVacuna;
+                }
+                if (evento.idAntibiotico != undefined) {
+                    antibiotico = evento.idAntibiotico;
+                }
+                if (evento.idAlimento != undefined) {
+                    alimento = evento.idAlimento;
+                }
+                if (evento.idRodeoDestino != undefined) {
+                    rodeo = evento.idRodeoDestino;
+                }
+                tx.executeSql("INSERT OR IGNORE INTO Evento(fechaHora, cantidad, idTipoEvento, idVacuna, idAntibiotico, idAlimento, idRodeoDestino) VALUES(?, ?, ?, ?, ?, ?, ?)", [evento.fechaHora, evento.cantidad, evento.idTipoEvento, vacuna, antibiotico, alimento, rodeo]);
+                */
                 tx.executeSql("INSERT OR IGNORE INTO Evento(fechaHora, cantidad, idTipoEvento, idVacuna, idAntibiotico, idAlimento, idRodeoDestino) VALUES(?, ?, ?, ?, ?, ?, ?)", [evento.fechaHora, evento.cantidad, evento.idTipoEvento, evento.idVacuna, evento.idAntibiotico, evento.idAlimento, evento.idRodeoDestino]);
                 var aux = $q(function (resolve, reject) {
                     tx.executeSql("SELECT last_insert_rowid() as idEvento FROM Evento", [],
                     function (resultado) {
                         resolve(resultado.rows.item(0));
                     }, reject);
-                });
+                }).then(function (respuesta) { return respuesta });
                 console.log(aux);
                 $rootScope.idVacas.forEach(function (vaca) {
                     tx.executeSql("INSERT OR IGNORE INTO BovinosXEvento(idEvento, idBovino) VALUES(?, ?)", [aux.idEvento, vaca.idBovino]);

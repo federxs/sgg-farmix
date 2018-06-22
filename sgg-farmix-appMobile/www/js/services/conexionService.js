@@ -5,9 +5,9 @@
             bovinoService.actualizarBovinosBackend();
             verificacionInseminacionService.actualizarVerificacionesBackend();
             //probar
+            registrarEventoService.actualizarEventosBackend();
             inseminacionService.actualizarInseminacionesBackend();
             nacimientoService.actualizarNacimientosBackend();
-            registrarEventoService.actualizarEventosBackend();
         }
     })
 
