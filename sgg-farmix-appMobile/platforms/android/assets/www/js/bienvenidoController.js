@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('BienvenidoController', function ($ionicPlatform, $scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService, parametricasService, inseminacionService, $q) {
+    .controller('BienvenidoController', function ($ionicPlatform, $scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService, parametricasService, inseminacionService) {
         $ionicPlatform.ready(function () {
             if (!$rootScope.logueado || $rootScope.logueado == undefined) {
                 if (($localStorage.usuario != undefined) && ($localStorage.pass != undefined)) {

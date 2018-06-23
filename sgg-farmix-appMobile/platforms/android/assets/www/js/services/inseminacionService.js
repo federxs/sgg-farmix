@@ -25,10 +25,12 @@
      .service('inseminacionServiceDB', function ($q, $rootScope) {
          this.registrarInseminacion = function (inseminacion) {
              $rootScope.idVacas.forEach(function (id) {
-                 $rootScope.db.executeSql("INSERT OR IGNORE INTO Inseminacion(idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion, paraActualizar) VALUES(?, ?, ?, ?, 1)", [id, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, inseminacion.tipoInseminacion]);
-                 $rootScope.idToros.forEach(function (idToro) {
-                     $rootScope.db.executeSql("INSERT OR IGNORE INTO TorosXInseminacion(idInseminacion, idToro) VALUES((SELECT last_insert_rowid() FROM Inseminacion), ?)", [idToro]);
-                 });
+                 $rootScope.db.executeSql("INSERT OR IGNORE INTO Inseminacion(idVaca, fechaInseminacion, tipoInseminacion) VALUES(?, ?, ?)", [id, inseminacion.fechaInseminacion, inseminacion.tipoInseminacion]);
+                 if ($rootScope.idToros != undefined) {
+                     $rootScope.idToros.forEach(function (idToro) {
+                         $rootScope.db.executeSql("INSERT OR IGNORE INTO TorosXInseminacion(idInseminacion, idToro) VALUES((SELECT last_insert_rowid() FROM Inseminacion), ?)", [idToro]);
+                     })
+                 };
              })
          }
 
@@ -125,10 +127,12 @@
                             $rootScope.idVacas = [];
                             $rootScope.idVacas.push(inseminacion.idVaca);
                             $rootScope.idToros = [];
-                            var toros = inseminacionServiceDB.getListaTorosParaActualizarBackend(inseminacion.idInseminacion).then(function () {
-                                toros.forEach(function (toro) {
-                                    $rootScope.idToros.push(toro.idToro);
-                                })
+                            inseminacionServiceDB.getListaTorosParaActualizarBackend(inseminacion.idInseminacion).then(function (toros) {
+                                if (toros != undefined) {
+                                    toros.forEach(function (toro) {
+                                        $rootScope.idToros.push(toro.idToro);
+                                    })
+                                }
                                 inseminacion = { tipoInseminacion: inseminacion.tipoInseminacion, fechaInseminacion: inseminacion.fechaInseminacion };
                                 inseminacionServiceHTTP.registrarInseminacion(inseminacion);
                                 $rootScope.idVacas = [];
