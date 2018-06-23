@@ -9,7 +9,7 @@
                         <div class="card-block block-1">
                             <h3 class="card-title">Periódo de consulta</h3>
                             <p class="card-text">En esta sección podrá modificar el periódo de consulta desde donde el sistema se basará para obtener la información.</p>
-                            <a style="cursor:pointer" title="Modificar" class="read-more">Modificar<i class="fa fa-angle-double-right ml-2"></i></a>
+                            <a style="cursor:pointer" title="Modificar" ng-click="popupPeriodo()" class="read-more">Modificar<i class="fa fa-angle-double-right ml-2"></i></a>
                         </div>
                     </div>
                 </div>
@@ -849,6 +849,29 @@
             <div class="modal-footer">
                 <center>
                     <button type="button" class="btn btn-success" ng-disabled="!perfilUsuario.nombre || !perfilUsuario.apellido || (!perfilUsuario.usuarioImagen && imageToUpload.length === 0)" ng-click="modificarPerfil()">Guardar</button>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal Periodo consulta-->
+<div class="modal fade" id="modalPeriodoConsulta" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="overflow-y: scroll;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="myModalLabel">Modificar Período de consulta</h4>
+            </div>
+            <div class="modal-body">
+                <label class="control-label" for="periodo">
+                    Periódo de consulta
+                </label>
+                <input name="periodo" type="number" class="form-control" placeholder="Ingrese el período de consulta"
+                       ng-model="periodo" min="4" />
+            </div>
+            <div class="modal-footer">
+                <center>
+                    <button type="button" class="btn btn-success" ng-disabled="!periodo || periodo.toString().length < 4" ng-click="modificarPeriodo()">Aceptar</button>
                 </center>
             </div>
         </div>

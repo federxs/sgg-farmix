@@ -15,7 +15,10 @@
         $scope.cerrar = cerrar;
         $scope.prueba = prueba;
         $scope.ano = new Date().getFullYear();
-        $localStorage.usuarioInfo.periodoConsulta = $scope.ano;
+        if (!$localStorage.usuarioInfo.periodoConsulta)
+            $localStorage.usuarioInfo.periodoConsulta = $scope.ano;
+        else
+            $scope.ano = $localStorage.usuarioInfo.periodoConsulta;
 
         function inicializar() {
             $scope.$parent.blockSpinner();
@@ -46,7 +49,7 @@
         function cerrar() {
             $timeout(function () {
                 $('#modalInconsistencias').modal('hide');
-            }, 500);            
+            }, 500);
         };
 
         function cargarGraficoRazas(graficoRaza) {

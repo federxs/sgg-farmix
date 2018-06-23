@@ -46,6 +46,8 @@
         $scope.ImageClass = ImageClass;
         $scope.selectUnselectImage = selectUnselectImage;
         $scope.deleteImagefromModel = deleteImagefromModel;
+        $scope.popupPeriodo = popupPeriodo;
+        $scope.modificarPeriodo = modificarPeriodo;
 
         function inicializar() {
             //$scope.showSpinner = true;
@@ -66,6 +68,13 @@
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);
             });
+        };
+
+        function popupPeriodo() {
+            $scope.$parent.blockSpinner();
+            $scope.periodo = $localStorage.usuarioInfo.periodoConsulta;
+            $('#modalPeriodoConsulta').modal('show');
+            $scope.$parent.unBlockSpinner();
         };
 
         function popupAntibioticos() {
@@ -341,12 +350,12 @@
             });
         };
 
-        function modificarPerfil() {           
+        function modificarPerfil() {
             $scope.$parent.blockSpinnerSave();
             if ($scope.imageToUpload[0])
                 $scope.perfilUsuario.imagen = $scope.imageToUpload[0];
             $scope.perfilUsuario.usuario = usuarioInfo.getUsuario();
-            $scope.perfilUsuario.$actualizarPerfilUsuario(function(data) {
+            $scope.perfilUsuario.$actualizarPerfilUsuario(function (data) {
                 toastr.success('Datos del perfil actualizados', 'Éxito');
                 $scope.$parent.unBlockSpinnerSave();
                 $('#modalPerfilUser').modal('hide');
@@ -405,6 +414,12 @@
             else {
                 toastr.info('Debe seleccionar una imágen para borrar', 'Aviso');
             }
+        };
+
+        function modificarPeriodo() {
+            $localStorage.usuarioInfo.periodoConsulta = $scope.periodo;
+            $('#modalPeriodoConsulta').modal('hide');
+            toastr.success('Período de consulta modificado con éxito', 'Éxito');
         };
     }//fin controlador
 })();
