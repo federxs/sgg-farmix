@@ -139,7 +139,7 @@
 
         $scope.load = function () {
             spinnerBar.show();
-            homeService.datosUsuario(usuarioInfo.getUsuario(), $localStorage.usuarioInfo.codigoCampo, usuarioInfo.getRol(), $localStorage.usuarioInfo.periodoConsulta).then(function success(data) {
+            homeService.datosUsuario(!usuarioInfo.getUsuario() ? 0 : usuarioInfo.getUsuario(), $localStorage.usuarioInfo.codigoCampo, !usuarioInfo.getRol() ? 0 : usuarioInfo.getRol(), $localStorage.usuarioInfo.periodoConsulta).then(function success(data) {
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;
@@ -147,7 +147,7 @@
                 spinnerBar.hide();
             }, function (error) {
                 spinnerBar.hide();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+                $scope.errorServicio(error.statusText);
             });
         };
         $scope.load();
