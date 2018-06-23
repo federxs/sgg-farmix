@@ -514,14 +514,15 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<ReporteBovinos> GetReporte(long codigoCampo)
+        public IEnumerable<ReporteBovinos> GetReporte(long codigoCampo, string periodo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@codigoCampo", codigoCampo }
+                    {"@codigoCampo", codigoCampo },
+                    {"@periodo", periodo }
                 };
                 var lista = connection.GetArray<ReporteBovinos>("spObtenerDatosReporteBovinos", parametros, System.Data.CommandType.StoredProcedure);
                 return lista.ToList();

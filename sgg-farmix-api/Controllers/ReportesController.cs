@@ -17,11 +17,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/Bovinos")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<ReporteBovinos> GetList(long codigoCampo)
+        public IEnumerable<ReporteBovinos> GetList(long codigoCampo, string periodo)
         {
             try
             {
-                return new BovinoManager().GetReporte(codigoCampo);
+                return new BovinoManager().GetReporte(codigoCampo, periodo);
             }
             catch (Exception ex)
             {
