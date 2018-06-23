@@ -4,8 +4,8 @@
             //funciona
             bovinoService.actualizarBovinosBackend();
             verificacionInseminacionService.actualizarVerificacionesBackend();
-            //probar
             registrarEventoService.actualizarEventosBackend();
+            //probar
             inseminacionService.actualizarInseminacionesBackend();
             nacimientoService.actualizarNacimientosBackend();
         }

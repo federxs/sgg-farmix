@@ -6,24 +6,17 @@
             $http({
                 method: 'POST',
                 url: nacimientoUrl,
-                params: { fechaNacimiento: fechaNacimiento, listaMadres: listaBovinosMadres.toString(), toro: idToro, codigoCampo: idCampo},
+                params: { fechaNacimiento: fechaNacimiento, listaMadres: listaBovinosMadres.toString(), toro: idToro, codigoCampo: idCampo },
                 headers: portalService.getHeadersServer()
             });
         }
     })
 
      .service('nacimientoServiceDB', function ($q, $rootScope) {
-         this.registrarNacimiento = function (listaBovinosMadres, fechaNacimiento, idToro, idCampo) {
-             $rootScope.db.transaction(function (tx) {
-                 tx.executeSql("INSERT OR IGNORE INTO Nacimiento(fechaNacimiento) VALUES(?)", [fechaNacimiento]);
-                 var idNacimiento = tx.executeSql("SELECT last_insert_rowid() FROM Nacimiento", [],
-                         function (resultado) {
-                             resolve(resultado.rows.item(0));
-                         }, reject);
-                 listaBovinosMadres.forEach(function (id) {
-                     tx.executeSql("INSERT OR IGNORE INTO BovinosXNacimiento(idNacimiento, idBovino) VALUES(?, ?)", [idNacimiento, id]);
-                 })
-             });
+         this.registrarNacimiento = function (listaBovinosMadres, fechaNacimiento, idToro) {
+             listaBovinosMadres.forEach(function (id) {
+                 $rootScope.db.executeSql("INSERT OR IGNORE INTO Nacimiento(fechaNacimiento, idBovinoMadre, idBovinoPadre) VALUES(?)", [fechaNacimiento, id, idToro]);
+             })
          };
 
          this.getNacimientosParaActualizarBackend = function () {
@@ -36,18 +29,7 @@
              });
          };
 
-         this.getBovinosXNacimientoParaActualizarBackend = function (idNacimiento) {
-             return $q(function (resolve, reject) {
-                 $rootScope.db.executeSql("SELECT * FROM BovinosXNacimiento WHERE idNacimiento=?", [idNacimiento],
-                   function (resultado) {
-                       resolve(rows(resultado));
-                   },
-                   reject);
-             });
-         };
-
          this.limpiarNacimientos = function () {
-             $rootScope.db.executeSql("DELETE FROM BovinosXNacimiento");
              $rootScope.db.executeSql("DELETE FROM Nacimiento");
          };
      })
@@ -60,7 +42,7 @@
                 nacimientoServiceHTTP.registrarNacimiento(listaBovinosMadres, fechaNacimiento, idToro, idCampo);
             } else {
                 $localStorage.actualizar = false;
-                nacimientoServiceDB.registrarNacimiento(listaBovinosMadres, fechaNacimiento, idToro, idCampo);
+                nacimientoServiceDB.registrarNacimiento(listaBovinosMadres, fechaNacimiento, idToro);
             }
         }
 
@@ -71,15 +53,11 @@
                 .then(function () {
                     if (nacimientos.length > 0) {
                         nacimientos.forEach(function (nacimiento) {
-                            var bovinos = nacimientoServiceDB.getBovinosXNacimientoParaActualizarBackend(nacimiento.idNacimiento);
-                            bovinos.forEach(function (bovino) {
-                                listaBovinosMadres.push = [bovino.idBovino];
-                            })
-                            nacimientoServiceHTTP.registrarNacimiento(listaBovinosMadres, fechaNacimiento, idToro, idCampo);
-                        }).then(function () {
-                            nacimientoServiceDB.limpiarNacimientos();
+                            listaBovinosMadres.push(nacimiento.idBovinoMadre);
                         })
+                        nacimientoServiceHTTP.registrarNacimiento(listaBovinosMadres, fechaNacimiento, idToro, idCampo);
                     }
+                    nacimientoServiceDB.limpiarNacimientos();
                 });
         }
     });

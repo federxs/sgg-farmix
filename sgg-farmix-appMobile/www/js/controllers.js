@@ -37,8 +37,7 @@
                 tx.executeSql("CREATE TABLE IF NOT EXISTS TorosXInseminacion(idInseminacion INTEGER, idToro INTEGER, PRIMARY KEY(idInseminacion, idToro))");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS Tacto(idInseminacion INTEGER, fechaTacto TEXT, exitoso INTEGER(1), idTipoTacto INTEGER, PRIMARY KEY (idInseminacion, fechaTacto))");
                 tx.executeSql("CREATE TABLE IF NOT EXISTS InseminacionPendiente(idInseminacion INTEGER PRIMARY KEY, fechaInseminacion TEXT, tipoInseminacion INTEGER, idVaca INTEGER)");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Nacimiento(idNacimiento INTEGER PRIMARY KEY, fechaNacimiento TEXT)");
-                tx.executeSql("CREATE TABLE IF NOT EXISTS BovinosXNacimiento(idNacimiento INTEGER, idBovino Integer, PRIMARY KEY (idNacimiento, idBovino))");
+                tx.executeSql("CREATE TABLE IF NOT EXISTS Nacimiento(idNacimiento INTEGER PRIMARY KEY, fechaNacimiento TEXT, idBovinoMadre Integer, idBovinoPadre Integer)");
             });
             return;
         }
