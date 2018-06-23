@@ -12,10 +12,12 @@
             <tr>
                 <th>Número de Caravana</th>
                 <th>Apodo</th>
+                <th>Quitar</th>
             </tr>
             <tr ng-repeat="vaca in vacas" class="itemTabla">
                 <td>{{vaca.numCaravana}}</td>
                 <td>{{vaca.apodo}}</td>
+                <td><button ng-click="quitar(vaca.numCaravana)" ion-button class="botonVerificar">Quitar</button></td>
             </tr>
         </table><br>
         <button ng-click="registrar()" class="button bordeBoton botonRegistrarEvento" ion-button>Registrar Evento</button>

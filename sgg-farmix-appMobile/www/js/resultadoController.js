@@ -6,7 +6,7 @@ angular.module('starter')
         }
         if (_bovino != null) {
             $scope.bovino = _bovino;
-            var fecha;// = _bovino.fechaNacimiento.substr(0, 10);
+            var fecha;
             if (_bovino.fechaNacimiento.charAt(1) == '/' && _bovino.fechaNacimiento.charAt(4) == '/') {
                 fecha = _bovino.fechaNacimiento.substr(2, 2) + "/0" + _bovino.fechaNacimiento.substr(0, 1) + "/" + _bovino.fechaNacimiento.substr(5, 4)
             } else if (_bovino.fechaNacimiento.charAt(2) == '/' && _bovino.fechaNacimiento.charAt(5) == '/') {

@@ -5,18 +5,22 @@
             <tr>
                 <th>Número de Caravana</th>
                 <th>Apodo</th>
+                <th>Quitar</th>
             </tr>
             <tr ng-repeat="vaca in vacas" class="itemTabla">
                 <td>{{vaca.numCaravana}}</td>
                 <td>{{vaca.apodo}}</td>
+                <td><button ng-click="quitar(vaca.numCaravana)" ion-button class="botonVerificar">Quitar</button></td>
             </tr>
         </table><br>
         <table ng-if="idToros[0] != '' && idToros[0] != undefined" class="bordeTabla">
             <tr>
                 <th>Toro padre</th>
+                <th>Quitar</th>
             </tr>
             <tr class="itemTabla">
                 <td>{{idToros[0]}}</td>
+                <td><button ng-click="quitarToro()" ion-button class="botonVerificar">Quitar</button></td>
             </tr>
         </table>
         <button ng-click="registrar()" class="button bordeBoton botonInseminacion" ion-button>Registrar Nacimiento</button>

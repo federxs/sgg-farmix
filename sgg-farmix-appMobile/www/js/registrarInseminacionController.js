@@ -30,6 +30,26 @@ angular.module('starter')
             }
         };
 
+        $scope.quitar = function (caravana) {
+            for (var i = 0; i < $rootScope.vacas.length; i++) {
+                if ($rootScope.vacas[i].numCaravana == caravana) {
+                    $rootScope.idVacas.splice(i, 1);
+                    $rootScope.vacas.splice(i, 1);
+                    return;
+                }
+            }
+        };
+
+        $scope.quitarToro = function (caravana) {
+            for (var i = 0; i < $rootScope.idToros.length; i++) {
+                if ($rootScope.toros[i].numCaravana == caravana) {
+                    $rootScope.idToros.splice(i, 1);
+                    $rootScope.toros.splice(i, 1);
+                    return;
+                }
+            }
+        };
+
         function showIonicLoading() {
             return $ionicLoading.show({
                 template: '<ion-spinner icon="lines"/>'
