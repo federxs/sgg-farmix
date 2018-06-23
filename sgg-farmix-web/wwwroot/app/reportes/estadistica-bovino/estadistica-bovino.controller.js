@@ -21,6 +21,7 @@
             cargarGraficoBajasPorAnio();
             cargarTablaAlimentosMasConsumidos();
             cargarGraficoPorcentajeBovinoPorRodeo();
+            cargarGraficoNacimientosPorMes();
         }
 
         function cargarGraficoPesoPorRazaYSexo(datos) {
@@ -163,7 +164,11 @@
 
                 var options = {
                     'title': 'Porcentaje de bovinos por Rodeo',
-                    pieHole: 0.4
+                    pieHole: 0.4,
+                    'chartArea': { 'width': '100%', 'height': '100%' },
+                    'legend': {
+                        'textStyle': { 'fontSize': 12 }
+                    }
                 };
                 chart.draw(dataTable, options);
             }
@@ -209,5 +214,56 @@
                 table.draw(dataTable, { showRowNumber: true, width: '100%', height: '100%' });
             }
         };
+
+        function cargarGraficoNacimientosPorMes() {
+            var datos = [{
+                'mes': 'Enero',
+                'cantidad': 25
+            },
+            {
+                'mes': 'Febrero',
+                'cantidad': 15
+            },
+            {
+                'mes': 'Marzo',
+                'cantidad': 35
+            },
+            {
+                'mes': 'Abril',
+                'cantidad': 5
+            }];
+
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var container = document.getElementById('graficoNacimientosPorMes');
+                var chart = new google.visualization.LineChart(container);
+                var dataTable = new google.visualization.DataTable();
+
+                dataTable.addColumn({ id: 'mes', label: 'Mes', type: 'string' });
+                dataTable.addColumn({ id: 'cantidad', label: 'Cantidad', type: 'number' });
+
+                for (var i = 0; i < datos.length; i++) {
+                    dataTable.addRows([[datos[i].mes, datos[i].cantidad]]);
+                }
+
+                var options = {
+                    'title': 'Cantidad de nacimientos por mes',
+                    hAxis: {
+                        title: 'Meses'
+                    },
+                    vAxis: {
+                        title: 'Cantidad de bovinos'
+                    },
+                    'legend': {
+                        'position': 'bottom',
+                        'textStyle': { 'fontSize': 12 }
+                    }
+                };
+                chart.draw(dataTable, options);
+            }
+        }
+
     }//fin controlador
 })();
