@@ -16,6 +16,8 @@
         $scope.toDelete = [];
         window.scrollTo(0, 0);
         $scope.noCoincidenPass = false;
+        $scope.ano = new Date().getFullYear();
+        $localStorage.usuarioInfo.periodoConsulta = $scope.ano;
 
         //Redimenciona el tamaño del body
         var body = document.body;

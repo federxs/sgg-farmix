@@ -7,7 +7,8 @@
                     url: portalService.getUrlServer() + 'api/Reportes/Bovinos',
                     headers: portalService.getHeadersServer(),
                     params: {
-                        codigoCampo: '@codigoCampo'
+                        codigoCampo: '@codigoCampo',
+                        periodo: '@periodo'
                     },
                     isArray: true
                 }

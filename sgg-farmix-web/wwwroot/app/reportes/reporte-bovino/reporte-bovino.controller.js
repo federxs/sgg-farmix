@@ -26,7 +26,8 @@
         function inicializar() {
             $scope.$parent.blockSpinner();
             reporteBovinoService.inicializar({
-                codigoCampo: $localStorage.usuarioInfo.codigoCampo
+                codigoCampo: $localStorage.usuarioInfo.codigoCampo,
+                periodo: $localStorage.usuarioInfo.periodo
             }, function (data) {
                 vm.rowCollection = data;
                 $scope.$parent.unBlockSpinner();
