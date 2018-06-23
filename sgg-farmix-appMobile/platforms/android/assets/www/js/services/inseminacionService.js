@@ -131,6 +131,8 @@
                                 })
                                 inseminacion = { tipoInseminacion: inseminacion.tipoInseminacion, fechaInseminacion: inseminacion.fechaInseminacion };
                                 inseminacionServiceHTTP.registrarInseminacion(inseminacion);
+                                $rootScope.idVacas = [];
+                                $rootScope.idToros = [];
                             })
                         })
                         inseminacionServiceDB.limpiarInseminaciones();

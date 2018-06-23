@@ -40,7 +40,21 @@
 
         this.getBovinos = function (idCampo) {
             return $http.get(bovinosUrl + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
-                return respuesta.data;
+                var bovinos = [];
+                bovinos.push(respuesta.data[0])
+                for (var i = 1; i < respuesta.data.length; i++) {
+                    var ban = false;
+                    for (var j = 0; j < bovinos.length; j++) {
+                        if (bovinos[j].idBovino == respuesta.data[i].idBovino) {
+                            ban = true;
+                            break;
+                        }
+                    }
+                    if (!ban) {
+                        bovinos.push(respuesta.data[i]);
+                    }
+                }
+                return bovinos;
             })
         }
 
@@ -68,7 +82,7 @@
 
         this.actualizarDatosBovino = function (bovino) {
             var genero = 0, enfermo = 0;
-            if (bovino.genero || bovino.genero==1) {
+            if (bovino.genero || bovino.genero == 1) {
                 genero = 1;
             }
             if (bovino.enfermo || bovino.enfermo == 1) {
