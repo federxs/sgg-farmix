@@ -1,5 +1,5 @@
 .fondo {
-    background-image:url(../img/fondo_login.jpg);
+    background-image:url(../img/fondo_login2.jpg);
 }
 
 .fondoMenu {
@@ -127,6 +127,33 @@ th, td {
   height: 100%;
   width:50%;
   background-image:url(../img/vacuna.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid black;
+  float:left;
+}
+.fhm_itemInseminacion {
+  height: 100%;
+  width:50%;
+  background-image:url(../img/registrarInseminacion.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid black;
+  float:left;
+}
+.fhm_itemTacto {
+  height: 100%;
+  width:50%;
+  background-image:url(../img/tacto.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid black;
+  float:left;
+}
+.fhm_itemNacimiento {
+  height: 100%;
+  width:50%;
+  background-image:url(../img/nacimiento.png);
   background-repeat: no-repeat;
   background-position: center;
   border: 1px solid black;

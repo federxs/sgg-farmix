@@ -1,6 +1,21 @@
 ﻿<ion-view view-title="Inseminación" cache-view="false">
     <ion-content padding="true" class="fondo">
-        <button ng-click="inseminar()" class="button bordeBoton botonMatriz" ion-button>Registrar Inseminaci&oacute;n</button><button ng-click="verificarInseminacion()" class="button bordeBoton botonMatriz" ion-button>Verificar Inseminación</button>
-        <button ng-click="registrarNacimiento()" class="button bordeBoton botonMatriz" ion-button>Registrar Nacimiento</button>
+        <ion-content id="fhm_page">
+            <div class="fhm_container">
+                <div class="fhm_row">
+                    <div class="fhm_itemInseminacion" ng-click="inseminar()">
+                        <div class="pas"><h4><strong>Registrar Inseminaci&oacute;n</strong></h4></div>
+                    </div>
+                    <div class="fhm_itemTacto" ng-click="verificarInseminacion()">
+                        <div class="pas"><h4><strong>Verificar Inseminaci&oacute;n</strong></h4></div>
+                    </div>
+                </div>
+                <div class="fhm_row">
+                    <div class="fhm_itemNacimiento" ng-click="registrarNacimiento()">
+                        <div class="pas"><h4><strong>Registrar Nacimiento</strong></h4></div>
+                    </div>
+                </div>
+            </div>
+        </ion-content>
     </ion-content>
 </ion-view>
