@@ -44,9 +44,9 @@
                 var chart = new google.visualization.BarChart(container);
                 var dataTable = new google.visualization.DataTable();
 
-                dataTable.addColumn({ type: 'string', id: 'N' });
-                dataTable.addColumn({ type: 'number', id: 'Id1' });
-                dataTable.addColumn({ type: 'number', id: 'Id2' });
+                dataTable.addColumn({ id: 'N', label: 'Nombre', type: 'string' });
+                dataTable.addColumn({ id: 'Id1', label: 'Hembra', type: 'number' });
+                dataTable.addColumn({ id: 'Id2', label: 'Macho', type: 'number' });
 
                 for (var i = 0; i < datos.length; i++) {
                     dataTable.addRows([[datos[i].N, datos[i].Id1, datos[i].Id2]]);
@@ -55,7 +55,7 @@
                 var options = {
                     'title': 'Peso promedio según raza y sexo',
                     hAxis: {
-                        title: 'Peso en kg.'
+                        title: 'Peso en kg'
                     },
                     vAxis: {
                         title: 'Razas'
@@ -81,7 +81,7 @@
                 'Id1': 2,
                 'Id2': 3
             }];
-            
+
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
 
