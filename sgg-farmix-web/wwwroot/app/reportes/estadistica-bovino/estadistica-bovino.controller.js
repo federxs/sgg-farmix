@@ -58,7 +58,7 @@
                 }
 
                 var options = {
-                    'title': 'Peso promedio según raza y sexo',
+                    'title': 'Peso Promedio según Raza y Sexo',
                     hAxis: {
                         title: 'Peso en kg'
                     },
@@ -119,7 +119,7 @@
                 }
 
                 var options = {
-                    'title': 'Cantidad de bajas por año',
+                    'title': 'Cantidad de Bajas por Muerte o Venta por Año',
                     hAxis: {
                         title: 'Años'
                     },
@@ -175,7 +175,7 @@
                 }
 
                 var options = {
-                    'title': 'Porcentaje de bovinos por Rodeo',
+                    'title': 'Porcentaje de Bovinos por Rodeo',
                     pieHole: 0.4,
                     'chartArea': { 'width': '100%', 'height': '100%' },
                     'legend': {
@@ -267,7 +267,7 @@
                 }
 
                 var options = {
-                    'title': 'Cantidad de nacimientos por mes',
+                    'title': 'Cantidad de Nacimientos por Mes',
                     hAxis: {
                         title: 'Meses'
                     },
