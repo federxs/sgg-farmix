@@ -12,13 +12,13 @@
         vm.title = 'estadisticaBovinoController';
 
         vm.cargarGraficoPesoPorRazaYSexo = cargarGraficoPesoPorRazaYSexo();
-        vm.cargarGraficoBajasPorAnio = cargarGraficoBajasPorAnio();
+        vm.cargarGraficoBajasPorMes = cargarGraficoBajasPorMes();
 
         init();
 
         function init() {
             cargarGraficoPesoPorRazaYSexo();
-            cargarGraficoBajasPorAnio();
+            cargarGraficoBajasPorMes();
             cargarTablaAlimentosMasConsumidos();
             cargarGraficoPorcentajeBovinoPorRodeo();
             cargarGraficoNacimientosPorMes();
@@ -80,24 +80,24 @@
             }
         };
 
-        function cargarGraficoBajasPorAnio(datos) {
+        function cargarGraficoBajasPorMes(datos) {
             var datos = [{
-                'anio': '2015',
+                'mes': '2015',
                 'muertes': 5,
                 'ventas': 3
             },
             {
-                'anio': '2016',
+                'mes': '2016',
                 'muertes': 8,
                 'ventas': 5
             },
             {
-                'anio': '2017',
+                'mes': '2017',
                 'muertes': 4,
                 'ventas': 1
             },
             {
-                'anio': '2018',
+                'mes': '2018',
                 'muertes': 4,
                 'ventas': 7
             }];
@@ -106,22 +106,22 @@
             google.charts.setOnLoadCallback(drawChart);
 
             function drawChart() {
-                var container = document.getElementById('graficoBajasPorAnio');
+                var container = document.getElementById('graficoBajasPorMes');
                 var chart = new google.visualization.ColumnChart(container);
                 var dataTable = new google.visualization.DataTable();
 
-                dataTable.addColumn({ id: 'anio', label: 'Año', type: 'string' });
+                dataTable.addColumn({ id: 'mes', label: 'Mes', type: 'string' });
                 dataTable.addColumn({ id: 'muertes', label: 'Muertes', type: 'number' });
                 dataTable.addColumn({ id: 'ventas', label: 'Ventas', type: 'number' });
 
                 for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].anio, datos[i].muertes, datos[i].ventas]]);
+                    dataTable.addRows([[datos[i].mes, datos[i].muertes, datos[i].ventas]]);
                 }
 
                 var options = {
-                    'title': 'Cantidad de Bajas por Muerte o Venta por Año',
+                    'title': 'Cantidad de Bajas por Muerte o Venta por Mes',
                     hAxis: {
-                        title: 'Años'
+                        title: 'Mes'
                     },
                     vAxis: {
                         title: 'Nº de bajas'
@@ -133,7 +133,7 @@
                 };
                 chart.draw(dataTable, options);
 
-                var my_anchor = document.getElementById('descargaGraficoBajasPorAnio');
+                var my_anchor = document.getElementById('descargaGraficoBajasPorMes');
                 my_anchor.href = chart.getImageURI();
                 google.visualization.events.addListener(chart, 'ready', function () {
                     my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
@@ -179,6 +179,7 @@
                     pieHole: 0.4,
                     'chartArea': { 'width': '100%', 'height': '100%' },
                     'legend': {
+                        'position': 'left',
                         'textStyle': { 'fontSize': 12 }
                     }
                 };
@@ -230,6 +231,12 @@
                 }
 
                 table.draw(dataTable, { showRowNumber: true, width: '100%', height: '100%' });
+
+                var my_anchor = document.getElementById('descargaTablaAlimentosMasConsumidos');
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + table.getImageURI() + '">';
+                });
             }
         };
 
