@@ -85,7 +85,7 @@
                 vm.usuario.usuario = $sessionStorage.usuarioInfo.usuario;
                 vm.ocultarUsuario = false;
             }
-        }
+        };
 
         function aceptar() {
             if (validar()) {
@@ -108,7 +108,7 @@
                         else {
                             toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.");
                             $('#login-modal').modal('show');
-                        }                            
+                        }
                         //setTimeout()
                         waitingDialog.hide();
                         //vm.showSpinner = false;
@@ -120,7 +120,7 @@
                         $('#login-modal').modal('show');
                     });
             }
-        }
+        };
 
         function validar() {
             if (isUndefinedOrNull(vm.usuario.usuario)) {
@@ -132,7 +132,7 @@
                 return false;
             }
             return true;
-        }
+        };
 
         function isUndefinedOrNull(val) {
             return angular.isUndefined(val) || val === null || val == undefined

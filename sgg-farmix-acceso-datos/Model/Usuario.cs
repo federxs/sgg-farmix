@@ -19,6 +19,7 @@ namespace sgg_farmix_acceso_datos.Model
         public long idPlan { get; set; }
         public string rol { get; set; }
         public long codigoCampo { get; set; }
+        public string contrasenia { get; set; }
     }
 
     public class UsuarioFilter
@@ -27,6 +28,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string apellido { get; set; }
         public long idRol { get; set; }
         public long codigoCampo { get; set; }
+        public long rolLogueado { get; set; }
     }
 
     public class UsuarioDetalle

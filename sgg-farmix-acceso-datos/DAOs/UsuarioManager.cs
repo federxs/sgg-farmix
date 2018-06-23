@@ -89,6 +89,11 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@usuario", entity.usuario },
                     {"@idRol", entity.idRol }
                 };
+                if(entity.contrasenia != null)
+                {
+                    var clave = Encrypt.GetMD5(entity.contrasenia);
+                    parametros.Add("@contrasenia", clave);
+                }
                 var update = connection.Execute("spModificarUsuario", parametros, System.Data.CommandType.StoredProcedure);
                 if(update == 0)
                     throw new ArgumentException("Update Usuario Error");
@@ -150,7 +155,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@codigoCampo", filtro.codigoCampo },
                     {"@nombre", filtro.nombre },
                     {"@apellido", filtro.apellido },
-                    {"@idRol", filtro.idRol }
+                    {"@idRol", filtro.idRol },
+                    {"@rolLogueado", filtro.rolLogueado }
                 };
                 var lista = connection.GetArray<Usuario>("spObtenerListaUsuarios", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
@@ -360,6 +366,36 @@ namespace sgg_farmix_acceso_datos.DAOs
         public void Delete(long id)
         {
             throw new NotImplementedException();
+        }
+
+        public long CambiarPass(string passVieja, string passNueva, string usuario, long rol)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var claveVieja = Encrypt.GetMD5(passVieja);
+                var claveNueva = Encrypt.GetMD5(passNueva);
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@passVieja", claveVieja },
+                    {"@passNueva", claveNueva },
+                    {"@usuario", usuario },
+                    {"@rol", rol }
+                };
+                var user = connection.GetArray<Usuario>("spModificarPass", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                if (user.idUsuario == 0)
+                    throw new ArgumentException("Update Contraseña Error");
+                return user.idUsuario;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
         }
     }
 }

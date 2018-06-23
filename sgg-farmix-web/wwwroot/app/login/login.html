@@ -125,7 +125,7 @@
                 </form>
                 <div>
                     <a class="pull-right" ng-click="ocultarUsuario = true" style="cursor:pointer">Ingresar con otra cuenta</a>
-                    <a class="pull-right" style="cursor:pointer" data-toggle="modal" data-target="#modalOlvidoPass">¿Olvido su contraseña?</a>
+                    <!--<a class="pull-right" style="cursor:pointer" data-toggle="modal" data-target="#modalOlvidoPass">¿Olvido su contraseña?</a>-->
                 </div>
             </div>
         </div>
@@ -140,7 +140,7 @@
                 </div>
                 <div class="modal-body" style="height: 130px;">
                     <p>¿Ha olvidado su contraseña?</p>
-                    <p>No se preocupe, ingrese su mail y se la mandaremos nuevamente</p>
+                    <p style="font-size: 12px;">No se preocupe, ingrese su mail y se la mandaremos nuevamente</p>
                     <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
                         <label class="control-label" for="mail">
                            Mail
@@ -148,9 +148,16 @@
                         <input name="mail" type="email" class="form-control" placeholder="Ingrese su mail"
                                ng-model="mail" required />
                     </div>
+                    <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
+                        <label class="control-label" for="mail">
+                            Usuario
+                        </label>
+                        <input name="mail" type="text" class="form-control" placeholder="Ingrese su usuario"
+                               ng-model="usuario" required />
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" ng-click="EnviarEmail()">Envíar</button>
+                    <button type="button" class="btn btn-primary" ng-click="enviarEmail()">Envíar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
                 </div>
             </div>

@@ -13,9 +13,11 @@
         window.scrollTo(0, 0);
         vm.btnVolver = "Cancelar";
         vm.habilitar = true;
+        vm.noCoincidenPass = false;
         //metodos
         vm.inicializar = inicializar;
         vm.modificar = modificar;
+        vm.validarContasenias = validarContasenias;
         inicializar();
 
         function inicializar() {
@@ -37,6 +39,8 @@
 
         function modificar() {
             $scope.$parent.blockSpinnerSave();
+            if (vm.contrasenia && vm.contraseniaRepetida)
+                vm.usuario.contrasenia = vm.contrasenia.contrasenia;
             modificarUsuariosService.modificar(vm.usuario).then(function success(data) {
                 vm.habilitar = false;
                 $scope.$parent.unBlockSpinnerSave();
@@ -46,6 +50,14 @@
                 vm.habilitar = false;
                 $scope.$parent.errorServicio(error.statusText);
             })
+        };
+
+        function validarContasenias() {
+            if (vm.contrasenia.contrasenia !== vm.contraseniaRepetida.contraseniaRepetida) {
+                vm.noCoincidenPass = true;
+            }
+            else
+                vm.noCoincidenPass = false;
         };
     }
 })();
