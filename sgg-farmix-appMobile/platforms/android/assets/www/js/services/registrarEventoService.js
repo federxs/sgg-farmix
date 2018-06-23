@@ -2,8 +2,6 @@
     .service('registrarEventoServiceHTTP', function ($http, portalService, $rootScope) {
         var eventoUrl = portalService.getUrlServer() + "api/Evento/Insert";
         this.registrarEvento = function (evento) {
-            console.log("enviamo evento");
-
             $http({
                 method: 'POST',
                 url: eventoUrl,
@@ -15,34 +13,9 @@
 
     .service('registrarEventoServiceDB', function ($q, $rootScope) {
         this.registrarEvento = function (evento) {
-            console.log(evento);
-            $rootScope.db.transaction(function (tx) {
-                /*var vacuna = null, antibiotico = null, alimento = null, rodeo = null;
-                if (evento.idVacuna != undefined) {
-                    vacuna = evento.idVacuna;
-                }
-                if (evento.idAntibiotico != undefined) {
-                    antibiotico = evento.idAntibiotico;
-                }
-                if (evento.idAlimento != undefined) {
-                    alimento = evento.idAlimento;
-                }
-                if (evento.idRodeoDestino != undefined) {
-                    rodeo = evento.idRodeoDestino;
-                }
-                tx.executeSql("INSERT OR IGNORE INTO Evento(fechaHora, cantidad, idTipoEvento, idVacuna, idAntibiotico, idAlimento, idRodeoDestino) VALUES(?, ?, ?, ?, ?, ?, ?)", [evento.fechaHora, evento.cantidad, evento.idTipoEvento, vacuna, antibiotico, alimento, rodeo]);
-                */
-                tx.executeSql("INSERT OR IGNORE INTO Evento(fechaHora, cantidad, idTipoEvento, idVacuna, idAntibiotico, idAlimento, idRodeoDestino) VALUES(?, ?, ?, ?, ?, ?, ?)", [evento.fechaHora, evento.cantidad, evento.idTipoEvento, evento.idVacuna, evento.idAntibiotico, evento.idAlimento, evento.idRodeoDestino]);
-                var aux = $q(function (resolve, reject) {
-                    tx.executeSql("SELECT last_insert_rowid() as idEvento FROM Evento", [],
-                    function (resultado) {
-                        resolve(resultado.rows.item(0));
-                    }, reject);
-                }).then(function (respuesta) { return respuesta });
-                console.log(aux);
-                $rootScope.idVacas.forEach(function (vaca) {
-                    tx.executeSql("INSERT OR IGNORE INTO BovinosXEvento(idEvento, idBovino) VALUES(?, ?)", [aux.idEvento, vaca.idBovino]);
-                });
+            $rootScope.db.executeSql("INSERT OR IGNORE INTO Evento(fechaHora, cantidad, idTipoEvento, idVacuna, idAntibiotico, idAlimento, idRodeoDestino) VALUES(?, ?, ?, ?, ?, ?, ?)", [evento.fechaHora, evento.cantidad, evento.idTipoEvento, evento.idVacuna, evento.idAntibiotico, evento.idAlimento, evento.idRodeoDestino]);
+            $rootScope.idVacas.forEach(function (vaca) {
+                $rootScope.db.executeSql("INSERT OR IGNORE INTO EventosXBovino(idEvento, idBovino) VALUES((SELECT last_insert_rowid() FROM EVENTO), ?)", [vaca]);
             });
         };
 
@@ -58,7 +31,7 @@
 
         this.getListaBovinosParaActualizarBackend = function (idEvento) {
             return $q(function (resolve, reject) {
-                $rootScope.db.executeSql("SELECT * FROM BovinosXEvento WHERE idEvento = ?", [idEvento],
+                $rootScope.db.executeSql("SELECT * FROM EventosXBovino WHERE idEvento = ?", [idEvento],
                   function (resultado) {
                       resolve(rows(resultado));
                   },
@@ -67,7 +40,7 @@
         };
 
         this.limpiarEventos = function () {
-            $rootScope.db.executeSql("DELETE FROM BovinosXEvento");
+            $rootScope.db.executeSql("DELETE FROM EventosXBovino");
             $rootScope.db.executeSql("DELETE FROM Evento");
         };
 
@@ -85,7 +58,6 @@
             if ($rootScope.online) {
                 registrarEventoServiceHTTP.registrarEvento(evento);
             } else {
-                console.log("no hay conexion, guardamo evento en bd")
                 $localStorage.actualizar = true;
                 registrarEventoServiceDB.registrarEvento(evento);
             }
@@ -96,21 +68,32 @@
             return registrarEventoServiceDB.getEventosParaActualizarBackend()
                 .then(function (respuesta) { eventos = respuesta; })
                 .then(function () {
-                    console.log(eventos);
                     if (eventos.length > 0) {
-                        console.log("tenemo evento");
                         eventos.forEach(function (evento) {
+                            console.log($rootScope.idVacas);
                             $rootScope.idVacas = [];
-                            var vacas = registrarEventoServiceDB.getListaBovinosParaActualizarBackend(evento.idEvento);
-                            vacas.forEach(function (vaca) {
-                                $rootScope.idVacas.push = [vaca.idBovino];
+                            registrarEventoServiceDB.getListaBovinosParaActualizarBackend(evento.idEvento).then(function (respuesta) {
+                                vacas = respuesta;
+                                vacas.forEach(function (vaca) {
+                                    $rootScope.idVacas.push(vaca.idBovino);
+                                })
+                                if (evento.idTipoEvento == 1) {
+                                    evento = { idTipoEvento: evento.idTipoEvento, idVacuna: evento.idVacuna, cantidad: evento.cantidad, fechaHora: evento.fechaHora };
+                                }
+                                else if (evento.idTipoEvento == 2) {
+                                    evento = { idTipoEvento: evento.idTipoEvento, idAntibiotico: evento.idAntibiotico, cantidad: evento.cantidad, fechaHora: evento.fechaHora };
+                                }
+                                else if (evento.idTipoEvento == 4) {
+                                    evento = { idTipoEvento: evento.idTipoEvento, idAlimento: evento.idAlimento, cantidad: evento.cantidad, fechaHora: evento.fechaHora };
+                                }
+                                else if (evento.idTipoEvento == 3) {
+                                    evento = { idTipoEvento: evento.idTipoEvento, idRodeoDestino: evento.idRodeoDestino, fechaHora: evento.fechaHora };
+                                }
+                                registrarEventoServiceHTTP.registrarEvento(evento);
+                                $rootScope.idVacas = [];
                             })
-                            evento = { idTipoEvento: evento.idTipoEvento, idAlimento: evento.idAlimento, idVacuna: evento.idVacuna, idAntibiotico: evento.idAntibiotico, idRodeoDestino: evento.idRodeoDestino, cantidad: evento.cantidad, fechaHora: evento.fechaHora };
-                            registrarEventoServiceHTTP.registrarEvento(evento);
-                            console.log("evento enviao");
-                        }).then(function () {
-                            registrarEventoServiceDB.limpiarEventos();
                         })
+                        registrarEventoServiceDB.limpiarEventos();
                     }
                 });
         }

@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('BienvenidoController', function ($ionicPlatform, $scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService, parametricasService, inseminacionService) {
+    .controller('BienvenidoController', function ($ionicPlatform, $scope, $rootScope, $state, $ionicLoading, loginService, $localStorage, conexion, alimentoService, antibioticoService, bovinoService, rodeoService, vacunaService, parametricasService, inseminacionService, $q) {
         $ionicPlatform.ready(function () {
             if (!$rootScope.logueado || $rootScope.logueado == undefined) {
                 if (($localStorage.usuario != undefined) && ($localStorage.pass != undefined)) {
@@ -31,7 +31,7 @@ angular.module('starter')
                     cargarDataBase();
                 }
             }
-        }); 
+        });
         function cargarDataBase() {
             alimentoService.getDatosAlimento($localStorage.campo);
             antibioticoService.getDatosAntibiotico($localStorage.campo);
@@ -42,21 +42,6 @@ angular.module('starter')
             parametricasService.getDatosParametricas($localStorage.campo);
             inseminacionService.getInseminacionesPendientes($localStorage.campo);
         }
-        //$rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
-
-        /*if (!$localStorage.ultimaConConexion) {
-            //si la ultima vez fue sin conexion, realizar post
-            //tirar a los services que hagan el post
-            va en Background, variable para ver si hay algo para actualizar
-        }*/
-
-        /*if ($rootScope.logueado == true && conexion.online) {
-            alimentoService.getDatosAlimento($localStorage.campo);
-            antibioticoService.getDatosAntibiotico($localStorage.campo);
-            bovinoService.getBovinos($localStorage.campo);
-            rodeoService.getDatosRodeo($localStorage.campo);
-            vacunaService.getDatosVacuna($localStorage.campo);
-        }*/
 
         $scope.iniciar = function () {
             $state.go('app.login');

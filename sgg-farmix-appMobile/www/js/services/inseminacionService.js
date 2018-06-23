@@ -24,18 +24,12 @@
 
      .service('inseminacionServiceDB', function ($q, $rootScope) {
          this.registrarInseminacion = function (inseminacion) {
-             $rootScope.db.transaction(function (tx) {
-                 $rootScope.idVacas.forEach(function (id) {
-                     tx.executeSql("INSERT OR IGNORE INTO Inseminacion(idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion, paraActualizar) VALUES(?, ?, ?, ?, 1)", [id, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, inseminacion.tipoInseminacion]);
-                     var idInseminacion = tx.executeSql("SELECT last_insert_rowid() FROM Inseminacion", [],
-                         function (resultado) {
-                             resolve(resultado.rows.item(0));
-                         }, reject);
-                     $rootScope.idToros.forEach(function (idToro) {
-                         tx.executeSql("INSERT OR IGNORE INTO TorosXInseminacion(idInseminacion, idToro) VALUES(?, ?)", [idInseminacion, idToro]);
-                     });
-                 })
-             });
+             $rootScope.idVacas.forEach(function (id) {
+                 $rootScope.db.executeSql("INSERT OR IGNORE INTO Inseminacion(idVaca, fechaInseminacion, fechaEstimadaNacimiento, tipoInseminacion, paraActualizar) VALUES(?, ?, ?, ?, 1)", [id, inseminacion.fechaInseminacion, inseminacion.fechaEstimadaNacimiento, inseminacion.tipoInseminacion]);
+                 $rootScope.idToros.forEach(function (idToro) {
+                     $rootScope.db.executeSql("INSERT OR IGNORE INTO TorosXInseminacion(idInseminacion, idToro) VALUES((SELECT last_insert_rowid() FROM Inseminacion), ?)", [idToro]);
+                 });
+             })
          }
 
          this.getInseminacionesPendientes = function () {
@@ -129,17 +123,19 @@
                     if (inseminaciones.length > 0) {
                         inseminaciones.forEach(function (inseminacion) {
                             $rootScope.idVacas = [];
-                            $rootScope.idVacas.push = [inseminacion.idVaca];
+                            $rootScope.idVacas.push(inseminacion.idVaca);
                             $rootScope.idToros = [];
-                            var toros = inseminacionServiceDB.getListaTorosParaActualizarBackend(inseminacion.idInseminacion);
-                            toros.forEach(function (toro) {
-                                $rootScope.idToros.push = [toro.idToro];
+                            var toros = inseminacionServiceDB.getListaTorosParaActualizarBackend(inseminacion.idInseminacion).then(function () {
+                                toros.forEach(function (toro) {
+                                    $rootScope.idToros.push(toro.idToro);
+                                })
+                                inseminacion = { tipoInseminacion: inseminacion.tipoInseminacion, fechaInseminacion: inseminacion.fechaInseminacion };
+                                inseminacionServiceHTTP.registrarInseminacion(inseminacion);
+                                $rootScope.idVacas = [];
+                                $rootScope.idToros = [];
                             })
-                            inseminacion = { tipoInseminacion: inseminacion.tipoInseminacion, fechaInseminacion: inseminacion.fechaInseminacion };
-                            inseminacionServiceHTTP.registrarInseminacion(inseminacion);
-                        }).then(function () {
-                            inseminacionServiceDB.limpiarInseminaciones();
                         })
+                        inseminacionServiceDB.limpiarInseminaciones();
                     }
                 });
         }
