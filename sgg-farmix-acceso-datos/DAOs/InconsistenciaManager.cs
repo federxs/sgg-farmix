@@ -103,7 +103,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@estado", filter.estado },
                     {"@fechaDesde", filter.fechaDesde },
                     {"@fechaHasta", filter.fechaHasta },
-                    {"@codigoCampo", filter.codigoCampo }
+                    {"@codigoCampo", filter.codigoCampo },
+                    {"@periodo", filter.periodo }
                 };
                 var lista = connection.GetArray<Inconsistencia>("spObtenerListaInconsistencias", parametros, System.Data.CommandType.StoredProcedure);
                 return lista.ToList();

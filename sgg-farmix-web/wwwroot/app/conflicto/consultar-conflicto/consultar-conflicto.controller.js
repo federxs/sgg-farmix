@@ -50,6 +50,7 @@
                     vm.filtro.fechaHasta = new Date(vm.filtro.fechaHasta.split('/')[2], (parseInt(vm.filtro.fechaHasta.split('/')[1]) - 1).toString(), vm.filtro.fechaHasta.split('/')[0]);
                 vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
             }
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             consultarConflictoService.obtenerConflictos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';

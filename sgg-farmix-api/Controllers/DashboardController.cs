@@ -19,12 +19,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Dashboard/Get")]
         [HttpGet]
         [AutorizationToken]
-        public DashBoard Get(string id)
+        public DashBoard Get(string id, string periodo)
         {
             try
             {
                 var idCampo = Regex.Replace(id, @"[^\d]", "");
-                return DM.Get(Int64.Parse(idCampo));
+                return DM.Get(Int64.Parse(idCampo), periodo);
             }
             catch (Exception ex)
             {

@@ -249,7 +249,7 @@ namespace sgg_farmix_api.Controllers
         {
             try
             {
-                return UM.GetDatosUserLogueado(usuario, campo, idRol);
+                return UM.GetDatosUserLogueado(usuario, campo, idRol, null);
             }
             catch (Exception ex)
             {

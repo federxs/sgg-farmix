@@ -26,6 +26,7 @@ namespace sgg_farmix_acceso_datos.Model
         public int estado { get; set; }
         public string fechaDesde { get; set; }
         public string fechaHasta { get; set; }
+        public string periodo { get; set; }
     }
 
     public class InconsistenciaResolver

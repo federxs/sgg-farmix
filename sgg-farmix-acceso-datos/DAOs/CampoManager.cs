@@ -174,7 +174,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     {"@fechaDesde", filter.fechaDesde },
                     {"@fechaHasta", filter.fechaHasta },
-                    {"@codigoCampo", filter.codigoCampo }
+                    {"@codigoCampo", filter.codigoCampo },
+                    {"@periodo", filter.periodo }
                 };
                 if (filter.numCaravanaMadre != 0)
                     parametros.Add("@numCaravanaMadre", filter.numCaravanaMadre.ToString());

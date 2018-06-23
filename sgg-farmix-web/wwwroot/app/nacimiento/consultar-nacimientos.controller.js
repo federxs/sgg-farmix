@@ -49,6 +49,7 @@
             }
             if (!vm.filtro.numCaravanaMadre) vm.filtro.numCaravanaMadre = 0;
             if (!vm.filtro.numCaravanaPadre) vm.filtro.numCaravanaPadre = 0;
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             consultarNacimientosService.obtenerNacimientos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';

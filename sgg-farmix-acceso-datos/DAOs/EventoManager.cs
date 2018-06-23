@@ -90,7 +90,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@idTipoEvento", filter.idTipoEvento },
                     {"@fechaDesde", filter.fechaDesde },
                     {"@fechaHasta", filter.fechaHasta },
-                    {"@idCampo", filter.codigoCampo }
+                    {"@idCampo", filter.codigoCampo },
+                    {"@periodo", filter.periodo }
                 };
                 if (filter.numCaravana != 0)
                     parametros.Add("@numCaravana", filter.numCaravana);

@@ -265,7 +265,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public UsuarioLogueado GetDatosUserLogueado(string user, long campo, long idRol)
+        public UsuarioLogueado GetDatosUserLogueado(string user, long campo, long idRol, string periodo)
         {
             try
             {
@@ -274,7 +274,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                 {
                     {"@usuario", user },
                     {"@codigoCampo", campo },
-                    {"@idRol", idRol }
+                    {"@idRol", idRol },
+                    {"@periodo", periodo }
                 };
                 var usuario = connection.GetArray<UsuarioLogueado>("spObtenerDatosUsuarioLogueado", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return usuario;

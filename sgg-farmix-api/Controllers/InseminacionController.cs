@@ -70,12 +70,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Inseminacion/Init")]
         [HttpGet]
         [AutorizationToken]
-        public InseminacionInit InitPantallaInseminacion(string idCampo)
+        public InseminacionInit InitPantallaInseminacion(string idCampo, string periodo)
         {
             try
             {
                 var id = Regex.Replace(idCampo, @"[^\d]", "");
-                return IM.GetInicioInseminacion(Int64.Parse(id));
+                return IM.GetInicioInseminacion(Int64.Parse(id), periodo);
             }
             catch (Exception ex)
             {
@@ -109,12 +109,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Inseminacion/ServicioSinConfirmar")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<ServSinConfirmar> GetServiciosSinConfirmar(string idCampo)
+        public IEnumerable<ServSinConfirmar> GetServiciosSinConfirmar(string idCampo, string periodo)
         {
             try
             {
                 var id = Regex.Replace(idCampo, @"[^\d]", "");
-                return IM.GetServiciosSinConfirmar(Int64.Parse(id));
+                return IM.GetServiciosSinConfirmar(Int64.Parse(id), periodo);
             }
             catch (Exception ex)
             {
@@ -149,12 +149,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Inseminacion/PreniadasPorParir")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<PreniadasXParir> GetPreniadasPorParir(string idCampo)
+        public IEnumerable<PreniadasXParir> GetPreniadasPorParir(string idCampo, string periodo)
         {
             try
             {
                 var id = Regex.Replace(idCampo, @"[^\d]", "");
-                return IM.GetPreniadasPorParir(Int64.Parse(id));
+                return IM.GetPreniadasPorParir(Int64.Parse(id), periodo);
             }
             catch (Exception ex)
             {

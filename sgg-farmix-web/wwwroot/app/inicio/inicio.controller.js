@@ -14,10 +14,12 @@
         $scope.irAConflictos = irAConflictos;
         $scope.cerrar = cerrar;
         $scope.prueba = prueba;
+        $scope.ano = new Date().getFullYear();
+        $localStorage.usuarioInfo.periodoConsulta = $scope.ano;
 
         function inicializar() {
             $scope.$parent.blockSpinner();
-            inicioService.inicializar($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
+            inicioService.inicializar($localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta).then(function success(data) {
                 $scope.cantBovinos = data.bovinos;
                 $scope.cantEventos = data.eventos;
                 $scope.cantVentas = data.ventas;

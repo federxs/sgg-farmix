@@ -44,7 +44,7 @@
             $scope.$parent.blockSpinner();
             vm.showServSinConfirm = true;
             vm.showProxPartos = true;
-            consultarInseminacionService.inicializar($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
+            consultarInseminacionService.inicializar($localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta).then(function success(data) {
                 vm.init = data;
                 serviciosSinConfirmar();
                 proximosPartos();
@@ -65,7 +65,7 @@
             if (vistoServSinConfirm === 1) {
                 vistoServSinConfirm = 0;
                 vm.showServSinConfirm = true;
-                consultarInseminacionService.consultarServicioSinConfirmar($localStorage.usuarioInfo.codigoCampo).then(
+                consultarInseminacionService.consultarServicioSinConfirmar($localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta).then(
                 function success(data) {
                     var fechaHoy = new Date();
                     fechaHoy = moment(convertirFecha(fechaHoy));
@@ -161,7 +161,7 @@
                 var fechaHoy = new Date();
                 vm.preniadasPorParir = {};
                 fechaHoy = moment(convertirFecha(fechaHoy));
-                consultarInseminacionService.consultarPreniadasXParir($localStorage.usuarioInfo.codigoCampo).then(
+                consultarInseminacionService.consultarPreniadasXParir($localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta).then(
                 function success(data) {
                     proxPartos = data;                    
                     vm.preniadasPorParir.prox10dias = Enumerable.From(data).Where(function (x) {

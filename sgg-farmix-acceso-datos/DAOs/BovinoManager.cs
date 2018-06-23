@@ -274,7 +274,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@idEstado", filter.idEstado },
                     {"@peso", filter.peso },
                     {"@accionPeso", (filter.accionPeso == "0" ? null : filter.accionPeso) },
-                    {"@idCampo", filter.codigoCampo }
+                    {"@idCampo", filter.codigoCampo },
+                    {"@periodo", filter.periodo }
                 };
                 if (filter.numCaravana != 0)
                     parametros.Add("@numCaravana", filter.numCaravana.ToString());

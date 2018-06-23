@@ -67,6 +67,7 @@
             vm.disabledExportar = 'disabled';
             if (vm.filtro.peso === '' || vm.filtro.peso === undefined) vm.filtro.peso = 0;
             if (vm.filtro.numCaravana === '' || vm.filtro.numCaravana === null) vm.filtro.numCaravana = 0;
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             consultarBovinoService.obtenerListaBovinos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';

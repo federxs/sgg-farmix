@@ -22,19 +22,25 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
+        public DashBoard Get(long id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<DashBoard> Get(DashBoard entity)
         {
             throw new NotImplementedException();
         }
 
-        public DashBoard Get(long id)
+        public DashBoard Get(long id, string periodo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@codigoCampo", id }
+                    {"@codigoCampo", id },
+                    {"@periodo", periodo }
                 };
                 var dashboard = connection.GetArray<DashBoard>("spGetDashBoard", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 dashboard.graficoRaza = connection.GetArray<DatosGraficoRaza>("spGetCantBovinosXRaza", parametros, System.Data.CommandType.StoredProcedure);

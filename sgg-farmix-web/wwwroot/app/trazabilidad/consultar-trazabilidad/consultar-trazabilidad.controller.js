@@ -73,6 +73,7 @@
             else if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null) {
                 $('#timeline').show();
             }
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             consultarTrazabilidadService.getListaEventos(angular.toJson(vm.filtro, false)).then(function success(data) {
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';

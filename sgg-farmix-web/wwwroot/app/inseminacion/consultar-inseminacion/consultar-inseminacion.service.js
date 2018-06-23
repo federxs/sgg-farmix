@@ -17,11 +17,11 @@
 
         return service;
 
-        function inicializar(idCampo) {
+        function inicializar(idCampo, periodo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/Init',
-                params: { idCampo: idCampo },
+                params: { idCampo: idCampo, periodo: periodo },
                 headers: portalService.getHeadersServer()
             }).then(
            function (data) {
@@ -40,11 +40,11 @@
            });
         }
 
-        function consultarServicioSinConfirmar(idCampo) {
+        function consultarServicioSinConfirmar(idCampo, periodo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/ServicioSinConfirmar',
-                params: { idCampo: idCampo },
+                params: { idCampo: idCampo, periodo: periodo },
                 headers: portalService.getHeadersServer()
             }).then(
            function (data) {
@@ -64,11 +64,11 @@
            });
         }
 
-        function consultarPreniadasXParir(idCampo) {
+        function consultarPreniadasXParir(idCampo, periodo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/PreniadasPorParir',
-                params: { idCampo: idCampo },
+                params: { idCampo: idCampo, periodo: periodo },
                 headers: portalService.getHeadersServer()
             }).then(
            function (data) {

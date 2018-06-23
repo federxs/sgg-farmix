@@ -135,14 +135,15 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public InseminacionInit GetInicioInseminacion(long id)
+        public InseminacionInit GetInicioInseminacion(long id, string periodo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@idCampo", id }
+                    {"@idCampo", id },
+                    {"@periodo", periodo }
                 };
                 var obj = connection.GetArray<InseminacionInit>("spGetInicioInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return obj;
@@ -177,14 +178,15 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<ServSinConfirmar> GetServiciosSinConfirmar(long idCampo)
+        public IEnumerable<ServSinConfirmar> GetServiciosSinConfirmar(long idCampo, string periodo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@idCampo", idCampo }
+                    {"@idCampo", idCampo },
+                    {"@periodo", periodo }
                 };
                 var lista = connection.GetArray<ServSinConfirmar>("spGetListServSinConfirmar", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
@@ -223,14 +225,15 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<PreniadasXParir> GetPreniadasPorParir(long idCampo)
+        public IEnumerable<PreniadasXParir> GetPreniadasPorParir(long idCampo, string periodo)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@codigoCampo", idCampo }
+                    {"@codigoCampo", idCampo },
+                    {"@periodo", periodo }
                 };
                 var lista = connection.GetArray<PreniadasXParir>("spGetListPreniadasXParir", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;

@@ -13,11 +13,11 @@
             cambiarPass: cambiarPass
         };
 
-        function datosUsuario(usuario, codigoCampo, idRol) {
+        function datosUsuario(usuario, codigoCampo, idRol, periodo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Home/GetDatosUserLogueado',
-                params: { usuario: usuario, codigoCampo: codigoCampo, idRol: idRol },
+                params: { usuario: usuario, codigoCampo: codigoCampo, idRol: idRol, periodo: periodo },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

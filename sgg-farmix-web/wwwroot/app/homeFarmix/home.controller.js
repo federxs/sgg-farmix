@@ -137,7 +137,7 @@
 
         $scope.load = function () {
             spinnerBar.show();
-            homeService.datosUsuario(usuarioInfo.getUsuario(), $localStorage.usuarioInfo.codigoCampo, usuarioInfo.getRol()).then(function success(data) {
+            homeService.datosUsuario(usuarioInfo.getUsuario(), $localStorage.usuarioInfo.codigoCampo, usuarioInfo.getRol(), $localStorage.usuarioInfo.periodoConsulta).then(function success(data) {
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;

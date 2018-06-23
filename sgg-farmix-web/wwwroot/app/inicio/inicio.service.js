@@ -14,11 +14,11 @@
             prueba: prueba
         };
 
-        function inicializar(id) {
+        function inicializar(id, periodo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Dashboard/Get',
-                params: { id: id },
+                params: { id: id, periodo: periodo },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {
