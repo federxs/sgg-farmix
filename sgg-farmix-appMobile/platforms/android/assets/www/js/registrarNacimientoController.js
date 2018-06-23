@@ -26,6 +26,10 @@ angular.module('starter')
         function registrarNacimiento() {
             var date = new Date();
             var formattedDate = moment(date).format('YYYYMMDD');
-            return nacimientoService.registrarNacimiento($rootScope.idVacas, formattedDate, $rootScope.idToros[0], $localStorage.campo);
+            var toro = '';
+            if ($rootScope.idToros != undefined) {
+                toro = $rootScope.idToros[0]
+            }
+            return nacimientoService.registrarNacimiento($rootScope.idVacas, formattedDate, toro, $localStorage.campo);
         }
     });

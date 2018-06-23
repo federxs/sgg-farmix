@@ -69,7 +69,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <!--notifications of menu start -->
                     <ul class="nofitications-dropdown">
                         <li class="dropdown head-dpdn">
-                            <a href="#" class="dropdown-toggle" ui-sref="home.nacimientos" title="Nacimientos por registrar"><i class="fa fa-star" style="color:white;"></i><span class="badge">{{usuarioInfo.cantidadNacimientos}}</span></a>                            
+                            <a href="#" class="dropdown-toggle" ui-sref="home.nacimientos" title="Nacimientos por registrar"><i class="fa fa-star" style="color:white;"></i><span class="badge">{{usuarioInfo.cantidadNacimientos}}</span></a>
                         </li>
                         <li class="dropdown head-dpdn">
                             <a class="dropdown-toggle" ui-sref="home.conflictos" title="Conflictos"><i class="fa fa-bell"></i><span class="badge blue">{{usuarioInfo.cantidadInconsistencias}}</span></a>
@@ -126,7 +126,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                 </li>
                             </ul>-->
                         </li>
-                    </ul>                    
+                    </ul>
                     <div class="clearfix"> </div>
                 </div>
                 <div style="margin-top: 10px;">
@@ -157,8 +157,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="dropdown-menu drp-mnu">
                                 <li> <a ui-sref="home.configuracion"><i class="fa fa-cog"></i> Configuraciones</a> </li>
-                                <li> <a ng-click="modificarImagenPerfil()" style="cursor:pointer;"><i class="fa fa-suitcase"></i> Perfil</a> </li>
+                                <li> <a ng-click="modificarImagenPerfil()" style="cursor:pointer;"><i class="fa fa-suitcase"></i>Mi Perfil</a> </li>
                                 <li> <a ui-sref="seleccionCampo" style="cursor:pointer;"><i class="fa fa-dot-circle-o"></i> Ir a selección de Campos</a> </li>
+                                <li> <a data-toggle="modal" data-target="#modalCambiarContrania" style="cursor:pointer;"><i class="fa fa-key"></i> Cambiar mi contraseña</a> </li>
                                 <li> <a data-toggle="modal" data-target="#modalConfirmCerrarSesion" style="cursor:pointer;"><i class="fa fa-sign-out"></i> Cerrar Sesión</a> </li>
                             </ul>
                         </li>
@@ -199,7 +200,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
     <!--//footer-->
-
     <!--Modal perfil user-->
     <div class="modal fade" id="modalPerfil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -279,6 +279,48 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                 <div class="modal-footer">
                     <center>
                         <button type="button" class="btn btn-success" ng-disabled="!perfil.nombre || !perfil.apellido || (!perfil.usuarioImagen && perfil.length === 0)" ng-click="guardarImagenPerfil()">Guardar</button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal perfil user-->
+    <div class="modal fade" id="modalCambiarContrania" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">Cambiar contraseña</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-left">
+                        <label class="control-label" for="PassAnterior">
+                            Contraseña anterior (*)
+                        </label>
+                        <input name="PassAnterior" type="password" class="form-control" placeholder="Ingrese su contraseña anterior"
+                               ng-model="contrasenia.anterior" required maxlength="50" />
+                        <label class="control-label" for="PassNueva">
+                            Contraseña nueva (*)
+                        </label>
+                        <input name="PassNueva" type="password" class="form-control" placeholder="Ingrese la nueva contraseña"
+                               ng-model="contrasenia.nueva" required maxlength="50" />
+                        <label class="control-label" for="PassNuevaRepe">
+                            Repita la contraseña nueva (*)
+                        </label>
+                        <input name="PassNuevaRepe" type="password" class="form-control" placeholder="Repita la nueva contraseña"
+                               ng-model="contrasenia.nuevaRepe" required maxlength="50" ng-blur="validarContraseniasRepe()" />
+                        <div ng-show="noCoincidenPass">
+                            <span class="help-block" style="color:red;">
+                                Las contraseñas no conciden
+                            </span>
+                        </div>
+                    </p>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-success" ng-disabled="!contrasenia.anterior || !contrasenia.nueva || !contrasenia.nuevaRepe || noCoincidenPass" ng-click="cambiarContrasenia()">Cambiar</button>
                     </center>
                 </div>
             </div>

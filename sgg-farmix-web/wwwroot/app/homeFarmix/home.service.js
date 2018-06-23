@@ -9,7 +9,8 @@
 
     function homeService($http, portalService) {
         var service = {
-            datosUsuario: datosUsuario
+            datosUsuario: datosUsuario,
+            cambiarPass: cambiarPass
         };
 
         function datosUsuario(usuario, codigoCampo, idRol) {
@@ -17,6 +18,18 @@
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Home/GetDatosUserLogueado',
                 params: { usuario: usuario, codigoCampo: codigoCampo, idRol: idRol },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function cambiarPass(passVieja, passNueva, usuario, rol) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Usuario/CambiarPass',
+                params: { passVieja: passVieja, passNueva: passNueva, usuario: usuario, rol: rol },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

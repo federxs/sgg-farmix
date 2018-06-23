@@ -87,42 +87,36 @@
                         </div>
                     </div>
                 </div>
-                <!--<div class="row">
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarUsuario.contrasenia.$touched && formModificarUsuario.contrasenia.$valid,
-                 'has-error has-feedback':formModificarUsuario.contrasenia.$touched && formModificarUsuario.contrasenia.$invalid}">
+                <div class="row">
+                    <div class="form-group col-md-4 col-lg-4">
                         <label class="control-label" for="contrasenia">
                             Contraseña (*)
                         </label>
-                        <input name="contrasenia" type="text" class="form-control" placeholder="Contraseña" required
+                        <input name="contrasenia" type="password" class="form-control" placeholder="Contraseña"
                                ng-disabled="!habilitar"
                                ng-model="contrasenia.contrasenia" />
-                        <div ng-show="formModificarUsuario.contrasenia.$touched">
-                            <span class="help-block" ng-show="formModificarUsuario.contrasenia.$error.required">
-                                Este campo es requerido
+                        <div ng-show="noCoincidenPass">
+                            <span class="help-block" style="color:red;">
+                                Las contraseñas no conciden
                             </span>
                         </div>
                     </div>
-                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formModificarUsuario.contraseniaRepetida.$touched && formModificarUsuario.contraseniaRepetida.$valid,
-                 'has-error has-feedback':formModificarUsuario.contraseniaRepetida.$touched && formModificarUsuario.contraseniaRepetida.$invalid}">
+                    <div class="form-group col-md-4 col-lg-4">
                         <label class="control-label" for="contraseniaRepetida">
                             Repita la contraseña (*)
                         </label>
-                        <input name="contraseniaRepetida" type="text" class="form-control" placeholder="Contraseña" required
+                        <input name="contraseniaRepetida" type="password" class="form-control" placeholder="Repita la contraseña"
                                ng-disabled="!habilitar"
-                               ng-model="contraseniaRepetida.contraseniaRepetida" />
-                        <div ng-show="formModificarUsuario.contraseniaRepetida.$touched">
-                            <span class="help-block" ng-show="formModificarUsuario.contraseniaRepetida.$error.required">
-                                Este campo es requerido
-                            </span>
-                        </div>
+                               ng-model="contraseniaRepetida.contraseniaRepetida"
+                               ng-blur="validarContasenias()" />                        
                     </div>
-                </div>-->
+                </div>
             </div>
         </div>
     </fieldset>
     <div class="row">
         <button type="submit" style="margin-left:15px;" class="btn btn-primary"
-                ng-disabled="formModificarUsuario.$invalid || !habilitar"
+                ng-disabled="formModificarUsuario.$invalid || !habilitar || noCoincidenPass"
                 ng-click="modificar()">
             Aceptar
         </button>

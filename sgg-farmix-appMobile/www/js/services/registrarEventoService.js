@@ -70,7 +70,6 @@
                 .then(function () {
                     if (eventos.length > 0) {
                         eventos.forEach(function (evento) {
-                            console.log($rootScope.idVacas);
                             $rootScope.idVacas = [];
                             registrarEventoServiceDB.getListaBovinosParaActualizarBackend(evento.idEvento).then(function (respuesta) {
                                 vacas = respuesta;

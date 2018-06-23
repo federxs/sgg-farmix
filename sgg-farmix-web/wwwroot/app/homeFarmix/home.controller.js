@@ -15,6 +15,7 @@
         $scope.showBorrar = false;
         $scope.toDelete = [];
         window.scrollTo(0, 0);
+        $scope.noCoincidenPass = false;
 
         //Redimenciona el tamaño del body
         var body = document.body;
@@ -315,6 +316,25 @@
             }, function (error) {
                 spinnerBar.hide();
                 //$scope.showSpinner = false;
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            });
+        };
+
+        $scope.validarContraseniasRepe = function () {
+            if($scope.contrasenia.nueva !== $scope.contrasenia.nuevaRepe)
+                $scope.noCoincidenPass = true;
+            else
+                $scope.noCoincidenPass = false;
+        };
+
+        $scope.cambiarContrasenia = function () {
+            spinnerBar.show();
+            homeService.cambiarPass($scope.contrasenia.anterior, $scope.contrasenia.nueva, usuarioInfo.getUsuario(), usuarioInfo.getRol()).then(function success(data) {
+                toastr.success('Contraseña cambiada con éxito', 'Éxito');
+                spinnerBar.hide();
+                $('#modalCambiarContrania').modal('hide');
+            }, function (error) {
+                spinnerBar.hide();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };

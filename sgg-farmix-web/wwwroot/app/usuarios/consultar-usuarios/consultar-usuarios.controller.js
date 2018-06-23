@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarUsuariosController', consultarUsuariosController);
 
-    consultarUsuariosController.$inject = ['$scope', 'consultarUsuariosService', 'toastr', 'exportador', '$localStorage', '$state'];
+    consultarUsuariosController.$inject = ['$scope', 'consultarUsuariosService', 'toastr', 'exportador', '$localStorage', '$state', 'usuarioInfo'];
 
-    function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage, $state) {
+    function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage, $state, usuarioInfo) {
         var vm = $scope;
         window.scrollTo(0, 0);
         vm.deshabilitar = false;
@@ -50,6 +50,7 @@
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
             vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+            vm.filtro.rolLogueado = usuarioInfo.getRol();
             consultarUsuariosService.obtenerListaUsuarios(vm.filtro).then(function success(data) {
                 if (data.length === 0) {
                     vm.rowCollection = [];
