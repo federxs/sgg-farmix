@@ -71,6 +71,12 @@
                     }
                 };
                 chart.draw(dataTable, options);
+
+                var my_anchor = document.getElementById('descargaGraficoPesoPorRazaYSexo');
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                });
             }
         };
 
@@ -126,6 +132,12 @@
                     }
                 };
                 chart.draw(dataTable, options);
+
+                var my_anchor = document.getElementById('descargaGraficoBajasPorAnio');
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                });
             }
         };
 
@@ -171,6 +183,12 @@
                     }
                 };
                 chart.draw(dataTable, options);
+
+                var my_anchor = document.getElementById('descargaGraficoPorcentajeBovinoPorRodeo');
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                });
             }
         }
 
@@ -262,7 +280,15 @@
                     }
                 };
                 chart.draw(dataTable, options);
+
+                var my_anchor = document.getElementById('descargaGraficoNacimientosPorMes');
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                });
             }
+
+            
         }
 
     }//fin controlador
