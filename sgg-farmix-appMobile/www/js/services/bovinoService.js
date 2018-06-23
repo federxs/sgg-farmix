@@ -115,7 +115,6 @@
                 } else {
                     escrito = 0;
                 }
-                //igual nos quedarian los bovinos que fueron borrados desde el sistema, nos quedarian en nuestra bd local... (supongo que no hay drama).
                 sqlStatments.push(["INSERT OR REPLACE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, enfermo, paraActualizar) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, escrito, bovino.enfermo]]);
             });
 

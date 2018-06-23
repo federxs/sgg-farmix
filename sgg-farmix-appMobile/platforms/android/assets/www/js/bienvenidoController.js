@@ -38,7 +38,6 @@ angular.module('starter')
             bovinoService.getBovinos($localStorage.campo);
             rodeoService.getDatosRodeo($localStorage.campo);
             vacunaService.getDatosVacuna($localStorage.campo);
-            //Estado, Raza, Categoria
             parametricasService.getDatosParametricas($localStorage.campo);
             inseminacionService.getInseminacionesPendientes($localStorage.campo);
         }

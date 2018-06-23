@@ -9,12 +9,21 @@ angular.module('starter')
                 $localStorage.usuario = undefined;
                 $localStorage.pass = undefined;
                 $state.go('app.bienvenido');
-                //esta negrada es del luki
-                $rootScope.db.executeSql("DELETE FROM Alimento");
-                $rootScope.db.executeSql("DELETE FROM Antibiotic");
+                $rootScope.db.executeSql("DELETE FROM Nacimiento");
+                $rootScope.db.executeSql("DELETE FROM InseminacionPendiente");
+                $rootScope.db.executeSql("DELETE FROM Tacto");
+                $rootScope.db.executeSql("DELETE FROM TorosXInseminacion");
+                $rootScope.db.executeSql("DELETE FROM Inseminacion");
+                $rootScope.db.executeSql("DELETE FROM EventosXBovino");
+                $rootScope.db.executeSql("DELETE FROM Evento");
                 $rootScope.db.executeSql("DELETE FROM Bovino");
-                $rootScope.db.executeSql("DELETE FROM Rodeo");
                 $rootScope.db.executeSql("DELETE FROM Vacuna");
+                $rootScope.db.executeSql("DELETE FROM Rodeo");
+                $rootScope.db.executeSql("DELETE FROM Raza");
+                $rootScope.db.executeSql("DELETE FROM Estado");
+                $rootScope.db.executeSql("DELETE FROM Categoria");
+                $rootScope.db.executeSql("DELETE FROM Antibiotico");
+                $rootScope.db.executeSql("DELETE FROM Alimento");
             } else {
                 alert("Se necesita conexi\u00F3n para cerrar la sesi\u00F3n");
             }

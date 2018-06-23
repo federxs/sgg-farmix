@@ -1,12 +1,10 @@
 ﻿angular.module('starter')
     .service('servicio', function (bovinoService, inseminacionService, nacimientoService, registrarEventoService, verificacionInseminacionService) {
         this.posts = function () {
-            //funciona
             bovinoService.actualizarBovinosBackend();
             verificacionInseminacionService.actualizarVerificacionesBackend();
             registrarEventoService.actualizarEventosBackend();
             inseminacionService.actualizarInseminacionesBackend();
-            //probar
             nacimientoService.actualizarNacimientosBackend();
         }
     })
@@ -24,7 +22,7 @@
             });
         }
 
-        //function que permite obtener el estado de la conexión 
+        //funcion que permite obtener el estado de la conexión 
         this.online = function () {
             return $rootScope.online;
         };

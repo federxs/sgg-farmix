@@ -24,11 +24,9 @@
          };
 
          this.getNacimientosParaActualizarBackend = function () {
-             console.log("bd");
              return $q(function (resolve, reject) {
                  $rootScope.db.executeSql("SELECT * FROM Nacimiento", [],
                    function (resultado) {
-                       console.log(resultado);
                        resolve(rows(resultado));
                    },
                    reject);
@@ -62,14 +60,11 @@
 
         this.actualizarNacimientosBackend = function () {
             var nacimientos;
-            console.log("aca tamo")
             return nacimientoServiceDB.getNacimientosParaActualizarBackend()
                 .then(function (respuesta) {
-                    console.log(respuesta);
                     nacimientos = respuesta;
                 })
                 .then(function () {
-                    console.log(nacimientos);
                     if (nacimientos.length > 0) {
                         var toro;
                         nacimientos.forEach(function (nacimiento) {

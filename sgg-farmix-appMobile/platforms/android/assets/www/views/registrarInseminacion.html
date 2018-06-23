@@ -10,10 +10,12 @@
             <tr>
                 <th>Número de Caravana</th>
                 <th>Apodo</th>
+                <th>Quitar</th>
             </tr>
             <tr ng-repeat="vaca in vacas" class="itemTabla">
                 <td>{{vaca.numCaravana}}</td>
                 <td>{{vaca.apodo}}</td>
+                <td><button ng-click="quitar(vaca.numCaravana)" ion-button class="botonVerificar">Quitar</button></td>
             </tr>
         </table><br>
         <h4 ng-if="evento.tipoInseminacion==2">Toros involucrados en la inseminaci&oacute;n</h4>
@@ -21,10 +23,12 @@
             <tr>
                 <th>Número de Caravana</th>
                 <th>Apodo</th>
+                <th>Quitar</th>
             </tr>
             <tr ng-repeat="toro in toros" class="itemTabla">
                 <td>{{toro.numCaravana}}</td>
                 <td>{{toro.apodo}}</td>
+                <td><button ng-click="quitarToro(toro.numCaravana)" ion-button class="botonVerificar">Quitar</button></td>
             </tr>
         </table><br>
         <button ng-click="registrar()" class="button bordeBoton botonInseminacion" ion-button>Registrar Inseminaci&oacute;n</button>

@@ -3,10 +3,8 @@
     .controller('Controller', function ($rootScope, $state, $ionicPlatform, bovinoService, $scope, loginService, $ionicLoading, $localStorage, alimentoService, antibioticoService, rodeoService, vacunaService, conexion) {
 
         $ionicPlatform.ready(function () {
-            //abrimos la db acá
             $rootScope.db = window.sqlitePlugin.openDatabase({ name: "farmix.db", location: 'default' });
             nfc.addNdefListener(tagEscaneado, iniciar, cancelar);
-            //descomenta Luki para que te funcione sin NFC
             //nfc.addNdefListener(tagEscaneado, cancelar, iniciar);
         });
 
@@ -14,9 +12,8 @@
             $state.go('app.bienvenido');
         }
         function iniciar() {
-            //$rootScope.ban = true;
             $rootScope.db.transaction(function (tx) {
-                //idCampo irrelevante - el usuario solo tiene acceso a un campo en la app (, idCampo INTEGER)
+                //idCampo irrelevante - el usuario solo tiene acceso a un campo en la app
                 //Ambito estado lo mismo (solo hay uno con estado - Bovino)
                 //BOOL no existe, se usa INTEGER con valor 0 o 1. INTEGER(1) representa eso.
                 //REAL seria Float
