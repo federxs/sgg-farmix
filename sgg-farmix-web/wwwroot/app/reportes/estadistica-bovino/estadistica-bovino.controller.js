@@ -231,12 +231,6 @@
                 }
 
                 table.draw(dataTable, { showRowNumber: true, width: '100%', height: '100%' });
-
-                var my_anchor = document.getElementById('descargaTablaAlimentosMasConsumidos');
-                my_anchor.href = table.getImageURI();
-                google.visualization.events.addListener(table, 'ready', function () {
-                    my_anchor.innerHTML = '<img src="' + table.getImageURI() + '">';
-                });
             }
         };
 
