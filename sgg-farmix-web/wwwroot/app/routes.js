@@ -68,16 +68,16 @@
                  controller: 'reporteBovinoController'
              });
         $stateProvider
+             .state('home.estadisticaBovino', {
+                 url: '/reportes/estadisticas/bovinos',
+                 templateUrl: 'app/reportes/estadistica-bovino/estadistica-bovino.html',
+                 controller: 'estadisticaBovinoController'
+             });
+        $stateProvider
              .state('home.reporteInseminacion', {
                  url: '/reportes/inseminaciones',
                  templateUrl: 'app/reportes/reporte-inseminacion/reporte-inseminacion.html',
                  controller: 'reporteInseminacionController'
-             });
-        $stateProvider
-             .state('home.estadisticaBovino', {
-                 url: '/reportes/estadisticaBovino',
-                 templateUrl: 'app/reportes/estadistica-bovino/estadistica-bovino.html',
-                 controller: 'estadisticaBovinoController'
              });
         $stateProvider
             .state('home.conflictos', {

@@ -5,35 +5,57 @@
         .module('app')
         .controller('estadisticaBovinoController', estadisticaBovinoController);
 
-    estadisticaBovinoController.$inject = ['$scope', 'estadisticaBovinoService', '$localStorage'];
+    estadisticaBovinoController.$inject = ['$location', '$scope'];
 
-    function estadisticaBovinoController($scope, estadisticaBovinoService, $localStorage) {
+    function estadisticaBovinoController($location, $scope) {
         var vm = $scope;
+        vm.title = 'estadisticaBovinoController';
 
-        //funciones
-        vm.inicializar = inicializar();
+        vm.cargarGraficoPesoPorRazaYSexo = cargarGraficoPesoPorRazaYSexo();
 
+        init();
 
-        //variables
-        window.scrollTo(0, 0);
-        vm.disabledExportar = 'disabled';
-        vm.bovinos = [];
-        vm.itemsPorPagina = 50;
-
-
-        inicializar();
-
-        function inicializar() {
-            $scope.$parent.blockSpinner();
-            estadisticaBovinoService.inicializar({
-                codigoCampo: $localStorage.usuarioInfo.codigoCampo
-            }, function (data) {
-                vm.rowCollection = data;
-                $scope.$parent.unBlockSpinner();
-            }, function error(error) {
-                $scope.$parent.unBlockSpinner();
-                toastr.error('Ha ocurrido un error, reintentar', 'Error');
-            });
+        function init() {
+            cargarGraficoPesoPorRazaYSexo();
         }
+
+        function cargarGraficoPesoPorRazaYSexo(datos) {
+            var datos = [{
+                'N': 'Herbert',
+                'Id1': 2,
+                'Id2': 3
+            },
+            {
+                'N': 'rangus',
+                'Id1': 2,
+                'Id2': 3
+            },
+            {
+                'N': 'Angus',
+                'Id1': 2,
+                'Id2': 3
+            }];
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var container = document.getElementById('graficoPesoPorRazaYSexo');
+                var chart = new google.visualization.BarChart(container);
+                var dataTable = new google.visualization.DataTable();
+
+                dataTable.addColumn({ type: 'string', id: 'N' });
+                dataTable.addColumn({ type: 'number', id: 'Id1' });
+                dataTable.addColumn({ type: 'number', id: 'Id2' });
+
+                for (var i = 0; i < datos.length; i++) {
+                    dataTable.addRows([[datos[i].N, datos[i].Id1, datos[i].Id2]]);
+                }
+
+                var options = {
+                    'title': 'Peso promedio según raza y sexo'
+                };
+                chart.draw(dataTable, options);
+            }
+        };
     }
 })();
