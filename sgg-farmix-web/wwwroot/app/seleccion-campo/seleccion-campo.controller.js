@@ -5,9 +5,9 @@
         .module('app')
         .controller('seleccionCampoController', seleccionCampoController);
 
-    seleccionCampoController.$inject = ['$scope', 'toastr', 'seleccionCampoService', '$localStorage', '$state', '$sessionStorage', 'registrarCampoService', 'portalService'];
+    seleccionCampoController.$inject = ['$scope', 'toastr', 'seleccionCampoService', '$localStorage', '$state', 'usuarioInfo', 'registrarCampoService', 'portalService'];
 
-    function seleccionCampoController($scope, toastr, seleccionCampoService, $localStorage, $state, $sessionStorage, registrarCampoService, portalService) {
+    function seleccionCampoController($scope, toastr, seleccionCampoService, $localStorage, $state, usuarioInfo, registrarCampoService, portalService) {
         var vm = $scope;
         vm.usuario = {};
         window.scrollTo(0, 0);
@@ -17,18 +17,27 @@
         vm.validarCantCampos = validarCantCampos;
         vm.cerrarSesion = cerrarSesion;
         $localStorage.usuarioInfo = {};
-        vm.idRol = $sessionStorage.usuarioInfo.idRol;
+        vm.idRol = usuarioInfo.getRol();
         //var imagenes = ['../../images/campo1.jpg', '../../images/campo2.jpg', '../../images/campo3.jpg', '../../images/campo4.jpg', '../../images/campo5.jpg'];
 
         function inicializar() {
-            seleccionCampoService.consultar($sessionStorage.usuarioInfo.usuario, $sessionStorage.usuarioInfo.idRol)
+            seleccionCampoService.consultar(usuarioInfo.getUsuario(), usuarioInfo.getRol())
                    .then(function success(data) {
                        $scope.campos = data;
                        for (var i = 0; i < $scope.campos.length; i++) {
                            $scope.campos[i].imagen = portalService.getUrlServer() + portalService.getFolderImagenCampo() + $scope.campos[i].codigoCampo + '\\' + $scope.campos[i].imagen + "?cache=" + (new Date()).getTime();
                        }
                    }, function error(error) {
-                       $scope.$parent.errorServicio(error.statusText);
+                       if (error.statusText === 'Token_Invalido') {
+                           toastr.error('Lo sentimos, su sesión ha caducado', 'Sesión caducada');
+                           vm.cerrarSesion();
+                       }
+                       else if (error.statusText === 'No_Token') {
+                           usuarioInfo.set(null);
+                           $state.go('login');
+                       }
+                       else
+                           toastr.error('Ha ocurrido un error, reintentar', 'Error');
                    });
         };
 
@@ -38,19 +47,24 @@
         };
 
         function validarCantCampos() {
-            registrarCampoService.validarCantCamposUsuario({ usuario: $sessionStorage.usuarioInfo.usuario }, function success(data) {
+            registrarCampoService.validarCantCamposUsuario({ usuario: usuarioInfo.getUsuario() }, function success(data) {
                 if (data.resultado)
                     $state.go('registrarCampo');
                 else
                     toastr.info("No puede agregar mas campos, verifique su plan contratado.", "Aviso");
             }, function error(error) {
-                $scope.$parent.errorServicio(error.statusText);
+                if (error.statusText === 'Token_Invalido') {
+                    toastr.error('Lo sentimos, su sesión ha caducado', 'Sesión caducada');
+                    vm.cerrarSesion();
+                }
+                else
+                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
         };
 
         function cerrarSesion() {
             $localStorage.usuarioInfo = undefined;
-            $sessionStorage.usuarioInfo = undefined;
+            usuarioInfo.set(null);
             $('#modalConfirmCerrarSesion').modal('hide');
             $state.go('login');
         };

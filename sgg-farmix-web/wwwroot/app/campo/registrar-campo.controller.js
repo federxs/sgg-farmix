@@ -5,9 +5,9 @@
         .module('app')
         .controller('registrarCampoController', registrarCampoController);
 
-    registrarCampoController.$inject = ['$scope', 'registrarCampoService', '$localStorage', 'toastr', '$sessionStorage', '$state'];
+    registrarCampoController.$inject = ['$scope', 'registrarCampoService', '$localStorage', 'toastr', 'usuarioInfo', '$state'];
 
-    function registrarCampoController($scope, registrarCampoService, $localStorage, toastr, $sessionStorage, $state) {
+    function registrarCampoController($scope, registrarCampoService, $localStorage, toastr, usuarioInfo, $state) {
         var vm = $scope;
         //variables
         window.scrollTo(0, 0);
@@ -42,7 +42,7 @@
         function registrar() {
             vm.habilitar = false;
             $scope.$parent.blockSpinnerSave();
-            vm.campo.usuario = $sessionStorage.usuarioInfo.usuario;
+            vm.campo.usuario = usuarioInfo.getUsuario();
             if (vm.imageToUpload[0])
                 vm.campo.imagen = vm.imageToUpload[0];
             vm.campo.$save(function success(data) {

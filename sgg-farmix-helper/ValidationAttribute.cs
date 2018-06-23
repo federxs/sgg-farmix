@@ -30,7 +30,6 @@ namespace sgg_farmix_helper
                     long validar = 0;
                     parametros = new Dictionary<string, object>
                     {
-                        //{"@nombreApp", null },
                         {"@token", param }
                         //{"@TokenVigencia", int.Parse(ConfigurationManager.AppSettings["TokenVigencia"]) }
                     };

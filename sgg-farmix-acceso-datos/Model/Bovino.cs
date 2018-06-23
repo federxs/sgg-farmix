@@ -107,6 +107,8 @@ namespace sgg_farmix_acceso_datos.Model
         public long idRaza { get; set; }
         public long idRodeo { get; set; }
         public long idEstado { get; set; }
+        public string fechaEstimadaParto { get; set; }
+        public int enfermo { get; set; }
     }
 
     public class NacimientoFilter

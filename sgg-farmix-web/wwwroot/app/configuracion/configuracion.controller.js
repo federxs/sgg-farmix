@@ -5,9 +5,9 @@
         .module('app')
         .controller('configuracionController', configuracionController);
 
-    configuracionController.$inject = ['$scope', 'configuracionService', 'toastr', '$localStorage', '$sessionStorage', 'razaService', '$timeout', 'alimentoService', 'rodeoService', 'estadoService', 'categoriaService', 'establecimientoOrigenService', 'antibioticoService', 'vacunaService', 'registrarBovinoService', 'portalService', '$state'];
+    configuracionController.$inject = ['$scope', 'configuracionService', 'toastr', '$localStorage', 'usuarioInfo', 'razaService', '$timeout', 'alimentoService', 'rodeoService', 'estadoService', 'categoriaService', 'establecimientoOrigenService', 'antibioticoService', 'vacunaService', 'registrarBovinoService', 'portalService', '$state'];
 
-    function configuracionController($scope, configuracionService, toastr, $localStorage, $sessionStorage, razaService, $timeout, alimentoService, rodeoService, estadoService, categoriaService, establecimientoOrigenService, antibioticoService, vacunaService, registrarBovinoService, portalService, $state) {
+    function configuracionController($scope, configuracionService, toastr, $localStorage, usuarioInfo, razaService, $timeout, alimentoService, rodeoService, estadoService, categoriaService, establecimientoOrigenService, antibioticoService, vacunaService, registrarBovinoService, portalService, $state) {
         window.scrollTo(0, 0);
         $scope.itemsPorPagina = 5;
         $scope.nuevaRaza = false;
@@ -177,7 +177,7 @@
             $scope.imageToUpload = [];
             $scope.toDelete = [];
             $scope.$parent.blockSpinner();
-            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: $sessionStorage.usuarioInfo.usuario, idRol: $sessionStorage.usuarioInfo.idRol }, function (data) {
+            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: usuarioInfo.getUsuario(), idRol: usuarioInfo.getRol() }, function (data) {
                 $scope.perfilUsuario = data;
                 $scope.perfilUsuario.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfilUsuario.usuarioImagen + "?cache=" + (new Date()).getTime();
                 $scope.$parent.unBlockSpinner();
@@ -345,7 +345,7 @@
             $scope.$parent.blockSpinnerSave();
             if ($scope.imageToUpload[0])
                 $scope.perfilUsuario.imagen = $scope.imageToUpload[0];
-            $scope.perfilUsuario.usuario = $sessionStorage.usuarioInfo.usuario;
+            $scope.perfilUsuario.usuario = usuarioInfo.getUsuario();
             $scope.perfilUsuario.$actualizarPerfilUsuario(function(data) {
                 toastr.success('Datos del perfil actualizados', 'Éxito');
                 $scope.$parent.unBlockSpinnerSave();

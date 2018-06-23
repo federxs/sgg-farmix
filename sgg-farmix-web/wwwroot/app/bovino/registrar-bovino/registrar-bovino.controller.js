@@ -5,9 +5,9 @@
         .module('app')
         .controller('registrarBovinoController', registrarBovinoController);
 
-    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'establecimientoOrigenService', 'rodeoService', 'estadoService', 'categoriaService', 'razaService', 'alimentoService', 'toastr', '$state', '$localStorage', '$sessionStorage', '$stateParams'];
+    registrarBovinoController.$inject = ['$scope', 'registrarBovinoService', 'establecimientoOrigenService', 'rodeoService', 'estadoService', 'categoriaService', 'razaService', 'alimentoService', 'toastr', '$state', '$localStorage', '$stateParams'];
 
-    function registrarBovinoController($scope, registrarBovinoService, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, toastr, $state, $localStorage, $sessionStorage, $stateParams) {
+    function registrarBovinoController($scope, registrarBovinoService, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, toastr, $state, $localStorage, $stateParams) {
         var vm = $scope;
         window.scrollTo(0, 0);
         vm.habilitar = false;

@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarUsuariosController', consultarUsuariosController);
 
-    consultarUsuariosController.$inject = ['$scope', 'consultarUsuariosService', 'toastr', 'exportador', '$localStorage', '$state', '$sessionStorage'];
+    consultarUsuariosController.$inject = ['$scope', 'consultarUsuariosService', 'toastr', 'exportador', '$localStorage', '$state'];
 
-    function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage, $state, $sessionStorage) {
+    function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage, $state) {
         var vm = $scope;
         window.scrollTo(0, 0);
         vm.deshabilitar = false;

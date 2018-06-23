@@ -81,7 +81,7 @@
         function inicializar() {
             var obj = document.getElementById('btn_login');
             obj.click();
-            if ($sessionStorage.usuarioInfo !== undefined) {
+            if ($sessionStorage.usuarioInfo) {
                 vm.usuario.usuario = $sessionStorage.usuarioInfo.usuario;
                 vm.ocultarUsuario = false;
             }
@@ -96,7 +96,7 @@
                 loginService.consultar($scope.usuario)
                     .then(function success(data) {
                         if (data.resultado === 1) {
-                            if ($sessionStorage.usuarioInfo === undefined) {
+                            if (!$sessionStorage.usuarioInfo) {
                                 $sessionStorage.usuarioInfo = {};
                                 $sessionStorage.usuarioInfo.usuario = vm.usuario.usuario;
                                 $sessionStorage.usuarioInfo.idRol = data.idRol;

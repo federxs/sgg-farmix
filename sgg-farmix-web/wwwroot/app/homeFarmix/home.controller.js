@@ -6,7 +6,7 @@
         homeService,
         $state,
         $localStorage,
-        $sessionStorage,
+        usuarioInfo,
         toastr,
         portalService,
         configuracionService
@@ -136,7 +136,7 @@
 
         $scope.load = function () {
             spinnerBar.show();
-            homeService.datosUsuario($sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.codigoCampo, $sessionStorage.usuarioInfo.idRol).then(function success(data) {
+            homeService.datosUsuario(usuarioInfo.getUsuario(), $localStorage.usuarioInfo.codigoCampo, usuarioInfo.getRol()).then(function success(data) {
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;
@@ -184,7 +184,7 @@
 
         $scope.cerrarSesion = function () {
             $localStorage.usuarioInfo = undefined;
-            $sessionStorage.usuarioInfo = undefined;
+            usuarioInfo.set(null);
             $('#modalConfirmCerrarSesion').modal('hide');
             $state.go('login');
         };
@@ -193,7 +193,7 @@
             $scope.imageToUpload = [];
             $scope.showBorrar = false;
             spinnerBar.show();
-            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: $sessionStorage.usuarioInfo.usuario, idRol: $sessionStorage.usuarioInfo.idRol }, function (data) {
+            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: usuarioInfo.getUsuario(), idRol: usuarioInfo.getRol() }, function (data) {
                 $scope.perfil = data;
                 $scope.perfil.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfil.usuarioImagen + "?cache=" + (new Date()).getTime();
                 spinnerBar.hide();
@@ -274,8 +274,9 @@
         $scope.errorServicio = function (error) {
             if (error === 'Token_Invalido') {
                 toastr.error('Lo sentimos, su sesión ha caducado', 'Sesión caducada');
-                $scope.cerrarSesion();
-            }               
+                usuarioInfo.set(null);
+                $state.go('login');
+            }
             else
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
         };
@@ -305,7 +306,7 @@
             spinnerBar.show();
             if ($scope.imageToUpload[0])
                 $scope.perfil.imagen = $scope.imageToUpload[0];
-            $scope.perfil.usuario = $sessionStorage.usuarioInfo.usuario;
+            $scope.perfil.usuario = usuarioInfo.getUsuario();
             $scope.perfil.$actualizarPerfilUsuario(function (data) {
                 toastr.success('Datos actualizados', 'Éxito');
                 spinnerBar.hide();

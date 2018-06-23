@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarBovinoController', consultarBovinoController);
 
-    consultarBovinoController.$inject = ['$scope', 'consultarBovinoService', 'toastr', 'exportador', '$localStorage', '$sessionStorage', '$state'];
+    consultarBovinoController.$inject = ['$scope', 'consultarBovinoService', 'toastr', 'exportador', '$localStorage', '$state'];
 
-    function consultarBovinoController($scope, consultarBovinoService, toastr, exportador, $localStorage, $sessionStorage, $state) {
+    function consultarBovinoController($scope, consultarBovinoService, toastr, exportador, $localStorage, $state) {
         var vm = $scope;
         window.scrollTo(0, 0);
         vm.disabled = 'disabled';

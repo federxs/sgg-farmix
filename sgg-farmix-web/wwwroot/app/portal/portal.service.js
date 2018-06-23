@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('app').service('portalService', function ($sessionStorage, $localStorage) {//usuarioInfo) {
+    angular.module('app').service('portalService', function ($sessionStorage, $localStorage, usuarioInfo) {
         var portalService = {};
 
         portalService.getUrlServer = function () {
@@ -11,12 +11,12 @@
         };
 
         portalService.getHeadersServer = function () {
-            var headers = { 'Authorization': $sessionStorage.usuarioInfo.token };
+            var headers = { 'Authorization': usuarioInfo.getToken() };
             return headers;
         };
 
         portalService.getContentUndefined = function () {
-            var headers = { 'Authorization': $sessionStorage.usuarioInfo.token, 'Content-Type': undefined };
+            var headers = { 'Authorization': usuarioInfo.getToken(), 'Content-Type': undefined };
             return headers;
         };
 
