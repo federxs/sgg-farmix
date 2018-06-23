@@ -20,6 +20,7 @@
             cargarGraficoPesoPorRazaYSexo();
             cargarGraficoBajasPorAnio();
             cargarTablaAlimentosMasConsumidos();
+            cargarGraficoPorcentajeBovinoPorRodeo();
         }
 
         function cargarGraficoPesoPorRazaYSexo(datos) {
@@ -126,6 +127,47 @@
                 chart.draw(dataTable, options);
             }
         };
+
+        function cargarGraficoPorcentajeBovinoPorRodeo() {
+            var datos = [{
+                'rodeo': 'Preniadas',
+                'porcentaje': 25
+            },
+            {
+                'rodeo': 'Rodeo1',
+                'porcentaje': 25
+            },
+            {
+                'rodeo': 'Rodeo2',
+                'porcentaje': 10
+            },
+            {
+                'rodeo': 'Rodeo3',
+                'porcentaje': 40
+            }];
+
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var container = document.getElementById('graficoPorcentajeBovinoPorRodeo');
+                var chart = new google.visualization.PieChart(container);
+                var dataTable = new google.visualization.DataTable();
+
+                dataTable.addColumn({ id: 'rodeo', label: 'Rodeo', type: 'string' });
+                dataTable.addColumn({ id: 'porcentaje', label: 'Porcentaje', type: 'number' });
+
+                for (var i = 0; i < datos.length; i++) {
+                    dataTable.addRows([[datos[i].rodeo, datos[i].porcentaje]]);
+                }
+
+                var options = {
+                    'title': 'Porcentaje de bovinos por Rodeo',
+                    pieHole: 0.4
+                };
+                chart.draw(dataTable, options);
+            }
+        }
 
         function cargarTablaAlimentosMasConsumidos(datos) {
             var datos = [{
