@@ -192,6 +192,7 @@
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EstablecimientoOrigenController.cs" />
+    <Compile Include="Controllers\EstadisticaController.cs" />
     <Compile Include="Controllers\EstadoController.cs" />
     <Compile Include="Controllers\EventoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

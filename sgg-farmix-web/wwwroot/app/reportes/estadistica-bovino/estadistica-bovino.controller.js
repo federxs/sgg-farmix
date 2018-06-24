@@ -5,41 +5,32 @@
         .module('app')
         .controller('estadisticaBovinoController', estadisticaBovinoController);
 
-    estadisticaBovinoController.$inject = ['$location', '$scope'];
+    estadisticaBovinoController.$inject = ['$location', '$scope', '$localStorage', 'estadisticaBovinoService'];
 
-    function estadisticaBovinoController($location, $scope) {
+    function estadisticaBovinoController($location, $scope, $localStorage, estadisticaBovinoService) {
         var vm = $scope;
         vm.title = 'estadisticaBovinoController';
-
-        vm.cargarGraficoPesoPorRazaYSexo = cargarGraficoPesoPorRazaYSexo();
-        vm.cargarGraficoBajasPorMes = cargarGraficoBajasPorMes();
 
         init();
 
         function init() {
-            cargarGraficoPesoPorRazaYSexo();
-            cargarGraficoBajasPorMes();
-            cargarTablaAlimentosMasConsumidos();
-            cargarGraficoPorcentajeBovinoPorRodeo();
-            cargarGraficoNacimientosPorMes();
+            $scope.$parent.blockSpinner();
+            estadisticaBovinoService.inicializar({ codigoCampo: $localStorage.usuarioInfo.codigoCampo, periodo: $localStorage.usuarioInfo.periodoConsulta }, function (data) {
+                var obj = data;
+                cargarGraficoPesoPorRazaYSexo(obj.pesosPromXRaza);
+                cargarGraficoBajasPorMes(obj.bajasXMes);
+                cargarTablaAlimentosMasConsumidos(obj.top10Alimentos);
+                cargarGraficoPorcentajeBovinoPorRodeo(obj.bovinosXRodeo);
+                cargarGraficoNacimientosPorMes(obj.nacimientos);
+                $scope.$parent.unBlockSpinner();
+            }, function (error) {
+                $scope.$parent.unBlockSpinner();
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            });
         }
 
-        function cargarGraficoPesoPorRazaYSexo(datos) {
-            var datos = [{
-                'N': 'Herbert',
-                'Id1': 2,
-                'Id2': 3
-            },
-            {
-                'N': 'Brangus',
-                'Id1': 2,
-                'Id2': 3
-            },
-            {
-                'N': 'Angus',
-                'Id1': 2,
-                'Id2': 3
-            }];
+        function cargarGraficoPesoPorRazaYSexo(data) {
+            var datos = data;
 
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
@@ -54,7 +45,7 @@
                 dataTable.addColumn({ id: 'Id2', label: 'Macho', type: 'number' });
 
                 for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].N, datos[i].Id1, datos[i].Id2]]);
+                    dataTable.addRows([[datos[i].nombre, datos[i].pesoPromedioHembra, datos[i].pesoPromedioMacho]]);
                 }
 
                 var options = {
@@ -80,27 +71,8 @@
             }
         };
 
-        function cargarGraficoBajasPorMes(datos) {
-            var datos = [{
-                'mes': '2015',
-                'muertes': 5,
-                'ventas': 3
-            },
-            {
-                'mes': '2016',
-                'muertes': 8,
-                'ventas': 5
-            },
-            {
-                'mes': '2017',
-                'muertes': 4,
-                'ventas': 1
-            },
-            {
-                'mes': '2018',
-                'muertes': 4,
-                'ventas': 7
-            }];
+        function cargarGraficoBajasPorMes(data) {
+            var datos = data;
 
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
@@ -115,7 +87,7 @@
                 dataTable.addColumn({ id: 'ventas', label: 'Ventas', type: 'number' });
 
                 for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].mes, datos[i].muertes, datos[i].ventas]]);
+                    dataTable.addRows([[datos[i].mes.toString(), datos[i].cantidadMuertes, datos[i].cantidadVentas]]);
                 }
 
                 var options = {
@@ -141,23 +113,8 @@
             }
         };
 
-        function cargarGraficoPorcentajeBovinoPorRodeo() {
-            var datos = [{
-                'rodeo': 'Preniadas',
-                'porcentaje': 25
-            },
-            {
-                'rodeo': 'Rodeo1',
-                'porcentaje': 25
-            },
-            {
-                'rodeo': 'Rodeo2',
-                'porcentaje': 10
-            },
-            {
-                'rodeo': 'Rodeo3',
-                'porcentaje': 40
-            }];
+        function cargarGraficoPorcentajeBovinoPorRodeo(data) {
+            var datos = data;
 
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
@@ -171,7 +128,7 @@
                 dataTable.addColumn({ id: 'porcentaje', label: 'Porcentaje', type: 'number' });
 
                 for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].rodeo, datos[i].porcentaje]]);
+                    dataTable.addRows([[datos[i].rodeo, datos[i].cantidad]]);
                 }
 
                 var options = {
@@ -193,28 +150,8 @@
             }
         }
 
-        function cargarTablaAlimentosMasConsumidos(datos) {
-            var datos = [{
-                'alimento': 'Caca de perro',
-                'cantidad': 104
-            },
-            {
-                'alimento': 'Caca de gallina',
-                'cantidad': 45
-            },
-            {
-                'alimento': 'Caca de lukini',
-                'cantidad': 20
-            },
-            {
-                'alimento': 'Caca de lurilu',
-                'cantidad': 5
-            },
-            {
-                'alimento': 'Caca de guere',
-                'cantidad': 1
-            }];
-
+        function cargarTablaAlimentosMasConsumidos(data) {
+            var datos = data;
             google.charts.load('current', { 'packages': ['table'] });
             google.charts.setOnLoadCallback(drawChart);
 
@@ -234,23 +171,8 @@
             }
         };
 
-        function cargarGraficoNacimientosPorMes() {
-            var datos = [{
-                'mes': 'Enero',
-                'cantidad': 25
-            },
-            {
-                'mes': 'Febrero',
-                'cantidad': 15
-            },
-            {
-                'mes': 'Marzo',
-                'cantidad': 35
-            },
-            {
-                'mes': 'Abril',
-                'cantidad': 5
-            }];
+        function cargarGraficoNacimientosPorMes(data) {
+            var datos = data;
 
             google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
@@ -264,7 +186,7 @@
                 dataTable.addColumn({ id: 'cantidad', label: 'Cantidad', type: 'number' });
 
                 for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].mes, datos[i].cantidad]]);
+                    dataTable.addRows([[datos[i].mes.toString(), datos[i].cantidadNacimientos]]);
                 }
 
                 var options = {
@@ -289,7 +211,7 @@
                 });
             }
 
-            
+
         }
 
     }//fin controlador
