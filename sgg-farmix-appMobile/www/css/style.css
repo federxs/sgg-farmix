@@ -159,6 +159,14 @@ th, td {
   border: 1px solid black;
   float:left;
 }
+.fhm_vacio {
+  height: 100%;
+  width:50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid black;
+  float:left;
+}
 .pas{
   position: relative;
   bottom: -85%;

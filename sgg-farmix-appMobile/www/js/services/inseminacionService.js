@@ -16,7 +16,9 @@
         };
 
         this.getInseminacionesPendientes = function (idCampo) {
-            return $http.get(inseminacionUrl + "ServicioSinConfirmar?idCampo=" + idCampo, { headers: portalService.getHeadersServer() }).then(function (respuesta) {
+            var anio = new Date();
+            anio = anio.getFullYear();
+            return $http.get(inseminacionUrl + "ServicioSinConfirmar?idCampo=" + idCampo + "&periodo=" + anio.toString(), { headers: portalService.getHeadersServer() }).then(function (respuesta) {
                 return respuesta.data;
             })
         };

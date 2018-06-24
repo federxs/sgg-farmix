@@ -12,4 +12,7 @@ angular.module('starter')
     $scope.registrarNacimiento = function () {
         $state.go('app.registrarNacimiento');
     }
+    $scope.volver = function () {
+        $state.go('app.bienvenido');
+    }
 });
