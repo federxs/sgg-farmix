@@ -17,6 +17,7 @@ namespace sgg_farmix_acceso_datos.Model
         public List<EstadisticaNacimientosXMes> nacimientos { get; set; }
         public List<EstadisticaPesoPromXRaza> pesosPromXRaza { get; set; }
         public List<EstadisticaTop10Alimentos> top10Alimentos { get; set; }
+        public EstadisticaBovinoInicio inicio { get; set; }
     }
 
     public class EstadisticaBajaPorMes
@@ -49,5 +50,17 @@ namespace sgg_farmix_acceso_datos.Model
     {
         public string alimento { get; set; }
         public long cantidad { get; set; }
+    }
+
+    public class EstadisticaBovinoInicio
+    {
+        public long toroMasPesado { get; set; }
+        public long vacaMasPesada { get; set; }
+        public long BovinoMasJoven { get; set; }
+        public long BovinoMasNuevo { get; set; }
+        public long toroMasLiviano { get; set; }
+        public long vacaMasLiviana { get; set; }
+        public long BovinoMasViejo { get; set; }
+        public long BovinoMasViejoSist { get; set; }
     }
 }
