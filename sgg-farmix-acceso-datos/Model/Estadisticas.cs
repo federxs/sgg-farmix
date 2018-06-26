@@ -54,13 +54,21 @@ namespace sgg_farmix_acceso_datos.Model
 
     public class EstadisticaBovinoInicio
     {
-        public long toroMasPesado { get; set; }
-        public long vacaMasPesada { get; set; }
-        public long BovinoMasJoven { get; set; }
-        public long BovinoMasNuevo { get; set; }
-        public long toroMasLiviano { get; set; }
-        public long vacaMasLiviana { get; set; }
-        public long BovinoMasViejo { get; set; }
-        public long BovinoMasViejoSist { get; set; }
+        public long caravanaToroMasPesado { get; set; }
+        public long idToroMasPesado { get; set; }
+        public long caravanaVacaMasPesada { get; set; }
+        public long idVacaMasPesada { get; set; }
+        public long caravanaBovinoMasJoven { get; set; }
+        public long idBovinoMasJoven { get; set; }
+        public long caravanaBovinoMasNuevo { get; set; }
+        public long idBovinoMasNuevo { get; set; }
+        public long caravanaToroMasLiviano { get; set; }
+        public long idToroMasLiviano { get; set; }
+        public long caravanaVacaMasLiviana { get; set; }
+        public long idVacaMasLiviana { get; set; }
+        public long caravanaBovinoMasViejo { get; set; }
+        public long idBovinoMasViejo { get; set; }
+        public long caravanaBovinoMasViejoSist { get; set; }
+        public long idBovinoMasViejoSist { get; set; }
     }
 }
