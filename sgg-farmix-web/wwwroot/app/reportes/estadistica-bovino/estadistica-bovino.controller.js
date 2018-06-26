@@ -5,9 +5,9 @@
         .module('app')
         .controller('estadisticaBovinoController', estadisticaBovinoController);
 
-    estadisticaBovinoController.$inject = ['$location', '$scope', '$localStorage', 'estadisticaBovinoService'];
+    estadisticaBovinoController.$inject = ['$location', '$scope', '$localStorage', 'estadisticaBovinoService', 'toastr'];
 
-    function estadisticaBovinoController($location, $scope, $localStorage, estadisticaBovinoService) {
+    function estadisticaBovinoController($location, $scope, $localStorage, estadisticaBovinoService, toastr) {
         var vm = $scope;
         vm.title = 'estadisticaBovinoController';
 
@@ -16,12 +16,12 @@
         function init() {
             $scope.$parent.blockSpinner();
             estadisticaBovinoService.inicializar({ codigoCampo: $localStorage.usuarioInfo.codigoCampo, periodo: $localStorage.usuarioInfo.periodoConsulta }, function (data) {
-                var obj = data;
-                cargarGraficoPesoPorRazaYSexo(obj.pesosPromXRaza);
-                cargarGraficoBajasPorMes(obj.bajasXMes);
-                cargarTablaAlimentosMasConsumidos(obj.top10Alimentos);
-                cargarGraficoPorcentajeBovinoPorRodeo(obj.bovinosXRodeo);
-                cargarGraficoNacimientosPorMes(obj.nacimientos);
+                $scope.obj = data;
+                cargarGraficoPesoPorRazaYSexo($scope.obj.pesosPromXRaza);
+                cargarGraficoBajasPorMes($scope.obj.bajasXMes);
+                cargarTablaAlimentosMasConsumidos($scope.obj.top10Alimentos);
+                cargarGraficoPorcentajeBovinoPorRodeo($scope.obj.bovinosXRodeo);
+                cargarGraficoNacimientosPorMes($scope.obj.nacimientos);
                 $scope.$parent.unBlockSpinner();
             }, function (error) {
                 $scope.$parent.unBlockSpinner();

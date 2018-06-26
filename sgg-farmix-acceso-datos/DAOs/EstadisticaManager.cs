@@ -73,6 +73,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 };
                 obj.bovinosXRodeo = connection.GetArray<EstadisticaBovinosXRodeo>("spReporteBovinoCantidadPorRodeo", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.pesosPromXRaza = connection.GetArray<EstadisticaPesoPromXRaza>("spReporteBovinoPesoPromedioPorRaza", parametros, System.Data.CommandType.StoredProcedure).ToList();                
+                obj.inicio = connection.GetArray<EstadisticaBovinoInicio>("spGetInicioEstadisticaBovinos", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return obj;
             }
             catch (Exception ex)
