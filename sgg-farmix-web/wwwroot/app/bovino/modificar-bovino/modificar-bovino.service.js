@@ -41,7 +41,7 @@
                 url: portalService.getUrlServer() + 'api/Bovino/existeIdCaravana',
                 params: {
                     idCaravana: idCaravana,
-                    codigoCampo, codigoCampo
+                    codigoCampo: codigoCampo
                 },
                 headers: portalService.getHeadersServer(),
                 isArray: false
