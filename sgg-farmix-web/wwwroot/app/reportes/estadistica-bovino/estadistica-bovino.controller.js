@@ -10,7 +10,7 @@
     function estadisticaBovinoController($location, $scope, $localStorage, estadisticaBovinoService, toastr) {
         var vm = $scope;
         vm.title = 'estadisticaBovinoController';
-
+        window.scrollTo(0, 0);
         init();
 
         function init() {

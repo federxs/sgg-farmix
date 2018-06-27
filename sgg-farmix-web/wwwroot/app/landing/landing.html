@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
-<title>Farmix - Sistema de Gestión Ganadera</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
-<link rel="stylesheet" href="../../lib/css/w3css/w3.css">
-<link rel="stylesheet" href="../../lib/css/w3css/w3-theme-black.css">
+<head>
+    <title>Farmix - Sistema de Gestión Ganadera</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">-->
+    <link rel="stylesheet" href="../../lib/css/w3css/w3.css">
+    <link rel="stylesheet" href="../../lib/css/w3css/w3-theme-black.css">
+</head>
 <body id="myPage">
 
     <!-- Sidebar on click -->
@@ -26,10 +28,10 @@
         <div class="w3-bar w3-theme-d2 w3-left-align">
             <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
             <a href="#" class="w3-bar-item w3-button w3-teal"><i class="fa fa-home w3-margin-right"></i>Logo</a>
-            <a href="#team" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Equipo</a>
-            <a href="#work" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Funcionalidades</a>
-            <a href="#pricing" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Planes</a>
-            <a href="#contact" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contacto</a>
+            <a ng-click="irAEquipo()" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Equipo</a>
+            <a ng-click="irAFuncionalidades()" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Funcionalidades</a>
+            <a ng-click="irAPlanes()" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Planes</a>
+            <a ng-click="irAContacto()" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contacto</a>
             <a ui-sref="login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal" title="Iniciar sesión"><i class="fa fa-arrow-circle-o-right"></i></a>
         </div>
 
@@ -91,10 +93,12 @@
 
         <div class="w3-quarter">
             <h2>Nuestro Trabajo</h2>
-            <p>Farmix surge como iniciativa de Matías: oriundo de la ciudad de Hernando, en la provincia de Córdoba -una región de Argentina con un gran desarrollo agrícola-ganadero- y graduado de un colegio técnico agropecuario. 
-            Prontamente nos interiorizamos con actores allegados a la escena del campo, para conocer las necesidades y las condiciones de trabajo actuales. 
-            Luego de un gran trabajo de investigación, seleccionamos los conceptos más importantes y que más resonaban en las entrevistas que realizamos a los potenciales usuarios de la aplicación.
-            Como resultado, planteamos el diseño de un sistema que brinde soporte para la administración de los bovinos en un campo, sin perder el enfoque de lograr un producto que sea económico y accesible para pequeños y medianos productores.</p>
+            <p>
+                Farmix surge como iniciativa de Matías: oriundo de la ciudad de Hernando, en la provincia de Córdoba -una región de Argentina con un gran desarrollo agrícola-ganadero- y graduado de un colegio técnico agropecuario.
+                Prontamente nos interiorizamos con actores allegados a la escena del campo, para conocer las necesidades y las condiciones de trabajo actuales.
+                Luego de un gran trabajo de investigación, seleccionamos los conceptos más importantes y que más resonaban en las entrevistas que realizamos a los potenciales usuarios de la aplicación.
+                Como resultado, planteamos el diseño de un sistema que brinde soporte para la administración de los bovinos en un campo, sin perder el enfoque de lograr un producto que sea económico y accesible para pequeños y medianos productores.
+            </p>
             <p>Las principales funcionalidades son:</p>
         </div>
 
@@ -104,10 +108,12 @@
                 <div class="w3-container">
                     <h3>Identificación unívoca</h3>
                     <h4>Tag NFC</h4>
-                    <p>Mediante la colocación de una pequeña pegatina NFC en la caravana del animal, se puede levantar toda la información asociada al mismo haciendo uso de un celular. 
-                    Esta pegatina es muy barata, duradera y resistente a las condiciones meteorológicas del campo. 
-                    Una vez que el material se deteriora, el reemplazo del mismo es muy fácil. 
-                    Es una excelente alternativa a tecnologías más costosas, basadas en dispositivos que operan en RF y con un costo inicial de miles de dólares.</p>
+                    <p>
+                        Mediante la colocación de una pequeña pegatina NFC en la caravana del animal, se puede levantar toda la información asociada al mismo haciendo uso de un celular.
+                        Esta pegatina es muy barata, duradera y resistente a las condiciones meteorológicas del campo.
+                        Una vez que el material se deteriora, el reemplazo del mismo es muy fácil.
+                        Es una excelente alternativa a tecnologías más costosas, basadas en dispositivos que operan en RF y con un costo inicial de miles de dólares.
+                    </p>
                 </div>
             </div>
         </div>
@@ -132,8 +138,10 @@
                 <div class="w3-container">
                     <h3>Estadísticas y Reportería</h3>
                     <h4>Gráficos y consultas</h4>
-                    <p>Como salidas del sistema, los usuarios web -el dueño y el ingeniero agrónomo- podrán consultar exportar todo tipo de estadísticas y reportes. Estos se encuentran ordenados según el tema: eventos, bovinos e inseminación,  y permiten mejorar la toma de decisiones.
-                    Con un rápido vistazo estos usuarios pueden conocer el estado actual del campo, y tomar acciones sobre ello.</p>
+                    <p>
+                        Como salidas del sistema, los usuarios web -el dueño y el ingeniero agrónomo- podrán consultar exportar todo tipo de estadísticas y reportes. Estos se encuentran ordenados según el tema: eventos, bovinos e inseminación,  y permiten mejorar la toma de decisiones.
+                        Con un rápido vistazo estos usuarios pueden conocer el estado actual del campo, y tomar acciones sobre ello.
+                    </p>
                 </div>
             </div>
         </div>

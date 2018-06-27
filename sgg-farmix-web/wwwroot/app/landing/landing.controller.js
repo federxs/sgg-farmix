@@ -5,9 +5,18 @@
         .module('app')
         .controller('landingController', landingController);
 
-    landingController.$inject = ['$scope','NgMap'];
+    landingController.$inject = ['$scope', 'NgMap', '$location', '$anchorScroll'];
 
-    function landingController($scope, NgMap) {
+    function landingController($scope, NgMap, $location, $anchorScroll) {
+
+        $('.modal-backdrop').remove();
+        window.scrollTo(0, 0);
+
+        $scope.irAEquipo = irAEquipo;
+        $scope.irAContacto = irAContacto;
+        $scope.irAFuncionalidades = irAFuncionalidades;
+        $scope.irAPlanes = irAPlanes;
+
         $scope.title = 'controller';
         NgMap.getMap().then(function (map) {
             console.log(map.getCenter());
@@ -19,5 +28,25 @@
         activate();
 
         function activate() { }
+
+        function irAEquipo() {
+            $location.hash('team');
+            $anchorScroll();
+        };
+
+        function irAFuncionalidades() {
+            $location.hash('work');
+            $anchorScroll();
+        };
+
+        function irAPlanes() {
+            $location.hash('pricing');
+            $anchorScroll();
+        };
+
+        function irAContacto() {
+            $location.hash('contact');
+            $anchorScroll();
+        };
     }
     })();

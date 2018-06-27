@@ -11,6 +11,7 @@
         var vm = $scope;
         vm.usuario = {};
         window.scrollTo(0, 0);
+        $('.modal-backdrop').remove();
 
         vm.inicializar = inicializar();
         vm.seleccionarCampo = seleccionarCampo;
