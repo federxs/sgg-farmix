@@ -2341,7 +2341,8 @@ h2.agileits-icons-title, h3.agileits-icons-title {
         font-size: 25px;
     }
 
-    .row {
+    .row {        
+        background-color: #dddddd;
         margin-right: 0;
         margin-left: 0;
     }

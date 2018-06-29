@@ -387,6 +387,9 @@
                 var container = document.getElementById('timeline');
                 var chart = new google.visualization.Timeline(container);
                 var dataTable = new google.visualization.DataTable();
+                var options = {
+                    height: 400
+                };
 
                 dataTable.addColumn({ type: 'string', id: 'Evento' });
                 dataTable.addColumn({ type: 'date', id: 'Start' });
@@ -434,7 +437,7 @@
                     dataTable.addRows([
                   [list[i].tipoEvento, new Date(fechaAnterior[2], parseInt(fechaAnterior[1]) - 1, fechaAnterior[0], horaAnterior[0], horaAnterior[1]), new Date(fechaSiguiente[2], parseInt(fechaSiguiente[1]) - 1, fechaSiguiente[0], horaSiguiente[0], horaSiguiente[1])]]);
                 }
-                chart.draw(dataTable);
+                chart.draw(dataTable, options);
             }
         }
 
