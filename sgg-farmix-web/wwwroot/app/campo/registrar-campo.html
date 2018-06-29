@@ -10,7 +10,7 @@
     <style>
         body,
         html {
-            background-image: url("../../images/fondo_seleccioncampo.jpg");
+            background-image: url("../../images/fondo_seleccioncampo.jpg") !important;
             background-repeat: no-repeat;
             background-size: cover;
             font-family: 'Open Sans', sans-serif;
@@ -257,7 +257,13 @@
                                 <label class="control-label" for="localidad">
                                     Localidad (*)
                                 </label>
-                                <select class="form-control" name="localidad" required
+                                <ui-select ng-model="localidadSeleccionada.selected"  ng-disabled="!habilitar || !campo.idProvincia" theme="bootstrap" name="localidad" required>
+                                    <ui-select-match placeholder="Seleccione...">{{$select.selected.nombre}}</ui-select-match>
+                                    <ui-select-choices repeat="localidad in localidades | filter: $select.search">
+                                        <div ng-bind-html="localidad.nombre | highlight: $select.search"><span class="font-white"></span></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <!--<select class="form-control" name="localidad" required
                                         ng-disabled="!habilitar || !campo.idProvincia"
                                         ng-model="campo.idLocalidad">
                                     <option value="">Seleccione...</option>
@@ -265,7 +271,7 @@
                                             value="{{ item.idLocalidad }}">
                                         {{ item.nombre }}
                                     </option>
-                                </select>
+                                </select>-->
                                 <div ng-show="formRegistrarCampo.localidad.$touched">
                                     <span class="help-block" ng-show="formRegistrarCampo.localidad.$error.required">
                                         Este campo es requerido
@@ -284,7 +290,7 @@
                             <label class="control-label" for="latitud">
                                 Latitud
                             </label>
-                            <input name="latitud" type="text" class="form-control" placeholder="Latitud"
+                            <input name="latitud" type="number" class="form-control" placeholder="Latitud"
                                    ng-disabled="!habilitar"
                                    ng-model="campo.latitud" />
                         </div>
@@ -292,7 +298,7 @@
                             <label class="control-label" for="longitud">
                                 Longitud
                             </label>
-                            <input name="longitud" type="text" class="form-control" placeholder="Longitud"
+                            <input name="longitud" type="number" class="form-control" placeholder="Longitud"
                                    ng-disabled="!habilitar"
                                    ng-model="campo.longitud" />
                         </div>
