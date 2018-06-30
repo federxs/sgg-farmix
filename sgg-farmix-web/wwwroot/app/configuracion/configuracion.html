@@ -193,14 +193,20 @@
                                         <label class="control-label" for="localidad">
                                             Localidad (*)
                                         </label>
-                                        <select class="form-control" name="localidad" required
+                                        <ui-select ng-model="localidadSeleccionada.selected" ng-disabled="!establecimiento.idProvincia" theme="bootstrap" name="localidad" required>
+                                            <ui-select-match placeholder="Seleccione...">{{$select.selected.nombre}}</ui-select-match>
+                                            <ui-select-choices repeat="localidad in localidades | filter: $select.search">
+                                                <div ng-bind-html="localidad.nombre | highlight: $select.search"><span class="font-white"></span></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <!--<select class="form-control" name="localidad" required
                                                 ng-model="establecimiento.idLocalidad" ng-disabled="!establecimiento.idProvincia">
                                             <option value="">Seleccione...</option>
                                             <option ng-repeat="item in localidades"
                                                     value="{{ item.idLocalidad }}">
                                                 {{ item.nombre }}
                                             </option>
-                                        </select>
+                                        </select>-->
                                         <div ng-show="formRegistrarEstablecimiento.localidad.$touched">
                                             <span class="help-block" ng-show="formRegistrarEstablecimiento.localidad.$error.required" style="color: #e73d4a;">
                                                 Este campo es requerido
@@ -212,7 +218,7 @@
                         </div>
                     </div>
                     <div class="modal-footer" ng-show="nuevoEstab">
-                        <button type="button" class="btn btn-success" ng-click="agregarEstabOrigen()" ng-disabled="!establecimiento.nombre || !establecimiento.idProvincia || !establecimiento.idLocalidad">Agregar</button>
+                        <button type="button" class="btn btn-success" ng-click="agregarEstabOrigen()" ng-disabled="!establecimiento.nombre || !establecimiento.idProvincia || !localidadSeleccionada.selected.idLocalidad">Agregar</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
                     </div>
                 </div>

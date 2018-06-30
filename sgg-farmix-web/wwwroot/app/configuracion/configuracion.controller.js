@@ -19,7 +19,7 @@
         $scope.nuevoAntibiotico = false;
         $scope.nuevaVacuna = false;
         $scope.showBorrar = false;
-        $scope.toDelete = [];
+        $scope.toDelete = [];        
         var localidadesOriginales = [];
         $scope.inicializar = inicializar();
         $scope.popupRazas = popupRazas;
@@ -109,6 +109,7 @@
 
         function popupEstablecimientos() {
             $scope.$parent.blockSpinner();
+            $scope.localidadSeleccionada = {};
             $scope.nuevoEstab = false;
             $scope.itemsPorPagina = 5;
             $scope.establecimiento = new establecimientoOrigenService();
@@ -217,6 +218,7 @@
         function agregarEstabOrigen() {
             $scope.$parent.blockSpinnerSave();
             $scope.establecimiento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+            $scope.establecimiento.idLocalidad = $scope.localidadSeleccionada.selected.idLocalidad;
             $scope.establecimiento.$save(function (data) {
                 toastr.success('Se agrego con éxito el establecimiento origen ', 'Éxito');
                 $scope.$parent.unBlockSpinnerSave();
