@@ -71,4 +71,52 @@ namespace sgg_farmix_acceso_datos.Model
         public long caravanaBovinoMasViejoSist { get; set; }
         public long idBovinoMasViejoSist { get; set; }
     }
+
+    public class EstadisticasInseminacion
+    {
+        public List<EstadisticaInseminacionPorCategoria> inseminacionXCategoriaHembra { get; set; }
+        public List<EstadisticaInseminacionPorCategoria> inseminacionXCategoriaMacho { get; set; }
+        public List<EstadisticaInseminacionPorRaza> inseminacionXRaza { get; set; }
+        public List<EstadisticaInseminacionPorTipo> inseminacionXTipo { get; set; }
+        public List<EstadisticaInseminacionPorBovino> inseminacionExitosaXToro { get; set; }
+        public List<EstadisticaInseminacionPorBovino> inseminacionFallidaXVaca { get; set; }
+        public List<EstadisticaHijosPorBovino> hijosXToro { get; set; }
+        public List<EstadisticaHijosPorBovino> hijosXVaca { get; set; }
+        public List<EstadisticaAbortosPorVaca> abortosXVaca { get; set; }
+    }
+
+    public class EstadisticaInseminacionPorCategoria
+    {
+        public string categoria { get; set; }
+        public long? cantidadExitosa { get; set; }
+        public long? cantidadFallida { get; set; }
+    }
+
+    public class EstadisticaInseminacionPorRaza
+    {
+        public string raza { get; set; }
+        public long? cantidadExitosa { get; set; }
+        public long? cantidadFallida { get; set; }
+    }
+    public class EstadisticaInseminacionPorTipo
+    {
+        public string tipo { get; set; }
+        public long? cantidadExitosa { get; set; }
+        public long? cantidadFallida { get; set; }
+    }
+    public class EstadisticaInseminacionPorBovino
+    {
+        public long numCaravana { get; set; }
+        public long? cantidad { get; set; }
+    }
+    public class EstadisticaHijosPorBovino
+    {
+        public long numCaravana { get; set; }
+        public long? cantidadHijos { get; set; }
+    }
+    public class EstadisticaAbortosPorVaca
+    {
+        public long numCaravana { get; set; }
+        public long? cantidadAbortos { get; set; }
+    }
 }

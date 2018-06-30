@@ -135,7 +135,7 @@
                                         $rootScope.idToros.push(toro.idToro);
                                     })
                                 }
-                                inseminacion = { tipoInseminacion: inseminacion.tipoInseminacion, fechaInseminacion: inseminacion.fechaInseminacion };
+                                inseminacion = { tipoInseminacion: inseminacion.tipoInseminacion, fechaInseminacion: inseminacion.fechaInseminacion, codigoCampo: $localStorage.campo };
                                 inseminacionServiceHTTP.registrarInseminacion(inseminacion);
                                 $rootScope.idVacas = [];
                                 $rootScope.idToros = [];

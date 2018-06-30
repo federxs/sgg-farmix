@@ -86,5 +86,50 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = null;
             }
         }
+
+        public EstadisticasInseminacion GetEstadisticaInseminacion(long codigoCampo, string periodo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var obj = new EstadisticasInseminacion();
+                obj.inseminacionXCategoriaHembra = new List<EstadisticaInseminacionPorCategoria>();
+                obj.inseminacionXCategoriaMacho = new List<EstadisticaInseminacionPorCategoria>();
+                obj.inseminacionXRaza = new List<EstadisticaInseminacionPorRaza>();
+                obj.inseminacionXTipo = new List<EstadisticaInseminacionPorTipo>();
+                obj.inseminacionExitosaXToro = new List<EstadisticaInseminacionPorBovino>();
+                obj.inseminacionFallidaXVaca = new List<EstadisticaInseminacionPorBovino>();
+                obj.hijosXToro = new List<EstadisticaHijosPorBovino>();
+                obj.hijosXVaca = new List<EstadisticaHijosPorBovino>();
+                obj.abortosXVaca = new List<EstadisticaAbortosPorVaca>();
+                var parametros = new Dictionary<string, object>{
+                    { "@codigoCampo", codigoCampo },
+                    { "@periodo", periodo }
+                };
+                obj.inseminacionXCategoriaHembra = connection.GetArray<EstadisticaInseminacionPorCategoria>("spReporteInseminacionPorCategoriaHembraEfectividad", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.inseminacionXCategoriaMacho = connection.GetArray<EstadisticaInseminacionPorCategoria>("spReporteInseminacionPorCategoriaMachoEfectividad", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.inseminacionXRaza = connection.GetArray<EstadisticaInseminacionPorRaza>("spReporteInseminacionPorRazaEfectividad", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.inseminacionXTipo = connection.GetArray<EstadisticaInseminacionPorTipo>("spReporteInseminacionPorTipoEfectividad", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.inseminacionExitosaXToro = connection.GetArray<EstadisticaInseminacionPorBovino>("spReporteInseminacionTorosInseminacionesExitosas", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.inseminacionFallidaXVaca = connection.GetArray<EstadisticaInseminacionPorBovino>("spReporteInseminacionVacasInseminacionesFallidas", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                parametros = new Dictionary<string, object>{
+                    { "@codigoCampo", codigoCampo }
+                };
+                obj.hijosXToro = connection.GetArray<EstadisticaHijosPorBovino>("spReporteInseminacionTorosMasHijos", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.hijosXVaca = connection.GetArray<EstadisticaHijosPorBovino>("spReporteInseminacionVacasMasHijos", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.abortosXVaca = connection.GetArray<EstadisticaAbortosPorVaca>("spReporteInseminacionVacasMasAbortos", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                Console.Write(obj);
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }
