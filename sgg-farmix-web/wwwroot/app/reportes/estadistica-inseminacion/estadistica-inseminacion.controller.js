@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .controller('estadisticaInseminacionController', estadisticaBovinoController);
+        .controller('estadisticaInseminacionController', estadisticaInseminacionController);
 
     estadisticaBovinoController.$inject = ['$location', '$scope', '$localStorage', 'estadisticaInseminacionService', 'toastr'];
 
-    function estadisticaBovinoController($location, $scope, $localStorage, estadisticaBovinoService, toastr) {
+    function estadisticaInseminacionController($location, $scope, $localStorage, estadisticaInseminacionService, toastr) {
         var vm = $scope;
         vm.title = 'estadisticaInseminacionController';
         window.scrollTo(0, 0);
@@ -17,14 +17,15 @@
             $scope.$parent.blockSpinner();
             estadisticaInseminacionService.inicializar({ codigoCampo: $localStorage.usuarioInfo.codigoCampo, periodo: $localStorage.usuarioInfo.periodoConsulta }, function (data) {
                 $scope.obj = data;
-                cargarGraficoXCategoriaHembrasEfectividad($scope.obj.hembraEfectividad);
-                cargarGraficoXCategoriaMachosEfectividad($scope.obj.machoEfectividad);
-                cargarGraficoRazaEfectividad($scope.obj.top10Alimentos);
-                cargarGraficoTipoEfectividad($scope.obj.bovinosXRodeo);
-                cargarGraficoTorosInseminacionesExitosas($scope.obj.nacimientos);
-                cargarGraficoTorosMasHijos($scope.obj.nacimientos);
-                cargarGraficoVacasInseminacionesFallidas($scope.obj.nacimientos);
-                cargarGraficoVacasMasHijos($scope.obj.nacimientos);
+                cargarGraficoXCategoriaHembrasEfectividad($scope.obj.inseminacionXCategoriaHembra);
+                cargarGraficoXCategoriaMachosEfectividad($scope.obj.inseminacionXCategoriaMacho);
+                cargarGraficoRazaEfectividad($scope.obj.inseminacionXRaza);
+                cargarGraficoTipoEfectividad($scope.obj.inseminacionXTipo);
+                //cargarGraficoTorosInseminacionesExitosas($scope.obj.inseminacionExitosaXToro);
+                //cargarGraficoTorosMasHijos($scope.obj.hijosXToro);
+                //cargarGraficoVacasInseminacionesFallidas($scope.obj.inseminacionFallidaXVaca);
+                //cargarGraficoVacasMasHijos($scope.obj.hijosXVaca);
+                //cargarGraficoAbortosXVaca($scope.obj.abortosXVaca);
                 $scope.$parent.unBlockSpinner();
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
@@ -43,12 +44,12 @@
                 var chart = new google.visualization.BarChart(container);
                 var dataTable = new google.visualization.DataTable();
 
-                dataTable.addColumn({ id: 'N', label: 'Nombre', type: 'string' });
+                dataTable.addColumn({ id: 'N', label: 'Categoria', type: 'string' });
                 dataTable.addColumn({ id: 'Id1', label: 'Exitosa', type: 'number' });
                 dataTable.addColumn({ id: 'Id2', label: 'Fallida', type: 'number' });
 
                 for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].categoria, datos[i].hembrasExitosas, datos[i].hembrasFallidas]]);
+                    dataTable.addRows([[datos[i].categoria, datos[i].cantidadExitosa, datos[i].cantidadFallida]]);
                 }
 
                 var options = {
@@ -85,12 +86,12 @@
                 var chart = new google.visualization.BarChart(container);
                 var dataTable = new google.visualization.DataTable();
 
-                dataTable.addColumn({ id: 'N', label: 'Nombre', type: 'string' });
+                dataTable.addColumn({ id: 'N', label: 'Categoria', type: 'string' });
                 dataTable.addColumn({ id: 'Id1', label: 'Exitosa', type: 'number' });
                 dataTable.addColumn({ id: 'Id2', label: 'Fallida', type: 'number' });
 
                 for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].categoria, datos[i].machosExitosos, datos[i].machosFallados]]);
+                    dataTable.addRows([[datos[i].categoria, datos[i].cantidadExitosa, datos[i].cantidadFallida]]);
                 }
 
                 var options = {
@@ -127,12 +128,12 @@
                 var chart = new google.visualization.BarChart(container);
                 var dataTable = new google.visualization.DataTable();
 
-                dataTable.addColumn({ id: 'N', label: 'Nombre', type: 'string' });
+                dataTable.addColumn({ id: 'N', label: 'Raza', type: 'string' });
                 dataTable.addColumn({ id: 'Id1', label: 'Exitosa', type: 'number' });
                 dataTable.addColumn({ id: 'Id2', label: 'Fallida', type: 'number' });
 
                 for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].raza, datos[i].razaExitosa, datos[i].razaFallada]]);
+                    dataTable.addRows([[datos[i].raza, datos[i].cantidadExitosa, datos[i].cantidadFallida]]);
                 }
 
                 var options = {
@@ -174,16 +175,16 @@
                 dataTable.addColumn({ id: 'Id2', label: 'Fallida', type: 'number' });
 
                 for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].raza, datos[i].razaExitosa, datos[i].razaFallada]]);
+                    dataTable.addRows([[datos[i].tipo, datos[i].cantidadExitosa, datos[i].cantidadFallida]]);
                 }
 
                 var options = {
-                    'title': 'Efectividad de Bovinos Hembra por Raza',
+                    'title': 'Efectividad según el tipo de Inseminación',
                     hAxis: {
                         title: 'Inseminaciones'
                     },
                     vAxis: {
-                        title: 'Razas'
+                        title: 'Tipos'
                     },
                     'legend': {
                         'position': 'bottom',
@@ -192,7 +193,7 @@
                 };
                 chart.draw(dataTable, options);
 
-                var my_anchor = document.getElementById('descargaGraficoRazaEfectividad');
+                var my_anchor = document.getElementById('descargaGraficoTipoEfectividad');
                 my_anchor.href = chart.getImageURI();
                 google.visualization.events.addListener(chart, 'ready', function () {
                     my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
@@ -200,49 +201,50 @@
             }
         };
 
-        function cargarGraficoTorosInseminacionesExitosas(data) {
-            var datos = data;
+        //function cargarGraficoTorosInseminacionesExitosas(data) {
+        //    var datos = data;
 
-            google.charts.load('current', { 'packages': ['corechart'] });
-            google.charts.setOnLoadCallback(drawChart);
+        //    google.charts.load('current', { 'packages': ['corechart'] });
+        //    google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
-                var container = document.getElementById('graficoNacimientosPorMes');
-                var chart = new google.visualization.LineChart(container);
-                var dataTable = new google.visualization.DataTable();
+        //    function drawChart() {
+        //        var container = document.getElementById('graficoNacimientosPorMes');
+        //        var chart = new google.visualization.LineChart(container);
+        //        var dataTable = new google.visualization.DataTable();
 
-                dataTable.addColumn({ id: 'mes', label: 'Mes', type: 'string' });
-                dataTable.addColumn({ id: 'cantidad', label: 'Cantidad', type: 'number' });
+        //        dataTable.addColumn({ id: 'mes', label: 'Mes', type: 'string' });
+        //        dataTable.addColumn({ id: 'cantidad', label: 'Cantidad', type: 'number' });
 
-                for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].mes.toString(), datos[i].cantidadNacimientos]]);
-                }
+        //        for (var i = 0; i < datos.length; i++) {
+        //            dataTable.addRows([[datos[i].mes.toString(), datos[i].cantidadNacimientos]]);
+        //        }
 
-                var options = {
-                    'title': 'Cantidad de Nacimientos por Mes',
-                    hAxis: {
-                        title: 'Meses'
-                    },
-                    vAxis: {
-                        title: 'Cantidad de bovinos'
-                    },
-                    'legend': {
-                        'position': 'bottom',
-                        'textStyle': { 'fontSize': 12 }
-                    }
-                };
-                chart.draw(dataTable, options);
+        //        var options = {
+        //            'title': 'Cantidad de Nacimientos por Mes',
+        //            hAxis: {
+        //                title: 'Meses'
+        //            },
+        //            vAxis: {
+        //                title: 'Cantidad de bovinos'
+        //            },
+        //            'legend': {
+        //                'position': 'bottom',
+        //                'textStyle': { 'fontSize': 12 }
+        //            }
+        //        };
+        //        chart.draw(dataTable, options);
 
-                var my_anchor = document.getElementById('descargaGraficoNacimientosPorMes');
-                my_anchor.href = chart.getImageURI();
-                google.visualization.events.addListener(chart, 'ready', function () {
-                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
-                });
-            }
-        }
-        function cargarGraficoTorosMasHijos(data) { }
-        function cargarGraficoVacasInseminacionesFallidas(data) { }
-        function cargarGraficoVacasMasHijos(data) { }
+        //        var my_anchor = document.getElementById('descargaGraficoNacimientosPorMes');
+        //        my_anchor.href = chart.getImageURI();
+        //        google.visualization.events.addListener(chart, 'ready', function () {
+        //            my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+        //        });
+        //    }
+        //}
+        //function cargarGraficoTorosMasHijos(data) { }
+        //function cargarGraficoVacasInseminacionesFallidas(data) { }
+        //function cargarGraficoVacasMasHijos(data) { }
+        //function cargarGraficoAbortosXVaca(data) { }
 
     }//fin controlador
 })();
