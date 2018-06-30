@@ -392,6 +392,7 @@
                 };
 
                 dataTable.addColumn({ type: 'string', id: 'Evento' });
+                dataTable.addColumn({ type: 'string', id: 'Nombre' });
                 dataTable.addColumn({ type: 'date', id: 'Start' });
                 dataTable.addColumn({ type: 'date', id: 'End' });
                 var fechaSiguiente, horaSiguiente;
@@ -435,7 +436,7 @@
                             break;
                     }
                     dataTable.addRows([
-                  [list[i].tipoEvento, new Date(fechaAnterior[2], parseInt(fechaAnterior[1]) - 1, fechaAnterior[0], horaAnterior[0], horaAnterior[1]), new Date(fechaSiguiente[2], parseInt(fechaSiguiente[1]) - 1, fechaSiguiente[0], horaSiguiente[0], horaSiguiente[1])]]);
+                  [list[i].tipoEvento, list[i].nombre, new Date(fechaAnterior[2], parseInt(fechaAnterior[1]) - 1, fechaAnterior[0], horaAnterior[0], horaAnterior[1]), new Date(fechaSiguiente[2], parseInt(fechaSiguiente[1]) - 1, fechaSiguiente[0], horaSiguiente[0], horaSiguiente[1])]]);
                 }
                 chart.draw(dataTable, options);
             }
