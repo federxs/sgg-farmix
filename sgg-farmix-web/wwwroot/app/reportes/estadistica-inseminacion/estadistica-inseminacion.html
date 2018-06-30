@@ -1,0 +1,199 @@
+﻿<fieldset>
+    <div class="alert alert-danger" ng-show=""></div>
+    <div class="row">
+        <div class="col-lg-10">
+            <div style="margin-top:0px;" class="page-header">
+                <h1>
+                    Estadísticas de Inseminación
+                    <small>Gráficas</small>
+                </h1>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div>
+                        <h4>Toro más pesado</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaToroMasPesado}}</h4>
+                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idToroMasPesado, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <div class="row">
+                    <div>
+                        <h4>Vaca más pesada</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaVacaMasPesada}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idVacaMasPesada, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="row">
+                    <div>
+                        <h4>Bovino más jóven</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasJoven}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasJoven, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <div class="row">
+                    <div>
+                        <h4>Bovino mas nuevo del sistema</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasNuevo}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasNuevo, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div>
+                        <h4>Toro más liviano</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaToroMasLiviano}}</h4>
+                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idToroMasLiviano, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <div class="row">
+                    <div>
+                        <h4>Vaca más liviana</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaVacaMasLiviana}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idVacaMasLiviana, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="row">
+                    <div>
+                        <h4>Bovino más viejo</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasViejo}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasViejo, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <div class="row">
+                    <div>
+                        <h4>Bovino mas viejo del sistema</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasViejoSist}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasViejoSist, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Porcentaje de Bovino por Rodeo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoPorcentajeBovinoPorRodeo"></div>
+                <a id="descargaGraficoPorcentajeBovinoPorRodeo" style="text-decoration:underline" download="Farmix - Gráfica de Bovinos por Rodeo">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de Bajas por Mes</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoBajasPorMes"></div>
+                <a id="descargaGraficoBajasPorMes" style="text-decoration:underline" download="Farmix - Gráfica de Bajas por Muerte o Venta por Mes">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad de Bovinos Hembra por Categoría</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoCategoriasPorHembrasEfectividad"></div>
+                <a id="descargaGraficoCategoriasPorHembrasEfectividad" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Categoría">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad de Bovinos Macho por Categoría</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoCategoriasPorMachosEfectividad"></div>
+                <a id="descargaGraficoCategoriasPorMachosEfectividad" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Machos por Categoría">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad de Bovinos Hembra por Raza</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoRazaEfectividad"></div>
+                <a id="descargaGraficoRazaEfectividad" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Raza">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <button type="button" class="btn btn-default"
+            ui-sref="home.inicio" style="margin-left: 15px;" title="Volver a Inicio">
+        Volver a Inicio
+    </button>
+</div>

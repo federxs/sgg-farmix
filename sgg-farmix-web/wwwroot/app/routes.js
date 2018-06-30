@@ -80,6 +80,12 @@
                  controller: 'reporteInseminacionController'
              });
         $stateProvider
+             .state('home.estadisticaInseminacion', {
+                 url: '/reportes/estadisticas/inseminaciones',
+                 templateUrl: 'app/reportes/estadistica-inseminacion/estadistica-inseminacion.html',
+                 controller: 'estadisticaInseminacionController'
+             });
+        $stateProvider
             .state('home.conflictos', {
                 url: '/conflictos',
                 templateUrl: 'app/conflicto/consultar-conflicto/consultar-conflicto.html',
