@@ -58,7 +58,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 for (int i = 1; i < 13; i++)
                 {
                     parametros["@mes"] = i;
-                    var registro1 = connection.GetArray<EstadisticaBajaPorMes>("spReporteBovinoBajasPorMes", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();                    
+                    var registro1 = connection.GetArray<EstadisticaBajaPorMes>("spReporteBovinoBajasPorMes", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                     obj.bajasXMes.Add(registro1);
                     var registro2 = connection.GetArray<EstadisticaNacimientosXMes>("spReporteBovinoNacimientosPorMes", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                     obj.nacimientos.Add(registro2);
@@ -72,7 +72,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     { "@codigoCampo", codigoCampo }
                 };
                 obj.bovinosXRodeo = connection.GetArray<EstadisticaBovinosXRodeo>("spReporteBovinoCantidadPorRodeo", parametros, System.Data.CommandType.StoredProcedure).ToList();
-                obj.pesosPromXRaza = connection.GetArray<EstadisticaPesoPromXRaza>("spReporteBovinoPesoPromedioPorRaza", parametros, System.Data.CommandType.StoredProcedure).ToList();                
+                obj.pesosPromXRaza = connection.GetArray<EstadisticaPesoPromXRaza>("spReporteBovinoPesoPromedioPorRaza", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.inicio = connection.GetArray<EstadisticaBovinoInicio>("spGetInicioEstadisticaBovinos", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return obj;
             }
@@ -118,7 +118,55 @@ namespace sgg_farmix_acceso_datos.DAOs
                 obj.hijosXToro = connection.GetArray<EstadisticaHijosPorBovino>("spReporteInseminacionTorosMasHijos", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.hijosXVaca = connection.GetArray<EstadisticaHijosPorBovino>("spReporteInseminacionVacasMasHijos", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.abortosXVaca = connection.GetArray<EstadisticaAbortosPorVaca>("spReporteInseminacionVacasMasAbortos", parametros, System.Data.CommandType.StoredProcedure).ToList();
-                Console.Write(obj);
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
+        public EstadisticasEvento GetEstadisticaEvento(long codigoCampo, string periodo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var obj = new EstadisticasEvento();
+                obj.antibioticosMasUsados = new List<EstadisticaAntibioticoMasUsado>();
+                obj.cambiosAlimentacionXBovino = new List<EstadisticaCambiosPorBovino>();
+                obj.movimientosXBovino = new List<EstadisticaCambiosPorBovino>();
+                obj.bovinosXRodeo = new List<EstadisticaBovinosPorRodeo>();
+                obj.eventosXTipoXMes = new List<EstadisticaEventoPorTipoPorMes>();
+                obj.eventosXTipoXGenero = new List<EstadisticaEventoPorTipoPorGenero>();
+                obj.vacunasMenosUsadas = new List<EstadisticaVacunaMenosUsada>();
+                var parametros = new Dictionary<string, object>{
+                    { "@codigoCampo", codigoCampo },
+                    { "@periodo", periodo },
+                    { "@mes", 0 }
+                }; for (int i = 1; i < 13; i++)
+                {
+                    parametros["@mes"] = i;
+                    var aux = connection.GetArray<EstadisticaEventoPorTipoPorMes>("spReporteEventoCantidadPorTipoPorMes", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                    obj.eventosXTipoXMes.Add(aux);
+                }
+                parametros = new Dictionary<string, object>{
+                    { "@codigoCampo", codigoCampo },
+                    { "@periodo", periodo }
+                };
+                obj.antibioticosMasUsados = connection.GetArray<EstadisticaAntibioticoMasUsado>("spReporteEventoAntibioticoMasUsado", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.cambiosAlimentacionXBovino = connection.GetArray<EstadisticaCambiosPorBovino>("spReporteEventoBovinoMasCambiosAlimentacion", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.movimientosXBovino = connection.GetArray<EstadisticaCambiosPorBovino>("spReporteEventoBovinoMasMovimientos", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.eventosXTipoXGenero = connection.GetArray<EstadisticaEventoPorTipoPorGenero>("spReporteEventoTipoEventoSegunGenero", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.vacunasMenosUsadas = connection.GetArray<EstadisticaVacunaMenosUsada>("spReporteEventoVacunasMenosUsadas", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                parametros = new Dictionary<string, object>{
+                    { "@codigoCampo", codigoCampo }
+                };
+                obj.bovinosXRodeo = connection.GetArray<EstadisticaBovinosPorRodeo>("spReporteEventoBovinosPorRodeo", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 return obj;
             }
             catch (Exception ex)
