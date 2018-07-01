@@ -4,12 +4,13 @@
             return $resource(portalService.getUrlServer() + 'api/Estadisticas/', {}, {
                 inicializar: {
                     method: 'GET',
-                    url: portalService.getUrlServer() + 'api/Estadisticas/Eventos',
+                    url: portalService.getUrlServer() + 'api/Estadistica/Evento',
                     headers: portalService.getHeadersServer(),
                     params: {
-                        codigoCampo: '@codigoCampo'
+                        codigoCampo: '@codigoCampo',
+                        periodo: '@periodo'
                     },
-                    isArray: true
+                    isArray: false
                 }
             });
         });

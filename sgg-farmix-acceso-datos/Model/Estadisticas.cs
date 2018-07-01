@@ -125,7 +125,6 @@ namespace sgg_farmix_acceso_datos.Model
         public List<EstadisticaAntibioticoMasUsado> antibioticosMasUsados { get; set; }
         public List<EstadisticaCambiosPorBovino> cambiosAlimentacionXBovino { get; set; }
         public List<EstadisticaCambiosPorBovino> movimientosXBovino { get; set; }
-        public List<EstadisticaBovinosPorRodeo> bovinosXRodeo { get; set; }
         public List<EstadisticaEventoPorTipoPorMes> eventosXTipoXMes { get; set; }
         public List<EstadisticaEventoPorTipoPorGenero> eventosXTipoXGenero { get; set; }
         public List<EstadisticaVacunaMenosUsada> vacunasMenosUsadas { get; set; }
@@ -143,24 +142,10 @@ namespace sgg_farmix_acceso_datos.Model
         public long? cantidad { get; set; }
     }
 
-    public class EstadisticaBovinosPorRodeo
-    {
-        public string rodeo { get; set; }
-        public long? cantidad { get; set; }
-    }
-
-    //Opcion 1
-    //public class EstadisticaEventoPorTipoPorMes
-    //{
-    //    public string tipoEvento { get; set; }
-    //    public long? cantidad { get; set; }
-    //}
-
-    //Opcion 2
     public class EstadisticaEventoPorTipoPorMes
     {
         public int mes { get; set; }
-        public long? cantidadAlimenticion { get; set; }
+        public long? cantidadAlimenticio { get; set; }
         public long? cantidadAntibiotico { get; set; }
         public long? cantidadManejo { get; set; }
         public long? cantidadVacunacion { get; set; }

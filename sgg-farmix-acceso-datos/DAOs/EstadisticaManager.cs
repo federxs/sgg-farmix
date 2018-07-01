@@ -140,7 +140,6 @@ namespace sgg_farmix_acceso_datos.DAOs
                 obj.antibioticosMasUsados = new List<EstadisticaAntibioticoMasUsado>();
                 obj.cambiosAlimentacionXBovino = new List<EstadisticaCambiosPorBovino>();
                 obj.movimientosXBovino = new List<EstadisticaCambiosPorBovino>();
-                obj.bovinosXRodeo = new List<EstadisticaBovinosPorRodeo>();
                 obj.eventosXTipoXMes = new List<EstadisticaEventoPorTipoPorMes>();
                 obj.eventosXTipoXGenero = new List<EstadisticaEventoPorTipoPorGenero>();
                 obj.vacunasMenosUsadas = new List<EstadisticaVacunaMenosUsada>();
@@ -163,10 +162,6 @@ namespace sgg_farmix_acceso_datos.DAOs
                 obj.movimientosXBovino = connection.GetArray<EstadisticaCambiosPorBovino>("spReporteEventoBovinoMasMovimientos", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.eventosXTipoXGenero = connection.GetArray<EstadisticaEventoPorTipoPorGenero>("spReporteEventoTipoEventoSegunGenero", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.vacunasMenosUsadas = connection.GetArray<EstadisticaVacunaMenosUsada>("spReporteEventoVacunasMenosUsadas", parametros, System.Data.CommandType.StoredProcedure).ToList();
-                parametros = new Dictionary<string, object>{
-                    { "@codigoCampo", codigoCampo }
-                };
-                obj.bovinosXRodeo = connection.GetArray<EstadisticaBovinosPorRodeo>("spReporteEventoBovinosPorRodeo", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 return obj;
             }
             catch (Exception ex)
