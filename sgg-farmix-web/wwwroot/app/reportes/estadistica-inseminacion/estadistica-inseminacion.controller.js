@@ -5,7 +5,7 @@
         .module('app')
         .controller('estadisticaInseminacionController', estadisticaInseminacionController);
 
-    estadisticaBovinoController.$inject = ['$location', '$scope', '$localStorage', 'estadisticaInseminacionService', 'toastr'];
+    estadisticaInseminacionController.$inject = ['$location', '$scope', '$localStorage', 'estadisticaInseminacionService', 'toastr'];
 
     function estadisticaInseminacionController($location, $scope, $localStorage, estadisticaInseminacionService, toastr) {
         var vm = $scope;
@@ -21,8 +21,8 @@
                 cargarGraficoXCategoriaMachosEfectividad($scope.obj.inseminacionXCategoriaMacho);
                 cargarGraficoRazaEfectividad($scope.obj.inseminacionXRaza);
                 cargarGraficoTipoEfectividad($scope.obj.inseminacionXTipo);
-                //cargarGraficoTorosInseminacionesExitosas($scope.obj.inseminacionExitosaXToro);
-                //cargarGraficoTorosMasHijos($scope.obj.hijosXToro);
+                cargarGraficoTorosInseminacionesExitosas($scope.obj.inseminacionExitosaXToro);
+                cargarGraficoTorosMasHijos($scope.obj.hijosXToro);
                 //cargarGraficoVacasInseminacionesFallidas($scope.obj.inseminacionFallidaXVaca);
                 //cargarGraficoVacasMasHijos($scope.obj.hijosXVaca);
                 //cargarGraficoAbortosXVaca($scope.obj.abortosXVaca);
@@ -201,47 +201,88 @@
             }
         };
 
-        //function cargarGraficoTorosInseminacionesExitosas(data) {
-        //    var datos = data;
+        function cargarGraficoTorosInseminacionesExitosas(data) {
+            var datos = data;
 
-        //    google.charts.load('current', { 'packages': ['corechart'] });
-        //    google.charts.setOnLoadCallback(drawChart);
+            google.charts.load('current', { 'packages': ['bar'] });
+            google.charts.setOnLoadCallback(drawChart);
 
-        //    function drawChart() {
-        //        var container = document.getElementById('graficoNacimientosPorMes');
-        //        var chart = new google.visualization.LineChart(container);
-        //        var dataTable = new google.visualization.DataTable();
+            function drawChart() {
+                var container = document.getElementById('graficoInseminacionesXToro');
+                var chart = new google.visualization.BarChart(container);
+                var dataTable = new google.visualization.arrayToDataTable(loadDataTable());
+                function loadDataTable() {
+                    var resultado = [];
+                    resultado[0] = ['Número de Caravana','Cantidad']
+                    for (var i = 0; i < datos.length; i++) {
+                            resultado[i+1] = [datos[i].numCaravana, datos[i].cantidad];
+                    }
+                    return resultado;
+                }
+                var options = {
+                    'title': 'Efectividad según el tipo de Inseminación',
+                    hAxis: {
+                        title: 'Número de Caravana'
+                    },
+                    vAxis: {
+                        title: 'Inseminaciones'
+                    }//,
+                    //'legend': {
+                    //    'position': 'bottom',
+                    //    'textStyle': { 'fontSize': 12 }
+                    //}
+                };
+                chart.draw(dataTable, options);
 
-        //        dataTable.addColumn({ id: 'mes', label: 'Mes', type: 'string' });
-        //        dataTable.addColumn({ id: 'cantidad', label: 'Cantidad', type: 'number' });
+                var my_anchor = document.getElementById('descargaGraficoInseminacionesXToro');
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                });
+            }
+        };
 
-        //        for (var i = 0; i < datos.length; i++) {
-        //            dataTable.addRows([[datos[i].mes.toString(), datos[i].cantidadNacimientos]]);
-        //        }
+      
+        function cargarGraficoTorosMasHijos(data) {
+            var datos = data;
 
-        //        var options = {
-        //            'title': 'Cantidad de Nacimientos por Mes',
-        //            hAxis: {
-        //                title: 'Meses'
-        //            },
-        //            vAxis: {
-        //                title: 'Cantidad de bovinos'
-        //            },
-        //            'legend': {
-        //                'position': 'bottom',
-        //                'textStyle': { 'fontSize': 12 }
-        //            }
-        //        };
-        //        chart.draw(dataTable, options);
+            google.charts.load('current', { 'packages': ['bar'] });
+            google.charts.setOnLoadCallback(drawChart);
 
-        //        var my_anchor = document.getElementById('descargaGraficoNacimientosPorMes');
-        //        my_anchor.href = chart.getImageURI();
-        //        google.visualization.events.addListener(chart, 'ready', function () {
-        //            my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
-        //        });
-        //    }
-        //}
-        //function cargarGraficoTorosMasHijos(data) { }
+            function drawChart() {
+                var container = document.getElementById('graficoHijosXToro');
+                var chart = new google.charts.Bar(container);
+                var dataTable = new google.visualization.arrayToDataTable(loadDataTable());
+                function loadDataTable() {
+                    var resultado = [];
+                    resultado[0] = ['Número de Caravana', 'Cantidad']
+                    for (var i = 0; i < datos.length; i++) {
+                        resultado[i + 1] = [datos[i].numCaravana, datos[i].cantidadHijos];
+                    }
+                    return resultado;
+                }
+                var options = {
+                    'title': 'Cantidad de Hijos por Toro',
+                    hAxis: {
+                        title: 'Número de Caravana'
+                    },
+                    vAxis: {
+                        title: 'Cantidad de Hijos'
+                    }//,
+                    //'legend': {
+                    //    'position': 'bottom',
+                    //    'textStyle': { 'fontSize': 12 }
+                    //}
+                };
+                chart.draw(dataTable, options);
+
+                var my_anchor = document.getElementById('descargaGraficoHijosXToro');
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                });
+            }
+        };
         //function cargarGraficoVacasInseminacionesFallidas(data) { }
         //function cargarGraficoVacasMasHijos(data) { }
         //function cargarGraficoAbortosXVaca(data) { }
