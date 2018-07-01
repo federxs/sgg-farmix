@@ -24,8 +24,8 @@
                 cargarGraficoTorosInseminacionesExitosas($scope.obj.inseminacionExitosaXToro);
                 cargarGraficoTorosMasHijos($scope.obj.hijosXToro);
                 cargarGraficoVacasInseminacionesFallidas($scope.obj.inseminacionFallidaXVaca);
-                //cargarGraficoVacasMasHijos($scope.obj.hijosXVaca);
-                //cargarGraficoAbortosXVaca($scope.obj.abortosXVaca);
+                cargarGraficoVacasMasHijos($scope.obj.hijosXVaca);
+                cargarGraficoAbortosXVaca($scope.obj.abortosXVaca);
                 $scope.$parent.unBlockSpinner();
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
@@ -259,8 +259,10 @@
                     bar: { groupWidth: '10%' },
                     vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Cantidad de Hijos' },
                     hAxis: {
-                        title: 'Número de Caravana'
+                        title: 'Número de Caravana',
+                        viewWindow: { min: 0 }
                     },
+                    colors: ["#00b01c"]
                 };
                 chart.draw(dataTable, options);
 
@@ -271,9 +273,114 @@
                 });
             }
         };
-        //function cargarGraficoVacasInseminacionesFallidas(data) { }
-        //function cargarGraficoVacasMasHijos(data) { }
-        //function cargarGraficoAbortosXVaca(data) { }
+        function cargarGraficoVacasInseminacionesFallidas(data) {
+            var datos = data;
+
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var container = document.getElementById('graficoInseminacionesFallidas');
+                var chart = new google.visualization.ColumnChart(container);
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('number', 'Número Caravana');
+                dataTable.addColumn('number', 'Cantidad');
+                for (var i = 0; i < datos.length; i++) {
+                    dataTable.addRows([[datos[i].numCaravana, datos[i].cantidad]]);
+                }
+
+                var options = {
+                    title: 'Cantidad de Inseminaciones Fallidas',
+                    legend: 'none',
+                    bar: { groupWidth: '10%' },
+                    vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Cantidad de Inseminaciones' },
+                    hAxis: {
+                        title: 'Número de Caravana'
+                    },
+                    colors: ["gray"]
+                };
+                chart.draw(dataTable, options);
+
+                var my_anchor = document.getElementById('descargaGraficoInseminacionesFallidas');
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                });
+            }
+        };
+        function cargarGraficoVacasMasHijos(data) {
+            var datos = data;
+
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var container = document.getElementById('graficoHijosXVaca');
+                var chart = new google.visualization.ColumnChart(container);
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('number', 'Número Caravana');
+                dataTable.addColumn('number', 'Cantidad');
+                for (var i = 0; i < datos.length; i++) {
+                    dataTable.addRows([[datos[i].numCaravana, datos[i].cantidadHijos]]);
+                }
+
+                var options = {
+                    title: 'Cantidad de Hijos Por Vaca',
+                    legend: 'none',
+                    bar: { groupWidth: '10%' },
+                    vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Cantidad de Hijos' },
+                    hAxis: {
+                        title: 'Número de Caravana',
+                        viewWindow: { min: 0 }
+                    },
+                    colors: ["#00b01c"]
+
+                };
+                chart.draw(dataTable, options);
+
+                var my_anchor = document.getElementById('descargaGraficoHijosXVaca');
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                });
+            }
+        };
+        function cargarGraficoAbortosXVaca(data) {
+            var datos = data;
+
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var container = document.getElementById('graficoAbortosXVaca');
+                var chart = new google.visualization.ColumnChart(container);
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('number', 'Número Caravana');
+                dataTable.addColumn('number', 'Cantidad');
+                for (var i = 0; i < datos.length; i++) {
+                    dataTable.addRows([[datos[i].numCaravana, datos[i].cantidadAbortos]]);
+                }
+
+                var options = {
+                    title: 'Cantidad de Abortos Por Vaca',
+                    legend: 'none',
+                    bar: { groupWidth: '10%' },
+                    vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Cantidad de Abortos' },
+                    hAxis: {
+                        title: 'Número de Caravana',
+                        viewWindow: { min: 0 }
+                    },
+                    colors: ["#980b0b"]
+                };
+                chart.draw(dataTable, options);
+
+                var my_anchor = document.getElementById('descargaGraficoAbortosXVaca');
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                });
+            }
+        };
 
     }//fin controlador
 })();
