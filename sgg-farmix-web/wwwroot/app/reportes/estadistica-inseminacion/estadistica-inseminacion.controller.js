@@ -23,7 +23,7 @@
                 cargarGraficoTipoEfectividad($scope.obj.inseminacionXTipo);
                 cargarGraficoTorosInseminacionesExitosas($scope.obj.inseminacionExitosaXToro);
                 cargarGraficoTorosMasHijos($scope.obj.hijosXToro);
-                //cargarGraficoVacasInseminacionesFallidas($scope.obj.inseminacionFallidaXVaca);
+                cargarGraficoVacasInseminacionesFallidas($scope.obj.inseminacionFallidaXVaca);
                 //cargarGraficoVacasMasHijos($scope.obj.hijosXVaca);
                 //cargarGraficoAbortosXVaca($scope.obj.abortosXVaca);
                 $scope.$parent.unBlockSpinner();
@@ -204,33 +204,27 @@
         function cargarGraficoTorosInseminacionesExitosas(data) {
             var datos = data;
 
-            google.charts.load('current', { 'packages': ['bar'] });
+            google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
 
             function drawChart() {
                 var container = document.getElementById('graficoInseminacionesXToro');
-                var chart = new google.visualization.BarChart(container);
-                var dataTable = new google.visualization.arrayToDataTable(loadDataTable());
-                function loadDataTable() {
-                    var resultado = [];
-                    resultado[0] = ['Número de Caravana','Cantidad']
-                    for (var i = 0; i < datos.length; i++) {
-                            resultado[i+1] = [datos[i].numCaravana, datos[i].cantidad];
-                    }
-                    return resultado;
+                var chart = new google.visualization.ColumnChart(container);
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('number', 'Número Caravana');
+                dataTable.addColumn('number', 'Inseminaciones');
+                for (var i = 0; i < datos.length; i++) {
+                    dataTable.addRows([[datos[i].numCaravana, datos[i].cantidad]]);
                 }
+
                 var options = {
-                    'title': 'Efectividad según el tipo de Inseminación',
+                    title: 'Inseminaciones Exitosas Por Toro',
+                    legend: 'none',
+                    bar: { groupWidth: '10%' },
+                    vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Inseminaciones Exitosas' },
                     hAxis: {
                         title: 'Número de Caravana'
-                    },
-                    vAxis: {
-                        title: 'Inseminaciones'
-                    }//,
-                    //'legend': {
-                    //    'position': 'bottom',
-                    //    'textStyle': { 'fontSize': 12 }
-                    //}
+                    }
                 };
                 chart.draw(dataTable, options);
 
@@ -246,33 +240,27 @@
         function cargarGraficoTorosMasHijos(data) {
             var datos = data;
 
-            google.charts.load('current', { 'packages': ['bar'] });
+            google.charts.load('current', { 'packages': ['corechart'] });
             google.charts.setOnLoadCallback(drawChart);
 
             function drawChart() {
                 var container = document.getElementById('graficoHijosXToro');
-                var chart = new google.charts.Bar(container);
-                var dataTable = new google.visualization.arrayToDataTable(loadDataTable());
-                function loadDataTable() {
-                    var resultado = [];
-                    resultado[0] = ['Número de Caravana', 'Cantidad']
-                    for (var i = 0; i < datos.length; i++) {
-                        resultado[i + 1] = [datos[i].numCaravana, datos[i].cantidadHijos];
-                    }
-                    return resultado;
+                var chart = new google.visualization.ColumnChart(container);
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('number', 'Número Caravana');
+                dataTable.addColumn('number', 'Cantidad');
+                for (var i = 0; i < datos.length; i++) {
+                    dataTable.addRows([[datos[i].numCaravana, datos[i].cantidadHijos]]);
                 }
+
                 var options = {
-                    'title': 'Cantidad de Hijos por Toro',
+                    title: 'Cantidad de Hijos Por Toro',
+                    legend: 'none',
+                    bar: { groupWidth: '10%' },
+                    vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Cantidad de Hijos' },
                     hAxis: {
                         title: 'Número de Caravana'
                     },
-                    vAxis: {
-                        title: 'Cantidad de Hijos'
-                    }//,
-                    //'legend': {
-                    //    'position': 'bottom',
-                    //    'textStyle': { 'fontSize': 12 }
-                    //}
                 };
                 chart.draw(dataTable, options);
 
