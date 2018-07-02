@@ -211,7 +211,7 @@
                 var container = document.getElementById('graficoInseminacionesXToro');
                 var chart = new google.visualization.ColumnChart(container);
                 var dataTable = new google.visualization.DataTable();
-                dataTable.addColumn('number', 'Número Caravana');
+                dataTable.addColumn('string', 'Número Caravana');
                 dataTable.addColumn('number', 'Inseminaciones');
                 for (var i = 0; i < datos.length; i++) {
                     dataTable.addRows([[datos[i].numCaravana, datos[i].cantidad]]);
@@ -247,7 +247,7 @@
                 var container = document.getElementById('graficoHijosXToro');
                 var chart = new google.visualization.ColumnChart(container);
                 var dataTable = new google.visualization.DataTable();
-                dataTable.addColumn('number', 'Número Caravana');
+                dataTable.addColumn('string', 'Número Caravana');
                 dataTable.addColumn('number', 'Cantidad');
                 for (var i = 0; i < datos.length; i++) {
                     dataTable.addRows([[datos[i].numCaravana, datos[i].cantidadHijos]]);
@@ -283,7 +283,7 @@
                 var container = document.getElementById('graficoInseminacionesFallidas');
                 var chart = new google.visualization.ColumnChart(container);
                 var dataTable = new google.visualization.DataTable();
-                dataTable.addColumn('number', 'Número Caravana');
+                dataTable.addColumn('string', 'Número Caravana');
                 dataTable.addColumn('number', 'Cantidad');
                 for (var i = 0; i < datos.length; i++) {
                     dataTable.addRows([[datos[i].numCaravana, datos[i].cantidad]]);
@@ -318,7 +318,7 @@
                 var container = document.getElementById('graficoHijosXVaca');
                 var chart = new google.visualization.ColumnChart(container);
                 var dataTable = new google.visualization.DataTable();
-                dataTable.addColumn('number', 'Número Caravana');
+                dataTable.addColumn('string', 'Número Caravana');
                 dataTable.addColumn('number', 'Cantidad');
                 for (var i = 0; i < datos.length; i++) {
                     dataTable.addRows([[datos[i].numCaravana, datos[i].cantidadHijos]]);
@@ -348,37 +348,33 @@
         function cargarGraficoAbortosXVaca(data) {
             var datos = data;
 
-            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.load('current', { 'packages': ['table'] });
             google.charts.setOnLoadCallback(drawChart);
 
             function drawChart() {
                 var container = document.getElementById('graficoAbortosXVaca');
-                var chart = new google.visualization.ColumnChart(container);
+                var chart = new google.visualization.Table(container);
                 var dataTable = new google.visualization.DataTable();
-                dataTable.addColumn('number', 'Número Caravana');
-                dataTable.addColumn('number', 'Cantidad');
+                dataTable.addColumn('string', 'Número Caravana');
+                dataTable.addColumn('number', 'Cantidad de Abortos');
                 for (var i = 0; i < datos.length; i++) {
                     dataTable.addRows([[datos[i].numCaravana, datos[i].cantidadAbortos]]);
                 }
 
                 var options = {
                     title: 'Cantidad de Abortos Por Vaca',
-                    legend: 'none',
-                    bar: { groupWidth: '10%' },
-                    vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Cantidad de Abortos' },
-                    hAxis: {
-                        title: 'Número de Caravana',
-                        viewWindow: { min: 0 }
-                    },
-                    colors: ["#980b0b"]
+                    pageSize: 6,
+                    sortColumn: 1,
+                    sortAscending: false,
+                    cssClassNames: { tableCell: 'row' }
                 };
                 chart.draw(dataTable, options);
 
-                var my_anchor = document.getElementById('descargaGraficoAbortosXVaca');
-                my_anchor.href = chart.getImageURI();
-                google.visualization.events.addListener(chart, 'ready', function () {
-                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
-                });
+                //var my_anchor = document.getElementById('descargaGraficoAbortosXVaca');
+                //my_anchor.href = chart.getImageURI();
+                //google.visualization.events.addListener(chart, 'ready', function () {
+                //    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                //});
             }
         };
 

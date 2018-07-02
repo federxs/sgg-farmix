@@ -105,18 +105,18 @@ namespace sgg_farmix_acceso_datos.Model
         public long? cantidadFallida { get; set; }
     }
     public class EstadisticaInseminacionPorBovino
-    {
-        public long numCaravana { get; set; }
+    { 
+        public string numCaravana { get; set; }
         public long? cantidad { get; set; }
     }
     public class EstadisticaHijosPorBovino
     {
-        public long numCaravana { get; set; }
+        public string numCaravana { get; set; }
         public long? cantidadHijos { get; set; }
     }
     public class EstadisticaAbortosPorVaca
     {
-        public long numCaravana { get; set; }
+        public string numCaravana { get; set; }
         public long? cantidadAbortos { get; set; }
     }
 
