@@ -17,6 +17,19 @@
             $scope.$parent.blockSpinner();
             estadisticaInseminacionService.inicializar({ codigoCampo: $localStorage.usuarioInfo.codigoCampo, periodo: $localStorage.usuarioInfo.periodoConsulta }, function (data) {
                 $scope.obj = data;
+                // let the hardcode begin
+                $scope.hard = {};
+                $scope.hard.caravanaVacaMasHijos = 33;
+                $scope.hard.idVacaMasHijos = 21;
+                $scope.hard.caravanaVacaMasDificilEmbarazar = 33;
+                $scope.hard.idVacaMasDificilEmbarazar = 21;
+                $scope.hard.caravanaVacaMasAbortos = 33;
+                $scope.hard.idVacaMasAbortos = 21;
+                $scope.hard.caravanaToroMasHijos = 33;
+                $scope.hard.idToroMasHijos = 21;
+                $scope.hard.caravanaToroInseminacionExitosa = 33;
+                $scope.hard.idToroInseminacionExitosa = 21;
+                // it's to much hardcode
                 cargarGraficoXCategoriaHembrasEfectividad($scope.obj.inseminacionXCategoriaHembra);
                 cargarGraficoXCategoriaMachosEfectividad($scope.obj.inseminacionXCategoriaMacho);
                 cargarGraficoRazaEfectividad($scope.obj.inseminacionXRaza);
