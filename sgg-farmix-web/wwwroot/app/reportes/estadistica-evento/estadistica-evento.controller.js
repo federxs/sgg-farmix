@@ -18,11 +18,14 @@
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
                 periodo: $localStorage.usuarioInfo.periodoConsulta
             }, function (data) {
-                //cargarTablaAntibioticosMasUsados($scope.obj.antibioticosMasUsados);
-                //cargarGraficoEventosPorTipoPorMes($scope.obj.eventosXTipoXMes);
-                //cargarGraficoEventoPorTipoPorGenero($scope.obj.eventosXTipoXGenero);
-                //cargarGraficoPorcentajeBovinoPorRodeo($scope.obj.bovinosXRodeo);
-                //cargarGraficoNacimientosPorMes($scope.obj.nacimientos);
+                //QUERY PARA EL GRAFICO DE ABAJO
+                //SELECT TOP 10 B.numCaravana, count(E.idAntibiotico) cant
+                //FROM Evento E, EventosXBovino X, Bovino B
+                //WHERE 1 = 1
+                //AND E.idEvento = X.idEvento
+                //AND X.idEvento = B.numCaravana
+                //GROUP BY B.numCaravana
+                //ORDER BY cant DESC
                 cargarGraficoAntibioticosXBovino($scope.obj.bovinosXAntibioticos);
 
                 $scope.$parent.unBlockSpinner();
