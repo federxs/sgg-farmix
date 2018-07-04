@@ -4,7 +4,7 @@
             return $resource(portalService.getUrlServer() + 'api/Inseminacion/', {}, {
                 inicializar: {
                     method: 'GET',
-                    url: portalService.getUrlServer() + 'api/Reportes/Inseminacion/:idAmbitoEstado/:idCampo',
+                    url: portalService.getUrlServer() + 'api/Reportes/Inseminacion',
                     headers: portalService.getHeadersServer(),
                     params: {
                         idAmbitoEstado: '@idAmbitoEstado',
