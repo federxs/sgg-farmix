@@ -83,6 +83,7 @@ namespace sgg_farmix_acceso_datos.Model
         public List<EstadisticaHijosPorBovino> hijosXToro { get; set; }
         public List<EstadisticaHijosPorBovino> hijosXVaca { get; set; }
         public List<EstadisticaAbortosPorVaca> abortosXVaca { get; set; }
+        public EstadisticaInseminacionInicio inicio { get; set; }
     }
 
     public class EstadisticaInseminacionPorCategoria
@@ -118,6 +119,22 @@ namespace sgg_farmix_acceso_datos.Model
     {
         public string numCaravana { get; set; }
         public long? cantidadAbortos { get; set; }
+    }
+
+    public class EstadisticaInseminacionInicio
+    {
+        public long caravanaToroMasSemental { get; set; }
+        public long idToroMasSemental { get; set; }
+        public long caravanaVacaMasDificilEmbarazar { get; set; }
+        public long idVacaMasDificilEmbarazar { get; set; }
+        public long caravanaVacaConMasAbortos { get; set; }
+        public long idVacaConMasAbortos { get; set; }
+        public long caravanaVacaConMasHijos { get; set; }
+        public long idVacaConMasHijos { get; set; }
+        public long caravanaToroConMasHijos { get; set; }
+        public long idToroConMasHijos { get; set; }
+        public long caravanaUltimaVacaInseminada { get; set; }
+        public long idUltimaVacaInseminada { get; set; }
     }
 
     public class EstadisticasEvento

@@ -118,6 +118,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 obj.hijosXToro = connection.GetArray<EstadisticaHijosPorBovino>("spReporteInseminacionTorosMasHijos", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.hijosXVaca = connection.GetArray<EstadisticaHijosPorBovino>("spReporteInseminacionVacasMasHijos", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.abortosXVaca = connection.GetArray<EstadisticaAbortosPorVaca>("spReporteInseminacionVacasMasAbortos", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.inicio = connection.GetArray<EstadisticaInseminacionInicio>("spGetInicioEstadisticaInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return obj;
             }
             catch (Exception ex)
