@@ -18,8 +18,8 @@
                 <div class="row">
                     <div>
                         <h4>Vaca con más Hijos</h4>
-                        <h4>Nº caravana: {{hard.caravanaVacaMasHijos}}</h4>
-                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: hard.idVacaMasHijos, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaVacaConMasHijos}}</h4>
+                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idVacaConMasHijos, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -31,8 +31,8 @@
                 <div class="row">
                     <div>
                         <h4>Vaca con mayor dificultad de embarazo</h4>
-                        <h4>Nº caravana: {{hard.caravanaVacaMasDificilEmbarazar}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: hard.idVacaMasDificilEmbarazar, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaVacaMasDificilEmbarazar}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idVacaMasDificilEmbarazar, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -44,8 +44,8 @@
                 <div class="row">
                     <div>
                         <h4>Vaca que sufrió más abortos</h4>
-                        <h4>Nº caravana: {{hard.caravanaVacaMasAbortos}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: hard.idVacaMasAbortos, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaVacaConMasAbortos}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idVacaConMasAbortos, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -59,8 +59,8 @@
                 <div class="row">
                     <div>
                         <h4>Toro con más Hijos</h4>
-                        <h4>Nº caravana: {{hard.caravanaToroMasHijos}}</h4>
-                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: hard.idToroMasHijos, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaToroConMasHijos}}</h4>
+                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idToroConMasHijos, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -72,8 +72,21 @@
                 <div class="row">
                     <div>
                         <h4>Toro más eficaz</h4>
-                        <h4>Nº caravana: {{hard.caravanaToroInseminacionExitosa}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: hard.idToroInseminacionExitosa, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaToroMasSemental}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idToroMasSemental, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="row">
+                    <div>
+                        <h4>Ultima vaca inseminada</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaUltimaVacaInseminada}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idUltimaVacaInseminada, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
