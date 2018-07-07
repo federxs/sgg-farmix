@@ -16,7 +16,8 @@ namespace sgg_farmix_acceso_datos.Model
         public List<EstadisticaBovinosXRodeo> bovinosXRodeo { get; set; }
         public List<EstadisticaNacimientosXMes> nacimientos { get; set; }
         public List<EstadisticaPesoPromXRaza> pesosPromXRaza { get; set; }
-        public List<EstadisticaTop10Alimentos> top10Alimentos { get; set; }
+        public List<EstadisticaTop10BovinosLivianos> top10BovinosMasLivianos { get; set; }
+        public List<EstadisticaUltimosBovinosBaja> ultimosBovinosBajas { get; set; }
         public EstadisticaBovinoInicio inicio { get; set; }
     }
 
@@ -46,10 +47,16 @@ namespace sgg_farmix_acceso_datos.Model
         public float pesoPromedioMacho { get; set; }
     }
 
-    public class EstadisticaTop10Alimentos
+    public class EstadisticaTop10BovinosLivianos
     {
-        public string alimento { get; set; }
-        public long cantidad { get; set; }
+        public string numCaravana { get; set; }
+        public float peso { get; set; }
+    }
+
+    public class EstadisticaUltimosBovinosBaja
+    {
+        public string numCaravana { get; set; }
+        public DateTime fechaBaja { get; set; }
     }
 
     public class EstadisticaBovinoInicio
@@ -145,6 +152,8 @@ namespace sgg_farmix_acceso_datos.Model
         public List<EstadisticaEventoPorTipoPorMes> eventosXTipoXMes { get; set; }
         public List<EstadisticaEventoPorTipoPorGenero> eventosXTipoXGenero { get; set; }
         public List<EstadisticaVacunaMenosUsada> vacunasMenosUsadas { get; set; }
+        public List<EstadisticaTop10Alimentos> top10Alimentos { get; set; }
+        public EstadisticaEventoInicio inicio { get; set; }
     }
 
     public class EstadisticaAntibioticoMasUsado
@@ -177,5 +186,27 @@ namespace sgg_farmix_acceso_datos.Model
     {
         public string vacuna { get; set; }
         public long? cantidad { get; set; }
+    }
+
+    public class EstadisticaTop10Alimentos
+    {
+        public string alimento { get; set; }
+        public long cantidad { get; set; }
+    }
+
+    public class EstadisticaEventoInicio
+    {
+        public long caravanaBovinoMasCambiosRodeo { get; set; }
+        public long idBovinoMasCambiosRodeo { get; set; }
+        public long caravanaBovinoMasEnfermo { get; set; }
+        public long idBovinoMasEnfermo { get; set; }
+        public long caravanaVacaConMasAbortos { get; set; }
+        public long idVacaConMasAbortos { get; set; }
+        public long caravanaVacaConMasHijos { get; set; }
+        public long idVacaConMasHijos { get; set; }
+        public long caravanaToroConMasHijos { get; set; }
+        public long idToroConMasHijos { get; set; }
+        public long caravanaUltimoBovinoVacunado { get; set; }
+        public long idUltimoBovinoVacunado { get; set; }
     }
 }

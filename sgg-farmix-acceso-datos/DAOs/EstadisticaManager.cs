@@ -67,7 +67,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                     { "@codigoCampo", codigoCampo },
                     { "@periodo", periodo }
                 };
-                obj.top10Alimentos = connection.GetArray<EstadisticaTop10Alimentos>("spReporteBovinoTop10Alimentos", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                //obj.top10BovinosMasLivianos = connection.GetArray<EstadisticaTop10BovinosLivianos>("spReporteBovinoTop10Alimentos", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                //obj.ultimosBovinosBajas = connection.GetArray<EstadisticaUltimosBovinosBaja>("spReporteBovinoTop10Alimentos", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 parametros = new Dictionary<string, object>{
                     { "@codigoCampo", codigoCampo }
                 };
@@ -163,6 +164,11 @@ namespace sgg_farmix_acceso_datos.DAOs
                 obj.movimientosXBovino = connection.GetArray<EstadisticaCambiosPorBovino>("spReporteEventoBovinoMasMovimientos", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.eventosXTipoXGenero = connection.GetArray<EstadisticaEventoPorTipoPorGenero>("spReporteEventoTipoEventoSegunGenero", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.vacunasMenosUsadas = connection.GetArray<EstadisticaVacunaMenosUsada>("spReporteEventoVacunasMenosUsadas", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.top10Alimentos = connection.GetArray<EstadisticaTop10Alimentos>("spReporteEventoTop10Alimentos", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                parametros = new Dictionary<string, object>{
+                    { "@codigoCampo", codigoCampo }
+                };
+                obj.inicio = connection.GetArray<EstadisticaEventoInicio>("spGetInicioEstadisticaInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return obj;
             }
             catch (Exception ex)
