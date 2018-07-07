@@ -35,14 +35,14 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-4">
-                        <i class="fa fa-tags fa-5x"></i>
+                        <i class="fa fa-venus-mars fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <h4>Inseminaciones</h4>
                     </div>
                 </div>
             </div>
-            <a ui-sref="home.reporteInseminacion">
+            <a data-toggle="modal" data-target="#modalReporteInseminaciones" style="cursor:pointer">
                 <div class="panel-footer">
                     <span class="pull-left">Ver reporte</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -56,7 +56,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-4">
-                        <i class="fa fa-tags fa-5x"></i>
+                        <i class="fa fa-list-alt fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <h4>Eventos</h4>
@@ -111,7 +111,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-4">
-                        <i class="fa fa-chart-bar fa-5x"></i>
+                        <i class="fa fa-area-chart fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <h4>Bovinos</h4>
@@ -132,7 +132,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-4">
-                        <i class="fa fa-chart-area fa-5x"></i>
+                        <i class="fa fa-bar-chart fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <h4>Inseminaciones</h4>
@@ -153,7 +153,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-4">
-                        <i class="fa fa-chart-pie fa-5x"></i>
+                        <i class="fa fa-line-chart fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <h4>Eventos</h4>
@@ -190,4 +190,25 @@
             </a>
         </div>
     </div>-->
+</div>
+
+<!--Modal reporte inseminaciones-->
+<div id="modalReporteInseminaciones" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Seleccione el reporte de la Sección de Inseminaciones desea ver</h4>
+            </div>
+            <div class="modal-body" style="height:45%">
+                <span ng-click="irAReportesInseminacion(0)" style="cursor:pointer"><i class="fa fa-check"></i> Hembras para Servicio</span>
+                <br />
+                <span ng-click="irAReportesInseminacion(3)" style="cursor:pointer"><i class="fa fa-check"></i> Servicios sin Confirmar</span>
+                <br />
+                <span ng-click="irAReportesInseminacion(2)" style="cursor:pointer"><i class="fa fa-check"></i> Hembras Preñadas</span>
+                <br />
+                <span ng-click="irAReportesInseminacion(1)" style="cursor:pointer"><i class="fa fa-check"></i> Lactancias Activas</span>
+            </div>
+        </div>
+    </div>
 </div>

@@ -24,4 +24,57 @@ namespace sgg_farmix_acceso_datos.Model
         public string meses { get; set; }
         public string anos { get; set; }
     }
+
+    public class ReporteInseminacionHembrasServir
+    {
+        public long nroOrden { get; set; }
+        public long numCaravana { get; set; }
+        public string raza { get; set; }
+        public string categoria { get; set; }
+        public float peso { get; set; }
+        public string estado { get; set; }
+        public string meses { get; set; }
+        public string anos { get; set; }
+        public long partos { get; set; }
+    }
+
+    public class ReporteInseminacionServiciosSinConfirmar
+    {
+        public long nroOrden { get; set; }
+        public long numCaravana { get; set; }
+        public string raza { get; set; }
+        public string categoria { get; set; }
+        public float peso { get; set; }
+        public string estado { get; set; }
+        public string meses { get; set; }
+        public string anos { get; set; }
+        public string tipoInseminacion { get; set; }
+        public string fechaInseminacion { get; set; }
+    }
+
+    public class ReporteInseminacionLactanciasActivas
+    {
+        public long nroOrden { get; set; }
+        public long numCaravana { get; set; }
+        public string raza { get; set; }
+        public string categoria { get; set; }
+        public float peso { get; set; }
+        public string meses { get; set; }
+        public string anos { get; set; }
+        public string alimento { get; set; }
+        public string fechaUltimoParto { get; set; }
+    }
+
+    public class ReporteInseminacionPreniadas
+    {
+        public long nroOrden { get; set; }
+        public long numCaravana { get; set; }
+        public string raza { get; set; }
+        public string categoria { get; set; }
+        public float peso { get; set; }
+        public string meses { get; set; }
+        public string anos { get; set; }
+        public string tipoInseminacion { get; set; }
+        public string fechaParto { get; set; }
+    }
 }

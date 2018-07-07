@@ -418,5 +418,101 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = null;
             }
         }
+
+        public IEnumerable<ReporteInseminacionHembrasServir> GetReporteHembrasServir(long idCampo, string periodo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", idCampo },
+                    {"@periodo", periodo }
+                };
+                var lista = connection.GetArray<ReporteInseminacionHembrasServir>("spObtenerDatosReporteInseminacionHembrasServir", parametros, System.Data.CommandType.StoredProcedure);
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
+        public IEnumerable<ReporteInseminacionServiciosSinConfirmar> GetReporteServiciosSinConfirmar(long idCampo, string periodo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", idCampo },
+                    {"@periodo", periodo }
+                };
+                var lista = connection.GetArray<ReporteInseminacionServiciosSinConfirmar>("spObtenerDatosReporteInseminacionServiciosSinConfirmar", parametros, System.Data.CommandType.StoredProcedure);
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
+        public IEnumerable<ReporteInseminacionLactanciasActivas> GetReporteLactanciasActivas(long idCampo, string periodo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", idCampo },
+                    {"@periodo", periodo }
+                };
+                var lista = connection.GetArray<ReporteInseminacionLactanciasActivas>("spObtenerDatosReporteInseminacionLactanciasActivas", parametros, System.Data.CommandType.StoredProcedure);
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
+        public IEnumerable<ReporteInseminacionPreniadas> GetReportePreniadas(long idCampo, string periodo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", idCampo },
+                    {"@periodo", periodo }
+                };
+                var lista = connection.GetArray<ReporteInseminacionPreniadas>("spObtenerDatosReporteInseminacionPreniadas", parametros, System.Data.CommandType.StoredProcedure);
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }

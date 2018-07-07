@@ -17,11 +17,87 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/Bovinos")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<ReporteBovinos> GetList(long codigoCampo, string periodo)
+        public IEnumerable<ReporteBovinos> GetReporteBovinos(long codigoCampo, string periodo)
         {
             try
             {
                 return new BovinoManager().GetReporte(codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Reportes/Inseminacion/HembrasServir")]
+        [HttpGet]
+        [AutorizationToken]
+        public IEnumerable<ReporteInseminacionHembrasServir> GetReporteHembrasServir(long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new InseminacionManager().GetReporteHembrasServir(codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Reportes/Inseminacion/ServiciosSinConfirmar")]
+        [HttpGet]
+        [AutorizationToken]
+        public IEnumerable<ReporteInseminacionServiciosSinConfirmar> GetReporteServiciosSinConfirmar(long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new InseminacionManager().GetReporteServiciosSinConfirmar(codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Reportes/Inseminacion/LactanciasActivas")]
+        [HttpGet]
+        [AutorizationToken]
+        public IEnumerable<ReporteInseminacionLactanciasActivas> GetReporteLactanciasActivas(long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new InseminacionManager().GetReporteLactanciasActivas(codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Reportes/Inseminacion/Preniadas")]
+        [HttpGet]
+        [AutorizationToken]
+        public IEnumerable<ReporteInseminacionPreniadas> GetReportePreniadas(long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new InseminacionManager().GetReportePreniadas(codigoCampo, periodo);
             }
             catch (Exception ex)
             {

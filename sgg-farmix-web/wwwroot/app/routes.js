@@ -77,6 +77,7 @@
              .state('home.reporteInseminacion', {
                  url: '/reportes/inseminaciones',
                  templateUrl: 'app/reportes/reporte-inseminacion/reporte-inseminacion.html',
+                 params: { tabla: null },
                  controller: 'reporteInseminacionController'
              });
         $stateProvider

@@ -5,35 +5,35 @@
     <table st-table="displayedCollection" st-safe-src="lactanciasActivas" class="table table-striped">
         <thead>
             <tr>
-                <th st-sort="orden">N° Orden</th>
-                <th st-sort="caravana">N° Caravana</th>
+                <th st-sort="nroOrden">N° Orden</th>
+                <th st-sort="numCaravana">N° Caravana</th>
                 <th st-sort="raza">Raza</th>
                 <th st-sort="categoria">Categoría</th>
                 <th st-sort="edad">Edad</th>
                 <th st-sort="peso">Peso (Kg)</th>
-                <th st-sort="estado">Estado</th>
-                <th st-sort="rodeo">Rodeo</th>
-                <th st-sort="rodeo">N° Partos</th>
+                <th st-sort="partos">N° Partos</th>
+                <th st-sort="alimento">Está comiendo</th>
+                <th st-sort="fechaUltimoParto">Fecha último parto</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in displayedCollection">
-                <td>{{item.orden}}</td>
-                <td>{{item.caravana}}</td>
+                <td>{{item.nroOrden}}</td>
+                <td>{{item.numCaravana}}</td>
                 <td>{{item.raza | uppercase}}</td>
                 <td>{{item.categoria | uppercase}}</td>
-                <td>{{item.edad}}</td>
+                <td>{{item.anos}} años y {{item.meses}} meses</td>
                 <td>{{item.peso}}</td>
-                <td>{{item.estado | uppercase}}</td>
-                <td>{{item.rodeo | uppercase}}</td>
                 <td>{{item.partos}}</td>
+                <td>{{item.alimento}}</td>
+                <td>{{item.fechaUltimoParto}}</td>
             </tr>
         </tbody>
         <tfoot>
             <tr>
                 <td>
                     <label for="items">Registros por página</label>
-                    <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                    <input class="input-sm form-control" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
                 </td>
                 <td colspan="5" class="text-center">
                     <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>

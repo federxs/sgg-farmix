@@ -5,23 +5,23 @@
     <table st-table="displayedCollection" st-safe-src="hembrasParaServir" class="table table-striped">
         <thead>
             <tr>
-                <th st-sort="orden">N° Orden</th>
-                <th st-sort="caravana">N° Caravana</th>
+                <th st-sort="nroOrden">N° Orden</th>
+                <th st-sort="numCaravana">N° Caravana</th>
                 <th st-sort="raza">Raza</th>
                 <th st-sort="categoria">Categoría</th>
-                <th st-sort="edad">Edad</th>
+                <th st-sort="anos">Edad</th>
                 <th st-sort="peso">Peso (Kg)</th>
                 <th st-sort="estado">Estado</th>
-                <th st-sort="rodeo">N° Partos</th>
+                <th st-sort="partos">N° Partos</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in displayedCollection">
-                <td>{{item.orden}}</td>
-                <td>{{item.caravana}}</td>
+                <td>{{item.nroOrden}}</td>
+                <td>{{item.numCaravana}}</td>
                 <td>{{item.raza | uppercase}}</td>
                 <td>{{item.categoria | uppercase}}</td>
-                <td>{{item.edad}}</td>
+                <td>{{item.anos}} años y {{item.meses}} meses</td>
                 <td>{{item.peso}}</td>
                 <td>{{item.estado | uppercase}}</td>
                 <td>{{item.partos}}</td>
