@@ -67,13 +67,13 @@ namespace sgg_farmix_acceso_datos.DAOs
                     { "@codigoCampo", codigoCampo },
                     { "@periodo", periodo }
                 };
-                //obj.top10BovinosMasLivianos = connection.GetArray<EstadisticaTop10BovinosLivianos>("spReporteBovinoTop10Alimentos", parametros, System.Data.CommandType.StoredProcedure).ToList();
-                //obj.ultimosBovinosBajas = connection.GetArray<EstadisticaUltimosBovinosBaja>("spReporteBovinoTop10Alimentos", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.ultimosBovinosBajas = connection.GetArray<EstadisticaUltimosBovinosBaja>("spBovinoReporteUltimosBovinosBaja", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 parametros = new Dictionary<string, object>{
                     { "@codigoCampo", codigoCampo }
                 };
                 obj.bovinosXRodeo = connection.GetArray<EstadisticaBovinosXRodeo>("spReporteBovinoCantidadPorRodeo", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.pesosPromXRaza = connection.GetArray<EstadisticaPesoPromXRaza>("spReporteBovinoPesoPromedioPorRaza", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.top10BovinosMasLivianos = connection.GetArray<EstadisticaTop10BovinosLivianos>("spReporteBovinoTop10BovinosMasLivianos", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.inicio = connection.GetArray<EstadisticaBovinoInicio>("spGetInicioEstadisticaBovinos", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return obj;
             }
