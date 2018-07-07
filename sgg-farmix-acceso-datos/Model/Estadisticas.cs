@@ -56,7 +56,7 @@ namespace sgg_farmix_acceso_datos.Model
     public class EstadisticaUltimosBovinosBaja
     {
         public string numCaravana { get; set; }
-        public DateTime fechaBaja { get; set; }
+        public string fechaBaja { get; set; }
     }
 
     public class EstadisticaBovinoInicio

@@ -67,7 +67,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     { "@codigoCampo", codigoCampo },
                     { "@periodo", periodo }
                 };
-                obj.ultimosBovinosBajas = connection.GetArray<EstadisticaUltimosBovinosBaja>("spBovinoReporteUltimosBovinosBaja", parametros, System.Data.CommandType.StoredProcedure).ToList();
+                obj.ultimosBovinosBajas = connection.GetArray<EstadisticaUltimosBovinosBaja>("spReporteBovinoUltimosBovinosBaja", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 parametros = new Dictionary<string, object>{
                     { "@codigoCampo", codigoCampo }
                 };
