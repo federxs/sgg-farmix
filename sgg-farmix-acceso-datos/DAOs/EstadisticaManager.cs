@@ -168,7 +168,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 parametros = new Dictionary<string, object>{
                     { "@codigoCampo", codigoCampo }
                 };
-                obj.inicio = connection.GetArray<EstadisticaEventoInicio>("spGetInicioEstadisticaInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                obj.inicio = connection.GetArray<EstadisticaEventoInicio>("spGetInicioEstadisticaEvento", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 return obj;
             }
             catch (Exception ex)

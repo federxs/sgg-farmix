@@ -198,15 +198,15 @@ namespace sgg_farmix_acceso_datos.Model
     {
         public long caravanaBovinoMasCambiosRodeo { get; set; }
         public long idBovinoMasCambiosRodeo { get; set; }
+        public long caravanaBovinoMasCambiosAlimenticios { get; set; }
+        public long idBovinoMasCambiosAlimenticios { get; set; }
         public long caravanaBovinoMasEnfermo { get; set; }
         public long idBovinoMasEnfermo { get; set; }
-        public long caravanaVacaConMasAbortos { get; set; }
-        public long idVacaConMasAbortos { get; set; }
-        public long caravanaVacaConMasHijos { get; set; }
-        public long idVacaConMasHijos { get; set; }
-        public long caravanaToroConMasHijos { get; set; }
-        public long idToroConMasHijos { get; set; }
+        public long caravanaBovinoQueMasComio { get; set; }
+        public long idBovinoQueMasComio { get; set; }
         public long caravanaUltimoBovinoVacunado { get; set; }
         public long idUltimoBovinoVacunado { get; set; }
+        public long caravanaUltimoBovinoConAntibiotico { get; set; }
+        public long idUltimoBovinoConAntibiotico { get; set; }
     }
 }
