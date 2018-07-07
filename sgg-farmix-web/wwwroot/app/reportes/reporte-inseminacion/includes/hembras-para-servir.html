@@ -2,6 +2,17 @@
     Hembras para servir
 </p>
 <div>
+    <div class="pull-right hidden-print" style="margin-bottom:5px">
+        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel">
+            <i class="fa fa-file-excel-o"></i>
+        </button>
+        <button class="btn btn-success font-white" ng-click="exportarHembrasServicioPDF()" title="Exportar a PDF">
+            <i class="fa fa-file-pdf-o"></i>
+        </button>
+        <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir">
+            <i class="fa fa-print"></i>
+        </a>
+    </div>
     <table st-table="displayedCollection" st-safe-src="hembrasParaServir" class="table table-striped">
         <thead>
             <tr>

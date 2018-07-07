@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -75,6 +79,7 @@
     <Compile Include="Model\Campo.cs" />
     <Compile Include="Model\Categoria.cs" />
     <Compile Include="Model\DashBoard.cs" />
+    <Compile Include="Model\Documento.cs" />
     <Compile Include="Model\EstablecimientoOrigen.cs" />
     <Compile Include="Model\Estadisticas.cs" />
     <Compile Include="Model\Estado.cs" />

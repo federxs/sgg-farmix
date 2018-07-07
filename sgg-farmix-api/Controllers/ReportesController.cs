@@ -33,6 +33,14 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
+        [Route("api/Reportes/BovinosExportarPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteBovinosPDF(string campo, long codigoCampo, string periodo)
+        {
+            return new BovinoManager().ReporteBovinosExportarPDF(campo, codigoCampo, periodo);
+        }
+
         [Route("api/Reportes/Inseminacion/HembrasServir")]
         [HttpGet]
         [AutorizationToken]
@@ -50,6 +58,14 @@ namespace sgg_farmix_api.Controllers
                     ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
                 });
             }
+        }
+
+        [Route("api/Reportes/InseminacionHembrasParaServirExportarPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteInseminacionesHembrasServirPDF(string campo, long codigoCampo, string periodo)
+        {
+           return new InseminacionManager().ReporteInseminacionHembrasServicioExportarPDF(campo, codigoCampo, periodo);
         }
 
         [Route("api/Reportes/Inseminacion/ServiciosSinConfirmar")]
@@ -71,6 +87,14 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
+        [Route("api/Reportes/InseminacionServiciosSinConfirmarExportarPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteInseminacionesServiciosSinConfirmarPDF(string campo, long codigoCampo, string periodo)
+        {
+            return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarPDF(campo, codigoCampo, periodo);
+        }
+
         [Route("api/Reportes/Inseminacion/LactanciasActivas")]
         [HttpGet]
         [AutorizationToken]
@@ -90,6 +114,14 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
+        [Route("api/Reportes/InseminacionLactanciasExportarPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteInseminacionesLactanciasPDF(string campo, long codigoCampo, string periodo)
+        {
+            return new InseminacionManager().ReporteInseminacionLactanciasExportarPDF(campo, codigoCampo, periodo);
+        }
+
         [Route("api/Reportes/Inseminacion/Preniadas")]
         [HttpGet]
         [AutorizationToken]
@@ -107,6 +139,14 @@ namespace sgg_farmix_api.Controllers
                     ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
                 });
             }
+        }
+
+        [Route("api/Reportes/InseminacionPreniadasExportarPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteInseminacionesPreniadasPDF(string campo, long codigoCampo, string periodo)
+        {
+            return new InseminacionManager().ReporteInseminacionPreniadasExportarPDF(campo, codigoCampo, periodo);
         }
     }
 }

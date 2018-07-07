@@ -11,6 +11,17 @@
                         periodo: '@periodo'
                     },
                     isArray: true
+                },
+                generarPDF: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Reportes/BovinosExportarPDF',
+                    headers: portalService.getHeadersServer(),
+                    params: {
+                        campo: '@campo',
+                        codigoCampo: '@codigoCampo',
+                        periodo: '@periodo'
+                    },
+                    isArray: false
                 }
             });
         });
