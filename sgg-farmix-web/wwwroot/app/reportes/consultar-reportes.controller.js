@@ -9,6 +9,7 @@
 
     function consultarReportesController($scope, $state) {
         var vm = $scope;
+        window.scrollTo(0, 0);
         vm.irAReportesInseminacion = irAReportesInseminacion;
         $scope.$parent.unBlockSpinner();
 

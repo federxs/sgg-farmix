@@ -1,12 +1,18 @@
-﻿using sgg_farmix_acceso_datos.Helper;
+﻿using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using sgg_farmix_acceso_datos.Helper;
 using sgg_farmix_acceso_datos.Model;
 using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using static iTextSharp.text.Font;
 
 namespace sgg_farmix_acceso_datos.DAOs
 {
@@ -18,7 +24,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             connection = new SqlServerConnection();
             DbTransaction transaction = connection.BeginTransaction();
             try
-            {                
+            {
                 var parametros = new Dictionary<string, object>
                 {
                     {"@numCaravana", entity.numCaravana },
@@ -46,10 +52,10 @@ namespace sgg_farmix_acceso_datos.DAOs
 
                 entity.idBovino = connection.Execute("spRegistrarBovino", parametros, System.Data.CommandType.StoredProcedure, transaction);
                 if (entity.idBovino == 0)
-                    throw new ArgumentException("Create Bovino Error"); 
+                    throw new ArgumentException("Create Bovino Error");
                 else if (entity.idBovino == -1)
                     throw new ArgumentException("Bovino ya existe");
-                else if(entity.idBovino > 0 && entity.idNacimiento > 0)
+                else if (entity.idBovino > 0 && entity.idNacimiento > 0)
                 {
                     parametros = new Dictionary<string, object>()
                     {
@@ -66,8 +72,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@idAlimento", entity.idAlimento }
                 };
                 var idEvento = connection.Execute("spRegistrarEvento", parametrosEvento, System.Data.CommandType.StoredProcedure, transaction);
-                if(idEvento == 0)
-                    throw new ArgumentException("Create Evento Error");               
+                if (idEvento == 0)
+                    throw new ArgumentException("Create Evento Error");
                 parametrosEvento = new Dictionary<string, object>
                 {
                     {"@idBovino", entity.idBovino },
@@ -101,7 +107,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     throw new ArgumentException("Create EventosXBovino Error");
                 if (idEvento == 0)
                     throw new ArgumentException("Create Evento Error");
-                connection.Commit(transaction);               
+                connection.Commit(transaction);
                 return entity;
             }
             catch (Exception ex)
@@ -549,16 +555,16 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@codigoCampo", codigoCampo },
                     {"@idBovinoMadre", null },
                     {"@idBovinoPadre", null }
-                };                
+                };
                 for (int i = 0; i < madres.Count(); i++)
                 {
                     parametros["@idBovinoMadre"] = madres.ElementAt(i);
-                    if(idToro != 0)
+                    if (idToro != 0)
                         parametros["@idBovinoPadre"] = idToro;
                     var insert = connection.Execute("spRegistrarNacimiento", parametros, System.Data.CommandType.StoredProcedure);
                     if (insert == 0)
                         throw new ArgumentException("Create Nacimiento Error");
-                }               
+                }
                 return 1;
             }
             catch (Exception ex)
@@ -592,6 +598,119 @@ namespace sgg_farmix_acceso_datos.DAOs
             {
                 connection.Close();
                 connection = null;
+            }
+        }
+
+        public Documento ReporteBovinosExportarPDF(string campo, long codigoCampo, string periodo)
+        {
+            FileStream fs;
+            Document doc = null;
+            PdfWriter writer;
+            try
+            {
+                doc = new Document();
+                // Verifico el directorio
+                string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
+                if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
+
+                var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+                // Nombre del archivo
+                string fileName = string.Format("{0}-{1}-{2}.pdf", "ReporteBovinos", campo, fecha);
+                // Generación del PDF
+                fs = new FileStream(System.IO.Path.Combine(filePath, fileName), FileMode.Create, FileAccess.Write, FileShare.None);
+
+                writer = PdfWriter.GetInstance(doc, fs);
+                doc.Open();
+                string pathImg1 = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\logo_farmix.jpg");
+                Image image1;
+                if (Image.GetInstance(pathImg1) != null)
+                {
+                    image1 = Image.GetInstance(pathImg1);
+                    image1.ScalePercent(24F);
+                    image1.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(image1);
+                }
+                //añadimos linea negra abajo de las imagenes para separar.
+                doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
+                doc.Add(new Paragraph(" "));
+                //Inicio datos
+                var lista = GetReporte(codigoCampo, periodo);
+                Font fuente1 = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.BOLD, BaseColor.BLACK);
+                Font fuente2 = new Font(FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
+                Rectangle rect = PageSize.LETTER;
+                List<IElement> ie;
+                float pageWidth = rect.Width;
+                string html = "";
+                html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Reporte Bovinos</b></td></tr>
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            </table>
+                            </body></html>";
+                ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                foreach (IElement element in ie)
+                {
+                    PdfPTable table1 = element as PdfPTable;
+
+                    if (table1 != null)
+                    {
+                        table1.SetWidthPercentage(new float[] { (float)1 * pageWidth }, rect);
+                    }
+                    doc.Add(element);
+                }
+                doc.Add(new Paragraph(" "));
+                if (lista.Count() > 0)
+                {
+                    html = @"
+                            <html><head></head><body>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Orden</th>
+                            <th>Caravana</th>       
+                            <th>Sexo</th>        
+                            <th>Raza</th>         
+                            <th>Categoría</th>          
+                            <th>Edad</th>           
+                            <th>Peso(Kg)</th>            
+                            <th>Estado</th>             
+                            <th>Enfermo</th>              
+                            <th>Rodeo</th>               
+                            </tr>               
+                            </thead>
+                            <tbody>";
+                    foreach (var item in lista)
+                    {
+                        html += @"<tr><td>" + item.nroOrden + @"</td><td>" + item.numCaravana + @"</td><td>" + item.sexo + @"</td><td>" + item.raza + @"</td><td>" + item.categoria + @"</td><td>" + item.anos + @", " + item.meses + @"</td><td>" + item.peso + @"</td><td>" + item.estado + @"</td><td>" + item.enfermo + @"</td><td>" + item.rodeo + @"</td></tr>";
+                    }
+                    html += @"</tbody></table>
+                            </body></html> ";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).08 * pageWidth, (float).12 * pageWidth, (float).1 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).07 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).1 * pageWidth, (float).1 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                }
+                doc.Close();
+                return new Documento() { nombre = fileName };
+            }
+            catch (Exception ex)
+            {
+                doc.Close();
+                throw ex;
+            }
+            finally
+            {
+                fs = null;
+                doc = null;
+                writer = null;
             }
         }
     }

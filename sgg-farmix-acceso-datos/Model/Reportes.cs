@@ -61,6 +61,7 @@ namespace sgg_farmix_acceso_datos.Model
         public float peso { get; set; }
         public string meses { get; set; }
         public string anos { get; set; }
+        public long partos { get; set; }
         public string alimento { get; set; }
         public string fechaUltimoParto { get; set; }
     }
