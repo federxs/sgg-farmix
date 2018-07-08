@@ -4,8 +4,10 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Net.Mail;
+using System.Reflection;
 using System.Text;
-//using Excel = Microsoft.Office.Interop.Excel;
+using System.Web;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace sgg_farmix_helper
 {
@@ -207,7 +209,7 @@ namespace sgg_farmix_helper
            
         }
 
-        /*public static byte[] ExportToExcel(this DataTable Tbl, string ExcelFilePath = null)
+        public static string ExportToExcel(this DataTable Tbl, string campo, string ExcelFilePath = null)
         {
             try
             {
@@ -230,7 +232,7 @@ namespace sgg_farmix_helper
                     workSheet.Cells[1, (i + 1)] = Tbl.Columns[i].ColumnName;
                     
                     switch (Tbl.Columns[i].ColumnName ){
-                        case "MvsDescripcion":
+                        case "Raza":
                             workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length+21;
                             break;
                         case "ClienteFinal":
@@ -269,21 +271,26 @@ namespace sgg_farmix_helper
                         row.Interior.ColorIndex = 15;
                         row.EntireRow.Font.Bold = true; 
                     }
-
-                    break;
-                    
+                    break;                    
                 }
-
-
                 // check fielpath
                 if (ExcelFilePath != null && ExcelFilePath != "")
                 {
+                    string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
+                    var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+                    // Nombre del archivo
+                    string fileName = string.Format("{0}-{1}-{2}.xls", ExcelFilePath, campo, fecha);
                     try
                     {
                         using (var ms = new MemoryStream())
                         {
                            excelApp.Workbooks[1].SaveCopyAs(ms);
-                           return ms.ToArray();
+                           excelApp.Workbooks[1].SaveAs(System.IO.Path.Combine(filePath, fileName), Excel.XlFileFormat.xlWorkbookNormal,
+                            System.Reflection.Missing.Value, System.Reflection.Missing.Value, false, false,
+                            Excel.XlSaveAsAccessMode.xlShared, false, false, System.Reflection.Missing.Value,
+                            System.Reflection.Missing.Value, System.Reflection.Missing.Value);
+                            excelApp.Workbooks[1].Close(Missing.Value, Missing.Value, Missing.Value);
+                            return fileName;
                         }
                     }
                     catch (Exception ex)
@@ -302,6 +309,6 @@ namespace sgg_farmix_helper
             {
                 throw new Exception("ExportToExcel: \n" + ex.Message);
             }
-        }*/
+        }
     }
 }

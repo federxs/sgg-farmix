@@ -41,6 +41,14 @@ namespace sgg_farmix_api.Controllers
             return new BovinoManager().ReporteBovinosExportarPDF(campo, codigoCampo, periodo);
         }
 
+        [Route("api/Reportes/BovinosExportarExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteBovinosExcel(string campo, long codigoCampo, string periodo)
+        {
+            return new BovinoManager().ReporteBovinosExportarExcel(campo, codigoCampo, periodo);
+        }
+
         [Route("api/Reportes/Inseminacion/HembrasServir")]
         [HttpGet]
         [AutorizationToken]

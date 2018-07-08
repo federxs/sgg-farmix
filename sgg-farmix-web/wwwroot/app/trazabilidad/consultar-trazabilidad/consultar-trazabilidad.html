@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="row pull-right">
+        <div class="row pull-right hidden-print">
             <div class="col-md-12 col-lg-12">
                 <button class="btn btn-default"
                         ng-click="limpiarCampos()" ng-disabled="disabled">
@@ -93,7 +93,7 @@
 </form>
 <legend style="margin-bottom:5px" ng-show="rowCollection.length > 0">Resultados</legend>
 <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
-    <div class="pull-right" style="margin-bottom:5px">
+    <div class="pull-right hidden-print" style="margin-bottom:5px">
         <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
             <i class="fa fa-file-excel-o"></i>
         </button>
@@ -127,7 +127,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td>
+                <td class="hidden-print">
                     <label for="items">Registros por página</label>
                     <input class="input-sm form-control" name="items" min="1" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
                 </td>

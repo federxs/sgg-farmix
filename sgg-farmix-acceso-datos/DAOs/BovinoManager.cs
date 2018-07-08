@@ -6,6 +6,7 @@ using sgg_farmix_acceso_datos.Model;
 using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.IO;
 using System.Linq;
@@ -711,6 +712,51 @@ namespace sgg_farmix_acceso_datos.DAOs
                 fs = null;
                 doc = null;
                 writer = null;
+            }
+        }
+
+        public Documento ReporteBovinosExportarExcel(string campo, long codigoCampo, string periodo)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                var lista = GetReporte(codigoCampo, periodo);
+                tabla.Columns.Add("Orden");
+                tabla.Columns.Add("Caravana");
+                tabla.Columns.Add("Sexo");
+                tabla.Columns.Add("Raza");
+                tabla.Columns.Add("Categoría");
+                tabla.Columns.Add("Edad");
+                tabla.Columns.Add("Peso (Kg)");
+                tabla.Columns.Add("Estado");
+                tabla.Columns.Add("Enfermo");
+                tabla.Columns.Add("Rodeo");
+                foreach (var item in lista)
+                {
+                    DataRow row = tabla.NewRow();
+                    row["orden"] = item.nroOrden;
+                    row["caravana"] = item.numCaravana;
+                    row["sexo"] = item.sexo;
+                    row["raza"] = item.raza;
+                    row["categoría"] = item.categoria;
+                    row["edad"] = item.anos + "," + item.meses;
+                    row["peso (kg)"] = item.peso;
+                    row["estado"] = item.estado;
+                    row["enfermo"] = item.enfermo;
+                    row["rodeo"] = item.rodeo;
+
+                    tabla.Rows.Add(row);
+                }
+                var archivo = StaticFunctions.ExportToExcel(tabla, campo, "ReportesBovino");
+                return new Documento() { nombre = archivo };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
             }
         }
     }

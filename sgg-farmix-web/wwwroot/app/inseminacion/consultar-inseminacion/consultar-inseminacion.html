@@ -146,7 +146,7 @@
 </legend>
 <div ng-show="showServiciosSinConfirm">
     <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
-        <div class="pull-right" style="margin-bottom:5px">
+        <div class="pull-right hidden-print" style="margin-bottom:5px">
             <button class="btn btn-success font-white" ng-click="exportarExcelServSinConfirm()" title="Exportar a Excel" ng-disabled="disabledExportar">
                 <i class="fa fa-file-excel-o"></i>
             </button>
@@ -182,7 +182,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td>
+                    <td class="hidden-print">
                         <label for="items" ng-show="rowCollection.length > 1">Registros por página</label>
                         <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">                        
                     </td>
@@ -196,7 +196,7 @@
 </div>
 <div ng-show="showHembrasPreniadas">
     <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
-        <div class="pull-right" style="margin-bottom:5px">
+        <div class="pull-right hidden-print" style="margin-bottom:5px">
             <button class="btn btn-success font-white" ng-click="exportarExcelVacasPreniadas()" title="Exportar a Excel" ng-disabled="disabledExportar">
                 <i class="fa fa-file-excel-o"></i>
             </button>
@@ -230,7 +230,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td>
+                    <td class="hidden-print">
                         <label for="items" ng-show="rowCollection.length > 1">Registros por página</label>
                         <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">                       
                     </td>

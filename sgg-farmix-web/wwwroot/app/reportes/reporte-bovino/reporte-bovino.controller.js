@@ -21,6 +21,7 @@
         vm.itemsPorPagina = 50;
 
         vm.exportarPDF = exportarPDF;
+        vm.exportarExcel = exportarExcel;
         inicializar();
 
         function inicializar() {
@@ -53,6 +54,29 @@
                 });
                 $(link).click();
                 toastr.success('PDF generado con Éxito!', 'Éxito');
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+            }, function error(error) {
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+                $scope.$parent.errorServicio(error.statusText);
+            });
+        };
+
+        function exportarExcel() {
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            reporteBovinoService.generarExcel({
+                campo: $localStorage.usuarioInfo.campoNombre,
+                codigoCampo: $localStorage.usuarioInfo.codigoCampo,
+                periodo: $localStorage.usuarioInfo.periodoConsulta
+            }, function (data) {
+                var path = data.nombre;
+                var link = document.createElement("a");
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    window.open(portalService.getUrlServer() + '\\Archivos\\' + path);
+                    //window.location.href = portalService.getUrlServer() + '\\Archivos\\' + path;
+                });
+                $(link).click();
+                toastr.success('Excel generado con Éxito!', 'Éxito');
                 $scope.$parent.unBlockSpinnerGenerarArchivo();
             }, function error(error) {
                 $scope.$parent.unBlockSpinnerGenerarArchivo();
