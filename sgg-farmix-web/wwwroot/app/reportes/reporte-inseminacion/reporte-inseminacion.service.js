@@ -85,6 +85,50 @@
                         periodo: '@periodo'
                     },
                     isArray: false
+                },
+                generarExcelHembrasServicio: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Reportes/InseminacionHembrasParaServirExportarExcel',
+                    headers: portalService.getHeadersServer(),
+                    params: {
+                        campo: '@campo',
+                        codigoCampo: '@codigoCampo',
+                        periodo: '@periodo'
+                    },
+                    isArray: false
+                },
+                generarExcelServiciosSinConfirmar: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Reportes/InseminacionServiciosSinConfirmarExportarExcel',
+                    headers: portalService.getHeadersServer(),
+                    params: {
+                        campo: '@campo',
+                        codigoCampo: '@codigoCampo',
+                        periodo: '@periodo'
+                    },
+                    isArray: false
+                },
+                generarExcelLactancias: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Reportes/InseminacionLactanciasExportarExcel',
+                    headers: portalService.getHeadersServer(),
+                    params: {
+                        campo: '@campo',
+                        codigoCampo: '@codigoCampo',
+                        periodo: '@periodo'
+                    },
+                    isArray: false
+                },
+                generarExcelPreniadas: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Reportes/InseminacionPreniadasExportarExcel',
+                    headers: portalService.getHeadersServer(),
+                    params: {
+                        campo: '@campo',
+                        codigoCampo: '@codigoCampo',
+                        periodo: '@periodo'
+                    },
+                    isArray: false
                 }
             });
         });

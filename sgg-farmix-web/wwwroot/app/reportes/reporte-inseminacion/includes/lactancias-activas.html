@@ -3,7 +3,7 @@
 </p>
 <div>
     <div class="pull-right hidden-print" style="margin-bottom:5px">
-        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel">
+        <button class="btn btn-success font-white" ng-click="exportarLactanciasExcel()" title="Exportar a Excel">
             <i class="fa fa-file-excel-o"></i>
         </button>
         <button class="btn btn-success font-white" ng-click="exportarLactanciasPDF()" title="Exportar a PDF">
@@ -42,7 +42,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td>
+                <td class="hidden-print">
                     <label for="items">Registros por página</label>
                     <input class="input-sm form-control" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
                 </td>

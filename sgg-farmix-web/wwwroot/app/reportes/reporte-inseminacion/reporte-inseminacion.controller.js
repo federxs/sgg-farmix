@@ -18,6 +18,10 @@
         vm.exportarServiciosSinConfirmarPDF = exportarServiciosSinConfirmarPDF;
         vm.exportarLactanciasPDF = exportarLactanciasPDF;
         vm.exportarPreniadasPDF = exportarPreniadasPDF;
+        vm.exportarHembrasServicioExcel = exportarHembrasServicioExcel;
+        vm.exportarServiciosSinConfirmarExcel = exportarServiciosSinConfirmarExcel;
+        vm.exportarLactanciasExcel = exportarLactanciasExcel;
+        vm.exportarPreniadasExcel = exportarPreniadasExcel;
         inicializar()
 
 
@@ -170,6 +174,97 @@
                 });
                 $(link).click();
                 toastr.success('PDF generado con Éxito!', 'Éxito');
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+            }, function error(error) {
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+                $scope.$parent.errorServicio(error.statusText);
+            });
+        };
+
+        function exportarHembrasServicioExcel() {
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            reporteInseminacionService.generarExcelHembrasServicio({
+                campo: $localStorage.usuarioInfo.campoNombre,
+                codigoCampo: $localStorage.usuarioInfo.codigoCampo,
+                periodo: $localStorage.usuarioInfo.periodoConsulta
+            }, function (data) {
+                var path = data.nombre;
+                var link = document.createElement("a");
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    window.open(portalService.getUrlServer() + '\\Archivos\\' + path);
+                    //window.location.href = portalService.getUrlServer() + '\\Archivos\\' + path;
+                });
+                $(link).click();
+                toastr.success('Excel generado con Éxito!', 'Éxito');
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+            }, function error(error) {
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+                $scope.$parent.errorServicio(error.statusText);
+            });
+        };
+
+        function exportarServiciosSinConfirmarExcel() {
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            reporteInseminacionService.generarExcelServiciosSinConfirmar({
+                campo: $localStorage.usuarioInfo.campoNombre,
+                codigoCampo: $localStorage.usuarioInfo.codigoCampo,
+                periodo: $localStorage.usuarioInfo.periodoConsulta
+            }, function (data) {
+                var path = data.nombre;
+                var link = document.createElement("a");
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    window.open(portalService.getUrlServer() + '\\Archivos\\' + path);
+                });
+                $(link).click();
+                toastr.success('Excel generado con Éxito!', 'Éxito');
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+            }, function error(error) {
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+                $scope.$parent.errorServicio(error.statusText);
+            });
+        };
+
+        function exportarLactanciasExcel() {
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            reporteInseminacionService.generarExcelLactancias({
+                campo: $localStorage.usuarioInfo.campoNombre,
+                codigoCampo: $localStorage.usuarioInfo.codigoCampo,
+                periodo: $localStorage.usuarioInfo.periodoConsulta
+            }, function (data) {
+                var path = data.nombre;
+                var link = document.createElement("a");
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    window.open(portalService.getUrlServer() + '\\Archivos\\' + path);
+                    //window.location.href = portalService.getUrlServer() + '\\Archivos\\' + path;
+                });
+                $(link).click();
+                toastr.success('Excel generado con Éxito!', 'Éxito');
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+            }, function error(error) {
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+                $scope.$parent.errorServicio(error.statusText);
+            });
+        };
+
+        function exportarPreniadasExcel() {
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            reporteInseminacionService.generarExcelPreniadas({
+                campo: $localStorage.usuarioInfo.campoNombre,
+                codigoCampo: $localStorage.usuarioInfo.codigoCampo,
+                periodo: $localStorage.usuarioInfo.periodoConsulta
+            }, function (data) {
+                var path = data.nombre;
+                var link = document.createElement("a");
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    window.open(portalService.getUrlServer() + '\\Archivos\\' + path);
+                    //window.location.href = portalService.getUrlServer() + '\\Archivos\\' + path;
+                });
+                $(link).click();
+                toastr.success('Excel generado con Éxito!', 'Éxito');
                 $scope.$parent.unBlockSpinnerGenerarArchivo();
             }, function error(error) {
                 $scope.$parent.unBlockSpinnerGenerarArchivo();

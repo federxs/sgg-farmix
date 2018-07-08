@@ -17,7 +17,7 @@
 <div ng-include="'app/reportes/reporte-inseminacion/includes/lactancias-activas.html'" ng-if="tablaActiva == 1"></div>
 <div ng-include="'app/reportes/reporte-inseminacion/includes/preniadas.html'" ng-if="tablaActiva == 2"></div>
 <div ng-include="'app/reportes/reporte-inseminacion/includes/servicios-sin-confirmar.html'" ng-if="tablaActiva == 3"></div>
-<div class="row">
+<div class="row hidden-print">
     <button type="button" class="btn btn-default"
             ui-sref="home.reportes">
         Volver

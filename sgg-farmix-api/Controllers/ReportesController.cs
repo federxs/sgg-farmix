@@ -38,7 +38,18 @@ namespace sgg_farmix_api.Controllers
         [AutorizationToken]
         public Documento ExportarReporteBovinosPDF(string campo, long codigoCampo, string periodo)
         {
-            return new BovinoManager().ReporteBovinosExportarPDF(campo, codigoCampo, periodo);
+            try
+            {
+                return new BovinoManager().ReporteBovinosExportarPDF(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
         }
 
         [Route("api/Reportes/BovinosExportarExcel")]
@@ -46,7 +57,18 @@ namespace sgg_farmix_api.Controllers
         [AutorizationToken]
         public Documento ExportarReporteBovinosExcel(string campo, long codigoCampo, string periodo)
         {
-            return new BovinoManager().ReporteBovinosExportarExcel(campo, codigoCampo, periodo);
+            try
+            {
+                return new BovinoManager().ReporteBovinosExportarExcel(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
         }
 
         [Route("api/Reportes/Inseminacion/HembrasServir")]
@@ -73,7 +95,37 @@ namespace sgg_farmix_api.Controllers
         [AutorizationToken]
         public Documento ExportarReporteInseminacionesHembrasServirPDF(string campo, long codigoCampo, string periodo)
         {
-           return new InseminacionManager().ReporteInseminacionHembrasServicioExportarPDF(campo, codigoCampo, periodo);
+            try
+            {
+                return new InseminacionManager().ReporteInseminacionHembrasServicioExportarPDF(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Reportes/InseminacionHembrasParaServirExportarExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteInseminacionesHembrasServirExcel(string campo, long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new InseminacionManager().ReporteInseminacionHembrasServicioExportarExcel(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
         }
 
         [Route("api/Reportes/Inseminacion/ServiciosSinConfirmar")]
@@ -100,7 +152,37 @@ namespace sgg_farmix_api.Controllers
         [AutorizationToken]
         public Documento ExportarReporteInseminacionesServiciosSinConfirmarPDF(string campo, long codigoCampo, string periodo)
         {
-            return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarPDF(campo, codigoCampo, periodo);
+            try
+            {
+                return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarPDF(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Reportes/InseminacionServiciosSinConfirmarExportarExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteInseminacionesServiciosSinConfirmarExcel(string campo, long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarExcel(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
         }
 
         [Route("api/Reportes/Inseminacion/LactanciasActivas")]
@@ -127,7 +209,37 @@ namespace sgg_farmix_api.Controllers
         [AutorizationToken]
         public Documento ExportarReporteInseminacionesLactanciasPDF(string campo, long codigoCampo, string periodo)
         {
-            return new InseminacionManager().ReporteInseminacionLactanciasExportarPDF(campo, codigoCampo, periodo);
+            try
+            {
+                return new InseminacionManager().ReporteInseminacionLactanciasExportarPDF(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Reportes/InseminacionLactanciasExportarExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteInseminacionesLactanciasExcel(string campo, long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new InseminacionManager().ReporteInseminacionLactanciasExportarExcel(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
         }
 
         [Route("api/Reportes/Inseminacion/Preniadas")]
@@ -154,7 +266,37 @@ namespace sgg_farmix_api.Controllers
         [AutorizationToken]
         public Documento ExportarReporteInseminacionesPreniadasPDF(string campo, long codigoCampo, string periodo)
         {
-            return new InseminacionManager().ReporteInseminacionPreniadasExportarPDF(campo, codigoCampo, periodo);
+            try
+            {
+                return new InseminacionManager().ReporteInseminacionPreniadasExportarPDF(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Reportes/InseminacionPreniadasExportarExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteInseminacionesPreniadasExcel(string campo, long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new InseminacionManager().ReporteInseminacionPreniadasExportarExcel(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
         }
     }
 }
