@@ -369,12 +369,6 @@
                     cssClassNames: { tableCell: 'row' }
                 };
                 chart.draw(dataTable, options);
-
-                //var my_anchor = document.getElementById('descargaGraficoAbortosXVaca');
-                //my_anchor.href = chart.getImageURI();
-                //google.visualization.events.addListener(chart, 'ready', function () {
-                //    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
-                //});
             }
         };
 

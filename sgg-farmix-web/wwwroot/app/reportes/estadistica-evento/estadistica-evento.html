@@ -11,18 +11,15 @@
         </div>
     </div>
 </fieldset>
-<!--<div class="row">
+<div class="row">
     <div class="col-lg-3 col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-medkit fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <h4>El que más se enfermó</h4>
-                        <h4>Nº</h4>
-                        <h4><a>Ver <span class="fa fa-search"></span></a></h4>
+                    <div>
+                        <h4>Bovino con más cambios de Rodeos</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasCambiosRodeo}}</h4>
+                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasCambiosRodeo, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -32,29 +29,10 @@
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-tasks fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <h4>Más pesado</h4>
-                        <h4>Nº</h4>
-                        <h4><a>Ver <span class="fa fa-search"></span></a></h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-money fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <h4>Más pesado</h4>
-                        <h4>Nº</h4>
-                        <h4><a>Ver <span class="fa fa-search"></span></a></h4>
+                    <div>
+                        <h4>Bovino con mayor cambios Alimenticios</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasCambiosAlimenticios}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasCambiosAlimenticios, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -64,68 +42,136 @@
         <div class="panel panel-danger">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-heart fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <h1>{{vacasPreniadas}}</h1>
-                        <h4>Vacas preñadas</h4>
+                    <div>
+                        <h4>Bovino que se ha enfermado más veces</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasEnfermo}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasEnfermo, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>-->
+</div>
 <div class="row">
-    <div class="col-sm-12 col-md-4">
-        <div class="panel panel-default">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-warning">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Antibióticos Mas Usados</h4></div>
-            </div>
-            <div class="panel-body">
-                <div id="graficoAntibioticosMasUsados"></div>
+                <div class="row">
+                    <div>
+                        <h4>Bovino que más ha comido</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaBovinoQueMasComio}}</h4>
+                        <h4><a class="pull-right"  ui-sref="home.detalleBovino({id: obj.inicio.idBovinoQueMasComio, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-8">
-        <div class="panel panel-default">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Eventos por Tipo según su Sexo</h4></div>
+                <div class="row">
+                    <div>
+                        <h4>Último Bovino que se ha vacunado</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaUltimoBovinoVacunado}}</h4>
+                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idUltimoBovinoVacunado, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
             </div>
-            <div class="panel-body">
-                <div id="graficoEventoPorTipoPorGenero"></div>
-                <a id="descargaGraficoEventoPorTipoPorGenero" style="text-decoration:underline" download="Farmix - Gráfica de Eventos por Tipo según su Sexo">
-                    Descargar Imagen
-                </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="row">
+                    <div>
+                        <h4>Último Bovino que se le otorgó un antibiótico</h4>
+                        <h4>Nº caravana: {{obj.inicio.caravanaUltimoBovinoConAntibiotico}}</h4>
+                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idUltimoBovinoConAntibiotico, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <div class="row">
+    <div class="col-sm-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Antibióticos más usados</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoAntibioticosMasUsados"></div>
+                <a id="descargaGraficoAntibioticosMasUsados" style="text-decoration:underline" download="Farmix - Gráfica de Antibióticos más usados">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
     <div class="col-sm-12 col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Top 10 Alimentos más consumidos</h4></div>
+                <div class="panel-title"><h4>Cantidad de cambios de Alimentación</h4></div>
             </div>
             <div class="panel-body">
-                <div id="tablaAlimentosMasConsumidos"></div>
+                <div id="graficoCambiosAlimentacionXBovino"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 Bovinos con mayor cambios de Rodeo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoMovimientosXBovino"></div>
 
-                <a id="descargaTablaAlimentosMasConsumidos" style="text-decoration:underline" download="Farmix - Top 5 de Alimentos Consumidos">
+                <a id="descargaGraficoMovimientosXBovino" style="text-decoration:underline" download="Farmix - Top 10 Mayor cantidad de Cambios Rodeo">
                     Descargar Imagen
                 </a>
                 
             </div>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title"><h4>Top 10 de Bovinos que más antibióticos necesitaron</h4></div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de Eventos por tipo en cada mes</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoEventosXTipoXMes"></div>
+                <!--<a id="descargaGraficoEventosXTipoXMes" style="text-decoration:underline" download="Farmix - Cantidad de Eventos por tipo en cada mes">
+                    Descargar Imagen
+                </a>-->
+            </div>
         </div>
-        <div class="panel-body">
-            <div id="graficoHijosXToro"></div>
-            <a id="descargaGraficoAntibioticosXBovino" style="text-decoration:underline" download="Farmix - Gráfica de Antibióticos por Bovinos">
-                Descargar Imagen
-            </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de Eventos por Tipo y por Sexo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoEventosXTipoXGenero"></div>
+                <a id="descargaGraficoEventosXTipoXGenero" style="text-decoration:underline" download="Farmix - Cantidad de Eventos por Tipo y por Sexo">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de cambios de Alimentación</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficotop10Alimentos"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -133,11 +179,11 @@
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Eventos por Mes según su Tipo</h4></div>
+                <div class="panel-title"><h4>Vacunas menos usadas</h4></div>
             </div>
             <div class="panel-body">
-                <div id="graficoEventosXTipoXMes"></div>
-                <a id="descargaGraficoEventosXTipoXMes" style="text-decoration:underline" download="Farmix - Gráfica de Eventos por Mes según su Tipo">
+                <div id="graficoVacunasMenosUsadas"></div>
+                <a id="descargaGraficoVacunasMenosUsadas" style="text-decoration:underline" download="Farmix - Gráfica de Vacunas menos usadas">
                     Descargar Imagen
                 </a>
             </div>

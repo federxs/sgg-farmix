@@ -170,7 +170,7 @@ namespace sgg_farmix_acceso_datos.Model
 
     public class EstadisticaEventoPorTipoPorMes
     {
-        public int mes { get; set; }
+        public string mes { get; set; }
         public long? cantidadAlimenticio { get; set; }
         public long? cantidadAntibiotico { get; set; }
         public long? cantidadManejo { get; set; }

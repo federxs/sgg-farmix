@@ -34,6 +34,8 @@
                     vm.volver = 'home.estadisticaBovino';
                 else if ($stateParams.proviene === 'EstadisticaInseminacion')
                     vm.volver = 'home.estadisticaInseminacion';
+                else if ($stateParams.proviene === 'EstadisticaEvento')
+                    vm.volver = 'home.estadisticaEvento';
             $scope.$parent.blockSpinner();
             //vm.showSpinner = true;
             detalleBovinoService.inicializar($stateParams.id).then(function success(data) {

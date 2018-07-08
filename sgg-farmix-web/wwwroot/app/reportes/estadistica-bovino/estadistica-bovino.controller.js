@@ -19,9 +19,10 @@
                 $scope.obj = data;
                 cargarGraficoPesoPorRazaYSexo($scope.obj.pesosPromXRaza);
                 cargarGraficoBajasPorMes($scope.obj.bajasXMes);
-                cargarTablaAlimentosMasConsumidos($scope.obj.top10Alimentos);
+                cargarGraficoTop10BovinosMasLivianos($scope.obj.top10BovinosMasLivianos);
                 cargarGraficoPorcentajeBovinoPorRodeo($scope.obj.bovinosXRodeo);
                 cargarGraficoNacimientosPorMes($scope.obj.nacimientos);
+                //cargarGraficoUltimosBovinosBajas($scope.obj.ultimosBovinosBajas);
                 $scope.$parent.unBlockSpinner();
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
@@ -150,24 +151,30 @@
             }
         }
 
-        function cargarTablaAlimentosMasConsumidos(data) {
+        function cargarGraficoTop10BovinosMasLivianos(data) {
             var datos = data;
             google.charts.load('current', { 'packages': ['table'] });
             google.charts.setOnLoadCallback(drawChart);
 
             function drawChart() {
-                var container = document.getElementById('tablaAlimentosMasConsumidos');
+                var container = document.getElementById('top10BovinosMasLivianos');
                 var table = new google.visualization.Table(container);
                 var dataTable = new google.visualization.DataTable();
 
-                dataTable.addColumn({ id: 'alimento', label: 'Alimento', type: 'string' });
-                dataTable.addColumn({ id: 'cantidad', label: 'Cantidad', type: 'number' });
+                dataTable.addColumn('string', 'Número Caravana');
+                dataTable.addColumn('number', 'Peso');
 
                 for (var i = 0; i < datos.length; i++) {
-                    dataTable.addRows([[datos[i].alimento, datos[i].cantidad]]);
+                    dataTable.addRows([[datos[i].numCaravana, datos[i].peso]]);
                 }
-
-                table.draw(dataTable, { showRowNumber: true, width: '100%', height: '100%' });
+                var options = {
+                    title: 'Top 10 Bovinos más livianos',
+                    pageSize: 6,
+                    sortColumn: 1,
+                    sortAscending: true,
+                    cssClassNames: { tableCell: 'row' }
+                };
+                table.draw(dataTable, options);
             }
         };
 
@@ -213,6 +220,49 @@
 
 
         }
+        
+        //function cargarGraficoUltimosBovinosBajas(data) {
+        //    var datos = data;
+
+        //    google.charts.load('current', { 'packages': ['corechart'] });
+        //    google.charts.setOnLoadCallback(drawChart);
+
+        //    function drawChart() {
+        //        var container = document.getElementById('graficoNacimientosPorMes');
+        //        var chart = new google.visualization.LineChart(container);
+        //        var dataTable = new google.visualization.DataTable();
+
+        //        dataTable.addColumn({ id: 'mes', label: 'Mes', type: 'string' });
+        //        dataTable.addColumn({ id: 'cantidad', label: 'Cantidad', type: 'number' });
+
+        //        for (var i = 0; i < datos.length; i++) {
+        //            dataTable.addRows([[datos[i].mes.toString(), datos[i].cantidadNacimientos]]);
+        //        }
+
+        //        var options = {
+        //            'title': 'Cantidad de Nacimientos por Mes',
+        //            hAxis: {
+        //                title: 'Meses'
+        //            },
+        //            vAxis: {
+        //                title: 'Cantidad de bovinos'
+        //            },
+        //            'legend': {
+        //                'position': 'bottom',
+        //                'textStyle': { 'fontSize': 12 }
+        //            }
+        //        };
+        //        chart.draw(dataTable, options);
+
+        //        var my_anchor = document.getElementById('descargaGraficoNacimientosPorMes');
+        //        my_anchor.href = chart.getImageURI();
+        //        google.visualization.events.addListener(chart, 'ready', function () {
+        //            my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+        //        });
+        //    }
+
+
+        //}
 
     }//fin controlador
 })();
