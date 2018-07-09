@@ -126,6 +126,9 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                 </li>
                             </ul>-->
                         </li>
+                        <li class="dropdown head-dpdn">
+                            <a ng-click="ayuda();" title="Ayuda" style="margin-left: 8px; cursor:pointer;"><i class="fa fa-info-circle" style="color:white;font-size: 25px;"></i></a>
+                        </li>
                     </ul>
                     <div class="clearfix"> </div>
                 </div>
@@ -322,6 +325,27 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                     <center>
                         <button type="button" class="btn btn-success" ng-disabled="!contrasenia.anterior || !contrasenia.nueva || !contrasenia.nuevaRepe || noCoincidenPass" ng-click="cambiarContrasenia()">Cambiar</button>
                     </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal Ayuda-->
+    <div class="modal fade" id="modalAyuda" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title" id="myModalLabel">Ayuda</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-left">
+                        {{textoAyuda}}
+                    </p>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
                 </div>
             </div>
         </div>

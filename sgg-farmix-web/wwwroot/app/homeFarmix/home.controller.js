@@ -386,7 +386,7 @@
         };
 
         $scope.validarContraseniasRepe = function () {
-            if($scope.contrasenia.nueva !== $scope.contrasenia.nuevaRepe)
+            if ($scope.contrasenia.nueva !== $scope.contrasenia.nuevaRepe)
                 $scope.noCoincidenPass = true;
             else
                 $scope.noCoincidenPass = false;
@@ -402,6 +402,48 @@
                 spinnerBar.hide();
                 toastr.error('Ha ocurrido un error, reintentar', 'Error');
             });
+        };
+
+        $scope.ayuda = function () {
+            var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
+            switch (path) {
+                case 'home.inicio':
+                    $scope.textoAyuda = 'Aquí podemos encontrar un resumen general del estado de nuestro campo.  Podemos observar datos referidos a cuantos bovinos registrados tenemos, la cantidad de eventos, cuantas ventas se han concretado y cuantas vacas están preñadas. Además, tenemos un gráfico de torta que muestra en porcentaje la cantidad de vacas por raza y un gráfico de barras que muestra la cantidad de vacunos por categoría.';
+                    break;
+                case 'home.bovino':
+                    $scope.textoAyuda = 'Aquí podemos encontrar toda la información referida a ellos. En la sección superior tenemos un campo para buscar y consultar los datos de un animal. Podemos realizar una búsqueda aplicando filtros de numero de caravana, categoría, sexo, raza, rodeo, estado y peso (mayor o menor a un valor). Se le permite al usuario mostrar una cierta cantidad de registros por página para que la salida de la búsqueda tenga una cierta cantidad de registros. Se utiliza un sistema de paginación cuando la salida es superior a los registros solicitados por el usuario. ' +
+            'Por cada bovino que aparezca en la lista podremos consultar sus datos, editarlos o eliminar al animal en cuestión. ' +
+            'Además, contamos con la “opción de exportar” que nos permite extraer el listado de bovinos en formato Excel, PDF o imprimirlo.';
+                    break;
+                case 'home.trazabilidad':
+                    $scope.textoAyuda = 'Aquí podemos realizar acciones para consultar, modificar y eliminar eventos de la trazabilidad. La sección superior de la pantalla corresponde a la consulta de la trazabilidad, en donde tenemos que ingresar campos para la búsqueda, como puede ser el número de caravana o el tipo de evento o un rango de fechas. ' +
+           'Luego tenemos la sección de los resultados, los cuales se los puede exportar en formato PDF, Excel o imprimirlos. ' +
+           'En la sección inferior tenemos la paginación para ordenar la salida en base a la cantidad de registros que se desee. Por cada evento tenemos la sección de Bovinos que participaron y la sección de Acciones. Es decir, para cada evento podremos consultarlo, modificarlo y eliminarlo.';
+                    break;
+                case 'home.inseminacion':
+                    $scope.textoAyuda = 'En esta pantalla se muestra información relevante a las hembras que están para servicio, los servicios sin confirmar, las vacas que estén por parir y las lactancias activas. ' +
+            'En la sección superior podemos ver una agrupación de la cantidad de bovinos hembra según lo mencionado anteriormente. Luego tenemos con mayor detalle, información relacionada a cada categoría. Al hacer click en cada una de ellas, el sistema nos mostrará en otra pantalla los datos correspondientes al campo seleccionado.';
+                    break;
+                case 'home.reportes':
+                    $scope.textoAyuda = 'Aquí podremos encontrar reportes y estadísticas para los Bovinos, Eventos e Inseminaciones. Los reportes constan de un listado de información en base al tipo seleccionado. Tenemos la opción de exportarlos en formato PDF y Excel. ' +
+            'Las estadísticas están compuestas por gráficos de barra, torta y tablas. Además, tienen una sección de resumen, que nos muestran una síntesis de los datos más relevantes de nuestro campo.';
+                    break;
+                case 'home.usuarios':
+                    $scope.textoAyuda = 'Aquí podremos consultar, editar o eliminar los datos de un usuario. Además, podemos dar de alta a un usuario nuevo y asignarle un rol predeterminado. Si un usuario olvida su contraseña y necesita que se la reseteen se puede realizar desde este módulo. Otra de las funcionalidades que tenemos, es el alta de usuarios "PEÓN" para la aplicación Mobile. ' +
+            'En la sección superior podemos observar un campo de búsqueda de usuario en base al nombre, apellido y rol.';
+                    break;
+                case 'home.configuracion':
+                    $scope.textoAyuda = 'Aquí podremos editar las preferencias de uso de nuestro sistema. Como es el período de trabajo(año), modificar aspectos de nuestro perfil y dar de alta a nuevos establecimientos de origen. ' +
+                    'También nos permite dar de alta diferentes parámetros como Vacunas, Antibióticos, Razas, Categorías, Estados y Alimentos.';
+                    break;
+                case 'home.conflictos':
+                    $scope.textoAyuda = 'Cuando suceda un conflicto de carga de Inseminaciones, desde esta pantalla podremos resolverlo. Es decir, aquellas Inseminaciones conflictivas que carguen los peones, el sistema nos las listará aquí. Tendremos la opción de resolver un conflicto o eliminarlo.'
+                    break;
+                case 'home.nacimientos':
+                    $scope.textoAyuda = 'Aquí aparecerán los bovinos que recién han nacido y hay que darle de alta en el sistema. En la sección superior tenemos para buscar por número de caravana madre o padre y por rango de fechas.  Además, podemos exportar en PDF o Excel la lista de recién nacidos.';
+                    break;
+            }
+            $('#modalAyuda').modal('show');
         };
     });
 })();
