@@ -3,20 +3,18 @@
 
     angular
         .module('app')
-        .controller('reporteBovinoController', reporteBovinoController);
+        .controller('reporteEventoController', reporteEventoController);
 
-    reporteBovinoController.$inject = ['$scope', 'reporteBovinoService', 'exportador', '$localStorage', 'portalService', 'toastr'];
+    reporteEventoController.$inject = ['$scope', 'reporteEventoService', '$localStorage', 'portalService', 'toastr'];
 
-    function reporteBovinoController($scope, reporteBovinoService, exportador, $localStorage, portalService, toastr) {
+    function reporteEventoController($scope, reporteEventoService, $localStorage, portalService, toastr) {
         var vm = $scope;
 
         //funciones
         vm.inicializar = inicializar();
 
-
         //variables
         window.scrollTo(0, 0);
-        vm.disabledExportar = 'disabled';
         vm.bovinos = [];
         vm.itemsPorPagina = 50;
 
@@ -25,14 +23,14 @@
 
         function inicializar() {
             $scope.$parent.blockSpinner();
-            reporteBovinoService.inicializar({
+            reporteEventoService.inicializar({
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
                 periodo: $localStorage.usuarioInfo.periodoConsulta
             }, function (data) {
                 vm.rowCollection = data;
                 $scope.$parent.unBlockSpinner();
                 if (vm.rowCollection.legth === 0) {
-                    toastr.info("No se ha encontrado ningún Bovino", "Aviso");
+                    toastr.info("No se ha encontrado ningún Evento", "Aviso");
                     $state.go('home.reportes');
                 }                
             }, function error(error) {
@@ -43,7 +41,7 @@
 
         function exportarPDF() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            reporteBovinoService.generarPDF({
+            reporteEventoService.generarPDF({
                 campo: $localStorage.usuarioInfo.campoNombre,
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
                 periodo: $localStorage.usuarioInfo.periodoConsulta
@@ -66,7 +64,7 @@
 
         function exportarExcel() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            reporteBovinoService.generarExcel({
+            reporteEventoService.generarExcel({
                 campo: $localStorage.usuarioInfo.campoNombre,
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
                 periodo: $localStorage.usuarioInfo.periodoConsulta

@@ -78,4 +78,20 @@ namespace sgg_farmix_acceso_datos.Model
         public string tipoInseminacion { get; set; }
         public string fechaParto { get; set; }
     }
+
+    public class ReporteEventos
+    {
+        public long nroOrden { get; set; }
+        public long idEvento { get; set; }
+        public string tipoEvento { get; set; }
+        public string fechaHora { get; set; }
+        public long duracion { get; set; }
+        public string descripcion { get; set; }
+        public string caravanas { get; set; }
+    }
+
+    public class Caravana
+    {
+        public long caravana { get; set; }
+    }
 }

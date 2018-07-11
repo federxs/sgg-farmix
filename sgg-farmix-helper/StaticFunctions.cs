@@ -238,8 +238,11 @@ namespace sgg_farmix_helper
                         case "Alimentación":
                             workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length + 21;
                             break;
-                        case "Opcionales": 
-                            workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length + 55;
+                        case "Descripción": 
+                            workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length + 21;
+                            break;
+                        case "Fecha":
+                            workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length + 10;
                             break;
                         default:
                             workSheet.Cells[1, (i + 1)].EntireColumn.ColumnWidth = Tbl.Columns[i].ColumnName.Length + 5;

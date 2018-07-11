@@ -1,12 +1,19 @@
-﻿using sgg_farmix_acceso_datos.Helper;
+﻿using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using sgg_farmix_acceso_datos.Helper;
 using sgg_farmix_acceso_datos.Model;
 using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using static iTextSharp.text.Font;
 
 namespace sgg_farmix_acceso_datos.DAOs
 {
@@ -328,6 +335,201 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection.Close();
                 connection = null;
                 transaction = null;
+            }
+        }
+
+        public IEnumerable<ReporteEventos> GetReporte(long codigoCampo, string periodo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", codigoCampo },
+                    {"@periodo", periodo }
+                };
+                var lista = connection.GetArray<ReporteEventos>("spObtenerDatosReporteEventos", parametros, System.Data.CommandType.StoredProcedure);
+                DateTime fechaAnterior, fechaSiguiente;
+                for (int i = 0; i < lista.Count(); i++)
+                {
+                    parametros = new Dictionary<string, object>()
+                    {
+                        {"@idEvento", lista.ElementAt(i).idEvento }
+                    };
+                    var caravanas = connection.GetArray<Caravana>("spGetBovinosXEvento", parametros, System.Data.CommandType.StoredProcedure).Select(x => Convert.ToString(x.caravana.ToString())).ToArray();
+                    lista.ElementAt(i).caravanas = string.Join(", ", caravanas);
+                    if (lista.ElementAt(i).tipoEvento != "Vacunación")
+                    {
+                        for (int j = i + 1; j < lista.Count(); j++)
+                        {
+                            if (lista.ElementAt(j).tipoEvento == lista.ElementAt(i).tipoEvento)
+                            {
+                                fechaSiguiente = new DateTime(int.Parse(lista.ElementAt(i).fechaHora.Split('/')[2].Substring(0,4)), int.Parse(lista.ElementAt(i).fechaHora.Split('/')[1]), int.Parse(lista.ElementAt(i).fechaHora.Split('/')[0]));
+                                fechaAnterior = new DateTime(int.Parse(lista.ElementAt(j).fechaHora.Split('/')[2].Substring(0,4)), int.Parse(lista.ElementAt(j).fechaHora.Split('/')[1]), int.Parse(lista.ElementAt(j).fechaHora.Split('/')[0]));
+                                lista.ElementAt(i).duracion = (fechaSiguiente - fechaAnterior).Days;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                        lista.ElementAt(i).duracion = 1;            
+                }
+                return lista.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
+        public Documento ReporteEventosExportarPDF(string campo, long codigoCampo, string periodo)
+        {
+            FileStream fs;
+            Document doc = null;
+            PdfWriter writer;
+            try
+            {
+                doc = new Document();
+                // Verifico el directorio
+                string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
+                if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
+
+                var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+                // Nombre del archivo
+                string fileName = string.Format("{0}-{1}-{2}.pdf", "ReporteEventos", campo, fecha);
+                // Generación del PDF
+                fs = new FileStream(System.IO.Path.Combine(filePath, fileName), FileMode.Create, FileAccess.Write, FileShare.None);
+
+                writer = PdfWriter.GetInstance(doc, fs);
+                doc.Open();
+                string pathImg1 = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\logo_farmix.jpg");
+                Image image1;
+                if (Image.GetInstance(pathImg1) != null)
+                {
+                    image1 = Image.GetInstance(pathImg1);
+                    image1.ScalePercent(24F);
+                    image1.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(image1);
+                }
+                //añadimos linea negra abajo de las imagenes para separar.
+                doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
+                doc.Add(new Paragraph(" "));
+                //Inicio datos
+                var lista = GetReporte(codigoCampo, periodo);
+                Font fuente1 = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.BOLD, BaseColor.BLACK);
+                Font fuente2 = new Font(FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
+                Rectangle rect = PageSize.LETTER;
+                List<IElement> ie;
+                float pageWidth = rect.Width;
+                string html = "";
+                html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Reporte Eventos</b></td></tr>
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            </table>
+                            </body></html>";
+                ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                foreach (IElement element in ie)
+                {
+                    PdfPTable table1 = element as PdfPTable;
+
+                    if (table1 != null)
+                    {
+                        table1.SetWidthPercentage(new float[] { (float)1 * pageWidth }, rect);
+                    }
+                    doc.Add(element);
+                }
+                doc.Add(new Paragraph(" "));
+                if (lista.Count() > 0)
+                {
+                    html = @"
+                            <html><head></head><body>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Orden</th>
+                            <th>Tipo Evento</th>       
+                            <th>Fecha</th>        
+                            <th>Duración (Días)</th>         
+                            <th>Descripción</th>          
+                            <th>Caravanas que participaron</th>               
+                            </tr>               
+                            </thead>
+                            <tbody>";
+                    foreach (var item in lista)
+                    {
+                        html += @"<tr><td>" + item.nroOrden + @"</td><td>" + item.tipoEvento + @"</td><td>" + item.fechaHora + @"</td><td>" + item.duracion + @"</td><td>" + item.descripcion + @"</td><td>" + item.caravanas + @"</td></tr>";
+                    }
+                    html += @"</tbody></table>
+                            </body></html> ";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).08 * pageWidth, (float).15 * pageWidth, (float).2 * pageWidth, (float).12 * pageWidth, (float).2 * pageWidth, (float).15 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                }
+                doc.Close();
+                return new Documento() { nombre = fileName };
+            }
+            catch (Exception ex)
+            {
+                doc.Close();
+                throw ex;
+            }
+            finally
+            {
+                fs = null;
+                doc = null;
+                writer = null;
+            }
+        }
+
+        public Documento ReporteEventosExportarExcel(string campo, long codigoCampo, string periodo)
+        {
+            DataTable tabla = new DataTable();
+            try
+            {
+                var lista = GetReporte(codigoCampo, periodo);
+                tabla.Columns.Add("Orden");
+                tabla.Columns.Add("Tipo Evento");
+                tabla.Columns.Add("Fecha");
+                tabla.Columns.Add("Duración (Días)");
+                tabla.Columns.Add("Descripción");
+                tabla.Columns.Add("Caravana de animales que participaron");
+                foreach (var item in lista)
+                {
+                    DataRow row = tabla.NewRow();
+                    row["orden"] = item.nroOrden;
+                    row["tipo evento"] = item.tipoEvento;
+                    row["fecha"] = item.fechaHora;
+                    row["duración (días)"] = item.duracion;
+                    row["descripción"] = item.descripcion;
+                    row["caravana de animales que participaron"] = item.caravanas;
+
+                    tabla.Rows.Add(row);
+                }
+                var archivo = StaticFunctions.ExportToExcel(tabla, campo, "ReportesEventos");
+                return new Documento() { nombre = archivo };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
             }
         }
     }

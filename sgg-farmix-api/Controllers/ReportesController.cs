@@ -298,5 +298,62 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Reportes/Eventos")]
+        [HttpGet]
+        [AutorizationToken]
+        public IEnumerable<ReporteEventos> GetReporteEventos(long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new EventoManager().GetReporte(codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Reportes/EventosExportarPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteEventosPDF(string campo, long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new EventoManager().ReporteEventosExportarPDF(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Reportes/EventosExportarExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteEventosExcel(string campo, long codigoCampo, string periodo)
+        {
+            try
+            {
+                return new EventoManager().ReporteEventosExportarExcel(campo, codigoCampo, periodo);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

@@ -60,38 +60,38 @@
                  url: '/reportes',
                  templateUrl: 'app/reportes/consultar-reportes.html',
                  controller: 'consultarReportesController'
-             });
-        $stateProvider
+             })
              .state('home.reporteBovino', {
                  url: '/reportes/bovinos',
                  templateUrl: 'app/reportes/reporte-bovino/reporte-bovino.html',
                  controller: 'reporteBovinoController'
-             });
-        $stateProvider
+             })
              .state('home.estadisticaBovino', {
                  url: '/reportes/estadisticas/bovinos',
                  templateUrl: 'app/reportes/estadistica-bovino/estadistica-bovino.html',
                  controller: 'estadisticaBovinoController'
-             });
-        $stateProvider
+             })
              .state('home.reporteInseminacion', {
                  url: '/reportes/inseminaciones',
                  templateUrl: 'app/reportes/reporte-inseminacion/reporte-inseminacion.html',
                  params: { tabla: null },
                  controller: 'reporteInseminacionController'
-             });
-        $stateProvider
+             })
              .state('home.estadisticaInseminacion', {
                  url: '/reportes/estadisticas/inseminaciones',
                  templateUrl: 'app/reportes/estadistica-inseminacion/estadistica-inseminacion.html',
                  controller: 'estadisticaInseminacionController'
-             });
-        $stateProvider
+             })
              .state('home.estadisticaEvento', {
                  url: '/reportes/estadisticas/eventos',
                  templateUrl: 'app/reportes/estadistica-evento/estadistica-evento.html',
                  controller: 'estadisticaEventoController'
-             });
+             })
+        .state('home.reporteEvento', {
+            url: '/reportes/eventos',
+            templateUrl: 'app/reportes/reporte-evento/reporte-evento.html',
+            controller: 'reporteEventoController'
+        });
         $stateProvider
             .state('home.conflictos', {
                 url: '/conflictos',
