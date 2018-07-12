@@ -217,139 +217,203 @@
 
         function agregarEstabOrigen() {
             $scope.$parent.blockSpinnerSave();
-            $scope.establecimiento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+            var listaAux = angular.copy($scope.establecimientosCollection);
             $scope.establecimiento.idLocalidad = $scope.localidadSeleccionada.selected.idLocalidad;
-            $scope.establecimiento.$save(function (data) {
-                toastr.success('Se agrego con éxito el establecimiento origen ', 'Éxito');
+            var yaEstiste = listaAux.filter(function (x) { return x.nombre === $scope.establecimiento.nombre && x.idLocalidad === $scope.establecimiento.idLocalidad });
+            if (yaEstiste.length === 0) {
+                $scope.establecimiento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;                
+                $scope.establecimiento.$save(function (data) {
+                    toastr.success('Se agrego con éxito el establecimiento origen ', 'Éxito');
+                    $scope.$parent.unBlockSpinnerSave();
+                    $('#modalNuevoEstablecimiento').modal('hide');
+                    $state.reload();
+                }, function (error) {
+                    $scope.$parent.unBlockSpinnerSave();
+                    if (error.statusText === 'Establecimiento Origen ya existe')
+                        toastr.warning('El establecimiento origen que intenta registrar, ya existe en este campo', 'Advertencia');
+                    else
+                        $scope.$parent.errorServicio(error.statusText);
+                });
+            }
+            else {
                 $scope.$parent.unBlockSpinnerSave();
-                $('#modalNuevoEstablecimiento').modal('hide');
-                $state.reload();
-            }, function (error) {
-                $scope.$parent.unBlockSpinnerSave();
-                if (error.statusText === 'Establecimiento Origen ya existe')
-                    toastr.warning('El establecimiento origen que intenta registrar, ya existe en este campo', 'Advertencia');
-                else
-                    $scope.$parent.errorServicio(error.statusText);
-            });
+                toastr.warning('El establecimiento origen que intenta registrar, ya existe en este campo', 'Advertencia');
+            }            
         };
 
         function agregarRodeo() {
             $scope.$parent.blockSpinnerSave();
-            $scope.rodeo.idCampo = $localStorage.usuarioInfo.codigoCampo;
-            $scope.rodeo.$save(function (data) {
-                toastr.success('Se agrego con éxito el rodeo', 'Éxito');
+            var listaAux = angular.copy($scope.rodeosCollection);
+            var yaEstiste = listaAux.filter(function (x) { return x.nombre === $scope.rodeo.nombre });
+            if (yaEstiste.length === 0) {
+                $scope.rodeo.idCampo = $localStorage.usuarioInfo.codigoCampo;
+                $scope.rodeo.$save(function (data) {
+                    toastr.success('Se agrego con éxito el rodeo', 'Éxito');
+                    $scope.$parent.unBlockSpinnerSave();
+                    $('#modalNuevoRodeo').modal('hide');
+                    $state.reload();
+                }, function (error) {
+                    $scope.$parent.unBlockSpinnerSave();
+                    if (error.statusText === 'Rodeo ya existe')
+                        toastr.warning('El rodeo que intenta registrar, ya existe', 'Advertencia');
+                    else
+                        $scope.$parent.errorServicio(error.statusText);
+                });
+            }
+            else {
                 $scope.$parent.unBlockSpinnerSave();
-                $('#modalNuevoRodeo').modal('hide');
-                $state.reload();
-            }, function (error) {
-                $scope.$parent.unBlockSpinnerSave();
-                if (error.statusText === 'Rodeo ya existe')
-                    toastr.warning('El rodeo que intenta registrar, ya existe', 'Advertencia');
-                else
-                    $scope.$parent.errorServicio(error.statusText);
-            });
+                toastr.warning('El rodeo que intenta registrar, ya existe', 'Advertencia');
+            }
         };
 
         function agregarEstado() {
             $scope.$parent.blockSpinnerSave();
-            $scope.estado.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
-            $scope.estado.$save(function (data) {
-                toastr.success('Se agrego con éxito el estado ', 'Éxito');
+            var listaAux = angular.copy($scope.estadosCollection);
+            var yaEstiste = listaAux.filter(function (x) { return x.nombre === $scope.estado.nombre && x.genero === parseInt($scope.estado.genero) });
+            if (yaEstiste.length === 0) {
+                $scope.estado.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+                $scope.estado.$save(function (data) {
+                    toastr.success('Se agrego con éxito el estado ', 'Éxito');
+                    $scope.$parent.unBlockSpinnerSave();
+                    $('#modalNuevoEstado').modal('hide');
+                    $state.reload();
+                }, function (error) {
+                    $scope.$parent.unBlockSpinnerSave();
+                    if (error.statusText === 'Estado ya existe')
+                        toastr.warning('El estado que intenta registrar, ya existe', 'Advertencia');
+                    else
+                        $scope.$parent.errorServicio(error.statusText);
+                });
+            }
+            else {
                 $scope.$parent.unBlockSpinnerSave();
-                $('#modalNuevoEstado').modal('hide');
-                $state.reload();
-            }, function (error) {
-                $scope.$parent.unBlockSpinnerSave();
-                if (error.statusText === 'Estado ya existe')
-                    toastr.warning('El estado que intenta registrar, ya existe', 'Advertencia');
-                else
-                    $scope.$parent.errorServicio(error.statusText);
-            });
+                toastr.warning('El estado que intenta registrar, ya existe', 'Advertencia');
+            }
         };
 
         function agregarCategoria() {
             $scope.$parent.blockSpinnerSave();
-            $scope.categoria.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
-            $scope.categoria.$save(function (data) {
-                toastr.success('Se agrego con éxito la categoría ', 'Éxito');
+            var listaAux = angular.copy($scope.categoriasCollection);
+            var yaEstiste = listaAux.filter(function (x) { return x.nombre === $scope.categoria.nombre && x.genero === parseInt($scope.categoria.genero) });
+            if (yaEstiste.length === 0) {
+                $scope.categoria.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+                $scope.categoria.$save(function (data) {
+                    toastr.success('Se agrego con éxito la categoría ', 'Éxito');
+                    $scope.$parent.unBlockSpinnerSave();
+                    $('#modalNuevaCategoria').modal('hide');
+                    $state.reload();
+                }, function (error) {
+                    $scope.$parent.unBlockSpinnerSave();
+                    if (error.statusText === 'Categoria ya existe')
+                        toastr.warning('La categoría que intenta registrar, ya existe', 'Advertencia');
+                    else
+                        $scope.$parent.errorServicio(error.statusText);
+                });
+            }
+            else {
                 $scope.$parent.unBlockSpinnerSave();
-                $('#modalNuevaCategoria').modal('hide');
-                $state.reload();
-            }, function (error) {
-                $scope.$parent.unBlockSpinnerSave();
-                if (error.statusText === 'Categoria ya existe')
-                    toastr.warning('La categoría que intenta registrar, ya existe', 'Advertencia');
-                else
-                    $scope.$parent.errorServicio(error.statusText);
-            });
+                toastr.warning('La categoría que intenta registrar, ya existe', 'Advertencia');
+            }
         };
 
         function agregarRaza() {
             $scope.$parent.blockSpinnerSave();
-            $scope.raza.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
-            $scope.raza.$save(function (data) {
-                toastr.success('Se agrego con éxito la raza ', 'Éxito');
+            var listaAux = angular.copy($scope.razasCollection);
+            var yaEstiste = listaAux.filter(function (x) { return x.nombre === $scope.raza.nombre });
+            if (yaEstiste.length === 0) {
+                $scope.raza.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+                $scope.raza.$save(function (data) {
+                    toastr.success('Se agrego con éxito la raza ', 'Éxito');
+                    $scope.$parent.unBlockSpinnerSave();
+                    $('#modalNuevaRaza').modal('hide');
+                    $state.reload();
+                }, function (error) {
+                    $scope.$parent.unBlockSpinnerSave();
+                    if (error.statusText === 'Raza ya existe')
+                        toastr.warning('La raza que intenta registrar, ya existe', 'Advertencia');
+                    else
+                        $scope.$parent.errorServicio(error.statusText);
+                });
+            }
+            else {
                 $scope.$parent.unBlockSpinnerSave();
-                $('#modalNuevaRaza').modal('hide');
-                $state.reload();
-            }, function (error) {
-                $scope.$parent.unBlockSpinnerSave();
-                if (error.statusText === 'Raza ya existe')
-                    toastr.warning('La raza que intenta registrar, ya existe', 'Advertencia');
-                else
-                    $scope.$parent.errorServicio(error.statusText);
-            });
+                toastr.warning('La raza que intenta registrar, ya existe', 'Advertencia');
+            }
         };
 
         function agregarAlimento() {
             $scope.$parent.blockSpinnerSave();
-            $scope.alimento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
-            $scope.alimento.$save(function (data) {
-                toastr.success('Se agrego con éxito el alimento ', 'Éxito');
+            var listaAux = angular.copy($scope.alimentosCollection);
+            var yaEstiste = listaAux.filter(function (x) { return x.nombre === $scope.alimento.nombre });
+            if (yaEstiste.length === 0) {
+                $scope.alimento.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+                $scope.alimento.$save(function (data) {
+                    toastr.success('Se agrego con éxito el alimento ', 'Éxito');
+                    $scope.$parent.unBlockSpinnerSave();
+                    $('#modalNuevoAlimento').modal('hide');
+                    $state.reload();
+                }, function (error) {
+                    $scope.$parent.unBlockSpinnerSave();
+                    if (error.statusText === 'Alimento ya existe')
+                        toastr.warning('El alimento que intenta registrar, ya existe', 'Advertencia');
+                    else
+                        $scope.$parent.errorServicio(error.statusText);
+                });
+            }
+            else {
                 $scope.$parent.unBlockSpinnerSave();
-                $('#modalNuevoAlimento').modal('hide');
-                $state.reload();
-            }, function (error) {
-                $scope.$parent.unBlockSpinnerSave();
-                if (error.statusText === 'Alimento ya existe')
-                    toastr.warning('El alimento que intenta registrar, ya existe', 'Advertencia');
-                else
-                    $scope.$parent.errorServicio(error.statusText);
-            });
+                toastr.warning('El alimento que intenta registrar, ya existe', 'Advertencia');
+            }
         };
 
         function agregarAntibiotico() {
             $scope.$parent.blockSpinnerSave();
-            $scope.antibiotico.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
-            $scope.antibiotico.$save(function (data) {
-                toastr.success('Se agrego con éxito el antibiótico ', 'Éxito');
+            var listaAux = angular.copy($scope.antibioticosCollection);
+            var yaEstiste = listaAux.filter(function (x) { return x.nombre === $scope.antibiotico.nombre });
+            if (yaEstiste.length === 0) {
+                $scope.antibiotico.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+                $scope.antibiotico.$save(function (data) {
+                    toastr.success('Se agrego con éxito el antibiótico ', 'Éxito');
+                    $scope.$parent.unBlockSpinnerSave();
+                    $('#modalNuevoAntibiotico').modal('hide');
+                    $state.reload();
+                }, function (error) {
+                    $scope.$parent.unBlockSpinnerSave();
+                    if (error.statusText === 'Antibiotico ya existe')
+                        toastr.warning('El antibiótico que intenta registrar, ya existe', 'Advertencia');
+                    else
+                        $scope.$parent.errorServicio(error.statusText);
+                });
+            }
+            else {
                 $scope.$parent.unBlockSpinnerSave();
-                $('#modalNuevoAntibiotico').modal('hide');
-                $state.reload();
-            }, function (error) {
-                $scope.$parent.unBlockSpinnerSave();
-                if (error.statusText === 'Antibiotico ya existe')
-                    toastr.warning('El antibiótico que intenta registrar, ya existe', 'Advertencia');
-                else
-                    $scope.$parent.errorServicio(error.statusText);
-            });
+                toastr.warning('El antibiótico que intenta registrar, ya existe', 'Advertencia');
+            }
         };
 
         function agregarVacuna() {
             $scope.$parent.blockSpinnerSave();
-            $scope.vacuna.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
-            $scope.vacuna.$save(function (data) {
-                toastr.success('Se agrego con éxito el vacuna ', 'Éxito');
+            var listaAux = angular.copy($scope.vacunasCollection);
+            var yaEstiste = listaAux.filter(function (x) { return x.nombre === $scope.vacuna.nombre });
+            if (yaEstiste.length === 0) {
+                $scope.vacuna.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+                $scope.vacuna.$save(function (data) {
+                    toastr.success('Se agrego con éxito el vacuna ', 'Éxito');
+                    $scope.$parent.unBlockSpinnerSave();
+                    $('#modalNuevaVacuna').modal('hide');
+                    $state.reload();
+                }, function (error) {
+                    $scope.$parent.unBlockSpinnerSave();
+                    if (error.statusText === 'Vacuna ya existe')
+                        toastr.warning('La vacuna que intenta registrar, ya existe', 'Advertencia');
+                    else
+                        $scope.$parent.errorServicio(error.statusText);
+                });
+            }
+            else {
                 $scope.$parent.unBlockSpinnerSave();
-                $('#modalNuevaVacuna').modal('hide');
-                $state.reload();
-            }, function (error) {
-                $scope.$parent.unBlockSpinnerSave();
-                if (error.statusText === 'Vacuna ya existe')
-                    toastr.warning('La vacuna que intenta registrar, ya existe', 'Advertencia');
-                else
-                    $scope.$parent.errorServicio(error.statusText);
-            });
+                toastr.warning('La vacuna que intenta registrar, ya existe', 'Advertencia');
+            }
         };
 
         function modificarPerfil() {
