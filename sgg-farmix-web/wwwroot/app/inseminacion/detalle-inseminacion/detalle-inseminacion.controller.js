@@ -23,7 +23,7 @@
             $scope.$parent.blockSpinner();
             vm.disabled = true;
             vm.itemsPorPagina = 9;
-            if ($stateParams.fecha !== null) {
+            if ($stateParams.fecha !== null && $stateParams.fecha !== 'null') {
                 vm.fecha = $stateParams.fecha;
                 vm.tipoInseminacion = $stateParams.tipoInseminacion;
                 detalleInseminacionService.getInseminacion($stateParams.fecha, vm.tipoInseminacion).then(function success(data) {

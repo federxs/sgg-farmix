@@ -27,9 +27,9 @@
                 else if ($stateParams.proviene === 'ModificarEvento')
                     vm.volver = 'home.modificarEvento({id:' + $stateParams.evento + '})';
                 else if ($stateParams.proviene === 'DetalleInseminacion')
-                    vm.volver = 'home.detalleInseminacion({fecha:"' + $stateParams.fecha + '", desde: "' + $stateParams.desde + '"})';
+                    vm.volver = 'home.detalleInseminacion({fecha:"' + $stateParams.fecha + '", desde: "' + $stateParams.desde + '", tipoInseminacion: "' + $stateParams.tipoInseminacion + '"})';
                 else if($stateParams.proviene === 'ModificarInseminacion')
-                    vm.volver = 'home.modificarInseminacion({fecha:"' + $stateParams.fecha + '", desde: "' + $stateParams.desde + '"})';
+                    vm.volver = 'home.modificarInseminacion({fecha:"' + $stateParams.fecha + '", desde: "' + $stateParams.desde + '", tipoInseminacion: "' + $stateParams.tipoInseminacion + '"})';
                 else if ($stateParams.proviene === 'EstadisticaBovino')
                     vm.volver = 'home.estadisticaBovino';
                 else if ($stateParams.proviene === 'EstadisticaInseminacion')

@@ -101,7 +101,7 @@
                             <td>{{item.estadoNombre | uppercase}}</td>
                             <td>{{item.peso}}</td>
                             <td>
-                                <a ui-sref="home.detalleBovino({id:item.idBovino, fecha: fecha, desde: desde, proviene: 'DetalleInseminacion'})"><span class="fa fa-search"></span></a>
+                                <a ui-sref="home.detalleBovino({id:item.idBovino, fecha: fecha, desde: desde, proviene: 'DetalleInseminacion', tipoInseminacion: inseminacion.idTipoInseminacion})"><span class="fa fa-search"></span></a>
                             </td>
                         </tr>
                     </tbody>
@@ -141,7 +141,7 @@
                             <td>{{toro.rodeoNombre | uppercase}}</td>
                             <td>{{toro.peso}}</td>
                             <td>
-                                <a ui-sref="home.detalleBovino({id:toro.idBovino, fecha: fecha, desde: desde, proviene: 'DetalleInseminacion'})"><span class="fa fa-search"></span></a>                                
+                                <a ui-sref="home.detalleBovino({id:toro.idBovino, fecha: fecha, desde: desde, proviene: 'DetalleInseminacion', tipoInseminacion: inseminacion.idTipoInseminacion})"><span class="fa fa-search"></span></a>                                
                             </td>
                         </tr>
                     </tbody>
@@ -211,7 +211,7 @@
                             </div>
                         </div>
                         <button type="button" class="btn btn-default pull-right"
-                                ui-sref="home.detalleBovino({id:vaca.idBovino, fecha: fecha, desde: desde, proviene: 'DetalleInseminacion'})" style="margin-top: 10px;">
+                                ui-sref="home.detalleBovino({id:vaca.idBovino, fecha: fecha, desde: desde, proviene: 'DetalleInseminacion', tipoInseminacion: inseminacion.idTipoInseminacion})" style="margin-top: 10px;">
                             Ir a detalle de bovino
                         </button>
                     </div>                    
@@ -266,7 +266,7 @@
                             </div>
                         </div>
                         <button type="button" class="btn btn-default pull-right"
-                                ui-sref="home.detalleBovino({id:toro.idBovino, fecha: fecha, desde: desde, proviene: 'ModificarInseminacion'})" style="margin-top: 10px;">
+                                ui-sref="home.detalleBovino({id:toro.idBovino, fecha: fecha, desde: desde, proviene: 'DetalleInseminacion', tipoInseminacion: inseminacion.idTipoInseminacion})" style="margin-top: 10px;">
                             Ir a detalle de la Toro
                         </button>
                     </div>

@@ -127,7 +127,7 @@
         //$stateProvider
             .state('home.detalleBovino', {
                 url: '/bovino/detalle',
-                params: { 'id': null, 'evento': null, 'proviene': null, 'fecha': null, 'desde': null },
+                params: { 'id': null, 'evento': null, 'proviene': null, 'fecha': null, 'desde': null, tipoInseminacion: null },
                 templateUrl: 'app/bovino/detalle-bovino/detalle-bovino.html',
                 controller: 'detalleBovinoController',
                 data: {
