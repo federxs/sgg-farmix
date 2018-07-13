@@ -23,7 +23,7 @@ namespace sgg_farmix_acceso_datos.Model
 
     public class EstadisticaBajaPorMes
     {
-        public int mes { get; set; }
+        public string mes { get; set; }
         public long? cantidadMuertes { get; set; }
         public long? cantidadVentas { get; set; }
     }
@@ -36,7 +36,7 @@ namespace sgg_farmix_acceso_datos.Model
 
     public class EstadisticaNacimientosXMes
     {
-        public long mes { get; set; }
+        public string mes { get; set; }
         public long cantidadNacimientos { get; set; }
     }
 
