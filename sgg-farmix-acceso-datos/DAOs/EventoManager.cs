@@ -498,29 +498,30 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Documento ReporteEventosExportarExcel(string campo, long codigoCampo, string periodo)
         {
-            DataTable tabla = new DataTable();
+            SLExcelData data = new SLExcelData();
             try
             {
                 var lista = GetReporte(codigoCampo, periodo);
-                tabla.Columns.Add("Orden");
-                tabla.Columns.Add("Tipo Evento");
-                tabla.Columns.Add("Fecha");
-                tabla.Columns.Add("Duración (Días)");
-                tabla.Columns.Add("Descripción");
-                tabla.Columns.Add("Caravana de animales que participaron");
+                data.Headers.Add("Orden");
+                data.Headers.Add("Tipo Evento");
+                data.Headers.Add("Fecha");
+                data.Headers.Add("Duración (Días)");
+                data.Headers.Add("Descripción");
+                data.Headers.Add("Caravana de animales que participaron");
+
                 foreach (var item in lista)
                 {
-                    DataRow row = tabla.NewRow();
-                    row["orden"] = item.nroOrden;
-                    row["tipo evento"] = item.tipoEvento;
-                    row["fecha"] = item.fechaHora;
-                    row["duración (días)"] = item.duracion;
-                    row["descripción"] = item.descripcion;
-                    row["caravana de animales que participaron"] = item.caravanas;
-
-                    tabla.Rows.Add(row);
-                }
-                var archivo = StaticFunctions.ExportToExcel(tabla, campo, "ReportesEventos");
+                    List<string> row = new List<string>() {
+                        item.nroOrden.ToString(),
+                        item.tipoEvento,
+                        item.fechaHora,
+                        item.duracion.ToString(),
+                        item.descripcion,
+                        item.caravanas
+                    };
+                    data.DataRows.Add(row);
+                }                
+                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesEventos");
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

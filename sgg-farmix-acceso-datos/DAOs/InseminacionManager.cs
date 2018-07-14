@@ -970,33 +970,33 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Documento ReporteInseminacionHembrasServicioExportarExcel(string campo, long codigoCampo, string periodo)
         {
-            DataTable tabla = new DataTable();
+            SLExcelData data = new SLExcelData();
             try
             {
                 var lista = GetReporteHembrasServir(codigoCampo, periodo);
-                tabla.Columns.Add("Orden");
-                tabla.Columns.Add("Caravana");
-                tabla.Columns.Add("Raza");
-                tabla.Columns.Add("Categoría");
-                tabla.Columns.Add("Edad");
-                tabla.Columns.Add("Peso (Kg)");
-                tabla.Columns.Add("Estado");
-                tabla.Columns.Add("Partos");
+                data.Headers.Add("Orden");
+                data.Headers.Add("Caravana");
+                data.Headers.Add("Raza");
+                data.Headers.Add("Categoría");
+                data.Headers.Add("Edad");
+                data.Headers.Add("Peso (Kg)");
+                data.Headers.Add("Estado");
+                data.Headers.Add("Partos");
                 foreach (var item in lista)
                 {
-                    DataRow row = tabla.NewRow();
-                    row["orden"] = item.nroOrden;
-                    row["caravana"] = item.numCaravana;
-                    row["raza"] = item.raza;
-                    row["categoría"] = item.categoria;
-                    row["edad"] = item.anos + "," + item.meses;
-                    row["peso (kg)"] = item.peso;
-                    row["estado"] = item.estado;
-                    row["partos"] = item.partos;
-
-                    tabla.Rows.Add(row);
+                    List<string> row = new List<string>() {
+                        item.nroOrden.ToString(),
+                        item.numCaravana.ToString(),
+                        item.raza,
+                        item.categoria,
+                        item.anos + ", " + item.meses,
+                        item.peso.ToString(),
+                        item.estado,
+                        item.partos.ToString()
+                    };
+                    data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.ExportToExcel(tabla, campo, "ReportesInseminacion-HembrasServicio");
+                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-HembrasServicio");
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1011,35 +1011,35 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Documento ReporteInseminacionServiciosSinConfirmarExportarExcel(string campo, long codigoCampo, string periodo)
         {
-            DataTable tabla = new DataTable();
+            SLExcelData data = new SLExcelData();
             try
             {
                 var lista = GetReporteServiciosSinConfirmar(codigoCampo, periodo);
-                tabla.Columns.Add("Orden");
-                tabla.Columns.Add("Caravana");
-                tabla.Columns.Add("Raza");
-                tabla.Columns.Add("Categoría");
-                tabla.Columns.Add("Edad");
-                tabla.Columns.Add("Peso (Kg)");
-                tabla.Columns.Add("Estado");
-                tabla.Columns.Add("Tipo Inseminación");
-                tabla.Columns.Add("Fecha Inseminación");
+                data.Headers.Add("Orden");
+                data.Headers.Add("Caravana");
+                data.Headers.Add("Raza");
+                data.Headers.Add("Categoría");
+                data.Headers.Add("Edad");
+                data.Headers.Add("Peso (Kg)");
+                data.Headers.Add("Estado");
+                data.Headers.Add("Tipo Inseminación");
+                data.Headers.Add("Fecha Inseminación");
                 foreach (var item in lista)
                 {
-                    DataRow row = tabla.NewRow();
-                    row["orden"] = item.nroOrden;
-                    row["caravana"] = item.numCaravana;
-                    row["raza"] = item.raza;
-                    row["categoría"] = item.categoria;
-                    row["edad"] = item.anos + "," + item.meses;
-                    row["peso (kg)"] = item.peso;
-                    row["estado"] = item.estado;
-                    row["tipo inseminación"] = item.tipoInseminacion;
-                    row["fecha inseminación"] = item.fechaInseminacion;
-
-                    tabla.Rows.Add(row);
+                    List<string> row = new List<string>() {
+                        item.nroOrden.ToString(),
+                        item.numCaravana.ToString(),
+                        item.raza,
+                        item.categoria,
+                        item.anos + "," + item.meses,
+                        item.peso.ToString(),
+                        item.estado,
+                        item.tipoInseminacion,
+                        item.fechaInseminacion
+                    };
+                    data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.ExportToExcel(tabla, campo, "ReportesInseminacion-ServiciosSinConfirmar");
+                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-ServiciosSinConfirmar");
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1054,35 +1054,35 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Documento ReporteInseminacionLactanciasExportarExcel(string campo, long codigoCampo, string periodo)
         {
-            DataTable tabla = new DataTable();
+            SLExcelData data = new SLExcelData();
             try
             {
                 var lista = GetReporteLactanciasActivas(codigoCampo, periodo);
-                tabla.Columns.Add("Orden");
-                tabla.Columns.Add("Caravana");
-                tabla.Columns.Add("Raza");
-                tabla.Columns.Add("Categoría");
-                tabla.Columns.Add("Edad");
-                tabla.Columns.Add("Peso (Kg)");
-                tabla.Columns.Add("Partos");
-                tabla.Columns.Add("Alimentación");
-                tabla.Columns.Add("Fecha últ. parto");
+                data.Headers.Add("Orden");
+                data.Headers.Add("Caravana");
+                data.Headers.Add("Raza");
+                data.Headers.Add("Categoría");
+                data.Headers.Add("Edad");
+                data.Headers.Add("Peso (Kg)");
+                data.Headers.Add("Partos");
+                data.Headers.Add("Alimentación");
+                data.Headers.Add("Fecha últ. parto");
                 foreach (var item in lista)
                 {
-                    DataRow row = tabla.NewRow();
-                    row["orden"] = item.nroOrden;
-                    row["caravana"] = item.numCaravana;
-                    row["raza"] = item.raza;
-                    row["categoría"] = item.categoria;
-                    row["edad"] = item.anos + "," + item.meses;
-                    row["peso (kg)"] = item.peso;
-                    row["partos"] = item.partos;
-                    row["alimentación"] = item.alimento;
-                    row["fecha últ. parto"] = item.fechaUltimoParto;
-
-                    tabla.Rows.Add(row);
+                    List<string> row = new List<string>() {
+                        item.nroOrden.ToString(),
+                        item.numCaravana.ToString(),
+                        item.raza,
+                        item.categoria,
+                        item.anos + ", " + item.meses,
+                        item.peso.ToString(),
+                        item.partos.ToString(),
+                        item.alimento,
+                        item.fechaUltimoParto
+                    };
+                    data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.ExportToExcel(tabla, campo, "ReportesInseminacion-LactanciasActivas");
+                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-LactanciasActivas");
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1097,33 +1097,33 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Documento ReporteInseminacionPreniadasExportarExcel(string campo, long codigoCampo, string periodo)
         {
-            DataTable tabla = new DataTable();
+            SLExcelData data = new SLExcelData();
             try
             {
                 var lista = GetReportePreniadas(codigoCampo, periodo);
-                tabla.Columns.Add("Orden");
-                tabla.Columns.Add("Caravana");
-                tabla.Columns.Add("Raza");
-                tabla.Columns.Add("Categoría");
-                tabla.Columns.Add("Edad");
-                tabla.Columns.Add("Peso (Kg)");
-                tabla.Columns.Add("Tipo Inseminación");
-                tabla.Columns.Add("Fecha parto");
+                data.Headers.Add("Orden");
+                data.Headers.Add("Caravana");
+                data.Headers.Add("Raza");
+                data.Headers.Add("Categoría");
+                data.Headers.Add("Edad");
+                data.Headers.Add("Peso (Kg)");
+                data.Headers.Add("Tipo Inseminación");
+                data.Headers.Add("Fecha parto");
                 foreach (var item in lista)
                 {
-                    DataRow row = tabla.NewRow();
-                    row["orden"] = item.nroOrden;
-                    row["caravana"] = item.numCaravana;
-                    row["raza"] = item.raza;
-                    row["categoría"] = item.categoria;
-                    row["edad"] = item.anos + "," + item.meses;
-                    row["peso (kg)"] = item.peso;
-                    row["tipo inseminación"] = item.tipoInseminacion;
-                    row["fecha parto"] = item.fechaParto;
-
-                    tabla.Rows.Add(row);
+                    List<string> row = new List<string>() {
+                        item.nroOrden.ToString(),
+                        item.numCaravana.ToString(),
+                        item.raza,
+                        item.categoria,
+                        item.anos + "," + item.meses,
+                        item.peso.ToString(),
+                        item.tipoInseminacion,
+                        item.fechaParto
+                    };
+                    data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.ExportToExcel(tabla, campo, "ReportesInseminacion-Preñadas");
+                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-Preñadas");
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

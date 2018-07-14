@@ -717,37 +717,38 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public Documento ReporteBovinosExportarExcel(string campo, long codigoCampo, string periodo)
         {
-            DataTable tabla = new DataTable();
+            SLExcelData data = new SLExcelData();
             try
             {
                 var lista = GetReporte(codigoCampo, periodo);
-                tabla.Columns.Add("Orden");
-                tabla.Columns.Add("Caravana");
-                tabla.Columns.Add("Sexo");
-                tabla.Columns.Add("Raza");
-                tabla.Columns.Add("Categoría");
-                tabla.Columns.Add("Edad");
-                tabla.Columns.Add("Peso (Kg)");
-                tabla.Columns.Add("Estado");
-                tabla.Columns.Add("Enfermo");
-                tabla.Columns.Add("Rodeo");
+                data.Headers.Add("Orden");
+                data.Headers.Add("Caravana");
+                data.Headers.Add("Sexo");
+                data.Headers.Add("Raza");
+                data.Headers.Add("Categoría");
+                data.Headers.Add("Edad");
+                data.Headers.Add("Peso (Kg)");
+                data.Headers.Add("Estado");
+                data.Headers.Add("Enfermo");
+                data.Headers.Add("Rodeo");
+
                 foreach (var item in lista)
                 {
-                    DataRow row = tabla.NewRow();
-                    row["orden"] = item.nroOrden;
-                    row["caravana"] = item.numCaravana;
-                    row["sexo"] = item.sexo;
-                    row["raza"] = item.raza;
-                    row["categoría"] = item.categoria;
-                    row["edad"] = item.anos + "," + item.meses;
-                    row["peso (kg)"] = item.peso;
-                    row["estado"] = item.estado;
-                    row["enfermo"] = item.enfermo;
-                    row["rodeo"] = item.rodeo;
-
-                    tabla.Rows.Add(row);
+                    List<string> row = new List<string>() {
+                        item.nroOrden.ToString(),
+                        item.numCaravana.ToString(),
+                        item.sexo,
+                        item.raza,
+                        item.categoria,
+                        item.anos + "," + item.meses,
+                        item.peso.ToString(),
+                        item.estado,
+                        item.enfermo,
+                        item.rodeo
+                    };
+                    data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.ExportToExcel(tabla, campo, "ReportesBovino");
+                var archivo = StaticFunctions.GenerateExcel(data, "ReportesBovino", campo);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
