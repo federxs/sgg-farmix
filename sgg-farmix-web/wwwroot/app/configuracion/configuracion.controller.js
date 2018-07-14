@@ -187,7 +187,7 @@
             $scope.imageToUpload = [];
             $scope.toDelete = [];
             $scope.$parent.blockSpinner();
-            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: usuarioInfo.getUsuario(), idRol: usuarioInfo.getRol() }, function (data) {
+            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: usuarioInfo.getUsuario(), idRol: usuarioInfo.getRol(), periodo: $localStorage.usuarioInfo.periodoConsulta }, function (data) {
                 $scope.perfilUsuario = data;
                 $scope.perfilUsuario.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfilUsuario.usuarioImagen + "?cache=" + (new Date()).getTime();
                 $scope.$parent.unBlockSpinner();

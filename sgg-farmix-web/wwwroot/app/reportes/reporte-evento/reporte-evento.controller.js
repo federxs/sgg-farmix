@@ -5,9 +5,9 @@
         .module('app')
         .controller('reporteEventoController', reporteEventoController);
 
-    reporteEventoController.$inject = ['$scope', 'reporteEventoService', '$localStorage', 'portalService', 'toastr'];
+    reporteEventoController.$inject = ['$scope', 'reporteEventoService', '$localStorage', 'portalService', 'toastr', '$state'];
 
-    function reporteEventoController($scope, reporteEventoService, $localStorage, portalService, toastr) {
+    function reporteEventoController($scope, reporteEventoService, $localStorage, portalService, toastr, $state) {
         var vm = $scope;
 
         //funciones
@@ -29,7 +29,7 @@
             }, function (data) {
                 vm.rowCollection = data;
                 $scope.$parent.unBlockSpinner();
-                if (vm.rowCollection.legth === 0) {
+                if (vm.rowCollection.length === 0) {
                     toastr.info("No se ha encontrado ningún Evento", "Aviso");
                     $state.go('home.reportes');
                 }                

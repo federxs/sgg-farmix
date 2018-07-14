@@ -5,9 +5,9 @@
         .module('app')
         .controller('reporteBovinoController', reporteBovinoController);
 
-    reporteBovinoController.$inject = ['$scope', 'reporteBovinoService', 'exportador', '$localStorage', 'portalService', 'toastr'];
+    reporteBovinoController.$inject = ['$scope', 'reporteBovinoService', 'exportador', '$localStorage', 'portalService', 'toastr', '$state'];
 
-    function reporteBovinoController($scope, reporteBovinoService, exportador, $localStorage, portalService, toastr) {
+    function reporteBovinoController($scope, reporteBovinoService, exportador, $localStorage, portalService, toastr, $state) {
         var vm = $scope;
 
         //funciones
@@ -31,7 +31,7 @@
             }, function (data) {
                 vm.rowCollection = data;
                 $scope.$parent.unBlockSpinner();
-                if (vm.rowCollection.legth === 0) {
+                if (vm.rowCollection.length === 0) {
                     toastr.info("No se ha encontrado ningún Bovino", "Aviso");
                     $state.go('home.reportes');
                 }                

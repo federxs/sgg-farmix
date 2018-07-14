@@ -602,6 +602,32 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
+        public BovinoFilterDatos ObtenerDatosFiltro(BovinoFilter filter)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idCategoria", filter.idCategoria },
+                    {"@idRaza", filter.idRaza },
+                    {"@idRodeo", filter.idRodeo },
+                    {"@idEstado", filter.idEstado }
+                };
+                var obj = connection.GetArray<BovinoFilterDatos>("spObtenerDatosFiltroBovinos", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
         public Documento ReporteBovinosExportarPDF(string campo, long codigoCampo, string periodo)
         {
             FileStream fs;
@@ -758,6 +784,163 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
 
+            }
+        }
+
+        public Documento BovinosExportarPDF(BovinoFilter filter)
+        {
+            FileStream fs;
+            Document doc = null;
+            PdfWriter writer;
+            try
+            {
+                doc = new Document();
+                // Verifico el directorio
+                string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
+                if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
+
+                var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+                // Nombre del archivo
+                string fileName = string.Format("{0}-{1}-{2}.pdf", "Bovinos", filter.campo, fecha);
+                // Generación del PDF
+                fs = new FileStream(System.IO.Path.Combine(filePath, fileName), FileMode.Create, FileAccess.Write, FileShare.None);
+
+                writer = PdfWriter.GetInstance(doc, fs);
+                doc.Open();
+                string pathImg1 = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\logo_farmix.jpg");
+                Image image1;
+                if (Image.GetInstance(pathImg1) != null)
+                {
+                    image1 = Image.GetInstance(pathImg1);
+                    image1.ScalePercent(24F);
+                    image1.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(image1);
+                }
+                //añadimos linea negra abajo de las imagenes para separar.
+                doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
+                doc.Add(new Paragraph(" "));
+                //Inicio datos
+                var lista = GetList(filter);
+                var filtro = ObtenerDatosFiltro(filter);
+                Font fuente1 = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.BOLD, BaseColor.BLACK);
+                Font fuente2 = new Font(FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
+                Rectangle rect = PageSize.LETTER;
+                List<IElement> ie;
+                float pageWidth = rect.Width;
+                string html = "";
+                html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Bovinos</b></td></tr>
+                            <tr><td>Campo: <b>" + filter.campo + @"</b></td></tr>                   
+                            </table>
+                            </body></html>";
+                ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                foreach (IElement element in ie)
+                {
+                    PdfPTable table1 = element as PdfPTable;
+
+                    if (table1 != null)
+                    {
+                        table1.SetWidthPercentage(new float[] { (float)1 * pageWidth }, rect);
+                    }
+                    doc.Add(element);
+                }
+                doc.Add(new Paragraph(" "));
+                if (lista.Count() > 0)
+                {
+                    string caravana, sexo, peso, accionPeso;
+                    if (filter.numCaravana == 0) caravana = "Sin filtro";
+                    else
+                        caravana = filter.numCaravana.ToString();
+                    if (filter.genero == 2) sexo = "Sin filtro";
+                    else
+                        sexo = (filter.genero == 0 ? "Hembra" : "Macho");
+                    if (filter.peso == 0) peso = "Sin filtro";
+                    else
+                        peso = filter.peso.ToString();
+                    if (filter.accionPeso == "0") accionPeso = "Sin filtro";
+                    else
+                        accionPeso = (filter.accionPeso == "mayor" ? "Mayor que" : "Menor que");
+                    html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Filtro Aplicado</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>                
+                            </table>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Caravana</th>
+                            <th>Categoría</th>       
+                            <th>Sexo</th>    
+                            <th>Raza</th>
+                            <th>Rodeo</th>
+                            <th>Estado</th>
+                            <th>Peso</th>
+                            <th>Acción Peso</th>";
+                    html += @"</tr>               
+                            </thead>
+                            <tbody>
+                            <tr><td>" + caravana + @"</td><td>" + (filtro.categoria == "" ? "Sin datos" : filtro.categoria) + @"</td><td>" + sexo + @"</td><td>" + (filtro.raza == "" ? "Sin datos" : filtro.raza) + @"</td><td>" + (filtro.rodeo == "" ? "Sin datos" : filtro.rodeo) + @"</td><td>" + (filtro.estado == "" ? "Sin datos" : filtro.estado) + @"</td><td>" + peso + @"</td><td>" + accionPeso + @"</td></tr>
+                            </tbody></table></body></html>";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).2 * pageWidth, (float).12 * pageWidth, (float).1 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).1 * pageWidth, (float).1 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                    doc.Add(new Paragraph(" "));
+                    html = @"
+                            <html><head></head><body>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Caravana</th>
+                            <th>Categoría</th>       
+                            <th>Sexo</th>
+                            <th>Raza</th>
+                            <th>Rodeo</th>
+                            <th>Estado</th>
+                            <th>Peso (Kg)</th>   
+                            </tr>               
+                            </thead>
+                            <tbody>";
+                    foreach (var item in lista)
+                    {
+                        html += @"<tr><td>" + item.numCaravana + @"</td><td>" + item.categoriaNombre + @"</td><td>" + item.sexo + @"</td><td>" + item.razaNombre + @"</td><td>" + item.rodeoNombre + @"</td><td>" + item.estadoNombre + @"</td><td>" + item.peso + @"</td></tr>";
+                    }
+                    html += @"</tbody></table>
+                            </body></html> ";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).14 * pageWidth, (float).14 * pageWidth, (float).14 * pageWidth, (float).14 * pageWidth, (float).14 * pageWidth, (float).14 * pageWidth, (float).14 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                }
+                doc.Close();
+                return new Documento() { nombre = fileName };
+            }
+            catch (Exception ex)
+            {
+                doc.Close();
+                throw ex;
+            }
+            finally
+            {
+                fs = null;
+                doc = null;
+                writer = null;
             }
         }
     }

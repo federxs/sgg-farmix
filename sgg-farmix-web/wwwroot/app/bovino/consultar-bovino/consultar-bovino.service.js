@@ -36,6 +36,23 @@
                     },
                     headers: portalService.getHeadersServer(),
                     isArray: false
+                },
+                generarPDF: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Bovino/BovinosExportarPDF',
+                    headers: portalService.getHeadersServer(),
+                    isArray: false
+                },
+                generarExcel: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Bovino/BovinosExportarExcel',
+                    headers: portalService.getHeadersServer(),
+                    params: {
+                        campo: '@campo',
+                        codigoCampo: '@codigoCampo',
+                        periodo: '@periodo'
+                    },
+                    isArray: false
                 }
             });
         });

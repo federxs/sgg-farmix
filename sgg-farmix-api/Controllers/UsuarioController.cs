@@ -245,11 +245,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Usuario/GetDatosPerfil")]
         [HttpGet]
         [AutorizationToken]
-        public UsuarioLogueado GetPerfil(long campo, string usuario, long idRol)
+        public UsuarioLogueado GetPerfil(long campo, string usuario, long idRol, string periodo)
         {
             try
             {
-                return UM.GetDatosUserLogueado(usuario, campo, idRol, null);
+                return UM.GetDatosUserLogueado(usuario, campo, idRol, periodo);
             }
             catch (Exception ex)
             {
@@ -355,6 +355,26 @@ namespace sgg_farmix_api.Controllers
             try
             {
                 return UM.CambiarPass(passVieja, passNueva, usuario, rol);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Usuario/ExportarUsuariosPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarUsuariosPDF(string filtro)
+        {
+            try
+            {
+                var filtroDesearizado = JsonConvert.DeserializeObject<UsuarioFilter>(filtro);
+                return UM.UsuariosExportarPDF(filtroDesearizado);
             }
             catch (Exception ex)
             {

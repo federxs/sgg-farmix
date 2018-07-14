@@ -251,9 +251,12 @@
             $scope.imageToUpload = [];
             $scope.showBorrar = false;
             spinnerBar.show();
-            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: usuarioInfo.getUsuario(), idRol: usuarioInfo.getRol() }, function (data) {
+            configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: usuarioInfo.getUsuario(), idRol: usuarioInfo.getRol(), periodo: $localStorage.usuarioInfo.periodoConsulta }, function (data) {
                 $scope.perfil = data;
-                $scope.perfil.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfil.usuarioImagen + "?cache=" + (new Date()).getTime();
+                if ($scope.perfil.usuarioImagen)
+                    $scope.perfil.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfil.usuarioImagen + "?cache=" + (new Date()).getTime();
+                else
+                    $scope.perfil.usuarioImagen = 'images/usuario_defecto.png';
                 spinnerBar.hide();
                 $('#modalPerfil').modal('show');
             }, function (error) {

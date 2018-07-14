@@ -21,7 +21,8 @@
                     params: {
                         usuario: '@usuario',
                         campo: '@campo',
-                        idRol: '@idRol'
+                        idRol: '@idRol',
+                        periodo: '@periodo'
                     },
                     headers: portalService.getHeadersServer(),
                     isArray: false

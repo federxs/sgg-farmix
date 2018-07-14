@@ -73,7 +73,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                 };
                 entity.mulId = connection.Execute("spActualizarMultimedia", parametros, System.Data.CommandType.StoredProcedure);
                 if (entity.mulId == 0)
-                    throw new ArgumentException("Update Perfil Error");
+                    Create(entity);
+                    //throw new ArgumentException("Update Perfil Error");
                 return entity;
             }
             catch (Exception ex)

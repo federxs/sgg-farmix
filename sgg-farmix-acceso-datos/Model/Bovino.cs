@@ -47,7 +47,16 @@ namespace sgg_farmix_acceso_datos.Model
         public string accionPeso { get; set; }
         public long codigoCampo { get; set; }
         public string periodo { get; set; }
+        public string campo { get; set; }
 
+    }
+
+    public class BovinoFilterDatos
+    {
+        public string categoria { get; set; }
+        public string raza { get; set; }
+        public string rodeo { get; set; }
+        public string estado { get; set; }
     }
 
     public class BovinoItem
@@ -120,6 +129,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string fechaHasta { get; set; }
         public long codigoCampo { get; set; }
         public string periodo { get; set; }
+        public string campo { get; set; }
     }
     public class NacimientoItem
     {

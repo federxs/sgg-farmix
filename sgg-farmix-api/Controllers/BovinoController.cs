@@ -430,5 +430,25 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Bovino/BovinosExportarPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarBovinosPDF(string filtro)
+        {
+            try
+            {
+                var filtroDesearizado = JsonConvert.DeserializeObject<BovinoFilter>(filtro);
+                return BM.BovinosExportarPDF(filtroDesearizado);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

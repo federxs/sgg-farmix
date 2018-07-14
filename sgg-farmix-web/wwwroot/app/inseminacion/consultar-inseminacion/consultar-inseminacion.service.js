@@ -12,7 +12,9 @@
             consultarServicioSinConfirmar: consultarServicioSinConfirmar,
             getInseminacionesXFechaInsem: getInseminacionesXFechaInsem,
             consultarPreniadasXParir: consultarPreniadasXParir,
-            eliminarInseminacion: eliminarInseminacion
+            eliminarInseminacion: eliminarInseminacion,
+            generarPDFServSinConfirmar: generarPDFServSinConfirmar,
+            generarPDFPreniadas: generarPDFPreniadas
         };
 
         return service;
@@ -81,6 +83,30 @@
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Inseminacion/DeleteInseminacion',
                 params: { parametro: parametro },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function generarPDFServSinConfirmar(campo, codigoCampo, periodo, rango) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Inseminacion/ExportarServSinConfirmarPDF',
+                params: { campo: campo, codigoCampo: codigoCampo, periodo: periodo, rango: rango },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function generarPDFPreniadas(campo, codigoCampo, periodo, rango) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Inseminacion/ExportarPreniadasPDF',
+                params: { campo: campo, codigoCampo: codigoCampo, periodo: periodo, rango: rango },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarInseminacionController', consultarInseminacionController);
 
-    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr', '$state', 'exportador', '$localStorage', '$location', '$anchorScroll'];
+    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr', '$state', 'exportador', '$localStorage', '$location', '$anchorScroll', 'portalService'];
 
-    function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state, exportador, $localStorage, $location, $anchorScroll) {
+    function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state, exportador, $localStorage, $location, $anchorScroll, portalService) {
         var vm = $scope;
         //variables
         window.scrollTo(0, 0);
@@ -22,6 +22,7 @@
         var proxPartos = [];
         var tituloExcel = ''
         var idInseminacionAEliminar = 0;
+        var rangoConsulta = '';
         //metodos
         vm.inicializar = inicializar;
         vm.hembrasParaServicio = hembrasParaServicio;
@@ -112,6 +113,7 @@
             consultarInseminacionService.getInseminacionesXFechaInsem($localStorage.usuarioInfo.codigoCampo).then(function success(data) {
                 switch (rango) {
                     case 'menor60':
+                        rangoConsulta = 60;
                         vm.rowCollection = Enumerable.From(data).Where(function (x) {
                             var fechaInsem = x.fechaInseminacion.split('/');
                             fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
@@ -123,6 +125,7 @@
                         }
                         break;
                     case 'entre90y60':
+                        rangoConsulta = 6090;
                         vm.rowCollection = Enumerable.From(data).Where(function (x) {
                             var fechaInsem = x.fechaInseminacion.split('/');
                             fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
@@ -134,6 +137,7 @@
                         }
                         break;
                     case 'mas90':
+                        rangoConsulta = 90;
                         vm.rowCollection = Enumerable.From(data).Where(function (x) {
                             var fechaInsem = x.fechaInseminacion.split('/');
                             fechaInsem = moment(fechaInsem[2] + '/' + fechaInsem[1] + '/' + fechaInsem[0]);
@@ -197,7 +201,7 @@
         }
 
         //carga a tablita de prox pariciones
-        function obtenerProxPartos(rango) {
+        function obtenerProxPartos(rango) {            
             vm.showServiciosSinConfirm = false;
             vm.showHembrasPreniadas = true;
             vm.itemsPorPagina = 10;
@@ -206,6 +210,7 @@
             fechaHoy = moment(convertirFecha(fechaHoy));
             switch (rango) {
                 case 'prox10dias':
+                    rangoConsulta = 10;
                     vm.rowCollection = Enumerable.From(proxPartos).Where(function (x) {
                         var fechaParto = x.fechaEstimadaParto.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
@@ -217,6 +222,7 @@
                     }
                     break;
                 case 'entre10y30dias':
+                    rangoConsulta = 1030;
                     vm.rowCollection = Enumerable.From(proxPartos).Where(function (x) {
                         var fechaParto = x.fechaEstimadaParto.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
@@ -228,6 +234,7 @@
                     }
                     break;
                 case 'entre30y60dias':
+                    rangoConsulta = 3060;
                     vm.rowCollection = Enumerable.From(proxPartos).Where(function (x) {
                         var fechaParto = x.fechaEstimadaParto.split('/');
                         fechaParto = moment(fechaParto[2] + '/' + fechaParto[1] + '/' + fechaParto[0]);
@@ -300,71 +307,23 @@
         }
 
         function exportarPDFServSinConfirm() {
-            var propiedades = [];
-            propiedades[0] = "tipoInseminacion";
-            propiedades[1] = "fechaInseminacion";
-            propiedades[2] = "cantidadVacas";
-
-            if (vm.rowCollection.length > 0) {
-                var fecha = new Date();
-                fecha = convertirFecha(fecha);
-
-                var tab_text = '<html><head></head><body>';
-                tab_text += "<h1 style='align:center;'>" + tituloExcel + "</h1>";
-                //tab_text = tab_text + "<div><table border='1px' style='font-size:6px; width:10px;'>";
-                //if (vm.filtro !== null) {
-                //    var $html_filtro = "<thead><tr><td></td>";
-                //    //for (var i = 0; i < filtro.Titulos.length; i++) {
-                //    //    $html_filtro += "<td bgcolor='black' style='text-align:center; vertical-align:center'><b><font color='white'>" + filtro.Titulos[i] + "</font></b></td>";
-                //    //}
-                //    $html_filtro += "</tr></thead>";
-                //    var $body = "<tr>";
-                //for (var i = 0; i < filtro.length; i++) {
-                //    if (filtro[i] === null || typeof filtro[i] !== "object") {
-                //        var campo = filtro[i] !== null ? filtro[i] : "";
-                //        $body += "<td style='text-align:center; vertical-align:center'> " + campo + " </td>";
-                //    }
-                //}
-                //    $body += "</tr></tbody>";
-                //    var newhtml_filtro = $html_filtro.concat($body.toString()).concat("</table></div>");
-                //    tab_text = tab_text + newhtml_filtro.toString();
-                //    //tab_text = tab_text + "<tr></tr>" + "<tr></tr>";
-                //}
-                tab_text += "<div style='border-width: 2px; border-style: dotted; padding: 1em; font-size:120%;line-height: 1.5em;'><table border='1px' style='font-size:5px; width:6000px'>";
-                var $html = "<thead><tr>";
-                $html += "<td style='width:500; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Fecha Inseminación </font></b></td>";
-                $html += "<td style='width:500; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Tipo de Inseminación</font></b></td>";
-                $html += "<td style='width:500; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Cantidad de bovinos que participaron</font></b></td>";
-                $html += "</tr></thead><tbody>";
-                var $body = "<tr>";
-                var data = vm.rowCollection;
-                for (var j = 0; j < data.length; j++) {
-                    for (var property in data[j]) {
-                        if (data[j].hasOwnProperty(property) && property !== "$$hashKey") {
-                            if (propiedades.indexOf(property) > -1) {
-                                var campo = data[j][property] !== "" ? data[j][property] : "";
-                                $body += "<td style='text-align:center; vertical-align:center'> " + campo + " </td>";
-                            }
-                        }
-                        else {
-                            $body += "</tr>";
-                            break;
-                        }
-                    }
-                }
-                tab_text += "</tbody>";
-                var newhtml = $html.concat($body.toString()).concat("</table></div>");
-                tab_text = tab_text + newhtml.toString();
-                tab_text = tab_text + '</body></html>';
-
-                exportador.exportarPDF(tituloExcel + fecha, tab_text, function () {
-                    toastr.success("Se ha exportado con Éxito.", "ÉXITO");
-                }, function (error) {
-                    vm.showSpinner = false;
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            consultarInseminacionService.generarPDFServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta, rangoConsulta)
+                .then(function (data) {
+                var path = data.nombre;
+                var link = document.createElement("a");
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    window.open(portalService.getUrlServer() + '\\Archivos\\' + path, '_blank');
                 });
-            }
-        }
+                $(link).click();
+                toastr.success('PDF generado con Éxito!', 'Éxito');
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+            }, function error(error) {
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+                $scope.$parent.errorServicio(error.statusText);
+            });
+        };
 
         function exportarExcelVacasPreniadas() {
             var titulos = [];
@@ -390,71 +349,23 @@
         }
 
         function exportarPDFVacasPreniadas() {
-            var propiedades = [];
-            propiedades[0] = "tipoInseminacion";
-            propiedades[1] = "fechaInseminacion";
-            propiedades[2] = "fechaEstimadaParto";
-
-            if (vm.rowCollection.length > 0) {
-                var fecha = new Date();
-                fecha = convertirFecha(fecha);
-
-                var tab_text = '<html><head></head><body>';
-                tab_text += "<h1 style='align:center;'>" + tituloExcel + "</h1>";
-                //tab_text = tab_text + "<div><table border='1px' style='font-size:6px; width:10px;'>";
-                //if (vm.filtro !== null) {
-                //    var $html_filtro = "<thead><tr><td></td>";
-                //    //for (var i = 0; i < filtro.Titulos.length; i++) {
-                //    //    $html_filtro += "<td bgcolor='black' style='text-align:center; vertical-align:center'><b><font color='white'>" + filtro.Titulos[i] + "</font></b></td>";
-                //    //}
-                //    $html_filtro += "</tr></thead>";
-                //    var $body = "<tr>";
-                //for (var i = 0; i < filtro.length; i++) {
-                //    if (filtro[i] === null || typeof filtro[i] !== "object") {
-                //        var campo = filtro[i] !== null ? filtro[i] : "";
-                //        $body += "<td style='text-align:center; vertical-align:center'> " + campo + " </td>";
-                //    }
-                //}
-                //    $body += "</tr></tbody>";
-                //    var newhtml_filtro = $html_filtro.concat($body.toString()).concat("</table></div>");
-                //    tab_text = tab_text + newhtml_filtro.toString();
-                //    //tab_text = tab_text + "<tr></tr>" + "<tr></tr>";
-                //}
-                tab_text += "<div style='border-width: 2px; border-style: dotted; padding: 1em; font-size:120%;line-height: 1.5em;'><table border='1px' style='font-size:5px; width:6000px'>";
-                var $html = "<thead><tr>";
-                $html += "<td style='width:500; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Fecha Inseminación</font></b></td>";
-                $html += "<td style='width:500; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Tipo de Inseminación</font></b></td>";
-                $html += "<td style='width:500; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Fecha estimada de parto</font></b></td>";
-                $html += "</tr></thead><tbody>";
-                var $body = "<tr>";
-                var data = vm.rowCollection;
-                for (var j = 0; j < data.length; j++) {
-                    for (var property in data[j]) {
-                        if (data[j].hasOwnProperty(property) && property !== "$$hashKey") {
-                            if (propiedades.indexOf(property) > -1) {
-                                var campo = data[j][property] !== "" ? data[j][property] : "";
-                                $body += "<td style='text-align:center; vertical-align:center'> " + campo + " </td>";
-                            }
-                        }
-                        else {
-                            $body += "</tr>";
-                            break;
-                        }
-                    }
-                }
-                tab_text += "</tbody>";
-                var newhtml = $html.concat($body.toString()).concat("</table></div>");
-                tab_text = tab_text + newhtml.toString();
-                tab_text = tab_text + '</body></html>';
-
-                exportador.exportarPDF(tituloExcel + fecha, tab_text, function () {
-                    toastr.success("Se ha exportado con Éxito.", "ÉXITO");
-                }, function (error) {
-                    vm.showSpinner = false;
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            consultarInseminacionService.generarPDFPreniadas($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta, rangoConsulta)
+                .then(function (data) {
+                    var path = data.nombre;
+                    var link = document.createElement("a");
+                    $(link).click(function (e) {
+                        e.preventDefault();
+                        window.open(portalService.getUrlServer() + '\\Archivos\\' + path, '_blank');
+                    });
+                    $(link).click();
+                    toastr.success('PDF generado con Éxito!', 'Éxito');
+                    $scope.$parent.unBlockSpinnerGenerarArchivo();
+                }, function error(error) {
+                    $scope.$parent.unBlockSpinnerGenerarArchivo();
+                    $scope.$parent.errorServicio(error.statusText);
                 });
-            }
-        }
+        };
 
         function openPopUp(fecha, id) {
             vm.fecha = fecha;

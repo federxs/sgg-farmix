@@ -298,5 +298,43 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Inseminacion/ExportarServSinConfirmarPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarServiciosSinConfirmarPDF(string campo, long codigoCampo, string periodo, long rango)
+        {
+            try
+            {
+                return IM.ServiciosSinConfimarExportarPDF(campo, codigoCampo, periodo, rango);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Inseminacion/ExportarPreniadasPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarPreniadasPDF(string campo, long codigoCampo, string periodo, long rango)
+        {
+            try
+            {
+                return IM.PreniadasExportarPDF(campo, codigoCampo, periodo, rango);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

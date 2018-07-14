@@ -52,8 +52,8 @@ namespace sgg_farmix_api.Controllers
                             mulPath = $"{file.LocalFileName.Split('\\').Last()}.{ file.Headers.ContentType.MediaType.Split('/').Last()}",
                             idCampo = campoNuevo.idCampo
                         };
-                        var newFileName = $"{campoNuevo.codigoCampo}_ImagenCampo.{file.Headers.ContentType.MediaType.Split('/').Last()}";
-                        MoveFiles.MoveFilesToFolder(file.LocalFileName, newFileName, campoNuevo.codigoCampo.ToString());
+                        var newFileName = $"{campoNuevo.idCampo}_ImagenCampo.{file.Headers.ContentType.MediaType.Split('/').Last()}";
+                        MoveFiles.MoveFilesToFolder(file.LocalFileName, newFileName, campoNuevo.idCampo.ToString());
 
                         multimediaObject.mulPath = newFileName;
 
@@ -165,6 +165,26 @@ namespace sgg_farmix_api.Controllers
             {
                 var filtroDesearizado = JsonConvert.DeserializeObject<NacimientoFilter>(filtro);
                 return CM.GetNacimientos(filtroDesearizado);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Campo/NacimientosExportarPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarNacimientosPDF(string filtro)
+        {
+            try
+            {
+                var filtroDesearizado = JsonConvert.DeserializeObject<NacimientoFilter>(filtro);
+                return new CampoManager().NacimientosExportarPDF(filtroDesearizado);
             }
             catch (Exception ex)
             {

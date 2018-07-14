@@ -67,9 +67,10 @@ namespace sgg_farmix_acceso_datos.DAOs
                         {"@idInseminacion", id },
                         {"@idToro", entity.idToro }
                     };
-                    update = connection.Execute("UpdateToroXInseminacionExitosa", parametros, System.Data.CommandType.StoredProcedure);                    
+                    update = connection.Execute("UpdateToroXInseminacionExitosa", parametros, System.Data.CommandType.StoredProcedure);
                 }
-                else {
+                else
+                {
                     parametros = new Dictionary<string, object>()
                     {
                         {"@fechaInseminacion", entity.fechaInseminacion }
@@ -266,7 +267,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@fechaInseminacion", fecha },
                     {"@idTipoInseminacion", tipoInseminacion }
                 };
-                var inseminacion = connection.GetArray<InseminacionDetalle>("spObtenerDatosInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();                
+                var inseminacion = connection.GetArray<InseminacionDetalle>("spObtenerDatosInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 inseminacion.listaBovinos = connection.GetArray<BovinoItem>("spObtenerBovinosXInseminacion", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 parametros.Remove("@idTipoInseminacion");
                 if (inseminacion.fechaEstimadaNacimiento != "")
@@ -1133,6 +1134,239 @@ namespace sgg_farmix_acceso_datos.DAOs
             finally
             {
 
+            }
+        }
+
+        public Documento ServiciosSinConfimarExportarPDF(string campo, long codigoCampo, string periodo, long rango)
+        {
+            FileStream fs;
+            Document doc = null;
+            PdfWriter writer;
+            try
+            {
+                doc = new Document();
+                // Verifico el directorio
+                string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
+                if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
+
+                var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+                // Nombre del archivo
+                string fileName = string.Format("{0}-{1}-{2}.pdf", "ServiciosSinConfirmar", campo, fecha);
+                // Generación del PDF
+                fs = new FileStream(System.IO.Path.Combine(filePath, fileName), FileMode.Create, FileAccess.Write, FileShare.None);
+
+                writer = PdfWriter.GetInstance(doc, fs);
+                doc.Open();
+                string pathImg1 = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\logo_farmix.jpg");
+                Image image1;
+                if (Image.GetInstance(pathImg1) != null)
+                {
+                    image1 = Image.GetInstance(pathImg1);
+                    image1.ScalePercent(24F);
+                    image1.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(image1);
+                }
+                //añadimos linea negra abajo de las imagenes para separar.
+                doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
+                doc.Add(new Paragraph(" "));
+                //Inicio datos
+                var lista = GetServiciosSinConfirmar(codigoCampo, periodo);
+                List<ServSinConfirmar> aux = new List<ServSinConfirmar>();
+                DateTime fechaInseminacion, fechaHoy = DateTime.Now;
+                for (int i = 0; i < lista.Count(); i++)
+                {
+                    fechaInseminacion = new DateTime(int.Parse(lista.ElementAt(i).fechaInseminacion.Split('/')[2]), int.Parse(lista.ElementAt(i).fechaInseminacion.Split('/')[1]), int.Parse(lista.ElementAt(i).fechaInseminacion.Split('/')[0]));
+                    if (((fechaHoy - fechaInseminacion).Days < rango && rango == 60) ||
+                        ((fechaHoy - fechaInseminacion).Days < 90 && (fechaHoy - fechaInseminacion).Days >= 60 && rango == 6090) ||
+                        ((fechaHoy - fechaInseminacion).Days > rango && rango == 90))
+                        aux.Add(lista.ElementAt(i));
+                }
+                Font fuente1 = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.BOLD, BaseColor.BLACK);
+                Font fuente2 = new Font(FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
+                Rectangle rect = PageSize.LETTER;
+                List<IElement> ie;
+                float pageWidth = rect.Width;
+                string html = "";
+                html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Servicios sin Confirmar</b></td></tr>
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            </table>
+                            </body></html>";
+                ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                foreach (IElement element in ie)
+                {
+                    PdfPTable table1 = element as PdfPTable;
+
+                    if (table1 != null)
+                    {
+                        table1.SetWidthPercentage(new float[] { (float)1 * pageWidth }, rect);
+                    }
+                    doc.Add(element);
+                }
+                doc.Add(new Paragraph(" "));
+                if (lista.Count() > 0)
+                {
+                    html = @"
+                            <html><head></head><body>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Tipo Inseminación</th>   
+                            <th>Fecha Inseminación</th>        
+                            <th>Cant. vacas que participaron</th>         
+                            <th>Cant. toros que participaron</th>              
+                            </tr>               
+                            </thead>
+                            <tbody>";
+                    foreach (var item in aux)
+                    {
+                        html += @"<tr><td>" + item.tipoInseminacion + @"</td><td>" + item.fechaInseminacion + @"</td><td>" + item.cantidadVacas + @"</td><td>" + item.cantidadToros + @"</td></tr>";
+                    }
+                    html += @"</tbody></table>
+                            </body></html> ";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).23 * pageWidth, (float).23 * pageWidth, (float).23 * pageWidth, (float).23 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                }
+                doc.Close();
+                return new Documento() { nombre = fileName };
+            }
+            catch (Exception ex)
+            {
+                doc.Close();
+                throw ex;
+            }
+            finally
+            {
+                fs = null;
+                doc = null;
+                writer = null;
+            }
+        }
+
+        public Documento PreniadasExportarPDF(string campo, long codigoCampo, string periodo, long rango)
+        {
+            FileStream fs;
+            Document doc = null;
+            PdfWriter writer;
+            try
+            {
+                doc = new Document();
+                // Verifico el directorio
+                string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
+                if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
+
+                var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+                // Nombre del archivo
+                string fileName = string.Format("{0}-{1}-{2}.pdf", "Preñadas", campo, fecha);
+                // Generación del PDF
+                fs = new FileStream(System.IO.Path.Combine(filePath, fileName), FileMode.Create, FileAccess.Write, FileShare.None);
+
+                writer = PdfWriter.GetInstance(doc, fs);
+                doc.Open();
+                string pathImg1 = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\logo_farmix.jpg");
+                Image image1;
+                if (Image.GetInstance(pathImg1) != null)
+                {
+                    image1 = Image.GetInstance(pathImg1);
+                    image1.ScalePercent(24F);
+                    image1.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(image1);
+                }
+                //añadimos linea negra abajo de las imagenes para separar.
+                doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
+                doc.Add(new Paragraph(" "));
+                //Inicio datos
+                var lista = GetPreniadasPorParir(codigoCampo, periodo);
+                List<PreniadasXParir> aux = new List<PreniadasXParir>();
+                DateTime fechaParto, fechaHoy = DateTime.Now;
+                for (int i = 0; i < lista.Count(); i++)
+                {
+                    fechaParto = new DateTime(int.Parse(lista.ElementAt(i).fechaEstimadaParto.Split('/')[2]), int.Parse(lista.ElementAt(i).fechaEstimadaParto.Split('/')[1]), int.Parse(lista.ElementAt(i).fechaEstimadaParto.Split('/')[0]));
+                    if (((fechaParto - fechaHoy).Days < rango && rango == 10) ||
+                        ((fechaParto - fechaHoy).Days < 30 && (fechaParto - fechaHoy).Days >= 10 && rango == 1030) ||
+                        ((fechaParto - fechaHoy).Days < 60 && (fechaParto - fechaHoy).Days >= 30 && rango == 3060))
+                        aux.Add(lista.ElementAt(i));
+                }
+                Font fuente1 = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.BOLD, BaseColor.BLACK);
+                Font fuente2 = new Font(FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
+                Rectangle rect = PageSize.LETTER;
+                List<IElement> ie;
+                float pageWidth = rect.Width;
+                string html = "";
+                html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Vacas Preñadas</b></td></tr>
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            </table>
+                            </body></html>";
+                ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                foreach (IElement element in ie)
+                {
+                    PdfPTable table1 = element as PdfPTable;
+
+                    if (table1 != null)
+                    {
+                        table1.SetWidthPercentage(new float[] { (float)1 * pageWidth }, rect);
+                    }
+                    doc.Add(element);
+                }
+                doc.Add(new Paragraph(" "));
+                if (lista.Count() > 0)
+                {
+                    html = @"
+                            <html><head></head><body>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Tipo Inseminación</th>   
+                            <th>Fecha Inseminación</th>        
+                            <th>Fecha estimada Parto</th>                      
+                            </tr>               
+                            </thead>
+                            <tbody>";
+                    foreach (var item in aux)
+                    {
+                        html += @"<tr><td>" + item.tipoInseminacion + @"</td><td>" + item.fechaInseminacion + @"</td><td>" + item.fechaEstimadaParto + @"</td></tr>";
+                    }
+                    html += @"</tbody></table>
+                            </body></html> ";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).3 * pageWidth, (float).3 * pageWidth, (float).3 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                }
+                doc.Close();
+                return new Documento() { nombre = fileName };
+            }
+            catch (Exception ex)
+            {
+                doc.Close();
+                throw ex;
+            }
+            finally
+            {
+                fs = null;
+                doc = null;
+                writer = null;
             }
         }
     }

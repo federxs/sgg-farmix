@@ -92,6 +92,7 @@
                     <th st-sort="nombre">Nombre</th>
                     <th st-sort="apellido">Apellido</th>
                     <th st-sort="rol">Rol</th>
+                    <th>Estado</th>
                     <th st-sort="fechaAlta">Fecha Alta</th>
                     <th st-sort="fechaBaja">Fecha Baja</th>
                     <th>Acciones</th>
@@ -105,6 +106,8 @@
                     <td ng-if="item.idRol === 1">Dueño</td>
                     <td ng-if="item.idRol === 2">Ingeniero</td>
                     <td ng-if="item.idRol === 3">Peón</td>
+                    <td ng-if="item.fechaBaja === ' '">Activo</td>
+                    <td ng-if="item.fechaBaja !== ' '">Inactivo</td>
                     <td>{{item.fechaAlta}}</td>
                     <td>{{item.fechaBaja}}</td>
                     <td>

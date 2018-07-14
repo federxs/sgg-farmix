@@ -1,12 +1,18 @@
-﻿using sgg_farmix_acceso_datos.Helper;
+﻿using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using sgg_farmix_acceso_datos.Helper;
 using sgg_farmix_acceso_datos.Model;
 using sgg_farmix_helper;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using static iTextSharp.text.Font;
 
 namespace sgg_farmix_acceso_datos.DAOs
 {
@@ -396,6 +402,167 @@ namespace sgg_farmix_acceso_datos.DAOs
             {
                 connection.Close();
                 connection = null;
+            }
+        }
+
+        public Documento UsuariosExportarPDF(UsuarioFilter filter)
+        {
+            FileStream fs;
+            Document doc = null;
+            PdfWriter writer;
+            try
+            {
+                doc = new Document();
+                // Verifico el directorio
+                string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
+                if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
+
+                var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+                // Nombre del archivo
+                string fileName = string.Format("{0}-{1}-{2}.pdf", "Usuarios", filter.campo, fecha);
+                // Generación del PDF
+                fs = new FileStream(System.IO.Path.Combine(filePath, fileName), FileMode.Create, FileAccess.Write, FileShare.None);
+
+                writer = PdfWriter.GetInstance(doc, fs);
+                doc.Open();
+                string pathImg1 = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\logo_farmix.jpg");
+                Image image1;
+                if (Image.GetInstance(pathImg1) != null)
+                {
+                    image1 = Image.GetInstance(pathImg1);
+                    image1.ScalePercent(24F);
+                    image1.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(image1);
+                }
+                //añadimos linea negra abajo de las imagenes para separar.
+                doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
+                doc.Add(new Paragraph(" "));
+                //Inicio datos
+                var lista = GetList(filter);
+                Font fuente1 = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.BOLD, BaseColor.BLACK);
+                Font fuente2 = new Font(FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
+                Rectangle rect = PageSize.LETTER;
+                List<IElement> ie;
+                float pageWidth = rect.Width;
+                string html = "";
+                html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Usuarios</b></td></tr>
+                            <tr><td>Campo: <b>" + filter.campo + @"</b></td></tr>                   
+                            </table>
+                            </body></html>";
+                ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                foreach (IElement element in ie)
+                {
+                    PdfPTable table1 = element as PdfPTable;
+
+                    if (table1 != null)
+                    {
+                        table1.SetWidthPercentage(new float[] { (float)1 * pageWidth }, rect);
+                    }
+                    doc.Add(element);
+                }
+                doc.Add(new Paragraph(" "));
+                if (lista.Count() > 0)
+                {
+                    string nombre, apellido, rol = "Sin datos";
+                    if (filter.nombre == null) nombre = "Sin datos";
+                    else
+                        nombre = filter.nombre;
+                    if (filter.apellido == null) apellido = "Sin datos";
+                    else
+                        apellido = filter.apellido;
+                    if (filter.idRol != 0)
+                    {
+                        switch (filter.idRol)
+                        {
+                            case 1:
+                                rol = "Dueño";
+                                break;
+                            case 2:
+                                rol = "Ingeniero";
+                                break;
+                            case 3:
+                                rol = "Peón";
+                                break;
+                        }
+                    }
+
+                    html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Filtro Aplicado</b></td><td></td><td></td></tr>                
+                            </table>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>       
+                            <th>Rol</th>";
+                    html += @"</tr>               
+                            </thead>
+                            <tbody>
+                            <tr><td>" + nombre + @"</td><td>" + apellido + @"</td><td>" + rol + @"</td></tr>
+                            </tbody></table></body></html>";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).3 * pageWidth, (float).3 * pageWidth, (float).3 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                    doc.Add(new Paragraph(" "));
+                    html = @"
+                            <html><head></head><body>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Usuario</th>
+                            <th>Nombre</th>       
+                            <th>Apellido</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th>Fecha Alta</th>
+                            <th>Fecha Baja</th> 
+                            </tr>               
+                            </thead>
+                            <tbody>";
+                    foreach (var item in lista)
+                    {
+                        html += @"<tr><td>" + item.usuario + @"</td><td>" + item.nombre + @"</td><td>" + item.apellido + @"</td><td>" + item.rol + @"</td><td>" + (item.fechaBaja == " " ? "Activo" : "Inactivo") + @"</td><td>" + item.fechaAlta + @"</td><td>" + (item.fechaBaja == " " ? "-" : item.fechaBaja) + @"</td></tr>";
+                    }
+                    html += @"</tbody></table>
+                            </body></html> ";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).14 * pageWidth, (float).14 * pageWidth, (float).14 * pageWidth, (float).14 * pageWidth, (float).1 * pageWidth, (float).16 * pageWidth, (float).16 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                }
+                doc.Close();
+                return new Documento() { nombre = fileName };
+            }
+            catch (Exception ex)
+            {
+                doc.Close();
+                throw ex;
+            }
+            finally
+            {
+                fs = null;
+                doc = null;
+                writer = null;
             }
         }
     }

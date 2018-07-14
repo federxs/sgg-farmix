@@ -26,7 +26,7 @@
                    .then(function success(data) {
                        $scope.campos = data;
                        for (var i = 0; i < $scope.campos.length; i++) {
-                           $scope.campos[i].imagen = portalService.getUrlServer() + portalService.getFolderImagenCampo() + $scope.campos[i].codigoCampo + '\\' + $scope.campos[i].imagen + "?cache=" + (new Date()).getTime();
+                           $scope.campos[i].imagenNombre = portalService.getUrlServer() + portalService.getFolderImagenCampo() + $scope.campos[i].codigoCampo + '\\' + $scope.campos[i].imagenNombre + "?cache=" + (new Date()).getTime();
                        }
                    }, function error(error) {
                        if (error.statusText === 'Token_Invalido') {

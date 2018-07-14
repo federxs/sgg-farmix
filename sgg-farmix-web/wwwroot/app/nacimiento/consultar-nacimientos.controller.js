@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarNacimientosController', consultarNacimientosController);
 
-    consultarNacimientosController.$inject = ['$scope', 'consultarNacimientosService', 'toastr', '$localStorage', '$state', 'exportador', '$stateParams', 'consultarBovinoService'];
+    consultarNacimientosController.$inject = ['$scope', 'consultarNacimientosService', 'toastr', '$localStorage', '$state', 'exportador', '$stateParams', 'consultarBovinoService', 'portalService'];
 
-    function consultarNacimientosController($scope, consultarNacimientosService, toastr, $localStorage, $state, exportador, $stateParams, consultarBovinoService) {
+    function consultarNacimientosController($scope, consultarNacimientosService, toastr, $localStorage, $state, exportador, $stateParams, consultarBovinoService, portalService) {
         var vm = $scope;
         window.scrollTo(0, 0);
         vm.fechaDeHoy = new Date();
@@ -150,123 +150,35 @@
         };
 
         function exportarPDF() {
-            var filtro = [];
-            filtro.Titulos = [];
-            filtro.Titulos = [];
-            filtro.Titulos[0] = 'Tipo de Conflicto';
-            filtro.Titulos[1] = 'Estado';
-            filtro.Titulos[2] = 'Fecha Desde';
-            filtro.Titulos[3] = 'Fecha Hasta';
-
-            var propiedades = [];
-            propiedades[0] = "tipo";
-            propiedades[1] = "fecha";
-            propiedades[2] = "estado";
-
-            if (vm.rowCollection.length > 0) {
-                var i = 0;
-                for (var property in vm.filtro) {
-                    var type = typeof vm.filtro[property];
-                    if ((vm.filtro[property] === null || type !== "object") && property !== "$resolved" && type !== "function" && property !== "codigoCampo") {
-                        if (property === "tipo") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else if (vm.filtro[property] === '1') {
-                                filtro[i] = 'Evento';
-                                i += 1;
-                            }
-                            else {
-                                filtro[i] = 'Inseminación';
-                                i += 1;
-                            }
-                        }
-                        else if (property === "estado") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else if (vm.filtro[property] === '1') {
-                                filtro[i] = 'Solucionado';
-                                i += 1;
-                            }
-                            else {
-                                filtro[i] = 'Pendiente';
-                                i += 1;
-                            }
-                        }
-                        else {
-                            filtro[i] = $scope.filtro[property];
-                            i += 1;
-                        }
-                    }
-                }
-                if (vm.filtro.fechaDesde === undefined)
-                    filtro[filtro.length] = '';
-                if (vm.filtro.fechaHasta === undefined)
-                    filtro[filtro.length] = '';
-                if (vm.filtro.peso === undefined)
-                    filtro[filtro.length] = '';
-                var fecha = new Date();
-                fecha = convertirFecha(fecha);
-
-                var tab_text = '<html><head></head><body>';
-                tab_text += "<h1 style='align:center;'>Conflictos</h1>";
-                tab_text = tab_text + "<div><table border='1px' style='font-size:6px; width:6000px;'>";
-                //tab_text += "<tr><td style='text-align:center; font-size:20px' colspan='" + titulos.length + "'><b>" + tituloReporte + "</b></td></tr>" + "<tr></tr>";
-                if (vm.filtro !== null) {
-                    var $html_filtro = "<thead><tr>";
-                    for (var i = 0; i < filtro.Titulos.length; i++) {
-                        $html_filtro += "<td bgcolor='black' style='text-align:center; vertical-align:center'><b><font color='white'>" + filtro.Titulos[i] + "</font></b></td>";
-                    }
-                    $html_filtro += "</tr></thead>";
-                    var $body = "<tr>";
-                    for (var i = 0; i < filtro.length; i++) {
-                        if (filtro[i] === null || typeof filtro[i] !== "object") {
-                            var campo = filtro[i] !== null ? filtro[i] : "";
-                            $body += "<td style='text-align:center; vertical-align:center'> " + campo + " </td>";
-                        }
-                    }
-                    $body += "</tr></tbody>";
-                    var newhtml_filtro = $html_filtro.concat($body.toString()).concat("</table></div>");
-                    tab_text = tab_text + newhtml_filtro.toString();
-                    //tab_text = tab_text + "<tr></tr>" + "<tr></tr>";
-                }
-                tab_text += "<div style='border-width: 2px; border-style: dotted; padding: 1em; font-size:120%;line-height: 1.5em;'><table border='1px' style='font-size:5px; width:6000px'>";
-                var $html = "<thead><tr>";
-                $html += "<td style='width:500; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Tipo de Conflicto</font></b></td>";
-                $html += "<td style='width:500; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Estado</font></b></td>";
-                $html += "<td style='width:500; height:50px; text-align:center; vertical-align:center;' bgcolor='black'><b><font color='white'>Fecha</font></b></td>";
-                $html += "</tr></thead><tbody>";
-                var $body = "<tr>";
-                var data = vm.rowCollection;
-                for (var j = 0; j < data.length; j++) {
-                    for (var property in data[j]) {
-                        if (data[j].hasOwnProperty(property) && property !== "$$hashKey") {
-                            if (propiedades.indexOf(property) > -1) {
-                                var campo = data[j][property] !== "" ? data[j][property] : "";
-                                $body += "<td style='text-align:center; vertical-align:center'> " + campo + " </td>";
-                            }
-                        }
-                        else {
-                            $body += "</tr>";
-                            break;
-                        }
-                    }
-                }
-                tab_text += "</tbody>";
-                var newhtml = $html.concat($body.toString()).concat("</table></div>");
-                tab_text = tab_text + newhtml.toString();
-                tab_text = tab_text + '</body></html>';
-
-                exportador.exportarPDF('Conflictos' + fecha, tab_text, function () {
-                    toastr.success("Se ha exportado con Éxito.", "ÉXITO");
-                }, function (error) {
-                    vm.showSpinner = false;
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
-                });
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            if (vm.filtro.fechaDesde) {
+                if (typeof vm.filtro.fechaDesde === "string")
+                    vm.filtro.fechaDesde = new Date(vm.filtro.fechaDesde.split('/')[2], (parseInt(vm.filtro.fechaDesde.split('/')[1]) - 1).toString(), vm.filtro.fechaDesde.split('/')[0]);
+                vm.filtro.fechaDesde = convertirFecha(vm.filtro.fechaDesde);
             }
+            if (vm.filtro.fechaHasta) {
+                if (typeof vm.filtro.fechaHasta === "string")
+                    vm.filtro.fechaHasta = new Date(vm.filtro.fechaHasta.split('/')[2], (parseInt(vm.filtro.fechaHasta.split('/')[1]) - 1).toString(), vm.filtro.fechaHasta.split('/')[0]);
+                vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
+            }
+            if (!vm.filtro.numCaravanaMadre) vm.filtro.numCaravanaMadre = 0;
+            if (!vm.filtro.numCaravanaPadre) vm.filtro.numCaravanaPadre = 0;
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
+            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            consultarNacimientosService.generarPDF({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
+                var path = data.nombre;
+                var link = document.createElement("a");
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    window.open(portalService.getUrlServer() + '\\Archivos\\' + path, '_blank');
+                });
+                $(link).click();
+                toastr.success('PDF generado con Éxito!', 'Éxito');
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+            }, function error(error) {
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+                $scope.$parent.errorServicio(error.statusText);
+            });
         };
 
         function convertirFecha(fecha) {

@@ -7,6 +7,12 @@
                     url: portalService.getUrlServer() + 'api/Inconsistencia/GetList',
                     headers: portalService.getHeadersServer(),
                     isArray: true
+                },
+                generarPDF: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Inconsistencia/ExportarPDF',
+                    headers: portalService.getHeadersServer(),
+                    isArray: false
                 }
             });
         });

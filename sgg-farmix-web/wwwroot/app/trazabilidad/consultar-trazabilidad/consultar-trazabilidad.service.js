@@ -10,7 +10,8 @@
     function consultarTrazabilidadService($http, portalService) {
         var service = {
             getListaEventos: getListaEventos,
-            eliminarEvento: eliminarEvento
+            eliminarEvento: eliminarEvento,
+            generarPDF: generarPDF
         };
 
         function getListaEventos(filtro) {
@@ -30,6 +31,18 @@
                 method: 'PUT',
                 url: portalService.getUrlServer() + 'api/Evento/DeleteEvento',
                 params: { idEvento: id },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function generarPDF(filtro) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Evento/ExportarEventosPDF',
+                params: { filtro: filtro },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

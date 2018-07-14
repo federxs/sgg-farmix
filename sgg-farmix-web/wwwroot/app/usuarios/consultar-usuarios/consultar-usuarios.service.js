@@ -13,7 +13,8 @@
             obtenerListaUsuarios: obtenerListaUsuarios,
             darBajaUser: darBajaUser,
             activarUser: activarUser,
-            validarCantidadUsuariosPlan: validarCantidadUsuariosPlan
+            validarCantidadUsuariosPlan: validarCantidadUsuariosPlan,
+            generarPDF: generarPDF
         };
 
         function inicializar() {
@@ -62,11 +63,24 @@
                 return data.data || [];
             });
         }
+
         function validarCantidadUsuariosPlan(campo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Usuario/ValidarCantUsuarios',
                 params: { campo: campo },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function generarPDF(filtro) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Usuario/ExportarUsuariosPDF',
+                params: { filtro: filtro },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {
