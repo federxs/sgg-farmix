@@ -14,19 +14,19 @@
                     if (respuesta.data.bovino != null) {
                         for (var i = 0; i < respuesta.data.categorias.length; i++) {
                             if (respuesta.data.categorias[i].idCategoria == respuesta.data.bovino.idCategoria) {
-                                respuesta.data.bovino.idCategoria = respuesta.data.categorias[i].nombre;
+                                respuesta.data.bovino.categoria = respuesta.data.categorias[i].nombre;
                                 break;
                             }
                         }
                         for (var i = 0; i < respuesta.data.razas.length; i++) {
                             if (respuesta.data.razas[i].idRaza == respuesta.data.bovino.idRaza) {
-                                respuesta.data.bovino.idRaza = respuesta.data.razas[i].nombre;
+                                respuesta.data.bovino.raza = respuesta.data.razas[i].nombre;
                                 break;
                             }
                         }
                         for (var i = 0; i < respuesta.data.estados.length; i++) {
                             if (respuesta.data.estados[i].idEstado == respuesta.data.bovino.idEstado) {
-                                respuesta.data.bovino.idEstado = respuesta.data.estados[i].nombre;
+                                respuesta.data.bovino.estado = respuesta.data.estados[i].nombre;
                                 break;
                             }
                         }
@@ -71,7 +71,7 @@
     .service('bovinoServiceDB', function ($q, $rootScope, $localStorage) {
         this.getDatosBovino = function (id) {
             var bovino = $q(function (resolve, reject) {
-                $rootScope.db.executeSql("SELECT B.idBovino, B.numCaravana, B.apodo, B.descripcion, B.fechaNacimiento, B.genero, B.peso, B.fechaEstimadaParto, B.enfermo, C.nombre AS idCategoria, R.nombre AS idRaza, E.nombre AS idEstado FROM Bovino B JOIN Categoria C ON B.idCategoria = C.idCategoria JOIN Raza R ON B.idRaza = R.idRaza JOIN Estado E ON B.idEstado = E.idEstado WHERE idBovino=?", [id],
+                $rootScope.db.executeSql("SELECT B.idBovino, B.numCaravana, B.apodo, B.descripcion, B.fechaNacimiento, B.genero, B.peso, B.fechaEstimadaParto, B.enfermo, C.nombre AS categoria, R.nombre AS raza, E.nombre AS estado FROM Bovino B JOIN Categoria C ON B.idCategoria = C.idCategoria JOIN Raza R ON B.idRaza = R.idRaza JOIN Estado E ON B.idEstado = E.idEstado WHERE idBovino=?", [id],
                   function (resultado) {
                       resolve(resultado.rows.item(0));
                   },
@@ -88,7 +88,9 @@
             if (bovino.enfermo || bovino.enfermo == 1) {
                 enfermo = 1;
             }
-            $rootScope.db.executeSql("UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, fechaEstimadaParto=?, enfermo=?, paraActualizar=0 WHERE idBovino=?", [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.enfermo, bovino.idBovino]);
+            $rootScope.db.executeSql("DELETE FROM Bovino WHERE idBovino = ?", [bovino.idBovino]);
+            $rootScope.db.executeSql("INSERT OR REPLACE INTO Bovino(idBovino, numCaravana, apodo, descripcion, fechaNacimiento, genero, peso, pesoAlNacer, idCategoria, idRaza, idRodeo, idEstado, escrito, fechaEstimadaParto, enfermo, paraActualizar) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)", [bovino.idBovino, bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.enfermo]);
+            //$rootScope.db.executeSql("UPDATE Bovino SET numCaravana=?, apodo=?, descripcion=?, fechaNacimiento=?, genero=?, peso=?, pesoAlNacer=?, idCategoria=?, idRaza=?, idRodeo=?, idEstado=?, fechaEstimadaParto=?, enfermo=?, paraActualizar=0 WHERE idBovino=?", [bovino.numCaravana, bovino.apodo, bovino.descripcion, bovino.fechaNacimiento, genero, bovino.peso, bovino.pesoAlNacer, bovino.idCategoria, bovino.idRaza, bovino.idRodeo, bovino.idEstado, bovino.escrito, bovino.fechaEstimada, bovino.enfermo, bovino.idBovino]);
         }
 
         this.getBovinos = function () {
