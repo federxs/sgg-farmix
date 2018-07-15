@@ -127,6 +127,8 @@
                                     alert("Esta vaca no esta pre\u00F1ada");
                                 }
                             }
+                        } else {
+                            alert("El tag escaneado no se encuentra dentro de los animales registrados");
                         };
                     }).then($ionicLoading.hide).catch($ionicLoading.hide);
                 }

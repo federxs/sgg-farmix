@@ -156,7 +156,11 @@
                 var bovino;
                 return bovinoServiceHTTP.getDatosBovino(id, idCampo)
                     .then(function (respuesta) { bovino = respuesta; })
-                    .then(function () { bovinoServiceDB.actualizarDatosBovino(bovino); })
+                    .then(function () {
+                        if (bovino != null) {
+                            bovinoServiceDB.actualizarDatosBovino(bovino);
+                        }
+                    })
                     .then(function () { return bovino; });
             } else {
                 return bovinoServiceDB.getDatosBovino(id);
