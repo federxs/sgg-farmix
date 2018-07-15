@@ -12,6 +12,8 @@ angular.module('starter')
                     alert("Nacimiento registrado con \u00E9xito");
                     $rootScope.vacas = null;
                     $rootScope.idVacas = [];
+                    $rootScope.toros = null;
+                    $rootScope.idToros = [];
                     $state.go('app.inseminacionMenu');
                 }).then($ionicLoading.hide).catch($ionicLoading.hide);
             }

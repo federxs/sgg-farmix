@@ -13,13 +13,16 @@
                 <td><button ng-click="quitar(vaca.numCaravana)" ion-button class="botonVerificar">Quitar</button></td>
             </tr>
         </table><br>
+        <h4 ng-if="idToros[0] != '' && idToros[0] != undefined" >Toro padre</h4>
         <table ng-if="idToros[0] != '' && idToros[0] != undefined" class="bordeTabla">
             <tr>
-                <th>Toro padre</th>
+                <th>Número de Caravana</th>
+                <th>Apodo</th>
                 <th>Quitar</th>
             </tr>
             <tr class="itemTabla">
-                <td>{{idToros[0]}}</td>
+                <td>{{toros[0].numCaravana}}</td>
+                <td>{{toros[0].apodo}}</td>
                 <td><button ng-click="quitarToro()" ion-button class="botonVerificar">Quitar</button></td>
             </tr>
         </table>

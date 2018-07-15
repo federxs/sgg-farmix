@@ -20,7 +20,7 @@
         };
 
         this.actualizarRodeos = function (rodeos) {
-            var sqlStatments = [];
+            var sqlStatments = ["DELETE FROM Rodeo"];
             var confinado;
             rodeos.forEach(function (rodeo) {
                 if (rodeo.confinado) {

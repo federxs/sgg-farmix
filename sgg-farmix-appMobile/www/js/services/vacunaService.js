@@ -20,7 +20,7 @@
         };
 
         this.actualizarVacunas = function (vacunas) {
-            var sqlStatments = [];
+            var sqlStatments = [ "DELETE FROM Vacuna" ];
             vacunas.forEach(function (vacuna) {
                 sqlStatments.push(["INSERT OR REPLACE INTO Vacuna(idVacuna, nombre) VALUES(?, ?)", [vacuna.idVacuna, vacuna.nombre]]);
             });

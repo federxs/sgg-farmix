@@ -13,6 +13,9 @@
 
     .service('registrarEventoServiceDB', function ($q, $rootScope) {
         this.registrarEvento = function (evento) {
+            if(evento.idTipoEvento == 3){
+                evento.cantidad = 0;
+            }
             $rootScope.db.executeSql("INSERT OR IGNORE INTO Evento(fechaHora, cantidad, idTipoEvento, idVacuna, idAntibiotico, idAlimento, idRodeoDestino) VALUES(?, ?, ?, ?, ?, ?, ?)", [evento.fechaHora, evento.cantidad, evento.idTipoEvento, evento.idVacuna, evento.idAntibiotico, evento.idAlimento, evento.idRodeoDestino]);
             $rootScope.idVacas.forEach(function (vaca) {
                 $rootScope.db.executeSql("INSERT OR IGNORE INTO EventosXBovino(idEvento, idBovino) VALUES((SELECT last_insert_rowid() FROM EVENTO), ?)", [vaca]);
@@ -86,7 +89,7 @@
                                     evento = { idTipoEvento: evento.idTipoEvento, idAlimento: evento.idAlimento, cantidad: evento.cantidad, fechaHora: evento.fechaHora };
                                 }
                                 else if (evento.idTipoEvento == 3) {
-                                    evento = { idTipoEvento: evento.idTipoEvento, idRodeoDestino: evento.idRodeoDestino, fechaHora: evento.fechaHora };
+                                    evento = { idTipoEvento: evento.idTipoEvento, idCampoDestino: $localStorage.campo, idRodeoDestino: evento.idRodeoDestino, fechaHora: evento.fechaHora };
                                 }
                                 registrarEventoServiceHTTP.registrarEvento(evento);
                                 $rootScope.idVacas = [];

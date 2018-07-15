@@ -168,8 +168,11 @@
                 var bovinos;
                 return bovinoServiceHTTP.getBovinos(idCampo)
                     .then(function (respuesta) { bovinos = respuesta; })
-                    .then(function () { bovinoServiceDB.actualizarBovinos(bovinos); })
-                    .then(function () { return bovinos; });
+                    .then(function () {
+                        if (bovinos[0] != undefined)
+                        { bovinoServiceDB.actualizarBovinos(bovinos) };
+                    })
+            .then(function () { return bovinos; });
             } else {
                 return bovinoServiceDB.getBovinos();
             }

@@ -20,7 +20,7 @@
         };
 
         this.actualizarAntibioticos = function (antibioticos) {
-            var sqlStatments = [];
+            var sqlStatments = [ "DELETE FROM Antibiotico" ];
             antibioticos.forEach(function (antibiotico) {
                 sqlStatments.push(["INSERT OR REPLACE INTO Antibiotico(idAntibiotico, nombre) VALUES(?, ?)", [antibiotico.idAntibiotico, antibiotico.nombre]]);
             });

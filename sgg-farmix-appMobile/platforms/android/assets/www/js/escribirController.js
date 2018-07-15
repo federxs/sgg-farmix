@@ -1,5 +1,5 @@
 angular.module('starter')
-    .controller('EscribirController', function ($scope, $rootScope, $ionicLoading, bovinoService, $state, $localStorage) {       
+    .controller('EscribirController', function ($scope, $rootScope, $ionicLoading, bovinoService, $state, $localStorage) {
         if ($rootScope.logueado == false) {
             $state.go('app.bienvenido');
         }
@@ -19,14 +19,16 @@ angular.module('starter')
             showIonicLoading().then(getBovinos).then(function (_bovinos) {
                 $scope.bovinosEscritos = [];
                 $rootScope.bovinos = [];
-                for (var i = 0; i < _bovinos.length; i++) {
-                    if (_bovinos[i].escrito) {
-                        $scope.bovinosEscritos.push(_bovinos[i]);
-                    } else {
-                        $rootScope.bovinos.push(_bovinos[i]);
+                if (_bovinos[0] != undefined) {
+                    for (var i = 0; i < _bovinos.length; i++) {
+                        if (_bovinos[i].escrito) {
+                            $scope.bovinosEscritos.push(_bovinos[i]);
+                        } else {
+                            $rootScope.bovinos.push(_bovinos[i]);
+                        }
                     }
                 }
-				$scope.$broadcast('scroll.refreshComplete');
+                $scope.$broadcast('scroll.refreshComplete');
             }).then($ionicLoading.hide).catch($ionicLoading.hide);
         }
         function showIonicLoading() {
