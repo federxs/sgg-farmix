@@ -10,6 +10,7 @@
     function consultarConflictoController($scope, consultarConflictoService, toastr, $localStorage, $state, exportador, $stateParams, portalService) {
         var vm = $scope;
         window.scrollTo(0, 0);
+        $('.modal-backdrop').remove();
         vm.fechaDeHoy = new Date();
         $('#datetimepicker4').datetimepicker();
         $('#datetimepicker5').datetimepicker();
@@ -64,6 +65,7 @@
                     vm.disabledExportar = '';
                 }
                 $scope.$parent.unBlockSpinner();
+                $('.modal-backdrop').remove();
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);

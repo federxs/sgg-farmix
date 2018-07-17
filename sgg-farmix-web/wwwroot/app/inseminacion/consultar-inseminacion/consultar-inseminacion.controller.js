@@ -11,6 +11,7 @@
         var vm = $scope;
         //variables
         window.scrollTo(0, 0);
+        $('.modal-backdrop').remove();
         vm.showHembrasParaServicio = true;
         vm.showServiciosSinConfirm = false;
         vm.showHembrasPreniadas = false;
@@ -49,6 +50,7 @@
                 vm.init = data;
                 serviciosSinConfirmar();
                 proximosPartos();
+                $('.modal-backdrop').remove();
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);

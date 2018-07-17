@@ -10,6 +10,7 @@
     function consultarTrazabilidadController($scope, tipoEventoService, toastr, consultarTrazabilidadService, $state, exportador, $localStorage, portalService) {
         var vm = $scope;
         window.scrollTo(0, 0);
+        $('.modal-backdrop').remove();
         vm.disabled = 'disabled';
         vm.disabledExportar = 'disabled';
         vm.tipoEventoPopUp = '';
@@ -91,6 +92,7 @@
                     vm.disabledExportar = '';
                 }
                 $scope.$parent.unBlockSpinner();
+                $('.modal-backdrop').remove();
             }), function error(error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);

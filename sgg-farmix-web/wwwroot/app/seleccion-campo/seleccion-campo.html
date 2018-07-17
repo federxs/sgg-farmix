@@ -175,14 +175,21 @@
     </div>
     <div class="row">
         <div class="row__inner">
-            <div class="tile" ng-repeat="campo in campos" ng-click="seleccionarCampo(campo.codigoCampo)">
-                <div class="tile__media">
-                    <img class="tile__img" src="{{campo.imagenNombre}}" alt="" />
-                </div>
-                <div class="tile__details">
-                    <div class="tile__title">
-                        {{campo.nombre}}
+            <div class="tile" ng-repeat="campo in campos">
+                <div ng-click="seleccionarCampo(campo.codigoCampo)" title="Seleccionar este campo">
+                    <div class="tile__media">
+                        <img class="tile__img" src="{{campo.imagenNombre}}" alt="" />
                     </div>
+                    <div class="tile__details">
+                        <div class="tile__title">
+                            {{campo.nombre}}
+                        </div>
+                    </div>
+                </div>                
+                <div class="circuloEliminarCampo">
+                    <span ng-click="abrirModalEliminarCampo(campo.nombre, campo.codigoCampo)" title="Eliminar Campo">
+                        <span style="color:white;font-size:35px;vertical-align:middle;margin-top:0"><i class="fa fa-minus"></i></span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -212,6 +219,25 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" ng-click="cerrarSesion()">Si</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalEliminarCampo" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Atención</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro que desea <b>Eliminar</b> el campo "{{campoAEliminar}}" ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="eliminarCampo()">Si</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">No</button>
             </div>
         </div>

@@ -55,7 +55,26 @@ namespace sgg_farmix_acceso_datos.DAOs
 
         public void Delete(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>()
+                {
+                    {"@codigoCampo", id }
+                };
+                var delete = connection.Execute("spDeleteCampo", parametros, System.Data.CommandType.StoredProcedure);
+                if(delete == 0)
+                    throw new ArgumentException("DeleteCampoError");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
         }
 
         public IEnumerable<Campo> Get(Campo entity)

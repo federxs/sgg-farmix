@@ -10,6 +10,7 @@
     function consultarNacimientosController($scope, consultarNacimientosService, toastr, $localStorage, $state, exportador, $stateParams, consultarBovinoService, portalService) {
         var vm = $scope;
         window.scrollTo(0, 0);
+        $('.modal-backdrop').remove();
         vm.fechaDeHoy = new Date();
         $('#datetimepicker4').datetimepicker();
         $('#datetimepicker5').datetimepicker();
@@ -67,6 +68,7 @@
                     if (vm.filtro.numCaravanaPadre === 0) vm.filtro.numCaravanaPadre = '';
                 }
                 $scope.$parent.unBlockSpinner();
+                $('.modal-backdrop').remove();
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);

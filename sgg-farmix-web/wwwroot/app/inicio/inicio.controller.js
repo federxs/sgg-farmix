@@ -9,6 +9,7 @@
 
     function inicioController($scope, inicioService, toastr, $localStorage, $state, $timeout) {
         window.scrollTo(0, 0);
+        $('.modal-backdrop').remove();
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
         $scope.irAConflictos = irAConflictos;
@@ -37,6 +38,7 @@
                            $scope.inconsistencias = data.inconsistencias;
                            $('#modalInconsistencias').modal('show');
                        }
+                       $('.modal-backdrop').remove();
                    }, function error(error) {
                        $scope.$parent.errorServicio(error.statusText);
                    });

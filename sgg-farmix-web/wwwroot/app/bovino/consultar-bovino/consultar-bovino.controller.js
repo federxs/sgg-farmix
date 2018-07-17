@@ -10,6 +10,7 @@
     function consultarBovinoController($scope, consultarBovinoService, toastr, exportador, $localStorage, $state, portalService) {
         var vm = $scope;
         window.scrollTo(0, 0);
+        $('.modal-backdrop').remove();
         vm.disabled = 'disabled';
         vm.disabledExportar = 'disabled';
         //funciones
@@ -84,6 +85,7 @@
                     vm.disabledExportar = '';
                 }
                 $scope.$parent.unBlockSpinner();
+                $('.modal-backdrop').remove();
             }, function (error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);

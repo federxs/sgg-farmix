@@ -10,6 +10,7 @@
     function consultarUsuariosController($scope, consultarUsuariosService, toastr, exportador, $localStorage, $state, usuarioInfo, portalService, $sessionStorage) {
         var vm = $scope;
         window.scrollTo(0, 0);
+        $('.modal-backdrop').remove();
         vm.deshabilitar = false;
         vm.disabledExportar = 'disabled';
         var idUsuarioEliminar = 0;
@@ -64,7 +65,8 @@
                     vm.deshabilitar = false;
                     vm.disabledExportar = '';
                 }
-                $scope.$parent.unBlockSpinner();        
+                $scope.$parent.unBlockSpinner();
+                $('.modal-backdrop').remove();
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);

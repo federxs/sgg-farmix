@@ -18,6 +18,7 @@
         $scope.noCoincidenPass = false;
         $scope.ano = new Date().getFullYear();
         $localStorage.usuarioInfo.periodoConsulta = $scope.ano;
+        $('.modal-backdrop').remove();
 
         //Redimenciona el tamaño del body
         var body = document.body;
@@ -200,6 +201,7 @@
                 $localStorage.usuarioInfo.campoNombre = $scope.usuarioInfo.campo;
                 $scope.usuarioInfo.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.usuarioInfo.usuarioImagen + "?cache=" + (new Date()).getTime();
                 spinnerBar.hide();
+                $('.modal-backdrop').remove();
             }, function (error) {
                 spinnerBar.hide();
                 $scope.errorServicio(error.statusText);
