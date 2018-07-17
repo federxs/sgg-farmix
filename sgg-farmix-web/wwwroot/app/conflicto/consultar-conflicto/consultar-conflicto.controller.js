@@ -75,75 +75,32 @@
         };
 
         function exportarExcel() {
-            var filtro = [];
-            filtro.Titulos = [];
-            filtro.Titulos[0] = 'Tipo de Conflicto';
-            filtro.Titulos[1] = 'Estado';
-            filtro.Titulos[2] = 'Fecha Desde';
-            filtro.Titulos[3] = 'Fecha Hasta';
-
-            var titulos = [];
-            titulos[0] = "Tipo de Conflicto";
-            titulos[1] = "Fecha";
-            titulos[2] = "Estado";
-
-            var propiedades = [];
-            propiedades[0] = "tipo";
-            propiedades[1] = "fecha";
-            propiedades[2] = "estado";
-
-            if (vm.rowCollection.length > 0) {
-                var i = 0;
-                for (var property in vm.filtro) {
-                    var type = typeof vm.filtro[property];
-                    if ((vm.filtro[property] === null || type !== "object") && property !== "$resolved" && type !== "function" && property !== "codigoCampo") {
-                        if (property === "tipo") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else if (vm.filtro[property] === '1') {
-                                filtro[i] = 'Evento';
-                                i += 1;
-                            }
-                            else {
-                                filtro[i] = 'Inseminación';
-                                i += 1;
-                            }
-                        }
-                        else if (property === "estado") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else if (vm.filtro[property] === '1') {
-                                filtro[i] = 'Solucionado';
-                                i += 1;
-                            }
-                            else {
-                                filtro[i] = 'Pendiente';
-                                i += 1;
-                            }
-                        }
-                        else {
-                            filtro[i] = $scope.filtro[property];
-                            i += 1;
-                        }
-                    }
-                }
-                if (vm.filtro.fechaDesde === undefined)
-                    filtro[filtro.length] = '';
-                if (vm.filtro.fechaHasta === undefined)
-                    filtro[filtro.length] = '';
-                var fecha = new Date();
-                fecha = convertirFecha(fecha);
-                exportador.exportarExcel('Conflictos' + fecha, vm.rowCollection, titulos, filtro, propiedades, 'Conflictos', function () {
-                    toastr.success("Se ha exportado con Éxito", "ÉXITO");
-                }, function (error) {
-                    vm.showSpinner = false;
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
-                });
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            if (vm.filtro.fechaDesde) {
+                if (typeof vm.filtro.fechaDesde === "string")
+                    vm.filtro.fechaDesde = new Date(vm.filtro.fechaDesde.split('/')[2], (parseInt(vm.filtro.fechaDesde.split('/')[1]) - 1).toString(), vm.filtro.fechaDesde.split('/')[0]);
+                vm.filtro.fechaDesde = convertirFecha(vm.filtro.fechaDesde);
             }
+            if (vm.filtro.fechaHasta) {
+                if (typeof vm.filtro.fechaHasta === "string")
+                    vm.filtro.fechaHasta = new Date(vm.filtro.fechaHasta.split('/')[2], (parseInt(vm.filtro.fechaHasta.split('/')[1]) - 1).toString(), vm.filtro.fechaHasta.split('/')[0]);
+                vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
+            }
+            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            consultarConflictoService.generarExcel({'filtro': angular.toJson(vm.filtro, false)}, function (data) {
+                var path = data.nombre;
+                var link = document.createElement("a");
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    window.open(portalService.getUrlServer() + '\\Archivos\\' + path);
+                });
+                $(link).click();
+                toastr.success('Excel generado con Éxito!', 'Éxito');
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+            }, function error(error) {
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+                $scope.$parent.errorServicio(error.statusText);
+            });
         };
 
         function exportarPDF() {

@@ -14,7 +14,9 @@
             consultarPreniadasXParir: consultarPreniadasXParir,
             eliminarInseminacion: eliminarInseminacion,
             generarPDFServSinConfirmar: generarPDFServSinConfirmar,
-            generarPDFPreniadas: generarPDFPreniadas
+            generarExcelServSinConfirmar: generarExcelServSinConfirmar,
+            generarPDFPreniadas: generarPDFPreniadas,
+            generarExcelPreniadas: generarExcelPreniadas
         };
 
         return service;
@@ -90,11 +92,11 @@
             });
         }
 
-        function generarPDFServSinConfirmar(campo, codigoCampo, periodo, rango) {
+        function generarPDFServSinConfirmar(campo, codigoCampo, rango) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/ExportarServSinConfirmarPDF',
-                params: { campo: campo, codigoCampo: codigoCampo, periodo: periodo, rango: rango },
+                params: { campo: campo, codigoCampo: codigoCampo, rango: rango },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {
@@ -106,6 +108,30 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/ExportarPreniadasPDF',
+                params: { campo: campo, codigoCampo: codigoCampo, periodo: periodo, rango: rango },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function generarExcelServSinConfirmar(campo, codigoCampo, rango) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Inseminacion/ExportarServSinConfirmarExcel',
+                params: { campo: campo, codigoCampo: codigoCampo, rango: rango },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function generarExcelPreniadas(campo, codigoCampo, periodo, rango) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Inseminacion/ExportarPreniadasExcel',
                 params: { campo: campo, codigoCampo: codigoCampo, periodo: periodo, rango: rango },
                 headers: portalService.getHeadersServer()
             }).then(

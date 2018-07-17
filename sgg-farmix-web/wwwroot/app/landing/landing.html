@@ -24,10 +24,10 @@
     </nav>
 
     <!-- Navbar -->
-    <div class="w3-top">
+    <div class="w3-top" id="arriba">
         <div class="w3-bar w3-theme-d2 w3-left-align">
             <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2" href="javascript:void(0);" onclick="openNav()"><i class="fa fa-bars"></i></a>
-            <a href="#" class="w3-bar-item w3-button w3-teal"><i class="fa fa-home w3-margin-right"></i>Logo</a>
+            <a class="w3-bar-item w3-button w3-teal" ng-click="irArriba()"><i class="fa fa-home w3-margin-right"></i>Farmix</a>
             <a ng-click="irAEquipo()" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Equipo</a>
             <a ng-click="irAFuncionalidades()" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Funcionalidades</a>
             <a ng-click="irAPlanes()" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Planes</a>
@@ -149,10 +149,10 @@
     </div>
 
     <!-- Container -->
-    <div class="w3-container" style="position:relative">
+    <!--<div class="w3-container" style="position:relative">
         <a onclick="w3_open()" class="w3-button w3-xlarge w3-circle w3-teal"
            style="position:absolute;top:-28px;right:24px">+</a>
-    </div>
+    </div>-->
 
     <!-- Pricing Row -->
     <div class="w3-row-padding w3-center w3-padding-64 w3-theme-l4" id="pricing">
@@ -171,7 +171,7 @@
                     <span class="w3-opacity">mensuales</span>
                 </li>
                 <li class="w3-theme-l5 w3-padding-24">
-                    <button class="w3-button w3-teal w3-padding-large"><i class="fa fa-check"></i> Obtener</button>
+                    <button class="w3-button w3-teal w3-padding-large" ng-click="irAContacto()"><i class="fa fa-check"></i> Obtener</button>
                 </li>
             </ul>
         </div>
@@ -189,7 +189,7 @@
                     <span class="w3-opacity">mensuales</span>
                 </li>
                 <li class="w3-theme-l5 w3-padding-24">
-                    <button class="w3-button w3-teal w3-padding-large"><i class="fa fa-check"></i> Obtener</button>
+                    <button class="w3-button w3-teal w3-padding-large" ng-click="irAContacto()"><i class="fa fa-check"></i> Obtener</button>
                 </li>
             </ul>
         </div>
@@ -207,7 +207,7 @@
                     <span class="w3-opacity">mensuales</span>
                 </li>
                 <li class="w3-theme-l5 w3-padding-24">
-                    <button class="w3-button w3-teal w3-padding-large"><i class="fa fa-check"></i> Obtener</button>
+                    <button class="w3-button w3-teal w3-padding-large" ng-click="irAContacto()"><i class="fa fa-check"></i> Obtener</button>
                 </li>
             </ul>
         </div>
@@ -236,29 +236,28 @@
                 <form class="w3-container w3-card-4 w3-padding-16 w3-white" target="_blank">
                     <div class="w3-section">
                         <label>Nombre</label>
-                        <input class="w3-input" type="text" name="Name" required>
+                        <input class="w3-input" type="text" name="Name" ng-model="name" required>
                     </div>
                     <div class="w3-section">
                         <label>Correo Electrónico</label>
-                        <input class="w3-input" type="text" name="Email" required>
+                        <input class="w3-input" type="email" name="Email" ng-model="email" required>
                     </div>
                     <div class="w3-section">
                         <label>Mensaje</label>
-                        <input class="w3-input" type="text" name="Message" required>
+                        <input class="w3-input" type="text" name="Message" ng-model="mensaje" required>
                     </div>
-                    <button type="submit" class="w3-button w3-right w3-theme">Enviar</button>
+                    <button type="submit" class="w3-button w3-right w3-theme" ng-click="enviarCorreo()" ng-disabled="!name || !email || !mensaje">Enviar</button>
                 </form>
             </div>
         </div>
     </div>
 
-
     <footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
-        <p>Farmix 2018 v1.0</p>
+        <p>Farmix 2018 v2.0</p>
 
         <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
             <span class="w3-text w3-padding w3-teal w3-hide-small">Ir arriba</span>
-            <a class="w3-button w3-theme" href="#myPage">
+            <a class="w3-button w3-theme" ng-click="irArriba()">
                 <span class="w3-xlarge">
                     <i class="fa fa-chevron-circle-up"></i>
                 </span>

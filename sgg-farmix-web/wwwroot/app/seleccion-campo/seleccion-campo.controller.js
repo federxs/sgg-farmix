@@ -33,7 +33,7 @@
                            toastr.error('Lo sentimos, su sesión ha caducado', 'Sesión caducada');
                            vm.cerrarSesion();
                        }
-                       else if (error.statusText === 'No_Token') {
+                       else if (error.statusText === 'Not Found') {
                            usuarioInfo.set(null);
                            $state.go('login');
                        }

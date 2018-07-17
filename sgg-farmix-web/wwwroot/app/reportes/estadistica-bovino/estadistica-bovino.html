@@ -19,7 +19,7 @@
                     <div>
                         <h4>Toro más pesado</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaToroMasPesado}}</h4>
-                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idToroMasPesado, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" style="color: white;" ng-disabled="obj.inicio.caravanaToroMasPesado" ui-sref="home.detalleBovino({id: obj.inicio.idToroMasPesado, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     <div>
                         <h4>Vaca más pesada</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaVacaMasPesada}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idVacaMasPesada, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaVacaMasPesada" ui-sref="home.detalleBovino({id: obj.inicio.idVacaMasPesada, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                     <div>
                         <h4>Bovino más jóven</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasJoven}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasJoven, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaBovinoMasJoven" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasJoven, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                     <div>
                         <h4>Bovino mas nuevo del sistema</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasNuevo}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasNuevo, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaBovinoMasNuevo" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasNuevo, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                     <div>
                         <h4>Toro más liviano</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaToroMasLiviano}}</h4>
-                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idToroMasLiviano, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaToroMasLiviano" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idToroMasLiviano, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                     <div>
                         <h4>Vaca más liviana</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaVacaMasLiviana}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idVacaMasLiviana, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaVacaMasLiviana" ui-sref="home.detalleBovino({id: obj.inicio.idVacaMasLiviana, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@
                     <div>
                         <h4>Bovino más viejo</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasViejo}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasViejo, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaBovinoMasViejo" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasViejo, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                     <div>
                         <h4>Bovino mas viejo del sistema</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasViejoSist}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasViejoSist, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaBovinoMasViejoSists" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasViejoSist, proviene: 'EstadisticaBovino'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>

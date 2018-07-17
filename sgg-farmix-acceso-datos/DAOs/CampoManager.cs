@@ -342,5 +342,57 @@ namespace sgg_farmix_acceso_datos.DAOs
                 writer = null;
             }
         }
+
+        public Documento NacimientosExportarExcel(NacimientoFilter filter)
+        {
+            SLExcelData data = new SLExcelData();
+            try
+            {
+                data.HeadersFiltro = new List<string>();
+                data.HeadersFiltro.Add("Caravana Madre");
+                data.HeadersFiltro.Add("Caravana Padre");
+                data.HeadersFiltro.Add("Fecha desde");
+                data.HeadersFiltro.Add("Fecha hasta");
+
+                List<string> rowFiltro = new List<string>();
+                if (filter.numCaravanaMadre != 0)
+                    rowFiltro.Add(filter.numCaravanaMadre.ToString());
+                else rowFiltro.Add("Sin datos");
+                if (filter.numCaravanaPadre != 0)
+                    rowFiltro.Add(filter.numCaravanaPadre.ToString());
+                else rowFiltro.Add("Sin datos");
+                if (filter.fechaDesde != null) rowFiltro.Add(filter.fechaDesde);
+                else rowFiltro.Add("Sin datos");
+                if (filter.fechaHasta != null) rowFiltro.Add(filter.fechaHasta);
+                else rowFiltro.Add("Sin datos");
+                data.DataRowsFiltro = new List<List<string>>();
+                data.DataRowsFiltro.Add(rowFiltro);
+
+                var lista = GetNacimientos(filter);
+                data.Headers.Add("Caravana Madre");
+                data.Headers.Add("Caravana Padre");
+                data.Headers.Add("Fecha Nacimiento");
+
+                foreach (var item in lista)
+                {
+                    List<string> row = new List<string>() {
+                        item.numCaravanaMadre,
+                        item.numCaravanaPadre,
+                        item.fechaNacimiento
+                    };
+                    data.DataRows.Add(row);
+                }
+                var archivo = StaticFunctions.GenerateExcel(data, "Nacimientos", filter.campo);
+                return new Documento() { nombre = archivo };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
     }
 }

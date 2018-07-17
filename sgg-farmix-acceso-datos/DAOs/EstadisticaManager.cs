@@ -119,7 +119,34 @@ namespace sgg_farmix_acceso_datos.DAOs
                 obj.hijosXToro = connection.GetArray<EstadisticaHijosPorBovino>("spReporteInseminacionTorosMasHijos", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.hijosXVaca = connection.GetArray<EstadisticaHijosPorBovino>("spReporteInseminacionVacasMasHijos", parametros, System.Data.CommandType.StoredProcedure).ToList();
                 obj.abortosXVaca = connection.GetArray<EstadisticaAbortosPorVaca>("spReporteInseminacionVacasMasAbortos", parametros, System.Data.CommandType.StoredProcedure).ToList();
-                obj.inicio = connection.GetArray<EstadisticaInseminacionInicio>("spGetInicioEstadisticaInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                obj.inicio = new EstadisticaInseminacionInicio();
+                parametros.Add("@i", 0);
+                for (int i = 1; i <= 6; i++)
+                {
+                    parametros["@i"] = i;
+                    switch (i)
+                    {
+                        case 1:
+                            obj.inicio.cuadro1 = connection.GetArray<Cuadro1EstadisticaInseminacion>("spGetInicioEstadisticaInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                            break;
+                        case 2:
+                            obj.inicio.cuadro2 = connection.GetArray<Cuadro2EstadisticaInseminacion>("spGetInicioEstadisticaInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                            break;
+                        case 3:
+                            obj.inicio.cuadro3 = connection.GetArray<Cuadro3EstadisticaInseminacion>("spGetInicioEstadisticaInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                            break;
+                        case 4:
+                            obj.inicio.cuadro4 = connection.GetArray<Cuadro4EstadisticaInseminacion>("spGetInicioEstadisticaInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                            break;
+                        case 5:
+                            obj.inicio.cuadro5 = connection.GetArray<Cuadro5EstadisticaInseminacion>("spGetInicioEstadisticaInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                            break;
+                        case 6:
+                            obj.inicio.cuadro6 = connection.GetArray<Cuadro6EstadisticaInseminacion>("spGetInicioEstadisticaInseminacion", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                            break;
+                    }
+                    
+                }                
                 return obj;
             }
             catch (Exception ex)

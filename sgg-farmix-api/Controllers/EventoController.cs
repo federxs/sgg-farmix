@@ -214,5 +214,25 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Evento/ExportarEventosExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarEventosExcel(string filtro)
+        {
+            try
+            {
+                var filtroDesearizado = JsonConvert.DeserializeObject<EventoFilter>(filtro);
+                return EM.EventosExportarExcel(filtroDesearizado);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

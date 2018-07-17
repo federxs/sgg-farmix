@@ -11,7 +11,8 @@
         var service = {
             getListaEventos: getListaEventos,
             eliminarEvento: eliminarEvento,
-            generarPDF: generarPDF
+            generarPDF: generarPDF,
+            generarExcel: generarExcel
         };
 
         function getListaEventos(filtro) {
@@ -42,6 +43,18 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Evento/ExportarEventosPDF',
+                params: { filtro: filtro },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function generarExcel(filtro) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Evento/ExportarEventosExcel',
                 params: { filtro: filtro },
                 headers: portalService.getHeadersServer()
             }).then(

@@ -364,7 +364,7 @@ namespace sgg_farmix_helper
             UInt32 rowIdex = 0;
             var row = new Row { RowIndex = ++rowIdex };
             sheetData.AppendChild(row);
-            var cellIdex = 0;
+            var cellIdex = 0;           
 
             foreach (var header in data.Headers)
             {
@@ -399,6 +399,36 @@ namespace sgg_farmix_helper
                     SetBorderAndFillBody(workbookpart, worksheetPart, cell.CellReference);
                 }
             }
+
+            if (data.HeadersFiltro != null)
+            {
+                row = new Row { RowIndex = rowIdex + 2};
+                sheetData.AppendChild(row);
+                rowIdex += 2;
+                cellIdex = 0;
+                foreach (var header in data.HeadersFiltro)
+                {
+                    var cell = CreateTextCell(ColumnLetter(cellIdex++),
+                        rowIdex, header ?? string.Empty);
+                    row.AppendChild(cell);
+                    SetBorderAndFillHeader(workbookpart, worksheetPart, cell.CellReference);
+                }
+
+                foreach (var rowData in data.DataRowsFiltro)
+                {
+                    cellIdex = 0;
+                    row = new Row { RowIndex = ++rowIdex };
+                    sheetData.AppendChild(row);
+                    foreach (var callData in rowData)
+                    {
+                        var cell = CreateTextCell(ColumnLetter(cellIdex++),
+                            rowIdex, callData ?? string.Empty);
+                        row.AppendChild(cell);
+                        SetBorderAndFillBody(workbookpart, worksheetPart, cell.CellReference);
+                    }
+                }
+            }
+
 
             workbookpart.Workbook.Save();
             document.Close();

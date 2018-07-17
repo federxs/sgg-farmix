@@ -13,6 +13,8 @@ namespace sgg_farmix_helper
         public Columns ColumnConfigurations { get; set; }
         public List<string> Headers { get; set; }
         public List<List<string>> DataRows { get; set; }
+        public List<string> HeadersFiltro { get; set; }
+        public List<List<string>> DataRowsFiltro { get; set; }
         public string SheetName { get; set; }
 
         public SLExcelData()

@@ -94,5 +94,25 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Inconsistencia/ExportarExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarInconsistenciasExcel(string filtro)
+        {
+            try
+            {
+                var filtroDesearizado = JsonConvert.DeserializeObject<InconsistenciaFilter>(filtro);
+                return IM.InconsistenciasExportarExcel(filtroDesearizado);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

@@ -943,5 +943,82 @@ namespace sgg_farmix_acceso_datos.DAOs
                 writer = null;
             }
         }
+
+        public Documento BovinosExportarExcel(BovinoFilter filter)
+        {
+            SLExcelData data = new SLExcelData();
+            try
+            {
+                var filtro = ObtenerDatosFiltro(filter);
+                data.HeadersFiltro = new List<string>();
+                data.HeadersFiltro.Add("Caravana");
+                data.HeadersFiltro.Add("Categoría");
+                data.HeadersFiltro.Add("Sexo");
+                data.HeadersFiltro.Add("Raza");
+                data.HeadersFiltro.Add("Estado");
+                data.HeadersFiltro.Add("Peso");
+                data.HeadersFiltro.Add("Acción Peso");
+
+                List<string> rowFiltro = new List<string>();
+                if (filter.numCaravana != 0)
+                    rowFiltro.Add(filter.numCaravana.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                if(filtro.categoria != "") rowFiltro.Add(filtro.categoria);
+                else rowFiltro.Add("Sin datos");
+                if (filter.genero == 0) rowFiltro.Add("Hembra");
+                else if(filter.genero == 1) rowFiltro.Add("Macho");
+                else rowFiltro.Add("Sin datos");
+                if (filtro.raza != "") rowFiltro.Add(filtro.raza);
+                else rowFiltro.Add("Sin datos");
+                if (filtro.estado != "") rowFiltro.Add(filtro.estado);
+                else rowFiltro.Add("Sin datos");
+                if (filter.peso != 0)
+                    rowFiltro.Add(filter.peso.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filter.accionPeso == "mayor")
+                    rowFiltro.Add("Mayor que");
+                else if(filter.accionPeso == "menor")
+                    rowFiltro.Add("Menor que");
+                else
+                    rowFiltro.Add("Sin datos");
+                data.DataRowsFiltro = new List<List<string>>();
+                data.DataRowsFiltro.Add(rowFiltro);
+
+                var lista = GetList(filter);
+                data.Headers.Add("Caravana");
+                data.Headers.Add("Categoría");
+                data.Headers.Add("Sexo");
+                data.Headers.Add("Raza");
+                data.Headers.Add("Rodeo");
+                data.Headers.Add("Estado");
+                data.Headers.Add("Peso (Kg)");
+
+                foreach (var item in lista)
+                {
+                    List<string> row = new List<string>() {
+                        item.numCaravana.ToString(),
+                        item.categoriaNombre,
+                        item.sexo,
+                        item.razaNombre,
+                        item.rodeoNombre,
+                        item.estadoNombre,
+                        item.peso.ToString(),
+                    };
+                    data.DataRows.Add(row);
+                }
+                var archivo = StaticFunctions.GenerateExcel(data, "Bovinos", filter.campo);
+                return new Documento() { nombre = archivo };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
     }
 }

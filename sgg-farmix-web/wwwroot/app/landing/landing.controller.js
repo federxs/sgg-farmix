@@ -5,9 +5,9 @@
         .module('app')
         .controller('landingController', landingController);
 
-    landingController.$inject = ['$scope', 'NgMap', '$location', '$anchorScroll'];
+    landingController.$inject = ['$scope', 'NgMap', '$location', '$anchorScroll', 'toastr'];
 
-    function landingController($scope, NgMap, $location, $anchorScroll) {
+    function landingController($scope, NgMap, $location, $anchorScroll, toastr) {
 
         $('.modal-backdrop').remove();
         window.scrollTo(0, 0);
@@ -16,6 +16,8 @@
         $scope.irAContacto = irAContacto;
         $scope.irAFuncionalidades = irAFuncionalidades;
         $scope.irAPlanes = irAPlanes;
+        $scope.enviarCorreo = enviarCorreo;
+        $scope.irArriba = irArriba;
 
         $scope.title = 'controller';
         NgMap.getMap().then(function (map) {
@@ -47,6 +49,14 @@
         function irAContacto() {
             $location.hash('contact');
             $anchorScroll();
+        };
+
+        function irArriba() {
+            window.scrollTo(0, 0);
+        };
+
+        function enviarCorreo() {
+            toastr.success('Su consulta ha sido enviada', 'Éxito');
         };
     }
     })();

@@ -1137,7 +1137,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ServiciosSinConfimarExportarPDF(string campo, long codigoCampo, string periodo, long rango)
+        public Documento ServiciosSinConfimarExportarPDF(string campo, long codigoCampo, long rango)
         {
             FileStream fs;
             Document doc = null;
@@ -1170,7 +1170,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
                 doc.Add(new Paragraph(" "));
                 //Inicio datos
-                var lista = GetServiciosSinConfirmar(codigoCampo, periodo);
+                var lista = GetInseminacionesXFechaInsem(codigoCampo);
                 List<ServSinConfirmar> aux = new List<ServSinConfirmar>();
                 DateTime fechaInseminacion, fechaHoy = DateTime.Now;
                 for (int i = 0; i < lista.Count(); i++)
@@ -1367,6 +1367,94 @@ namespace sgg_farmix_acceso_datos.DAOs
                 fs = null;
                 doc = null;
                 writer = null;
+            }
+        }
+
+        public Documento ServiciosSinConfimarExportarExcel(string campo, long codigoCampo, long rango)
+        {
+            SLExcelData data = new SLExcelData();
+            try
+            {                
+                var lista = GetInseminacionesXFechaInsem(codigoCampo);
+                List<ServSinConfirmar> aux = new List<ServSinConfirmar>();
+                DateTime fechaInseminacion, fechaHoy = DateTime.Now;
+                for (int i = 0; i < lista.Count(); i++)
+                {
+                    fechaInseminacion = new DateTime(int.Parse(lista.ElementAt(i).fechaInseminacion.Split('/')[2]), int.Parse(lista.ElementAt(i).fechaInseminacion.Split('/')[1]), int.Parse(lista.ElementAt(i).fechaInseminacion.Split('/')[0]));
+                    if (((fechaHoy - fechaInseminacion).Days < rango && rango == 60) ||
+                        ((fechaHoy - fechaInseminacion).Days < 90 && (fechaHoy - fechaInseminacion).Days >= 60 && rango == 6090) ||
+                        ((fechaHoy - fechaInseminacion).Days > rango && rango == 90))
+                        aux.Add(lista.ElementAt(i));
+                }
+                data.Headers.Add("Tipo Inseminación");
+                data.Headers.Add("Fecha Inseminación");
+                data.Headers.Add("Cant. vacas que participaron");
+                data.Headers.Add("Cant. de toros que participaron");
+
+                foreach (var item in aux)
+                {
+                    List<string> row = new List<string>()
+                    {
+                        item.tipoInseminacion,
+                        item.fechaInseminacion,
+                        item.cantidadVacas.ToString(),
+                        item.cantidadToros.ToString()
+                    };
+                    data.DataRows.Add(row);
+                }
+                var archivo = StaticFunctions.GenerateExcel(data, "ServiciosSinConfirmar", campo);
+                return new Documento() { nombre = archivo };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public Documento PreniadasExportarExcel(string campo, long codigoCampo, string periodo, long rango)
+        {
+            SLExcelData data = new SLExcelData();
+            try
+            {
+                var lista = GetPreniadasPorParir(codigoCampo, periodo);
+                List<PreniadasXParir> aux = new List<PreniadasXParir>();
+                DateTime fechaParto, fechaHoy = DateTime.Now;
+                for (int i = 0; i < lista.Count(); i++)
+                {
+                    fechaParto = new DateTime(int.Parse(lista.ElementAt(i).fechaEstimadaParto.Split('/')[2]), int.Parse(lista.ElementAt(i).fechaEstimadaParto.Split('/')[1]), int.Parse(lista.ElementAt(i).fechaEstimadaParto.Split('/')[0]));
+                    if (((fechaParto - fechaHoy).Days < rango && rango == 10) ||
+                        ((fechaParto - fechaHoy).Days < 30 && (fechaParto - fechaHoy).Days >= 10 && rango == 1030) ||
+                        ((fechaParto - fechaHoy).Days < 60 && (fechaParto - fechaHoy).Days >= 30 && rango == 3060))
+                        aux.Add(lista.ElementAt(i));
+                }
+                data.Headers.Add("Tipo Inseminación");
+                data.Headers.Add("Fecha Inseminación");
+                data.Headers.Add("Fecha Parto");
+
+                foreach (var item in aux)
+                {
+                    List<string> row = new List<string>()
+                    {
+                        item.tipoInseminacion,
+                        item.fechaInseminacion,
+                        item.fechaEstimadaParto.ToString()
+                    };
+                    data.DataRows.Add(row);
+                }
+                var archivo = StaticFunctions.GenerateExcel(data, "Preñadas", campo);
+                return new Documento() { nombre = archivo };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
             }
         }
     }

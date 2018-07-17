@@ -14,7 +14,8 @@
             darBajaUser: darBajaUser,
             activarUser: activarUser,
             validarCantidadUsuariosPlan: validarCantidadUsuariosPlan,
-            generarPDF: generarPDF
+            generarPDF: generarPDF,
+            generarExcel: generarExcel
         };
 
         function inicializar() {
@@ -80,6 +81,18 @@
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Usuario/ExportarUsuariosPDF',
+                params: { filtro: filtro },
+                headers: portalService.getHeadersServer()
+            }).then(
+            function (data) {
+                return data.data || [];
+            });
+        }
+
+        function generarExcel(filtro) {
+            return $http({
+                method: 'GET',
+                url: portalService.getUrlServer() + 'api/Usuario/ExportarUsuariosExcel',
                 params: { filtro: filtro },
                 headers: portalService.getHeadersServer()
             }).then(

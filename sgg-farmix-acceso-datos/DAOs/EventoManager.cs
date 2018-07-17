@@ -300,7 +300,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     }
                     for (int i = 0; i < lista.Count; i++)
                     {
-                        parametrosDetalle["@idBovino"] = lista.ElementAt(i);                        
+                        parametrosDetalle["@idBovino"] = lista.ElementAt(i);
                         insertDetalle = connection.Execute("spRegistrarEventosXBovino", parametrosDetalle, System.Data.CommandType.StoredProcedure, transaction);
                         if (insertDetalle == 0)
                             throw new ArgumentException("Update EventosXBovino Error");
@@ -364,15 +364,15 @@ namespace sgg_farmix_acceso_datos.DAOs
                         {
                             if (lista.ElementAt(j).tipoEvento == lista.ElementAt(i).tipoEvento)
                             {
-                                fechaSiguiente = new DateTime(int.Parse(lista.ElementAt(i).fechaHora.Split('/')[2].Substring(0,4)), int.Parse(lista.ElementAt(i).fechaHora.Split('/')[1]), int.Parse(lista.ElementAt(i).fechaHora.Split('/')[0]));
-                                fechaAnterior = new DateTime(int.Parse(lista.ElementAt(j).fechaHora.Split('/')[2].Substring(0,4)), int.Parse(lista.ElementAt(j).fechaHora.Split('/')[1]), int.Parse(lista.ElementAt(j).fechaHora.Split('/')[0]));
+                                fechaSiguiente = new DateTime(int.Parse(lista.ElementAt(i).fechaHora.Split('/')[2].Substring(0, 4)), int.Parse(lista.ElementAt(i).fechaHora.Split('/')[1]), int.Parse(lista.ElementAt(i).fechaHora.Split('/')[0]));
+                                fechaAnterior = new DateTime(int.Parse(lista.ElementAt(j).fechaHora.Split('/')[2].Substring(0, 4)), int.Parse(lista.ElementAt(j).fechaHora.Split('/')[1]), int.Parse(lista.ElementAt(j).fechaHora.Split('/')[0]));
                                 lista.ElementAt(i).duracion = (fechaSiguiente - fechaAnterior).Days;
                                 break;
                             }
                         }
                     }
                     else
-                        lista.ElementAt(i).duracion = 1;            
+                        lista.ElementAt(i).duracion = 1;
                 }
                 return lista.ToList();
             }
@@ -520,7 +520,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                         item.caravanas
                     };
                     data.DataRows.Add(row);
-                }                
+                }
                 var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesEventos");
                 return new Documento() { nombre = archivo };
             }
@@ -617,7 +617,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                                 break;
                         }
                     }
-                   
+
                     html = @"
                             <html><head></head><body>
                             <table>
@@ -689,6 +689,74 @@ namespace sgg_farmix_acceso_datos.DAOs
                 fs = null;
                 doc = null;
                 writer = null;
+            }
+        }
+
+        public Documento EventosExportarExcel(EventoFilter filter)
+        {
+            SLExcelData data = new SLExcelData();
+            try
+            {
+                data.HeadersFiltro = new List<string>();
+                data.HeadersFiltro.Add("Caravana");
+                data.HeadersFiltro.Add("Tipo Evento");
+                data.HeadersFiltro.Add("Fecha Desde");
+                data.HeadersFiltro.Add("Fecha hasta");
+
+                List<string> rowFiltro = new List<string>();
+                if (filter.numCaravana != 0)
+                    rowFiltro.Add(filter.numCaravana.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                switch (filter.idTipoEvento)
+                {
+                    case 1:
+                        rowFiltro.Add("Vacunación");
+                        break;
+                    case 2:
+                        rowFiltro.Add("Antibiótico");
+                        break;
+                    case 3:
+                        rowFiltro.Add("Manejo");
+                        break;
+                    case 4:
+                        rowFiltro.Add("Alimenticio");
+                        break;
+                    default:
+                        rowFiltro.Add("Sin datos");
+                        break;
+                }
+                if(filter.fechaDesde != null) rowFiltro.Add(filter.fechaDesde);
+                else rowFiltro.Add("Sin datos");
+                if (filter.fechaHasta != null) rowFiltro.Add(filter.fechaHasta);
+                else rowFiltro.Add("Sin datos");
+                data.DataRowsFiltro = new List<List<string>>();
+                data.DataRowsFiltro.Add(rowFiltro);
+
+                var lista = GetList(filter);
+                data.Headers.Add("Tipo Evento");
+                data.Headers.Add("Fecha Evento");
+                data.Headers.Add("Bovinos que participaron");
+
+                foreach (var item in lista)
+                {
+                    List<string> row = new List<string>() {
+                        item.tipoEvento.ToString(),
+                        item.fechaHora,
+                        item.cantidadBovinos.ToString()
+                    };
+                    data.DataRows.Add(row);
+                }
+                var archivo = StaticFunctions.GenerateExcel(data, "Eventos", filter.campo);
+                return new Documento() { nombre = archivo };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
             }
         }
     }

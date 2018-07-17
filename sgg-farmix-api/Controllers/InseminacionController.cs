@@ -302,11 +302,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Inseminacion/ExportarServSinConfirmarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarServiciosSinConfirmarPDF(string campo, long codigoCampo, string periodo, long rango)
+        public Documento ExportarServiciosSinConfirmarPDF(string campo, long codigoCampo, long rango)
         {
             try
             {
-                return IM.ServiciosSinConfimarExportarPDF(campo, codigoCampo, periodo, rango);
+                return IM.ServiciosSinConfimarExportarPDF(campo, codigoCampo, rango);
             }
             catch (Exception ex)
             {
@@ -326,6 +326,44 @@ namespace sgg_farmix_api.Controllers
             try
             {
                 return IM.PreniadasExportarPDF(campo, codigoCampo, periodo, rango);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Inseminacion/ExportarServSinConfirmarExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarServiciosSinConfirmarExcel(string campo, long codigoCampo, long rango)
+        {
+            try
+            {
+                return IM.ServiciosSinConfimarExportarExcel(campo, codigoCampo, rango);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Inseminacion/ExportarPreniadasExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarPreniadasExcel(string campo, long codigoCampo, string periodo, long rango)
+        {
+            try
+            {
+                return IM.PreniadasExportarExcel(campo, codigoCampo, periodo, rango);
             }
             catch (Exception ex)
             {

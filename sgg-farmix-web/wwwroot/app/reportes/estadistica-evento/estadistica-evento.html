@@ -19,7 +19,7 @@
                     <div>
                         <h4>Bovino con más cambios de Rodeos</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasCambiosRodeo}}</h4>
-                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasCambiosRodeo, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaBovinoMasCambiosRodeo" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasCambiosRodeo, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                     <div>
                         <h4>Bovino con mayor cambios Alimenticios</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasCambiosAlimenticios}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasCambiosAlimenticios, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaBovinoMasCambiosAlimenticios" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasCambiosAlimenticios, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                     <div>
                         <h4>Bovino que se ha enfermado más veces</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasEnfermo}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasEnfermo, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaBovinoMasEnfermo" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasEnfermo, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                     <div>
                         <h4>Bovino que más ha comido</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaBovinoQueMasComio}}</h4>
-                        <h4><a class="pull-right"  ui-sref="home.detalleBovino({id: obj.inicio.idBovinoQueMasComio, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaBovinoQueMasComio"  ui-sref="home.detalleBovino({id: obj.inicio.idBovinoQueMasComio, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                     <div>
                         <h4>Último Bovino que se ha vacunado</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaUltimoBovinoVacunado}}</h4>
-                        <h4><a class="pull-right" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idUltimoBovinoVacunado, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaUltimoBovinoVacunado" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.idUltimoBovinoVacunado, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                     <div>
                         <h4>Último Bovino que se le otorgó un antibiótico</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaUltimoBovinoConAntibiotico}}</h4>
-                        <h4><a class="pull-right" ui-sref="home.detalleBovino({id: obj.inicio.idUltimoBovinoConAntibiotico, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
+                        <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaUltimoBovinoConAntibiotico" ui-sref="home.detalleBovino({id: obj.inicio.idUltimoBovinoConAntibiotico, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 col-md-6">
+    <div class="col-sm-12 col-md-8">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel-title"><h4>Antibióticos más usados</h4></div>

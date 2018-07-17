@@ -35,7 +35,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@codigoCampo", codigoCampo }
                 };
                 var delete = connection.Execute("spBajaUsuario", parametros, System.Data.CommandType.StoredProcedure);
-                if(delete == 0)
+                if (delete == 0)
                     throw new ArgumentException("Baja Usuario Error");
             }
             catch (Exception ex)
@@ -95,13 +95,13 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@usuario", entity.usuario },
                     {"@idRol", entity.idRol }
                 };
-                if(entity.contrasenia != null)
+                if (entity.contrasenia != null)
                 {
                     var clave = Encrypt.GetMD5(entity.contrasenia);
                     parametros.Add("@contrasenia", clave);
                 }
                 var update = connection.Execute("spModificarUsuario", parametros, System.Data.CommandType.StoredProcedure);
-                if(update == 0)
+                if (update == 0)
                     throw new ArgumentException("Update Usuario Error");
                 return entity;
             }
@@ -133,7 +133,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@token", token }
                 };
                 var result = connection.GetArray<ResultadoValidacion>("spValidarUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
-                if(result.resultado == 0)
+                if (result.resultado == 0)
                 {
                     parametros["@rol"] = 2;
                     result = connection.GetArray<ResultadoValidacion>("spValidarUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
@@ -197,7 +197,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 entity.idUsuario = connection.Execute("spRegistrarUsuario", parametros, System.Data.CommandType.StoredProcedure, transaction);
                 if (entity.idUsuario == 0)
                     throw new ArgumentException("Create Usuario Error");
-                else if(entity.idUsuario == -1)
+                else if (entity.idUsuario == -1)
                     throw new ArgumentException("El usuario ya existe para este campo");
                 var param = new Dictionary<string, object>
                 {
@@ -205,7 +205,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@codigoCampo", codigoCampo }
                 };
                 var insert = connection.Execute("spRegistrarUsuarioEnCampo", param, System.Data.CommandType.StoredProcedure, transaction);
-                if(insert == 0)
+                if (insert == 0)
                     throw new ArgumentException("Create Usuario por Campo Error");
                 connection.Commit(transaction);
                 return entity;
@@ -257,7 +257,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     {"@codigoCampo", codigoCampo }
                 };
                 var activar = connection.Execute("spActivarUsuario", parametros, System.Data.CommandType.StoredProcedure);
-                if(activar == 0)
+                if (activar == 0)
                     throw new ArgumentException("Activar Usuario Error");
             }
             catch (Exception ex)
@@ -563,6 +563,78 @@ namespace sgg_farmix_acceso_datos.DAOs
                 fs = null;
                 doc = null;
                 writer = null;
+            }
+        }
+
+        public Documento UsuariosExportarExcel(UsuarioFilter filter)
+        {
+            SLExcelData data = new SLExcelData();
+            try
+            {
+                data.HeadersFiltro = new List<string>();
+                data.HeadersFiltro.Add("Nombre");
+                data.HeadersFiltro.Add("Apellido");
+                data.HeadersFiltro.Add("Rol");
+
+                List<string> rowFiltro = new List<string>();
+                if (filter.nombre != null)
+                    rowFiltro.Add(filter.nombre);
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filter.apellido != null) rowFiltro.Add(filter.apellido);
+                else rowFiltro.Add("Sin datos");
+
+                switch (filter.idRol)
+                {
+                    case 1:
+                        rowFiltro.Add("Dueño");
+                        break;
+                    case 2:
+                        rowFiltro.Add("Ingeniero");
+                        break;
+                    case 3:
+                        rowFiltro.Add("Peón");
+                        break;
+                    default:
+                        rowFiltro.Add("Sin datos");
+                        break;
+                }
+                data.DataRowsFiltro = new List<List<string>>();
+                data.DataRowsFiltro.Add(rowFiltro);
+
+                var lista = GetList(filter);
+                data.Headers.Add("Usuario");
+                data.Headers.Add("Nombre");
+                data.Headers.Add("Apellido");
+                data.Headers.Add("Rol");
+                data.Headers.Add("Estado");
+                data.Headers.Add("Fecha Alta");
+                data.Headers.Add("Fecha Baja");
+
+                foreach (var item in lista)
+                {
+                    List<string> row = new List<string>();
+                    row.Add(item.usuario);
+                    row.Add(item.nombre);
+                    row.Add(item.apellido);
+                    if (item.idRol == 1) row.Add("Dueño");
+                    else if (item.idRol == 2) row.Add("Ingeniero");
+                    else row.Add("Peón");
+                    row.Add(item.fechaBaja == " " ? "Activo" : "Inactivo");
+                    row.Add(item.fechaAlta != " " ? item.fechaAlta : "-");
+                    row.Add(item.fechaBaja != " " ? item.fechaBaja : "-");
+                    data.DataRows.Add(row);
+                }
+                var archivo = StaticFunctions.GenerateExcel(data, "Usuarios", filter.campo);
+                return new Documento() { nombre = archivo };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
             }
         }
     }

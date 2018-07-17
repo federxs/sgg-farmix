@@ -284,31 +284,27 @@
         }
 
         function exportarExcelServSinConfirm() {
-            var titulos = [];
-            titulos[0] = 'Tipo de Inseminación';
-            titulos[1] = 'Fecha Inseminación';
-            titulos[2] = 'Cantidad de bovinos que participaron';
-
-            var propiedades = [];
-            propiedades[0] = "tipoInseminacion";
-            propiedades[1] = "fechaInseminacion";
-            propiedades[2] = "cantidadVacas";
-
-            if (vm.rowCollection.length > 0) {
-                var fecha = new Date();
-                fecha = convertirFecha(fecha);
-                exportador.exportarExcel(tituloExcel + fecha, vm.rowCollection, titulos, null, propiedades, tituloExcel, function () {
-                    toastr.success("Se ha exportado con Éxito", "ÉXITO");
-                }, function (error) {
-                    vm.showSpinner = false;
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            consultarInseminacionService.generarExcelServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, rangoConsulta)
+                .then(function (data) {
+                    var path = data.nombre;
+                    var link = document.createElement("a");
+                    $(link).click(function (e) {
+                        e.preventDefault();
+                        window.open(portalService.getUrlServer() + '\\Archivos\\' + path, '_blank');
+                    });
+                    $(link).click();
+                    toastr.success('Excel generado con Éxito!', 'Éxito');
+                    $scope.$parent.unBlockSpinnerGenerarArchivo();
+                }, function error(error) {
+                    $scope.$parent.unBlockSpinnerGenerarArchivo();
+                    $scope.$parent.errorServicio(error.statusText);
                 });
-            }
-        }
+        };
 
         function exportarPDFServSinConfirm() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            consultarInseminacionService.generarPDFServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta, rangoConsulta)
+            consultarInseminacionService.generarPDFServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, rangoConsulta)
                 .then(function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");
@@ -326,27 +322,23 @@
         };
 
         function exportarExcelVacasPreniadas() {
-            var titulos = [];
-            titulos[0] = 'Tipo de Inseminación';
-            titulos[1] = 'Fecha Inseminación';
-            titulos[2] = 'Fecha estimada de parto';
-
-            var propiedades = [];
-            propiedades[0] = "tipoInseminacion";
-            propiedades[1] = "fechaInseminacion";
-            propiedades[2] = "fechaEstimadaParto";
-
-            if (vm.rowCollection.length > 0) {
-                var fecha = new Date();
-                fecha = convertirFecha(fecha);
-                exportador.exportarExcel(tituloExcel + fecha, vm.rowCollection, titulos, null, propiedades, tituloExcel, function () {
-                    toastr.success("Se ha exportado con Éxito", "ÉXITO");
-                }, function (error) {
-                    vm.showSpinner = false;
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            consultarInseminacionService.generarExcelPreniadas($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta, rangoConsulta)
+                .then(function (data) {
+                    var path = data.nombre;
+                    var link = document.createElement("a");
+                    $(link).click(function (e) {
+                        e.preventDefault();
+                        window.open(portalService.getUrlServer() + '\\Archivos\\' + path, '_blank');
+                    });
+                    $(link).click();
+                    toastr.success('Excel generado con Éxito!', 'Éxito');
+                    $scope.$parent.unBlockSpinnerGenerarArchivo();
+                }, function error(error) {
+                    $scope.$parent.unBlockSpinnerGenerarArchivo();
+                    $scope.$parent.errorServicio(error.statusText);
                 });
-            }
-        }
+        };
 
         function exportarPDFVacasPreniadas() {
             $scope.$parent.blockSpinnerGenerarArchivo();

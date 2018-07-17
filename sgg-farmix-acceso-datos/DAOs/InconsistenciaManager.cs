@@ -311,5 +311,61 @@ namespace sgg_farmix_acceso_datos.DAOs
                 writer = null;
             }
         }
+
+        public Documento InconsistenciasExportarExcel(InconsistenciaFilter filter)
+        {
+            SLExcelData data = new SLExcelData();
+            try
+            {
+                data.HeadersFiltro = new List<string>();
+                data.HeadersFiltro.Add("Tipo de Conflicto");
+                data.HeadersFiltro.Add("Estado");
+                data.HeadersFiltro.Add("Fecha desde");
+                data.HeadersFiltro.Add("Fecha hasta");
+
+                List<string> rowFiltro = new List<string>();
+                if (filter.tipo == 1)
+                    rowFiltro.Add("Tacto");
+                else if(filter.tipo == 2)
+                    rowFiltro.Add("Inseminación");
+                else rowFiltro.Add("Sin datos");
+                if (filter.estado == 1)
+                    rowFiltro.Add("Solucionado");
+                else if (filter.estado == 2)
+                    rowFiltro.Add("Pendiente");
+                else rowFiltro.Add("Sin datos");
+                if (filter.fechaDesde != null) rowFiltro.Add(filter.fechaDesde);
+                else rowFiltro.Add("Sin datos");
+                if (filter.fechaHasta != null) rowFiltro.Add(filter.fechaHasta);
+                else rowFiltro.Add("Sin datos");
+                data.DataRowsFiltro = new List<List<string>>();
+                data.DataRowsFiltro.Add(rowFiltro);
+
+                var lista = GetList(filter);
+                data.Headers.Add("Tipo Conflicto");
+                data.Headers.Add("Fecha");
+                data.Headers.Add("Estado");
+
+                foreach (var item in lista)
+                {
+                    List<string> row = new List<string>() {
+                        item.tipo,
+                        item.fecha,
+                        item.estado
+                    };
+                    data.DataRows.Add(row);
+                }
+                var archivo = StaticFunctions.GenerateExcel(data, "Conflictos", filter.campo);
+                return new Documento() { nombre = archivo };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+        }
     }
 }

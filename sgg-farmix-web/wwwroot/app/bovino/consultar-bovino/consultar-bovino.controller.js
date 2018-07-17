@@ -104,150 +104,30 @@
         }
 
         function exportarExcel() {
-            var filtro = [];
-            filtro.Titulos = [];
-            filtro.Titulos[0] = 'Nro Caravana';
-            filtro.Titulos[1] = 'Categoría';
-            filtro.Titulos[2] = 'Sexo';
-            filtro.Titulos[3] = 'Raza';
-            filtro.Titulos[4] = 'Rodeo';
-            filtro.Titulos[5] = 'Estado';
-            filtro.Titulos[6] = 'Acción Peso';
-            filtro.Titulos[7] = 'Peso (Kg)';
-
-            var titulos = [];
-            titulos[0] = "Nro Caravana";
-            titulos[1] = "Categoría";
-            titulos[2] = "Sexo";
-            titulos[3] = "Raza";
-            titulos[4] = "Rodeo";
-            titulos[5] = "Estado";
-            titulos[6] = "Peso (Kg)";
-
-            var propiedades = [];
-            propiedades[0] = "numCaravana";
-            propiedades[1] = "categoriaNombre";
-            propiedades[2] = "sexo";
-            propiedades[3] = "razaNombre";
-            propiedades[4] = "rodeoNombre";
-            propiedades[5] = "estadoNombre";
-            propiedades[6] = "peso";
-
-            if (vm.rowCollection.length > 0) {
-                var i = 1;
-                if (vm.filtro.numCaravana === undefined)
-                    filtro[0] = '';
-                else
-                    filtro[0] = vm.filtro.numCaravana;
-                for (var property in vm.filtro) {
-                    var type = typeof vm.filtro[property];
-                    if ((vm.filtro[property] === null || type !== "object") && property !== "$resolved" && type !== "function" && property !== "numCaravana") {
-                        if (property === "idCategoria") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else {
-                                for (var j = 0; j < vm.categorias.length; j++) {
-                                    if (vm.filtro[property] === vm.categorias[j].idCategoria || parseInt(vm.filtro[property]) === vm.categorias[j].idCategoria) {
-                                        filtro[i] = vm.categorias[j].nombre;
-                                        i += 1;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else if (property === "genero") {
-                            if (vm.filtro[property] === '2') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Hembra';
-                                i += 1;
-                            }
-                            else {
-                                filtro[i] = 'Macho';
-                                i += 1;
-                            }
-                        }
-                        else if (property === "idRaza") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else {
-                                for (var j = 0; j < vm.razas.length; j++) {
-                                    if (vm.filtro[property] === vm.razas[j].idRaza || parseInt(vm.filtro[property]) === vm.razas[j].idRaza) {
-                                        filtro[i] = vm.razas[j].nombre;
-                                        i += 1;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else if (property === "idRodeo") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else {
-                                for (var j = 0; j < vm.rodeos.length; j++) {
-                                    if (vm.filtro[property] === vm.rodeos[j].idRodeo || parseInt(vm.filtro[property]) === vm.rodeos[j].idRodeo) {
-                                        filtro[i] = vm.rodeos[j].nombre;
-                                        i += 1;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else if (property === "idEstado") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else {
-                                for (var j = 0; j < vm.estados.length; j++) {
-                                    if (vm.filtro[property] === vm.estados[j].idEstado || parseInt(vm.filtro[property]) === vm.estados[j].idEstado) {
-                                        filtro[i] = vm.estados[j].nombre;
-                                        i += 1;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else if (property === "accionPeso") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else if (vm.filtro[property] === 'mayor') {
-                                filtro[i] = 'Mayor';
-                                i += 1;
-                            }
-                            else {
-                                filtro[i] = 'Menor';
-                                i += 1;
-                            }
-                        }
-                        else {
-                            filtro[i] = $scope.filtro[property];
-                            i += 1;
-                        }
-                    }
-                }
-                if (vm.filtro.peso === undefined)
-                    filtro[filtro.length] = '';
-                var fecha = new Date();
-                fecha = convertirFecha(fecha);                
-                exportador.exportarExcel('Bovinos' + fecha, vm.rowCollection, titulos, filtro, propiedades, 'Bovinos', function () {
-                    toastr.success("Se ha exportado con Éxito", "ÉXITO");
-                }, function (error) {
-                    vm.showSpinner = false;
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            if (vm.filtro.peso === '' || vm.filtro.peso === undefined) vm.filtro.peso = 0;
+            if (vm.filtro.numCaravana === '' || vm.filtro.numCaravana === null) vm.filtro.numCaravana = 0;
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
+            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            consultarBovinoService.generarExcel({
+                'filtro': angular.toJson(vm.filtro, false)
+            }, function (data) {
+                if (vm.filtro.numCaravana == 0) vm.filtro.numCaravana = '';
+                if (vm.filtro.peso === 0) vm.filtro.peso = '';
+                var path = data.nombre;
+                var link = document.createElement("a");
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    window.open(portalService.getUrlServer() + '\\Archivos\\' + path);
                 });
-            }
-        }
+                $(link).click();
+                toastr.success('Excel generado con Éxito!', 'Éxito');
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+            }, function error(error) {
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+                $scope.$parent.errorServicio(error.statusText);
+            });
+        };
 
         function exportarPDF() {
             $scope.$parent.blockSpinnerGenerarArchivo();
@@ -256,6 +136,7 @@
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
             consultarBovinoService.generarPDF({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
+                if (vm.filtro.peso === 0) vm.filtro.peso = '';
                 var path = data.nombre;
                 var link = document.createElement("a");
                 $(link).click(function (e) {

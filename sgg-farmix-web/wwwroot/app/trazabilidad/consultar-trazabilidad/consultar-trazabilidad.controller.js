@@ -120,90 +120,35 @@
         }
 
         function exportarExcel() {
-            var filtro = [];
-            filtro.Titulos = [];
-            filtro.Titulos[0] = 'Nro Caravana';
-            filtro.Titulos[1] = 'Tipo Evento';
-            filtro.Titulos[2] = 'Fecha Desde';
-            filtro.Titulos[3] = 'Fecha Hasta';
-
-            var titulos = [];
-            titulos[0] = "Tipo de Evento";
-            titulos[1] = "Fecha Evento";
-            titulos[2] = "Bovinos que participaron";
-
-            var propiedades = [];
-            propiedades[0] = "tipoEvento";
-            propiedades[1] = "fechaHora";
-            propiedades[2] = "cantidadBovinos";
-
-            if (vm.rowCollection.length > 0) {
-                var i = 1;
-                if (vm.filtro.numCaravana === undefined)
-                    filtro[0] = '';
-                else
-                    vm.filtro[0] = vm.filtro.numCaravana;
-                for (var property in vm.filtro) {
-                    var type = typeof vm.filtro[property];
-                    if ((vm.filtro[property] === null || type !== "object") && property !== "$resolved" && type !== "function" && type !== "numCaravana") {
-                        if (property === "idTipoEvento") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                            else {
-                                for (var j = 0; j < vm.Eventos.length; j++) {
-                                    if (vm.filtro[property] === vm.Eventos[j].idTipoEvento || parseInt(vm.filtro[property]) === vm.Eventos[j].idTipoEvento) {
-                                        filtro[i] = vm.Eventos[j].descripcion;
-                                        i += 1;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        else if (property === "fechaDesde") {
-                            if (vm.filtro[property] === '2') {
-                                filtro[i] = '';
-                                i += 1;
-                            }
-                            else {
-                                filtro[i] = 'Hembra';
-                                i += 1;
-                            }
-                        }
-                        else if (property === "fechaHasta") {
-                            if (vm.filtro[property] === '0') {
-                                filtro[i] = 'Seleccione';
-                                i += 1;
-                            }
-                        }
-                        else if (property === "numCaravana") {
-                            filtro[0] = $scope.filtro[property];
-                        }
-                        else {
-                            filtro[i] = $scope.filtro[property];
-                            i += 1;
-                        }
-                    }
-                }
-                if (vm.filtro.fechaDesde === undefined)
-                    filtro[filtro.length] = '';
-                if (vm.filtro.fechaHasta === undefined)
-                    filtro[filtro.length] = '';
-                var fecha = new Date();
-                fecha = convertirFecha(fecha);
-                for (var i = 0; i < vm.rowCollection.length; i++) {
-                    if (vm.rowCollection[i].$$hashKey === undefined)
-                        vm.rowCollection[i].$$hashKey = '';
-                }
-                exportador.exportarExcel('Trazabilidad' + fecha, vm.rowCollection, titulos, filtro, propiedades, 'Trazabilidad', function () {
-                    toastr.success("Se ha exportado con Éxito.", "EXITOSO");
-                }, function (error) {
-                    vm.showSpinner = false;
-                    toastr.error('Ha ocurrido un error, reintentar', 'Error');
-                });
+            $scope.$parent.blockSpinnerGenerarArchivo();
+            if (vm.filtro.fechaDesde !== undefined) {
+                if (typeof vm.filtro.fechaDesde === "string")
+                    vm.filtro.fechaDesde = new Date(vm.filtro.fechaDesde.split('/')[2], (parseInt(vm.filtro.fechaDesde.split('/')[1]) - 1).toString(), vm.filtro.fechaDesde.split('/')[0]);
+                vm.filtro.fechaDesde = convertirFecha(vm.filtro.fechaDesde);
             }
-        }
+            if (vm.filtro.fechaHasta !== undefined) {
+                if (typeof vm.filtro.fechaHasta === "string")
+                    vm.filtro.fechaHasta = new Date(vm.filtro.fechaHasta.split('/')[2], (parseInt(vm.filtro.fechaHasta.split('/')[1]) - 1).toString(), vm.filtro.fechaHasta.split('/')[0]);
+                vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
+            }
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
+            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            consultarTrazabilidadService.generarExcel(angular.toJson(vm.filtro, false)).then(function (data) {
+                if (vm.filtro.numCaravana == 0) vm.filtro.numCaravana = '';
+                var path = data.nombre;
+                var link = document.createElement("a");
+                $(link).click(function (e) {
+                    e.preventDefault();
+                    window.open(portalService.getUrlServer() + '\\Archivos\\' + path);
+                });
+                $(link).click();
+                toastr.success('Excel generado con Éxito!', 'Éxito');
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+            }, function error(error) {
+                $scope.$parent.unBlockSpinnerGenerarArchivo();
+                $scope.$parent.errorServicio(error.statusText);
+            });
+        };
 
         function exportarPDF() {
             $scope.$parent.blockSpinnerGenerarArchivo();

@@ -113,7 +113,7 @@ namespace sgg_farmix_acceso_datos.Model
         public long? cantidadFallida { get; set; }
     }
     public class EstadisticaInseminacionPorBovino
-    { 
+    {
         public string numCaravana { get; set; }
         public long? cantidad { get; set; }
     }
@@ -130,16 +130,40 @@ namespace sgg_farmix_acceso_datos.Model
 
     public class EstadisticaInseminacionInicio
     {
-        public long caravanaToroMasSemental { get; set; }
-        public long idToroMasSemental { get; set; }
-        public long caravanaVacaMasDificilEmbarazar { get; set; }
-        public long idVacaMasDificilEmbarazar { get; set; }
-        public long caravanaVacaConMasAbortos { get; set; }
-        public long idVacaConMasAbortos { get; set; }
+        public Cuadro4EstadisticaInseminacion cuadro4 { get; set; }
+        public Cuadro2EstadisticaInseminacion cuadro2 { get; set; }
+        public Cuadro3EstadisticaInseminacion cuadro3 { get; set; }
+        public Cuadro1EstadisticaInseminacion cuadro1 { get; set; }
+        public Cuadro5EstadisticaInseminacion cuadro5 { get; set; }
+        public Cuadro6EstadisticaInseminacion cuadro6 { get; set; }
+    }
+    public class Cuadro1EstadisticaInseminacion
+    {
         public long caravanaVacaConMasHijos { get; set; }
         public long idVacaConMasHijos { get; set; }
+    }
+    public class Cuadro2EstadisticaInseminacion
+    {
+        public long caravanaVacaMasDificilEmbarazar { get; set; }
+        public long idVacaMasDificilEmbarazar { get; set; }
+    }
+    public class Cuadro3EstadisticaInseminacion
+    {
+        public long caravanaVacaConMasAbortos { get; set; }
+        public long idVacaConMasAbortos { get; set; }
+    }
+    public class Cuadro4EstadisticaInseminacion
+    {
         public long caravanaToroConMasHijos { get; set; }
         public long idToroConMasHijos { get; set; }
+    }
+    public class Cuadro5EstadisticaInseminacion
+    {
+        public long caravanaToroMasSemental { get; set; }
+        public long idToroMasSemental { get; set; }
+    }    
+    public class Cuadro6EstadisticaInseminacion
+    {
         public long caravanaUltimaVacaInseminada { get; set; }
         public long idUltimaVacaInseminada { get; set; }
     }

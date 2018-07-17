@@ -13,6 +13,12 @@
                     url: portalService.getUrlServer() + 'api/Inconsistencia/ExportarPDF',
                     headers: portalService.getHeadersServer(),
                     isArray: false
+                },
+                generarExcel: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Inconsistencia/ExportarExcel',
+                    headers: portalService.getHeadersServer(),
+                    isArray: false
                 }
             });
         });
