@@ -334,15 +334,8 @@ namespace sgg_farmix_helper
             var workbookpart = document.AddWorkbookPart();
             workbookpart.Workbook = new Workbook();
             var stylesPart = document.WorkbookPart.AddNewPart<WorkbookStylesPart>();
-            stylesPart.Stylesheet = new Stylesheet();
-            stylesPart.Stylesheet.Fills = new Fills();
-            stylesPart.Stylesheet.Fills.Count = 1;
-            stylesPart.Stylesheet.Borders = new Borders();
-            stylesPart.Stylesheet.Borders.Count = 1;
-            stylesPart.Stylesheet.CellFormats = new CellFormats();
-            stylesPart.Stylesheet.CellFormats.Count = 1;
-            stylesPart.Stylesheet.Fonts = new Fonts();
-            stylesPart.Stylesheet.Fonts.Count = 1;
+            stylesPart.Stylesheet = GenerateStylesheet();
+            stylesPart.Stylesheet.Save();
             var worksheetPart = workbookpart.AddNewPart<WorksheetPart>();            
 
             var sheetData = new SheetData();
@@ -369,9 +362,8 @@ namespace sgg_farmix_helper
             foreach (var header in data.Headers)
             {
                 var cell = CreateTextCell(ColumnLetter(cellIdex++),
-                    rowIdex, header ?? string.Empty);
-                row.AppendChild(cell);
-                SetBorderAndFillHeader(workbookpart, worksheetPart, cell.CellReference);                
+                    rowIdex, header ?? string.Empty, 2);
+                row.AppendChild(cell);              
             }
             if (data.Headers.Count > 0)
             {
@@ -394,9 +386,8 @@ namespace sgg_farmix_helper
                 foreach (var callData in rowData)
                 {
                     var cell = CreateTextCell(ColumnLetter(cellIdex++),
-                        rowIdex, callData ?? string.Empty);
+                        rowIdex, callData ?? string.Empty, 1);
                     row.AppendChild(cell);
-                    SetBorderAndFillBody(workbookpart, worksheetPart, cell.CellReference);
                 }
             }
 
@@ -409,9 +400,8 @@ namespace sgg_farmix_helper
                 foreach (var header in data.HeadersFiltro)
                 {
                     var cell = CreateTextCell(ColumnLetter(cellIdex++),
-                        rowIdex, header ?? string.Empty);
+                        rowIdex, header ?? string.Empty, 2);
                     row.AppendChild(cell);
-                    SetBorderAndFillHeader(workbookpart, worksheetPart, cell.CellReference);
                 }
 
                 foreach (var rowData in data.DataRowsFiltro)
@@ -422,13 +412,11 @@ namespace sgg_farmix_helper
                     foreach (var callData in rowData)
                     {
                         var cell = CreateTextCell(ColumnLetter(cellIdex++),
-                            rowIdex, callData ?? string.Empty);
+                            rowIdex, callData ?? string.Empty, 1);
                         row.AppendChild(cell);
-                        SetBorderAndFillBody(workbookpart, worksheetPart, cell.CellReference);
                     }
                 }
             }
-
 
             workbookpart.Workbook.Save();
             document.Close();
@@ -451,7 +439,7 @@ namespace sgg_farmix_helper
             return fileName;
         }
 
-        private static Cell CreateTextCell(string header, UInt32 index, string text)
+        private static Cell CreateTextCell(string header, UInt32 index, string text, uint styleIndex = 0)
         {
             long result = 0;
             Cell cell = null;
@@ -460,7 +448,8 @@ namespace sgg_farmix_helper
                 cell = new Cell
                 {
                     DataType = CellValues.Number,
-                    CellReference = header + index
+                    CellReference = header + index,
+                    StyleIndex = styleIndex
                 };
             }
             else
@@ -468,7 +457,8 @@ namespace sgg_farmix_helper
                 cell = new Cell
                 {
                     DataType = CellValues.InlineString,
-                    CellReference = header + index
+                    CellReference = header + index,
+                    StyleIndex = styleIndex
                 };
             }           
             
@@ -477,29 +467,6 @@ namespace sgg_farmix_helper
             istring.AppendChild(t);
             cell.AppendChild(istring);
             return cell;
-        }
-
-        private static void SetBorderAndFillHeader(WorkbookPart workbookPart, WorksheetPart workSheetPart, string referencia)
-        {
-            Cell cell = GetCell(workSheetPart, referencia);
-
-            CellFormat cellFormat = cell.StyleIndex != null ? GetCellFormat(workbookPart, cell.StyleIndex).CloneNode(true) as CellFormat : new CellFormat();
-            cellFormat.FillId = InsertFill(workbookPart, GenerateFill());
-            cellFormat.BorderId = InsertBorder(workbookPart, GenerateBorder());
-            cellFormat.FontId = InsertFont(workbookPart, GenerateFont());
-
-            cell.StyleIndex = InsertCellFormat(workbookPart, cellFormat);
-        }
-
-        private static void SetBorderAndFillBody(WorkbookPart workbookPart, WorksheetPart workSheetPart, string referencia)
-        {
-            Cell cell = GetCell(workSheetPart, referencia);
-
-            CellFormat cellFormat = cell.StyleIndex != null ? GetCellFormat(workbookPart, cell.StyleIndex).CloneNode(true) as CellFormat : new CellFormat();
-            //cellFormat.FillId = InsertFill(workbookPart, GenerateFill());
-            cellFormat.BorderId = InsertBorder(workbookPart, GenerateBorder());
-
-            cell.StyleIndex = InsertCellFormat(workbookPart, cellFormat);
         }
 
         private static string ColumnLetter(int intCol)
@@ -518,112 +485,48 @@ namespace sgg_farmix_helper
                 thirdLetter).Trim();
         }
 
-        private static Border GenerateBorder()
+        private static Stylesheet GenerateStylesheet()
         {
-            Border border2 = new Border();
+            Stylesheet styleSheet = null;
 
-            LeftBorder leftBorder2 = new LeftBorder() { Style = BorderStyleValues.Thin };
-            Color color1 = new Color() { Indexed = (UInt32Value)64U };
+            Fonts fonts = new Fonts(
+                new Font( // Index 0 - default
+                    new FontSize() { Val = 10 },
+                    new Bold()
+                ),
+                new Font( // Index 1 - header
+                    new FontSize() { Val = 10 },
+                    new Bold(),
+                    new Color() { Rgb = "000000" }
 
-            leftBorder2.Append(color1);
+                ));
 
-            RightBorder rightBorder2 = new RightBorder() { Style = BorderStyleValues.Thin };
-            Color color2 = new Color() { Indexed = (UInt32Value)64U };
+            Fills fills = new Fills(
+                    new Fill(new PatternFill() { PatternType = PatternValues.None }), // Index 0 - default
+                    new Fill(new PatternFill(new ForegroundColor { Rgb = new HexBinaryValue() { Value = "66666666" } })), // Index 1 - default
+                    new Fill(new PatternFill(new ForegroundColor { Rgb = "D9D2D2" })
+                    { PatternType = PatternValues.Solid }) // Index 2 - header
+                );
 
-            rightBorder2.Append(color2);
+            Borders borders = new Borders(
+                    new Border(), // index 0 default
+                    new Border( // index 1 black border
+                        new LeftBorder(new Color() { Auto = true }) { Style = BorderStyleValues.Thin },
+                        new RightBorder(new Color() { Auto = true }) { Style = BorderStyleValues.Thin },
+                        new TopBorder(new Color() { Auto = true }) { Style = BorderStyleValues.Thin },
+                        new BottomBorder(new Color() { Auto = true }) { Style = BorderStyleValues.Thin },
+                        new DiagonalBorder())
+                );
 
-            TopBorder topBorder2 = new TopBorder() { Style = BorderStyleValues.Thin };
-            Color color3 = new Color() { Indexed = (UInt32Value)64U };
+            CellFormats cellFormats = new CellFormats(
+                    new CellFormat(), // default
+                    new CellFormat { FontId = 0, FillId = 0, BorderId = 1, ApplyBorder = true }, // header
+                    new CellFormat { FontId = 1, FillId = 2, BorderId = 1, ApplyFill = true } // body
+                );
 
-            topBorder2.Append(color3);
+            styleSheet = new Stylesheet(fonts, fills, borders, cellFormats);
 
-            BottomBorder bottomBorder2 = new BottomBorder() { Style = BorderStyleValues.Thin };
-            Color color4 = new Color() { Indexed = (UInt32Value)64U };
-
-            bottomBorder2.Append(color4);
-            DiagonalBorder diagonalBorder2 = new DiagonalBorder();
-
-            border2.Append(leftBorder2);
-            border2.Append(rightBorder2);
-            border2.Append(topBorder2);
-            border2.Append(bottomBorder2);
-            border2.Append(diagonalBorder2);
-
-            return border2;
-        }
-
-        private static Fill GenerateFill()
-        {
-            Fill fill = new Fill();
-
-            PatternFill patternFill = new PatternFill() { PatternType = PatternValues.Solid };
-            ForegroundColor foregroundColor1 = new ForegroundColor() { Rgb = "D9D2D2" };
-            BackgroundColor backgroundColor1 = new BackgroundColor() { Indexed = (UInt32Value)64U };
-
-            patternFill.Append(foregroundColor1);
-            patternFill.Append(backgroundColor1);
-
-            fill.Append(patternFill);
-
-            return fill;
-        }
-
-        private static uint InsertBorder(WorkbookPart workbookPart, Border border)
-        {
-            Borders borders = workbookPart.WorkbookStylesPart.Stylesheet.Elements<Borders>().First();
-            borders.Append(border);
-            return (uint)borders.Count++;
-        }
-
-        private static uint InsertFill(WorkbookPart workbookPart, Fill fill)
-        {
-            Fills fills = workbookPart.WorkbookStylesPart.Stylesheet.Elements<Fills>().First();
-            fills.Append(fill);
-            return (uint)fills.Count++;
-        }
-
-        private static Cell GetCell(WorksheetPart workSheetPart, string cellAddress)
-        {
-            return workSheetPart.Worksheet.Descendants<Cell>()
-                                        .SingleOrDefault(c => cellAddress.Equals(c.CellReference));
-        }
-
-        private static CellFormat GetCellFormat(WorkbookPart workbookPart, uint styleIndex)
-        {
-            return workbookPart.WorkbookStylesPart.Stylesheet.Elements<CellFormats>().First().Elements<CellFormat>().ElementAt((int)styleIndex);
-        }
-
-        private static uint InsertCellFormat(WorkbookPart workbookPart, CellFormat cellFormat)
-        {
-            CellFormats cellFormats = workbookPart.WorkbookStylesPart.Stylesheet.Elements<CellFormats>().First();
-            cellFormats.Append(cellFormat);
-            return (uint)cellFormats.Count++;
-        }
-
-        private static Font GenerateFont()
-        {
-            Font font2 = new Font();
-            Bold bold1 = new Bold();
-            FontSize fontSize2 = new FontSize() { Val = 11D };
-            Color color2 = new Color() { Theme = (UInt32Value)1U };
-            FontName fontName2 = new FontName() { Val = "Calibri" };
-            FontFamilyNumbering fontFamilyNumbering2 = new FontFamilyNumbering() { Val = 2 };
-            FontScheme fontScheme2 = new FontScheme() { Val = FontSchemeValues.Minor };
-
-            font2.Append(bold1);
-            font2.Append(fontSize2);
-            font2.Append(color2);
-            font2.Append(fontName2);
-            font2.Append(fontFamilyNumbering2);
-            font2.Append(fontScheme2);
-            return font2;
-        }
-
-        private static uint InsertFont(WorkbookPart workbookPart, Font font)
-        {
-            Fonts fonts = workbookPart.WorkbookStylesPart.Stylesheet.Elements<Fonts>().First();
-            fonts.Append(font);
-            return (uint)fonts.Count++;
+            return styleSheet;
         }
 
     }
