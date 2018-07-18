@@ -104,39 +104,41 @@
             <i class="fa fa-print"></i>
         </a>
     </div>
-    <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
-        <thead>
-            <tr>
-                <th st-sort="tipoEvento">Tipo de Evento</th>
-                <th st-sort="fechaHora">Fecha Evento</th>
-                <th st-sort="cantidadBovinos">Bovinos que participaron</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="item in displayedCollection">
-                <td>{{item.tipoEvento | uppercase}}</td>
-                <td>{{item.fechaHora }}</td>
-                <td>{{item.cantidadBovinos}}</td>
-                <td>
-                    <a ui-sref="home.modificarEvento({id: item.idEvento})" title="Editar"><span class="fa fa-pencil"></span></a>
-                    <a ui-sref="home.detalleEvento({id: item.idEvento})" title="Ver"><span class="fa fa-search"></span></a>
-                    <a><span class="fa fa-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.tipoEvento, item.fechaHora, item.idEvento)"></span></a>
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td class="hidden-print">
-                    <label for="items">Registros por página</label>
-                    <input class="input-sm form-control" name="items" min="1" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
-                </td>
-                <td colspan="5" class="text-center">
-                    <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+    <div class="table-responsive">
+        <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th st-sort="tipoEvento">Tipo de Evento</th>
+                    <th st-sort="fechaHora">Fecha Evento</th>
+                    <th st-sort="cantidadBovinos">Bovinos que participaron</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in displayedCollection">
+                    <td>{{item.tipoEvento | uppercase}}</td>
+                    <td>{{item.fechaHora }}</td>
+                    <td>{{item.cantidadBovinos}}</td>
+                    <td>
+                        <a ui-sref="home.modificarEvento({id: item.idEvento})" title="Editar"><span class="fa fa-pencil"></span></a>
+                        <a ui-sref="home.detalleEvento({id: item.idEvento})" title="Ver"><span class="fa fa-search"></span></a>
+                        <a><span class="fa fa-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.tipoEvento, item.fechaHora, item.idEvento)"></span></a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="hidden-print">
+                        <label for="items">Registros por página</label>
+                        <input class="input-sm form-control" name="items" min="1" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                    </td>
+                    <td colspan="5" class="text-center">
+                        <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>    
 </div>
 <div class="row col-lg-12 col-md-12">
     <legend style="margin-bottom:5px" ng-show="filtro.numCaravana">Eventos del Bovino con caravana {{filtro.numCaravana}}</legend>

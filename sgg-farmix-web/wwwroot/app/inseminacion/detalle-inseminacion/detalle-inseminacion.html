@@ -45,41 +45,43 @@
                     <legend style="margin-bottom: 5px;">
                         Tacto
                     </legend>
-                    <table st-table="displayedCollection" st-safe-src="tactos" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <!--<th st-sort="numero">N°</th>-->
-                                <th st-sort="fechaTacto">Fecha</th>
-                                <th st-sort="tipoTacto">Tipo</th>
-                                <th st-sort="exitoso">Resultado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in displayedCollection">
-                                <!--<td>{{item.numero }}</td>-->
-                                <td>{{item.fechaTacto}}</td>
-                                <td>{{item.tipoTacto | uppercase}}</td>
-                                <td>{{item.exitoso | uppercase}}</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td>
-                                    <label for="items" ng-show="tactos.length > 1">Registros por página</label>
-                                    <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPaginaTacto" ng-disabled="disabled" ng-show="tactos.length > 1">                                    
-                                </td>
-                                <td colspan="5" class="text-center">
-                                    <div st-pagination="" st-items-by-page="itemsPorPaginaTacto" st-displayed-pages="7"></div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                    <div class="table-responsive">
+                        <table st-table="displayedCollection" st-safe-src="tactos" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <!--<th st-sort="numero">N°</th>-->
+                                    <th st-sort="fechaTacto">Fecha</th>
+                                    <th st-sort="tipoTacto">Tipo</th>
+                                    <th st-sort="exitoso">Resultado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in displayedCollection">
+                                    <!--<td>{{item.numero }}</td>-->
+                                    <td>{{item.fechaTacto}}</td>
+                                    <td>{{item.tipoTacto | uppercase}}</td>
+                                    <td>{{item.exitoso | uppercase}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <label for="items" ng-show="tactos.length > 1">Registros por página</label>
+                                        <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPaginaTacto" ng-disabled="disabled" ng-show="tactos.length > 1">
+                                    </td>
+                                    <td colspan="5" class="text-center">
+                                        <div st-pagination="" st-items-by-page="itemsPorPaginaTacto" st-displayed-pages="7"></div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>                    
                 </div>
             </div>
         </div>
         <div class="panel panel-default" ng-if="desde !== 'preniez' && rowCollection.length > 0">
             <div class="panel-heading">{{tituloTabla}}</div>
-            <div class="panel-body">
+            <div class="panel-body table-responsive">
                 <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
                     <thead>
                         <tr>
@@ -121,7 +123,7 @@
         </div>
         <div class="panel panel-default" ng-if="desde !== 'preniez' && torosCollection.length > 0">
             <div class="panel-heading">Toros que participaron de la inseminación</div>
-            <div class="panel-body">
+            <div class="panel-body table-responsive">
                 <table st-table="displayedCollection" st-safe-src="torosCollection" class="table table-striped">
                     <thead>
                         <tr>

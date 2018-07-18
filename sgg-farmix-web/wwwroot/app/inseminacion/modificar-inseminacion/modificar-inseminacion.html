@@ -129,7 +129,7 @@
         </div>
         <div class="panel panel-default" ng-if="desde !== 'preniez' && rowCollection.length > 0">
             <div class="panel-heading">{{tituloTabla}}</div>
-            <div class="panel-body">
+            <div class="panel-body table-responsive">
                 <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
                     <thead>
                         <tr>
@@ -172,7 +172,7 @@
         </div>
         <div class="panel panel-default" ng-if="desde !== 'preniez' && torosCollection.length > 0">
             <div class="panel-heading">Toros que participaron de la inseminación</div>
-            <div class="panel-body">
+            <div class="panel-body table-responsive">
                 <table st-table="displayedCollection" st-safe-src="torosCollection" class="table table-striped">
                     <thead>
                         <tr>
@@ -421,43 +421,45 @@
             </div>
             <div class="modal-body">
                 <p>{{tituloModalToros}}</p>
-                <table st-table="tCollection" st-safe-src="torosCampo" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th st-sort="numCaravana">N° Caravana</th>
-                            <th st-sort="estadoNombre">Estado</th>
-                            <th st-sort="categoriaNombre">Categoría</th>
-                            <th st-sort="razaNombre">Raza</th>
-                            <th st-sort="rodeoNombre">Rodeo</th>
-                            <th st-sort="peso">Peso</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="t in tCollection">
-                            <td>{{t.numCaravana}}</td>
-                            <td>{{t.estadoNombre}}</td>
-                            <td>{{t.categoriaNombre | uppercase}}</td>
-                            <td>{{t.razaNombre | uppercase}}</td>
-                            <td>{{t.rodeoNombre | uppercase}}</td>
-                            <td>{{t.peso}}</td>
-                            <td>
-                                <a title="Asociar toro a Inseminación" ng-click="agregarToro(t)" style="cursor:pointer;"><span class="fa fa-plus"></span></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td>
-                                <label for="items">Registros por página</label>
-                                <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
-                            </td>
-                            <td colspan="5" class="text-center">
-                                <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
+                <div class="table-responsive">
+                    <table st-table="tCollection" st-safe-src="torosCampo" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th st-sort="numCaravana">N° Caravana</th>
+                                <th st-sort="estadoNombre">Estado</th>
+                                <th st-sort="categoriaNombre">Categoría</th>
+                                <th st-sort="razaNombre">Raza</th>
+                                <th st-sort="rodeoNombre">Rodeo</th>
+                                <th st-sort="peso">Peso</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="t in tCollection">
+                                <td>{{t.numCaravana}}</td>
+                                <td>{{t.estadoNombre}}</td>
+                                <td>{{t.categoriaNombre | uppercase}}</td>
+                                <td>{{t.razaNombre | uppercase}}</td>
+                                <td>{{t.rodeoNombre | uppercase}}</td>
+                                <td>{{t.peso}}</td>
+                                <td>
+                                    <a title="Asociar toro a Inseminación" ng-click="agregarToro(t)" style="cursor:pointer;"><span class="fa fa-plus"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    <label for="items">Registros por página</label>
+                                    <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                                </td>
+                                <td colspan="5" class="text-center">
+                                    <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cerrar()">Cerrar</button>
