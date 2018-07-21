@@ -215,15 +215,18 @@
                             <label class="control-label" for="superficie">
                                 Superficie (mts) (*)
                             </label>
-                            <input name="superficie" type="number" class="form-control" min="0" required placeholder="Superficie (mts)"
+                            <input name="superficie" type="number" class="form-control" min="1" max="1000000" required placeholder="Superficie (mts)"
                                    ng-disabled="!habilitar"
                                    ng-model="campo.superficie" />
                             <div ng-show="formRegistrarCampo.superficie.$touched">
                                 <span class="help-block" ng-show="formRegistrarCampo.superficie.$error.required || campo.superficie == 0 ">
                                     Este campo es requerido
                                 </span>
+                                <span class="help-block" ng-show="formRegistrarCampo.superficie.$error.max">
+                                    La superficie no puede superar los 1000000 m2.
+                                </span>
                                 <span class="help-block" ng-show="formRegistrarCampo.superficie.$error.min">
-                                    El peso no puede ser negativo
+                                    Ingresar una superficie mayor.
                                 </span>
                             </div>
                         </div>
