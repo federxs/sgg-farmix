@@ -169,7 +169,7 @@
                 }
                 var options = {
                     title: 'Top 10 Bovinos más livianos',
-                    pageSize: 6,
+                    pageSize: 10,
                     sortColumn: 1,
                     sortAscending: true,
                     cssClassNames: { tableCell: 'row' }

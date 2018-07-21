@@ -53,7 +53,7 @@
                 }
 
                 var options = {
-                    'title': 'Efectividad de Bovinos Hembra por Categoría',
+                    'title': 'Efectividad de Hembras por Categoría',
                     hAxis: {
                         title: 'Inseminaciones'
                     },
@@ -95,7 +95,7 @@
                 }
 
                 var options = {
-                    'title': 'Efectividad de Bovinos Machos por Categoría',
+                    'title': 'Efectividad de Machos por Categoría',
                     hAxis: {
                         title: 'Inseminaciones'
                     },
@@ -137,7 +137,7 @@
                 }
 
                 var options = {
-                    'title': 'Efectividad de Bovinos Hembra por Raza',
+                    'title': 'Efectividad de Hembras por Raza',
                     hAxis: {
                         title: 'Inseminaciones'
                     },
@@ -290,7 +290,7 @@
                 }
 
                 var options = {
-                    title: 'Cantidad de Inseminaciones Fallidas',
+                    title: 'Cantidad de Inseminaciones Fallidas por Vaca',
                     legend: 'none',
                     bar: { groupWidth: '10%' },
                     vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Cantidad de Inseminaciones' },

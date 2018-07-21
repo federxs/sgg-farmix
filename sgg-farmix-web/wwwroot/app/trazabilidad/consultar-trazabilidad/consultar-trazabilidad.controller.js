@@ -28,6 +28,7 @@
         //variables       
         vm.filtro = {};
         vm.cursor = '';
+        vm.numCaravanaFiltro;
         var ultimoIndiceVisto = 0;
         var idEventoAEliminar = 0;
         var idManejo = [];
@@ -76,6 +77,7 @@
             }
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             consultarTrazabilidadService.getListaEventos(angular.toJson(vm.filtro, false)).then(function success(data) {
+                vm.numCaravanaFiltro = undefined;
                 if (data.length === 0) {
                     vm.disabledExportar = 'disabled';
                     vm.disabled = '';
@@ -84,19 +86,21 @@
                     toastr.info("No se ha encontrado ningún resultado para esta búsqueda", "Aviso");
                 }
                 else {
-                    vm.rowCollection = data;
-                    if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null)
+                    vm.rowCollection = data;                    
+                    if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null) {
+                        vm.numCaravanaFiltro = angular.copy(vm.filtro.numCaravana);
                         cargarLineaTiempoEventos();
+                    }                        
                     if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
                     vm.disabled = '';
                     vm.disabledExportar = '';
                 }
                 $scope.$parent.unBlockSpinner();
                 $('.modal-backdrop').remove();
-            }), function error(error) {
+            }, function error(error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);
-            };
+            });
         };
 
         function convertirFecha(fecha) {

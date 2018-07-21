@@ -12,7 +12,7 @@
     </div>
 </fieldset>
 <div class="row">
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
@@ -25,12 +25,12 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <div class="row">
                     <div>
-                        <h4>Bovino con mayor cambios Alimenticios</h4>
+                        <h4>Bovino con más cambios Alimenticios</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaBovinoMasCambiosAlimenticios}}</h4>
                         <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaBovinoMasCambiosAlimenticios" ui-sref="home.detalleBovino({id: obj.inicio.idBovinoMasCambiosAlimenticios, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-danger">
             <div class="panel-heading">
                 <div class="row">
@@ -53,7 +53,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <div class="row">
@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
@@ -79,12 +79,12 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6">
+    <div class="col-lg-4 col-md-6">
         <div class="panel panel-success">
             <div class="panel-heading">
                 <div class="row">
                     <div>
-                        <h4>Último Bovino que se le otorgó un antibiótico</h4>
+                        <h4>Último Bovino que se le ha aplicado un antibiótico</h4>
                         <h4>Nº caravana: {{obj.inicio.caravanaUltimoBovinoConAntibiotico}}</h4>
                         <h4><a class="pull-right" ng-disabled="obj.inicio.caravanaUltimoBovinoConAntibiotico" ui-sref="home.detalleBovino({id: obj.inicio.idUltimoBovinoConAntibiotico, proviene: 'EstadisticaEvento'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
@@ -139,11 +139,12 @@
     <div class="col-sm-12 col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Cantidad de Eventos por tipo en cada mes</h4></div>
+                <div class="panel-title"><h4>Eventos por tipo en cada mes</h4></div>
             </div>
             <div class="panel-body">
                 <div id="graficoEventosXTipoXMes"></div>
-                <!--<a id="descargaGraficoEventosXTipoXMes" style="text-decoration:underline" download="Farmix - Cantidad de Eventos por tipo en cada mes">
+
+                <!--<a id="descargaGraficoEventosXTipoXMes" style="text-decoration:underline" download="Farmix - Eventos por tipo en cada mes">
                     Descargar Imagen
                 </a>-->
             </div>

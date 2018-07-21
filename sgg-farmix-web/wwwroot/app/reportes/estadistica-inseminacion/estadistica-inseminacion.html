@@ -18,6 +18,7 @@
                 <div class="row">
                     <div>
                         <h4>Vaca con más Hijos</h4>
+                        <a href="estadistica-inseminacion.html">estadistica-inseminacion.html</a>
                         <h4>Nº caravana: {{obj.inicio.cuadro1.caravanaVacaConMasHijos}}</h4>
                         <h4><a class="pull-right" ng-show="obj.inicio.cuadro1.caravanaVacaConMasHijos" style="color: white;" ui-sref="home.detalleBovino({id: obj.inicio.cuadro1.idVacaConMasHijos, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
@@ -84,7 +85,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div>
-                        <h4>Ultima vaca inseminada</h4>
+                        <h4>Última vaca inseminada</h4>
                         <h4>Nº caravana: {{obj.inicio.cuadro6.caravanaUltimaVacaInseminada}}</h4>
                         <h4><a class="pull-right" ng-show="obj.inicio.cuadro6.caravanaUltimaVacaInseminada" ui-sref="home.detalleBovino({id: obj.inicio.cuadro6.idUltimaVacaInseminada, proviene: 'EstadisticaInseminacion'})">Ver <span class="fa fa-search"></span></a></h4>
                     </div>
@@ -97,7 +98,7 @@
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Efectividad de Bovinos Hembra por Categoría</h4></div>
+                <div class="panel-title"><h4>Efectividad de Hembras por Categoría</h4></div>
             </div>
             <div class="panel-body">
                 <div id="graficoCategoriasPorHembrasEfectividad"></div>
@@ -110,7 +111,7 @@
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Efectividad de Bovinos Macho por Categoría</h4></div>
+                <div class="panel-title"><h4>Efectividad de Machos por Categoría</h4></div>
             </div>
             <div class="panel-body">
                 <div id="graficoCategoriasPorMachosEfectividad"></div>
@@ -126,7 +127,7 @@
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Efectividad de Bovinos Hembra por Raza</h4></div>
+                <div class="panel-title"><h4>Efectividad de Hembras por Raza</h4></div>
             </div>
             <div class="panel-body">
                 <div id="graficoRazaEfectividad"></div>
@@ -197,11 +198,11 @@
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Cantidad de Inseminaciones Fallidas</h4></div>
+                <div class="panel-title"><h4>Cantidad de Inseminaciones Fallidas por Vaca</h4></div>
             </div>
             <div class="panel-body">
                 <div id="graficoInseminacionesFallidas"></div>
-                <a id="descargaGraficoInseminacionesFallidas" style="text-decoration:underline" download="Farmix - Gráfica de Cantidad de Inseminaciones Fallidas">
+                <a id="descargaGraficoInseminacionesFallidas" style="text-decoration:underline" download="Farmix - Gráfica de Cantidad de Inseminaciones Fallidas por Vaca">
                     Descargar Imagen
                 </a>
             </div>

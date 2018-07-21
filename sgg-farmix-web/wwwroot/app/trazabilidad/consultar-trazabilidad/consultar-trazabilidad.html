@@ -26,10 +26,13 @@
                 <label>
                     N° Caravana
                 </label>
-                <input class="form-control" name="numCaravana" type="number" min="0" ng-model="filtro.numCaravana" placeholder="N° Caravana" ng-disabled="disabled" />
+                <input class="form-control" name="numCaravana" type="number" min="1" maxlength="15" ng-model="filtro.numCaravana" placeholder="N° Caravana" ng-disabled="disabled" />
                 <div ng-show="formConsultarTrazabilidad.numCaravana.$touched">
                     <span class="help-block" ng-show="formConsultarTrazabilidad.numCaravana.$error.min">
-                        El número de Caravana no puede ser negativo
+                        El número de Caravana no puede ser negativo ni 0
+                    </span>
+                    <span class="help-block" ng-show="formConsultarTrazabilidad.numCaravana.$error.maxlength">
+                        Puede colocar hasta 15 dígitos
                     </span>
                 </div>
             </div>
@@ -141,7 +144,7 @@
     </div>    
 </div>
 <div class="row col-lg-12 col-md-12">
-    <legend style="margin-bottom:5px" ng-show="filtro.numCaravana">Eventos del Bovino con caravana {{filtro.numCaravana}}</legend>
+    <legend style="margin-bottom:5px" ng-show="numCaravanaFiltro">Eventos del Bovino con caravana {{numCaravanaFiltro}}</legend>
     <div id="timeline"></div>
 </div>
 <!--Modal-->

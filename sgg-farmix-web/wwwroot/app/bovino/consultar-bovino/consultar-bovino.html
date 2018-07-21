@@ -32,10 +32,13 @@
                 <label>
                     N° Caravana
                 </label>
-                <input class="form-control" name="numCaravana" type="number" ng-model="filtro.numCaravana" placeholder="N° Caravana" min="0" ng-disabled="disabled" />
+                <input class="form-control" name="numCaravana" type="number" ng-model="filtro.numCaravana" placeholder="N° Caravana" min="1" maxlength="15" ng-disabled="disabled" />
                 <div ng-show="formConsultarBovino.numCaravana.$touched">
                     <span class="help-block" ng-show="formConsultarBovino.numCaravana.$error.min">
-                        El número de Caravana no puede ser negativo
+                        El número de Caravana no puede ser negativo ni 0
+                    </span>
+                    <span class="help-block" ng-show="formConsultarBovino.numCaravana.$error.maxlength">
+                        Puede colocar hasta 15 dígitos
                     </span>
                 </div>
             </div>
@@ -177,11 +180,11 @@
                     <td>{{item.rodeoNombre | uppercase}}</td>
                     <td>{{item.estadoNombre | uppercase}}</td>
                     <td>{{item.peso}}</td>
-                    <td>
-                        <a ui-sref="home.modificarBovino({id:item.idBovino})" title="Modificar" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="fa fa-pencil"></span></a>
+                    <td>                        
                         <a ui-sref="home.detalleBovino({id:item.idBovino})" title="Ver"><span class="fa fa-search"></span></a>
-                        <a  title="Eliminar" ng-click="openPopUp(item.numCaravana, item.idBovino)" style="cursor:pointer;" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="fa fa-trash"></span></a>
+                        <a ui-sref="home.modificarBovino({id:item.idBovino})" title="Modificar" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="fa fa-pencil"></span></a>
                         <a ui-sref="home.eliminarBovino({id:item.idBovino})" title="Dar de baja" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="fa fa-window-close"></span></a>
+                        <a  title="Eliminar" ng-click="openPopUp(item.numCaravana, item.idBovino)" style="cursor:pointer;" ng-show="item.estadoNombre !== 'Venta' && item.estadoNombre !== 'Muerto'"><span class="fa fa-trash"></span></a>                        
                     </td>
                 </tr>
             </tbody>
