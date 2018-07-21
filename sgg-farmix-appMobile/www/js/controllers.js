@@ -71,7 +71,7 @@
                                     $rootScope.toros.push({ numCaravana: _bovino.numCaravana, apodo: _bovino.apodo });
                                     $rootScope.idToros.push($scope.id);
                                 } else if (_bovino.genero == 0) {
-                                    if (_bovino.idEstado == "Activo" && (_bovino.idCategoria == "Ternera" || _bovino.idCategoria == "Vaquilla" || _bovino.idCategoria == "Vaquillona")) {
+                                    if (_bovino.estado == "Activo" && (_bovino.categoria == "Ternera" || _bovino.categoria == "Vaquilla" || _bovino.categoria == "Vaquillona")) {
                                         if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
                                             $rootScope.vacas = [];
                                             $rootScope.idVacas = [];
@@ -116,7 +116,7 @@
                                     alert("Solo se puede registrar un toro padre");
                                 }
                             } else if (_bovino.genero == 0) {
-                                if (_bovino.idEstado == "Pre\u00F1ada") {
+                                if (_bovino.estado == "Pre\u00F1ada") {
                                     if ($rootScope.vacas == undefined || $rootScope.vacas == null) {
                                         $rootScope.vacas = [];
                                         $rootScope.idVacas = [];
