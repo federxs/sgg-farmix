@@ -23,6 +23,7 @@
         vm.btnVolver = "Cancelar";
         vm.habilitar = true;
         vm.habilitarNacimiento = true;
+        vm.habilitarCaravanaPadre = true;
         vm.showMjeSuccess = false;
         vm.showMjeError = false;
         vm.mjeExiste = '';
@@ -94,6 +95,8 @@
                         vm.bovino.idAlimento = '';
                         vm.bovino.cantAlimento = '';
                         vm.habilitarNacimiento = false;
+                        if (vm.bovino.idBovinoPadre)
+                            vm.habilitarCaravanaPadre = false;
                         vm.volverA = 'home.nacimientos';
                         if (vm.bovino.idBovinoPadre === 0) vm.bovino.idBovinoPadre = '';
                         $scope.$parent.unBlockSpinner();

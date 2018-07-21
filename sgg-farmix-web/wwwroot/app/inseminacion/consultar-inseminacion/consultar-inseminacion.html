@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col-lg-3 col-md-6">
         <a href="">
-            <div ng-click="hembrasParaServicio()">
+            <div ng-click="obtenerHembrasParaServicio()">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="row">
@@ -68,7 +68,7 @@
             </div>
         </a>
     </div>
-    <div class="col-lg-3 col-md-6" ng-click="lactanciasActivas()">
+    <div class="col-lg-3 col-md-6" ng-click="obtenerLactanciasActivas()">
         <a href="">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -87,7 +87,7 @@
     </div>
 </div>
 <!--FIN BOTONES-->
-<div ng-show="showHembrasParaServicio">
+<div>
     <h3>Hembras para servicio <small>Listas para inseminación</small></h3>
     <ul class="list-group">
         <li class="list-group-item cursor" ng-click="obtenerHembrasParaServicio()">
@@ -130,7 +130,7 @@
         </li>
     </ul>
 </div>
-<div ng-show="showLactanciasActivas">
+<div>
     <h3>Lactancias activas <small>Vacas que están dando de lactar</small></h3>
     <ul class="list-group">
         <li class="list-group-item cursor" ng-click="obtenerLactanciasActivas()">
