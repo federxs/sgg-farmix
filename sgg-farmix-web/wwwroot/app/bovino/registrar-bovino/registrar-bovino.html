@@ -247,21 +247,31 @@
                             <span class="help-block" ng-show="formRegistrarBovino.peso.$error.min">
                                 El peso no puede ser negativo
                             </span>
+                            <span class="help-block" ng-show="formRegistrarBovino.peso.$error.max">
+                                Ingrese un peso menor
+                            </span>
                         </div>
                     </div>
                     <div class="row-fluid">
-                        <div class="form-group col-md-4 col-lg-4">
+                        <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.pesoAlNacer.$touched && formRegistrarBovino.pesoAlNacer.$valid,
+                 'has-error has-feedback':formRegistrarBovino.pesoAlNacer.$touched && formRegistrarBovino.pesoAlNacer.$invalid}">
                             <label class="control-label" for="pesoAlNacer">
                                 Peso al nacimiento (kg)
                             </label>
                             <input name="pesoAlNacer" type="number" class="form-control" min="0" max="1000" placeholder="Peso al nacimiento (kg)"
                                    ng-disabled="!habilitar"
                                    ng-model="bovino.pesoAlNacer" />
-                        </div>
-                        <div ng-show="formRegistrarBovino.pesoAlNacer.$touched">
-                            <span class="help-block" ng-show="formRegistrarBovino.pesoAlNacer.$error.number">
-                                El campo debe ser numérico
-                            </span>
+                            <div ng-show="formRegistrarBovino.pesoAlNacer.$touched">
+                                <span class="help-block" ng-show="formRegistrarBovino.pesoAlNacer.$error.number">
+                                    El campo debe ser numérico
+                                </span>
+                                <span class="help-block" ng-show="formRegistrarBovino.pesoAlNacer.$error.min">
+                                    El peso no puede ser negativo
+                                </span>
+                                <span class="help-block" ng-show="formRegistrarBovino.pesoAlNacer.$error.max">
+                                    Ingrese un peso menor
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
