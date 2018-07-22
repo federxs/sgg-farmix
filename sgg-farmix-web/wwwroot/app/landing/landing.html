@@ -215,81 +215,86 @@
     </div>
 
     <!-- Google Maps -->
-    <div map-lazy-load="https://maps.google.com/maps/api/js"
+    <!--
+        <div map-lazy-load="https://maps.google.com/maps/api/js"
          map-lazy-load-params="{{googleMapsUrl}}">
         <ng-map center="-31.442250, -64.193164" zoom="16" map-type-id="ROADMAP" draggable="false">
             <marker position="[-31.442250, -64.193164]" title="UTN-FRC" animation="Animation.BOUNCE"></marker>
         </ng-map>
+    </div> -->
+
+    <div class="w3-row-padding w3-padding-64 w3-theme-l3" id="work">
+        <img class="img-responsive" src="../../images/mapa.jpg" alt="Mapa UTN FRC">
     </div>
 
-    <!-- Contact Container -->
-    <div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
-        <div class="w3-row">
-            <div class="w3-col m5">
-                <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contáctanos</span></div>
-                <h3>Domicilio</h3>
-                <p>Organizar una reunión.</p>
-                <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>  Córdoba, Argentina</p>
-                <p><i class="fa fa-phone w3-text-teal w3-xlarge"></i>  +54 9 3541582613</p>
-                <p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>  farmix@gmail.com</p>
-            </div>
-            <div class="w3-col m7">
-                <form class="w3-container w3-card-4 w3-padding-16 w3-white" target="_blank">
-                    <div class="w3-section">
-                        <label>Nombre</label>
-                        <input class="w3-input" type="text" name="Name" ng-model="name" required>
-                    </div>
-                    <div class="w3-section">
-                        <label>Correo Electrónico</label>
-                        <input class="w3-input" type="email" name="Email" ng-model="email" required>
-                    </div>
-                    <div class="w3-section">
-                        <label>Mensaje</label>
-                        <input class="w3-input" type="text" name="Message" ng-model="mensaje" required>
-                    </div>
-                    <button type="submit" class="w3-button w3-right w3-theme" ng-click="enviarCorreo()" ng-disabled="!name || !email || !mensaje">Enviar</button>
-                </form>
+        <!-- Contact Container -->
+        <div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
+            <div class="w3-row">
+                <div class="w3-col m5">
+                    <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contáctanos</span></div>
+                    <h3>Domicilio</h3>
+                    <p>Organizar una reunión.</p>
+                    <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>  Córdoba, Argentina</p>
+                    <p><i class="fa fa-phone w3-text-teal w3-xlarge"></i>  +54 9 3541582613</p>
+                    <p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>  farmix@gmail.com</p>
+                </div>
+                <div class="w3-col m7">
+                    <form class="w3-container w3-card-4 w3-padding-16 w3-white" target="_blank">
+                        <div class="w3-section">
+                            <label>Nombre</label>
+                            <input class="w3-input" type="text" name="Name" ng-model="name" required>
+                        </div>
+                        <div class="w3-section">
+                            <label>Correo Electrónico</label>
+                            <input class="w3-input" type="email" name="Email" ng-model="email" required>
+                        </div>
+                        <div class="w3-section">
+                            <label>Mensaje</label>
+                            <input class="w3-input" type="text" name="Message" ng-model="mensaje" required>
+                        </div>
+                        <button type="submit" class="w3-button w3-right w3-theme" ng-click="enviarCorreo()" ng-disabled="!name || !email || !mensaje">Enviar</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
-        <p>Farmix 2018 v2.0</p>
+        <footer class="w3-container w3-padding-32 w3-theme-d1 w3-center">
+            <p>Farmix 2018 v2.0</p>
 
-        <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
-            <span class="w3-text w3-padding w3-teal w3-hide-small">Ir arriba</span>
-            <a class="w3-button w3-theme" ng-click="irArriba()">
-                <span class="w3-xlarge">
-                    <i class="fa fa-chevron-circle-up"></i>
-                </span>
-            </a>
-        </div>
-    </footer>
+            <div style="position:relative;bottom:100px;z-index:1;" class="w3-tooltip w3-right">
+                <span class="w3-text w3-padding w3-teal w3-hide-small">Ir arriba</span>
+                <a class="w3-button w3-theme" ng-click="irArriba()">
+                    <span class="w3-xlarge">
+                        <i class="fa fa-chevron-circle-up"></i>
+                    </span>
+                </a>
+            </div>
+        </footer>
 
-    <script src="http://maps.google.com/maps/api/js"></script>
-    <script>
-        // Script for side navigation
-        function w3_open() {
-            var x = document.getElementById("mySidebar");
-            x.style.width = "300px";
-            x.style.paddingTop = "10%";
-            x.style.display = "block";
-        }
-
-        // Close side navigation
-        function w3_close() {
-            document.getElementById("mySidebar").style.display = "none";
-        }
-
-        // Used to toggle the menu on smaller screens when clicking on the menu button
-        function openNav() {
-            var x = document.getElementById("navDemo");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
+        <script src="http://maps.google.com/maps/api/js"></script>
+        <script>
+            // Script for side navigation
+            function w3_open() {
+                var x = document.getElementById("mySidebar");
+                x.style.width = "300px";
+                x.style.paddingTop = "10%";
+                x.style.display = "block";
             }
-        }
-    </script>
+
+            // Close side navigation
+            function w3_close() {
+                document.getElementById("mySidebar").style.display = "none";
+            }
+
+            // Used to toggle the menu on smaller screens when clicking on the menu button
+            function openNav() {
+                var x = document.getElementById("navDemo");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                } else {
+                    x.className = x.className.replace(" w3-show", "");
+                }
+            }
+        </script>
 </body>
 </html>
