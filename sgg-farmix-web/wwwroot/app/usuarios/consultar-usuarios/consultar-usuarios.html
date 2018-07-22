@@ -111,8 +111,8 @@
                     <td>{{item.fechaAlta}}</td>
                     <td>{{item.fechaBaja}}</td>
                     <td>
-                        <a ui-sref="home.modificarUsuario({id:item.idUsuario})" title="Modificar" ng-show="item.fechaBaja === ' '"><span class="fa fa-pencil"></span></a>
                         <a ui-sref="home.detalleUsuario({id:item.idUsuario})" title="Ver"><span class="fa fa-search"></span></a>
+                        <a ui-sref="home.modificarUsuario({id:item.idUsuario})" title="Modificar" ng-show="item.fechaBaja === ' '"><span class="fa fa-pencil"></span></a>                        
                         <a title="Eliminar" style="cursor:pointer" ng-show="item.fechaBaja === ' ' && (item.usuario !== usuario || item.idRol !== rol)"><span class="fa fa-trash" ng-click="openPopUp(item)"></span></a>
                         <a title="Activar usuario" style="cursor:pointer" ng-show="item.fechaBaja !== ' ' && item.usuario !== usuario"><span class="fa fa-check-circle-o " ng-click="openPopUpActivar(item)"></span></a>
                     </td>

@@ -123,8 +123,8 @@
                     <td>{{item.fechaHora }}</td>
                     <td>{{item.cantidadBovinos}}</td>
                     <td>
-                        <a ui-sref="home.modificarEvento({id: item.idEvento})" title="Editar"><span class="fa fa-pencil"></span></a>
                         <a ui-sref="home.detalleEvento({id: item.idEvento})" title="Ver"><span class="fa fa-search"></span></a>
+                        <a ui-sref="home.modificarEvento({id: item.idEvento})" title="Editar"><span class="fa fa-pencil"></span></a>                       
                         <a><span class="fa fa-trash" style="cursor:pointer" title="Eliminar" ng-click="openPopUp(item.tipoEvento, item.fechaHora, item.idEvento)"></span></a>
                     </td>
                 </tr>

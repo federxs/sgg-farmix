@@ -169,11 +169,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Inseminacion/Lactancias")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<BovinoItem> VacasDandoLactar()
+        public IEnumerable<BovinoItem> VacasDandoLactar(long codigoCampo)
         {
             try
             {
-                return IM.GetVacasLactancia();
+                return IM.GetVacasLactancia(codigoCampo);
             }
             catch (Exception ex)
             {

@@ -299,12 +299,16 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<BovinoItem> GetVacasLactancia()
+        public IEnumerable<BovinoItem> GetVacasLactancia(long codigoCampo)
         {
             try
             {
                 connection = new SqlServerConnection();
-                var lista = connection.GetArray<BovinoItem>("spGetVacasLactancias", null, System.Data.CommandType.StoredProcedure);
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@codigoCampo", codigoCampo }
+                };
+                var lista = connection.GetArray<BovinoItem>("spGetVacasLactancias", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
             catch (Exception ex)

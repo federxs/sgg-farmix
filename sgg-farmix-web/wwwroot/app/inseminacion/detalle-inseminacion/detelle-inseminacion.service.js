@@ -37,10 +37,11 @@
             });
         }
 
-        function getLactancias() {
+        function getLactancias(codigoCampo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/Lactancias',
+                params: { codigoCampo: codigoCampo },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

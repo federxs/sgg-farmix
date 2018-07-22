@@ -5,9 +5,9 @@
         .module('app')
         .controller('detalleInseminacionController', detalleInseminacionController);
 
-    detalleInseminacionController.$inject = ['$scope', 'detalleInseminacionService', '$stateParams', 'toastr'];
+    detalleInseminacionController.$inject = ['$scope', 'detalleInseminacionService', '$stateParams', 'toastr', '$localStorage'];
 
-    function detalleInseminacionController($scope, detalleInseminacionService, $stateParams, toastr) {
+    function detalleInseminacionController($scope, detalleInseminacionService, $stateParams, toastr, $localStorage) {
         var vm = $scope;
         //variables
         window.scrollTo(0, 0);
@@ -58,7 +58,7 @@
                 })
             }
             else if (vm.desde === 'lactanciasActivas') {
-                detalleInseminacionService.getLactancias().then(function successs(data) {
+                detalleInseminacionService.getLactancias($localStorage.usuarioInfo.codigoCampo).then(function successs(data) {
                     vm.rowCollection = data;
                     vm.tituloTabla = 'Vacas dando de lactar';
                     vm.disabled = false;

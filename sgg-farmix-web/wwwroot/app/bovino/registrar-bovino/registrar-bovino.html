@@ -55,7 +55,7 @@
                                 No existe un bovino registrado con este número de caravana
                             </span>
                             <span class="help-block" ng-show="formRegistrarBovino.madre.$error.coincideIdCaravanaMadre">
-                                El numero de caravana coincide con el numero de carvana Padre
+                                El número de caravana coincide con el número de caravana Padre
                             </span>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                                 No existe un bovino registrado con este número de caravana
                             </span>
                             <span class="help-block" ng-show="formRegistrarBovino.padre.$error.coincideIdCaravanaPadre">
-                                El numero de caravana coincide con el numero de carvana Madre
+                                El número de caravana coincide con el número de caravana Madre
                             </span>
                         </div>
                     </div>
@@ -248,7 +248,10 @@
                                 El peso no puede ser negativo
                             </span>
                             <span class="help-block" ng-show="formRegistrarBovino.peso.$error.max">
-                                Ingrese un peso menor
+                                Ingrese un peso menor a 1000
+                            </span>
+                            <span class="help-block" ng-show="formRegistrarBovino.peso.$error.number">
+                                El campo debe ser numérico
                             </span>
                         </div>
                     </div>
@@ -269,7 +272,7 @@
                                     El peso no puede ser negativo
                                 </span>
                                 <span class="help-block" ng-show="formRegistrarBovino.pesoAlNacer.$error.max">
-                                    Ingrese un peso menor
+                                    Ingrese un peso menor a 1000
                                 </span>
                             </div>
                         </div>

@@ -139,8 +139,12 @@
         };
 
         function getPeso() {
-            vm.maxCantidad = ((12 * vm.bovino.peso) / 100).toFixed(2);
-            vm.showCantAlimentoOptima = true;
+            if (vm.bovino.peso) {
+                vm.maxCantidad = ((12 * vm.bovino.peso) / 100).toFixed(2);
+                vm.showCantAlimentoOptima = true;
+            }
+            else
+                vm.showCantAlimentoOptima = false;            
         };
 
         function modificar() {
