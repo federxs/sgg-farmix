@@ -199,7 +199,10 @@
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;
                 $localStorage.usuarioInfo.campoNombre = $scope.usuarioInfo.campo;
-                $scope.usuarioInfo.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.usuarioInfo.usuarioImagen + "?cache=" + (new Date()).getTime();
+                if ($scope.usuarioInfo.usuarioImagen)
+                    $scope.usuarioInfo.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.usuarioInfo.usuarioImagen + "?cache=" + (new Date()).getTime();
+                else
+                    $scope.usuarioInfo.usuarioImagen = 'images/usuario_defecto.png';
                 spinnerBar.hide();
                 $('.modal-backdrop').remove();
             }, function (error) {

@@ -84,7 +84,10 @@
                    .then(function success(data) {
                        $scope.campos = data;
                        for (var i = 0; i < $scope.campos.length; i++) {
-                           $scope.campos[i].imagenNombre = portalService.getUrlServer() + portalService.getFolderImagenCampo() + $scope.campos[i].codigoCampo + '\\' + $scope.campos[i].imagenNombre + "?cache=" + (new Date()).getTime();
+                           if ($scope.campos[i].imagenNombre)
+                               $scope.campos[i].imagenNombre = portalService.getUrlServer() + portalService.getFolderImagenCampo() + $scope.campos[i].codigoCampo + '\\' + $scope.campos[i].imagenNombre + "?cache=" + (new Date()).getTime();
+                           else
+                               $scope.campos[i].imagenNombre = 'images/campo_defecto.jpg';
                        }
                        spinnerBar.hide();
                        $('.modal-backdrop').remove();
@@ -142,7 +145,7 @@
             seleccionCampoService.borrarCampo(codigoCampoEliminar)
                    .then(function success(data) {
                        spinnerBar.hide();
-                       toastr.success('Campo Eliminado con éxito!', 'Éxito');                       
+                       toastr.success('Campo Eliminado con éxito!', 'Éxito');
                        $('#modalEliminarCampo').modal('hide');
                        $('.modal-backdrop').remove();
                        inicializar();
