@@ -189,7 +189,10 @@
             $scope.$parent.blockSpinner();
             configuracionService.getDatosPerfilUsuario({ campo: $localStorage.usuarioInfo.codigoCampo, usuario: usuarioInfo.getUsuario(), idRol: usuarioInfo.getRol(), periodo: $localStorage.usuarioInfo.periodoConsulta }, function (data) {
                 $scope.perfilUsuario = data;
-                $scope.perfilUsuario.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfilUsuario.usuarioImagen + "?cache=" + (new Date()).getTime();
+                if ($scope.perfilUsuario.usuarioImagen)
+                    $scope.perfilUsuario.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.perfilUsuario.usuarioImagen + "?cache=" + (new Date()).getTime();
+                else
+                    $scope.perfilUsuario.usuarioImagen = 'images/usuario_defecto.png';
                 $scope.$parent.unBlockSpinner();
                 $('#modalPerfilUser').modal('show');
             }, function (error) {
