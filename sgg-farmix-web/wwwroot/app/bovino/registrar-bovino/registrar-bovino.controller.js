@@ -44,6 +44,8 @@
         vm.registrar = registrar;
         vm.inicializar = inicializar();
         vm.idCaravanaChange = idCaravanaChange;
+        vm.idCaravanaMadreChange = idCaravanaMadreChange;
+        vm.idCaravanaPadreChange = idCaravanaPadreChange;
         vm.getFecha = getFecha;
         vm.getPeso = getPeso;
         vm.cargarProvinciasyLocalidades = cargarProvinciasyLocalidades;
@@ -169,6 +171,52 @@
                 })
             }
         };
+
+        function idCaravanaMadreChange() {
+            if (vm.bovino.idBovinoMadre) {
+                $scope.$parent.blockSpinner();
+                vm.habilitar = false;
+                registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.idBovinoMadre, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
+                    if (data[0] === "1") {
+                        vm.formRegistrarBovino.madre.$setValidity("existeIdCaravanaMadre", true);
+                    }
+                    else {
+                        vm.formRegistrarBovino.madre.$setValidity("existeIdCaravanaMadre", false);
+                    }
+                    $scope.$parent.unBlockSpinner();
+                    vm.habilitar = true;
+                }, function (error) {
+                    $scope.$parent.unBlockSpinner();
+                    $scope.$parent.errorServicio(error.statusText);
+                })
+            } else {
+                vm.formRegistrarBovino.madre.$setValidity("min", true);
+                vm.formRegistrarBovino.madre.$setValidity("existeIdCaravanaMadre", true);
+            }
+        };
+        function idCaravanaPadreChange() {
+            if (vm.bovino.idBovinoPadre) {
+                $scope.$parent.blockSpinner();
+                vm.habilitar = false;
+                registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.idBovinoPadre, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
+                    if (data[0] === "1") {
+                        vm.formRegistrarBovino.padre.$setValidity("existeIdCaravanaPadre", true);
+                    }
+                    else {
+                        vm.formRegistrarBovino.padre.$setValidity("existeIdCaravanaPadre", false);
+                    }
+                    $scope.$parent.unBlockSpinner();
+                    vm.habilitar = true;
+                }, function (error) {
+                    $scope.$parent.unBlockSpinner();
+                    $scope.$parent.errorServicio(error.statusText);
+                })
+            } else {
+                vm.formRegistrarBovino.padre.$setValidity("min", true);
+                vm.formRegistrarBovino.padre.$setValidity("existeIdCaravanaPadre", true);
+            }
+        };
+        
 
         function convertirFecha(fecha) {
             var dia, mes, año;

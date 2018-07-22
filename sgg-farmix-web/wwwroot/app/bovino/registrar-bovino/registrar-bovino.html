@@ -38,29 +38,39 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group col-md-4 col-lg-4">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.madre.$touched && formRegistrarBovino.madre.$valid,
+                 'has-error has-feedback':formRegistrarBovino.madre.$touched && formRegistrarBovino.madre.$invalid}">
                         <label class="control-label" for="madre">
                             N° de Caravana Madre
                         </label>
-                        <input name="madre" type="number" class="form-control" min="1" placeholder="N° de Caravana Madre"
+                        <input name="madre" type="number" class="form-control" placeholder="N° de Caravana Madre" min="1" 
                                ng-disabled="!habilitar || !habilitarNacimiento"
-                               ng-model="bovino.idBovinoMadre" />
+                               ng-model="bovino.idBovinoMadre" 
+                               ng-blur="idCaravanaMadreChange()" />
                         <div ng-show="formRegistrarBovino.madre.$touched">
                             <span class="help-block" ng-show="formRegistrarBovino.madre.$error.min">
                                 El número no puede ser negativo ni 0
                             </span>
+                            <span class="help-block" ng-show="formRegistrarBovino.madre.$error.existeIdCaravanaMadre">
+                                No existe un bovino registrado con este número de caravana
+                            </span>
                         </div>
                     </div>
-                    <div class="form-group col-md-4 col-lg-4">
+                    <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.padre.$touched && formRegistrarBovino.padre.$valid,
+                 'has-error has-feedback':formRegistrarBovino.padre.$touched && formRegistrarBovino.padre.$invalid}">
                         <label class="control-label" for="padre">
                             N° de Caravana Padre
                         </label>
                         <input name="padre" type="number" class="form-control" min="1" placeholder="N° de Caravana Padre"
                                ng-disabled="!habilitar || !habilitarCaravanaPadre"
-                               ng-model="bovino.idBovinoPadre" />
+                               ng-model="bovino.idBovinoPadre" 
+                               ng-blur="idCaravanaPadreChange()" />
                         <div ng-show="formRegistrarBovino.padre.$touched">
                             <span class="help-block" ng-show="formRegistrarBovino.padre.$error.min">
                                 El número no puede ser negativo ni 0
+                            </span>
+                            <span class="help-block" ng-show="formRegistrarBovino.padre.$error.existeIdCaravanaPadre">
+                                No existe un bovino registrado con este número de caravana
                             </span>
                         </div>
                     </div>
