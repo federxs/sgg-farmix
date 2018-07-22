@@ -54,6 +54,9 @@
                             <span class="help-block" ng-show="formRegistrarBovino.madre.$error.existeIdCaravanaMadre">
                                 No existe un bovino registrado con este número de caravana
                             </span>
+                            <span class="help-block" ng-show="formRegistrarBovino.madre.$error.coincideIdCaravanaMadre">
+                                El numero de caravana coincide con el numero de carvana Padre
+                            </span>
                         </div>
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.padre.$touched && formRegistrarBovino.padre.$valid,
@@ -71,6 +74,9 @@
                             </span>
                             <span class="help-block" ng-show="formRegistrarBovino.padre.$error.existeIdCaravanaPadre">
                                 No existe un bovino registrado con este número de caravana
+                            </span>
+                            <span class="help-block" ng-show="formRegistrarBovino.padre.$error.coincideIdCaravanaPadre">
+                                El numero de caravana coincide con el numero de carvana Madre
                             </span>
                         </div>
                     </div>

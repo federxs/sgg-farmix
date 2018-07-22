@@ -174,6 +174,9 @@
 
         function idCaravanaMadreChange() {
             if (vm.bovino.idBovinoMadre) {
+                if (vm.bovino.idBovinoMadre == vm.bovino.idBovinoPadre) {
+                    vm.formRegistrarBovino.madre.$setValidity("coincideIdCaravanaMadre", false);
+                }
                 $scope.$parent.blockSpinner();
                 vm.habilitar = false;
                 registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.idBovinoMadre, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
@@ -192,10 +195,14 @@
             } else {
                 vm.formRegistrarBovino.madre.$setValidity("min", true);
                 vm.formRegistrarBovino.madre.$setValidity("existeIdCaravanaMadre", true);
+                vm.formRegistrarBovino.madre.$setValidity("coincideIdCaravanaMadre", true);
             }
         };
         function idCaravanaPadreChange() {
             if (vm.bovino.idBovinoPadre) {
+                if (vm.bovino.idBovinoPadre == vm.bovino.idBovinoMadre) {
+                    vm.formRegistrarBovino.padre.$setValidity("coincideIdCaravanaPadre", false);
+                }
                 $scope.$parent.blockSpinner();
                 vm.habilitar = false;
                 registrarBovinoService.existeIdCaravana({ idCaravana: vm.bovino.idBovinoPadre, codigoCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
@@ -214,6 +221,7 @@
             } else {
                 vm.formRegistrarBovino.padre.$setValidity("min", true);
                 vm.formRegistrarBovino.padre.$setValidity("existeIdCaravanaPadre", true);
+                vm.formRegistrarBovino.padre.$setValidity("coincideIdCaravanaPadre", true);
             }
         };
         
