@@ -193,9 +193,11 @@
                     $scope.$parent.errorServicio(error.statusText);
                 })
             } else {
-                vm.formRegistrarBovino.madre.$setValidity("min", true);
-                vm.formRegistrarBovino.madre.$setValidity("existeIdCaravanaMadre", true);
-                vm.formRegistrarBovino.madre.$setValidity("coincideIdCaravanaMadre", true);
+                if(vm.idBovinoMadre === ""){
+                    vm.formRegistrarBovino.madre.$setValidity("min", true);
+                    vm.formRegistrarBovino.madre.$setValidity("existeIdCaravanaMadre", true);
+                    vm.formRegistrarBovino.madre.$setValidity("coincideIdCaravanaMadre", true);
+                }
             }
         };
         function idCaravanaPadreChange() {
@@ -219,9 +221,11 @@
                     $scope.$parent.errorServicio(error.statusText);
                 })
             } else {
-                vm.formRegistrarBovino.padre.$setValidity("min", true);
-                vm.formRegistrarBovino.padre.$setValidity("existeIdCaravanaPadre", true);
-                vm.formRegistrarBovino.padre.$setValidity("coincideIdCaravanaPadre", true);
+                if(vm.bovino-idBovinoPadre === ""){
+                    vm.formRegistrarBovino.padre.$setValidity("min", true);
+                    vm.formRegistrarBovino.padre.$setValidity("existeIdCaravanaPadre", true);
+                    vm.formRegistrarBovino.padre.$setValidity("coincideIdCaravanaPadre", true);
+                }
             }
         };
         
