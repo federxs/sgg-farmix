@@ -16,7 +16,7 @@
 <!--INICIO BOTONES-->
 <div class="row">
     <div class="col-lg-3 col-md-6" ng-click="obtenerHembrasParaServicio()" style="cursor:pointer;">
-        <a>
+        <a data-toggle="tooltip" title="" data-placement="top" data-original-title="Indica la cantidad de Vacas listas para realizarles una inseminación.">
             <div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -35,7 +35,7 @@
         </a>
     </div>
     <div class="col-lg-3 col-md-6" ng-click="serviciosSinConfirmar()" style="cursor:pointer;">
-        <a>
+        <a data-toggle="tooltip" title="" data-placement="top" data-original-title="Indica la cantidad de Vacas que se las ha inseminado pero que aún no se confirmó si fue exitosa o no la inseminación. Permite ocultar o mostrar el acceso al listado de “Servicios sin Confirmar”.">
             <div class="panel panel-warning">
                 <div class="panel-heading">
                     <div class="row">
@@ -52,7 +52,7 @@
         </a>
     </div>
     <div class="col-lg-3 col-md-6" ng-click="proximosPartos()" style="cursor:pointer;">
-        <a>
+        <a  data-toggle="tooltip" title="" data-placement="top" data-original-title="Indica la cantidad de Vacas que se encuentran preñadas y próximas a parir. Permite ocultar o mostrar el acceso al listado de “Vacas preñadas”.">
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <div class="row">
@@ -69,7 +69,7 @@
         </a>
     </div>
     <div class="col-lg-3 col-md-6" ng-click="obtenerLactanciasActivas()" style="cursor:pointer;">
-        <a>
+        <a data-toggle="tooltip" title="" data-placement="top" data-original-title="Indica la cantidad de Vacas que se encuentran amamantando a sus crías.">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
@@ -90,7 +90,7 @@
 <div>
     <h3>Hembras para servicio <small>Listas para inseminación</small></h3>
     <ul class="list-group">
-        <li class="list-group-item cursor" ng-click="obtenerHembrasParaServicio()">
+        <li class="list-group-item cursor" ng-click="obtenerHembrasParaServicio()" data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra la cantidad y permite acceder al listado de Hembras listas para ser inseminadas.">
             <span class="badge">{{init.hembrasParaServicio}}</span>
             Vacas
         </li>
@@ -98,7 +98,7 @@
 </div>
 <div ng-show="showServSinConfirm">
     <h3>Servicios sin confirmar <small>Aún no se realizó el tacto</small> <!--<small>Falta realizar tacto/ecografía</small>--></h3>
-    <ul class="list-group">
+    <ul class="list-group" data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra la cantidad de servicios sin confirmación que se realizaron hace “Menos de 60 días”, “Entre 60 y 90 días” o “Más de 90”. Al seleccionar uno de los intervalos de tiempo, se muestra el listado de Servicios sin Confirmar correspondiente.">
         <li class="list-group-item cursor" ng-click="obtenerServSinConfirm('menor60')">
             <span class="badge">{{serviciosSinConfirm.menor60}}</span>
             Menos de 60 días
@@ -115,7 +115,7 @@
 </div>
 <div ng-show="showProxPartos">
     <h3>Vacas preñadas <small>Próximas a parir</small></h3>
-    <ul class="list-group">
+    <ul class="list-group" data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra la cantidad de vacas preñadas, cuyo parto se espera para “Dentro de 10 días”, “Dentro de 30 días” o “Dentro de 60”. Al seleccionar uno de los intervalos de tiempo, se muestra el listado de Vacas Preñadas correspondiente.">
         <li class="list-group-item cursor" ng-click="obtenerProxPartos('prox10dias')">
             <span class="badge">{{preniadasPorParir.prox10dias}}</span>
             Dentro de 10 días
@@ -132,7 +132,7 @@
 </div>
 <div>
     <h3>Lactancias activas <small>Vacas que están dando de lactar</small></h3>
-    <ul class="list-group">
+    <ul class="list-group" data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra la cantidad y permite acceder al listado de Lactancias activas.">
         <li class="list-group-item cursor" ng-click="obtenerLactanciasActivas()">
             <span class="badge">{{init.lactanciasActivas}}</span>
             Vacas
@@ -147,13 +147,13 @@
 <div ng-show="showServiciosSinConfirm">
     <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
         <div class="pull-right hidden-print" style="margin-bottom:5px">
-            <button class="btn btn-success font-white" ng-click="exportarExcelServSinConfirm()" title="Exportar a Excel" ng-disabled="disabledExportar">
+            <button class="btn btn-success font-white" ng-click="exportarExcelServSinConfirm()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de inseminaciones aún no confirmadas y descargar un documento en formato Excel.">
                 <i class="fa fa-file-excel-o"></i>
             </button>
-            <button class="btn btn-success font-white" ng-click="exportarPDFServSinConfirm()" title="Exportar a PDF" ng-disabled="disabledExportar">
+            <button class="btn btn-success font-white" ng-click="exportarPDFServSinConfirm()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de inseminaciones aún no confirmadas y descargar un documento en formato PDF.">
                 <i class="fa fa-file-pdf-o"></i>
             </button>
-            <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
+            <a class="btn btn-success font-white" href='javascript:window.print();' ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite realizar una impresión del listado de inseminaciones aún no confirmadas.">
                 <i class="fa fa-print"></i>
             </a>
         </div>
@@ -183,10 +183,10 @@
             <tfoot>
                 <tr>
                     <td class="hidden-print">
-                        <label for="items" ng-show="rowCollection.length > 1">Registros por página</label>
+                        <label for="items" ng-show="rowCollection.length > 1" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite indicar la cantidad de inseminaciones a mostrar en cada página.">Registros por página</label>
                         <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">                        
                     </td>
-                    <td colspan="5" class="text-center">
+                    <td colspan="5" class="text-center" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ir cambiando la página a visualizar (en azul se indica la página actual)." ng-show="rowCollection.length > 1">
                         <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
                     </td>
                 </tr>
@@ -197,13 +197,13 @@
 <div ng-show="showHembrasPreniadas">
     <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
         <div class="pull-right hidden-print" style="margin-bottom:5px">
-            <button class="btn btn-success font-white" ng-click="exportarExcelVacasPreniadas()" title="Exportar a Excel" ng-disabled="disabledExportar">
+            <button class="btn btn-success font-white" ng-click="exportarExcelVacasPreniadas()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de inseminaciones cuyas vacas estan próximas a parir y descargar un documento en formato Excel.">
                 <i class="fa fa-file-excel-o"></i>
             </button>
-            <button class="btn btn-success font-white" ng-click="exportarPDFVacasPreniadas()" title="Exportar a PDF" ng-disabled="disabledExportar">
+            <button class="btn btn-success font-white" ng-click="exportarPDFVacasPreniadas()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de inseminaciones cuyas vacas estan próximas a parir y descargar un documento en formato PDF.">
                 <i class="fa fa-file-pdf-o"></i>
             </button>
-            <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
+            <a class="btn btn-success font-white" href='javascript:window.print();' ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite realizar una impresión del listado de inseminaciones cuyas vacas estan próximas a parir.">
                 <i class="fa fa-print"></i>
             </a>
         </div>
@@ -231,10 +231,10 @@
             <tfoot>
                 <tr>
                     <td class="hidden-print">
-                        <label for="items" ng-show="rowCollection.length > 1">Registros por página</label>
+                        <label for="items" ng-show="rowCollection.length > 1" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite indicar la cantidad de vacas preñadas a mostrar en cada página.">Registros por página</label>
                         <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" ng-show="rowCollection.length > 1">                       
                     </td>
-                    <td colspan="5" class="text-center">
+                    <td colspan="5" class="text-center" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ir cambiando la página a visualizar (en azul se indica la página actual)." ng-show="rowCollection.length > 1">
                         <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
                     </td>
                 </tr>

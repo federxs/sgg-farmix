@@ -12,6 +12,7 @@
         //variables
         window.scrollTo(0, 0);
         $('.modal-backdrop').remove();
+        $('[data-toggle="tooltip"]').tooltip();
         vm.showHembrasParaServicio = true;
         vm.showServiciosSinConfirm = false;
         vm.showHembrasPreniadas = false;

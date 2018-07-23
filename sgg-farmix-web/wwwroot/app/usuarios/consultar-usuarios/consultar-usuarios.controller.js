@@ -11,6 +11,7 @@
         var vm = $scope;
         window.scrollTo(0, 0);
         $('.modal-backdrop').remove();
+        $('[data-toggle="tooltip"]').tooltip();
         vm.deshabilitar = false;
         vm.disabledExportar = 'disabled';
         var idUsuarioEliminar = 0;

@@ -10,6 +10,7 @@
     function consultarReportesController($scope, $state) {
         var vm = $scope;
         window.scrollTo(0, 0);
+        $('[data-toggle="tooltip"]').tooltip();
         vm.irAReportesInseminacion = irAReportesInseminacion;
         $scope.$parent.unBlockSpinner();
 

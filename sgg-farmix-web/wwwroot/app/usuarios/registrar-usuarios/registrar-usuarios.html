@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarUsuario.nombre.$touched && formRegistrarUsuario.nombre.$valid,
                  'has-error has-feedback':formRegistrarUsuario.nombre.$touched && formRegistrarUsuario.nombre.$invalid}">
-                        <label class="control-label" for="nombre">
+                        <label class="control-label" for="nombre" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar el nombre del usuario a registrar. Dato obligatorio (*)">
                             Nombre (*)
                         </label>
                         <input name="nombre" type="text" class="form-control" placeholder="Nombre" required
@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarUsuario.apellido.$touched && formRegistrarUsuario.apellido.$valid,
                  'has-error has-feedback':formRegistrarUsuario.apellido.$touched && formRegistrarUsuario.apellido.$invalid}">
-                        <label class="control-label" for="apellido">
+                        <label class="control-label" for="apellido" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar el apellido del usuario a registrar. Dato obligatorio (*)">
                             Apellido (*)
                         </label>
                         <input name="apellido" type="text" class="form-control" placeholder="Apellido" required
@@ -55,7 +55,7 @@
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarUsuario.usuario.$touched && formRegistrarUsuario.usuario.$valid,
                  'has-error has-feedback':formRegistrarUsuario.usuario.$touched && formRegistrarUsuario.usuario.$invalid}">
-                        <label class="control-label" for="usuario">
+                        <label class="control-label" for="usuario" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar el nombre con el que va a ingresar al sistema el usuario una vez registrado. Dato obligatorio (*)">
                             Usuario (*)
                         </label>
                         <input name="usuario" type="text" class="form-control" placeholder="Usuario" required
@@ -69,7 +69,7 @@
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarUsuario.rol.$touched && formRegistrarUsuario.rol.$valid,
                  'has-error has-feedback':formRegistrarUsuario.rol.$touched && formRegistrarUsuario.rol.$invalid}">
-                        <label class="control-label" for="rol">
+                        <label class="control-label" for="rol" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el rol que se le asigna al usuario a registrar. Dato obligatorio (*)">
                             Rol (*)
                         </label>
                         <select class="form-control" name="rol"
@@ -91,7 +91,7 @@
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarUsuario.contrasenia.$touched && formRegistrarUsuario.contrasenia.$valid,
                  'has-error has-feedback':formRegistrarUsuario.contrasenia.$touched && formRegistrarUsuario.contrasenia.$invalid}">
-                        <label class="control-label" for="contrasenia">
+                        <label class="control-label" for="contrasenia" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar la contraseña del usuario a registrar. No la olvide o anotela en un lugar seguro. Dato obligatorio (*)">
                             Contraseña (*)
                         </label>
                         <input name="contrasenia" type="password" class="form-control" placeholder="Contraseña" required
@@ -105,7 +105,7 @@
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarUsuario.contraseniaRepetida.$touched && formRegistrarUsuario.contraseniaRepetida.$valid,
                  'has-error has-feedback':formRegistrarUsuario.contraseniaRepetida.$touched && formRegistrarUsuario.contraseniaRepetida.$invalid}">
-                        <label class="control-label" for="contraseniaRepetida">
+                        <label class="control-label" for="contraseniaRepetida" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar nuevamente la contraseña del usuario a registrar, para verificar la misma. Dato obligatorio (*)">
                             Repita la contraseña (*)
                         </label>
                         <input name="contraseniaRepetida" type="password" class="form-control" placeholder="Confirmar contraseña" required min=""
@@ -154,11 +154,12 @@
                                   ngf-max-files="1"
                                   ngf-ignore-invalid="ignoreInvalid"
                                   ngf-run-all-validations="runAllValidations"
-                                  ngf-allow-dir="allowDir">
+                                  ngf-allow-dir="allowDir"
+                                  data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite agregar una imágen para el perfil del usuario.">
                                 <i class="fa fa-plus"></i>
                                 <span> Agregar Imágen... </span>
                             </span>
-                            <button type="button" class="btn" ng-click="deleteImagefromModel()" ng-disabled="!habilitar" style="margin-top:10px;">
+                            <button type="button" class="btn" ng-click="deleteImagefromModel()" ng-disabled="!habilitar" style="margin-top:10px;" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite eliminar la imágen ingresada.">
                                 <i class="fa fa-trash"></i>
                                 <span> Borrar Archivos... </span>
                             </button>
@@ -173,12 +174,14 @@
     <div class="row">
         <button type="submit" style="margin-left:15px;" class="btn btn-primary"
                 ng-disabled="formRegistrarUsuario.$invalid || !habilitar"
-                ng-click="registrar()">
+                ng-click="registrar()"
+                data-toggle="tooltip" title="" data-placement="top" data-original-title="Se confirman los datos y se registra un nuevo usuario en el sistema, con los datos previamente cargados.">
             Aceptar
         </button>
 
         <button type="button" class="btn btn-default"
-                ui-sref="home.usuarios">
+                ui-sref="home.usuarios"
+                data-toggle="tooltip" title="" data-placement="top" data-original-title="Se borran los datos ingresados, no se registra el usuario y se vuelve a la pantalla anterior.">
             {{btnVolver}}
         </button>
     </div>

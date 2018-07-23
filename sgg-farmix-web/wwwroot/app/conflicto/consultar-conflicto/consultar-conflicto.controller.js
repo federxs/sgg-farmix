@@ -11,6 +11,7 @@
         var vm = $scope;
         window.scrollTo(0, 0);
         $('.modal-backdrop').remove();
+        $('[data-toggle="tooltip"]').tooltip();
         vm.fechaDeHoy = new Date();
         $('#datetimepicker4').datetimepicker();
         $('#datetimepicker5').datetimepicker();

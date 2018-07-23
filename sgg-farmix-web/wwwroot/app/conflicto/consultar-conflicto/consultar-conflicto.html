@@ -12,7 +12,7 @@
     <fieldset>
         <div class="row">
             <div class="form-group col-md-3 col-lg-3">
-                <label>
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los conflictos según el tipo al que corresponden.">
                     Tipo de Conflicto
                 </label>
                 <select class="form-control" name="categoria" required
@@ -23,7 +23,7 @@
                 </select>
             </div>
             <div class="form-group col-md-3 col-lg-3">
-                <label>
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite mostrar los conflictos según el estado en que se encuentran.">
                     Estado
                 </label>
                 <select class="form-control" name="categoria" required
@@ -35,7 +35,7 @@
             </div>
             <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarConflicto.fechaDesde.$touched && formConsultarConflicto.fechaDesde.$valid,
                  'has-error has-feedback':formConsultarConflicto.fechaDesde.$touched && formConsultarConflicto.fechaDesde.$invalid}">
-                <label class="control-label" for="fechaDesde">
+                <label class="control-label" for="fechaDesde" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los conflictos para mostrar los que hayan sucedido desde la fecha ingresada.">
                     Fecha Desde
                 </label>
                 <div name="fechaDesde">
@@ -49,7 +49,7 @@
             </div>
             <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarConflicto.fechaHasta.$touched && formConsultarConflicto.fechaHasta.$valid,
                  'has-error has-feedback':formConsultarConflicto.fechaHasta.$touched && formConsultarConflicto.fechaHasta.$invalid}">
-                <label class="control-label" for="fechaHasta">
+                <label class="control-label" for="fechaHasta" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los conflictos para mostrar los que hayan sucedido hasta la fecha ingresada.">
                     Fecha Hasta
                 </label>
                 <div name="fechaHasta">
@@ -65,12 +65,14 @@
         <div class="row pull-right hidden-print">
             <div class="col-md-12 col-lg-12">
                 <button class="btn btn-default"
-                        ng-click="limpiarCampos()" ng-disabled="disabled">
+                        ng-click="limpiarCampos()" ng-disabled="disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite limpiar los filtros ingresados para mostrar todos los conflictos del campo.">
                     <span class="fa fa-trash"></span>
                     Limpiar Campos
                 </button>
                 <button class="btn btn-primary"
-                        ng-click="consultar()" ng-disabled="formConsultarConflicto.$invalid || disabled">
+                        ng-click="consultar()" ng-disabled="formConsultarConflicto.$invalid || disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra los conflictos que cumplan con las condiciones ingresadas en los criterios de búsqueda.">
                     <span class="fa fa-search"></span>
                     Buscar
                 </button>
@@ -83,13 +85,13 @@
 <legend style="margin-bottom: 5px;" ng-show="rowCollection.length > 0">Resultados</legend>
 <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
     <div class="pull-right hidden-print" style="margin-bottom:5px">
-        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
+        <button class="btn btn-success font-white" ng-click="exportarExcel()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de conflictos (con los filtros ingresados) y descargar un documento en formato Excel.">
             <i class="fa fa-file-excel-o"></i>
         </button>
-        <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
+        <button class="btn btn-success font-white" ng-click="exportarPDF()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de conflictos (con los filtros ingresados) y descargar un documento en formato PDF.">
             <i class="fa fa-file-pdf-o"></i>
         </button>
-        <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
+        <a class="btn btn-success font-white" href='javascript:window.print();' ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite realizar una impresión del listado de conflictos, con los filtros ingresados.">
             <i class="fa fa-print"></i>
         </a>
     </div>
@@ -115,11 +117,11 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td class="hidden-print">
-                        <label for="items">Registros por página</label>
+                    <td class="hidden-print" ng-show="rowCollection.length > 0">
+                        <label for="items" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite indicar la cantidad de conflictos a mostrar en cada página.">Registros por página</label>
                         <input class="input-sm form-control" name="items" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled" min="1">
                     </td>
-                    <td colspan="5" class="text-center">
+                    <td colspan="5" class="text-center" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ir cambiando la página a visualizar (en azul se indica la página actual)." ng-show="rowCollection.length > 0">
                         <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
                     </td>
                 </tr>

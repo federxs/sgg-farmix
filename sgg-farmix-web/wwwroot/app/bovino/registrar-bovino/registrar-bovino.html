@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.idCaravana.$touched && formRegistrarBovino.idCaravana.$valid,
                  'has-error has-feedback':formRegistrarBovino.idCaravana.$touched && formRegistrarBovino.idCaravana.$invalid}">
-                        <label class="control-label" for="idCaravana">
+                        <label class="control-label" for="idCaravana" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar el número de caravana del bovino a registrar. Dato obligatorio (*)">
                             N° de Caravana (*)
                         </label>
                         <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" maxlength="15" min="1" required
@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.madre.$touched && formRegistrarBovino.madre.$valid,
                  'has-error has-feedback':formRegistrarBovino.madre.$touched && formRegistrarBovino.madre.$invalid}">
-                        <label class="control-label" for="madre">
+                        <label class="control-label" for="madre" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar el número de caravana de la vaca madre del bovino a registrar. Si el nacimiento fue registrado en el sistema mediante “Farmix Mobile”, este dato ya está cargado.">
                             N° de Caravana Madre
                         </label>
                         <input name="madre" type="number" class="form-control" placeholder="N° de Caravana Madre" maxlength="15" min="1" 
@@ -67,7 +67,7 @@
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.padre.$touched && formRegistrarBovino.padre.$valid,
                  'has-error has-feedback':formRegistrarBovino.padre.$touched && formRegistrarBovino.padre.$invalid}">
-                        <label class="control-label" for="padre">
+                        <label class="control-label" for="padre" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar el número de caravana del toro padre del bovino a registrar. Si el nacimiento fue registrado en el sistema mediante “Farmix Mobile” y se indicó cual toro fue el padre, este dato ya está cargado.">
                             N° de Caravana Padre
                         </label>
                         <input name="padre" type="number" class="form-control" min="1" maxlength="15" placeholder="N° de Caravana Padre"
@@ -93,7 +93,7 @@
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4">
                         <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
-                            <label class="control-label" for="establecimientoOrigen">
+                            <label class="control-label" for="establecimientoOrigen" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el establecimiento/campo del cual proviene el bovino. En caso que no se encuentre el establecimiento deseado, el botón + permite registrar un nuevo establecimiento origen.">
                                 Establecimiento Origen
                             </label>
                             <section style="padding: 0px;">
@@ -116,7 +116,7 @@
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.rodeo.$touched && formRegistrarBovino.rodeo.$valid,
                  'has-error has-feedback':formRegistrarBovino.rodeo.$touched && formRegistrarBovino.rodeo.$invalid}">
                         <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
-                            <label class="control-label" for="rodeo">
+                            <label class="control-label" for="rodeo" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el rodeo en el cual se encuentra el bovino en su ingreso al campo. En caso que no se encuentre el rodeo deseado, el botón + permite registrar un nuevo rodeo para este campo. Dato obligatorio (*)">
                                 Rodeo (*)
                             </label>
                             <section style="padding: 0px;">
@@ -149,7 +149,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4">
-                        <label class="control-label" for="apodo">
+                        <label class="control-label" for="apodo" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar un nombre o apodo con el cual se reconozca al bovino a registrar.">
                             Apodo
                         </label>
                         <input name="apodo" type="text" class="form-control" placeholder="Apodo"
@@ -160,7 +160,7 @@
                         <div class="col-md-6 col-lg-6">
                             <div class="col-md-8 col-lg-8" style="margin-left: -15px;" ng-class="{'has-success has-feedback':formRegistrarBovino.estado.$touched && formRegistrarBovino.estado.$valid,
                  'has-error has-feedback':formRegistrarBovino.estado.$touched && formRegistrarBovino.estado.$invalid}">
-                                <label class="control-label" for="estado">
+                                <label class="control-label" for="estado" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el estado en el cual ingresa el bovino al campo. En caso que no se encuentre el estado deseado, el botón + permite registrar un nuevo estado. Dato obligatorio (*)">
                                     Estado (*)
                                 </label>
                                 <section style="padding: 0px;">
@@ -185,7 +185,7 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <label class="radio-inline">
+                                <label class="radio-inline" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar si el bovino se encuentra enfermo, además del estado seleccionado anteriormente.">
                                     <input type="checkbox" name="enfermo" ng-false-value="0" ng-true-value="1"
                                            ng-disabled="!habilitar"
                                            ng-model="bovino.enfermo"
@@ -196,7 +196,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-2 col-lg-2">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-12" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el sexo del bovino a registrar. Dato obligatorio (*)">
                             <label class="control-label" for="genero">
                                 Sexo (*)
                             </label>
@@ -226,7 +226,7 @@
                 <div class="row">
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.fechaNac.$touched && formRegistrarBovino.fechaNac.$valid,
                  'has-error has-feedback':formRegistrarBovino.fechaNac.$touched && formRegistrarBovino.fechaNac.$invalid}">
-                        <label class="control-label" for="fechaNac">
+                        <label class="control-label" for="fechaNac" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar la fecha en la que nació el bovino. Si el nacimiento fue registrado en el sistema mediante “Farmix Mobile”, este dato ya está cargado. Dato obligatorio (*)">
                             Fecha de Nacimiento (*)
                         </label>
                         <div name="fechaNac">
@@ -243,7 +243,7 @@
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.peso.$touched && formRegistrarBovino.peso.$valid,
                  'has-error has-feedback':formRegistrarBovino.peso.$touched && formRegistrarBovino.peso.$invalid}">
-                        <label class="control-label" for="peso">
+                        <label class="control-label" for="peso" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar el peso actual del bovino a registrar (En kilogramos). Dato obligatorio (*)">
                             Peso (kg) (*)
                         </label>
                         <input name="peso" type="number" ng-blur="getPeso()" class="form-control" min="0" max="1000" required placeholder="Peso (kg)"
@@ -267,7 +267,7 @@
                     <div class="row-fluid">
                         <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.pesoAlNacer.$touched && formRegistrarBovino.pesoAlNacer.$valid,
                  'has-error has-feedback':formRegistrarBovino.pesoAlNacer.$touched && formRegistrarBovino.pesoAlNacer.$invalid}">
-                            <label class="control-label" for="pesoAlNacer">
+                            <label class="control-label" for="pesoAlNacer" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar el peso con que nació el bovino a registrar (En kilogramos).">
                                 Peso al nacimiento (kg)
                             </label>
                             <input name="pesoAlNacer" type="number" class="form-control" min="0" max="1000" placeholder="Peso al nacimiento (kg)"
@@ -292,7 +292,7 @@
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.categoria.$touched && formRegistrarBovino.categoria.$valid,
                  'has-error has-feedback':formRegistrarBovino.categoria.$touched && formRegistrarBovino.categoria.$invalid}">
                         <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
-                            <label class="control-label" for="categoria">
+                            <label class="control-label" for="categoria" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar la categoría a la que pertenece el bovino a registrar. En caso que no se encuentre la categoría deseada, el botón + permite registrar una nueva categoría para este campo. Dato obligatorio (*)">
                                 Categoría (*)
                             </label>
                             <section style="padding: 0px;">
@@ -320,7 +320,7 @@
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.raza.$touched && formRegistrarBovino.raza.$valid,
                  'has-error has-feedback':formRegistrarBovino.raza.$touched && formRegistrarBovino.raza.$invalid}">
                         <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
-                            <label class="control-label" for="raza">
+                            <label class="control-label" for="raza" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar la raza a la que pertenece el bovino a registrar. En caso que no se encuentre la raza deseada, el botón + permite registrar una nueva raza para este campo. Dato obligatorio (*)">
                                 Raza (*)
                             </label>
                             <section style="padding: 0px;">
@@ -349,7 +349,7 @@
                         <div class="form-group" ng-class="{'has-success has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$valid,
                  'has-error has-feedback':formRegistrarBovino.alimento.$touched && formRegistrarBovino.alimento.$invalid}">
                             <div class="col-md-12 col-lg-12" style="margin-left: -15px;">
-                                <label class="control-label" for="alimento">
+                                <label class="control-label" for="alimento" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el alimento que va a consumir el bovino en su ingreso al campo. En caso que no se encuentre el alimento deseado, el botón + permite registrar un nuevo alimento para este campo. Dato obligatorio (*)">
                                     Alimento (*)
                                 </label>
                                 <section style="padding: 0px;">
@@ -376,7 +376,7 @@
                         </div>
                         <div class="form-group" style="margin-top: 5px;" ng-class="{'has-success has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$valid,
                  'has-error has-feedback':formRegistrarBovino.cantidad.$touched && formRegistrarBovino.cantidad.$invalid}">
-                            <label class="control-label" for="cantidad">
+                            <label class="control-label" for="cantidad" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar la cantidad de alimento diario que va a consumir el bovino a registrar (En kilogramos). Dato obligatorio (*)">
                                 Ración alimento (kg/día) (*)
                             </label>
                             <input name="cantidad" type="number" class="form-control" min="0" placeholder="Ración de alimento (kg) por día"
@@ -398,7 +398,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-12 col-lg-12">
-                        <label class="control-label" for="descripcion">
+                        <label class="control-label" for="descripcion" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ingresar una breve descripción del bovino a registrar, para hacer mas fácil su reconocimiento visual.">
                             Descripción
                         </label>
                         <textarea name="descripcion" type="text" rows="2" class="form-control" placeholder="Descripción"
@@ -412,12 +412,14 @@
     <div class="row">
         <button type="submit" style="margin-left:15px;" class="btn btn-primary"
                 ng-disabled="formRegistrarBovino.$invalid || !habilitar"
-                ng-click="registrar()">
+                ng-click="registrar()"
+                data-toggle="tooltip" title="" data-placement="top" data-original-title="Se confirman los datos y se registra un nuevo bovino en el sistema, con los datos previamente cargados.">
             Aceptar
         </button>
 
         <button type="button" class="btn btn-default"
-                ng-click="volver()">
+                ng-click="volver()"
+                data-toggle="tooltip" title="" data-placement="top" data-original-title="Se borran los datos ingresados, no se registra el bovino y se vuelve a la pantalla anterior.">
             {{btnVolver}}
         </button>
     </div>

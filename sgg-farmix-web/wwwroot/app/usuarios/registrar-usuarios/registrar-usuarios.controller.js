@@ -11,6 +11,7 @@
         var vm = $scope;
         //variables
         window.scrollTo(0, 0);
+        $('[data-toggle="tooltip"]').tooltip();
         vm.btnVolver = "Cancelar";
         vm.habilitar = true;
         vm.imageToUpload = [];

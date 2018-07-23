@@ -10,6 +10,7 @@
     function registrarBovinoController($scope, registrarBovinoService, establecimientoOrigenService, rodeoService, estadoService, categoriaService, razaService, alimentoService, toastr, $state, $localStorage, $stateParams) {
         var vm = $scope;
         window.scrollTo(0, 0);
+        $('[data-toggle="tooltip"]').tooltip();
         vm.habilitar = false;
         //variables
         vm.razas = [];

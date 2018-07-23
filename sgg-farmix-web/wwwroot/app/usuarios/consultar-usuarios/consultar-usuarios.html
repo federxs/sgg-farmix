@@ -11,7 +11,8 @@
     <div class="col-lg-12">
         <div class="page-header">
             <div class="pull-right hidden-print" style="margin-top: 13px;">
-                <button class="btn btn-success" ng-click="validarCantUsuarios()" ng-disabled="deshabilitar">
+                <button class="btn btn-success" ng-click="validarCantUsuarios()" ng-disabled="deshabilitar"
+                        data-toggle="tooltip" title="" data-placement="left" data-original-title="Permite registrar un nuevo usuario en el sistema.">
                     <span class="fa fa-plus"></span>
                     Nuevo
                 </button>
@@ -29,20 +30,20 @@
         <div class="row">
             <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formUsuarios.nombre.$touched && formUsuarios.nombre.$valid,
                  'has-error has-feedback':formUsuarios.nombre.$touched && formUsuarios.nombre.$invalid}">
-                <label>
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite buscar un usuario por su nombre.">
                     Nombre
                 </label>
                 <input class="form-control" name="nombre" type="text" ng-model="filtro.nombre" placeholder="Nombre" ng-disabled="deshabilitar" />
             </div>
             <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formUsuarios.apellido.$touched && formUsuarios.apellido.$valid,
                  'has-error has-feedback':formUsuarios.apellido.$touched && formUsuarios.apellido.$invalid}">
-                <label>
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite buscar un usuario por su apellido.">
                     Apellido
                 </label>
                 <input class="form-control" name="apellido" type="text" ng-model="filtro.apellido" placeholder="Apellido" ng-disabled="deshabilitar" />
             </div>
             <div class="form-group col-md-4 col-lg-4">
-                <label>
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite mostrar los usuarios según el rol que tiene asignado.">
                     Rol
                 </label>
                 <select class="form-control" name="rol" required
@@ -58,12 +59,14 @@
         <div class="row pull-right hidden-print">
             <div class="col-md-12 col-lg-12">
                 <button class="btn btn-default"
-                        ng-click="limpiarCampos()" ng-disabled="deshabilitar">
+                        ng-click="limpiarCampos()" ng-disabled="deshabilitar"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite limpiar los filtros ingresados para mostrar todos los usuarios del campo.">
                     <span class="fa fa-trash"></span>
                     Limpiar Campos
                 </button>
                 <button class="btn btn-primary"
-                        ng-click="consultar()" ng-disabled="formConsultarBovino.$invalid || deshabilitar">
+                        ng-click="consultar()" ng-disabled="formConsultarBovino.$invalid || deshabilitar"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra los usuarios que cumplan con las condiciones ingresadas en los criterios de búsqueda.">
                     <span class="fa fa-search"></span>
                     Buscar
                 </button>
@@ -74,13 +77,13 @@
 <legend style="margin-bottom: 5px;" ng-show="rowCollection.length > 0">Resultados</legend>
 <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
     <div class="pull-right hidden-print" style="margin-bottom:5px">
-        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
+        <button class="btn btn-success font-white" ng-click="exportarExcel()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de usuarios (con los filtros ingresados) y descargar un documento en formato Excel.">
             <i class="fa fa-file-excel-o"></i>
         </button>
-        <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
+        <button class="btn btn-success font-white" ng-click="exportarPDF()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de usuarios (con los filtros ingresados) y descargar un documento en formato PDF.">
             <i class="fa fa-file-pdf-o"></i>
         </button>
-        <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
+        <a class="btn btn-success font-white" href='javascript:window.print();' ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite realizar una impresión del listado de usuarios, con los filtros ingresados.">
             <i class="fa fa-print"></i>
         </a>
     </div>
@@ -120,11 +123,11 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td class="hidden-print">
-                        <label for="items">Registros por página</label>
+                    <td class="hidden-print" ng-show="rowCollection.length > 0">
+                        <label for="items" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite indicar la cantidad de usuarios a mostrar en cada página.">Registros por página</label>
                         <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="deshabilitar">
                     </td>
-                    <td colspan="5" class="text-center">
+                    <td colspan="5" class="text-center" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ir cambiando la página a visualizar (en azul se indica la página actual)." ng-show="rowCollection.length > 0">
                         <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
                     </td>
                 </tr>

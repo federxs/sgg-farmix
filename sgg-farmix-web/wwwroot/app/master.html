@@ -61,18 +61,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
         <!-- header-starts -->
         <div class="sticky-header header-section hidden-print">
             <div class="header-left">
-
                 <!--toggle button start-->
-                <button id="showLeftPush" ng-click="cerrarMenu()"><i class="fa fa-bars"></i></button>
+                <button id="showLeftPush" ng-click="cerrarMenu()" data-toggle="tooltip" title="" data-placement="rigth" data-original-title="Permite ocultar o mostrar el menú general del sistema."><i class="fa fa-bars"></i></button>
                 <!--toggle button end-->
                 <div class="profile_details_left">
                     <!--notifications of menu start -->
                     <ul class="nofitications-dropdown">
-                        <li class="dropdown head-dpdn">
-                            <a href="#" class="dropdown-toggle" ui-sref="home.nacimientos" title="Nacimientos por registrar"><i class="fa fa-star" style="color:white;"></i><span class="badge">{{usuarioInfo.cantidadNacimientos}}</span></a>
+                        <li class="dropdown head-dpdn" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Este botón le permite acceder a los bovinos recién nacidos sin registrar en el sistema. El número en el círculo rojo indica la cantidad de bovinos sin registrar.">
+                            <a href="#" class="dropdown-toggle" ui-sref="home.nacimientos"><i class="fa fa-star" style="color:white;"></i><span class="badge">{{usuarioInfo.cantidadNacimientos}}</span></a>
                         </li>
-                        <li class="dropdown head-dpdn">
-                            <a class="dropdown-toggle" ui-sref="home.conflictos" title="Conflictos"><i class="fa fa-bell"></i><span class="badge blue">{{usuarioInfo.cantidadInconsistencias}}</span></a>
+                        <li class="dropdown head-dpdn" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Este botón le permite acceder a los conflictos que se hayan generado en el campo. El número en el círculo rojo indica la cantidad de conflictos pendientes de resolución.">
+                            <a class="dropdown-toggle" ui-sref="home.conflictos"><i class="fa fa-bell"></i><span class="badge blue">{{usuarioInfo.cantidadInconsistencias}}</span></a>
                             <!--<ul class="dropdown-menu">
                                 <li>
                                     <div class="notification_header">
@@ -153,17 +152,17 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
                                         <p>{{usuarioInfo.nombre}} {{usuarioInfo.apellido}}</p>
                                         <span>{{usuarioInfo.rol}}</span>
                                     </div>
-                                    <i class="fa fa-angle-down lnr"></i>
-                                    <i class="fa fa-angle-up lnr"></i>
+                                    <i class="fa fa-angle-down lnr" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Permite ocultar o mostrar las opciones del usuario."></i>
+                                    <i class="fa fa-angle-up lnr" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Permite ocultar o mostrar las opciones del usuario."></i>
                                     <div class="clearfix"></div>
                                 </div>
                             </a>
                             <ul class="dropdown-menu drp-mnu">
-                                <li> <a ui-sref="home.configuracion"><i class="fa fa-cog"></i> Configuraciones</a> </li>
-                                <li> <a ng-click="modificarImagenPerfil()" style="cursor:pointer;"><i class="fa fa-suitcase"></i>Mi Perfil</a> </li>
-                                <li> <a ui-sref="seleccionCampo" style="cursor:pointer;"><i class="fa fa-dot-circle-o"></i> Ir a selección de Campos</a> </li>
-                                <li> <a data-toggle="modal" data-target="#modalCambiarContrania" style="cursor:pointer;"><i class="fa fa-key"></i> Cambiar mi contraseña</a> </li>
-                                <li> <a data-toggle="modal" data-target="#modalConfirmCerrarSesion" style="cursor:pointer;"><i class="fa fa-sign-out"></i> Cerrar Sesión</a> </li>
+                                <li data-toggle="tooltip" title="" data-placement="left" data-original-title="Página que permite administrar la configuración general del sistema para este campo."> <a ui-sref="home.configuracion"><i class="fa fa-cog"></i> Configuraciones</a> </li>
+                                <li data-toggle="tooltip" title="" data-placement="left" data-original-title="Muestra y permite cambiar los datos y la foto del usuario."> <a ng-click="modificarImagenPerfil()" style="cursor:pointer;"><i class="fa fa-suitcase"></i>Mi Perfil</a> </li>
+                                <li data-toggle="tooltip" title="" data-placement="left" data-original-title="Este botón le permite ir al menú de selección de campos para acceder a la información de un campo diferente."> <a ui-sref="seleccionCampo" style="cursor:pointer;"><i class="fa fa-dot-circle-o"></i> Ir a selección de Campos</a> </li>
+                                <li data-toggle="tooltip" title="" data-placement="left" data-original-title="Permite cambiar la contraseña del usuario."> <a data-toggle="modal" data-target="#modalCambiarContrania" style="cursor:pointer;"><i class="fa fa-key"></i> Cambiar mi contraseña</a> </li>
+                                <li data-toggle="tooltip" title="" data-placement="left" data-original-title="Permite salir de Farmix."> <a data-toggle="modal" data-target="#modalConfirmCerrarSesion" style="cursor:pointer;"><i class="fa fa-sign-out"></i> Cerrar Sesión</a> </li>
                             </ul>
                         </li>
                     </ul>

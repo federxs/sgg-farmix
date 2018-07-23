@@ -19,6 +19,7 @@
         $scope.ano = new Date().getFullYear();
         $localStorage.usuarioInfo.periodoConsulta = $scope.ano;
         $('.modal-backdrop').remove();
+        $('[data-toggle="tooltip"]').tooltip();
 
         //Redimenciona el tamaño del body
         var body = document.body;

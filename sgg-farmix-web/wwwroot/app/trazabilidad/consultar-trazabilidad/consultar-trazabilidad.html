@@ -23,7 +23,7 @@
         <div class="row">
             <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarTrazabilidad.numCaravana.$touched && formConsultarTrazabilidad.numCaravana.$valid,
                  'has-error has-feedback':formConsultarTrazabilidad.numCaravana.$touched && formConsultarTrazabilidad.numCaravana.$invalid}">
-                <label>
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite buscar los eventos de un bovino por su número de caravana. Debajo de Resultados se mostrará una línea de tiempo donde se muestran los eventos que involucran a ese bovino, en orden cronológico.">
                     N° Caravana
                 </label>
                 <input class="form-control" name="numCaravana" type="number" min="1" maxlength="15" ng-model="filtro.numCaravana" placeholder="N° Caravana" ng-disabled="disabled" />
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="form-group col-md-3 col-lg-3">
-                <label>
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite mostrar los eventos de un tipo determinado.">
                     Tipo de Evento
                 </label>
                 <select class="form-control" name="tipoEvento" required
@@ -51,7 +51,7 @@
             </div>
             <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarTrazabilidad.fechaDesde.$touched && formConsultarTrazabilidad.fechaDesde.$valid,
                  'has-error has-feedback':formConsultarTrazabilidad.fechaDesde.$touched && formConsultarTrazabilidad.fechaDesde.$invalid}">
-                <label class="control-label" for="fechaDesde">
+                <label class="control-label" for="fechaDesde" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los eventos para mostrar los que hayan sucedido desde la fecha ingresada.">
                     Fecha Desde
                 </label>
                 <div name="fechaDesde">
@@ -65,7 +65,7 @@
             </div>
             <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarTrazabilidad.fechaHasta.$touched && formConsultarTrazabilidad.fechaHasta.$valid,
                  'has-error has-feedback':formConsultarTrazabilidad.fechaHasta.$touched && formConsultarTrazabilidad.fechaHasta.$invalid}">
-                <label class="control-label" for="fechaHasta">
+                <label class="control-label" for="fechaHasta" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los eventos para mostrar los que hayan sucedido hasta la fecha ingresada.">
                     Fecha Hasta
                 </label>
                 <div name="fechaHasta">
@@ -81,12 +81,14 @@
         <div class="row pull-right hidden-print">
             <div class="col-md-12 col-lg-12">
                 <button class="btn btn-default"
-                        ng-click="limpiarCampos()" ng-disabled="disabled">
+                        ng-click="limpiarCampos()" ng-disabled="disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite limpiar los filtros ingresados para mostrar todos los eventos del campo.">
                     <span class="fa fa-trash"></span>
                     Limpiar Campos
                 </button>
                 <button class="btn btn-primary"
-                        ng-click="consultar()" ng-disabled="formConsultarTrazabilidad.$invalid || disabled">
+                        ng-click="consultar()" ng-disabled="formConsultarTrazabilidad.$invalid || disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra los eventos que cumplan con las condiciones ingresadas en los criterios de búsqueda.">
                     <span class="fa fa-search"></span>
                     Buscar
                 </button>
@@ -97,13 +99,13 @@
 <legend style="margin-bottom:5px" ng-show="rowCollection.length > 0">Resultados</legend>
 <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
     <div class="pull-right hidden-print" style="margin-bottom:5px">
-        <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel" ng-disabled="disabledExportar">
+        <button class="btn btn-success font-white" ng-click="exportarExcel()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de eventos (con los filtros ingresados) y descargar un documento en formato Excel.">
             <i class="fa fa-file-excel-o"></i>
         </button>
-        <button class="btn btn-success font-white" ng-click="exportarPDF()" title="Exportar a PDF" ng-disabled="disabledExportar">
+        <button class="btn btn-success font-white" ng-click="exportarPDF()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de eventos (con los filtros ingresados) y descargar un documento en formato PDF.">
             <i class="fa fa-file-pdf-o"></i>
         </button>
-        <a class="btn btn-success font-white" href='javascript:window.print();' title="Imprimir" ng-disabled="disabledExportar">
+        <a class="btn btn-success font-white" href='javascript:window.print();' ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite realizar una impresión del listado de eventos, con los filtros ingresados.">
             <i class="fa fa-print"></i>
         </a>
     </div>
@@ -132,10 +134,10 @@
             <tfoot>
                 <tr>
                     <td class="hidden-print">
-                        <label for="items">Registros por página</label>
+                        <label for="items" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite indicar la cantidad de eventos a mostrar en cada página.">Registros por página</label>
                         <input class="input-sm form-control" name="items" min="1" id="items" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
                     </td>
-                    <td colspan="5" class="text-center">
+                    <td colspan="5" class="text-center" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ir cambiando la página a visualizar (en azul se indica la página actual).">
                         <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
                     </td>
                 </tr>

@@ -10,6 +10,7 @@
     function inicioController($scope, inicioService, toastr, $localStorage, $state, $timeout) {
         window.scrollTo(0, 0);
         $('.modal-backdrop').remove();
+        $('[data-toggle="tooltip"]').tooltip();
         $scope.myChartObject = {};
         $scope.inicializar = inicializar();
         $scope.irAConflictos = irAConflictos;
