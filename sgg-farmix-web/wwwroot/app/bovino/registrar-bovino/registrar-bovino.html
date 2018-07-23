@@ -22,7 +22,7 @@
                         <label class="control-label" for="idCaravana">
                             N° de Caravana (*)
                         </label>
-                        <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" min="1" required
+                        <input name="idCaravana" type="number" class="form-control" placeholder="N° de Caravana" maxlength="15" min="1" required
                                ng-disabled="!habilitar"
                                ng-model="bovino.numCaravana"
                                ng-blur="idCaravanaChange()" />
@@ -36,6 +36,9 @@
                             <span class="help-block" ng-show="formRegistrarBovino.idCaravana.$error.existeIdCaravana">
                                 Ya existe un bovino registrado con este número de caravana
                             </span>
+                            <span class="help-block" ng-show="formRegistrarBovino.idCaravana.$error.maxlength">
+                                Puede colocar hasta 15 dígitos
+                            </span>
                         </div>
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.madre.$touched && formRegistrarBovino.madre.$valid,
@@ -43,7 +46,7 @@
                         <label class="control-label" for="madre">
                             N° de Caravana Madre
                         </label>
-                        <input name="madre" type="number" class="form-control" placeholder="N° de Caravana Madre" min="1" 
+                        <input name="madre" type="number" class="form-control" placeholder="N° de Caravana Madre" maxlength="15" min="1" 
                                ng-disabled="!habilitar || !habilitarNacimiento"
                                ng-model="bovino.idBovinoMadre" 
                                ng-blur="idCaravanaMadreChange()" />
@@ -57,6 +60,9 @@
                             <span class="help-block" ng-show="formRegistrarBovino.madre.$error.coincideIdCaravanaMadre">
                                 El número de caravana coincide con el número de caravana Padre
                             </span>
+                            <span class="help-block" ng-show="formRegistrarBovino.madre.$error.maxlength">
+                                Puede colocar hasta 15 dígitos
+                            </span>
                         </div>
                     </div>
                     <div class="form-group col-md-4 col-lg-4" ng-class="{'has-success has-feedback':formRegistrarBovino.padre.$touched && formRegistrarBovino.padre.$valid,
@@ -64,7 +70,7 @@
                         <label class="control-label" for="padre">
                             N° de Caravana Padre
                         </label>
-                        <input name="padre" type="number" class="form-control" min="1" placeholder="N° de Caravana Padre"
+                        <input name="padre" type="number" class="form-control" min="1" maxlength="15" placeholder="N° de Caravana Padre"
                                ng-disabled="!habilitar || !habilitarCaravanaPadre"
                                ng-model="bovino.idBovinoPadre" 
                                ng-blur="idCaravanaPadreChange()" />
@@ -77,6 +83,9 @@
                             </span>
                             <span class="help-block" ng-show="formRegistrarBovino.padre.$error.coincideIdCaravanaPadre">
                                 El número de caravana coincide con el número de caravana Madre
+                            </span>
+                            <span class="help-block" ng-show="formRegistrarBovino.padre.$error.maxlength">
+                                Puede colocar hasta 15 dígitos
                             </span>
                         </div>
                     </div>
