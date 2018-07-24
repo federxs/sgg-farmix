@@ -17,6 +17,7 @@
             $scope.$parent.blockSpinner();
             estadisticaBovinoService.inicializar({ codigoCampo: $localStorage.usuarioInfo.codigoCampo, periodo: $localStorage.usuarioInfo.periodoConsulta }, function (data) {
                 $scope.obj = data;
+                $scope.ano = $localStorage.usuarioInfo.periodoConsulta;
                 cargarGraficoPesoPorRazaYSexo($scope.obj.pesosPromXRaza);
                 cargarGraficoBajasPorMes($scope.obj.bajasXMes);
                 cargarGraficoTop10BovinosMasLivianos($scope.obj.top10BovinosMasLivianos);

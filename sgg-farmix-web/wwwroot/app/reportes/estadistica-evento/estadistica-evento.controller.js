@@ -14,6 +14,7 @@
         init();
 
         function init() {
+            $scope.ano = $localStorage.usuarioInfo.periodoConsulta;
             $scope.$parent.blockSpinner();
             estadisticaEventoService.inicializar({
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
@@ -262,12 +263,17 @@
                 var options = {
                     title: 'Vacunas menos usadas',
                     legend: 'none',
-                    height: 300,
+                    height: 400,
+                    chartArea: {
+                        top: 55
+                    },
+                    
                     bar: { groupWidth: '10%' },
                     vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Cantidad' },
                     hAxis: {
-                        title: 'Vacunas',
-                        viewWindow: { min: 0 }
+                        title: 'Vacunas'
+                        //slantedText: true,
+                        //slantedTextAngle: 45
                     },
                     colors: ["#ff5c33"]
 

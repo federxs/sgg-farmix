@@ -17,6 +17,7 @@
             $scope.$parent.blockSpinner();
             estadisticaInseminacionService.inicializar({ codigoCampo: $localStorage.usuarioInfo.codigoCampo, periodo: $localStorage.usuarioInfo.periodoConsulta }, function (data) {
                 $scope.obj = data;
+                $scope.ano = $localStorage.usuarioInfo.periodoConsulta;
                 cargarGraficoXCategoriaHembrasEfectividad($scope.obj.inseminacionXCategoriaHembra);
                 cargarGraficoXCategoriaMachosEfectividad($scope.obj.inseminacionXCategoriaMacho);
                 cargarGraficoRazaEfectividad($scope.obj.inseminacionXRaza);
