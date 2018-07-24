@@ -36,11 +36,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/BovinosExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteBovinosPDF(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteBovinosPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new BovinoManager().ReporteBovinosExportarPDF(campo, codigoCampo, periodo);
+                return new BovinoManager().ReporteBovinosExportarPDF(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {
@@ -93,11 +93,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionHembrasParaServirExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesHembrasServirPDF(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteInseminacionesHembrasServirPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionHembrasServicioExportarPDF(campo, codigoCampo, periodo);
+                return new InseminacionManager().ReporteInseminacionHembrasServicioExportarPDF(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {
@@ -150,11 +150,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionServiciosSinConfirmarExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesServiciosSinConfirmarPDF(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteInseminacionesServiciosSinConfirmarPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarPDF(campo, codigoCampo, periodo);
+                return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarPDF(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {
@@ -207,11 +207,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionLactanciasExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesLactanciasPDF(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteInseminacionesLactanciasPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionLactanciasExportarPDF(campo, codigoCampo, periodo);
+                return new InseminacionManager().ReporteInseminacionLactanciasExportarPDF(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {
@@ -264,11 +264,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionPreniadasExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesPreniadasPDF(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteInseminacionesPreniadasPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionPreniadasExportarPDF(campo, codigoCampo, periodo);
+                return new InseminacionManager().ReporteInseminacionPreniadasExportarPDF(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {
@@ -321,11 +321,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/EventosExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteEventosPDF(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteEventosPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new EventoManager().ReporteEventosExportarPDF(campo, codigoCampo, periodo);
+                return new EventoManager().ReporteEventosExportarPDF(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {

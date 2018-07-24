@@ -5,9 +5,9 @@
         .module('app')
         .controller('reporteBovinoController', reporteBovinoController);
 
-    reporteBovinoController.$inject = ['$scope', 'reporteBovinoService', 'exportador', '$localStorage', 'portalService', 'toastr', '$state'];
+    reporteBovinoController.$inject = ['$scope', 'reporteBovinoService', '$sessionStorage', '$localStorage', 'portalService', 'toastr', '$state'];
 
-    function reporteBovinoController($scope, reporteBovinoService, exportador, $localStorage, portalService, toastr, $state) {
+    function reporteBovinoController($scope, reporteBovinoService, $sessionStorage, $localStorage, portalService, toastr, $state) {
         var vm = $scope;
 
         //funciones
@@ -46,7 +46,8 @@
             reporteBovinoService.generarPDF({
                 campo: $localStorage.usuarioInfo.campoNombre,
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-                periodo: $localStorage.usuarioInfo.periodoConsulta
+                periodo: $localStorage.usuarioInfo.periodoConsulta,
+                usuario: $sessionStorage.usuarioInfo.usuario
             }, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");

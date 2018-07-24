@@ -387,7 +387,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteEventosExportarPDF(string campo, long codigoCampo, string periodo)
+        public Documento ReporteEventosExportarPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             FileStream fs;
             Document doc = null;
@@ -431,7 +431,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Reporte Eventos</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                         
                             </table>
                             </body></html>";
                 ie = HTMLWorker.ParseToList(new StringReader(html), null);

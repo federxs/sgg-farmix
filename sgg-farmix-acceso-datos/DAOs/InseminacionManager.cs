@@ -527,7 +527,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionHembrasServicioExportarPDF(string campo, long codigoCampo, string periodo)
+        public Documento ReporteInseminacionHembrasServicioExportarPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             FileStream fs;
             Document doc = null;
@@ -571,7 +571,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Reporte Hembras para Servir</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                      
                             </table>
                             </body></html>";
                 ie = HTMLWorker.ParseToList(new StringReader(html), null);
@@ -638,7 +640,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionServiciosSinConfirmarExportarPDF(string campo, long codigoCampo, string periodo)
+        public Documento ReporteInseminacionServiciosSinConfirmarExportarPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             FileStream fs;
             Document doc = null;
@@ -682,7 +684,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Reporte Servicios sin confirmar</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                          
                             </table>
                             </body></html>";
                 ie = HTMLWorker.ParseToList(new StringReader(html), null);
@@ -750,7 +754,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionLactanciasExportarPDF(string campo, long codigoCampo, string periodo)
+        public Documento ReporteInseminacionLactanciasExportarPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             FileStream fs;
             Document doc = null;
@@ -794,7 +798,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Reporte Lactancias Activas</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                          
                             </table>
                             </body></html>";
                 ie = HTMLWorker.ParseToList(new StringReader(html), null);
@@ -862,7 +868,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionPreniadasExportarPDF(string campo, long codigoCampo, string periodo)
+        public Documento ReporteInseminacionPreniadasExportarPDF(string campo, long codigoCampo, string periodo, string usuario)
         {
             FileStream fs;
             Document doc = null;
@@ -906,7 +912,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Reporte Vacas Preñadas</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                          
                             </table>
                             </body></html>";
                 ie = HTMLWorker.ParseToList(new StringReader(html), null);

@@ -5,9 +5,9 @@
         .module('app')
         .controller('reporteInseminacionController', reporteInseminacionController);
 
-    reporteInseminacionController.$inject = ['$scope', 'reporteInseminacionService', '$stateParams', '$localStorage', '$state', 'toastr', 'portalService'];
+    reporteInseminacionController.$inject = ['$scope', 'reporteInseminacionService', '$stateParams', '$localStorage', '$state', 'toastr', 'portalService', '$sessionStorage'];
 
-    function reporteInseminacionController($scope, reporteInseminacionService, $stateParams, $localStorage, $state, toastr, portalService) {
+    function reporteInseminacionController($scope, reporteInseminacionService, $stateParams, $localStorage, $state, toastr, portalService, $sessionStorage) {
         var vm = $scope;
         //variables
         window.scrollTo(0, 0);
@@ -94,7 +94,8 @@
             reporteInseminacionService.generarPDFHembrasServicio({
                 campo: $localStorage.usuarioInfo.campoNombre,
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-                periodo: $localStorage.usuarioInfo.periodoConsulta
+                periodo: $localStorage.usuarioInfo.periodoConsulta,
+                usuario: $sessionStorage.usuarioInfo.usuario
             }, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");
@@ -117,7 +118,8 @@
             reporteInseminacionService.generarPDFServiciosSinConfirmar({
                 campo: $localStorage.usuarioInfo.campoNombre,
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-                periodo: $localStorage.usuarioInfo.periodoConsulta
+                periodo: $localStorage.usuarioInfo.periodoConsulta,
+                usuario: $sessionStorage.usuarioInfo.usuario
             }, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");
@@ -140,7 +142,8 @@
             reporteInseminacionService.generarPDFLactancias({
                 campo: $localStorage.usuarioInfo.campoNombre,
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-                periodo: $localStorage.usuarioInfo.periodoConsulta
+                periodo: $localStorage.usuarioInfo.periodoConsulta,
+                usuario: $sessionStorage.usuarioInfo.usuario
             }, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");
@@ -163,7 +166,8 @@
             reporteInseminacionService.generarPDFPreniadas({
                 campo: $localStorage.usuarioInfo.campoNombre,
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-                periodo: $localStorage.usuarioInfo.periodoConsulta
+                periodo: $localStorage.usuarioInfo.periodoConsulta,
+                usuario: $sessionStorage.usuarioInfo.usuario
             }, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");

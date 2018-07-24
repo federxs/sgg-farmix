@@ -19,7 +19,8 @@
                     params: {
                         campo: '@campo',
                         codigoCampo: '@codigoCampo',
-                        periodo: '@periodo'
+                        periodo: '@periodo',
+                        usuario: '@usuario'
                     },
                     isArray: false
                 },

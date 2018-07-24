@@ -5,9 +5,9 @@
         .module('app')
         .controller('reporteEventoController', reporteEventoController);
 
-    reporteEventoController.$inject = ['$scope', 'reporteEventoService', '$localStorage', 'portalService', 'toastr', '$state'];
+    reporteEventoController.$inject = ['$scope', 'reporteEventoService', '$localStorage', 'portalService', 'toastr', '$state', '$sessionStorage'];
 
-    function reporteEventoController($scope, reporteEventoService, $localStorage, portalService, toastr, $state) {
+    function reporteEventoController($scope, reporteEventoService, $localStorage, portalService, toastr, $state, $sessionStorage) {
         var vm = $scope;
 
         //funciones
@@ -44,7 +44,8 @@
             reporteEventoService.generarPDF({
                 campo: $localStorage.usuarioInfo.campoNombre,
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-                periodo: $localStorage.usuarioInfo.periodoConsulta
+                periodo: $localStorage.usuarioInfo.periodoConsulta,
+                usuario: $sessionStorage.usuarioInfo.usuario
             }, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");
