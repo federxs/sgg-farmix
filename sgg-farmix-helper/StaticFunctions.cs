@@ -325,8 +325,9 @@ namespace sgg_farmix_helper
             }
         }
 
-        public static string GenerateExcel(SLExcelData data, string ExcelFilePath, string campo)
+        public static string GenerateExcel(SLExcelData data, string ExcelFilePath, string campo, string user)
         {
+            var fecha = DateTime.Now.ToString("dd-MM-yyyy");
             var stream = new MemoryStream();
             var document = SpreadsheetDocument
                 .Create(stream, SpreadsheetDocumentType.Workbook);
@@ -357,7 +358,28 @@ namespace sgg_farmix_helper
             UInt32 rowIdex = 0;
             var row = new Row { RowIndex = ++rowIdex };
             sheetData.AppendChild(row);
-            var cellIdex = 0;           
+            var cellIdex = 0;
+
+            var usuario = CreateTextCell(ColumnLetter(cellIdex++),
+                    rowIdex, "Generado por" ?? string.Empty, 2);
+            row.AppendChild(usuario);
+            var fechaDato = CreateTextCell(ColumnLetter(cellIdex++),
+                    rowIdex, "Fecha" ?? string.Empty, 2);
+            row.AppendChild(fechaDato);
+            row = new Row { RowIndex = ++rowIdex };
+            sheetData.AppendChild(row);
+            cellIdex = 0;
+            usuario = CreateTextCell(ColumnLetter(cellIdex++),
+                        rowIdex, user ?? string.Empty, 1);
+            row.AppendChild(usuario);
+            fechaDato = CreateTextCell(ColumnLetter(cellIdex++),
+                        rowIdex, fecha ?? string.Empty, 1);
+            row.AppendChild(fechaDato);
+
+            row = new Row { RowIndex = rowIdex + 2 };
+            sheetData.AppendChild(row);
+            rowIdex += 2;
+            cellIdex = 0;
 
             foreach (var header in data.Headers)
             {
@@ -421,8 +443,7 @@ namespace sgg_farmix_helper
             workbookpart.Workbook.Save();
             document.Close();
 
-            string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
-            var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+            string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");            
             // Nombre del archivo
             string fileName = string.Format("{0}-{1}-{2}.xls", ExcelFilePath, campo, fecha);
 

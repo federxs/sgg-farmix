@@ -96,6 +96,7 @@
             if (!vm.filtro.numCaravanaPadre) vm.filtro.numCaravanaPadre = 0;
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
             consultarNacimientosService.generarExcel({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 if (vm.filtro.numCaravanaMadre == 0) vm.filtro.numCaravanaMadre = '';
                 if (vm.filtro.numCaravanaPadre == 0) vm.filtro.numCaravanaPadre = '';

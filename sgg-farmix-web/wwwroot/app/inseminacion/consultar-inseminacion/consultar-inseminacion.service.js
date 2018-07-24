@@ -116,11 +116,11 @@
             });
         }
 
-        function generarExcelServSinConfirmar(campo, codigoCampo, rango) {
+        function generarExcelServSinConfirmar(campo, codigoCampo, rango, usuario) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/ExportarServSinConfirmarExcel',
-                params: { campo: campo, codigoCampo: codigoCampo, rango: rango },
+                params: { campo: campo, codigoCampo: codigoCampo, rango: rango, usuario: usuario },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {
@@ -128,11 +128,11 @@
             });
         }
 
-        function generarExcelPreniadas(campo, codigoCampo, periodo, rango) {
+        function generarExcelPreniadas(campo, codigoCampo, periodo, rango, usuario) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/ExportarPreniadasExcel',
-                params: { campo: campo, codigoCampo: codigoCampo, periodo: periodo, rango: rango },
+                params: { campo: campo, codigoCampo: codigoCampo, periodo: periodo, rango: rango, usuario },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

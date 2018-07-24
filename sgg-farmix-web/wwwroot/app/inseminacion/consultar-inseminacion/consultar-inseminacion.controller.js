@@ -288,7 +288,7 @@
 
         function exportarExcelServSinConfirm() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            consultarInseminacionService.generarExcelServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, rangoConsulta)
+            consultarInseminacionService.generarExcelServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, rangoConsulta, $sessionStorage.usuarioInfo.usuario)
                 .then(function (data) {
                     var path = data.nombre;
                     var link = document.createElement("a");
@@ -326,7 +326,7 @@
 
         function exportarExcelVacasPreniadas() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            consultarInseminacionService.generarExcelPreniadas($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta, rangoConsulta)
+            consultarInseminacionService.generarExcelPreniadas($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta, rangoConsulta, $sessionStorage.usuarioInfo.usuario)
                 .then(function (data) {
                     var path = data.nombre;
                     var link = document.createElement("a");

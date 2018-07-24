@@ -90,6 +90,7 @@
                 vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
             }
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
             consultarConflictoService.generarExcel({'filtro': angular.toJson(vm.filtro, false)}, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");

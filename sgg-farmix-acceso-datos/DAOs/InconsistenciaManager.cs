@@ -357,7 +357,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "Conflictos", filter.campo);
+                var archivo = StaticFunctions.GenerateExcel(data, "Conflictos", filter.campo, filter.usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

@@ -627,7 +627,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     row.Add(item.fechaBaja != " " ? item.fechaBaja : "-");
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "Usuarios", filter.campo);
+                var archivo = StaticFunctions.GenerateExcel(data, "Usuarios", filter.campo, filter.usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

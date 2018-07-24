@@ -498,7 +498,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteEventosExportarExcel(string campo, long codigoCampo, string periodo)
+        public Documento ReporteEventosExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             SLExcelData data = new SLExcelData();
             try
@@ -523,7 +523,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesEventos");
+                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesEventos", usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -751,7 +751,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "Eventos", filter.campo);
+                var archivo = StaticFunctions.GenerateExcel(data, "Eventos", filter.campo, filter.usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

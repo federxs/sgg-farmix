@@ -55,11 +55,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/BovinosExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteBovinosExcel(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteBovinosExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new BovinoManager().ReporteBovinosExportarExcel(campo, codigoCampo, periodo);
+                return new BovinoManager().ReporteBovinosExportarExcel(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {
@@ -112,11 +112,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionHembrasParaServirExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesHembrasServirExcel(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteInseminacionesHembrasServirExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionHembrasServicioExportarExcel(campo, codigoCampo, periodo);
+                return new InseminacionManager().ReporteInseminacionHembrasServicioExportarExcel(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {
@@ -169,11 +169,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionServiciosSinConfirmarExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesServiciosSinConfirmarExcel(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteInseminacionesServiciosSinConfirmarExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarExcel(campo, codigoCampo, periodo);
+                return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarExcel(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {
@@ -226,11 +226,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionLactanciasExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesLactanciasExcel(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteInseminacionesLactanciasExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionLactanciasExportarExcel(campo, codigoCampo, periodo);
+                return new InseminacionManager().ReporteInseminacionLactanciasExportarExcel(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {
@@ -283,11 +283,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionPreniadasExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesPreniadasExcel(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteInseminacionesPreniadasExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionPreniadasExportarExcel(campo, codigoCampo, periodo);
+                return new InseminacionManager().ReporteInseminacionPreniadasExportarExcel(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {
@@ -340,11 +340,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/EventosExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteEventosExcel(string campo, long codigoCampo, string periodo)
+        public Documento ExportarReporteEventosExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             try
             {
-                return new EventoManager().ReporteEventosExportarExcel(campo, codigoCampo, periodo);
+                return new EventoManager().ReporteEventosExportarExcel(campo, codigoCampo, periodo, usuario);
             }
             catch (Exception ex)
             {

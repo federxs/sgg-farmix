@@ -139,7 +139,8 @@
                 vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
             }
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
-            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;            
+            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
             consultarTrazabilidadService.generarExcel(angular.toJson(vm.filtro, false)).then(function (data) {
                 if (vm.filtro.numCaravana == 0) vm.filtro.numCaravana = '';
                 var path = data.nombre;

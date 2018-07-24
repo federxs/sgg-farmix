@@ -70,7 +70,8 @@
             reporteBovinoService.generarExcel({
                 campo: $localStorage.usuarioInfo.campoNombre,
                 codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-                periodo: $localStorage.usuarioInfo.periodoConsulta
+                periodo: $localStorage.usuarioInfo.periodoConsulta,
+                usuario: $sessionStorage.usuarioInfo.usuario
             }, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");

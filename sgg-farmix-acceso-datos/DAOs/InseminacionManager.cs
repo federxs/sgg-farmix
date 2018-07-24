@@ -981,7 +981,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionHembrasServicioExportarExcel(string campo, long codigoCampo, string periodo)
+        public Documento ReporteInseminacionHembrasServicioExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             SLExcelData data = new SLExcelData();
             try
@@ -1009,7 +1009,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-HembrasServicio");
+                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-HembrasServicio", usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1022,7 +1022,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionServiciosSinConfirmarExportarExcel(string campo, long codigoCampo, string periodo)
+        public Documento ReporteInseminacionServiciosSinConfirmarExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             SLExcelData data = new SLExcelData();
             try
@@ -1052,7 +1052,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-ServiciosSinConfirmar");
+                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-ServiciosSinConfirmar", usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1065,7 +1065,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionLactanciasExportarExcel(string campo, long codigoCampo, string periodo)
+        public Documento ReporteInseminacionLactanciasExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             SLExcelData data = new SLExcelData();
             try
@@ -1095,7 +1095,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-LactanciasActivas");
+                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-LactanciasActivas", usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1108,7 +1108,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionPreniadasExportarExcel(string campo, long codigoCampo, string periodo)
+        public Documento ReporteInseminacionPreniadasExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             SLExcelData data = new SLExcelData();
             try
@@ -1136,7 +1136,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-Preñadas");
+                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-Preñadas", usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1386,7 +1386,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ServiciosSinConfimarExportarExcel(string campo, long codigoCampo, long rango)
+        public Documento ServiciosSinConfimarExportarExcel(string campo, long codigoCampo, long rango, string usuario)
         {
             SLExcelData data = new SLExcelData();
             try
@@ -1418,7 +1418,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "ServiciosSinConfirmar", campo);
+                var archivo = StaticFunctions.GenerateExcel(data, "ServiciosSinConfirmar", campo, usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1431,7 +1431,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento PreniadasExportarExcel(string campo, long codigoCampo, string periodo, long rango)
+        public Documento PreniadasExportarExcel(string campo, long codigoCampo, string periodo, long rango, string usuario)
         {
             SLExcelData data = new SLExcelData();
             try
@@ -1461,7 +1461,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "Preñadas", campo);
+                var archivo = StaticFunctions.GenerateExcel(data, "Preñadas", campo, usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

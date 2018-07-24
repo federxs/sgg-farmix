@@ -112,6 +112,7 @@
             if (vm.filtro.numCaravana === '' || vm.filtro.numCaravana === null) vm.filtro.numCaravana = 0;
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
             consultarBovinoService.generarExcel({
                 'filtro': angular.toJson(vm.filtro, false)
             }, function (data) {

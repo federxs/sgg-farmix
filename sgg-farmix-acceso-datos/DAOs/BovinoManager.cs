@@ -743,7 +743,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteBovinosExportarExcel(string campo, long codigoCampo, string periodo)
+        public Documento ReporteBovinosExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
         {
             SLExcelData data = new SLExcelData();
             try
@@ -776,7 +776,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "ReportesBovino", campo);
+                var archivo = StaticFunctions.GenerateExcel(data, "ReportesBovino", campo, usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1012,7 +1012,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "Bovinos", filter.campo);
+                var archivo = StaticFunctions.GenerateExcel(data, "Bovinos", filter.campo, filter.usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
