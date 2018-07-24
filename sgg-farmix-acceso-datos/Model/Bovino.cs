@@ -48,6 +48,7 @@ namespace sgg_farmix_acceso_datos.Model
         public long codigoCampo { get; set; }
         public string periodo { get; set; }
         public string campo { get; set; }
+        public string usuario { get; set; }
 
     }
 
@@ -130,6 +131,7 @@ namespace sgg_farmix_acceso_datos.Model
         public long codigoCampo { get; set; }
         public string periodo { get; set; }
         public string campo { get; set; }
+        public string usuario { get; set; }
     }
     public class NacimientoItem
     {

@@ -109,6 +109,7 @@
             vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             vm.filtro.rolLogueado = usuarioInfo.getRol();
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
             consultarUsuariosService.generarPDF(vm.filtro).then(function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");

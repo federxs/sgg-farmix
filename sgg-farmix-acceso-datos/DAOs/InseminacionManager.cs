@@ -1149,7 +1149,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ServiciosSinConfimarExportarPDF(string campo, long codigoCampo, long rango)
+        public Documento ServiciosSinConfimarExportarPDF(string campo, long codigoCampo, long rango, string usuario)
         {
             FileStream fs;
             Document doc = null;
@@ -1203,7 +1203,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Servicios sin Confirmar</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                   
                             </table>
                             </body></html>";
                 ie = HTMLWorker.ParseToList(new StringReader(html), null);
@@ -1266,7 +1268,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento PreniadasExportarPDF(string campo, long codigoCampo, string periodo, long rango)
+        public Documento PreniadasExportarPDF(string campo, long codigoCampo, string periodo, long rango, string usuario)
         {
             FileStream fs;
             Document doc = null;
@@ -1320,7 +1322,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Vacas Preñadas</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>                   
+                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                    
                             </table>
                             </body></html>";
                 ie = HTMLWorker.ParseToList(new StringReader(html), null);

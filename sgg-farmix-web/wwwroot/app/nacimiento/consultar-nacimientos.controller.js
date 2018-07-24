@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarNacimientosController', consultarNacimientosController);
 
-    consultarNacimientosController.$inject = ['$scope', 'consultarNacimientosService', 'toastr', '$localStorage', '$state', 'exportador', '$stateParams', 'consultarBovinoService', 'portalService'];
+    consultarNacimientosController.$inject = ['$scope', 'consultarNacimientosService', 'toastr', '$localStorage', '$state', '$sessionStorage', '$stateParams', 'consultarBovinoService', 'portalService'];
 
-    function consultarNacimientosController($scope, consultarNacimientosService, toastr, $localStorage, $state, exportador, $stateParams, consultarBovinoService, portalService) {
+    function consultarNacimientosController($scope, consultarNacimientosService, toastr, $localStorage, $state, $sessionStorage, $stateParams, consultarBovinoService, portalService) {
         var vm = $scope;
         window.scrollTo(0, 0);
         $('.modal-backdrop').remove();
@@ -130,6 +130,7 @@
             if (!vm.filtro.numCaravanaPadre) vm.filtro.numCaravanaPadre = 0;
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
             consultarNacimientosService.generarPDF({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 if (vm.filtro.numCaravanaMadre == 0) vm.filtro.numCaravanaMadre = '';
                 if (vm.filtro.numCaravanaPadre == 0) vm.filtro.numCaravanaPadre = '';

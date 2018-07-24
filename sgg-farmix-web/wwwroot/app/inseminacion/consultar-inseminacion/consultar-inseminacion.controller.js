@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarInseminacionController', consultarInseminacionController);
 
-    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr', '$state', 'exportador', '$localStorage', '$location', '$anchorScroll', 'portalService'];
+    consultarInseminacionController.$inject = ['$scope', 'consultarInseminacionService', 'toastr', '$state', '$sessionStorage', '$localStorage', '$location', '$anchorScroll', 'portalService'];
 
-    function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state, exportador, $localStorage, $location, $anchorScroll, portalService) {
+    function consultarInseminacionController($scope, consultarInseminacionService, toastr, $state, $sessionStorage, $localStorage, $location, $anchorScroll, portalService) {
         var vm = $scope;
         //variables
         window.scrollTo(0, 0);
@@ -307,7 +307,7 @@
 
         function exportarPDFServSinConfirm() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            consultarInseminacionService.generarPDFServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, rangoConsulta)
+            consultarInseminacionService.generarPDFServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, rangoConsulta, $sessionStorage.usuarioInfo.usuario)
                 .then(function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");
@@ -345,7 +345,7 @@
 
         function exportarPDFVacasPreniadas() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            consultarInseminacionService.generarPDFPreniadas($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta, rangoConsulta)
+            consultarInseminacionService.generarPDFPreniadas($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, $localStorage.usuarioInfo.periodoConsulta, rangoConsulta, $sessionStorage.usuarioInfo.usuario)
                 .then(function (data) {
                     var path = data.nombre;
                     var link = document.createElement("a");

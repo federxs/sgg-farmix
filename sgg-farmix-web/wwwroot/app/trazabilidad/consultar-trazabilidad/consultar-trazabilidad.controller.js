@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarTrazabilidadController', consultarTrazabilidadController);
 
-    consultarTrazabilidadController.$inject = ['$scope', 'tipoEventoService', 'toastr', 'consultarTrazabilidadService', '$state', 'exportador', '$localStorage', 'portalService'];
+    consultarTrazabilidadController.$inject = ['$scope', 'tipoEventoService', 'toastr', 'consultarTrazabilidadService', '$state', '$sessionStorage', '$localStorage', 'portalService'];
 
-    function consultarTrazabilidadController($scope, tipoEventoService, toastr, consultarTrazabilidadService, $state, exportador, $localStorage, portalService) {
+    function consultarTrazabilidadController($scope, tipoEventoService, toastr, consultarTrazabilidadService, $state, $sessionStorage, $localStorage, portalService) {
         var vm = $scope;
         window.scrollTo(0, 0);
         $('.modal-backdrop').remove();
@@ -139,7 +139,7 @@
                 vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
             }
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
-            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;            
             consultarTrazabilidadService.generarExcel(angular.toJson(vm.filtro, false)).then(function (data) {
                 if (vm.filtro.numCaravana == 0) vm.filtro.numCaravana = '';
                 var path = data.nombre;
@@ -171,6 +171,7 @@
             }
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
             consultarTrazabilidadService.generarPDF(angular.toJson(vm.filtro, false)).then(function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");

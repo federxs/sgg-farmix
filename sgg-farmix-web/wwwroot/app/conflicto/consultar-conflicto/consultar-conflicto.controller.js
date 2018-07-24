@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarConflictoController', consultarConflictoController);
 
-    consultarConflictoController.$inject = ['$scope', 'consultarConflictoService', 'toastr', '$localStorage', '$state', 'exportador', '$stateParams', 'portalService'];
+    consultarConflictoController.$inject = ['$scope', 'consultarConflictoService', 'toastr', '$localStorage', '$state', '$sessionStorage', '$stateParams', 'portalService'];
 
-    function consultarConflictoController($scope, consultarConflictoService, toastr, $localStorage, $state, exportador, $stateParams, portalService) {
+    function consultarConflictoController($scope, consultarConflictoService, toastr, $localStorage, $state, $sessionStorage, $stateParams, portalService) {
         var vm = $scope;
         window.scrollTo(0, 0);
         $('.modal-backdrop').remove();
@@ -119,6 +119,7 @@
                 vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
             }
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
             consultarConflictoService.generarPDF({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");

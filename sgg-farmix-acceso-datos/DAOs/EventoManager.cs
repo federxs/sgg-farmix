@@ -580,7 +580,9 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Eventos</b></td></tr>
-                            <tr><td>Campo: <b>" + filter.campo + @"</b></td></tr>                   
+                            <tr><td>Campo: <b>" + filter.campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + filter.usuario + @"</b></td></tr>
+                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                   
                             </table>
                             </body></html>";
                 ie = HTMLWorker.ParseToList(new StringReader(html), null);

@@ -5,9 +5,9 @@
         .module('app')
         .controller('consultarBovinoController', consultarBovinoController);
 
-    consultarBovinoController.$inject = ['$scope', 'consultarBovinoService', 'toastr', 'exportador', '$localStorage', '$state', 'portalService'];
+    consultarBovinoController.$inject = ['$scope', 'consultarBovinoService', 'toastr', '$sessionStorage', '$localStorage', '$state', 'portalService'];
 
-    function consultarBovinoController($scope, consultarBovinoService, toastr, exportador, $localStorage, $state, portalService) {
+    function consultarBovinoController($scope, consultarBovinoService, toastr, $sessionStorage, $localStorage, $state, portalService) {
         var vm = $scope;
         window.scrollTo(0, 0);
         $('.modal-backdrop').remove();
@@ -138,6 +138,7 @@
             if (vm.filtro.numCaravana === '' || vm.filtro.numCaravana === null) vm.filtro.numCaravana = 0;
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
             consultarBovinoService.generarPDF({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 if (vm.filtro.peso === 0) vm.filtro.peso = '';
                 var path = data.nombre;

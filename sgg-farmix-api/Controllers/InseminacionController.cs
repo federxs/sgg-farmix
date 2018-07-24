@@ -302,11 +302,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Inseminacion/ExportarServSinConfirmarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarServiciosSinConfirmarPDF(string campo, long codigoCampo, long rango)
+        public Documento ExportarServiciosSinConfirmarPDF(string campo, long codigoCampo, long rango, string usuario)
         {
             try
             {
-                return IM.ServiciosSinConfimarExportarPDF(campo, codigoCampo, rango);
+                return IM.ServiciosSinConfimarExportarPDF(campo, codigoCampo, rango, usuario);
             }
             catch (Exception ex)
             {
@@ -321,11 +321,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Inseminacion/ExportarPreniadasPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarPreniadasPDF(string campo, long codigoCampo, string periodo, long rango)
+        public Documento ExportarPreniadasPDF(string campo, long codigoCampo, string periodo, long rango, string usuario)
         {
             try
             {
-                return IM.PreniadasExportarPDF(campo, codigoCampo, periodo, rango);
+                return IM.PreniadasExportarPDF(campo, codigoCampo, periodo, rango, usuario);
             }
             catch (Exception ex)
             {
