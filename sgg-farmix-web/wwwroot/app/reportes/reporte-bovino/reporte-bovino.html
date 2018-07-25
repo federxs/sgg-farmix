@@ -13,6 +13,128 @@
         Campo: <b>{{usuarioInfo.campo}}</b>
     </h4>
 </div>
+<form name="formConsultarReporteBovino" novalidate>
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarReporteBovino.numCaravana.$touched && formConsultarReporteBovino.numCaravana.$valid,
+                 'has-error has-feedback':formConsultarReporteBovino.numCaravana.$touched && formConsultarReporteBovino.numCaravana.$invalid}">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite buscar un bovino por su número de caravana.">
+                    N° Caravana
+                </label>
+                <input class="form-control" name="numCaravana" type="number" ng-model="filtro.numCaravana" placeholder="N° Caravana" min="1" maxlength="15" ng-disabled="disabled" />
+                <div ng-show="formConsultarReporteBovino.numCaravana.$touched">
+                    <span class="help-block" ng-show="formConsultarReporteBovino.numCaravana.$error.min">
+                        El número de Caravana no puede ser negativo ni 0
+                    </span>
+                    <span class="help-block" ng-show="formConsultarReporteBovino.numCaravana.$error.maxlength">
+                        Puede colocar hasta 15 dígitos
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los bovinos según su categoría.">
+                    Categoría
+                </label>
+                <select class="form-control" name="categoria" required
+                        ng-model="filtro.idCategoria" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in categorias"
+                            value="{{ item.idCategoria }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los bovinos de un género determinado.">
+                    Sexo
+                </label>
+                <select class="form-control" name="genero" required
+                        ng-model="filtro.genero" ng-disabled="disabled" ng-change="changeEstados();changeCategorias()">
+                    <option value="2">Seleccione...</option>
+                    <option value="0">Hembra</option>
+                    <option value="1">Macho</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los bovinos que pertenecen a la raza seleccionada.">
+                    Raza
+                </label>
+                <select class="form-control" name="raza" required
+                        ng-model="filtro.idRaza" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in razas"
+                            value="{{ item.idRaza }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los bovinos de un rodeo en particular.">
+                    Rodeo
+                </label>
+                <select class="form-control" name="rodeo" required
+                        ng-model="filtro.idRodeo" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in rodeos"
+                            value="{{ item.idRodeo }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los bovinos por el estado en que se encuentran.">
+                    Estado
+                </label>
+                <select class="form-control" name="estado" required
+                        ng-model="filtro.idEstado" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in estados"
+                            value="{{ item.idEstado }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los bovinos por su peso, “mayor” o “menor o igual” al valor ingresado.">
+                    Peso
+                </label>
+                <select class="form-control" name="accionPeso" required
+                        ng-model="filtro.accionPeso" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option value="mayor">Mayor</option>
+                    <option value="menor">Menor ó igual</option>
+                </select>
+            </div>
+            <div style="margin-top:24px" class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarReporteBovino.peso.$touched && formConsultarReporteBovino.peso.$valid,
+                 'has-error has-feedback':formConsultarReporteBovino.peso.$touched && formConsultarReporteBovino.peso.$invalid}">
+                <input class="form-control" name="peso" type="number" ng-model="filtro.peso" placeholder="Peso (kg)" min="0" ng-disabled="filtro.accionPeso === '0'" data-toggle="tooltip" title="" data-placement="top" data-original-title="Peso en Kilogramos a tomar como valor en el filtro anterior." />
+                <div ng-show="formConsultarReporteBovino.peso.$touched">
+                    <span class="help-block" ng-show="formConsultarReporteBovino.peso.$error.min">
+                        El peso no puede ser negativo
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row pull-right hidden-print">
+            <div class="col-md-12 col-lg-12">
+                <button class="btn btn-default"
+                        ng-click="limpiarCampos()" ng-disabled="disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite limpiar los filtros ingresados para mostrar todos los bovinos del campo.">
+                    <span class="fa fa-trash"></span>
+                    Limpiar Campos
+                </button>
+                <button class="btn btn-primary"
+                        ng-click="consultar()" ng-disabled="formConsultarReporteBovino.$invalid || disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra los bovinos que cumplan con las condiciones ingresadas en los criterios de búsqueda.">
+                    <span class="fa fa-search"></span>
+                    Buscar
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
 <div>
     <div class="pull-right hidden-print" style="margin-bottom:5px">
         <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel">

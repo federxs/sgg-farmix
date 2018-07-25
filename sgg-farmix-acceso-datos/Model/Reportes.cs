@@ -25,6 +25,19 @@ namespace sgg_farmix_acceso_datos.Model
         public string anos { get; set; }
     }
 
+    {
+        public long idCategoria { get; set; }
+        public int genero { get; set; }
+        public long idRaza { get; set; }
+        public long idRodeo { get; set; }
+        public long idEstado { get; set; }
+        public float peso { get; set; }
+        public long numCaravana { get; set; }
+        public string accionPeso { get; set; }
+        public long codigoCampo { get; set; }
+        public string periodo { get; set; }
+    }
+
     public class ReporteInseminacionHembrasServir
     {
         public long nroOrden { get; set; }

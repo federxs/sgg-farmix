@@ -545,6 +545,39 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
+        public IEnumerable<ReporteBovinos> GetReporteFiltros(ReporteBovinosFilter filter)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var parametros = new Dictionary<string, object>
+                {
+                    {"@idCatego", filter.idCategoria },
+                    {"@genero", filter.genero },
+                    {"@idRaza", filter.idRaza },
+                    {"@idRodeo", filter.idRodeo },
+                    {"@idEstado", filter.idEstado },
+                    {"@peso", filter.peso },
+                    {"@accionPeso", (filter.accionPeso == "0" ? null : filter.accionPeso) },
+                    {"@idCampo", filter.codigoCampo },
+                    {"@periodo", filter.periodo }              
+                };
+                if (filter.numCaravana != 0)
+                    parametros.Add("@numCaravana", filter.numCaravana.ToString());
+                var lista = connection.GetArray<ReporteBovinos>("spObtenerDatosReporteBovinosFiltro", parametros, System.Data.CommandType.StoredProcedure);
+                return lista.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
         public int CreateNacimiento(string fecha, List<long> madres, long idToro, long codigoCampo)
         {
             connection = new SqlServerConnection();

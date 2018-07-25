@@ -33,6 +33,27 @@ namespace sgg_farmix_api.Controllers
             }
         }
 
+        [Route("api/Reportes/BovinosFiltro")]
+        [HttpGet]
+        [AutorizationToken]
+        public IEnumerable<ReporteBovinos> GetReporteBovinosFiltro(string filtro)
+        {
+            try
+            {
+                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteBovinosFilter>(filtro);
+                return new BovinoManager().GetReporteFiltros(filtroDeserealizado);                
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+
         [Route("api/Reportes/BovinosExportarPDF")]
         [HttpGet]
         [AutorizationToken]

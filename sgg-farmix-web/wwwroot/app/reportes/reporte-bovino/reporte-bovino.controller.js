@@ -12,16 +12,26 @@
 
         //funciones
         vm.inicializar = inicializar();
-
+        vm.consultar = consultar;
+        vm.limpiarCampos = limpiarCampos;
+        vm.exportarPDF = exportarPDF;
+        vm.exportarExcel = exportarExcel;
+        vm.changeCategorias = changeCategorias;
+        vm.changeEstados = changeEstados;
 
         //variables
         window.scrollTo(0, 0);
         vm.disabledExportar = 'disabled';
         vm.bovinos = [];
         vm.itemsPorPagina = 50;
+        vm.razas = [];
+        vm.estados = [];
+        vm.categorias = [];
+        vm.rodeos = [];
+        //vm.establecimientos = [];
+        vm.filtro = {};
 
-        vm.exportarPDF = exportarPDF;
-        vm.exportarExcel = exportarExcel;
+
 
         function inicializar() {
             $scope.$parent.blockSpinner();
