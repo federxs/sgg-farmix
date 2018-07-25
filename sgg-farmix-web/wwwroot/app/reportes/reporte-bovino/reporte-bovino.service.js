@@ -16,13 +16,13 @@
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/BovinosExportarPDF',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        campo: '@campo',
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo',
-                        usuario: '@usuario'
-                    },
                     isArray: false
+                },
+                obtenerReportesFiltro: {
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Reportes/BovinosFiltro',
+                    headers: portalService.getHeadersServer(),
+                    isArray: true
                 },
                 generarExcel: {
                     method: 'GET',

@@ -25,6 +25,7 @@ namespace sgg_farmix_acceso_datos.Model
         public string anos { get; set; }
     }
 
+    public class ReporteBovinosFilter
     {
         public long idCategoria { get; set; }
         public int genero { get; set; }
@@ -36,6 +37,16 @@ namespace sgg_farmix_acceso_datos.Model
         public string accionPeso { get; set; }
         public long codigoCampo { get; set; }
         public string periodo { get; set; }
+        public string campo { get; set; }
+        public string usuario { get; set; }
+    }
+
+    public class ReporteBovinosFilterDatos
+    {
+        public string categoria { get; set; }
+        public string raza { get; set; }
+        public string rodeo { get; set; }
+        public string estado { get; set; }
     }
 
     public class ReporteInseminacionHembrasServir

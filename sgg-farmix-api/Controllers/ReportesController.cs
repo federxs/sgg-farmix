@@ -57,11 +57,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/BovinosExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteBovinosPDF(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteBovinosPDF(string filtro)
         {
             try
             {
-                return new BovinoManager().ReporteBovinosExportarPDF(campo, codigoCampo, periodo, usuario);
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteBovinosFilter>(filtro);
+                return new BovinoManager().ReporteBovinosExportarPDF(filtroDesearizado);
             }
             catch (Exception ex)
             {
