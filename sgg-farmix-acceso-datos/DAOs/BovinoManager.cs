@@ -849,14 +849,50 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteBovinosExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ReporteBovinosExportarExcel(ReporteBovinosFilter filter)
         {
             SLExcelData data = new SLExcelData();
             try
             {
-                var lista = GetReporte(codigoCampo, periodo);
-                data.Headers.Add("Orden");
-                data.Headers.Add("Caravana");
+                var filtro = ObtenerDatosFiltroReporte(filter);
+                data.HeadersFiltro = new List<string>();
+                data.HeadersFiltro.Add("Caravana");
+                data.HeadersFiltro.Add("Categoría");
+                data.HeadersFiltro.Add("Sexo");
+                data.HeadersFiltro.Add("Raza");
+                data.HeadersFiltro.Add("Estado");
+                data.HeadersFiltro.Add("Peso");
+                data.HeadersFiltro.Add("Acción Peso");
+
+                List<string> rowFiltro = new List<string>();
+                if (filter.numCaravana != 0)
+                    rowFiltro.Add(filter.numCaravana.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filtro.categoria != "") rowFiltro.Add(filtro.categoria);
+                else rowFiltro.Add("Sin datos");
+                if (filter.genero == 0) rowFiltro.Add("Hembra");
+                else if (filter.genero == 1) rowFiltro.Add("Macho");
+                else rowFiltro.Add("Sin datos");
+                if (filtro.raza != "") rowFiltro.Add(filtro.raza);
+                else rowFiltro.Add("Sin datos");
+                if (filtro.estado != "") rowFiltro.Add(filtro.estado);
+                else rowFiltro.Add("Sin datos");
+                if (filter.peso != 0)
+                    rowFiltro.Add(filter.peso.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filter.accionPeso == "mayor")
+                    rowFiltro.Add("Mayor que");
+                else if (filter.accionPeso == "menor")
+                    rowFiltro.Add("Menor que");
+                else
+                    rowFiltro.Add("Sin datos");
+                data.DataRowsFiltro = new List<List<string>>();
+                data.DataRowsFiltro.Add(rowFiltro);
+
+                var lista = GetReporteFiltros(filter);
+                data.Headers.Add("Caravana");                
                 data.Headers.Add("Sexo");
                 data.Headers.Add("Raza");
                 data.Headers.Add("Categoría");
@@ -864,17 +900,17 @@ namespace sgg_farmix_acceso_datos.DAOs
                 data.Headers.Add("Peso (Kg)");
                 data.Headers.Add("Estado");
                 data.Headers.Add("Enfermo");
-                data.Headers.Add("Rodeo");
+                data.Headers.Add("Rodeo");                               
 
                 foreach (var item in lista)
                 {
+                    item.edad = item.anos + " años y " + item.meses + " meses";
                     List<string> row = new List<string>() {
-                        item.nroOrden.ToString(),
                         item.numCaravana.ToString(),
                         item.sexo,
                         item.raza,
                         item.categoria,
-                        item.anos + "," + item.meses,
+                        item.edad,
                         item.peso.ToString(),
                         item.estado,
                         item.enfermo,
@@ -882,7 +918,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "ReportesBovino", campo, usuario);
+                var archivo = StaticFunctions.GenerateExcel(data, "Reporte Bovinos", filter.campo, filter.usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

@@ -206,18 +206,19 @@
 
         function exportarExcel() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            reporteBovinoService.generarExcel({
-                campo: $localStorage.usuarioInfo.campoNombre,
-                codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-                periodo: $localStorage.usuarioInfo.periodoConsulta,
-                usuario: $sessionStorage.usuarioInfo.usuario
-            }, function (data) {
+            if (vm.filtro.peso === '' || vm.filtro.peso === undefined) vm.filtro.peso = 0;
+            if (vm.filtro.numCaravana === '' || vm.filtro.numCaravana === null) vm.filtro.numCaravana = 0;
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
+            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
+            reporteBovinoService.generarExcel({ 'filtro': angular.toJson(vm.filtro, false)}, function (data) {
+                if (vm.filtro.numCaravana == 0) vm.filtro.numCaravana = '';
+                if (vm.filtro.peso === 0) vm.filtro.peso = '';
                 var path = data.nombre;
                 var link = document.createElement("a");
                 $(link).click(function (e) {
                     e.preventDefault();
                     window.open(portalService.getUrlServer() + '\\Archivos\\' + path);
-                    //window.location.href = portalService.getUrlServer() + '\\Archivos\\' + path;
                 });
                 $(link).click();
                 toastr.success('Excel generado con Éxito!', 'Éxito');

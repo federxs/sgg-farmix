@@ -28,12 +28,6 @@
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/BovinosExportarExcel',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        campo: '@campo',
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo',
-                        usuario: '@usuario'
-                    },
                     isArray: false
                 }
             });
