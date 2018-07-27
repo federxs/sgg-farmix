@@ -338,16 +338,21 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<ReporteEventos> GetReporte(long codigoCampo, string periodo)
+        public IEnumerable<ReporteEventos> GetReporte(ReporteFilter filter)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@codigoCampo", codigoCampo },
-                    {"@periodo", periodo }
+                    {"@idTipoEvento", filter.idTipoEvento },
+                    {"@fechaDesde", filter.fechaDesde },
+                    {"@fechaHasta", filter.fechaHasta },
+                    {"@codigoCampo", filter.codigoCampo },
+                    {"@periodo", filter.periodo }
                 };
+                if (filter.numCaravana != 0)
+                    parametros.Add("@numCaravana", filter.numCaravana);
                 var lista = connection.GetArray<ReporteEventos>("spObtenerDatosReporteEventos", parametros, System.Data.CommandType.StoredProcedure);
                 DateTime fechaAnterior, fechaSiguiente;
                 for (int i = 0; i < lista.Count(); i++)
@@ -387,7 +392,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteEventosExportarPDF(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ReporteEventosExportarPDF(ReporteFilter filter)
         {
             FileStream fs;
             Document doc = null;
@@ -401,7 +406,7 @@ namespace sgg_farmix_acceso_datos.DAOs
 
                 var fecha = DateTime.Now.ToString("dd-MM-yyyy");
                 // Nombre del archivo
-                string fileName = string.Format("{0}-{1}-{2}.pdf", "ReporteEventos", campo, fecha);
+                string fileName = string.Format("{0}-{1}-{2}.pdf", "ReporteEventos", filter.campo, fecha);
                 // Generación del PDF
                 fs = new FileStream(System.IO.Path.Combine(filePath, fileName), FileMode.Create, FileAccess.Write, FileShare.None);
 
@@ -420,7 +425,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
                 doc.Add(new Paragraph(" "));
                 //Inicio datos
-                var lista = GetReporte(codigoCampo, periodo);
+                var lista = GetReporte(filter);
                 Font fuente1 = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.BOLD, BaseColor.BLACK);
                 Font fuente2 = new Font(FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
                 Rectangle rect = PageSize.LETTER;
@@ -431,8 +436,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Reporte Eventos</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
-                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Campo: <b>" + filter.campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + filter.usuario + @"</b></td></tr>
                             <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                         
                             </table>
                             </body></html>";
@@ -450,6 +455,57 @@ namespace sgg_farmix_acceso_datos.DAOs
                 doc.Add(new Paragraph(" "));
                 if (lista.Count() > 0)
                 {
+                    string caravana, tipoEvento;
+                    if (filter.numCaravana == 0) caravana = "Sin filtro";
+                    else
+                        caravana = filter.numCaravana.ToString();
+                    switch (filter.idTipoEvento)
+                    {
+                        case 1:
+                            tipoEvento = "Vacunación";
+                            break;
+                        case 2:
+                            tipoEvento = "Antibiótico";
+                            break;
+                        case 3:
+                            tipoEvento = "Manejo";
+                            break;
+                        case 4:
+                            tipoEvento = "Alimenticio";
+                            break;
+                        default:
+                            tipoEvento = "Sin filtro";
+                            break;
+                    }
+                    html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Filtro Aplicado</b></td><td></td><td></td><td></td></tr>                
+                            </table>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Caravana</th>
+                            <th>Tipo Evento</th>       
+                            <th>Fecha desde</th>    
+                            <th>Fecha hasta</th>";
+                    html += @"</tr>               
+                            </thead>
+                            <tbody>
+                            <tr><td>" + caravana + @"</td><td>" + tipoEvento + @"</td><td>" + (filter.fechaDesde == null ? "Sin filtro" : filter.fechaDesde) + @"</td><td>" + (filter.fechaHasta == null ? "Sin filtro" : filter.fechaHasta) + @"</td></tr>
+                            </tbody></table></body></html>";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).25 * pageWidth, (float).25 * pageWidth, (float).25 * pageWidth, (float).25 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                    doc.Add(new Paragraph(" "));
                     html = @"
                             <html><head></head><body>
                             <table border='1'>
@@ -498,12 +554,48 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteEventosExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ReporteEventosExportarExcel(ReporteFilter filter)
         {
             SLExcelData data = new SLExcelData();
             try
             {
-                var lista = GetReporte(codigoCampo, periodo);
+                data.HeadersFiltro = new List<string>();
+                data.HeadersFiltro.Add("Caravana");
+                data.HeadersFiltro.Add("Tipo Evento");
+                data.HeadersFiltro.Add("Fecha Desde");
+                data.HeadersFiltro.Add("Fecha Hasta");
+
+                List<string> rowFiltro = new List<string>();
+                if (filter.numCaravana != 0)
+                    rowFiltro.Add(filter.numCaravana.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                switch (filter.idTipoEvento)
+                {
+                    case 1:
+                        rowFiltro.Add("Vacunación");
+                        break;
+                    case 2:
+                        rowFiltro.Add("Antibiótico");
+                        break;
+                    case 3:
+                        rowFiltro.Add("Manejo");
+                        break;
+                    case 4:
+                        rowFiltro.Add("Alimenticio");
+                        break;
+                    default:
+                        rowFiltro.Add("Sin filtro");
+                        break;
+                }
+                if (filter.fechaDesde != null) rowFiltro.Add(filter.fechaDesde);
+                else rowFiltro.Add("Sin datos");
+                if (filter.fechaHasta != null) rowFiltro.Add(filter.fechaHasta);
+                else rowFiltro.Add("Sin datos");
+                data.DataRowsFiltro = new List<List<string>>();
+                data.DataRowsFiltro.Add(rowFiltro);
+
+                var lista = GetReporte(filter);
                 data.Headers.Add("Orden");
                 data.Headers.Add("Tipo Evento");
                 data.Headers.Add("Fecha");
@@ -523,7 +615,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesEventos", usuario);
+                var archivo = StaticFunctions.GenerateExcel(data, filter.campo, "ReportesEventos", filter.usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

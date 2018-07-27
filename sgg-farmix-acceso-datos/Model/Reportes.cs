@@ -41,6 +41,9 @@ namespace sgg_farmix_acceso_datos.Model
         public string usuario { get; set; }
         public string accionNroPartos { get; set; }
         public int nroPartos { get; set; }
+        public string fechaDesde { get; set; }
+        public string fechaHasta { get; set; }
+        public int idTipoEvento { get; set; }
     }
 
     public class ReporteBovinosFilterDatos

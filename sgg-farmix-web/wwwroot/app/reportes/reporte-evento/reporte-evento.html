@@ -13,7 +13,7 @@
         Campo: <b>{{usuarioInfo.campo}}</b>
     </h4>
 </div>
-<form name="formConsultarTrazabilidad" novalidate>
+<form name="formConsultarReporteEvento" novalidate>
     <fieldset>
         <div class="row">
             <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarReporteEvento.numCaravana.$touched && formConsultarReporteEvento.numCaravana.$valid,
@@ -38,7 +38,7 @@
                 <select class="form-control" name="tipoEvento" required
                         ng-model="filtro.idTipoEvento" ng-disabled="disabled">
                     <option value="0">Seleccione...</option>
-                    <option ng-repeat="item in Eventos"
+                    <option ng-repeat="item in TiposEventos"
                             value="{{ item.idTipoEvento }}">
                         {{ item.descripcion }}
                     </option>
@@ -91,7 +91,8 @@
         </div>
     </fieldset>
 </form>
-<div>
+<br />
+<div ng-show="rowCollection.length > 0">
     <div class="pull-right hidden-print" style="margin-bottom:5px">
         <button class="btn btn-success font-white" ng-click="exportarExcel()" title="Exportar a Excel">
             <i class="fa fa-file-excel-o"></i>

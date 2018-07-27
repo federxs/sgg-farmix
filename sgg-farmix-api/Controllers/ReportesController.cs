@@ -14,25 +14,6 @@ namespace sgg_farmix_api.Controllers
 {
     public class ReportesController : ApiController
     {
-        [Route("api/Reportes/Bovinos")]
-        [HttpGet]
-        [AutorizationToken]
-        public IEnumerable<ReporteBovinos> GetReporteBovinos(long codigoCampo, string periodo)
-        {
-            try
-            {
-                return new BovinoManager().GetReporte(codigoCampo, periodo);
-            }
-            catch (Exception ex)
-            {
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
-                {
-                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
-                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
-                });
-            }
-        }
-
         [Route("api/Reportes/BovinosFiltro")]
         [HttpGet]
         [AutorizationToken]
@@ -41,7 +22,7 @@ namespace sgg_farmix_api.Controllers
             try
             {
                 var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
-                return new BovinoManager().GetReporteFiltros(filtroDeserealizado);                
+                return new BovinoManager().GetReporteFiltros(filtroDeserealizado);
             }
             catch (Exception ex)
             {
@@ -52,7 +33,6 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
-
 
         [Route("api/Reportes/BovinosExportarPDF")]
         [HttpGet]
@@ -328,11 +308,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/Eventos")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<ReporteEventos> GetReporteEventos(long codigoCampo, string periodo)
+        public IEnumerable<ReporteEventos> GetReporteEventos(string filtro)
         {
             try
             {
-                return new EventoManager().GetReporte(codigoCampo, periodo);
+                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new EventoManager().GetReporte(filtroDeserealizado);
             }
             catch (Exception ex)
             {
@@ -347,11 +328,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/EventosExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteEventosPDF(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteEventosPDF(string filtro)
         {
             try
             {
-                return new EventoManager().ReporteEventosExportarPDF(campo, codigoCampo, periodo, usuario);
+                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new EventoManager().ReporteEventosExportarPDF(filtroDeserealizado);
             }
             catch (Exception ex)
             {
@@ -366,11 +348,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/EventosExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteEventosExcel(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteEventosExcel(string filtro)
         {
             try
             {
-                return new EventoManager().ReporteEventosExportarExcel(campo, codigoCampo, periodo, usuario);
+                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new EventoManager().ReporteEventosExportarExcel(filtroDeserealizado);
             }
             catch (Exception ex)
             {

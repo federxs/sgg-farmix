@@ -12,24 +12,12 @@
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/EventosExportarPDF',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        campo: '@campo',
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo',
-                        usuario: '@usuario'
-                    },
                     isArray: false
                 },
                 generarExcel: {
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/EventosExportarExcel',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        campo: '@campo',
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo',
-                        usuario: '@usuario'
-                    },
                     isArray: false
                 }
             });

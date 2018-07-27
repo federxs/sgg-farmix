@@ -5,9 +5,9 @@
         .module('app')
         .controller('reporteEventoController', reporteEventoController);
 
-    reporteEventoController.$inject = ['$scope', 'reporteEventoService', '$localStorage', 'portalService', 'toastr', '$state', '$sessionStorage'];
+    reporteEventoController.$inject = ['$scope', 'reporteEventoService', '$localStorage', 'portalService', 'toastr', '$state', '$sessionStorage', 'tipoEventoService'];
 
-    function reporteEventoController($scope, reporteEventoService, $localStorage, portalService, toastr, $state, $sessionStorage) {
+    function reporteEventoController($scope, reporteEventoService, $localStorage, portalService, toastr, $state, $sessionStorage, tipoEventoService) {
         var vm = $scope;
         window.scrollTo(0, 0);
         $('.modal-backdrop').remove();
@@ -21,8 +21,6 @@
         vm.consultar = consultar;
         vm.limpiarCampos = limpiarCampos;
         vm.exportarExcel = exportarExcel;
-        vm.openPopUp = openPopUp;
-        vm.eliminar = eliminar;
         vm.getFechaDesde = getFechaDesde;
         vm.getFechaHasta = getFechaHasta;
         vm.exportarPDF = exportarPDF;
@@ -30,10 +28,6 @@
         vm.filtro = {};
         vm.cursor = '';
         vm.numCaravanaFiltro;
-        var ultimoIndiceVisto = 0;
-        var idEventoAEliminar = 0;
-        var idManejo = [];
-        var idAlimenticio = [];
         vm.fechaDeHoy = new Date();
         $('#datetimepicker4').datetimepicker();
         $('#datetimepicker5').datetimepicker();
@@ -41,13 +35,14 @@
 
         function inicializar() {
             $scope.$parent.blockSpinner();
-            reporteEventoService.consultarEventos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
-                vm.rowCollection = data;
-                $scope.$parent.unBlockSpinner();
-                if (vm.rowCollection.length === 0) {
-                    toastr.info("No se ha encontrado ningún Evento", "Aviso");
-                    $state.go('home.reportes');
-                }                
+            vm.disabledExportar = 'disabled';
+            vm.disabled = 'disabled';
+            tipoEventoService.inicializar({}).then(function success(data) {
+                vm.TiposEventos = data;
+                vm.filtro.idTipoEvento = '0';
+                vm.filtro.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
+                vm.disabled = '';
+                consultar();
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);
@@ -68,13 +63,6 @@
                     vm.filtro.fechaHasta = new Date(vm.filtro.fechaHasta.split('/')[2], (parseInt(vm.filtro.fechaHasta.split('/')[1]) - 1).toString(), vm.filtro.fechaHasta.split('/')[0]);
                 vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
             }
-            if (vm.filtro.numCaravana === null) {
-                vm.filtro.numCaravana = undefined;
-                $('#timeline').hide();
-            }
-            else if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null) {
-                $('#timeline').show();
-            }
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             reporteEventoService.consultarEventos({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 vm.numCaravanaFiltro = undefined;
@@ -82,15 +70,10 @@
                     vm.disabledExportar = 'disabled';
                     vm.disabled = '';
                     vm.rowCollection = [];
-                    $('#timeline').hide();
                     toastr.info("No se ha encontrado ningún resultado para esta búsqueda", "Aviso");
                 }
                 else {
                     vm.rowCollection = data;
-                    if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null) {
-                        vm.numCaravanaFiltro = angular.copy(vm.filtro.numCaravana);
-                        cargarLineaTiempoEventos();
-                    }
                     if (vm.filtro.numCaravana === 0) vm.filtro.numCaravana = '';
                     vm.disabled = '';
                     vm.disabledExportar = '';
@@ -103,15 +86,9 @@
             });
         };
 
-        function ordenarFechasMenorAMayor(lista) {
-            var listaARetornar = [];
-            for (var i = lista.length - 1; i >= 0; i--) {
-                listaARetornar.push(lista[i]);
-            }
-
         function limpiarCampos() {
             $state.reload();
-        }
+        };
 
         function convertirFecha(fecha) {
             var dia, mes, año, hora, min;
@@ -129,22 +106,19 @@
             if (min.length === 1)
                 min = '0' + min;
             return dia + '/' + mes + '/' + año + ' ' + hora + ':' + min;
-        }
+        };
 
         function exportarPDF() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            reporteEventoService.generarPDF({
-                campo: $localStorage.usuarioInfo.campoNombre,
-                codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-                periodo: $localStorage.usuarioInfo.periodoConsulta,
-                usuario: $sessionStorage.usuarioInfo.usuario
-            }, function (data) {
+            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
+            reporteEventoService.generarPDF({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");
                 $(link).click(function (e) {
                     e.preventDefault();
                     window.open(portalService.getUrlServer() + '\\Archivos\\' + path, '_blank');
-                    //window.location.href = portalService.getUrlServer() + '\\Archivos\\' + path;
                 });
                 $(link).click();
                 toastr.success('PDF generado con Éxito!', 'Éxito');
@@ -157,18 +131,15 @@
 
         function exportarExcel() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            reporteEventoService.generarExcel({
-                campo: $localStorage.usuarioInfo.campoNombre,
-                codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-                periodo: $localStorage.usuarioInfo.periodoConsulta,
-                usuario: $sessionStorage.usuarioInfo.usuario
-            }, function (data) {
+            vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
+            vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
+            reporteEventoService.generarExcel({ 'filtro': angular.toJson(vm.filtro, false) }, function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");
                 $(link).click(function (e) {
                     e.preventDefault();
                     window.open(portalService.getUrlServer() + '\\Archivos\\' + path);
-                    //window.location.href = portalService.getUrlServer() + '\\Archivos\\' + path;
                 });
                 $(link).click();
                 toastr.success('Excel generado con Éxito!', 'Éxito');
@@ -178,5 +149,31 @@
                 $scope.$parent.errorServicio(error.statusText);
             });
         };
+
+        function getFechaDesde() {
+            vm.filtro.fechaDesde = $('#datetimepicker4')[0].value;
+            var fechaDesde = new Date(vm.filtro.fechaDesde.substring(6, 10), parseInt(vm.filtro.fechaDesde.substring(3, 5)) - 1, vm.filtro.fechaDesde.substring(0, 2));
+            var fechaMin = new Date(2000, 1, 1);
+            if (fechaDesde < fechaMin) {
+                vm.formConsultarReporteEvento.fechaDesde.$setValidity("min", false);
+            }
+            else {
+                vm.formConsultarReporteEvento.fechaDesde.$setValidity("min", true);
+            }
+        }
+
+        function getFechaHasta() {
+            vm.filtro.fechaHasta = $('#datetimepicker5')[0].value;
+            if (vm.filtro.fechaDesde !== undefined) {
+                var fechaHasta = new Date(vm.filtro.fechaHasta.substring(6, 10), parseInt(vm.filtro.fechaHasta.substring(3, 5)) - 1, vm.filtro.fechaHasta.substring(0, 2));
+                var fechaDesde = new Date(vm.filtro.fechaDesde.substring(6, 10), parseInt(vm.filtro.fechaDesde.substring(3, 5)) - 1, vm.filtro.fechaDesde.substring(0, 2));
+                if (fechaHasta < fechaDesde) {
+                    vm.formConsultarReporteEvento.fechaHasta.$setValidity("min", false);
+                }
+                else {
+                    vm.formConsultarReporteEvento.fechaHasta.$setValidity("min", true);
+                }
+            }
+        }
     }
 })();
