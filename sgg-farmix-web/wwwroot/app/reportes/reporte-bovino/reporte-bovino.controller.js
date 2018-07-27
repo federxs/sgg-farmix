@@ -28,7 +28,7 @@
         vm.estados = [];
         vm.categorias = [];
         vm.rodeos = [];
-        //vm.establecimientos = [];
+        $('[data-toggle="tooltip"]').tooltip();
         vm.filtro = {};
         var estados = [];
         var categorias = [];
@@ -38,7 +38,6 @@
             $scope.$parent.blockSpinner();
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
-            vm.itemsPorPagina = 9;
             consultarBovinoService.inicializar({ idAmbitoEstado: '1', idCampo: $localStorage.usuarioInfo.codigoCampo }, function (data) {
                 vm.estados = data.estados;
                 estados = angular.copy(data.estados);
@@ -46,7 +45,6 @@
                 categorias = angular.copy(data.categorias);
                 vm.razas = data.razas;
                 vm.rodeos = data.rodeos;
-                vm.establecimientos = data.establecimientos;
                 vm.filtro.idCategoria = '0';
                 vm.filtro.genero = '2';
                 vm.filtro.idRaza = '0';
@@ -59,7 +57,6 @@
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);
             });
-
         };
 
         function consultar() {
@@ -152,33 +149,6 @@
             else
                 vm.categorias = categorias;
         };
-
-
-
-
-        //function exportarPDF() {
-        //    $scope.$parent.blockSpinnerGenerarArchivo();
-        //    reporteBovinoService.generarPDF({
-        //        campo: $localStorage.usuarioInfo.campoNombre,
-        //        codigoCampo: $localStorage.usuarioInfo.codigoCampo,
-        //        periodo: $localStorage.usuarioInfo.periodoConsulta,
-        //        usuario: $sessionStorage.usuarioInfo.usuario
-        //    }, function (data) {
-        //        var path = data.nombre;
-        //        var link = document.createElement("a");
-        //        $(link).click(function (e) {
-        //            e.preventDefault();
-        //            window.open(portalService.getUrlServer() + '\\Archivos\\' + path, '_blank');
-        //            //window.location.href = portalService.getUrlServer() + '\\Archivos\\' + path;
-        //        });
-        //        $(link).click();
-        //        toastr.success('PDF generado con Éxito!', 'Éxito');
-        //        $scope.$parent.unBlockSpinnerGenerarArchivo();
-        //    }, function error(error) {
-        //        $scope.$parent.unBlockSpinnerGenerarArchivo();
-        //        $scope.$parent.errorServicio(error.statusText);
-        //    });
-        //};
 
         function exportarPDF() {
             $scope.$parent.blockSpinnerGenerarArchivo();

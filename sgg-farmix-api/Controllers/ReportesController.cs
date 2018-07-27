@@ -40,7 +40,7 @@ namespace sgg_farmix_api.Controllers
         {
             try
             {
-                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteBovinosFilter>(filtro);
+                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
                 return new BovinoManager().GetReporteFiltros(filtroDeserealizado);                
             }
             catch (Exception ex)
@@ -61,7 +61,7 @@ namespace sgg_farmix_api.Controllers
         {
             try
             {
-                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteBovinosFilter>(filtro);
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
                 return new BovinoManager().ReporteBovinosExportarPDF(filtroDesearizado);
             }
             catch (Exception ex)
@@ -81,7 +81,7 @@ namespace sgg_farmix_api.Controllers
         {
             try
             {
-                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteBovinosFilter>(filtro);
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
                 return new BovinoManager().ReporteBovinosExportarExcel(filtroDesearizado);
             }
             catch (Exception ex)
@@ -97,11 +97,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/Inseminacion/HembrasServir")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<ReporteInseminacionHembrasServir> GetReporteHembrasServir(long codigoCampo, string periodo)
+        public IEnumerable<ReporteInseminacionHembrasServir> GetReporteHembrasServir(string filtro)
         {
             try
             {
-                return new InseminacionManager().GetReporteHembrasServir(codigoCampo, periodo);
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().GetReporteHembrasServir(filtroDesearizado);
             }
             catch (Exception ex)
             {
@@ -116,11 +117,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionHembrasParaServirExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesHembrasServirPDF(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteInseminacionesHembrasServirPDF(string filtro)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionHembrasServicioExportarPDF(campo, codigoCampo, periodo, usuario);
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().ReporteInseminacionHembrasServicioExportarPDF(filtroDesearizado);
             }
             catch (Exception ex)
             {
@@ -135,11 +137,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionHembrasParaServirExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesHembrasServirExcel(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteInseminacionesHembrasServirExcel(string filtro)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionHembrasServicioExportarExcel(campo, codigoCampo, periodo, usuario);
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().ReporteInseminacionHembrasServicioExportarExcel(filtroDesearizado);
             }
             catch (Exception ex)
             {

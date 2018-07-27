@@ -1,7 +1,126 @@
 ﻿<p>
     Hembras para servir
 </p>
-<div>
+<form name="formReporteHembrasServir" novalidate>
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formReporteHembrasServir.numCaravana.$touched && formReporteHembrasServir.numCaravana.$valid,
+                 'has-error has-feedback':formReporteHembrasServir.numCaravana.$touched && formReporteHembrasServir.numCaravana.$invalid}">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite buscar una hembra que esté lista para servir por su número de caravana.">
+                    N° Caravana
+                </label>
+                <input class="form-control" name="numCaravana" type="number" ng-model="filtro.numCaravana" placeholder="N° Caravana" min="1" maxlength="15" ng-disabled="disabled" />
+                <div ng-show="formReporteHembrasServir.numCaravana.$touched">
+                    <span class="help-block" ng-show="formReporteHembrasServir.numCaravana.$error.min">
+                        El número de Caravana no puede ser negativo ni 0
+                    </span>
+                    <span class="help-block" ng-show="formReporteHembrasServir.numCaravana.$error.maxlength">
+                        Puede colocar hasta 15 dígitos
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar las hembras que esten lista para servir según su categoría.">
+                    Categoría
+                </label>
+                <select class="form-control" name="categoria" required
+                        ng-model="filtro.idCategoria" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in categorias"
+                            value="{{ item.idCategoria }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar las hembra que esten lista para servir por su nro de partos, “mayor” o “menor o igual” al valor ingresado.">
+                    Nro. de partos
+                </label>
+                <select class="form-control" name="accionNroPartos" required
+                        ng-model="filtro.accionNroPartos" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option value="mayor">Mayor</option>
+                    <option value="menor">Menor ó igual</option>
+                </select>
+            </div>
+            <div style="margin-top:24px" class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formReporteHembrasServir.nroPartos.$touched && formReporteHembrasServir.nroPartos.$valid,
+                 'has-error has-feedback':formReporteHembrasServir.nroPartos.$touched && formReporteHembrasServir.nroPartos.$invalid}">
+                <input class="form-control" name="nroPartos" type="number" ng-model="filtro.nroPartos" placeholder="Nro. de partos" min="0" ng-disabled="filtro.accionNroPartos === '0'" data-toggle="tooltip" title="" data-placement="top" data-original-title="Peso en Kilogramos a tomar como valor en el filtro anterior." />
+                <div ng-show="formReporteHembrasServir.nroPartos.$touched">
+                    <span class="help-block" ng-show="formReporteHembrasServir.nroPartos.$error.min">
+                        El número de partos no puede ser negativo
+                    </span>
+                </div>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar las hembra que esten lista para servir por el estado en que se encuentran.">
+                    Estado
+                </label>
+                <select class="form-control" name="estado" required
+                        ng-model="filtro.idEstado" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in estados"
+                            value="{{ item.idEstado }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar las hembra que esten lista para servir que pertenecen a la raza seleccionada.">
+                    Raza
+                </label>
+                <select class="form-control" name="raza" required
+                        ng-model="filtro.idRaza" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in razas"
+                            value="{{ item.idRaza }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>        
+            <div class="form-group col-md-3 col-lg-3">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar las hembra que esten lista para servir por su peso, “mayor” o “menor o igual” al valor ingresado.">
+                    Peso
+                </label>
+                <select class="form-control" name="accionPeso" required
+                        ng-model="filtro.accionPeso" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option value="mayor">Mayor</option>
+                    <option value="menor">Menor ó igual</option>
+                </select>
+            </div>
+            <div style="margin-top:24px" class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formReporteHembrasServir.peso.$touched && formReporteHembrasServir.peso.$valid,
+                 'has-error has-feedback':formReporteHembrasServir.peso.$touched && formReporteHembrasServir.peso.$invalid}">
+                <input class="form-control" name="peso" type="number" ng-model="filtro.peso" placeholder="Peso (kg)" min="0" ng-disabled="filtro.accionPeso === '0'" data-toggle="tooltip" title="" data-placement="top" data-original-title="Peso en Kilogramos a tomar como valor en el filtro anterior." />
+                <div ng-show="formReporteHembrasServir.peso.$touched">
+                    <span class="help-block" ng-show="formReporteHembrasServir.peso.$error.min">
+                        El peso no puede ser negativo
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row pull-right hidden-print">
+            <div class="col-md-12 col-lg-12">
+                <button class="btn btn-default"
+                        ng-click="limpiarCampos()" ng-disabled="disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite limpiar los filtros ingresados para mostrar todos las hembras listas para servir del campo.">
+                    <span class="fa fa-trash"></span>
+                    Limpiar Campos
+                </button>
+                <button class="btn btn-primary"
+                        ng-click="consultar()" ng-disabled="formReporteHembrasServir.$invalid || disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra las hembras listas para servir que cumplan con las condiciones ingresadas en los criterios de búsqueda.">
+                    <span class="fa fa-search"></span>
+                    Buscar
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<br />
+<div ng-show="hembrasParaServir.length > 0">
     <div class="pull-right hidden-print" style="margin-bottom:5px">
         <button class="btn btn-success font-white" ng-click="exportarHembrasServicioExcel()" title="Exportar a Excel">
             <i class="fa fa-file-excel-o"></i>
@@ -51,5 +170,5 @@
                 </tr>
             </tfoot>
         </table>
-    </div>    
+    </div>
 </div>

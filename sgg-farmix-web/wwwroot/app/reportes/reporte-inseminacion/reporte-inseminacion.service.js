@@ -6,10 +6,6 @@
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/Inseminacion/HembrasServir',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo'                        
-                    },
                     isArray: true
                 },
                 getServiciosSinConfirmar: {
@@ -46,12 +42,6 @@
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/InseminacionHembrasParaServirExportarPDF',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        campo: '@campo',
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo',
-                        usuario: '@usuario'
-                    },
                     isArray: false
                 },
                 generarPDFServiciosSinConfirmar: {
@@ -94,12 +84,6 @@
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/InseminacionHembrasParaServirExportarExcel',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        campo: '@campo',
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo',
-                        usuario: '@usuario'
-                    },
                     isArray: false
                 },
                 generarExcelServiciosSinConfirmar: {

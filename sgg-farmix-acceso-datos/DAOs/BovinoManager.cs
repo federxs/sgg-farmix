@@ -545,7 +545,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<ReporteBovinos> GetReporteFiltros(ReporteBovinosFilter filter)
+        public IEnumerable<ReporteBovinos> GetReporteFiltros(ReporteFilter filter)
         {
             try
             {
@@ -661,7 +661,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public ReporteBovinosFilterDatos ObtenerDatosFiltroReporte(ReporteBovinosFilter filter)
+        public ReporteBovinosFilterDatos ObtenerDatosFiltroReporte(ReporteFilter filter)
         {
             try
             {
@@ -687,7 +687,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteBovinosExportarPDF(ReporteBovinosFilter filter)
+        public Documento ReporteBovinosExportarPDF(ReporteFilter filter)
         {
             FileStream fs;
             Document doc = null;
@@ -783,7 +783,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     html += @"</tr>               
                             </thead>
                             <tbody>
-                            <tr><td>" + caravana + @"</td><td>" + (filtro.categoria == "" ? "Sin datos" : filtro.categoria) + @"</td><td>" + sexo + @"</td><td>" + (filtro.raza == "" ? "Sin datos" : filtro.raza) + @"</td><td>" + (filtro.rodeo == "" ? "Sin datos" : filtro.rodeo) + @"</td><td>" + (filtro.estado == "" ? "Sin datos" : filtro.estado) + @"</td><td>" + peso + @"</td><td>" + accionPeso + @"</td></tr>
+                            <tr><td>" + caravana + @"</td><td>" + (filtro.categoria == "" ? "Sin filtro" : filtro.categoria) + @"</td><td>" + sexo + @"</td><td>" + (filtro.raza == "" ? "Sin filtro" : filtro.raza) + @"</td><td>" + (filtro.rodeo == "" ? "Sin filtro" : filtro.rodeo) + @"</td><td>" + (filtro.estado == "" ? "Sin filtro" : filtro.estado) + @"</td><td>" + peso + @"</td><td>" + accionPeso + @"</td></tr>
                             </tbody></table></body></html>";
                     ie = HTMLWorker.ParseToList(new StringReader(html), null);
                     foreach (IElement element in ie)
@@ -849,7 +849,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteBovinosExportarExcel(ReporteBovinosFilter filter)
+        public Documento ReporteBovinosExportarExcel(ReporteFilter filter)
         {
             SLExcelData data = new SLExcelData();
             try
@@ -1027,7 +1027,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     html += @"</tr>               
                             </thead>
                             <tbody>
-                            <tr><td>" + caravana + @"</td><td>" + (filtro.categoria == "" ? "Sin datos" : filtro.categoria) + @"</td><td>" + sexo + @"</td><td>" + (filtro.raza == "" ? "Sin datos" : filtro.raza) + @"</td><td>" + (filtro.rodeo == "" ? "Sin datos" : filtro.rodeo) + @"</td><td>" + (filtro.estado == "" ? "Sin datos" : filtro.estado) + @"</td><td>" + peso + @"</td><td>" + accionPeso + @"</td></tr>
+                            <tr><td>" + caravana + @"</td><td>" + (filtro.categoria == "" ? "Sin filtro" : filtro.categoria) + @"</td><td>" + sexo + @"</td><td>" + (filtro.raza == "" ? "Sin filtro" : filtro.raza) + @"</td><td>" + (filtro.rodeo == "" ? "Sin filtro" : filtro.rodeo) + @"</td><td>" + (filtro.estado == "" ? "Sin filtro" : filtro.estado) + @"</td><td>" + peso + @"</td><td>" + accionPeso + @"</td></tr>
                             </tbody></table></body></html>";
                     ie = HTMLWorker.ParseToList(new StringReader(html), null);
                     foreach (IElement element in ie)
