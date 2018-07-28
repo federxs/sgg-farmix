@@ -242,4 +242,23 @@ namespace sgg_farmix_acceso_datos.Model
     {
         public int periodo { get; set; }
     }
+
+    public class EstadisticasCliente
+    {
+        public List<EstadisticaUsuariosPorMes> usuariosXMes { get; set; }
+        public List<EstadisticaBovinosPorMes> bovinosXMes { get; set; }
+    }
+
+    public class EstadisticaUsuariosPorMes
+    {
+        public string mes { get; set; }
+        public long cantidad { get; set; }
+    }
+
+    public class EstadisticaBovinosPorMes
+    {
+        public string mes { get; set; }
+        public long cantidad { get; set; }
+    }
+
 }
