@@ -1,0 +1,691 @@
+﻿<fieldset>
+    <div class="alert alert-danger" ng-show=""></div>
+    <div class="row">
+        <div class="col-lg-10">
+            <div style="margin-top:0px;" class="page-header">
+                <h1>
+                    Comparador de Estadísticas
+                </h1>
+            </div>
+        </div>
+    </div>
+</fieldset>
+<form name="formComparar" novalidate>
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-md-6 col-lg-6" ng-class="{'has-success has-feedback':formComparar.estadistica.$touched && formComparar.estadistica.$valid,
+                 'has-error has-feedback':formComparar.estadistica.$touched && formComparar.estadistica.$invalid}">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el tipo de estadísticas que se desea comparar.">
+                    Estadística a comparar (*)
+                </label>
+                <select class="form-control" name="estadistica" required
+                        ng-model="filtro.estadistica" ng-disabled="disabled">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in estadisticas"
+                            value="{{ item.id }}">
+                        {{ item.estadistica }}
+                    </option>
+                </select>
+                <div ng-show="formComparar.estadistica.$touched">
+                    <span class="help-block" ng-show="formComparar.estadistica.$error.required">
+                        Este campo es requerido
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-5 col-lg-5" ng-class="{'has-success has-feedback':formComparar.campo1.$touched && formComparar.campo1.$valid,
+                 'has-error has-feedback':formComparar.campo1.$touched && formComparar.campo1.$invalid}">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el primer campo a comparar.">
+                    Campo 1 (*)
+                </label>
+                <select class="form-control" name="campo1" required
+                        ng-model="filtro.campo1" ng-disabled="disabled">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in campos1"
+                            value="{{ item.codigoCampo }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+                <div ng-show="formComparar.campo1.$touched">
+                    <span class="help-block" ng-show="formComparar.campo1.$error.required">
+                        Este campo es requerido
+                    </span>
+                </div>
+            </div>
+            <div class="pull-right form-group col-md-5 col-lg-5" ng-class="{'has-success has-feedback':formComparar.campo2.$touched && formComparar.campo2.$valid,
+                 'has-error has-feedback':formComparar.campo2.$touched && formComparar.campo2.$invalid}">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el segundo campo a comparar.">
+                    Campo 2 (*)
+                </label>
+                <select class="form-control" name="campo2" required
+                        ng-model="filtro.campo2" ng-disabled="disabled">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in campos2"
+                            value="{{ item.codigoCampo }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+                <div ng-show="formComparar.campo2.$touched">
+                    <span class="help-block" ng-show="formComparar.campo2.$error.required">
+                        Este campo es requerido
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-5 col-lg-5" ng-class="{'has-success has-feedback':formComparar.periodo1.$touched && formComparar.periodo1.$valid,
+                 'has-error has-feedback':formComparar.periodo1.$touched && formComparar.periodo1.$invalid}">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el periodo a comparar para el primer campo.">
+                    Período 1 (*)
+                </label>
+                <select class="form-control" name="periodo1" required
+                        ng-model="filtro.periodo1" ng-disabled="disabled">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in periodos1"
+                            value="{{ item.periodo }}">
+                        {{ item.periodo }}
+                    </option>
+                </select>
+                <div ng-show="formComparar.periodo1.$touched">
+                    <span class="help-block" ng-show="formComparar.periodo1.$error.required">
+                        Este campo es requerido
+                    </span>
+                </div>
+            </div>
+            <div class="pull-right form-group col-md-5 col-lg-5" ng-class="{'has-success has-feedback':formComparar.periodo2.$touched && formComparar.periodo2.$valid,
+                 'has-error has-feedback':formComparar.periodo2.$touched && formComparar.periodo2.$invalid}">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el periodo a comparar para el segundo campo.">
+                    Período 2 (*)
+                </label>
+                <select class="form-control" name="periodo2" required
+                        ng-model="filtro.periodo2" ng-disabled="disabled">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in periodos2"
+                            value="{{ item.periodo }}">
+                        {{ item.periodo }}
+                    </option>
+                </select>
+                <div ng-show="formComparar.periodo2.$touched">
+                    <span class="help-block" ng-show="formComparar.periodo2.$error.required">
+                        Este campo es requerido
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row pull-right hidden-print">
+            <div class="col-md-12 col-lg-12">
+                <button class="btn btn-default"
+                        ng-click="limpiar()" ng-disabled="disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite limpiar los filtros ingresados para mostrar todos los bovinos del campo.">
+                    <span class="fa fa-trash"></span>
+                    Limpiar Campos
+                </button>
+                <button class="btn btn-primary"
+                        ng-click="comparar()" ng-disabled="formComparar.$invalid || disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra los bovinos que cumplan con las condiciones ingresadas en los criterios de búsqueda.">
+                    <span class="fa fa-search"></span>
+                    Comparar
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<div class="row" ng-show="mostrarBovino">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Nacimientos por mes</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoNacimientosPorMes1"></div>
+                <a id="descargaGraficoNacimientosPorMes1" style="text-decoration:underline" download="Farmix - Gráfica de Nacimientos Por Mes">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Nacimientos por mes</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoNacimientosPorMes2"></div>
+                <a id="descargaGraficoNacimientosPorMes2" style="text-decoration:underline" download="Farmix - Gráfica de Nacimientos Por Mes">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarBovino">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de Bajas por Mes</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoBajasPorMes1"></div>
+                <a id="descargaGraficoBajasPorMes1" style="text-decoration:underline" download="Farmix - Gráfica de Bajas por Muerte o Venta por Mes">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de Bajas por Mes</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoBajasPorMes2"></div>
+                <a id="descargaGraficoBajasPorMes2" style="text-decoration:underline" download="Farmix - Gráfica de Bajas por Muerte o Venta por Mes">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarBovino">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Peso promedio según raza y sexo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoPesoPorRazaYSexo1"></div>
+                <a id="descargaGraficoPesoPorRazaYSexo1" style="text-decoration:underline" download="Farmix - Gráfica de Promedio de Peso por Raza y Sexo">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Peso promedio según raza y sexo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoPesoPorRazaYSexo2"></div>
+                <a id="descargaGraficoPesoPorRazaYSexo2" style="text-decoration:underline" download="Farmix - Gráfica de Promedio de Peso por Raza y Sexo">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarBovino">
+    <div class="col-sm-12 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Porcentaje de Bovinos por Rodeo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoPorcentajeBovinoPorRodeo1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Porcentaje de Bovinos por Rodeo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoPorcentajeBovinoPorRodeo2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarBovino">
+    <div class="col-sm-12 col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 Bovinos más livianos</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="top10BovinosMasLivianos1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 Bovinos más livianos</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="top10BovinosMasLivianos2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarEvento">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Antibióticos más usados</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoAntibioticosMasUsados1"></div>
+                <a id="descargaGraficoAntibioticosMasUsados1" style="text-decoration:underline" download="Farmix - Gráfica de Antibióticos más usados">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Antibióticos más usados</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoAntibioticosMasUsados2"></div>
+                <a id="descargaGraficoAntibioticosMasUsados2" style="text-decoration:underline" download="Farmix - Gráfica de Antibióticos más usados">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarEvento">
+    <div class="col-sm-12 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de cambios de Alimentación</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoCambiosAlimentacionXBovino1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de cambios de Alimentación</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoCambiosAlimentacionXBovino2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarEvento">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 Bovinos con mayor cambios de Rodeo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoMovimientosXBovino1"></div>
+                <a id="descargaGraficoMovimientosXBovino1" style="text-decoration:underline" download="Farmix - Top 10 Mayor cantidad de Cambios Rodeo">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 Bovinos con mayor cambios de Rodeo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoMovimientosXBovino2"></div>
+                <a id="descargaGraficoMovimientosXBovino2" style="text-decoration:underline" download="Farmix - Top 10 Mayor cantidad de Cambios Rodeo">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarEvento">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de eventos por tipo en cada mes</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoEventosXTipoXMes1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de eventos por tipo en cada mes</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoEventosXTipoXMes2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarEvento">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de Eventos por Tipo y por Sexo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoEventosXTipoXGenero1"></div>
+                <a id="descargaGraficoEventosXTipoXGenero1" style="text-decoration:underline" download="Farmix - Cantidad de Eventos por Tipo y por Sexo">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de Eventos por Tipo y por Sexo</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoEventosXTipoXGenero2"></div>
+                <a id="descargaGraficoEventosXTipoXGenero2" style="text-decoration:underline" download="Farmix - Cantidad de Eventos por Tipo y por Sexo">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarEvento">
+    <div class="col-sm-12 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de cambios de Alimentación</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficotop10Alimentos1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de cambios de Alimentación</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficotop10Alimentos2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarEvento">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Vacunas menos usadas</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoVacunasMenosUsadas1"></div>
+                <a id="descargaGraficoVacunasMenosUsadas1" style="text-decoration:underline" download="Farmix - Gráfica de Vacunas menos usadas">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Vacunas menos usadas</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoVacunasMenosUsadas2"></div>
+                <a id="descargaGraficoVacunasMenosUsadas2" style="text-decoration:underline" download="Farmix - Gráfica de Vacunas menos usadas">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarInseminacion">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad de Hembras por Categoría</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoCategoriasPorHembrasEfectividad1"></div>
+                <a id="descargaGraficoCategoriasPorHembrasEfectividad1" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Categoría">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad de Hembras por Categoría</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoCategoriasPorHembrasEfectividad2"></div>
+                <a id="descargaGraficoCategoriasPorHembrasEfectividad2" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Categoría">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarInseminacion">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad de Machos por Categoría</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoCategoriasPorMachosEfectividad1"></div>
+                <a id="descargaGraficoCategoriasPorMachosEfectividad1" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Machos por Categoría">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad de Machos por Categoría</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoCategoriasPorMachosEfectividad2"></div>
+                <a id="descargaGraficoCategoriasPorMachosEfectividad2" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Machos por Categoría">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarInseminacion">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad de Hembras por Raza</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoRazaEfectividad1"></div>
+                <a id="descargaGraficoRazaEfectividad1" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Raza">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad de Hembras por Raza</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoRazaEfectividad2"></div>
+                <a id="descargaGraficoRazaEfectividad2" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Raza">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarInseminacion">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad según el tipo de Inseminación</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoTipoEfectividad1"></div>
+                <a id="descargaGraficoTipoEfectividad1" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad según el tipo de Inseminación">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Efectividad según el tipo de Inseminación</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoTipoEfectividad2"></div>
+                <a id="descargaGraficoTipoEfectividad2" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad según el tipo de Inseminación">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarInseminacion">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 Inseminaciones Exitosas Por Toro</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoInseminacionesXToro1"></div>
+                <a id="descargaGraficoInseminacionesXToro1" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 Inseminaciones Exitosas Por Toro">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 Inseminaciones Exitosas Por Toro</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoInseminacionesXToro2"></div>
+                <a id="descargaGraficoInseminacionesXToro2" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 Inseminaciones Exitosas Por Toro">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarInseminacion">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 de Toros con mayor cantidad de Hijos</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoHijosXToro1"></div>
+                <a id="descargaGraficoHijosXToro1" style="text-decoration:underline" download="Farmix - Gráfica Top 10 de Toros con mayor cantidad de Hijos">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 de Toros con mayor cantidad de Hijos</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoHijosXToro2"></div>
+                <a id="descargaGraficoHijosXToro2" style="text-decoration:underline" download="Farmix - Gráfica Top 10 de Toros con mayor cantidad de Hijos">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarInseminacion">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 de Vacas con mayor cantidad de Hijos</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoHijosXVaca1"></div>
+                <a id="descargaGraficoHijosXVaca1" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 de Vacas con mayor cantidad de Hijos">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 de Vacas con mayor cantidad de Hijos</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoHijosXVaca2"></div>
+                <a id="descargaGraficoHijosXVaca2" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 de Vacas con mayor cantidad de Hijos">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarInseminacion">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 de Vacas con mayor Inseminaciones Fallidas</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoInseminacionesFallidas1"></div>
+                <a id="descargaGraficoInseminacionesFallidas1" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 de Vacas con mayor Inseminaciones Fallidas">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 de Vacas con mayor Inseminaciones Fallidas</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoInseminacionesFallidas2"></div>
+                <a id="descargaGraficoInseminacionesFallidas2" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 de Vacas con mayor Inseminaciones Fallidas">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="mostrarInseminacion">
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de Abortos por Vaca</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoAbortosXVaca1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="pull-right col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Cantidad de Abortos por Vaca</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoAbortosXVaca2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <button type="button" class="btn btn-default"
+            ui-sref="home.reportes" style="margin-left: 15px;">
+        Volver
+    </button>
+</div>

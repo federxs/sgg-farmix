@@ -208,5 +208,25 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = null;
             }
         }
+        public Periodos GetPeriodos()
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var obj = new Periodos();
+                obj.periodos = new List<Periodo>();
+                obj.periodos = connection.GetArray<Periodo>("spGetPeriodos", null, System.Data.CommandType.StoredProcedure).ToList();
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }

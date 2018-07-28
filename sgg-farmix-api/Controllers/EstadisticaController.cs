@@ -70,5 +70,25 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Estadistica/cargarPeriodos")]
+        [HttpGet]
+        [AutorizationToken]
+        public Periodos GetPeriodos()
+        {
+            try
+            {
+                Periodos result = EM.GetPeriodos();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

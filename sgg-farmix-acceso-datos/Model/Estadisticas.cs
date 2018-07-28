@@ -233,4 +233,13 @@ namespace sgg_farmix_acceso_datos.Model
         public long caravanaUltimoBovinoConAntibiotico { get; set; }
         public long idUltimoBovinoConAntibiotico { get; set; }
     }
+
+    public class Periodos
+    {
+        public List<Periodo> periodos { get; set; }
+    }
+    public class Periodo
+    {
+        public int periodo { get; set; }
+    }
 }

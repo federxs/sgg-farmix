@@ -87,6 +87,11 @@
                  templateUrl: 'app/reportes/estadistica-evento/estadistica-evento.html',
                  controller: 'estadisticaEventoController'
              })
+             .state('home.estadisticaComparador', {
+                 url: '/reportes/estadisticas/comparador',
+                 templateUrl: 'app/reportes/estadistica-comparador/estadistica-comparador.html',
+                 controller: 'estadisticaComparadorController'
+             })
         .state('home.reporteEvento', {
             url: '/reportes/eventos',
             templateUrl: 'app/reportes/reporte-evento/reporte-evento.html',
