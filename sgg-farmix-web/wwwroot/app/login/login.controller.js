@@ -110,6 +110,7 @@
                         }
                         else {
                             toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.");
+                            $('.modal-backdrop').remove();
                             $('#login-modal').modal('show');
                         }
                         //setTimeout()
