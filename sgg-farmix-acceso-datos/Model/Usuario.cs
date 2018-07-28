@@ -58,4 +58,25 @@ namespace sgg_farmix_acceso_datos.Model
         public long cantidadInconsistencias { get; set; }
         public long cantidadNacimientos { get; set; }
     }
+
+    public class Cliente
+    {
+        public long idAdministrador { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public string fechaAlta { get; set; }
+        public long idPlan { get; set; }
+        public string nombrePlan { get; set; }
+        public long cantidadAdministradores { get; set; }
+        public long cantidadUsuarios { get; set; }
+        public long cantidadCampos { get; set; }
+        public long cantidadBovinos { get; set; }
+        public string estadoCuenta { get; set; }
+    }
+
+    public class Plan
+    {
+        public long idPlan { get; set; }
+        public string nombre { get; set; }
+    }
 }

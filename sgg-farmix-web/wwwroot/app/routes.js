@@ -56,6 +56,12 @@
                  controller: ''
              });
         $stateProvider
+            .state('home.clientes', {
+            url: '/clientes',
+            templateUrl: 'app/cliente/cliente.html',
+            controller: 'clienteController'
+            });
+        $stateProvider
              .state('home.reportes', {
                  url: '/reportes',
                  templateUrl: 'app/reportes/consultar-reportes.html',
@@ -92,11 +98,11 @@
                  templateUrl: 'app/reportes/estadistica-comparador/estadistica-comparador.html',
                  controller: 'estadisticaComparadorController'
              })
-        .state('home.reporteEvento', {
-            url: '/reportes/eventos',
-            templateUrl: 'app/reportes/reporte-evento/reporte-evento.html',
-            controller: 'reporteEventoController'
-        });
+            .state('home.reporteEvento', {
+                url: '/reportes/eventos',
+                templateUrl: 'app/reportes/reporte-evento/reporte-evento.html',
+                controller: 'reporteEventoController'
+            });
         $stateProvider
             .state('home.conflictos', {
                 url: '/conflictos',

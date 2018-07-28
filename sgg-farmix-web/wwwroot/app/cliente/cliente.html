@@ -1,0 +1,152 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h1>
+                Clientes
+            </h1>
+        </div>
+    </div>
+</div>
+<form name="formFiltrarClientes" novalidate>
+    <fieldset>
+        <div class="row">
+            <div class="form-group col-md-3 col-lg-4">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite buscar un cliente por su nombre.">
+                    Nombre
+                </label>
+                <input class="form-control" name="Nombre" ng-model="filtro.nombre" placeholder="Nombre" ng-disabled="disabled" />
+            </div>
+            <div class="form-group col-md-3 col-lg-4">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite buscar un cliente por su nombre.">
+                    Apellido
+                </label>
+                <input class="form-control" name="apellido" ng-model="filtro.apellido" placeholder="Apellido del cliente" data-toggle="tooltip" title="" data-placement="top" data-original-title="Apellido del cliente a filtrar" />
+            </div>
+            <div class="form-group col-md-3 col-lg-4">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los clientes según el estado de su cuenta.">
+                    Estado cuenta
+                </label>
+                <select class="form-control" name="estadoCuenta" required
+                        ng-model="filtro.estadoCuenta" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option value="Pagada">Pagada</option>
+                    <option value="Adeuda">Adeuda</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-3 col-lg-4">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los clientes de un plan en particular.">
+                    Plan
+                </label>
+                <select class="form-control" name="plan" required
+                        ng-model="filtro.idPlan" ng-disabled="disabled">
+                    <option value="0">Seleccione...</option>
+                    <option ng-repeat="item in planes"
+                            value="{{ item.idPlan }}">
+                        {{ item.nombre }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3 col-lg-4" ng-class="{'has-success has-feedback':formFiltrarClientes.fechaDesde.$touched && formFiltrarClientes.fechaDesde.$valid,
+                 'has-error has-feedback':formFiltrarClientes.fechaDesde.$touched && formFiltrarClientes.fechaDesde.$invalid}">
+                <label class="control-label" for="fechaDesde" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los clientes para mostrar los que se hayan registrado desde la fecha ingresada.">
+                    Fecha Desde
+                </label>
+                <div name="fechaDesde">
+                    <input type="datetime" placeholder="Fecha desde" name="fechaDesde" class="form-control" id='datetimepicker4' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="disabled" ng-blur="getFechaDesde()" data-date-format="DD/MM/YYYY" ng-model="filtro.fechaDesde" valueAsDate="{{filtro.fechaDesde}}" />
+                </div>
+                <div ng-show="formFiltrarClientes.fechaDesde.$touched">
+                    <span class="help-block" ng-show="formFiltrarClientes.fechaDesde.$error.max || formFiltrarClientes.fechaDesde.$error.min">
+                        Debe ingresar una fecha válida
+                    </span>
+                </div>
+            </div>
+            <div class="form-group col-md-3 col-lg-4" ng-class="{'has-success has-feedback':formFiltrarClientes.fechaHasta.$touched && formFiltrarClientes.fechaHasta.$valid,
+                 'has-error has-feedback':formFiltrarClientes.fechaHasta.$touched && formFiltrarClientes.fechaHasta.$invalid}">
+                <label class="control-label" for="fechaHasta" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite filtrar los clientes para mostrar los que se hayan registrado hasta la fecha ingresada.">
+                    Fecha Hasta
+                </label>
+                <div name="fechaHasta">
+                    <input type="datetime" placeholder="Fecha hasta" name="fechaHasta" class="form-control" id='datetimepicker5' max="{{fechaDeHoy | date:'dd-MM-yyyy'}}" ng-disabled="disabled" ng-blur="getFechaHasta()" data-date-format="DD/MM/YYYY" ng-model="filtro.fechaHasta" valueAsDate="{{filtro.fechaHasta}}" />
+                </div>
+                <div ng-show="formFiltrarClientes.fechaHasta.$touched">
+                    <span class="help-block" ng-show="formFiltrarClientes.fechaHasta.$error.min">
+                        Debe ingresar una fecha válida
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row pull-right hidden-print">
+            <div class="col-md-12 col-lg-12">
+                <button class="btn btn-default"
+                        ng-click="limpiarCampos()" ng-disabled="disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite limpiar los filtros ingresados para mostrar todos los bovinos del campo.">
+                    <span class="fa fa-trash"></span>
+                    Limpiar Campos
+                </button>
+                <button class="btn btn-primary"
+                        ng-click="consultar()" ng-disabled="formFiltrarClientes.$invalid || disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra los bovinos que cumplan con las condiciones ingresadas en los criterios de búsqueda.">
+                    <span class="fa fa-search"></span>
+                    Buscar
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<legend style="margin-bottom: 5px;" ng-show="rowCollection.length > 0">Clientes</legend>
+<div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
+    <div class="pull-right hidden-print" style="margin-bottom:5px">
+        <button class="btn btn-success font-white" ng-click="exportarExcel()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de clientes (con los filtros ingresados) y descargar un documento en formato Excel.">
+            <i class="fa fa-file-excel-o"></i>
+        </button>
+        <button class="btn btn-success font-white" ng-click="exportarPDF()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de clientes (con los filtros ingresados) y descargar un documento en formato PDF.">
+            <i class="fa fa-file-pdf-o"></i>
+        </button>
+        <a class="btn btn-success font-white" href='javascript:window.print();' ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite realizar una impresión del listado de clientes, con los filtros ingresados.">
+            <i class="fa fa-print"></i>
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+            <thead>
+                <tr>
+                    <th st-sort="apellido">Apellido</th>
+                    <th st-sort="nombre">Nombre</th>
+                    <th st-sort="fechaAlta">Fecha de alta</th>
+                    <th st-sort="nombrePlan">Plan contratado</th>
+                    <th st-sort="cantidadAdministradores">Administradores</th>
+                    <th st-sort="cantidadUsuarios">Usuarios</th>
+                    <th st-sort="cantidadCampos">Campos</th>
+                    <th st-sort="cantidadBovinos">Bovinos</th>
+                    <th st-sort="estadoCuenta">Estado cuenta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in displayedCollection">
+                    <td>{{item.apellido | uppercase}}</td>
+                    <td>{{item.nombre | uppercase}}</td>
+                    <td>{{item.fechaAlta}}</td>
+                    <td>{{item.nombrePlan | uppercase}}</td>
+                    <td>{{item.cantidadAdministradores}}</td>
+                    <td>{{item.cantidadUsuarios}}</td>
+                    <td>{{item.cantidadCampos}}</td>
+                    <td>{{item.cantidadBovinos}}</td>
+                    <td>{{item.estadoCuenta | uppercase}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="hidden-print">
+                        <label for="items" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite indicar la cantidad de bovinos a mostrar en cada página.">Registros por página</label>
+                        <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                    </td>
+                    <td colspan="5" class="text-center" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ir cambiando la página a visualizar (en azul se indica la página actual).">
+                        <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

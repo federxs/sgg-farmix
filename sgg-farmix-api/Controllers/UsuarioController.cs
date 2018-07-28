@@ -405,5 +405,43 @@ namespace sgg_farmix_api.Controllers
                 });
             }
         }
+
+        [Route("api/Usuario/GetClientes")]
+        [HttpGet]
+        [AutorizationToken]
+        public IEnumerable<Cliente> getClientes()
+        {
+            try
+            {
+                return UM.GetClientes();
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Usuario/GetPlanes")]
+        [HttpGet]
+        [AutorizationToken]
+        public IEnumerable<Plan> getPlanes()
+        {
+            try
+            {
+                return UM.GetPlanes();
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
     }
 }

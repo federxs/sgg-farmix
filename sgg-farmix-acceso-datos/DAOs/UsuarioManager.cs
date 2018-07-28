@@ -639,5 +639,43 @@ namespace sgg_farmix_acceso_datos.DAOs
 
             }
         }
+
+        public IEnumerable<Cliente> GetClientes()
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var resultado = connection.GetArray<Cliente>("spGetClientes", null, System.Data.CommandType.StoredProcedure);
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
+
+        public IEnumerable<Plan> GetPlanes()
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var resultado = connection.GetArray<Plan>("spGetPlanes", null, System.Data.CommandType.StoredProcedure);
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }
