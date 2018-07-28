@@ -18,7 +18,7 @@
         window.scrollTo(0, 0);
         $scope.noCoincidenPass = false;
         $scope.ano = new Date().getFullYear();
-        if ($sessionStorage.usuarioInfo.idRol !== 4)
+        if ($sessionStorage.usuarioInfo && $sessionStorage.usuarioInfo.idRol !== 4)
             $localStorage.usuarioInfo.periodoConsulta = $scope.ano;
         $('.modal-backdrop').remove();
         $('[data-toggle="tooltip"]').tooltip();
@@ -355,7 +355,6 @@
             if (error === 'Token_Invalido') {
                 toastr.error('Lo sentimos, su sesión ha caducado', 'Sesión caducada');
                 usuarioInfo.set(undefined);
-                $localStorage.usuarioInfo = undefined;
                 $state.go('login');
             }
             else
