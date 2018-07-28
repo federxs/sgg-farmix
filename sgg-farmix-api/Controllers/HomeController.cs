@@ -13,7 +13,7 @@ namespace sgg_farmix_api.Controllers
     public class HomeController : ApiController
     {
         private MenuManager MM = new MenuManager();
-        private UsuarioManager UM = new UsuarioManager(); 
+        private UsuarioManager UM = new UsuarioManager();
 
         [Route("api/Home/GetDatosUserLogueado")]
         [HttpGet]
@@ -23,8 +23,22 @@ namespace sgg_farmix_api.Controllers
             try
             {
                 var campo = Regex.Replace(codigoCampo, @"[^\d]", "");
-                var usuarioLogueado = UM.GetDatosUserLogueado(usuario, Int64.Parse(campo), idRol, periodo);
-                usuarioLogueado.menus = MM.GetMenus();
+                UsuarioLogueado usuarioLogueado;
+                //x ahora lo dejo asi, es una chanchada, pero bueno! para la tesis safa jaja
+                if (idRol != 4)
+                    usuarioLogueado = UM.GetDatosUserLogueado(usuario, Int64.Parse(campo), idRol, periodo);
+                else
+                {
+                    usuarioLogueado = new UsuarioLogueado()
+                    {
+                        apellido = "Administración",
+                        cantidadInconsistencias = 0,
+                        cantidadNacimientos = 0,
+                        idUsuario = 63,
+                        rol = "Administración"
+                    };
+                }
+                usuarioLogueado.menus = MM.GetMenus(idRol);
                 return usuarioLogueado;
             }
             catch (Exception ex)

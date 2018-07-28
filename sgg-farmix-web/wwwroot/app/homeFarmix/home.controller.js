@@ -9,7 +9,8 @@
         usuarioInfo,
         toastr,
         portalService,
-        configuracionService
+        configuracionService,
+        $sessionStorage
         ) {
         $scope.Menu = [];
         $scope.showBorrar = false;
@@ -17,7 +18,8 @@
         window.scrollTo(0, 0);
         $scope.noCoincidenPass = false;
         $scope.ano = new Date().getFullYear();
-        $localStorage.usuarioInfo.periodoConsulta = $scope.ano;
+        if ($sessionStorage.usuarioInfo.idRol !== 4)
+            $localStorage.usuarioInfo.periodoConsulta = $scope.ano;
         $('.modal-backdrop').remove();
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -195,17 +197,20 @@
 
         $scope.load = function () {
             spinnerBar.show();
-            homeService.datosUsuario(!usuarioInfo.getUsuario() ? 0 : usuarioInfo.getUsuario(), $localStorage.usuarioInfo.codigoCampo, !usuarioInfo.getRol() ? 0 : usuarioInfo.getRol(), $localStorage.usuarioInfo.periodoConsulta).then(function success(data) {
+            homeService.datosUsuario(!usuarioInfo.getUsuario() ? 0 : usuarioInfo.getUsuario(), !$localStorage.usuarioInfo ? 0 : $localStorage.usuarioInfo.codigoCampo, !usuarioInfo.getRol() ? 0 : usuarioInfo.getRol(), !$localStorage.usuarioInfo ? 0 : $localStorage.usuarioInfo.periodoConsulta).then(function success(data) {
                 var path = window.location.hash.split('/')[1] + '.' + window.location.hash.split('/')[2];
                 $scope.Menu = data.menus;
                 $scope.usuarioInfo = data;
-                $localStorage.usuarioInfo.campoNombre = $scope.usuarioInfo.campo;
+                if ($scope.usuarioInfo.rol !== 'Administración')
+                    $localStorage.usuarioInfo.campoNombre = $scope.usuarioInfo.campo;
                 if ($scope.usuarioInfo.usuarioImagen)
                     $scope.usuarioInfo.usuarioImagen = portalService.getUrlServer() + portalService.getFolderImagenUsuario() + '\\' + $scope.usuarioInfo.usuarioImagen + "?cache=" + (new Date()).getTime();
                 else
                     $scope.usuarioInfo.usuarioImagen = 'images/usuario_defecto.png';
                 spinnerBar.hide();
                 $('.modal-backdrop').remove();
+                if ($scope.usuarioInfo.rol === 'Administración')
+                    $state.go('home.clientes');
             }, function (error) {
                 spinnerBar.hide();
                 $scope.errorServicio(error.statusText);

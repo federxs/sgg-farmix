@@ -103,7 +103,10 @@
                                 $sessionStorage.usuarioInfo.token = data.token;
                             }
                             //$('#login-modal').modal('hide');
-                            $state.go('seleccionCampo');
+                            if (data.idRol !== 4)
+                                $state.go('seleccionCampo');
+                            else
+                                $state.go('home');
                         }
                         else {
                             toastr.error("Los datos son inválidos. Por favor revíselos e intente nuevamente.");

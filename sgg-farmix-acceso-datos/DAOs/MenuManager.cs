@@ -42,14 +42,14 @@ namespace sgg_farmix_acceso_datos.DAOs
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Menu> GetMenus()
+        public IEnumerable<Menu> GetMenus(long idRol)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@Usu_Id", null }
+                    {"@Usu_Id", idRol }
                 };
                 var lista = connection.GetArray<Menu>("spGetMenues", parametros, System.Data.CommandType.StoredProcedure);
 

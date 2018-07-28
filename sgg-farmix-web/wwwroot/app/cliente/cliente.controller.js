@@ -20,7 +20,7 @@
         vm.consultar = consultar;
         vm.limpiarCampos = limpiarCampos;
         $('#datetimepicker4').datetimepicker();
-        $('#datetimepicker5').datetimepicker();
+        $('#datetimepicker5').datetimepicker();       
         vm.displayedCollection = [];
         inicializar();
 
@@ -29,11 +29,11 @@
             vm.itemsPorPagina = 10;
             clienteService.inicializar().then(function (data) {
                 vm.planes = data;
+                consultar();
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);
-            });
-            consultar();
+            });            
         };
 
         function limpiarCampos() {
@@ -44,6 +44,7 @@
         }
 
         function consultar() {
+            $scope.$parent.blockSpinner();
             clienteService.getClientes().then(function (data) {
                 if (vm.filtro.idPlan != '0' || vm.filtro.estadoCuenta != '0' || vm.filtro.fechaDesde != undefined || vm.filtro.fechaHasta != undefined || vm.filtro.apellido != undefined || vm.filtro.nombre != undefined) {
                     var borrar;
@@ -87,6 +88,8 @@
                     }
                 }
                 vm.rowCollection = data;
+                $scope.$parent.unBlockSpinner();
+                $('.modal-backdrop').remove();
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);

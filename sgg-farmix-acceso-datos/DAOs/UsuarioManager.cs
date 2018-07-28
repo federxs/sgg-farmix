@@ -138,6 +138,11 @@ namespace sgg_farmix_acceso_datos.DAOs
                     parametros["@rol"] = 2;
                     result = connection.GetArray<ResultadoValidacion>("spValidarUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 }
+                if (result.resultado == 0)
+                {
+                    parametros["@rol"] = 4; //este rol es el de administracion, es solo para nosotros
+                    result = connection.GetArray<ResultadoValidacion>("spValidarUsuario", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                }
                 return result;
             }
             catch (Exception ex)
