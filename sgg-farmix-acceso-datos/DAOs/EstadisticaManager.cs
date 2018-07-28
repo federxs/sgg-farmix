@@ -228,5 +228,36 @@ namespace sgg_farmix_acceso_datos.DAOs
                 connection = null;
             }
         }
+        public EstadisticasCliente GetEstadisticasCliente(int periodo)
+        {
+            try
+            {
+                connection = new SqlServerConnection();
+                var obj = new EstadisticasCliente();
+                obj.usuariosXMes = new List<EstadisticaUsuariosPorMes>();
+                obj.bovinosXMes = new List<EstadisticaBovinosPorMes>();
+                var parametros = new Dictionary<string, object>{
+                    { "@periodo", periodo },
+                    { "@mes", 0 }
+                }; for (int i = 1; i < 13; i++)
+                {
+                    parametros["@mes"] = i;
+                    var aux1 = connection.GetArray<EstadisticaUsuariosPorMes>("spReporteClienteUsuariosPorMes", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                    obj.usuariosXMes.Add(aux1);
+                    var aux2 = connection.GetArray<EstadisticaBovinosPorMes>("spReporteClienteBovinosPorMes", parametros, System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                    obj.bovinosXMes.Add(aux2);
+                }
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+                connection = null;
+            }
+        }
     }
 }

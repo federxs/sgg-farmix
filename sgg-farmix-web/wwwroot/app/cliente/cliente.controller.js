@@ -20,8 +20,10 @@
         vm.consultar = consultar;
         vm.limpiarCampos = limpiarCampos;
         $('#datetimepicker4').datetimepicker();
-        $('#datetimepicker5').datetimepicker();       
+        $('#datetimepicker5').datetimepicker();
         vm.displayedCollection = [];
+        vm.mostrarEstadistica = false;
+        vm.mostrar = mostrar;
         inicializar();
 
         function inicializar() {
@@ -33,7 +35,15 @@
             }, function error(error) {
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);
-            });            
+            });
+            clienteService.inicializarPeriodos().then(function (data) {
+                vm.periodos = data.periodos;
+                vm.filtro.periodo = '';
+                $scope.$parent.unBlockSpinner();
+            }, function (error) {
+                $scope.$parent.unBlockSpinner();
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            });
         };
 
         function limpiarCampos() {
@@ -119,6 +129,55 @@
                 else {
                     vm.formFiltrarClientes.fechaHasta.$setValidity("min", true);
                 }
+            }
+        }
+
+        function mostrar() {
+            $scope.$parent.blockSpinner();
+            clienteService.estadisticas(vm.filtro.periodo).then(function (data) {
+                console.log(data);
+                vm.mostrarEstadistica = true;
+                cargarGraficoPorMes(data.usuariosXMes, 'graficoRegistroUsuariosPorMes', 'descargaGraficoRegistroUsuariosPorMes', 'usuarios');
+                cargarGraficoPorMes(data.bovinosXMes, 'graficoRegistroBovinosPorMes', 'descargaGraficoRegistroBovinosPorMes', 'bovinos');
+                $scope.$parent.unBlockSpinner();
+            }, function (error) {
+                $scope.$parent.unBlockSpinner();
+                toastr.error('Ha ocurrido un error, reintentar', 'Error');
+            });
+        }
+
+        function cargarGraficoPorMes(data, titulo, img, tipo) {
+            var datos = data;
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart() {
+                var container = document.getElementById(titulo);
+                var chart = new google.visualization.LineChart(container);
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn({ id: 'mes', label: 'Mes', type: 'string' });
+                dataTable.addColumn({ id: 'cantidad', label: 'Cantidad', type: 'number' });
+                for (var i = 0; i < datos.length; i++) {
+                    dataTable.addRows([[datos[i].mes.toString(), datos[i].cantidad]]);
+                }
+                var options = {
+                    'title': 'Cantidad de ' + tipo + ' registrados por mes',
+                    hAxis: {
+                        title: 'Meses'
+                    },
+                    vAxis: {
+                        title: 'Cantidad de ' + tipo
+                    },
+                    'legend': {
+                        'position': 'bottom',
+                        'textStyle': { 'fontSize': 12 }
+                    }
+                };
+                chart.draw(dataTable, options);
+                var my_anchor = document.getElementById(img);
+                my_anchor.href = chart.getImageURI();
+                google.visualization.events.addListener(chart, 'ready', function () {
+                    my_anchor.innerHTML = '<img src="' + chart.getImageURI() + '">';
+                });
             }
         }
     }

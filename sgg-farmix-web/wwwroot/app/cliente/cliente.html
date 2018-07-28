@@ -95,58 +95,121 @@
         </div>
     </fieldset>
 </form>
-<legend style="margin-bottom: 5px;" ng-show="rowCollection.length > 0">Clientes</legend>
-<div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
-    <div class="pull-right hidden-print" style="margin-bottom:5px">
-        <button class="btn btn-success font-white" ng-click="exportarExcel()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de clientes (con los filtros ingresados) y descargar un documento en formato Excel.">
-            <i class="fa fa-file-excel-o"></i>
-        </button>
-        <button class="btn btn-success font-white" ng-click="exportarPDF()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de clientes (con los filtros ingresados) y descargar un documento en formato PDF.">
-            <i class="fa fa-file-pdf-o"></i>
-        </button>
-        <a class="btn btn-success font-white" href='javascript:window.print();' ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite realizar una impresión del listado de clientes, con los filtros ingresados.">
-            <i class="fa fa-print"></i>
-        </a>
+<div class="row hidden-print">
+    <legend style="margin-bottom: 5px;" ng-show="rowCollection.length > 0">Clientes</legend>
+    <div class="row col-lg-12 col-md-12" ng-show="rowCollection.length > 0">
+        <div class="pull-right hidden-print" style="margin-bottom:5px">
+            <button class="btn btn-success font-white" ng-click="exportarExcel()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de clientes (con los filtros ingresados) y descargar un documento en formato Excel.">
+                <i class="fa fa-file-excel-o"></i>
+            </button>
+            <button class="btn btn-success font-white" ng-click="exportarPDF()" ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite exportar el listado de clientes (con los filtros ingresados) y descargar un documento en formato PDF.">
+                <i class="fa fa-file-pdf-o"></i>
+            </button>
+            <a class="btn btn-success font-white" href='javascript:window.print();' ng-disabled="disabledExportar" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite realizar una impresión del listado de clientes, con los filtros ingresados.">
+                <i class="fa fa-print"></i>
+            </a>
+        </div>
+        <div class="table-responsive">
+            <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th st-sort="apellido">Apellido</th>
+                        <th st-sort="nombre">Nombre</th>
+                        <th st-sort="fechaAlta">Fecha de alta</th>
+                        <th st-sort="nombrePlan">Plan contratado</th>
+                        <th st-sort="cantidadAdministradores">Administradores</th>
+                        <th st-sort="cantidadUsuarios">Usuarios</th>
+                        <th st-sort="cantidadCampos">Campos</th>
+                        <th st-sort="cantidadBovinos">Bovinos</th>
+                        <th st-sort="estadoCuenta">Estado cuenta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in displayedCollection">
+                        <td>{{item.apellido | uppercase}}</td>
+                        <td>{{item.nombre | uppercase}}</td>
+                        <td>{{item.fechaAlta}}</td>
+                        <td>{{item.nombrePlan | uppercase}}</td>
+                        <td>{{item.cantidadAdministradores}}</td>
+                        <td>{{item.cantidadUsuarios}}</td>
+                        <td>{{item.cantidadCampos}}</td>
+                        <td>{{item.cantidadBovinos}}</td>
+                        <td>{{item.estadoCuenta | uppercase}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="hidden-print">
+                            <label for="items" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite indicar la cantidad de bovinos a mostrar en cada página.">Registros por página</label>
+                            <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
+                        </td>
+                        <td colspan="5" class="text-center" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ir cambiando la página a visualizar (en azul se indica la página actual).">
+                            <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
-    <div class="table-responsive">
-        <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
-            <thead>
-                <tr>
-                    <th st-sort="apellido">Apellido</th>
-                    <th st-sort="nombre">Nombre</th>
-                    <th st-sort="fechaAlta">Fecha de alta</th>
-                    <th st-sort="nombrePlan">Plan contratado</th>
-                    <th st-sort="cantidadAdministradores">Administradores</th>
-                    <th st-sort="cantidadUsuarios">Usuarios</th>
-                    <th st-sort="cantidadCampos">Campos</th>
-                    <th st-sort="cantidadBovinos">Bovinos</th>
-                    <th st-sort="estadoCuenta">Estado cuenta</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in displayedCollection">
-                    <td>{{item.apellido | uppercase}}</td>
-                    <td>{{item.nombre | uppercase}}</td>
-                    <td>{{item.fechaAlta}}</td>
-                    <td>{{item.nombrePlan | uppercase}}</td>
-                    <td>{{item.cantidadAdministradores}}</td>
-                    <td>{{item.cantidadUsuarios}}</td>
-                    <td>{{item.cantidadCampos}}</td>
-                    <td>{{item.cantidadBovinos}}</td>
-                    <td>{{item.estadoCuenta | uppercase}}</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td class="hidden-print">
-                        <label for="items" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite indicar la cantidad de bovinos a mostrar en cada página.">Registros por página</label>
-                        <input class="input-sm form-control" name="items" id="items" min="1" type="number" ng-model="itemsPorPagina" ng-disabled="disabled">
-                    </td>
-                    <td colspan="5" class="text-center" data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite ir cambiando la página a visualizar (en azul se indica la página actual).">
-                        <div st-pagination="" st-items-by-page="itemsPorPagina" st-displayed-pages="7"></div>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+</div>
+<form name="formEstadistica" novalidate>
+    <fieldset>
+        <div class="row hidden-print">
+            <div class="form-group col-md-5 col-lg-5" ng-class="{'has-success has-feedback':formEstadistica.periodo.$touched && formEstadistica.periodo.$valid,
+                 'has-error has-feedback':formEstadistica.periodo.$touched && formEstadistica.periodo.$invalid}">
+                <label data-toggle="tooltip" title="" data-placement="top" data-original-title="Permite seleccionar el año de consulta.">
+                    Período (*)
+                </label>
+                <select class="form-control" name="periodo" required
+                        ng-model="filtro.periodo" ng-disabled="disabled">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="item in periodos"
+                            value="{{ item.periodo }}">
+                        {{ item.periodo }}
+                    </option>
+                </select>
+                <div ng-show="formEstadistica.periodo.$touched">
+                    <span class="help-block" ng-show="formEstadistica.periodo.$error.required">
+                        Este campo es requerido
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-12">
+                <button class="btn btn-primary"
+                        ng-click="mostrar()" ng-disabled="formEstadistica.$invalid || disabled"
+                        data-toggle="tooltip" title="" data-placement="top" data-original-title="Muestra las estadísticas de registro en el período seleccionado.">
+                    <span class="fa fa-search"></span>
+                    Mostrar estadísticas
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<div class="row" ng-show="mostrarEstadistica">
+    <div class="col-sm-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Registro de usuarios por mes</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoRegistroUsuariosPorMes"></div>
+                <a id="descargaGraficoRegistroUsuariosPorMes" style="text-decoration:underline" download="Farmix - Gráfica de Registro de Campos Por Mes">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Registro de bovinos por mes</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoRegistroBovinosPorMes"></div>
+                <a id="descargaGraficoRegistroBovinosPorMes" style="text-decoration:underline" download="Farmix - Gráfica de Registro de Bovinos Por Mes">
+                    Descargar Imagen
+                </a>
+            </div>
+        </div>
     </div>
 </div>
