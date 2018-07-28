@@ -22,20 +22,12 @@
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/Inseminacion/LactanciasActivas',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo'
-                    },
                     isArray: true
                 },
                 getPreniadas: {
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/Inseminacion/Preniadas',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo'
-                    },
                     isArray: true
                 },
                 generarPDFHembrasServicio: {
@@ -60,12 +52,6 @@
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/InseminacionLactanciasExportarPDF',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        campo: '@campo',
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo',
-                        usuario: '@usuario'
-                    },
                     isArray: false
                 },
                 generarPDFPreniadas: {
@@ -102,12 +88,6 @@
                     method: 'GET',
                     url: portalService.getUrlServer() + 'api/Reportes/InseminacionLactanciasExportarExcel',
                     headers: portalService.getHeadersServer(),
-                    params: {
-                        campo: '@campo',
-                        codigoCampo: '@codigoCampo',
-                        periodo: '@periodo',
-                        usuario: '@usuario'
-                    },
                     isArray: false
                 },
                 generarExcelPreniadas: {

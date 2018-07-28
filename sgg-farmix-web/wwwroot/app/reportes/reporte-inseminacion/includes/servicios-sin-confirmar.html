@@ -1,8 +1,9 @@
-﻿<p>
-    Servicios sin Confirmar
-</p>
-
-<div>
+﻿<h1 ng-show="serviciosSinConfirmar.length > 0">
+    <small>
+        Servicios sin Confirmar
+    </small>
+</h1>
+<div ng-show="serviciosSinConfirmar.length > 0">
     <div class="pull-right hidden-print" style="margin-bottom:5px">
         <button class="btn btn-success font-white" ng-click="exportarServiciosSinConfirmarExcel()" title="Exportar a Excel">
             <i class="fa fa-file-excel-o"></i>
@@ -35,7 +36,7 @@
                     <td>{{item.numCaravana}}</td>
                     <td>{{item.raza | uppercase}}</td>
                     <td>{{item.categoria | uppercase}}</td>
-                    <td>{{item.edad}}</td>
+                    <td>{{item.anos}} años y {{item.meses}} meses</td>
                     <td>{{item.peso}}</td>
                     <td>{{item.estado | uppercase}}</td>
                     <td>{{item.tipoInseminacion | uppercase}}</td>

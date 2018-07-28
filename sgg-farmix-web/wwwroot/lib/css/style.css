@@ -2341,7 +2341,7 @@ h2.agileits-icons-title, h3.agileits-icons-title {
         font-size: 25px;
     }
 
-    .row {        
+    .row {
         /*background-color: #dddddd;*/
         margin-right: 0;
         margin-left: 0;
@@ -10100,4 +10100,30 @@ button#showLeftPush {
     background: #bb0f2b;
     border-radius: 50% !important;
     cursor: pointer;
+}
+
+.logoMenu {
+    margin: 10px auto;
+    display: table;
+}
+
+.tituloCampo {
+    color: white;
+    margin-left: 100px;
+}
+
+@media screen and (max-width: 767px) {
+    .logoMenu {
+        display: none !important;
+    }
+
+    .tituloCampo {
+        color: white;
+        margin-left: 100px;
+        font-size: 20px !important;
+    }
+
+    .profile_details{
+        margin-bottom: 10px;
+    }
 }

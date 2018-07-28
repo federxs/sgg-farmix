@@ -1,8 +1,8 @@
-﻿<p>
-    Hembras Preñadas
-</p>
+﻿<h1 ng-show="preniadas.length > 0">
+    <small>Hembras Preñadas</small>
+</h1>
 
-<div>
+<div ng-show="preniadas.length > 0">
     <div class="pull-right hidden-print" style="margin-bottom:5px">
         <button class="btn btn-success font-white" ng-click="exportarPreniadasExcel()" title="Exportar a Excel">
             <i class="fa fa-file-excel-o"></i>

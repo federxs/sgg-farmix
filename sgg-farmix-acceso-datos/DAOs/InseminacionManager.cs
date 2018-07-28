@@ -465,16 +465,26 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<ReporteInseminacionServiciosSinConfirmar> GetReporteServiciosSinConfirmar(long idCampo, string periodo)
+        public IEnumerable<ReporteInseminacionServiciosSinConfirmar> GetReporteServiciosSinConfirmar(ReporteFilter filtro)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@codigoCampo", idCampo },
-                    {"@periodo", periodo }
+                    {"@codigoCampo", filtro.codigoCampo },
+                    {"@periodo", filtro.periodo },
+                    {"@idCategoria", filtro.idCategoria },
+                    {"@idRaza", filtro.idRaza },
+                    {"@idRodeo", filtro.idRodeo },
+                    {"@idEstado", filtro.idEstado },
+                    {"@peso", filtro.peso },
+                    {"@accionPeso", (filtro.accionPeso == "0" ? null : filtro.accionPeso) },
+                    {"@idTipoInseminacion", filtro.idTipoInseminacion },
+                    {"@fechaInseminacion", filtro.fechaInseminacion }
                 };
+                if (filtro.numCaravana != 0)
+                    parametros.Add("@numCaravana", filtro.numCaravana.ToString());
                 var lista = connection.GetArray<ReporteInseminacionServiciosSinConfirmar>("spObtenerDatosReporteInseminacionServiciosSinConfirmar", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
@@ -489,16 +499,26 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<ReporteInseminacionLactanciasActivas> GetReporteLactanciasActivas(long idCampo, string periodo)
+        public IEnumerable<ReporteInseminacionLactanciasActivas> GetReporteLactanciasActivas(ReporteFilter filtro)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@codigoCampo", idCampo },
-                    {"@periodo", periodo }
+                    {"@codigoCampo", filtro.codigoCampo },
+                    {"@periodo", filtro.periodo },
+                    {"@idCategoria", filtro.idCategoria },
+                    {"@idRaza", filtro.idRaza },
+                    {"@idRodeo", filtro.idRodeo },
+                    {"@idEstado", filtro.idEstado },
+                    {"@peso", filtro.peso },
+                    {"@accionPeso", (filtro.accionPeso == "0" ? null : filtro.accionPeso) },
+                    {"@partos", filtro.nroPartos },
+                    {"@accionNroPartos", (filtro.accionNroPartos == "0" ? null : filtro.accionNroPartos) }
                 };
+                if (filtro.numCaravana != 0)
+                    parametros.Add("@numCaravana", filtro.numCaravana.ToString());
                 var lista = connection.GetArray<ReporteInseminacionLactanciasActivas>("spObtenerDatosReporteInseminacionLactanciasActivas", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
@@ -513,16 +533,26 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public IEnumerable<ReporteInseminacionPreniadas> GetReportePreniadas(long idCampo, string periodo)
+        public IEnumerable<ReporteInseminacionPreniadas> GetReportePreniadas(ReporteFilter filtro)
         {
             try
             {
                 connection = new SqlServerConnection();
                 var parametros = new Dictionary<string, object>
                 {
-                    {"@codigoCampo", idCampo },
-                    {"@periodo", periodo }
+                    {"@codigoCampo", filtro.codigoCampo },
+                    {"@periodo", filtro.periodo },
+                    {"@idCategoria", filtro.idCategoria },
+                    {"@idRaza", filtro.idRaza },
+                    {"@idRodeo", filtro.idRodeo },
+                    {"@idEstado", filtro.idEstado },
+                    {"@peso", filtro.peso },
+                    {"@accionPeso", (filtro.accionPeso == "0" ? null : filtro.accionPeso) },
+                    {"@idTipoInseminacion", filtro.idTipoInseminacion },
+                    {"@fechaParto", filtro.fechaParto }
                 };
+                if (filtro.numCaravana != 0)
+                    parametros.Add("@numCaravana", filtro.numCaravana.ToString());
                 var lista = connection.GetArray<ReporteInseminacionPreniadas>("spObtenerDatosReporteInseminacionPreniadas", parametros, System.Data.CommandType.StoredProcedure);
                 return lista;
             }
@@ -701,7 +731,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionServiciosSinConfirmarExportarPDF(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ReporteInseminacionServiciosSinConfirmarExportarPDF(ReporteFilter filter)
         {
             FileStream fs;
             Document doc = null;
@@ -715,7 +745,7 @@ namespace sgg_farmix_acceso_datos.DAOs
 
                 var fecha = DateTime.Now.ToString("dd-MM-yyyy");
                 // Nombre del archivo
-                string fileName = string.Format("{0}-{1}-{2}-{3}.pdf", "ReporteInseminaciones", "ServiciosSinConfirmar", campo, fecha);
+                string fileName = string.Format("{0}-{1}-{2}-{3}.pdf", "ReporteInseminaciones", "ServiciosSinConfirmar", filter.campo, fecha);
                 // Generación del PDF
                 fs = new FileStream(System.IO.Path.Combine(filePath, fileName), FileMode.Create, FileAccess.Write, FileShare.None);
 
@@ -734,7 +764,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                 doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
                 doc.Add(new Paragraph(" "));
                 //Inicio datos
-                var lista = GetReporteServiciosSinConfirmar(codigoCampo, periodo);
+                var lista = GetReporteServiciosSinConfirmar(filter);
+                var filtro = new BovinoManager().ObtenerDatosFiltroReporte(filter);
                 Font fuente1 = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.BOLD, BaseColor.BLACK);
                 Font fuente2 = new Font(FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
                 Rectangle rect = PageSize.LETTER;
@@ -745,8 +776,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Reporte Servicios sin confirmar</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
-                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Campo: <b>" + filter.campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + filter.usuario + @"</b></td></tr>
                             <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                          
                             </table>
                             </body></html>";
@@ -764,6 +795,53 @@ namespace sgg_farmix_acceso_datos.DAOs
                 doc.Add(new Paragraph(" "));
                 if (lista.Count() > 0)
                 {
+                    string caravana, peso, accionPeso, tipoInseminacion;
+                    if (filter.numCaravana == 0) caravana = "Sin filtro";
+                    else
+                        caravana = filter.numCaravana.ToString();
+                    if (filter.peso == 0) peso = "Sin filtro";
+                    else
+                        peso = filter.peso.ToString();
+                    if (filter.accionPeso == "0") accionPeso = "Sin filtro";
+                    else
+                        accionPeso = (filter.accionPeso == "mayor" ? "Mayor que" : "Menor que");
+                    if (filter.idTipoInseminacion == 1) tipoInseminacion = "Artificial";
+                    else if (filter.idTipoInseminacion == 2) tipoInseminacion = "Montura";
+                    else tipoInseminacion = "Sin filtro";
+                    html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Filtro Aplicado</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>                
+                            </table>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Caravana</th>
+                            <th>Categoría</th>       
+                            <th>Tipo Inseminación</th>
+                            <th>Fecha Inseminación</th>
+                            <th>Estado</th> 
+                            <th>Raza</th>
+                            <th>Acción Peso</th>                          
+                            <th>Peso</th>";
+                    html += @"</tr>               
+                            </thead>
+                            <tbody>
+                            <tr><td>" + caravana + @"</td><td>" + (filtro.categoria == "" ? "Sin filtro" : filtro.categoria) + @"</td><td>" + tipoInseminacion + @"</td><td>" + (filter.fechaInseminacion == null ? "Sin filtro" : filter.fechaInseminacion.Substring(0, 10)) + @"</td><td>" + (filtro.estado == "" ? "Sin filtro" : filtro.estado) + @"</td><td>" + (filtro.raza == "" ? "Sin filtro" : filtro.raza) + @"</td><td>" + accionPeso + @"</td><td>" + peso + @"</td></tr>
+                            </tbody></table></body></html>";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                    doc.Add(new Paragraph(" "));
+
                     html = @"
                             <html><head></head><body>
                             <table border='1'>
@@ -815,7 +893,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionLactanciasExportarPDF(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ReporteInseminacionLactanciasExportarPDF(ReporteFilter filter)
         {
             FileStream fs;
             Document doc = null;
@@ -829,7 +907,7 @@ namespace sgg_farmix_acceso_datos.DAOs
 
                 var fecha = DateTime.Now.ToString("dd-MM-yyyy");
                 // Nombre del archivo
-                string fileName = string.Format("{0}-{1}-{2}-{3}.pdf", "ReporteInseminaciones", "LactanciasActivas", campo, fecha);
+                string fileName = string.Format("{0}-{1}-{2}-{3}.pdf", "ReporteInseminaciones", "LactanciasActivas", filter.campo, fecha);
                 // Generación del PDF
                 fs = new FileStream(System.IO.Path.Combine(filePath, fileName), FileMode.Create, FileAccess.Write, FileShare.None);
 
@@ -848,7 +926,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                 doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
                 doc.Add(new Paragraph(" "));
                 //Inicio datos
-                var lista = GetReporteLactanciasActivas(codigoCampo, periodo);
+                var lista = GetReporteLactanciasActivas(filter);
+                var filtro = new BovinoManager().ObtenerDatosFiltroReporte(filter);
                 Font fuente1 = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.BOLD, BaseColor.BLACK);
                 Font fuente2 = new Font(FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
                 Rectangle rect = PageSize.LETTER;
@@ -859,8 +938,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Reporte Lactancias Activas</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
-                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Campo: <b>" + filter.campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + filter.usuario + @"</b></td></tr>
                             <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                          
                             </table>
                             </body></html>";
@@ -878,6 +957,56 @@ namespace sgg_farmix_acceso_datos.DAOs
                 doc.Add(new Paragraph(" "));
                 if (lista.Count() > 0)
                 {
+                    string caravana, peso, accionPeso, accionNroPartos, nroPartos;
+                    if (filter.numCaravana == 0) caravana = "Sin filtro";
+                    else
+                        caravana = filter.numCaravana.ToString();
+                    if (filter.peso == 0) peso = "Sin filtro";
+                    else
+                        peso = filter.peso.ToString();
+                    if (filter.accionPeso == "0") accionPeso = "Sin filtro";
+                    else
+                        accionPeso = (filter.accionPeso == "mayor" ? "Mayor que" : "Menor que");
+                    if (filter.nroPartos == 0) nroPartos = "Sin filtro";
+                    else
+                        nroPartos = filter.nroPartos.ToString();
+                    if (filter.accionNroPartos == "0") accionNroPartos = "Sin filtro";
+                    else
+                        accionNroPartos = (filter.accionNroPartos == "mayor" ? "Mayor que" : "Menor que");
+                    html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Filtro Aplicado</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>                
+                            </table>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Caravana</th>
+                            <th>Categoría</th>       
+                            <th>Acción Partos</th>
+                            <th>Partos</th>
+                            <th>Estado</th> 
+                            <th>Raza</th>
+                            <th>Acción Peso</th>                          
+                            <th>Peso</th>";
+                    html += @"</tr>               
+                            </thead>
+                            <tbody>
+                            <tr><td>" + caravana + @"</td><td>" + (filtro.categoria == "" ? "Sin filtro" : filtro.categoria) + @"</td><td>" + accionNroPartos + @"</td><td>" + nroPartos + @"</td><td>" + (filtro.estado == "" ? "Sin filtro" : filtro.estado) + @"</td><td>" + (filtro.raza == "" ? "Sin filtro" : filtro.raza) + @"</td><td>" + accionPeso + @"</td><td>" + peso + @"</td></tr>
+                            </tbody></table></body></html>";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                    doc.Add(new Paragraph(" "));
+
                     html = @"
                             <html><head></head><body>
                             <table border='1'>
@@ -929,7 +1058,7 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionPreniadasExportarPDF(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ReporteInseminacionPreniadasExportarPDF(ReporteFilter filter)
         {
             FileStream fs;
             Document doc = null;
@@ -943,7 +1072,7 @@ namespace sgg_farmix_acceso_datos.DAOs
 
                 var fecha = DateTime.Now.ToString("dd-MM-yyyy");
                 // Nombre del archivo
-                string fileName = string.Format("{0}-{1}-{2}-{3}.pdf", "ReporteInseminaciones", "Preñadas", campo, fecha);
+                string fileName = string.Format("{0}-{1}-{2}-{3}.pdf", "ReporteInseminaciones", "Preñadas", filter.campo, fecha);
                 // Generación del PDF
                 fs = new FileStream(System.IO.Path.Combine(filePath, fileName), FileMode.Create, FileAccess.Write, FileShare.None);
 
@@ -962,7 +1091,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                 doc.Add(new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(2.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1))));
                 doc.Add(new Paragraph(" "));
                 //Inicio datos
-                var lista = GetReportePreniadas(codigoCampo, periodo);
+                var lista = GetReportePreniadas(filter);
+                var filtro = new BovinoManager().ObtenerDatosFiltroReporte(filter);
                 Font fuente1 = new Font(FontFamily.TIMES_ROMAN, 12.0f, Font.BOLD, BaseColor.BLACK);
                 Font fuente2 = new Font(FontFamily.TIMES_ROMAN, 14.0f, Font.BOLD, BaseColor.BLACK);
                 Rectangle rect = PageSize.LETTER;
@@ -973,8 +1103,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Reporte Vacas Preñadas</b></td></tr>
-                            <tr><td>Campo: <b>" + campo + @"</b></td></tr>
-                            <tr><td>Generado por: <b>" + usuario + @"</b></td></tr>
+                            <tr><td>Campo: <b>" + filter.campo + @"</b></td></tr>
+                            <tr><td>Generado por: <b>" + filter.usuario + @"</b></td></tr>
                             <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                          
                             </table>
                             </body></html>";
@@ -992,6 +1122,52 @@ namespace sgg_farmix_acceso_datos.DAOs
                 doc.Add(new Paragraph(" "));
                 if (lista.Count() > 0)
                 {
+                    string caravana, peso, accionPeso, tipoInseminacion;
+                    if (filter.numCaravana == 0) caravana = "Sin filtro";
+                    else
+                        caravana = filter.numCaravana.ToString();
+                    if (filter.peso == 0) peso = "Sin filtro";
+                    else
+                        peso = filter.peso.ToString();
+                    if (filter.accionPeso == "0") accionPeso = "Sin filtro";
+                    else
+                        accionPeso = (filter.accionPeso == "mayor" ? "Mayor que" : "Menor que");
+                    if (filter.idTipoInseminacion == 1) tipoInseminacion = "Artificial";
+                    else if(filter.idTipoInseminacion == 2) tipoInseminacion = "Montura";
+                    else tipoInseminacion = "Sin filtro";
+                    html = @"
+                            <html><head></head><body>
+                            <table>
+                            <tr><td><b>Filtro Aplicado</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>                
+                            </table>
+                            <table border='1'>
+                            <thead>
+                            <tr>
+                            <th>Caravana</th>
+                            <th>Categoría</th>       
+                            <th>Tipo Inseminación</th>
+                            <th>Fecha Parto</th>
+                            <th>Estado</th> 
+                            <th>Raza</th>
+                            <th>Acción Peso</th>                          
+                            <th>Peso</th>";
+                    html += @"</tr>               
+                            </thead>
+                            <tbody>
+                            <tr><td>" + caravana + @"</td><td>" + (filtro.categoria == "" ? "Sin filtro" : filtro.categoria) + @"</td><td>" + tipoInseminacion + @"</td><td>" + (filter.fechaParto == null ? "Sin filtro" : filter.fechaParto.Substring(0, 10)) + @"</td><td>" + (filtro.estado == "" ? "Sin filtro" : filtro.estado) + @"</td><td>" + (filtro.raza == "" ? "Sin filtro" : filtro.raza) + @"</td><td>" + accionPeso + @"</td><td>" + peso + @"</td></tr>
+                            </tbody></table></body></html>";
+                    ie = HTMLWorker.ParseToList(new StringReader(html), null);
+                    foreach (IElement element in ie)
+                    {
+                        PdfPTable table = element as PdfPTable;
+
+                        if (table != null)
+                        {
+                            table.SetWidthPercentage(new float[] { (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth, (float).12 * pageWidth }, rect);
+                        }
+                        doc.Add(element);
+                    }
+                    doc.Add(new Paragraph(" "));
                     html = @"
                             <html><head></head><body>
                             <table border='1'>
@@ -1128,12 +1304,57 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionServiciosSinConfirmarExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ReporteInseminacionServiciosSinConfirmarExportarExcel(ReporteFilter filter)
         {
             SLExcelData data = new SLExcelData();
             try
             {
-                var lista = GetReporteServiciosSinConfirmar(codigoCampo, periodo);
+                var filtro = new BovinoManager().ObtenerDatosFiltroReporte(filter);
+                data.HeadersFiltro = new List<string>();
+                data.HeadersFiltro.Add("Caravana");
+                data.HeadersFiltro.Add("Categoría");
+                data.HeadersFiltro.Add("Tipo Inseminación");
+                data.HeadersFiltro.Add("Fecha Inseminación");
+                data.HeadersFiltro.Add("Estado");
+                data.HeadersFiltro.Add("Raza");
+                data.HeadersFiltro.Add("Acción Peso");
+                data.HeadersFiltro.Add("Peso");
+
+                List<string> rowFiltro = new List<string>();
+                if (filter.numCaravana != 0)
+                    rowFiltro.Add(filter.numCaravana.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filtro.categoria != "") rowFiltro.Add(filtro.categoria);
+                else rowFiltro.Add("Sin datos");
+                if (filter.idTipoInseminacion == 1)
+                    rowFiltro.Add("Artificial");
+                else if (filter.idTipoInseminacion == 2)
+                    rowFiltro.Add("Montura");
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filter.fechaInseminacion != null)
+                    rowFiltro.Add(filter.fechaInseminacion.Substring(0, 10));
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filtro.estado != "") rowFiltro.Add(filtro.estado);
+                else rowFiltro.Add("Sin datos");
+                if (filtro.raza != "") rowFiltro.Add(filtro.raza);
+                else rowFiltro.Add("Sin datos");
+                if (filter.accionPeso == "mayor")
+                    rowFiltro.Add("Mayor que");
+                else if (filter.accionPeso == "menor")
+                    rowFiltro.Add("Menor que");
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filter.peso != 0)
+                    rowFiltro.Add(filter.peso.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                data.DataRowsFiltro = new List<List<string>>();
+                data.DataRowsFiltro.Add(rowFiltro);
+
+                var lista = GetReporteServiciosSinConfirmar(filter);
                 data.Headers.Add("Orden");
                 data.Headers.Add("Caravana");
                 data.Headers.Add("Raza");
@@ -1158,7 +1379,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-ServiciosSinConfirmar", usuario);
+                var archivo = StaticFunctions.GenerateExcel(data, filter.campo, "ReportesInseminacion-ServiciosSinConfirmar", filter.usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1171,12 +1392,57 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionLactanciasExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ReporteInseminacionLactanciasExportarExcel(ReporteFilter filter)
         {
             SLExcelData data = new SLExcelData();
             try
             {
-                var lista = GetReporteLactanciasActivas(codigoCampo, periodo);
+                var filtro = new BovinoManager().ObtenerDatosFiltroReporte(filter);
+                data.HeadersFiltro = new List<string>();
+                data.HeadersFiltro.Add("Caravana");
+                data.HeadersFiltro.Add("Categoría");
+                data.HeadersFiltro.Add("Acción Partos");
+                data.HeadersFiltro.Add("Nro. Partos");
+                data.HeadersFiltro.Add("Estado");
+                data.HeadersFiltro.Add("Raza");
+                data.HeadersFiltro.Add("Acción Peso");
+                data.HeadersFiltro.Add("Peso");
+
+                List<string> rowFiltro = new List<string>();
+                if (filter.numCaravana != 0)
+                    rowFiltro.Add(filter.numCaravana.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filtro.categoria != "") rowFiltro.Add(filtro.categoria);
+                else rowFiltro.Add("Sin datos");
+                if (filter.accionNroPartos == "mayor")
+                    rowFiltro.Add("Mayor que");
+                else if (filter.accionNroPartos == "menor")
+                    rowFiltro.Add("Menor que");
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filter.nroPartos != 0)
+                    rowFiltro.Add(filter.nroPartos.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filtro.estado != "") rowFiltro.Add(filtro.estado);
+                else rowFiltro.Add("Sin datos");
+                if (filtro.raza != "") rowFiltro.Add(filtro.raza);
+                else rowFiltro.Add("Sin datos");
+                if (filter.accionPeso == "mayor")
+                    rowFiltro.Add("Mayor que");
+                else if (filter.accionPeso == "menor")
+                    rowFiltro.Add("Menor que");
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filter.peso != 0)
+                    rowFiltro.Add(filter.peso.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                data.DataRowsFiltro = new List<List<string>>();
+                data.DataRowsFiltro.Add(rowFiltro);
+
+                var lista = GetReporteLactanciasActivas(filter);
                 data.Headers.Add("Orden");
                 data.Headers.Add("Caravana");
                 data.Headers.Add("Raza");
@@ -1201,7 +1467,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-LactanciasActivas", usuario);
+                var archivo = StaticFunctions.GenerateExcel(data, filter.campo, "ReportesInseminacion-LactanciasActivas", filter.usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1214,12 +1480,57 @@ namespace sgg_farmix_acceso_datos.DAOs
             }
         }
 
-        public Documento ReporteInseminacionPreniadasExportarExcel(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ReporteInseminacionPreniadasExportarExcel(ReporteFilter filter)
         {
             SLExcelData data = new SLExcelData();
             try
             {
-                var lista = GetReportePreniadas(codigoCampo, periodo);
+                var filtro = new BovinoManager().ObtenerDatosFiltroReporte(filter);
+                data.HeadersFiltro = new List<string>();
+                data.HeadersFiltro.Add("Caravana");
+                data.HeadersFiltro.Add("Categoría");
+                data.HeadersFiltro.Add("Tipo Inseminación");
+                data.HeadersFiltro.Add("Fecha Parto");
+                data.HeadersFiltro.Add("Estado");
+                data.HeadersFiltro.Add("Raza");
+                data.HeadersFiltro.Add("Acción Peso");
+                data.HeadersFiltro.Add("Peso");
+
+                List<string> rowFiltro = new List<string>();
+                if (filter.numCaravana != 0)
+                    rowFiltro.Add(filter.numCaravana.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filtro.categoria != "") rowFiltro.Add(filtro.categoria);
+                else rowFiltro.Add("Sin datos");
+                if (filter.idTipoInseminacion == 1)
+                    rowFiltro.Add("Artificial");
+                else if (filter.idTipoInseminacion == 2)
+                    rowFiltro.Add("Montura");
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filter.fechaParto != null)
+                    rowFiltro.Add(filter.fechaParto.Substring(0, 10));
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filtro.estado != "") rowFiltro.Add(filtro.estado);
+                else rowFiltro.Add("Sin datos");
+                if (filtro.raza != "") rowFiltro.Add(filtro.raza);
+                else rowFiltro.Add("Sin datos");
+                if (filter.accionPeso == "mayor")
+                    rowFiltro.Add("Mayor que");
+                else if (filter.accionPeso == "menor")
+                    rowFiltro.Add("Menor que");
+                else
+                    rowFiltro.Add("Sin datos");
+                if (filter.peso != 0)
+                    rowFiltro.Add(filter.peso.ToString());
+                else
+                    rowFiltro.Add("Sin datos");
+                data.DataRowsFiltro = new List<List<string>>();
+                data.DataRowsFiltro.Add(rowFiltro);
+
+                var lista = GetReportePreniadas(filter);
                 data.Headers.Add("Orden");
                 data.Headers.Add("Caravana");
                 data.Headers.Add("Raza");
@@ -1242,7 +1553,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, campo, "ReportesInseminacion-Preñadas", usuario);
+                var archivo = StaticFunctions.GenerateExcel(data, filter.campo, "ReportesInseminacion-Preñadas", filter.usuario);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

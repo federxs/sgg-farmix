@@ -1,7 +1,7 @@
-﻿<p>
-    Lactancias activas
-</p>
-<div>
+﻿<h1 ng-show="lactanciasActivas.length > 0">
+    <small>Lactancias activas</small>
+</h1>
+<div ng-show="lactanciasActivas.length > 0">
     <div class="pull-right hidden-print" style="margin-bottom:5px">
         <button class="btn btn-success font-white" ng-click="exportarLactanciasExcel()" title="Exportar a Excel">
             <i class="fa fa-file-excel-o"></i>

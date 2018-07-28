@@ -137,11 +137,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/Inseminacion/ServiciosSinConfirmar")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<ReporteInseminacionServiciosSinConfirmar> GetReporteServiciosSinConfirmar(long codigoCampo, string periodo)
+        public IEnumerable<ReporteInseminacionServiciosSinConfirmar> GetReporteServiciosSinConfirmar(string filtro)
         {
             try
             {
-                return new InseminacionManager().GetReporteServiciosSinConfirmar(codigoCampo, periodo);
+                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().GetReporteServiciosSinConfirmar(filtroDeserealizado);
             }
             catch (Exception ex)
             {
@@ -156,11 +157,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionServiciosSinConfirmarExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesServiciosSinConfirmarPDF(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteInseminacionesServiciosSinConfirmarPDF(string filtro)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarPDF(campo, codigoCampo, periodo, usuario);
+                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarPDF(filtroDeserealizado);
             }
             catch (Exception ex)
             {
@@ -175,11 +177,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionServiciosSinConfirmarExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesServiciosSinConfirmarExcel(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteInseminacionesServiciosSinConfirmarExcel(string filtro)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarExcel(campo, codigoCampo, periodo, usuario);
+                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().ReporteInseminacionServiciosSinConfirmarExportarExcel(filtroDeserealizado);
             }
             catch (Exception ex)
             {
@@ -194,11 +197,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/Inseminacion/LactanciasActivas")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<ReporteInseminacionLactanciasActivas> GetReporteLactanciasActivas(long codigoCampo, string periodo)
+        public IEnumerable<ReporteInseminacionLactanciasActivas> GetReporteLactanciasActivas(string filtro)
         {
             try
             {
-                return new InseminacionManager().GetReporteLactanciasActivas(codigoCampo, periodo);
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().GetReporteLactanciasActivas(filtroDesearizado);
             }
             catch (Exception ex)
             {
@@ -213,11 +217,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionLactanciasExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesLactanciasPDF(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteInseminacionesLactanciasPDF(string filtro)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionLactanciasExportarPDF(campo, codigoCampo, periodo, usuario);
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().ReporteInseminacionLactanciasExportarPDF(filtroDesearizado);
             }
             catch (Exception ex)
             {
@@ -232,11 +237,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionLactanciasExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesLactanciasExcel(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteInseminacionesLactanciasExcel(string filtro)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionLactanciasExportarExcel(campo, codigoCampo, periodo, usuario);
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().ReporteInseminacionLactanciasExportarExcel(filtroDesearizado);
             }
             catch (Exception ex)
             {
@@ -251,11 +257,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/Inseminacion/Preniadas")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<ReporteInseminacionPreniadas> GetReportePreniadas(long codigoCampo, string periodo)
+        public IEnumerable<ReporteInseminacionPreniadas> GetReportePreniadas(string filtro)
         {
             try
             {
-                return new InseminacionManager().GetReportePreniadas(codigoCampo, periodo);
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().GetReportePreniadas(filtroDesearizado);
             }
             catch (Exception ex)
             {
@@ -270,11 +277,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionPreniadasExportarPDF")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesPreniadasPDF(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteInseminacionesPreniadasPDF(string filtro)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionPreniadasExportarPDF(campo, codigoCampo, periodo, usuario);
+                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().ReporteInseminacionPreniadasExportarPDF(filtroDeserealizado);
             }
             catch (Exception ex)
             {
@@ -289,11 +297,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Reportes/InseminacionPreniadasExportarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarReporteInseminacionesPreniadasExcel(string campo, long codigoCampo, string periodo, string usuario)
+        public Documento ExportarReporteInseminacionesPreniadasExcel(string filtro)
         {
             try
             {
-                return new InseminacionManager().ReporteInseminacionPreniadasExportarExcel(campo, codigoCampo, periodo, usuario);
+                var filtroDeserealizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return new InseminacionManager().ReporteInseminacionPreniadasExportarExcel(filtroDeserealizado);
             }
             catch (Exception ex)
             {
