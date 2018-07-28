@@ -318,6 +318,7 @@
             }
             else {
                 vm.formConsultarTrazabilidad.fechaDesde.$setValidity("min", true);
+                vm.formConsultarTrazabilidad.fechaHasta.$setValidity("min", true);
             }
         }
 
@@ -331,6 +332,7 @@
                 }
                 else {
                     vm.formConsultarTrazabilidad.fechaHasta.$setValidity("min", true);
+                    vm.formConsultarTrazabilidad.fechaDesde.$setValidity("min", true);
                 }
             }
         }

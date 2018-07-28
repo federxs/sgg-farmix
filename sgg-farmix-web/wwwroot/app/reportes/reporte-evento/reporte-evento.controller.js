@@ -161,6 +161,8 @@
             }
             else {
                 vm.formConsultarReporteEvento.fechaDesde.$setValidity("min", true);
+                vm.formConsultarReporteEvento.fechaHasta.$setValidity("min", true);
+
             }
         }
 
@@ -174,6 +176,7 @@
                 }
                 else {
                     vm.formConsultarReporteEvento.fechaHasta.$setValidity("min", true);
+                    vm.formConsultarReporteEvento.fechaDesde.$setValidity("min", true);
                 }
             }
         }

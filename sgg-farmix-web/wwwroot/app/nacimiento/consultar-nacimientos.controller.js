@@ -166,11 +166,14 @@
             vm.filtro.fechaDesde = $('#datetimepicker4')[0].value;
             var fechaDesde = new Date(vm.filtro.fechaDesde.substring(6, 10), parseInt(vm.filtro.fechaDesde.substring(3, 5)) - 1, vm.filtro.fechaDesde.substring(0, 2));
             var fechaMin = new Date(2000, 1, 1);
-            if (fechaDesde < fechaMin) {
+            vm.filtro.fechaHasta = $('#datetimepicker5')[0].value;
+            var fechaHasta = new Date(vm.filtro.fechaHasta.substring(6, 10), parseInt(vm.filtro.fechaHasta.substring(3, 5)) - 1, vm.filtro.fechaHasta.substring(0, 2));
+            if ((fechaDesde < fechaMin) || (((vm.filtro.fechaHasta !== undefined)) && (fechaDesde > fechaHasta))) {
                 vm.formConsultarNacimiento.fechaDesde.$setValidity("min", false);
             }
             else {
                 vm.formConsultarNacimiento.fechaDesde.$setValidity("min", true);
+                vm.formConsultarNacimiento.fechaHasta.$setValidity("min", true);
             }
         };
 
@@ -184,6 +187,7 @@
                 }
                 else {
                     vm.formConsultarNacimiento.fechaHasta.$setValidity("min", true);
+                    vm.formConsultarNacimiento.fechaDesde.$setValidity("min", true);
                 }
             }
         };
