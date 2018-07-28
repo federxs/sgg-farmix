@@ -10123,7 +10123,13 @@ button#showLeftPush {
         font-size: 20px !important;
     }
 
-    .profile_details{
+    .profile_details {
         margin-bottom: 10px;
+    }
+
+    .seleccionCampos-responsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
     }
 }
