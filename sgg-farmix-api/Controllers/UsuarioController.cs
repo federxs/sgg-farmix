@@ -409,11 +409,12 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Usuario/GetClientes")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<Cliente> getClientes()
+        public IEnumerable<Cliente> GetClientes(string filtro)
         {
             try
             {
-                return UM.GetClientes();
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return UM.GetClientes(filtroDesearizado);
             }
             catch (Exception ex)
             {
@@ -428,11 +429,51 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Usuario/GetPlanes")]
         [HttpGet]
         [AutorizationToken]
-        public IEnumerable<Plan> getPlanes()
+        public IEnumerable<Plan> GetPlanes()
         {
             try
             {
                 return UM.GetPlanes();
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Cliente/ExportarClientesPDF")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteClientesPDF(string filtro)
+        {
+            try
+            {
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return UM.ClientesExportarPDF(filtroDesearizado);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)
+                {
+                    Content = new StringContent(string.Format("Error: {0}", ex.Message)),
+                    ReasonPhrase = (ex.GetType() == typeof(ArgumentException) ? ex.Message : "Get_Error")
+                });
+            }
+        }
+
+        [Route("api/Cliente/ExportarClientesExcel")]
+        [HttpGet]
+        [AutorizationToken]
+        public Documento ExportarReporteClientesExcel(string filtro)
+        {
+            try
+            {
+                var filtroDesearizado = JsonConvert.DeserializeObject<ReporteFilter>(filtro);
+                return UM.ClientesExportarExcel(filtroDesearizado);
             }
             catch (Exception ex)
             {

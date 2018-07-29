@@ -47,6 +47,10 @@ namespace sgg_farmix_acceso_datos.Model
         public string fechaInseminacion { get; set; }
         public string fechaParto { get; set; }
         public int idTipoInseminacion { get; set; }
+        public string nombre { get; set; }
+        public string apellido { get; set; }
+        public string estadoCuenta { get; set; }
+        public int idPlan { get; set; }
     }
 
     public class ReporteBovinosFilterDatos

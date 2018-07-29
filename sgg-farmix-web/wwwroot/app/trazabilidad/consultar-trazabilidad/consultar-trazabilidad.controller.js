@@ -174,6 +174,7 @@
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
             vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
             consultarTrazabilidadService.generarPDF(angular.toJson(vm.filtro, false)).then(function (data) {
+                if (vm.filtro.numCaravana == 0) vm.filtro.numCaravana = '';
                 var path = data.nombre;
                 var link = document.createElement("a");
                 $(link).click(function (e) {

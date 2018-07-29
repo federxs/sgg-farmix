@@ -13,13 +13,16 @@
             inicializar: inicializar,
             getClientes: getClientes,
             inicializarPeriodos: inicializarPeriodos,
-            estadisticas: estadisticas
+            estadisticas: estadisticas,
+            generarExcel: generarExcel,
+            generarPDF: generarPDF
         };
-        function getClientes() {
+        function getClientes(filtro) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Usuario/GetClientes',
                 headers: portalService.getHeadersServer(),
+                params: { filtro: filtro },
                 isArray: false
             }).then(
             function (data) {
@@ -58,6 +61,30 @@
             function (data) {
                 return data.data || [];
             });
+        }
+
+            function generarPDF(filtro) {
+                return $http({
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Cliente/ExportarClientesPDF',
+                    params: { filtro: filtro },
+                    headers: portalService.getHeadersServer()
+                }).then(
+                function (data) {
+                    return data.data || [];
+                });
+            }
+
+            function generarExcel(filtro) {
+                return $http({
+                    method: 'GET',
+                    url: portalService.getUrlServer() + 'api/Cliente/ExportarClientesExcel',
+                    params: { filtro: filtro },
+                    headers: portalService.getHeadersServer()
+                }).then(
+                function (data) {
+                    return data.data || [];
+                });
         }
 
         return service;
