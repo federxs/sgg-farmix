@@ -101,10 +101,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoAntibioticosMasUsados"></div>
-                <a id="descargaGraficoAntibioticosMasUsados" style="text-decoration:underline" download="Farmix - Gráfica de Antibióticos más usados">
+                <a id="descargaGraficoAntibioticosMasUsados" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Antibióticos más usados">
                     Descargar Imagen
                 </a>
-                <button ng-click="descargarPdf('descargaGraficoAntibioticosMasUsadosImg')">Descargar PDF</button>
+                <a ng-click="descargarPdf('descargaGraficoAntibioticosMasUsados', 'Farmix - Gráfica de Antibióticos más usados - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -128,10 +128,10 @@
             <div class="panel-body">
                 <div id="graficoMovimientosXBovino"></div>
 
-                <a id="descargaGraficoMovimientosXBovino" style="text-decoration:underline" download="Farmix - Top 10 Mayor cantidad de Cambios Rodeo">
+                <a id="descargaGraficoMovimientosXBovino" ng-show="false" style="text-decoration:underline" download="Farmix - Top 10 Mayor cantidad de Cambios Rodeo">
                     Descargar Imagen
                 </a>
-                
+                <a ng-click="descargarPdf('descargaGraficoMovimientosXBovino', 'Farmix - Top 10 Mayor cantidad de Cambios Rodeo - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -144,10 +144,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoEventosXTipoXMes"></div>
-
-                <!--<a id="descargaGraficoEventosXTipoXMes" style="text-decoration:underline" download="Farmix - Eventos por tipo en cada mes">
+                <!--<a id="descargaGraficoEventosXTipoXMes" ng-show="false" style="text-decoration:underline" download="Farmix - Eventos por tipo en cada mes">
                     Descargar Imagen
-                </a>-->
+                </a>
+                <a ng-click="descargarPdf('descargaGraficoEventosXTipoXMes', 'Farmix - Eventos por tipo en cada mes - ')" style="cursor:pointer;">Descargar en PDF</a>-->
             </div>
         </div>
     </div>
@@ -160,9 +160,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoEventosXTipoXGenero"></div>
-                <a id="descargaGraficoEventosXTipoXGenero" style="text-decoration:underline" download="Farmix - Cantidad de Eventos por Tipo y por Sexo">
+                <a id="descargaGraficoEventosXTipoXGenero" ng-show="false" style="text-decoration:underline" download="Farmix - Cantidad de Eventos por Tipo y por Sexo">
                     Descargar Imagen
                 </a>
+                <a ng-click="descargarPdf('descargaGraficoEventosXTipoXGenero', 'Farmix - Cantidad de Eventos por Tipo y por Sexo - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -185,9 +186,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoVacunasMenosUsadas"></div>
-                <a id="descargaGraficoVacunasMenosUsadas" style="text-decoration:underline" download="Farmix - Gráfica de Vacunas menos usadas">
+                <a id="descargaGraficoVacunasMenosUsadas" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Vacunas menos usadas">
                     Descargar Imagen
                 </a>
+                <a ng-click="descargarPdf('descargaGraficoVacunasMenosUsadas', 'Farmix - Gráfica de Vacunas menos usadas - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>

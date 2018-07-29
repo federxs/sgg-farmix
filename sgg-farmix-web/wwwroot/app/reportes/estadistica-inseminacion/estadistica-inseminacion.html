@@ -102,9 +102,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoCategoriasPorHembrasEfectividad"></div>
-                <a id="descargaGraficoCategoriasPorHembrasEfectividad" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Categoría">
+                <a id="descargaGraficoCategoriasPorHembrasEfectividad" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Categoría">
                     Descargar Imagen
                 </a>
+                <a ng-click="descargarPdf('descargaGraficoCategoriasPorHembrasEfectividad', 'Farmix - Gráfica de Efectividad de Hembras por Categoría - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -115,9 +116,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoCategoriasPorMachosEfectividad"></div>
-                <a id="descargaGraficoCategoriasPorMachosEfectividad" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Machos por Categoría">
+                <a id="descargaGraficoCategoriasPorMachosEfectividad" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Machos por Categoría">
                     Descargar Imagen
                 </a>
+                <a ng-click="descargarPdf('descargaGraficoCategoriasPorMachosEfectividad', 'Farmix - Gráfica de Efectividad de Machos por Categoría - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -131,9 +133,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoRazaEfectividad"></div>
-                <a id="descargaGraficoRazaEfectividad" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Raza">
+                <a id="descargaGraficoRazaEfectividad" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Raza">
                     Descargar Imagen
                 </a>
+                <a ng-click="descargarPdf('descargaGraficoRazaEfectividad', 'Farmix - Gráfica de Efectividad de Hembras por Raza - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -144,9 +147,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoTipoEfectividad"></div>
-                <a id="descargaGraficoTipoEfectividad" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad según el tipo de Inseminación">
+                <a id="descargaGraficoTipoEfectividad" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad según el tipo de Inseminación">
                     Descargar Imagen
                 </a>
+                <a ng-click="descargarPdf('descargaGraficoTipoEfectividad', 'Farmix - Gráfica de Efectividad según el tipo de Inseminación - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -159,9 +163,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoInseminacionesXToro"></div>
-                <a id="descargaGraficoInseminacionesXToro" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 Inseminaciones Exitosas Por Toro">
+                <a id="descargaGraficoInseminacionesXToro" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 Inseminaciones Exitosas Por Toro">
                     Descargar Imagen
                 </a>
+                <a ng-click="descargarPdf('descargaGraficoInseminacionesXToro', 'Farmix - Gráfica de Top 10 Inseminaciones Exitosas Por Toro - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -174,9 +179,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoHijosXToro"></div>
-                <a id="descargaGraficoHijosXToro" style="text-decoration:underline" download="Farmix - Gráfica Top 10 de Toros con mayor cantidad de Hijos">
+                <a id="descargaGraficoHijosXToro" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica Top 10 de Toros con mayor cantidad de Hijos">
                     Descargar Imagen
                 </a>
+                <a ng-click="descargarPdf('descargaGraficoHijosXToro', 'Farmix - Gráfica Top 10 de Toros con mayor cantidad de Hijos - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -187,9 +193,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoHijosXVaca"></div>
-                <a id="descargaGraficoHijosXVaca" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 de Vacas con mayor cantidad de Hijos">
+                <a id="descargaGraficoHijosXVaca" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 de Vacas con mayor cantidad de Hijos">
                     Descargar Imagen
                 </a>
+                <a ng-click="descargarPdf('descargaGraficoHijosXVaca', 'Farmix - Gráfica de Top 10 de Vacas con mayor cantidad de Hijos - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -202,9 +209,10 @@
             </div>
             <div class="panel-body">
                 <div id="graficoInseminacionesFallidas"></div>
-                <a id="descargaGraficoInseminacionesFallidas" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 de Vacas con mayor Inseminaciones Fallidas">
+                <a id="descargaGraficoInseminacionesFallidas" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 de Vacas con mayor Inseminaciones Fallidas">
                     Descargar Imagen
                 </a>
+                <a ng-click="descargarPdf('descargaGraficoInseminacionesFallidas', 'Farmix - Gráfica de Top 10 de Vacas con mayor Inseminaciones Fallidas - ')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
