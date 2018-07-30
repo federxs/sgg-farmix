@@ -52,7 +52,7 @@
         };
 
         function comparar() {
-            if (vm.filtro.estadistica === 1) {
+            if (vm.filtro.estadistica === '1') {
                 $scope.$parent.blockSpinner();
                 vm.mostrarBovino = true;
                 vm.mostrarEvento = false;
