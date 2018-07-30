@@ -1010,5 +1010,6 @@
             var GUION_SEPARADOR = ' - ';
             pdfMake.createPdf(docDefinition).download('Farmix' + GUION_SEPARADOR + campo + GUION_SEPARADOR + titulo + GUION_SEPARADOR + (fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear()) + '.pdf');
         };
+
     }
 })();
