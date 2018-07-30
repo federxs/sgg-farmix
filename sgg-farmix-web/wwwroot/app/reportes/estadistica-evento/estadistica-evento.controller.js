@@ -81,6 +81,7 @@
         function descargarPdf(idDeImagen, titulo) {
             var imgSrc = document.getElementById(idDeImagen).href;
             var fecha = new Date();
+            var SALTO_LINEA = '\n';
             var docDefinition = {
                 content: [
                     {
@@ -104,26 +105,53 @@
                         }
                     },
                     {
-                        text: titulo,
-                        fontSize: 13,
-                        bold: true
+                        style: 'recuadroDeInformacion',
+                        table: {
+                            widths: ['auto', '*'],
+                            headerRows: 1,
+                            body: [
+                                [{ text: titulo + '\n', fontSize: 15, bold: true, colSpan: 2, alignment: 'center' }, {}],
+                                ['Campo:', { text: $localStorage.usuarioInfo.campoNombre + SALTO_LINEA, bold: true }],
+                                ['Generado por:', { text: $sessionStorage.usuarioInfo.usuario + SALTO_LINEA, bold: true }],
+                                ['Fecha:', { text: (fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear()), bold: true }]
+                            ]
+                        },
+                        layout: {
+                            hLineWidth: function (i, node) {
+                                return (i === 0 || i === node.table.body.length) ? 2 : 1;
+                            },
+                            vLineWidth: function (i, node) {
+                                return (i === 0 || i === node.table.widths.length) ? 2 : 1;
+                            },
+                            hLineColor: function (i, node) {
+                                return (i === 0 || i === node.table.body.length) ? 'black' : 'gray';
+                            },
+                            vLineColor: function (i, node) {
+                                return (i === 0 || i === node.table.widths.length) ? 'black' : 'gray';
+                            },
+                            // paddingLeft: function(i, node) { return 4; },
+                            // paddingRight: function(i, node) { return 4; },
+                            // paddingTop: function(i, node) { return 2; },
+                            // paddingBottom: function(i, node) { return 2; },
+                            // fillColor: function (i, node) { return null; }
+                        }
                     },
                     {
-                        text: 'Campo: ' + $localStorage.usuarioInfo.campoNombre,
+                        text: 'Gráfico',
+                        margin: [0, 20, 0, 10],
                         style: 'normal'
                     },
                     {
-                        text: 'Generado por: ' + $sessionStorage.usuarioInfo.usuario,
-                        fontSize: 13
-                    },
-                    {
-                        text: 'Fecha: ' + (fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear()),
-                        fontSize: 13
-                    },
-                    {
-                        image: imgSrc,
-                        width: 600,
-                        height: 300
+                        table: {
+                            widths: ['*'],
+                            body: [
+                              [{
+                                  image: imgSrc,
+                                  width: 500,
+                                  height: 250
+                              }]
+                            ]
+                        }
                     }
                 ],
                 styles: {
