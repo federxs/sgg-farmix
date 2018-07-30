@@ -31,6 +31,7 @@ namespace sgg_farmix_acceso_datos.Model
         public long rolLogueado { get; set; }
         public string campo { get; set; }
         public string usuario { get; set; }
+        public string periodo { get; set; }
     }
 
     public class UsuarioDetalle

@@ -918,7 +918,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "Reporte Bovinos", filter.campo, filter.usuario);
+                var archivo = StaticFunctions.GenerateExcel(data, "Reporte Bovinos", filter.campo, filter.usuario, filter.periodo);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -1154,7 +1154,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     };
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "Bovinos", filter.campo, filter.usuario);
+                var archivo = StaticFunctions.GenerateExcel(data, "Bovinos", filter.campo, filter.usuario, filter.periodo);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

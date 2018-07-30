@@ -340,11 +340,11 @@ namespace sgg_farmix_api.Controllers
         [Route("api/Inseminacion/ExportarServSinConfirmarExcel")]
         [HttpGet]
         [AutorizationToken]
-        public Documento ExportarServiciosSinConfirmarExcel(string campo, long codigoCampo, long rango, string usuario)
+        public Documento ExportarServiciosSinConfirmarExcel(string campo, long codigoCampo, long rango, string usuario, string periodo)
         {
             try
             {
-                return IM.ServiciosSinConfimarExportarExcel(campo, codigoCampo, rango, usuario);
+                return IM.ServiciosSinConfimarExportarExcel(campo, codigoCampo, rango, usuario, periodo);
             }
             catch (Exception ex)
             {

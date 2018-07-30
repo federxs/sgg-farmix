@@ -632,7 +632,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     row.Add(item.fechaBaja != " " ? item.fechaBaja : "-");
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "Usuarios", filter.campo, filter.usuario);
+                var archivo = StaticFunctions.GenerateExcel(data, "Usuarios", filter.campo, filter.usuario, filter.periodo);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)
@@ -938,7 +938,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                     row.Add(item.estadoCuenta);
                     data.DataRows.Add(row);
                 }
-                var archivo = StaticFunctions.GenerateExcel(data, "Clientes", filter.campo, filter.usuario);
+                var archivo = StaticFunctions.GenerateExcel(data, "Clientes", filter.campo, filter.usuario, filter.periodo);
                 return new Documento() { nombre = archivo };
             }
             catch (Exception ex)

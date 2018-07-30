@@ -325,9 +325,9 @@ namespace sgg_farmix_helper
             }
         }
 
-        public static string GenerateExcel(SLExcelData data, string ExcelFilePath, string campo, string user)
+        public static string GenerateExcel(SLExcelData data, string ExcelFilePath, string campo, string user, string periodo)
         {
-            var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+            var fecha = DateTime.Now.ToString("dd-MM-yyyy HH:mm");
             var stream = new MemoryStream();
             var document = SpreadsheetDocument
                 .Create(stream, SpreadsheetDocumentType.Workbook);
@@ -360,21 +360,33 @@ namespace sgg_farmix_helper
             sheetData.AppendChild(row);
             var cellIdex = 0;
 
+            var campoDato = CreateTextCell(ColumnLetter(cellIdex++),
+                   rowIdex, "Campo" ?? string.Empty, 2);
+            row.AppendChild(campoDato);
             var usuario = CreateTextCell(ColumnLetter(cellIdex++),
                     rowIdex, "Generado por" ?? string.Empty, 2);
             row.AppendChild(usuario);
             var fechaDato = CreateTextCell(ColumnLetter(cellIdex++),
                     rowIdex, "Fecha" ?? string.Empty, 2);
             row.AppendChild(fechaDato);
+            var periodoDato = CreateTextCell(ColumnLetter(cellIdex++),
+                    rowIdex, "Período" ?? string.Empty, 2);
+            row.AppendChild(periodoDato);
             row = new Row { RowIndex = ++rowIdex };
             sheetData.AppendChild(row);
             cellIdex = 0;
+            campoDato = CreateTextCell(ColumnLetter(cellIdex++),
+                        rowIdex, campo ?? string.Empty, 1);
+            row.AppendChild(campoDato);
             usuario = CreateTextCell(ColumnLetter(cellIdex++),
                         rowIdex, user ?? string.Empty, 1);
             row.AppendChild(usuario);
             fechaDato = CreateTextCell(ColumnLetter(cellIdex++),
                         rowIdex, fecha ?? string.Empty, 1);
             row.AppendChild(fechaDato);
+            periodoDato = CreateTextCell(ColumnLetter(cellIdex++),
+                        rowIdex, periodo ?? string.Empty, 1);
+            row.AppendChild(periodoDato);
 
             row = new Row { RowIndex = rowIdex + 2 };
             sheetData.AppendChild(row);
@@ -443,8 +455,10 @@ namespace sgg_farmix_helper
             workbookpart.Workbook.Save();
             document.Close();
 
-            string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");            
+            string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
             // Nombre del archivo
+            fecha = fecha.Replace(':', ' ');
+            fecha = fecha.Replace(" ", "");
             string fileName = string.Format("{0}-{1}-{2}.xls", ExcelFilePath, campo, fecha);
 
             using (MemoryStream stream1 = new MemoryStream())
