@@ -57,13 +57,9 @@
                 var options = {
                     title: 'Antibióticos más usados',
                     legend: 'none',
-                    width: 600,
-                    height: 300,
-                    bar: { groupWidth: '10%' },
-                    vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Cantidad' },
+                    vAxis: { title: 'Cantidad' },
                     hAxis: {
-                        title: 'Antibióticos',
-                        viewWindow: { min: 0 }
+                        title: 'Antibióticos'
                     },
                     colors: ["#00b01c"]
 
@@ -81,7 +77,6 @@
         function descargarPdf(idDeImagen, titulo) {
             var imgSrc = document.getElementById(idDeImagen).href;
             var fecha = new Date();
-            var SALTO_LINEA = '\n';
             var docDefinition = {
                 content: [
                     {
@@ -105,14 +100,13 @@
                         }
                     },
                     {
-                        style: 'recuadroDeInformacion',
                         table: {
                             widths: ['auto', '*'],
                             headerRows: 1,
                             body: [
                                 [{ text: titulo + '\n', fontSize: 15, bold: true, colSpan: 2, alignment: 'center' }, {}],
-                                ['Campo:', { text: $localStorage.usuarioInfo.campoNombre + SALTO_LINEA, bold: true }],
-                                ['Generado por:', { text: $sessionStorage.usuarioInfo.usuario + SALTO_LINEA, bold: true }],
+                                ['Campo:', { text: $localStorage.usuarioInfo.campoNombre, bold: true }],
+                                ['Generado por:', { text: $sessionStorage.usuarioInfo.usuario, bold: true }],
                                 ['Fecha:', { text: (fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear()), bold: true }]
                             ]
                         },
