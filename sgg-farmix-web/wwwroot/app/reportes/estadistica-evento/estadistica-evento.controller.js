@@ -137,11 +137,7 @@
                         }
                     },
                     {
-                        text: 'Gráfico',
-                        margin: [0, 20, 0, 10],
-                        style: 'normal'
-                    },
-                    {
+                        margin: [0, 30, 0, 0],
                         table: {
                             widths: ['*'],
                             body: [
