@@ -5,9 +5,9 @@
         .module('app')
         .controller('estadisticaComparadorController', estadisticaComparadorController);
 
-    estadisticaComparadorController.$inject = ['$location', '$scope', '$localStorage', '$sessionStorage', 'estadisticaComparadorService', 'toastr', 'estadisticaBovinoService', 'estadisticaEventoService', 'estadisticaInseminacionService'];
+    estadisticaComparadorController.$inject = ['$location', '$scope', '$sessionStorage', 'estadisticaComparadorService', 'toastr', 'estadisticaBovinoService', 'estadisticaEventoService', 'estadisticaInseminacionService'];
 
-    function estadisticaComparadorController($location, $scope, $localStorage, $sessionStorage, estadisticaComparadorService, toastr, estadisticaBovinoService, estadisticaEventoService, estadisticaInseminacionService) {
+    function estadisticaComparadorController($location, $scope, $sessionStorage, estadisticaComparadorService, toastr, estadisticaBovinoService, estadisticaEventoService, estadisticaInseminacionService) {
         var vm = $scope;
         vm.title = 'estadisticaComparadorController';
         window.scrollTo(0, 0);
@@ -978,7 +978,7 @@
                                 ['Campo:', { text: campo, bold: true }],
                                 ['Generado por:', { text: $sessionStorage.usuarioInfo.usuario, bold: true }],
                                 ['Fecha de generación:', { text: getDateString(), bold: true }],
-                                ['Período de consulta:', { text: $localStorage.usuarioInfo.periodoConsulta, bold: true }]
+                                ['Período de consulta:', { text: getPeriodoDeConsulta(idDeImagen), bold: true }]
                             ]
                         },
                         layout: {
@@ -1028,7 +1028,13 @@
         function getDateString() {
             var fecha = new Date()
             return (fecha.getDate() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getFullYear()
-                + " a las " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds());
+                + " a las " + ("0" + fecha.getHours()).slice(-2) + ":" + ("0" + fecha.getMinutes()).slice(-2) + ":" + ("0" + fecha.getSeconds()).slice(-2));
+        }
+
+        function getPeriodoDeConsulta(idGraficoAExportar) {
+            var numeroDeGrafico = idGraficoAExportar.substr(idGraficoAExportar.length - 1);
+            return (numeroDeGrafico === '1') ? vm.filtro.periodo1 : vm.filtro.periodo2;
+
         }
 
     }

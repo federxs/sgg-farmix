@@ -321,7 +321,7 @@
         function getDateString() {
             var fecha = new Date()
             return (fecha.getDate() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getFullYear()
-                + " a las " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds());
+                + " a las " + ("0" + fecha.getHours()).slice(-2) + ":" + ("0" + fecha.getMinutes()).slice(-2) + ":" + ("0" + fecha.getSeconds()).slice(-2));
         }
 
     }//fin controlador
