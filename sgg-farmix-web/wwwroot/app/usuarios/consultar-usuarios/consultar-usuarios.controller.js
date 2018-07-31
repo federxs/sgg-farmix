@@ -89,6 +89,7 @@
             vm.filtro.rolLogueado = usuarioInfo.getRol();
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
             vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             consultarUsuariosService.generarExcel(angular.toJson(vm.filtro, false)).then(function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");
@@ -111,6 +112,7 @@
             vm.filtro.rolLogueado = usuarioInfo.getRol();
             vm.filtro.campo = $localStorage.usuarioInfo.campoNombre;
             vm.filtro.usuario = $sessionStorage.usuarioInfo.usuario;
+            vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
             consultarUsuariosService.generarPDF(vm.filtro).then(function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");

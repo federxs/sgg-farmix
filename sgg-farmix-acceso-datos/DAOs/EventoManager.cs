@@ -404,7 +404,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
                 if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
 
-                var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+                var fecha = DateTime.Now.ToString("dd-MM-yyyyHHmm");
                 // Nombre del archivo
                 string fileName = string.Format("{0}-{1}-{2}.pdf", "ReporteEventos", filter.campo, fecha);
                 // Generación del PDF
@@ -431,6 +431,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 Rectangle rect = PageSize.LETTER;
                 List<IElement> ie;
                 float pageWidth = rect.Width;
+                fecha = DateTime.Now.ToString("dd-MM-yyyy HH:mm");
                 string html = "";
                 html = @"
                             <html><head></head><body>
@@ -438,7 +439,8 @@ namespace sgg_farmix_acceso_datos.DAOs
                             <tr><td><b>Reporte Eventos</b></td></tr>
                             <tr><td>Campo: <b>" + filter.campo + @"</b></td></tr>
                             <tr><td>Generado por: <b>" + filter.usuario + @"</b></td></tr>
-                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                         
+                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>
+                            <tr><td>Período: <b>" + filter.periodo + @"</b></td></tr>                         
                             </table>
                             </body></html>";
                 ie = HTMLWorker.ParseToList(new StringReader(html), null);
@@ -640,7 +642,7 @@ namespace sgg_farmix_acceso_datos.DAOs
                 string filePath = System.IO.Path.Combine(HttpRuntime.AppDomainAppPath, "Archivos\\");
                 if (!Directory.Exists(filePath)) Directory.CreateDirectory(filePath);
 
-                var fecha = DateTime.Now.ToString("dd-MM-yyyy");
+                var fecha = DateTime.Now.ToString("dd-MM-yyyyHHmm");
                 // Nombre del archivo
                 string fileName = string.Format("{0}-{1}-{2}.pdf", "Eventos", filter.campo, fecha);
                 // Generación del PDF
@@ -668,13 +670,15 @@ namespace sgg_farmix_acceso_datos.DAOs
                 List<IElement> ie;
                 float pageWidth = rect.Width;
                 string html = "";
+                fecha = DateTime.Now.ToString("dd-MM-yyyy HH:mm");
                 html = @"
                             <html><head></head><body>
                             <table>
                             <tr><td><b>Eventos</b></td></tr>
                             <tr><td>Campo: <b>" + filter.campo + @"</b></td></tr>
                             <tr><td>Generado por: <b>" + filter.usuario + @"</b></td></tr>
-                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>                   
+                            <tr><td>Fecha: <b>" + fecha + @"</b></td></tr>   
+                            <tr><td>Período: <b>" + filter.periodo + @"</b></td></tr>                
                             </table>
                             </body></html>";
                 ie = HTMLWorker.ParseToList(new StringReader(html), null);

@@ -92,11 +92,11 @@
             });
         }
 
-        function generarPDFServSinConfirmar(campo, codigoCampo, rango, usuario) {
+        function generarPDFServSinConfirmar(campo, codigoCampo, rango, usuario, periodo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/ExportarServSinConfirmarPDF',
-                params: { campo: campo, codigoCampo: codigoCampo, rango: rango, usuario: usuario },
+                params: { campo: campo, codigoCampo: codigoCampo, rango: rango, usuario: usuario, periodo: periodo },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {
@@ -116,11 +116,11 @@
             });
         }
 
-        function generarExcelServSinConfirmar(campo, codigoCampo, rango, usuario) {
+        function generarExcelServSinConfirmar(campo, codigoCampo, rango, usuario, periodo) {
             return $http({
                 method: 'GET',
                 url: portalService.getUrlServer() + 'api/Inseminacion/ExportarServSinConfirmarExcel',
-                params: { campo: campo, codigoCampo: codigoCampo, rango: rango, usuario: usuario },
+                params: { campo: campo, codigoCampo: codigoCampo, rango: rango, usuario: usuario, periodo: periodo },
                 headers: portalService.getHeadersServer()
             }).then(
             function (data) {

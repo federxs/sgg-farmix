@@ -288,7 +288,7 @@
 
         function exportarExcelServSinConfirm() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            consultarInseminacionService.generarExcelServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, rangoConsulta, $sessionStorage.usuarioInfo.usuario)
+            consultarInseminacionService.generarExcelServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, rangoConsulta, $sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.periodoConsulta)
                 .then(function (data) {
                     var path = data.nombre;
                     var link = document.createElement("a");
@@ -307,7 +307,7 @@
 
         function exportarPDFServSinConfirm() {
             $scope.$parent.blockSpinnerGenerarArchivo();
-            consultarInseminacionService.generarPDFServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, rangoConsulta, $sessionStorage.usuarioInfo.usuario)
+            consultarInseminacionService.generarPDFServSinConfirmar($localStorage.usuarioInfo.campoNombre, $localStorage.usuarioInfo.codigoCampo, rangoConsulta, $sessionStorage.usuarioInfo.usuario, $localStorage.usuarioInfo.periodoConsulta)
                 .then(function (data) {
                 var path = data.nombre;
                 var link = document.createElement("a");
