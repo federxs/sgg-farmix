@@ -306,11 +306,14 @@
 
                 var options = {
                     'title': 'Eventos por Tipo y por Sexo',
+                    height: 400,
                     hAxis: {
-                        title: 'Cantidad'
+                        title: 'Cantidad',
+                        minValue: 0,
+                        gridlines: { count: -1 }
                     },
                     vAxis: {
-                        title: 'Tipos de Eventos'
+                        title: 'Tipos de Eventos',
                     },
                     'legend': {
                         'position': 'bottom',
