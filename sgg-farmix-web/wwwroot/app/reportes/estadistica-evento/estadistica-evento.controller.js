@@ -198,7 +198,7 @@
 
                 var options = {
                     title: 'Cantidad de Cambios de alimentación por Bovino',
-                    pageSize: 6,
+                    pageSize: 10,
                     sortColumn: 1,
                     sortAscending: false,
                     cssClassNames: { tableCell: 'row' }
