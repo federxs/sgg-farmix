@@ -48,8 +48,10 @@
                 var container = document.getElementById('graficoAntibioticosMasUsados');
                 var chart = new google.visualization.ColumnChart(container);
                 var dataTable = new google.visualization.DataTable();
+
                 dataTable.addColumn('string', 'Antibiótico');
                 dataTable.addColumn('number', 'Cantidad');
+
                 for (var i = 0; i < datos.length; i++) {
                     dataTable.addRows([[datos[i].antibiotico, datos[i].cantidad]]);
                 }
@@ -57,7 +59,10 @@
                 var options = {
                     title: 'Antibióticos más usados',
                     legend: 'none',
-                    vAxis: { title: 'Cantidad' },
+                    vAxis: {
+                        title: 'Cantidad',
+                        minValue: 0
+                    },
                     hAxis: {
                         title: 'Antibióticos'
                     },
@@ -223,7 +228,11 @@
                     legend: 'none',
                     height: 300,
                     bar: { groupWidth: '10%' },
-                    vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Cantidad' },
+                    vAxis: {
+                        gridlines: { count: -1 },
+                        minValue: 0,
+                        title: 'Cantidad'
+                    },
                     hAxis: {
                         title: 'Número de Caravana',
                         viewWindow: { min: 0 }
