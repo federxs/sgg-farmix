@@ -347,7 +347,7 @@
 
                 var options = {
                     title: 'Top 10 Alimentos más usados',
-                    pageSize: 6,
+                    pageSize: 10,
                     sortColumn: 1,
                     sortAscending: false,
                     cssClassNames: { tableCell: 'row' }
