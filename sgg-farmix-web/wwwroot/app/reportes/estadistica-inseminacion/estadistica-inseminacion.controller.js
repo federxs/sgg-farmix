@@ -56,8 +56,11 @@
 
                 var options = {
                     'title': 'Efectividad de Hembras por Categoría',
+                    height: 400,
                     hAxis: {
-                        title: 'Inseminaciones'
+                        title: 'Inseminaciones',
+                        minValue: 0,
+                        gridlines: { count: -1 }
                     },
                     vAxis: {
                         title: 'Categorías'
@@ -98,8 +101,11 @@
 
                 var options = {
                     'title': 'Efectividad de Machos por Categoría',
+                    height: 400,
                     hAxis: {
-                        title: 'Inseminaciones'
+                        title: 'Inseminaciones',
+                        minValue: 0,
+                        gridlines: { count: -1 }
                     },
                     vAxis: {
                         title: 'Categorías'
@@ -140,8 +146,11 @@
 
                 var options = {
                     'title': 'Efectividad de Hembras por Raza',
+                    height: 400,
                     hAxis: {
-                        title: 'Inseminaciones'
+                        title: 'Inseminaciones',
+                        minValue: 0,
+                        gridlines: { count: -1 }
                     },
                     vAxis: {
                         title: 'Razas'
@@ -182,8 +191,11 @@
 
                 var options = {
                     'title': 'Efectividad según el tipo de Inseminación',
+                    height: 400,
                     hAxis: {
-                        title: 'Inseminaciones'
+                        title: 'Inseminaciones',
+                        minValue: 0,
+                        gridlines: { count: -1 }
                     },
                     vAxis: {
                         title: 'Tipos'
@@ -221,6 +233,7 @@
 
                 var options = {
                     title: 'Inseminaciones Exitosas Por Toro',
+                    height: 280,
                     legend: 'none',
                     bar: { groupWidth: '10%' },
                     vAxis: { gridlines: { count: 4 }, format: 'decimal', title: 'Inseminaciones Exitosas' },
@@ -367,7 +380,7 @@
 
                 var options = {
                     title: 'Cantidad de Abortos Por Vaca',
-                    pageSize: 6,
+                    pageSize: 10,
                     sortColumn: 1,
                     sortAscending: false,
                     cssClassNames: { tableCell: 'row' }

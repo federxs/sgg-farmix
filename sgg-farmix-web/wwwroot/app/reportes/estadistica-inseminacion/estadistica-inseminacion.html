@@ -105,7 +105,7 @@
                 <a id="descargaGraficoCategoriasPorHembrasEfectividad" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Categoría">
                     Descargar Imagen
                 </a>
-                <a ng-click="descargarPdf('descargaGraficoCategoriasPorHembrasEfectividad', 'Gráfica de Efectividad de Hembras por Categoría')" style="cursor:pointer;">Descargar en PDF</a>
+                <a ng-click="descargarPdf('descargaGraficoCategoriasPorHembrasEfectividad', 'Gráfica de Efectividad de Hembras por Categoría', 'apaisado')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -119,7 +119,7 @@
                 <a id="descargaGraficoCategoriasPorMachosEfectividad" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Machos por Categoría">
                     Descargar Imagen
                 </a>
-                <a ng-click="descargarPdf('descargaGraficoCategoriasPorMachosEfectividad', 'Gráfica de Efectividad de Machos por Categoría')" style="cursor:pointer;">Descargar en PDF</a>
+                <a ng-click="descargarPdf('descargaGraficoCategoriasPorMachosEfectividad', 'Gráfica de Efectividad de Machos por Categoría', 'apaisado')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -136,7 +136,7 @@
                 <a id="descargaGraficoRazaEfectividad" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad de Hembras por Raza">
                     Descargar Imagen
                 </a>
-                <a ng-click="descargarPdf('descargaGraficoRazaEfectividad', 'Gráfica de Efectividad de Hembras por Raza')" style="cursor:pointer;">Descargar en PDF</a>
+                <a ng-click="descargarPdf('descargaGraficoRazaEfectividad', 'Gráfica de Efectividad de Hembras por Raza', 'apaisado')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -150,7 +150,7 @@
                 <a id="descargaGraficoTipoEfectividad" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Efectividad según el tipo de Inseminación">
                     Descargar Imagen
                 </a>
-                <a ng-click="descargarPdf('descargaGraficoTipoEfectividad', 'Gráfica de Efectividad según el tipo de Inseminación')" style="cursor:pointer;">Descargar en PDF</a>
+                <a ng-click="descargarPdf('descargaGraficoTipoEfectividad', 'Gráfica de Efectividad según el tipo de Inseminación', 'apaisado')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
@@ -170,33 +170,16 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-sm-12 col-md-6">
+    <div class="col-sm-12 col-md-4">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Top 10 de Toros con mayor cantidad de Hijos</h4></div>
+                <div class="panel-title"><h4>Top 10 de Vacas con más Abortos</h4></div>
             </div>
             <div class="panel-body">
-                <div id="graficoHijosXToro"></div>
-                <a id="descargaGraficoHijosXToro" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica Top 10 de Toros con mayor cantidad de Hijos">
+                <div id="graficoAbortosXVaca"></div>
+                <!--<a id="descargaGraficoAbortosXVaca" style="text-decoration:underline" download="Farmix - Gráfica de Abortos por Vaca">
                     Descargar Imagen
-                </a>
-                <a ng-click="descargarPdf('descargaGraficoHijosXToro', 'Gráfica Top 10 de Toros con mayor cantidad de Hijos', 'apaisado')" style="cursor:pointer;">Descargar en PDF</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <div class="panel-title"><h4>Top 10 de Vacas con mayor cantidad de Hijos</h4></div>
-            </div>
-            <div class="panel-body">
-                <div id="graficoHijosXVaca"></div>
-                <a id="descargaGraficoHijosXVaca" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 de Vacas con mayor cantidad de Hijos">
-                    Descargar Imagen
-                </a>
-                <a ng-click="descargarPdf('descargaGraficoHijosXVaca', 'Gráfica de Top 10 de Vacas con mayor cantidad de Hijos')" style="cursor:pointer;">Descargar en PDF</a>
+                </a>-->
             </div>
         </div>
     </div>
@@ -219,13 +202,30 @@
     <div class="col-sm-12 col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <div class="panel-title"><h4>Cantidad de Abortos por Vaca</h4></div>
+                <div class="panel-title"><h4>Top 10 de Vacas con mayor cantidad de Hijos</h4></div>
             </div>
             <div class="panel-body">
-                <div id="graficoAbortosXVaca"></div>
-                <!--<a id="descargaGraficoAbortosXVaca" style="text-decoration:underline" download="Farmix - Gráfica de Abortos por Vaca">
+                <div id="graficoHijosXVaca"></div>
+                <a id="descargaGraficoHijosXVaca" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica de Top 10 de Vacas con mayor cantidad de Hijos">
                     Descargar Imagen
-                </a>-->
+                </a>
+                <a ng-click="descargarPdf('descargaGraficoHijosXVaca', 'Gráfica de Top 10 de Vacas con mayor cantidad de Hijos')" style="cursor:pointer;">Descargar en PDF</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title"><h4>Top 10 de Toros con mayor cantidad de Hijos</h4></div>
+            </div>
+            <div class="panel-body">
+                <div id="graficoHijosXToro"></div>
+                <a id="descargaGraficoHijosXToro" ng-show="false" style="text-decoration:underline" download="Farmix - Gráfica Top 10 de Toros con mayor cantidad de Hijos">
+                    Descargar Imagen
+                </a>
+                <a ng-click="descargarPdf('descargaGraficoHijosXToro', 'Gráfica Top 10 de Toros con mayor cantidad de Hijos', 'apaisado')" style="cursor:pointer;">Descargar en PDF</a>
             </div>
         </div>
     </div>
