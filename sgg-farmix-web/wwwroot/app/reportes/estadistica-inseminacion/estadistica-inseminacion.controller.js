@@ -423,7 +423,8 @@
                                 [{ text: titulo + '\n', fontSize: 15, bold: true, colSpan: 2, alignment: 'center' }, {}],
                                 ['Campo:', { text: $localStorage.usuarioInfo.campoNombre, bold: true }],
                                 ['Generado por:', { text: $sessionStorage.usuarioInfo.usuario, bold: true }],
-                                ['Fecha:', { text: (fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear()), bold: true }]
+                                ['Fecha de generación:', { text: getDateString(), bold: true }],
+                                ['Período de consulta:', { text: $localStorage.usuarioInfo.periodoConsulta, bold: true }]
                             ]
                         },
                         layout: {
@@ -469,6 +470,12 @@
             var GUION_SEPARADOR = ' - ';
             pdfMake.createPdf(docDefinition).download('Farmix' + GUION_SEPARADOR + $localStorage.usuarioInfo.campoNombre + GUION_SEPARADOR + titulo + GUION_SEPARADOR + (fecha.getDate() + '-' + (fecha.getMonth() + 1) + '-' + fecha.getFullYear()) + '.pdf');
         };
+
+        function getDateString() {
+            var fecha = new Date()
+            return (fecha.getDate() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getFullYear()
+                + " a las " + fecha.getHours() + ":" + fecha.getMinutes() + ":" + fecha.getSeconds());
+        }
 
     }//fin controlador
 })();
