@@ -53,7 +53,11 @@
 
                 var options = {
                     'title': 'Peso Promedio según Raza y Sexo',
+                    height: 400,
+                    bar: { groupWidth: '90%' },
                     hAxis: {
+                        minValue: 0,
+                        gridlines: { count: -1},
                         title: 'Peso en kg'
                     },
                     vAxis: {
@@ -99,6 +103,8 @@
                         title: 'Mes'
                     },
                     vAxis: {
+                        minValue: 0,
+                        gridlines: { count: -1},
                         title: 'Nº de bajas'
                     },
                     'legend': {
@@ -204,6 +210,7 @@
                         title: 'Meses'
                     },
                     vAxis: {
+                        minValue: 0,
                         title: 'Cantidad de bovinos'
                     },
                     'legend': {
