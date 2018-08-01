@@ -116,7 +116,10 @@
                         <h4 class="modal-title">Establecimientos origen</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row table-responsive">
+                        <div ng-show="establecimientosCollection.length === 0">
+                            <span class="label label-info">Usted aún no tiene ningún Establecimiento Origen registrado.</span>
+                        </div>
+                        <div class="row table-responsive" ng-show="establecimientosCollection.length > 0">
                             <table st-table="displayedCollectionEstab" st-safe-src="establecimientosCollection" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -238,7 +241,10 @@
                         <h4 class="modal-title">Rodeos</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row table-responsive">
+                        <div ng-show="rodeosCollection.length === 0">
+                            <span class="label label-info">Usted aún no tiene ningún Rodeo registrado.</span>
+                        </div>
+                        <div class="row table-responsive" ng-show="rodeosCollection.length > 0">
                             <table st-table="displayedCollectionRo" st-safe-src="rodeosCollection" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -316,7 +322,10 @@
                         <h4 class="modal-title">Estados</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row table-responsive">
+                        <div ng-show="estadosCollection.length === 0">
+                            <span class="label label-info">Usted aún no tiene ningún Estado registrado.</span>
+                        </div>
+                        <div class="row table-responsive" ng-show="estadosCollection.length > 0">
                             <table st-table="displayedCollectionEstados" st-safe-src="estadosCollection" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -420,7 +429,10 @@
                         <h4 class="modal-title">Categorías</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row table-responsive">
+                        <div ng-show="categoriasCollection.length === 0">
+                            <span class="label label-info">Usted aún no tiene ninguna Categoría registrada.</span>
+                        </div>
+                        <div class="row table-responsive" ng-show="categoriasCollection.length > 0">
                             <table st-table="displayedCollectionCatego" st-safe-src="categoriasCollection" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -512,7 +524,10 @@
                         <h4 class="modal-title">Razas</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row table-responsive">
+                        <div ng-show="razasCollection.length === 0">
+                            <span class="label label-info">Usted aún no tiene ninguna Raza registrada.</span>
+                        </div>
+                        <div class="row table-responsive" ng-show="razasCollection.length > 0">
                             <table st-table="displayedCollectionRa" st-safe-src="razasCollection" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -587,7 +602,10 @@
                         <h4 class="modal-title">Alimentos</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row table-responsive">
+                        <div ng-show="alimentosCollection.length === 0">
+                            <span class="label label-info">Usted aún no tiene ningún Alimento registrado.</span>
+                        </div>
+                        <div class="row table-responsive" ng-show="alimentosCollection.length > 0">
                             <table st-table="displayedCollectionAlim" st-safe-src="alimentosCollection" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -662,7 +680,10 @@
                         <h4 class="modal-title">Antibióticos</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row table-responsive">
+                        <div ng-show="antibioticosCollection.length === 0">
+                            <span class="label label-info">Usted aún no tiene ningún Antibiótico registrado.</span>
+                        </div>
+                        <div class="row table-responsive" ng-show="antibioticosCollection.length > 0">
                             <table st-table="displayedCollectionAnti" st-safe-src="antibioticosCollection" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -726,7 +747,7 @@
     </div>
 </div>
 <!--Modal nueva vacuna-->
-<div id="modalNuevaVacuna" class="modal fade" role="dialog" style="overflow-y: scroll;">
+<div id="modalNuevaVacuna" class="modal fade" role="dialog" style="ooverflow-y: scroll;">
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <form name="formRegistrarVacuna" novalidate>
@@ -737,7 +758,10 @@
                         <h4 class="modal-title">Vacunas</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="row table-responsive">
+                        <div ng-show="vacunasCollection.length === 0">
+                            <span class="label label-info">Usted aún no tiene ninguna Vacuna registrada.</span>
+                        </div>
+                        <div class="row table-responsive" ng-show="vacunasCollection.length > 0">
                             <table st-table="displayedCollectionVac" st-safe-src="vacunasCollection" class="table table-striped">
                                 <thead>
                                     <tr>
@@ -805,7 +829,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Perfil de usuario</h4>
             </div>
             <div class="modal-body">
