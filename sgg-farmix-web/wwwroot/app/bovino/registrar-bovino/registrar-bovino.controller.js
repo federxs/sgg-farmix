@@ -124,7 +124,7 @@
             $scope.$parent.blockSpinnerSave();
             vm.habilitar = false;
             vm.bovino.peso = vm.bovino.peso.toString().replace(',', '.');
-            if (vm.bovino.pesoAlNacer !== undefined && vm.bovino.pesoAlNacer !== '')
+            if (vm.bovino.pesoAlNacer)
                 vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
             //vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
             vm.bovino.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
@@ -135,6 +135,15 @@
             vm.bovino.$save(function (data) {
                 toastr.success('Se agrego con éxito el bovino ', 'Éxito');
                 vm.btnVolver = "Volver";
+                vm.bovino.idEstablecimientoOrigen = vm.bovino.idEstablecimientoOrigen !== 0 ? vm.bovino.idEstablecimientoOrigen.toString() : '';
+                vm.bovino.idAlimento = vm.bovino.idAlimento.toString();
+                vm.bovino.idEstado = vm.bovino.idEstado.toString();
+                vm.bovino.idCategoria = vm.bovino.idCategoria.toString();
+                vm.bovino.idRaza = vm.bovino.idRaza.toString();
+                vm.bovino.idRodeo = vm.bovino.idRodeo.toString();
+                vm.bovino.idBovinoMadre = vm.bovino.idBovinoMadre !== 0 ? vm.bovino.idBovinoMadre : undefined;
+                vm.bovino.idBovinoPadre = vm.bovino.idBovinoPadre !== 0 ? vm.bovino.idBovinoPadre : undefined;
+                vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer !== 0 ? vm.bovino.pesoAlNacer : undefined;
                 if ($stateParams.idNacimiento)
                     $scope.$parent.load();
                 $scope.$parent.unBlockSpinnerSave();

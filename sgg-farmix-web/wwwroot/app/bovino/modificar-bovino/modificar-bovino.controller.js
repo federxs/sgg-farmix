@@ -154,26 +154,25 @@
             vm.bovino.peso = vm.bovino.peso.toString().replace(',', '.');
             vm.bovino.pesoAlNacer = vm.bovino.pesoAlNacer.toString().replace(',', '.');
             //vm.bovino.fechaNacimiento = convertirFecha(vm.bovino.fechaNacimiento);
-            if (vm.bovino.pesoAlNacer === '' || vm.bovino.pesoAlNacer === undefined)
+            if (!vm.bovino.pesoAlNacer)
                 vm.bovino.pesoAlNacer = 0;
-            if (vm.bovino.idBovinoMadre === '' || vm.bovino.idBovinoMadre === undefined)
+            if (!vm.bovino.idBovinoMadre)
                 vm.bovino.idBovinoMadre = 0;
-            if (vm.bovino.idBovinoPadre === '' || vm.bovino.idBovinoPadre === undefined)
+            if (!vm.bovino.idBovinoPadre)
                 vm.bovino.idBovinoPadre = 0;
-            if (vm.bovino.idEstablecimientoOrigen === '' || vm.bovino.idEstablecimientoOrigen === undefined)
+            if (!vm.bovino.idEstablecimientoOrigen)
                 vm.bovino.idEstablecimientoOrigen = 0;
             if (vm.checkH === true) vm.bovino.genero = 0;
             else if (vm.checkM === true) vm.bovino.genero = 1;
-            vm.bovino
             vm.bovino.codigoCampo = $localStorage.usuarioInfo.codigoCampo;
             modificarBovinoService.modificar(vm.bovino).then(function success(data) {
-                if (vm.bovino.pesoAlNacer === 0 || vm.bovino.pesoAlNacer === undefined)
+                if (!vm.bovino.pesoAlNacer)
                     vm.bovino.pesoAlNacer = '';
-                if (vm.bovino.idBovinoMadre === 0 || vm.bovino.idBovinoMadre === undefined)
+                if (!vm.bovino.idBovinoMadre)
                     vm.bovino.idBovinoMadre = '';
-                if (vm.bovino.idBovinoPadre === 0 || vm.bovino.idBovinoPadre === undefined)
+                if (!vm.bovino.idBovinoPadre)
                     vm.bovino.idBovinoPadre = '';
-                if (vm.bovino.idEstablecimientoOrigen === 0 || vm.bovino.idEstablecimientoOrigen === undefined)
+                if (!vm.bovino.idEstablecimientoOrigen)
                     vm.bovino.idEstablecimientoOrigen = '';
                 //vm.habilitar = false;
                 $scope.$parent.unBlockSpinnerSave();

@@ -121,10 +121,13 @@
             </div>
             <div style="margin-top:24px" class="form-group col-md-3 col-lg-3" ng-class="{'has-success has-feedback':formConsultarBovino.peso.$touched && formConsultarBovino.peso.$valid,
                  'has-error has-feedback':formConsultarBovino.peso.$touched && formConsultarBovino.peso.$invalid}">
-                <input class="form-control" name="peso" type="number" ng-model="filtro.peso" placeholder="Peso (kg)" min="0" ng-disabled="filtro.accionPeso === '0'" data-toggle="tooltip" title="" data-placement="top" data-original-title="Peso en Kilogramos a tomar como valor en el filtro anterior."/>
+                <input class="form-control" name="peso" type="number" ng-model="filtro.peso" placeholder="Peso (kg)" min="0" max="1000" ng-disabled="filtro.accionPeso === '0'" data-toggle="tooltip" title="" data-placement="top" data-original-title="Peso en Kilogramos a tomar como valor en el filtro anterior."/>
                 <div ng-show="formConsultarBovino.peso.$touched">
                     <span class="help-block" ng-show="formConsultarBovino.peso.$error.min">
                         El peso no puede ser negativo
+                    </span>
+                    <span class="help-block" ng-show="formConsultarBovino.peso.$error.max">
+                        Ingrese un valor menor a 1000
                     </span>
                 </div>
             </div>

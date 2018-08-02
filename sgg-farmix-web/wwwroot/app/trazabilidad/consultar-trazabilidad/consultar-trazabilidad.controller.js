@@ -59,21 +59,25 @@
             $scope.$parent.blockSpinner();
             vm.disabled = 'disabled';
             vm.disabledExportar = 'disabled';
-            if (vm.filtro.fechaDesde !== undefined) {
+            if (vm.filtro.fechaDesde) {
                 if (typeof vm.filtro.fechaDesde === "string")
                     vm.filtro.fechaDesde = new Date(vm.filtro.fechaDesde.split('/')[2], (parseInt(vm.filtro.fechaDesde.split('/')[1]) - 1).toString(), vm.filtro.fechaDesde.split('/')[0]);
                 vm.filtro.fechaDesde = convertirFecha(vm.filtro.fechaDesde);
             }
-            if (vm.filtro.fechaHasta !== undefined) {
+            else
+                vm.filtro.fechaDesde = undefined;
+            if (vm.filtro.fechaHasta) {
                 if (typeof vm.filtro.fechaHasta === "string")
                     vm.filtro.fechaHasta = new Date(vm.filtro.fechaHasta.split('/')[2], (parseInt(vm.filtro.fechaHasta.split('/')[1]) - 1).toString(), vm.filtro.fechaHasta.split('/')[0]);
                 vm.filtro.fechaHasta = convertirFecha(vm.filtro.fechaHasta);
             }
-            if (vm.filtro.numCaravana === null) {
+            else
+                vm.filtro.fechaHasta = undefined;
+            if (!vm.filtro.numCaravana) {
                 vm.filtro.numCaravana = undefined;
                 $('#timeline').hide();
             }
-            else if (vm.filtro.numCaravana !== undefined && vm.filtro.numCaravana !== null) {
+            else if (vm.filtro.numCaravana) {
                 $('#timeline').show();
             }
             vm.filtro.periodo = $localStorage.usuarioInfo.periodoConsulta;
@@ -99,6 +103,7 @@
                 $scope.$parent.unBlockSpinner();
                 $('.modal-backdrop').remove();
             }, function error(error) {
+                vm.disabled = '';
                 $scope.$parent.unBlockSpinner();
                 $scope.$parent.errorServicio(error.statusText);
             });
