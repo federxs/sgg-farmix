@@ -112,11 +112,16 @@
         };
 
         function validarCantCampos() {
+            spinnerBar.show();
             registrarCampoService.validarCantCamposUsuario({ usuario: usuarioInfo.getUsuario() }, function success(data) {
-                if (data.resultado)
+                if (data.resultado) {
+                    spinnerBar.hide();
                     $state.go('registrarCampo');
-                else
+                }                    
+                else {
+                    spinnerBar.hide();
                     toastr.info("No puede agregar mas campos, verifique su plan contratado.", "Aviso");
+                }                    
             }, function error(error) {
                 if (error.statusText === 'Token_Invalido') {
                     toastr.error('Lo sentimos, su sesión ha caducado', 'Sesión caducada');

@@ -54,8 +54,8 @@
                 <div class="col-md-4">
                     <div class="card" ng-click="popupEstablecimientos()" style="cursor:pointer;">
                         <div class="card-block block-estab">
-                            <h3 class="card-title">Establecimientos origen</h3>
-                            <p class="card-text">En esta sección podrá modificar/agregar Establecimientos Origen cargados en el sistema para su campo.</p>
+                            <h3 class="card-title">Establecimientos</h3>
+                            <p class="card-text">En esta sección podrá modificar/agregar Establecimientos cargados en el sistema para su campo.</p>
                             <a style="cursor:pointer" title="Ver más" class="read-more">Ver más<i class="fa fa-angle-double-right ml-2"></i></a>
                         </div>
                     </div>
@@ -113,11 +113,11 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Establecimientos origen</h4>
+                        <h4 class="modal-title">Establecimientos</h4>
                     </div>
                     <div class="modal-body">
                         <div ng-show="establecimientosCollection.length === 0">
-                            <span class="label label-info">Usted aún no tiene ningún Establecimiento Origen registrado.</span>
+                            <span class="label label-info">Usted aún no tiene ningún Establecimiento registrados.</span>
                         </div>
                         <div class="row table-responsive" ng-show="establecimientosCollection.length > 0">
                             <table st-table="displayedCollectionEstab" st-safe-src="establecimientosCollection" class="table table-striped">

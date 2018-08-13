@@ -124,7 +124,7 @@
                 })
             }
             else {
-                if (vm.inseminacion.idTipoInseminacion === '1' && tipoInseminacionOriginal === '2')
+                if ((vm.inseminacion.idTipoInseminacion === '1' && tipoInseminacionOriginal === '2') || (vm.inseminacion.idTipoInseminacion === '1' && tipoInseminacionOriginal === '1'))
                     vm.inseminacion.idToro = 0;
                 else
                     vm.inseminacion.idToro = vm.toro.idBovino;
