@@ -124,6 +124,7 @@
                 }                    
             }, function error(error) {
                 if (error.statusText === 'Token_Invalido') {
+                    spinnerBar.hide();
                     toastr.error('Lo sentimos, su sesión ha caducado', 'Sesión caducada');
                     vm.cerrarSesion();
                 }
